@@ -1,17 +1,25 @@
 package org.xmc.fe.ui.validation.components;
 
-import javafx.animation.PauseTransition;
 import javafx.scene.control.PasswordField;
-import javafx.util.Duration;
-import org.apache.commons.lang3.StringUtils;
 import org.xmc.fe.ui.validation.IValidationComponent;
 import org.xmc.fe.ui.validation.ValidationScene;
 
 public class ValidationPasswordField extends PasswordField implements IValidationComponent {
     private static final String CSS_CLASS_INVALID = "passwordfield-invalid";
-    private static final Duration DELAY = Duration.millis(500);
 
     private boolean required;
+    private int minLength = 0;
+    private int maxLength = Integer.MAX_VALUE;
+
+    @Override
+    public boolean validate() {
+        return CommonTextfieldValidator.validate(this, CSS_CLASS_INVALID, required, minLength, maxLength);
+    }
+
+    @Override
+    public void initValidationEvent(ValidationScene scene) {
+        CommonTextfieldValidator.initValidationEvent(this, scene);
+    }
 
     public boolean isRequired() {
         return required;
@@ -21,30 +29,19 @@ public class ValidationPasswordField extends PasswordField implements IValidatio
         this.required = required;
     }
 
-    @Override
-    public boolean isValid() {
-        return !required || StringUtils.isNotBlank(this.getText());
+    public int getMinLength() {
+        return minLength;
     }
 
-    @Override
-    public boolean validate() {
-        boolean valid = isValid();
-
-        if (valid) {
-            this.getStyleClass().removeAll(CSS_CLASS_INVALID);
-        } else {
-            this.getStyleClass().add(CSS_CLASS_INVALID);
-        }
-
-        return valid;
+    public void setMinLength(int minLength) {
+        this.minLength = minLength;
     }
 
-    @Override
-    public void initValidationEvent(ValidationScene scene) {
-        PauseTransition pause = new PauseTransition(DELAY);
-        this.textProperty().addListener((observable, oldValue, newValue) -> {
-            pause.setOnFinished(event -> scene.validate());
-            pause.playFromStart();
-        });
+    public int getMaxLength() {
+        return maxLength;
+    }
+
+    public void setMaxLength(int maxLength) {
+        this.maxLength = maxLength;
     }
 }

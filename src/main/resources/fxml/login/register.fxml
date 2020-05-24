@@ -4,39 +4,49 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import org.xmc.fe.ui.validation.components.*?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="464.0" prefWidth="768.0" styleClass="background" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.login.RegisterComponent">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="464.0"
+            prefWidth="768.0" styleClass="background" stylesheets="@/css/xmc-base.css"
+            xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.xmc.fe.stages.login.RegisterComponent">
 
-    <VBox layoutX="100.0" layoutY="45.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="286.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+    <VBox layoutX="100.0" layoutY="45.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="70.0"
+          AnchorPane.leftAnchor="286.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
         <Label text="%register.displayName">
             <padding>
-                <Insets bottom="5.0" />
+                <Insets bottom="5.0"/>
             </padding>
         </Label>
-        <ValidationTextField fx:id="displayNameTextfield" required="true" />
+        <ValidationTextField fx:id="displayNameTextfield" required="true" minLength="3"/>
         <Label text="%register.username">
             <padding>
-                <Insets bottom="5.0" top="15.0" />
+                <Insets bottom="5.0" top="15.0"/>
             </padding>
         </Label>
-        <ValidationTextField fx:id="usernameTextfield" required="true" />
+        <ValidationTextField fx:id="usernameTextfield" required="true" minLength="5"/>
         <Label text="%register.password1">
             <padding>
-                <Insets bottom="5.0" top="15.0" />
+                <Insets bottom="5.0" top="15.0"/>
             </padding>
         </Label>
-        <ValidationPasswordField fx:id="passwordField1" required="true" />
+        <ValidationPasswordField fx:id="passwordField1" required="true" minLength="7"/>
         <Label text="%register.password2">
             <padding>
-                <Insets bottom="5.0" top="15.0" />
+                <Insets bottom="5.0" top="15.0"/>
             </padding>
         </Label>
-        <ValidationPasswordField fx:id="passwordField2" required="true" />
+        <ValidationPasswordField fx:id="passwordField2" required="true" minLength="7"/>
     </VBox>
 
-    <Button layoutX="73.0" layoutY="372.0" mnemonicParsing="false" onMouseClicked="#onBack" prefWidth="139.0" text="%register.back" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" />
+    <Button layoutX="73.0" layoutY="372.0" mnemonicParsing="false" onMouseClicked="#onBack" prefWidth="139.0"
+            text="%register.back" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0"/>
 
-    <ValidatedButton defaultButton="true" layoutX="244.0" layoutY="281.0" mnemonicParsing="false" onMouseClicked="#onRegister" prefHeight="25.0" prefWidth="229.0" text="%register.submit" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="30.0" />
+    <ValidatedButton defaultButton="true" layoutX="244.0" layoutY="281.0" mnemonicParsing="false"
+                     onMouseClicked="#onRegister" prefHeight="25.0" prefWidth="229.0" text="%register.submit"
+                     AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="30.0"/>
 
-    <Label alignment="TOP_LEFT" layoutX="113.0" layoutY="59.0" prefHeight="138.0" prefWidth="215.0" text="%register.info" textAlignment="JUSTIFY" wrapText="true" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="60.0" />
-    <Label layoutX="30.0" layoutY="30.0" styleClass="bold" text="%register.info.title" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0" />
+    <Label alignment="TOP_LEFT" layoutX="113.0" layoutY="59.0" prefHeight="138.0" prefWidth="215.0"
+           text="%register.info" textAlignment="JUSTIFY" wrapText="true" AnchorPane.leftAnchor="30.0"
+           AnchorPane.topAnchor="60.0"/>
+    <Label layoutX="30.0" layoutY="30.0" styleClass="bold" text="%register.info.title" AnchorPane.leftAnchor="30.0"
+           AnchorPane.topAnchor="30.0"/>
 </AnchorPane>

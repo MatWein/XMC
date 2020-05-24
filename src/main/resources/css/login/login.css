@@ -8,3 +8,7 @@
     -fx-font-size: 10;
     -fx-text-fill: white;
 }
+
+.save-credentials-toggle {
+    -toggle-display: right;
+}

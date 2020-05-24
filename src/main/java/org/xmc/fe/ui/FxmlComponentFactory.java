@@ -42,7 +42,8 @@ public class FxmlComponentFactory {
     }
 
     public enum FxmlKey {
-        LOGIN("/fxml/login/login.fxml")
+        LOGIN("/fxml/login/login.fxml"),
+        LOGIN_REGISTER("/fxml/login/register.fxml")
         ;
 
         private final String fxmlPath;

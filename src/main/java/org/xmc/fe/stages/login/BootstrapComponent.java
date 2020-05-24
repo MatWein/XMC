@@ -4,5 +4,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 public class BootstrapComponent {
-    @FXML public Label statusLabel;
+    @FXML
+    public Label statusLabel;
+
+    @FXML
+    public void init() {
+
+    }
 }

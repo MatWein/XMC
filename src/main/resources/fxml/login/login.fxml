@@ -6,6 +6,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import org.controlsfx.control.ToggleSwitch?>
+<?import org.xmc.fe.ui.validation.components.ValidatedButton?>
+<?import org.xmc.fe.ui.validation.components.ValidationPasswordField?>
+<?import org.xmc.fe.ui.validation.components.ValidationTextField?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="464.0"
             prefWidth="768.0" stylesheets="@/css/xmc-base.css, @/css/login/login.css"
             xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
@@ -28,16 +31,16 @@
                 <Insets bottom="5.0"/>
             </padding>
         </Label>
-        <TextField fx:id="usernameTextfield"/>
+        <ValidationTextField fx:id="usernameTextfield" required="true" onAction="#onLogin"/>
         <Label text="%login.password">
             <padding>
                 <Insets bottom="5.0" top="15.0"/>
             </padding>
         </Label>
-        <PasswordField fx:id="passwordField"/>
+        <ValidationPasswordField fx:id="passwordField" required="true" onAction="#onLogin"/>
     </VBox>
 
-    <Button defaultButton="true" layoutX="702.0" layoutY="425.0" mnemonicParsing="false" prefHeight="25.0"
+    <ValidatedButton defaultButton="true" layoutX="702.0" layoutY="425.0" mnemonicParsing="false" prefHeight="25.0"
             prefWidth="141.0" text="%login.submit" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="30.0"
             onMouseClicked="#onLogin"/>
 
@@ -45,6 +48,6 @@
             text="%login.register" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="316.0"
             onMouseClicked="#onRegister"/>
 
-    <ToggleSwitch styleClass="save-credentials-toggle" text="%login.saveCredentials" AnchorPane.rightAnchor="30.0"
+    <ToggleSwitch styleClass="toggle-right" text="%login.saveCredentials" AnchorPane.rightAnchor="30.0"
                   AnchorPane.topAnchor="160.0"/>
 </AnchorPane>

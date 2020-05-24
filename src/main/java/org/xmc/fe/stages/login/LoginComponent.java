@@ -29,9 +29,13 @@ public class LoginComponent {
 
     @FXML
     public void onLogin() {
-        Parent bootstrapComponent = FxmlComponentFactory.load(FxmlKey.BOOTSTRAP);
+        ValidationScene scene = (ValidationScene)usernameTextfield.getScene();
+        if (!scene.validate()) {
+            return;
+        }
 
-        Stage stage = (Stage)usernameTextfield.getScene().getWindow();
+        Parent bootstrapComponent = FxmlComponentFactory.load(FxmlKey.BOOTSTRAP);
+        Stage stage = (Stage) scene.getWindow();
         stage.setScene(new DefaultScene(bootstrapComponent));
     }
 }

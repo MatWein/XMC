@@ -3,3 +3,8 @@
     -fx-font-weight: bold;
     -fx-text-fill: white;
 }
+
+.version-label {
+    -fx-font-size: 10;
+    -fx-text-fill: white;
+}

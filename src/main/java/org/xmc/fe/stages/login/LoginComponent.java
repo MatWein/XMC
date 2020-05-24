@@ -34,6 +34,10 @@ public class LoginComponent {
             return;
         }
 
+        BootstrapComponent.preprocessing = () -> {};
+        BootstrapComponent.username = usernameTextfield.getText();
+        BootstrapComponent.password = passwordField.getText();
+
         Parent bootstrapComponent = FxmlComponentFactory.load(FxmlKey.BOOTSTRAP);
         Stage stage = (Stage) scene.getWindow();
         stage.setScene(new DefaultScene(bootstrapComponent));

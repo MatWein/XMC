@@ -25,6 +25,10 @@ public class RegisterComponent {
 
     @FXML
     public void onRegister() {
+        BootstrapComponent.preprocessing = () -> {
+
+        };
+
         Parent bootstrapComponent = FxmlComponentFactory.load(FxmlKey.BOOTSTRAP);
 
         Stage stage = (Stage)usernameTextfield.getScene().getWindow();

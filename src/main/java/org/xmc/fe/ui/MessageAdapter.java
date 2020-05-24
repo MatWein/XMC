@@ -31,7 +31,10 @@ public class MessageAdapter {
         VALIDATION_MAX_LENGTH("validation.maxLength"),
         VALIDATION_NOT_EQUAL_TO("validation.notEqualTo"),
 
-        LOGIN_TITLE("login.title")
+        LOGIN_TITLE("login.title"),
+        BOOTSTRAP_STATUS_CREATING_CONTEXT("bootstrap.status.creatingContext"),
+        BOOTSTRAP_STATUS_PREPROCESSING("bootstrap.status.preprocessing"),
+        BOOTSTRAP_STATUS_LOGIN("bootstrap.status.login")
         ;
 
         private final String key;

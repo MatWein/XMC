@@ -6,6 +6,10 @@
     -fx-font-weight: bold;
 }
 
+.text-white {
+    -fx-text-fill: white;
+}
+
 .textfield-invalid, .passwordfield-invalid {
     border_color: red !important;
     border_hover_color: rgb(255, 100, 100) !important;

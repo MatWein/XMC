@@ -1,28 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="464.0"
-            prefWidth="768.0" stylesheets="@/css/xmc-base.css, @/css/login/login.css"
-            xmlns="http://javafx.com/javafx/10.0.2-internal">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="464.0" prefWidth="768.0" stylesheets="@/css/xmc-base.css, @/css/login/login.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
 
-    <VBox alignment="TOP_CENTER" prefWidth="286.0" styleClass="background-akzent-1" AnchorPane.bottomAnchor="0.0"
-          AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <VBox alignment="TOP_CENTER" prefWidth="286.0" styleClass="background-akzent-1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
         <ImageView fitHeight="128" fitWidth="128" pickOnBounds="true" preserveRatio="true">
-            <Image url="@/images/XMC_512.png"/>
+            <Image url="@/images/XMC_512.png" />
         </ImageView>
-        <Label styleClass="logo-label" text="%app.name.full"/>
+        <Label styleClass="logo-label" text="%app.name.full" />
     </VBox>
 
-    <Label text="%app.version" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" styleClass="version-label"/>
+    <Label styleClass="version-label" text="%app.version" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
 
-    <VBox spacing="10.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="316.0" AnchorPane.rightAnchor="30.0"
-          AnchorPane.topAnchor="30.0">
-        <Label text="%login.username"/>
-        <TextField/>
-        <Label text="%login.password"/>
-        <PasswordField/>
+    <VBox AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="316.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+        <Label text="%login.username">
+         <padding>
+            <Insets bottom="5.0" />
+         </padding></Label>
+        <TextField />
+        <Label text="%login.password">
+         <padding>
+            <Insets bottom="5.0" top="15.0" />
+         </padding></Label>
+        <PasswordField />
+      <VBox alignment="TOP_RIGHT">
+         <children>
+            <CheckBox mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="%login.saveCredentials" />
+         </children>
+         <padding>
+            <Insets top="20.0" />
+         </padding>
+      </VBox>
     </VBox>
+   <Button defaultButton="true" layoutX="702.0" layoutY="425.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" text="%login.submit" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="30.0" />
+   <Button layoutX="316.0" layoutY="409.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="%login.register" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="316.0" />
 </AnchorPane>

@@ -10,13 +10,21 @@ import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.validation.ValidationScene;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 class CommonTextfieldValidator {
     private static final Duration DELAY = Duration.millis(500);
     private static final String PREFIX = "- ";
 
-    public static boolean validate(TextField textField, String cssClassInvalid, boolean required, int minLength, int maxLength) {
+    public static boolean validate(
+            TextField textField,
+            String cssClassInvalid,
+            boolean required,
+            int minLength,
+            int maxLength,
+            String equalTo) {
+
         String text = textField.getText();
 
         Set<String> errorMessages = new HashSet<>();
@@ -29,6 +37,16 @@ class CommonTextfieldValidator {
         }
         if (text.length() > maxLength) {
             errorMessages.add(PREFIX + MessageAdapter.getByKey(MessageKey.VALIDATION_MAX_LENGTH, maxLength));
+        }
+        if (equalTo != null) {
+            ValidationScene validationScene = (ValidationScene)textField.getScene();
+            Optional<TextField> otherTextfield = validationScene.getAllChildren(validationScene.getRoot()).stream()
+                    .filter(node -> StringUtils.equals(equalTo, node.getId()))
+                    .map(node -> (TextField)node)
+                    .findAny();
+            if (otherTextfield.isPresent() && !StringUtils.equals(text, otherTextfield.get().getText())) {
+                errorMessages.add(PREFIX + MessageAdapter.getByKey(MessageKey.VALIDATION_NOT_EQUAL_TO, MessageAdapter.getByKey(MessageKey.PASSWORD)));
+            }
         }
 
         boolean valid = errorMessages.isEmpty();

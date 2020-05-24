@@ -34,7 +34,7 @@
                 <Insets bottom="5.0" top="15.0"/>
             </padding>
         </Label>
-        <ValidationPasswordField fx:id="passwordField2" required="true" minLength="7"/>
+        <ValidationPasswordField fx:id="passwordField2" required="true" minLength="7" equalTo="passwordField1"/>
     </VBox>
 
     <Button layoutX="73.0" layoutY="372.0" mnemonicParsing="false" onMouseClicked="#onBack" prefWidth="139.0"

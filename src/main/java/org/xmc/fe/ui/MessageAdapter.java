@@ -24,10 +24,12 @@ public class MessageAdapter {
 
     public enum MessageKey {
         APP_NAME("app.name"),
+        PASSWORD("password"),
 
         VALIDATION_REQUIRED("validation.required"),
         VALIDATION_MIN_LENGTH("validation.minLength"),
         VALIDATION_MAX_LENGTH("validation.maxLength"),
+        VALIDATION_NOT_EQUAL_TO("validation.notEqualTo"),
 
         LOGIN_TITLE("login.title")
         ;

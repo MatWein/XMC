@@ -1,12 +1,15 @@
 package org.xmc.fe.ui.validation.components;
 
+import javafx.animation.PauseTransition;
 import javafx.scene.control.PasswordField;
+import javafx.util.Duration;
 import org.apache.commons.lang3.StringUtils;
 import org.xmc.fe.ui.validation.IValidationComponent;
 import org.xmc.fe.ui.validation.ValidationScene;
 
 public class ValidationPasswordField extends PasswordField implements IValidationComponent {
-    public static final String CSS_CLASS_INVALID = "passwordfield-invalid";
+    private static final String CSS_CLASS_INVALID = "passwordfield-invalid";
+    private static final Duration DELAY = Duration.millis(500);
 
     private boolean required;
 
@@ -38,6 +41,10 @@ public class ValidationPasswordField extends PasswordField implements IValidatio
 
     @Override
     public void initValidationEvent(ValidationScene scene) {
-        textProperty().addListener((a, b, c) -> scene.validate());
+        PauseTransition pause = new PauseTransition(DELAY);
+        this.textProperty().addListener((observable, oldValue, newValue) -> {
+            pause.setOnFinished(event -> scene.validate());
+            pause.playFromStart();
+        });
     }
 }

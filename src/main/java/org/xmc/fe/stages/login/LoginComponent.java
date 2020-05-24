@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.xmc.fe.ui.FxmlComponentFactory;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
-import org.xmc.fe.ui.JMetroScene;
+import org.xmc.fe.ui.validation.ValidationScene;
 
 public class LoginComponent {
     @FXML public TextField usernameTextfield;
@@ -23,6 +23,6 @@ public class LoginComponent {
         Parent registerComponent = FxmlComponentFactory.load(FxmlKey.LOGIN_REGISTER);
 
         Stage stage = (Stage)usernameTextfield.getScene().getWindow();
-        stage.setScene(new JMetroScene(registerComponent));
+        stage.setScene(new ValidationScene(registerComponent));
     }
 }

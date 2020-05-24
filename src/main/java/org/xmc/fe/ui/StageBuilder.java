@@ -5,11 +5,12 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
+import org.xmc.fe.ui.validation.ValidationScene;
 
 public class StageBuilder {
     public static StageBuilder getInstance() { return new StageBuilder(); }
 
-    private JMetroScene scene;
+    private ValidationScene scene;
     private boolean useDefaultIcon;
     private MessageKey titleKey;
     private boolean resizable;
@@ -33,7 +34,7 @@ public class StageBuilder {
     }
 
     public StageBuilder withSceneComponent(Parent component) {
-        this.scene = new JMetroScene(component);
+        this.scene = new ValidationScene(component);
         return this;
     }
 
@@ -42,7 +43,7 @@ public class StageBuilder {
         return withSceneComponent(component);
     }
 
-    public StageBuilder withScene(JMetroScene scene) {
+    public StageBuilder withScene(ValidationScene scene) {
         this.scene = scene;
         return this;
     }

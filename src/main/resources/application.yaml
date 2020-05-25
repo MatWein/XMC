@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:derby:${user.database.dir};create=true;bootPassword=${user.password}
+    url: jdbc:derby:${user.database.dir};create=true;dataEncryption=true;bootPassword=${user.password}
     username: "\"${user.name}\""
     password: ${user.password}
   messages:
@@ -18,5 +18,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        default_schema: PUBLIC
   liquibase:
     change-log: /db/changelog/db.changelog-master.xml
+    liquibase-schema: PUBLIC
+    default-schema: PUBLIC

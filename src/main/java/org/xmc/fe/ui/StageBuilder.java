@@ -3,6 +3,7 @@ package org.xmc.fe.ui;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.apache.commons.lang3.tuple.Pair;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.validation.ValidationScene;
@@ -39,8 +40,8 @@ public class StageBuilder {
     }
 
     public StageBuilder withFxmlSceneComponent(FxmlKey key) {
-        Parent component = FxmlComponentFactory.load(key);
-        return withSceneComponent(component);
+        Pair<Parent, Object> component = FxmlComponentFactory.load(key);
+        return withSceneComponent(component.getLeft());
     }
 
     public StageBuilder withScene(ValidationScene scene) {

@@ -5,26 +5,27 @@ import javafx.scene.Parent;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.apache.commons.lang3.tuple.Pair;
 import org.xmc.fe.ui.DefaultScene;
 import org.xmc.fe.ui.FxmlComponentFactory;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.validation.ValidationScene;
 
-public class LoginComponent {
-    @FXML public TextField usernameTextfield;
-    @FXML public PasswordField passwordField;
+public class LoginController {
+    @FXML private TextField usernameTextfield;
+    @FXML private PasswordField passwordField;
 
     @FXML
-    public void init() {
+    public void initialize() {
         // TODO: load credentials...
     }
 
     @FXML
     public void onRegister() {
-        Parent registerComponent = FxmlComponentFactory.load(FxmlKey.LOGIN_REGISTER);
+        Pair<Parent, LoginController> registerComponent = FxmlComponentFactory.load(FxmlKey.LOGIN_REGISTER);
 
         Stage stage = (Stage)usernameTextfield.getScene().getWindow();
-        stage.setScene(new ValidationScene(registerComponent));
+        stage.setScene(new ValidationScene(registerComponent.getLeft()));
     }
 
     @FXML
@@ -34,12 +35,15 @@ public class LoginComponent {
             return;
         }
 
-        BootstrapComponent.preprocessing = () -> {};
-        BootstrapComponent.username = usernameTextfield.getText();
-        BootstrapComponent.password = passwordField.getText();
+        Pair<Parent, BootstrapController> bootstrapComponent = FxmlComponentFactory.load(FxmlKey.BOOTSTRAP);
 
-        Parent bootstrapComponent = FxmlComponentFactory.load(FxmlKey.BOOTSTRAP);
         Stage stage = (Stage) scene.getWindow();
-        stage.setScene(new DefaultScene(bootstrapComponent));
+        stage.setScene(new DefaultScene(bootstrapComponent.getLeft()));
+
+        bootstrapComponent.getRight().start(
+                false,
+                usernameTextfield.getText(),
+                passwordField.getText(),
+                () -> {});
     }
 }

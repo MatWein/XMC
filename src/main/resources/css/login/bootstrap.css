@@ -1,0 +1,13 @@
+
+#errorLabel {
+    -fx-background-color: rgb(255, 0, 50);
+    -fx-text-fill: rgb(200, 200, 200);
+    -fx-border-color: red;
+    /*-fx-border-insets: 1 1 1 1;*/
+    -fx-padding: 10;
+}
+
+.version-label {
+    -fx-font-size: 10;
+    -fx-text-fill: white;
+}

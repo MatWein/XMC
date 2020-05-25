@@ -2,6 +2,8 @@ package org.xmc.fe.ui;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.xmc.fe.Main;
 
 import java.nio.charset.Charset;
@@ -10,8 +12,7 @@ import java.nio.charset.StandardCharsets;
 public class FxmlComponentFactory {
     private static final Charset CHARSET = StandardCharsets.UTF_8;
 
-    @SuppressWarnings("unchecked")
-    public static <COMPONENT_TYPE extends Parent> COMPONENT_TYPE load(FxmlKey fxmlKey) {
+    public static <COMPONENT_TYPE extends Parent, C> Pair<COMPONENT_TYPE, C> load(FxmlKey fxmlKey) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
 
@@ -25,7 +26,8 @@ public class FxmlComponentFactory {
                 fxmlLoader.setControllerFactory(type -> Main.applicationContext.getBean(type));
             }
 
-            return (COMPONENT_TYPE) fxmlLoader.load();
+            COMPONENT_TYPE component = fxmlLoader.load();
+            return ImmutablePair.of(component, fxmlLoader.getController());
         } catch (Throwable e) {
             String message = String.format("Error on loading fxml file: %s", fxmlKey.getFxmlPath());
             throw new RuntimeException(message, e);

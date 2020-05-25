@@ -36,4 +36,16 @@ public class Main extends Application {
                 .build(primaryStage)
                 .show();
     }
+
+    @Override
+    public void stop() {
+        destroy();
+    }
+
+    public static void destroy() {
+        if (applicationContext != null) {
+            applicationContext.close();
+            applicationContext = null;
+        }
+    }
 }

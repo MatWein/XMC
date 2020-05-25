@@ -43,6 +43,8 @@ public class Main extends Application {
     }
 
     public static void destroy() {
+        LOGGER.info("Closing application context.");
+
         if (applicationContext != null) {
             applicationContext.close();
             applicationContext = null;

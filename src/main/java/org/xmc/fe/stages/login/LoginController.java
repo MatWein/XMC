@@ -30,14 +30,9 @@ public class LoginController {
 
     @FXML
     public void onLogin() {
-        ValidationScene scene = (ValidationScene)usernameTextfield.getScene();
-        if (!scene.validate()) {
-            return;
-        }
-
         Pair<Parent, BootstrapController> bootstrapComponent = FxmlComponentFactory.load(FxmlKey.BOOTSTRAP);
 
-        Stage stage = (Stage) scene.getWindow();
+        Stage stage = (Stage) usernameTextfield.getScene().getWindow();
         stage.setScene(new DefaultScene(bootstrapComponent.getLeft()));
 
         bootstrapComponent.getRight().start(

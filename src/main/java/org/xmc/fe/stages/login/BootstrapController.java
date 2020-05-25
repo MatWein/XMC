@@ -12,8 +12,9 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
-import org.springframework.util.DigestUtils;
-import org.xmc.fe.Main;
+import org.xmc.Main;
+import org.xmc.be.services.login.UserLoginService;
+import org.xmc.fe.common.utils.HomeDirectoryPathCalculator;
 import org.xmc.fe.ui.FxmlComponentFactory;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.MessageAdapter;
@@ -29,13 +30,11 @@ public class BootstrapController {
     @FXML private Label errorLabel;
     @FXML private Button backButton;
 
-    private boolean createDatabase;
     private String username;
     private String password;
     private Runnable preprocessing;
 
-    public void start(boolean createDatabase, String username, String password, Runnable preprocessing) {
-        this.createDatabase = createDatabase;
+    public void start(String username, String password, Runnable preprocessing) {
         this.username = username;
         this.password = password;
         this.preprocessing = preprocessing;
@@ -64,11 +63,10 @@ public class BootstrapController {
     private void createApplicationContext() {
         Platform.runLater(() -> statusLabel.setText(MessageAdapter.getByKey(MessageKey.BOOTSTRAP_STATUS_CREATING_CONTEXT)));
 
-        System.setProperty("derby.stream.error.file", System.getProperty("user.dir") + "/logs/derby.log");
-        System.setProperty("bootstrap.createDatabase", Boolean.toString(createDatabase));
         System.setProperty("user.name", username);
         System.setProperty("user.password", password);
-        System.setProperty("user.hash", DigestUtils.md5DigestAsHex(username.getBytes()));
+        System.setProperty("derby.stream.error.file", HomeDirectoryPathCalculator.calculateDerbyLogFilePath());
+        System.setProperty("user.database.dir", HomeDirectoryPathCalculator.calculateDatabaseDirForUser(username));
 
         Main.applicationContext = SpringApplication.run(Main.class, Main.args);
     }
@@ -84,7 +82,10 @@ public class BootstrapController {
     private void doLogin() {
         Platform.runLater(() -> statusLabel.setText(MessageAdapter.getByKey(MessageKey.BOOTSTRAP_STATUS_LOGIN)));
 
+        UserLoginService userLoginService = Main.applicationContext.getBean(UserLoginService.class);
+        userLoginService.login(username);
 
+        // TODO: new stage
     }
 
     private void handleErrors(Throwable e) {

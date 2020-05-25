@@ -6,6 +6,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.Pair;
+import org.xmc.Main;
+import org.xmc.be.services.login.UserRegistrationService;
 import org.xmc.fe.ui.DefaultScene;
 import org.xmc.fe.ui.FxmlComponentFactory;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
@@ -32,9 +34,13 @@ public class RegisterController {
         stage.setScene(new DefaultScene(bootstrapComponent.getLeft()));
 
         bootstrapComponent.getRight().start(
-                true,
                 usernameTextfield.getText(),
                 passwordField1.getText(),
-                () -> {});
+                this::registerUser);
+    }
+
+    private void registerUser() {
+        UserRegistrationService userRegistrationService = Main.applicationContext.getBean(UserRegistrationService.class);
+        userRegistrationService.registerNewUser(usernameTextfield.getText(), displayNameTextfield.getText());
     }
 }

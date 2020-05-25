@@ -36,9 +36,8 @@ public class LoginController {
         stage.setScene(new DefaultScene(bootstrapComponent.getLeft()));
 
         bootstrapComponent.getRight().start(
-                false,
                 usernameTextfield.getText(),
                 passwordField.getText(),
-                () -> {});
+                null);
     }
 }

@@ -4,7 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-import org.xmc.fe.Main;
+import org.xmc.fe.common.utils.ReflectionUtil;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -19,26 +19,12 @@ public class FxmlComponentFactory {
             fxmlLoader.setCharset(CHARSET);
             fxmlLoader.setResources(MessageAdapter.RESOURCE_BUNDLE);
             fxmlLoader.setLocation(FxmlComponentFactory.class.getResource(fxmlKey.getFxmlPath()));
-
-            if (Main.applicationContext == null) {
-                fxmlLoader.setControllerFactory(FxmlComponentFactory::createNewInstance);
-            } else {
-                fxmlLoader.setControllerFactory(type -> Main.applicationContext.getBean(type));
-            }
+            fxmlLoader.setControllerFactory(ReflectionUtil.createNewInstanceFactory());
 
             COMPONENT_TYPE component = fxmlLoader.load();
             return ImmutablePair.of(component, fxmlLoader.getController());
         } catch (Throwable e) {
             String message = String.format("Error on loading fxml file: %s", fxmlKey.getFxmlPath());
-            throw new RuntimeException(message, e);
-        }
-    }
-
-    private static Object createNewInstance(Class<?> type) {
-        try {
-            return type.getDeclaredConstructor().newInstance();
-        } catch (Throwable e) {
-            String message = String.format("Error on creating instance of '%s'.", type.getName());
             throw new RuntimeException(message, e);
         }
     }

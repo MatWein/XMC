@@ -2,11 +2,13 @@ package org.xmc.fe.ui.validation;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 import org.xmc.fe.ui.DefaultScene;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ValidationScene extends DefaultScene {
@@ -16,17 +18,19 @@ public class ValidationScene extends DefaultScene {
     public ValidationScene(Parent component) {
         super(component);
 
-        getAllChildren(component).stream()
+        List<Node> allChildren = getAllChildren(component);
+
+        allChildren.stream()
                 .filter(c -> c instanceof IValidationComponent)
                 .map(c -> (IValidationComponent)c)
                 .forEach(this::registerValidationComponent);
 
-        getAllChildren(component).stream()
+        allChildren.stream()
                 .filter(c -> c instanceof IValidatedComponent)
                 .map(c -> (IValidatedComponent)c)
                 .forEach(this::registerNodeToUpdateAfterValidation);
 
-        getAllChildren(component).stream()
+        allChildren.stream()
                 .filter(c -> c instanceof TextField)
                 .map(c -> (TextField)c)
                 .forEach(this::overrideOnAction);

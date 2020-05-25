@@ -30,6 +30,8 @@ public class MessageAdapter {
         VALIDATION_MIN_LENGTH("validation.minLength"),
         VALIDATION_MAX_LENGTH("validation.maxLength"),
         VALIDATION_NOT_EQUAL_TO("validation.notEqualTo"),
+        VALIDATION_USER_ALREADY_EXISTS("validation.userAlreadyExists"),
+        VALIDATION_USER_NOT_EXISTING("validation.userNotExisting"),
 
         LOGIN_TITLE("login.title"),
         BOOTSTRAP_STATUS_CREATING_CONTEXT("bootstrap.status.creatingContext"),

@@ -22,7 +22,8 @@
                 <Insets bottom="5.0" top="15.0"/>
             </padding>
         </Label>
-        <ValidationTextField fx:id="usernameTextfield" required="true" minLength="5"/>
+        <ValidationTextField fx:id="usernameTextfield" required="true" minLength="5"
+                             customValidator="org.xmc.fe.stages.login.validation.UserAlreadyExistsValidator"/>
         <Label text="%register.password1">
             <padding>
                 <Insets bottom="5.0" top="15.0"/>

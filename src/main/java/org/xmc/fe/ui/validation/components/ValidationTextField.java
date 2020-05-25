@@ -11,10 +11,11 @@ public class ValidationTextField extends TextField implements IValidationCompone
     private int minLength = 0;
     private int maxLength = Integer.MAX_VALUE;
     private String equalTo;
+    private String customValidator;
 
     @Override
     public boolean validate() {
-        return CommonTextfieldValidator.validate(this, CSS_CLASS_INVALID, required, minLength, maxLength, equalTo);
+        return CommonTextfieldValidator.validate(this, CSS_CLASS_INVALID, required, minLength, maxLength, equalTo, customValidator);
     }
 
     @Override
@@ -52,5 +53,13 @@ public class ValidationTextField extends TextField implements IValidationCompone
 
     public void setEqualTo(String equalTo) {
         this.equalTo = equalTo;
+    }
+
+    public String getCustomValidator() {
+        return customValidator;
+    }
+
+    public void setCustomValidator(String customValidator) {
+        this.customValidator = customValidator;
     }
 }

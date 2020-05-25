@@ -18,7 +18,7 @@
     <properties>
         <java.version>11</java.version>
         <javafx.version>11.0.2</javafx.version>
-        <start-class>org.xmc.fe.Main</start-class>
+        <start-class>org.xmc.Main</start-class>
     </properties>
 
     <dependencies>

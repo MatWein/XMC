@@ -5,17 +5,19 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.util.Duration;
 import org.apache.commons.lang3.StringUtils;
+import org.xmc.fe.common.utils.ReflectionUtil;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
+import org.xmc.fe.ui.validation.ICustomValidator;
 import org.xmc.fe.ui.validation.ValidationScene;
 
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-class CommonTextfieldValidator {
+public class CommonTextfieldValidator {
+    public static final String PREFIX = "- ";
     private static final Duration DELAY = Duration.millis(500);
-    private static final String PREFIX = "- ";
 
     public static boolean validate(
             TextField textField,
@@ -23,7 +25,8 @@ class CommonTextfieldValidator {
             boolean required,
             int minLength,
             int maxLength,
-            String equalTo) {
+            String equalTo,
+            String customValidatorType) {
 
         String text = textField.getText();
 
@@ -47,6 +50,10 @@ class CommonTextfieldValidator {
             if (otherTextfield.isPresent() && !StringUtils.equals(text, otherTextfield.get().getText())) {
                 errorMessages.add(PREFIX + MessageAdapter.getByKey(MessageKey.VALIDATION_NOT_EQUAL_TO, MessageAdapter.getByKey(MessageKey.PASSWORD)));
             }
+        }
+        if (customValidatorType != null) {
+            ICustomValidator<TextField> validator = (ICustomValidator<TextField>)ReflectionUtil.createNewInstanceFactory().call(ReflectionUtil.forName(customValidatorType));
+            errorMessages.addAll(validator.validate(textField));
         }
 
         boolean valid = errorMessages.isEmpty();

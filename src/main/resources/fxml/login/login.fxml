@@ -31,7 +31,8 @@
                 <Insets bottom="5.0"/>
             </padding>
         </Label>
-        <ValidationTextField fx:id="usernameTextfield" required="true" onAction="#onLogin"/>
+        <ValidationTextField fx:id="usernameTextfield" required="true" onAction="#onLogin"
+                             customValidator="org.xmc.fe.stages.login.validation.UserNotExistingValidator"/>
         <Label text="%login.password">
             <padding>
                 <Insets bottom="5.0" top="15.0"/>
@@ -41,8 +42,8 @@
     </VBox>
 
     <ValidatedButton defaultButton="true" layoutX="702.0" layoutY="425.0" mnemonicParsing="false" prefHeight="25.0"
-            prefWidth="141.0" text="%login.submit" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="30.0"
-            onMouseClicked="#onLogin"/>
+                     prefWidth="141.0" text="%login.submit" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="30.0"
+                     onMouseClicked="#onLogin"/>
 
     <Button layoutX="316.0" layoutY="409.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0"
             text="%login.register" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="316.0"

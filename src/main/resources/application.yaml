@@ -1,7 +1,7 @@
 spring:
   datasource:
-    url: jdbc:derby:${user.dir}/database/${user.hash};create=${bootstrap.createDatabase};bootPassword=${user.password}
-    username: ${user.name}
+    url: jdbc:derby:${user.database.dir};create=true;bootPassword=${user.password}
+    username: "\"${user.name}\""
     password: ${user.password}
   messages:
     basename: messages/messages

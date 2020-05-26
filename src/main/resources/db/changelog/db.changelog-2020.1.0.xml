@@ -21,4 +21,27 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="2020-05-26-create_servicecalllog_table" author="matthias.weinert">
+        <createTable tableName="SERVICE_CALL_LOGS">
+            <column name="ID" autoIncrement="true" type="bigint">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="CREATION_DATE" type="timestamp">
+                <constraints nullable="false" />
+            </column>
+            <column name="SERVICE_CLASS" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="SERVICE_METHOD" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="RETURN_VALUE" type="varchar(1000)" />
+            <column name="PARAMETER_VALUES" type="varchar(1000)" />
+            <column name="ERROR" type="varchar(10000)" />
+            <column name="CALL_DURATION" type="bigint">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
 </databaseChangeLog>

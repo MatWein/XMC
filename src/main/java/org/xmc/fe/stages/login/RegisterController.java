@@ -16,7 +16,7 @@ import org.xmc.fe.ui.validation.ValidationScene;
 public class RegisterController {
     @FXML private TextField displayNameTextfield;
     @FXML private TextField usernameTextfield;
-    @FXML private PasswordField passwordField1;
+    @FXML private PasswordField passwordField;
 
     @FXML
     public void onBack() {
@@ -35,7 +35,7 @@ public class RegisterController {
 
         bootstrapComponent.getRight().start(
                 usernameTextfield.getText(),
-                passwordField1.getText(),
+                passwordField.getText(),
                 this::registerUser);
     }
 

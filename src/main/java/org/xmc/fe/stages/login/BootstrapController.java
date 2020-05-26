@@ -19,6 +19,7 @@ import org.xmc.fe.ui.FxmlComponentFactory;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
+import org.xmc.fe.ui.StageBuilder;
 import org.xmc.fe.ui.validation.ValidationScene;
 
 public class BootstrapController {
@@ -85,7 +86,19 @@ public class BootstrapController {
         UserLoginService userLoginService = Main.applicationContext.getBean(UserLoginService.class);
         userLoginService.login(username);
 
-        // TODO: new stage
+        Platform.runLater(() -> {
+            StageBuilder.getInstance()
+                    .resizable(true)
+                    .maximized(true)
+                    .minSize(1024, 768)
+                    .withFxmlSceneComponent(FxmlKey.MAIN)
+                    .withDefaultTitleKey()
+                    .withDefaultIcon()
+                    .build()
+                    .show();
+
+            ((Stage)statusLabel.getScene().getWindow()).close();
+        });
     }
 
     private void handleErrors(Throwable e) {

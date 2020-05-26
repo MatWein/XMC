@@ -32,13 +32,14 @@
             </padding>
         </Label>
         <ValidationTextField fx:id="usernameTextfield" required="true" onAction="#onLogin"
-                             customValidator="org.xmc.fe.stages.login.validation.UserNotExistingValidator"/>
+                             customValidator="org.xmc.fe.stages.login.validation.UserNotExistingValidator"
+                             maxLength="255"/>
         <Label text="%login.password">
             <padding>
                 <Insets bottom="5.0" top="15.0"/>
             </padding>
         </Label>
-        <ValidationPasswordField fx:id="passwordField" required="true" onAction="#onLogin"/>
+        <ValidationPasswordField fx:id="passwordField" required="true" onAction="#onLogin" maxLength="255"/>
     </VBox>
 
     <ValidatedButton defaultButton="true" layoutX="702.0" layoutY="425.0" mnemonicParsing="false" prefHeight="25.0"

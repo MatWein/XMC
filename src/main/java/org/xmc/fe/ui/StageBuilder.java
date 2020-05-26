@@ -8,6 +8,8 @@ import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.validation.ValidationScene;
 
+import java.awt.*;
+
 public class StageBuilder {
     public static StageBuilder getInstance() { return new StageBuilder(); }
 
@@ -15,6 +17,8 @@ public class StageBuilder {
     private boolean useDefaultIcon;
     private MessageKey titleKey;
     private boolean resizable;
+    private boolean maximized;
+    private Dimension minSize;
 
     private StageBuilder() {
     }
@@ -54,6 +58,16 @@ public class StageBuilder {
         return this;
     }
 
+    public StageBuilder maximized(boolean maximized) {
+        this.maximized = maximized;
+        return this;
+    }
+
+    public StageBuilder minSize(int width, int height) {
+        this.minSize = new Dimension(width, height);
+        return this;
+    }
+
     public Stage build() {
         Stage stage = new Stage();
         return build(stage);
@@ -62,6 +76,7 @@ public class StageBuilder {
     public Stage build(Stage existingStage) {
         existingStage.setScene(scene);
         existingStage.setResizable(resizable);
+        existingStage.setMaximized(maximized);
 
         if (useDefaultIcon) {
             existingStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/XMC_512.png")));
@@ -69,6 +84,11 @@ public class StageBuilder {
 
         if (titleKey != null) {
             existingStage.setTitle(MessageAdapter.getByKey(titleKey));
+        }
+
+        if (minSize != null) {
+            existingStage.setMinWidth(minSize.getWidth());
+            existingStage.setMinHeight(minSize.getHeight());
         }
 
         return existingStage;

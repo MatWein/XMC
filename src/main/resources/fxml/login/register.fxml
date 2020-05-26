@@ -16,26 +16,28 @@
                 <Insets bottom="5.0"/>
             </padding>
         </Label>
-        <ValidationTextField fx:id="displayNameTextfield" required="true" minLength="3"/>
+        <ValidationTextField fx:id="displayNameTextfield" required="true" minLength="3" maxLength="255"/>
         <Label text="%register.username">
             <padding>
                 <Insets bottom="5.0" top="15.0"/>
             </padding>
         </Label>
         <ValidationTextField fx:id="usernameTextfield" required="true" minLength="5"
-                             customValidator="org.xmc.fe.stages.login.validation.UserAlreadyExistsValidator"/>
+                             customValidator="org.xmc.fe.stages.login.validation.UserAlreadyExistsValidator"
+                             maxLength="255"/>
         <Label text="%register.password1">
             <padding>
                 <Insets bottom="5.0" top="15.0"/>
             </padding>
         </Label>
-        <ValidationPasswordField fx:id="passwordField1" required="true" minLength="7"/>
+        <ValidationPasswordField fx:id="passwordField" required="true" minLength="7" maxLength="255"/>
         <Label text="%register.password2">
             <padding>
                 <Insets bottom="5.0" top="15.0"/>
             </padding>
         </Label>
-        <ValidationPasswordField fx:id="passwordField2" required="true" minLength="7" equalTo="passwordField1"/>
+        <ValidationPasswordField required="true" minLength="7" equalTo="passwordField1"
+                                 maxLength="255"/>
     </VBox>
 
     <Button layoutX="73.0" layoutY="372.0" mnemonicParsing="false" onMouseClicked="#onBack" prefWidth="139.0"

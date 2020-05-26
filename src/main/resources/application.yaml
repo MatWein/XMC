@@ -18,8 +18,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
-        default_schema: PUBLIC
+        default_schema: XMC
   liquibase:
     change-log: /db/changelog/db.changelog-master.xml
-    liquibase-schema: PUBLIC
-    default-schema: PUBLIC
+    liquibase-schema: XMC
+    default-schema: XMC

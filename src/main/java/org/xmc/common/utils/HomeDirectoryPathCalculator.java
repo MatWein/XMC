@@ -1,4 +1,4 @@
-package org.xmc.fe.common.utils;
+package org.xmc.common.utils;
 
 import org.springframework.util.DigestUtils;
 

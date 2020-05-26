@@ -4,7 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-import org.xmc.fe.common.utils.ReflectionUtil;
+import org.xmc.common.utils.ReflectionUtil;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;

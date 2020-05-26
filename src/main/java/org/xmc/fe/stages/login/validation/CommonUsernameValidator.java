@@ -2,7 +2,7 @@ package org.xmc.fe.stages.login.validation;
 
 import javafx.scene.control.TextField;
 import org.apache.commons.lang3.StringUtils;
-import org.xmc.fe.common.utils.HomeDirectoryPathCalculator;
+import org.xmc.common.utils.HomeDirectoryPathCalculator;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.validation.ICustomValidator;

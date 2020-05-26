@@ -5,7 +5,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.util.Duration;
 import org.apache.commons.lang3.StringUtils;
-import org.xmc.fe.common.utils.ReflectionUtil;
+import org.xmc.common.utils.ReflectionUtil;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.validation.ICustomValidator;

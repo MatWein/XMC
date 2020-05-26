@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.xmc.Main;
 import org.xmc.be.services.login.UserLoginService;
-import org.xmc.fe.common.utils.HomeDirectoryPathCalculator;
+import org.xmc.common.utils.HomeDirectoryPathCalculator;
 import org.xmc.fe.ui.FxmlComponentFactory;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.MessageAdapter;

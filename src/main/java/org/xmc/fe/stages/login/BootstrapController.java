@@ -34,11 +34,13 @@ public class BootstrapController {
     private String username;
     private String password;
     private Runnable preprocessing;
+    private boolean saveCredentials;
 
-    public void start(String username, String password, Runnable preprocessing) {
+    public void start(String username, String password, Runnable preprocessing, boolean saveCredentials) {
         this.username = username;
         this.password = password;
         this.preprocessing = preprocessing;
+        this.saveCredentials = saveCredentials;
 
         Thread thread = new Thread(this::run);
         thread.setDaemon(true);
@@ -84,7 +86,7 @@ public class BootstrapController {
         Platform.runLater(() -> statusLabel.setText(MessageAdapter.getByKey(MessageKey.BOOTSTRAP_STATUS_LOGIN)));
 
         UserLoginService userLoginService = Main.applicationContext.getBean(UserLoginService.class);
-        userLoginService.login(username);
+        userLoginService.login(username, password, saveCredentials);
 
         Platform.runLater(() -> {
             StageBuilder.getInstance()

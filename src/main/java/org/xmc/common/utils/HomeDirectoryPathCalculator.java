@@ -25,4 +25,8 @@ public class HomeDirectoryPathCalculator {
         String usernameHash = DigestUtils.md5DigestAsHex(username.getBytes());
         return new File(calculateDatabaseDir(), usernameHash).getAbsolutePath();
     }
+
+    public static String calculateCredentialFilePath() {
+        return new File(calculateHomeDir(), ".bootstrap").getAbsolutePath();
+    }
 }

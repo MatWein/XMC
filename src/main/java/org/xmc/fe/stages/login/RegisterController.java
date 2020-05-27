@@ -36,7 +36,8 @@ public class RegisterController {
         bootstrapComponent.getRight().start(
                 usernameTextfield.getText(),
                 passwordField.getText(),
-                this::registerUser);
+                this::registerUser,
+                false);
     }
 
     private void registerUser() {

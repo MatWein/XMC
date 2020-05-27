@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
@@ -10,8 +11,9 @@
             xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="org.xmc.fe.stages.login.BootstrapController">
 
-    <VBox fx:id="vbox" alignment="CENTER" prefWidth="286.0" styleClass="background-akzent-1" AnchorPane.bottomAnchor="0.0"
-          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <VBox fx:id="vbox" alignment="CENTER" prefWidth="286.0" styleClass="background-akzent-1"
+          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+          AnchorPane.topAnchor="0.0">
         <ImageView fitHeight="128" fitWidth="128" pickOnBounds="true" preserveRatio="true">
             <Image url="@/images/XMC_512.png"/>
             <VBox.margin>
@@ -27,8 +29,11 @@
         <Label fx:id="errorLabel" alignment="CENTER" prefWidth="400.0" text="%bootstrap.status.error"
                textAlignment="JUSTIFY" visible="false" wrapText="true">
             <VBox.margin>
-                <Insets bottom="20.0" />
+                <Insets bottom="20.0"/>
             </VBox.margin>
+            <effect>
+                <DropShadow/>
+            </effect>
         </Label>
         <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBack" prefHeight="25.0" prefWidth="158.0"
                 text="%bootstrap.back" visible="false"/>

@@ -1,19 +1,19 @@
 <configuration scan="true">
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
-			<pattern>%d{HH:mm:ss.SSS}[%thread] %-5level - [%X{userName:-/}] - %logger{36} - %msg%n</pattern>
+			<pattern>%d{HH:mm:ss.SSS}[%thread] %-5level - %logger{36} - %msg%n</pattern>
 		</encoder>
 	</appender>
 
 	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>logs/xmc.log</file>
+		<file>${system.home.log.dir}/xmc.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>logs/xmc.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+			<fileNamePattern>${system.home.log.dir}/xmc.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
 			<maxHistory>7</maxHistory>
 		</rollingPolicy>
 
 		<encoder>
-			<pattern>%d{dd.MM.yyyy HH:mm:ss.SSS}[%thread] %-5level - [%X{userName:-/}] - %logger{36} - %msg%n</pattern>
+			<pattern>%d{dd.MM.yyyy HH:mm:ss.SSS}[%thread] %-5level - %logger{36} - %msg%n</pattern>
 		</encoder>
 	</appender>
 	

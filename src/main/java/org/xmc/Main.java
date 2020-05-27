@@ -2,31 +2,31 @@ package org.xmc;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.xmc.common.utils.HomeDirectoryPathCalculator;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.StageBuilder;
 
 @SpringBootApplication
 public class Main extends Application {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
+    static {
+        HomeDirectoryPathCalculator.initializeSystemProperties();
+    }
 
     public static ConfigurableApplicationContext applicationContext = null;
     public static String[] args;
 
     public static void main(String[] args) {
-        LOGGER.info("Initializing application...");
-
         Main.args = args;
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) {
-        LOGGER.info("Opening login window.");
+        LoggerFactory.getLogger(Main.class).info("Opening login window.");
 
         StageBuilder.getInstance()
                 .withDefaultIcon()
@@ -43,7 +43,7 @@ public class Main extends Application {
     }
 
     public static void destroy() {
-        LOGGER.info("Closing application context.");
+        LoggerFactory.getLogger(Main.class).info("Closing application context.");
 
         if (applicationContext != null) {
             applicationContext.close();

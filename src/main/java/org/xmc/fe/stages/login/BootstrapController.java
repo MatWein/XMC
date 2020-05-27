@@ -68,7 +68,6 @@ public class BootstrapController {
 
         System.setProperty("user.name", username);
         System.setProperty("user.password", password);
-        System.setProperty("derby.stream.error.file", HomeDirectoryPathCalculator.calculateDerbyLogFilePath());
         System.setProperty("user.database.dir", HomeDirectoryPathCalculator.calculateDatabaseDirForUser(username));
 
         Main.applicationContext = SpringApplication.run(Main.class, Main.args);

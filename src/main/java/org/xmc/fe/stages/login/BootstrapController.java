@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.xmc.Main;
 import org.xmc.be.services.login.UserLoginService;
+import org.xmc.be.services.login.dto.DtoBootstrapFile;
 import org.xmc.common.utils.HomeDirectoryPathCalculator;
 import org.xmc.fe.ui.FxmlComponentFactory;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
@@ -31,16 +32,12 @@ public class BootstrapController {
     @FXML private Label errorLabel;
     @FXML private Button backButton;
 
-    private String username;
-    private String password;
+    private DtoBootstrapFile dtoBootstrapFile;
     private Runnable preprocessing;
-    private boolean saveCredentials;
 
-    public void start(String username, String password, Runnable preprocessing, boolean saveCredentials) {
-        this.username = username;
-        this.password = password;
+    public void start(DtoBootstrapFile dtoBootstrapFile, Runnable preprocessing) {
+        this.dtoBootstrapFile = dtoBootstrapFile;
         this.preprocessing = preprocessing;
-        this.saveCredentials = saveCredentials;
 
         Thread thread = new Thread(this::run);
         thread.setDaemon(true);
@@ -66,9 +63,9 @@ public class BootstrapController {
     private void createApplicationContext() {
         Platform.runLater(() -> statusLabel.setText(MessageAdapter.getByKey(MessageKey.BOOTSTRAP_STATUS_CREATING_CONTEXT)));
 
-        System.setProperty("user.name", username);
-        System.setProperty("user.password", password);
-        System.setProperty("user.database.dir", HomeDirectoryPathCalculator.calculateDatabaseDirForUser(username));
+        System.setProperty("user.name", dtoBootstrapFile.getUsername());
+        System.setProperty("user.password", dtoBootstrapFile.getPassword());
+        System.setProperty("user.database.dir", HomeDirectoryPathCalculator.calculateDatabaseDirForUser(dtoBootstrapFile.getUsername()));
 
         Main.applicationContext = SpringApplication.run(Main.class, Main.args);
     }
@@ -85,7 +82,7 @@ public class BootstrapController {
         Platform.runLater(() -> statusLabel.setText(MessageAdapter.getByKey(MessageKey.BOOTSTRAP_STATUS_LOGIN)));
 
         UserLoginService userLoginService = Main.applicationContext.getBean(UserLoginService.class);
-        userLoginService.login(username, password, saveCredentials);
+        userLoginService.login(dtoBootstrapFile);
 
         Platform.runLater(() -> {
             StageBuilder.getInstance()

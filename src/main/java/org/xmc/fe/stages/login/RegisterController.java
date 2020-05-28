@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.Pair;
 import org.xmc.Main;
 import org.xmc.be.services.login.UserRegistrationService;
+import org.xmc.be.services.login.dto.DtoBootstrapFile;
 import org.xmc.fe.ui.DefaultScene;
 import org.xmc.fe.ui.FxmlComponentFactory;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
@@ -34,10 +35,8 @@ public class RegisterController {
         stage.setScene(new DefaultScene(bootstrapComponent.getLeft()));
 
         bootstrapComponent.getRight().start(
-                usernameTextfield.getText(),
-                passwordField.getText(),
-                this::registerUser,
-                false);
+                new DtoBootstrapFile(usernameTextfield.getText(), passwordField.getText(), false, false),
+                this::registerUser);
     }
 
     private void registerUser() {

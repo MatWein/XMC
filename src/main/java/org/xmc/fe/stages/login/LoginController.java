@@ -8,8 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.Pair;
 import org.controlsfx.control.ToggleSwitch;
-import org.xmc.be.services.login.controller.CredentialFileController;
-import org.xmc.be.services.login.dto.DtoCredentials;
+import org.xmc.be.services.login.dto.DtoBootstrapFile;
 import org.xmc.fe.ui.DefaultScene;
 import org.xmc.fe.ui.FxmlComponentFactory;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
@@ -21,17 +20,25 @@ public class LoginController {
     @FXML private TextField usernameTextfield;
     @FXML private PasswordField passwordField;
     @FXML private ToggleSwitch saveCredentialsToggle;
+    @FXML private ToggleSwitch autoLoginToggle;
     @FXML private Label unsafeWarningLabel;
 
     @FXML
     public void initialize() {
         unsafeWarningLabel.visibleProperty().bind(saveCredentialsToggle.selectedProperty());
 
-        Optional<DtoCredentials> dtoCredentials = CredentialFileController.readCredentialFile();
-        if (dtoCredentials.isPresent()) {
+        autoLoginToggle.selectedProperty().addListener((observableValue, oldValue, newValue) -> {
+            if (Boolean.TRUE.equals(newValue)) {
+                saveCredentialsToggle.setSelected(true);
+            }
+        });
+    }
+
+    public void initialize(Optional<DtoBootstrapFile> dtoBootstrapFile) {
+        if (dtoBootstrapFile.isPresent()) {
             saveCredentialsToggle.setSelected(true);
-            usernameTextfield.setText(dtoCredentials.get().getUsername());
-            passwordField.setText(dtoCredentials.get().getPassword());
+            usernameTextfield.setText(dtoBootstrapFile.get().getUsername());
+            passwordField.setText(dtoBootstrapFile.get().getPassword());
         }
     }
 
@@ -51,9 +58,11 @@ public class LoginController {
         stage.setScene(new DefaultScene(bootstrapComponent.getLeft()));
 
         bootstrapComponent.getRight().start(
-                usernameTextfield.getText(),
-                passwordField.getText(),
-                null,
-                saveCredentialsToggle.isSelected());
+                new DtoBootstrapFile(
+                        usernameTextfield.getText(),
+                        passwordField.getText(),
+                        saveCredentialsToggle.isSelected(),
+                        autoLoginToggle.isSelected()),
+                null);
     }
 }

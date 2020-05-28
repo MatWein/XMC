@@ -58,5 +58,7 @@
                   AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="160.0"/>
     <Label fx:id="unsafeWarningLabel" alignment="CENTER_RIGHT" layoutX="726.0" layoutY="187.0" prefHeight="17.0"
            prefWidth="395.0" text="%login.saveCredentials.unsave" visible="false" wrapText="true"
-           AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="187.0"/>
+           AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="215.0"/>
+    <ToggleSwitch fx:id="autoLoginToggle" layoutX="574.0" layoutY="170.0" styleClass="toggle-right"
+                  text="%login.autoLogin" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="190.0"/>
 </AnchorPane>

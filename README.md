@@ -1,4 +1,18 @@
 # XMC: Extended Money Control
-## IntelliJ IDEA
-To run the application within intellij IDEA you have to specify following JVM args in the run configuration:  
-``-p "C:\Program Files\Java\javafx-sdk-14.0.1\lib" --add-modules javafx.controls,javafx.fxml``
+XMC is a small local application to get an overview for your personal finances. The user has to enter account/depot data, transactions, saldi and more. After entering/importing all necessary data, the user can analyse it, for example, via charts.
+
+## Development (IntelliJ IDEA)
+### Run configuration
+To run the application within intellij IDEA you have to download/extract the SDK and specify the following JVM args in the run configuration:  
+``-p "C:\Program Files\javafx-sdk-11.0.2\lib" --add-modules javafx.controls,javafx.fxml``  
+This is not neccessary when running the application via command line (for example with java -jar xmx.jar).
+
+### Internal Scene Builder
+To use the internal Scene Builder with Java 11 and ControlsFX do the following:  
+(Problem: "ControlsFX 11.0.0 requires at least Java Version 9")
+1. Download Scene Builder Kit
+2. Go to ``C:\Users\[USER]\AppData\Local\JetBrains\Toolbox\apps\IDEA-U\ch-0\[Version]\plugins\javaFX\lib\rt``
+3. create a directory "java11"
+4. copy the Scene Builder Kit JAR to the new folder and rename to "SceneBuilderKit-11.0.0.jar"
+5. Add the following JVM argument to Intellij IDEA: ``-Djavafx.version=11.0.0``
+

@@ -1,25 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import org.controlsfx.control.StatusBar?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="768.0" minWidth="1024.0" prefHeight="768.0" prefWidth="1024.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.MainController">
-   <children>
-      <TabPane layoutX="205.0" layoutY="120.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <tabs>
-          <Tab text="Untitled Tab 1">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </Tab>
-          <Tab text="Untitled Tab 2">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane>
-       <StatusBar prefHeight="30" progress="0.5" text="Bereit" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="768.0" minWidth="1024.0" prefHeight="768.0"
+            prefWidth="1024.0" stylesheets="@/css/xmc-base.css"
+            xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.xmc.fe.stages.main.MainController">
+
+    <TabPane layoutX="205.0" layoutY="120.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE"
+             AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+             AnchorPane.topAnchor="0.0">
+        <Tab text="%main.tabs.dashboard">
+            <graphic>
+                <ImageView>
+                    <Image url="@/images/feather/home.png"/>
+                </ImageView>
+            </graphic>
+            <fx:include source="dashboard.fxml"/>
+        </Tab>
+        <Tab text="%main.tabs.cashaccounts">
+            <graphic>
+                <ImageView>
+                    <Image url="@/images/feather/shopping-cart.png"/>
+                </ImageView>
+            </graphic>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+        </Tab>
+        <Tab text="%main.tabs.depots">
+            <graphic>
+                <ImageView>
+                    <Image url="@/images/feather/trending-up.png"/>
+                </ImageView>
+            </graphic>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+        </Tab>
+        <Tab text="%main.tabs.analysis">
+            <graphic>
+                <ImageView>
+                    <Image url="@/images/feather/aperture.png"/>
+                </ImageView>
+            </graphic>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+        </Tab>
+    </TabPane>
+    <AnchorPane prefHeight="30" styleClass="statusbar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0">
+        <HBox alignment="CENTER_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
+            <Label fx:id="statusLabel" text="%main.status.ready">
+                <padding>
+                    <Insets left="10" />
+                </padding>
+            </Label>
+        </HBox>
+        <HBox alignment="CENTER_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
+            <ProgressBar prefWidth="150" progress="0" visible="false"/>
+            <Separator orientation="VERTICAL">
+                <padding>
+                    <Insets left="10" right="10"/>
+                </padding>
+            </Separator>
+            <ProgressBar fx:id="memoryProgressbar" prefWidth="100" progress="0">
+                <HBox.margin>
+                    <Insets right="10"/>
+                </HBox.margin>
+            </ProgressBar>
+        </HBox>
+    </AnchorPane>
 </AnchorPane>

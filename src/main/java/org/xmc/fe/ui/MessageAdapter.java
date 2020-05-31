@@ -34,9 +34,12 @@ public class MessageAdapter {
         VALIDATION_USER_NOT_EXISTING("validation.userNotExisting"),
 
         LOGIN_TITLE("login.title"),
+
         BOOTSTRAP_STATUS_CREATING_CONTEXT("bootstrap.status.creatingContext"),
         BOOTSTRAP_STATUS_PREPROCESSING("bootstrap.status.preprocessing"),
-        BOOTSTRAP_STATUS_LOGIN("bootstrap.status.login")
+        BOOTSTRAP_STATUS_LOGIN("bootstrap.status.login"),
+
+        MAIN_MEMORY("main.memory")
         ;
 
         private final String key;

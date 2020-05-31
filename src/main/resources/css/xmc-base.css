@@ -1,7 +1,13 @@
 /* ---- Fonts / Colors ---- */
 
+* {
+    xmc-border-color-gray: rgb(204, 204, 204);
+    xmc-background-color-lightgray: rgb(248, 248, 248);
+    xmc-akzent-1: rgb(32, 56, 100);
+}
+
 .background-akzent-1 {
-    -fx-background-color: rgb(32, 56, 100);
+    -fx-background-color: xmc-akzent-1;
 }
 
 .bold {
@@ -24,4 +30,23 @@
 
 .toggle-right {
     -toggle-display: right;
+}
+
+.toolbar {
+    -fx-border-color:
+            xmc-background-color-lightgray
+            xmc-background-color-lightgray
+            xmc-border-color-gray
+            xmc-background-color-lightgray;
+    -fx-border-insets: 0px 0px 1px 0px;
+    -fx-background-color: xmc-background-color-lightgray;
+}
+
+.statusbar {
+    -fx-border-color:
+            xmc-border-color-gray
+            xmc-background-color-lightgray
+            xmc-background-color-lightgray
+            xmc-background-color-lightgray;
+    -fx-border-insets: 1px 0px 0px 0px;
 }

@@ -28,17 +28,12 @@
 
 /* ---- Components ---- */
 
-.toggle-right {
-    -toggle-display: right;
-}
-
 .toolbar {
     -fx-border-color:
             xmc-background-color-lightgray
             xmc-background-color-lightgray
             xmc-border-color-gray
             xmc-background-color-lightgray;
-    -fx-border-insets: 0px 0px 1px 0px;
     -fx-background-color: xmc-background-color-lightgray;
 }
 
@@ -48,5 +43,8 @@
             xmc-background-color-lightgray
             xmc-background-color-lightgray
             xmc-background-color-lightgray;
-    -fx-border-insets: 1px 0px 0px 0px;
+}
+
+.check-box {
+    -fx-label-padding: 10px;
 }

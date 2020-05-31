@@ -6,13 +6,12 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import org.controlsfx.control.ToggleSwitch?>
 <?import org.xmc.fe.ui.validation.components.ValidatedButton?>
 <?import org.xmc.fe.ui.validation.components.ValidationPasswordField?>
 <?import org.xmc.fe.ui.validation.components.ValidationTextField?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="464.0"
             prefWidth="768.0" styleClass="background" stylesheets="@/css/xmc-base.css, @/css/login/login.css"
-            xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="org.xmc.fe.stages.login.LoginController">
 
     <VBox alignment="TOP_CENTER" prefWidth="286.0" styleClass="background-akzent-1" AnchorPane.bottomAnchor="0.0"
@@ -54,11 +53,12 @@
     <Button layoutX="316.0" layoutY="409.0" mnemonicParsing="false" onMouseClicked="#onRegister" prefHeight="25.0"
             prefWidth="115.0" text="%login.register" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="316.0"/>
 
-    <ToggleSwitch fx:id="saveCredentialsToggle" styleClass="toggle-right" text="%login.saveCredentials"
-                  AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="160.0"/>
+    <CheckBox fx:id="saveCredentialsToggle" nodeOrientation="RIGHT_TO_LEFT" text="%login.saveCredentials"
+              AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="160.0" />
     <Label fx:id="unsafeWarningLabel" alignment="CENTER_RIGHT" layoutX="726.0" layoutY="187.0" prefHeight="17.0"
            prefWidth="395.0" text="%login.saveCredentials.unsave" visible="false" wrapText="true"
            AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="215.0"/>
-    <ToggleSwitch fx:id="autoLoginToggle" layoutX="574.0" layoutY="170.0" styleClass="toggle-right"
-                  text="%login.autoLogin" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="190.0"/>
+    <CheckBox fx:id="autoLoginToggle" layoutX="574.0" layoutY="170.0" nodeOrientation="RIGHT_TO_LEFT"
+              styleClass="toggle-right" text="%login.autoLogin" AnchorPane.rightAnchor="30.0"
+              AnchorPane.topAnchor="190.0"/>
 </AnchorPane>

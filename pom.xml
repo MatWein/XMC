@@ -50,20 +50,10 @@
             <groupId>org.jfxtras</groupId>
             <artifactId>jmetro</artifactId>
             <version>11.6.11</version>
-        </dependency>
-        <dependency>
-            <groupId>org.controlsfx</groupId>
-            <artifactId>controlsfx</artifactId>
-            <version>11.0.0</version>
-            <scope>compile</scope>
             <exclusions>
                 <exclusion>
-                    <artifactId>javafx-web</artifactId>
-                    <groupId>org.openjfx</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>javafx-media</artifactId>
-                    <groupId>org.openjfx</groupId>
+                    <artifactId>controlsfx</artifactId>
+                    <groupId>org.controlsfx</groupId>
                 </exclusion>
             </exclusions>
         </dependency>

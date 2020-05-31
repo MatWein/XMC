@@ -5,9 +5,8 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="768.0" minWidth="1024.0" prefHeight="768.0"
-            prefWidth="1024.0" stylesheets="@/css/xmc-base.css"
-            xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.xmc.fe.stages.main.MainController">
+            prefWidth="1024.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.MainController">
 
     <TabPane layoutX="205.0" layoutY="120.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE"
              AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
@@ -39,7 +38,7 @@
         <Tab text="%main.tabs.analysis">
             <graphic>
                 <ImageView>
-                    <Image url="@/images/feather/aperture.png"/>
+                    <Image url="@/images/feather/pie-chart.png"/>
                 </ImageView>
             </graphic>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
@@ -51,7 +50,7 @@
               AnchorPane.topAnchor="0.0">
             <Label fx:id="statusLabel" text="%main.status.ready">
                 <padding>
-                    <Insets left="10" />
+                    <Insets left="10"/>
                 </padding>
             </Label>
         </HBox>
@@ -70,4 +69,27 @@
             </ProgressBar>
         </HBox>
     </AnchorPane>
+    <MenuButton mnemonicParsing="false" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
+        <graphic>
+            <ImageView>
+                <Image url="@/images/feather/menu.png"/>
+            </ImageView>
+        </graphic>
+        <items>
+            <MenuItem mnemonicParsing="false" text="%main.menu.settings">
+                <graphic>
+                    <ImageView>
+                        <Image url="@/images/feather/settings.png"/>
+                    </ImageView>
+                </graphic>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" text="%main.menu.about">
+                <graphic>
+                    <ImageView>
+                        <Image url="@/images/feather/info.png"/>
+                    </ImageView>
+                </graphic>
+            </MenuItem>
+        </items>
+    </MenuButton>
 </AnchorPane>

@@ -18,12 +18,18 @@ import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.StageBuilder;
 
+import java.util.Locale;
 import java.util.Optional;
 
 @SpringBootApplication
 public class Main extends Application {
     static {
         HomeDirectoryPathCalculator.initializeSystemProperties();
+
+        String languageProperty = System.getProperty("xmc.language");
+        if (StringUtils.isNotBlank(languageProperty)) {
+            Locale.setDefault(Locale.forLanguageTag(languageProperty));
+        }
     }
 
     public static ConfigurableApplicationContext applicationContext = null;

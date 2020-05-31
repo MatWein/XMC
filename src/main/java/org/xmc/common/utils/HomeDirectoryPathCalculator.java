@@ -8,8 +8,8 @@ import java.io.File;
 import java.util.Arrays;
 
 public class HomeDirectoryPathCalculator {
-    private static final String HOME_TYPE = "home.type";
-    private static final String HOME_PATH = "home.path";
+    private static final String HOME_TYPE = "xmc.home.type";
+    private static final String HOME_PATH = "xmc.home.path";
 
     private static final String HOME_HOME = "home";
     private static final String HOME_WORKINGDIR = "workingdir";
@@ -20,6 +20,11 @@ public class HomeDirectoryPathCalculator {
     public static void initializeSystemProperties() {
         String homeDir = calculateHomeDir();
         System.setProperty("system.home.dir", homeDir);
+        System.setProperty("spring.config.additional-location", homeDir + "/");
+
+        if (StringUtils.isBlank(System.getProperty("spring.profiles.active"))) {
+            System.setProperty("spring.profiles.active", "prod");
+        }
 
         String logDir = calculateLogDir();
         System.setProperty("system.home.log.dir", logDir);

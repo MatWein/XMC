@@ -1,9 +1,11 @@
 package org.xmc.fe.stages.login.validation;
 
+import org.springframework.stereotype.Component;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 
 import java.io.File;
 
+@Component
 public class UserNotExistingValidator extends CommonUsernameValidator {
     @Override
     protected boolean isError(File userDatabaseDir) {

@@ -12,6 +12,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
+import org.springframework.stereotype.Component;
 import org.xmc.Main;
 import org.xmc.be.services.login.UserLoginService;
 import org.xmc.be.services.login.dto.DtoBootstrapFile;
@@ -23,6 +24,7 @@ import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.StageBuilder;
 import org.xmc.fe.ui.validation.ValidationScene;
 
+@Component
 public class BootstrapController {
     private static final Logger LOGGER = LoggerFactory.getLogger(BootstrapController.class);
 

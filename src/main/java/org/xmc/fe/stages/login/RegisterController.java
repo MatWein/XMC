@@ -6,6 +6,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.Pair;
+import org.springframework.stereotype.Component;
 import org.xmc.Main;
 import org.xmc.be.services.login.UserRegistrationService;
 import org.xmc.be.services.login.dto.DtoBootstrapFile;
@@ -14,6 +15,7 @@ import org.xmc.fe.ui.FxmlComponentFactory;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.validation.ValidationScene;
 
+@Component
 public class RegisterController {
     @FXML private TextField displayNameTextfield;
     @FXML private TextField usernameTextfield;

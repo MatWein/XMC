@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.xmc.be.services.login.controller.BootstrapFileController;
@@ -58,12 +59,7 @@ public class Main extends Application {
             component = FxmlComponentFactory.load(FxmlKey.LOGIN);
         }
 
-        Stage stage = StageBuilder.getInstance()
-                .withDefaultIcon()
-                .withTitleKey(MessageKey.LOGIN_TITLE)
-                .resizable(false)
-                .withSceneComponent(component.getLeft())
-                .build(primaryStage);
+        Stage stage = createLoginStage(primaryStage, component);
 
         if (autoLogin) {
             stage.setOnShown(windowEvent -> ((BootstrapController)component.getRight()).start(dtoBootstrapFile.get(), null));
@@ -72,6 +68,15 @@ public class Main extends Application {
         }
 
         stage.show();
+    }
+
+    public static Stage createLoginStage(Stage primaryStage, Pair<Parent, ?> component) {
+        return StageBuilder.getInstance()
+                    .withDefaultIcon()
+                    .withTitleKey(MessageKey.LOGIN_TITLE)
+                    .resizable(false)
+                    .withSceneComponent(component.getLeft())
+                    .build(primaryStage);
     }
 
     @Override
@@ -83,7 +88,7 @@ public class Main extends Application {
         LoggerFactory.getLogger(Main.class).info("Closing application context.");
 
         if (applicationContext != null) {
-            applicationContext.close();
+            SpringApplication.exit(applicationContext);
             applicationContext = null;
         }
     }

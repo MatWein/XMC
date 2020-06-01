@@ -62,6 +62,12 @@
                     <Insets left="10" right="10"/>
                 </padding>
             </Separator>
+            <Label fx:id="displayNameLabel" />
+            <Separator orientation="VERTICAL">
+                <padding>
+                    <Insets left="10" right="10"/>
+                </padding>
+            </Separator>
             <ProgressBar fx:id="memoryProgressbar" prefWidth="100" progress="0">
                 <HBox.margin>
                     <Insets right="10"/>

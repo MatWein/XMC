@@ -17,6 +17,8 @@ import java.time.LocalDateTime;
 public class UserLoginService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserLoginService.class);
 
+    public static final String SYSTEM_PROPERTY_DISPLAYNAME = "user.displayName";
+
     private final UserRepository userRepository;
 
     @Autowired
@@ -34,6 +36,7 @@ public class UserLoginService {
         System.clearProperty("user.name");
         System.clearProperty("user.password");
         System.clearProperty("user.database.dir");
+        System.setProperty(SYSTEM_PROPERTY_DISPLAYNAME, user.getDisplayName());
 
         BootstrapFileController.writeBootstrapFile(dtoBootstrapFile);
     }

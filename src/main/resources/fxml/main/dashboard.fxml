@@ -3,11 +3,14 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<AnchorPane stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.DashboardController">
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<VBox stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.DashboardController"
+      prefHeight="700.0" prefWidth="900.0">
 
-    <ToolBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" styleClass="toolbar" fx:id="toolbar">
+    <ToolBar styleClass="toolbar" fx:id="toolbar">
         <Button mnemonicParsing="false" text="%main.dashboard.configView">
             <graphic>
                 <ImageView>
@@ -15,7 +18,7 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Pane HBox.hgrow="ALWAYS" />
+        <Pane HBox.hgrow="ALWAYS"/>
         <Button mnemonicParsing="false" text="%main.dashboard.logout" onAction="#onLogout">
             <graphic>
                 <ImageView>
@@ -32,4 +35,4 @@
         </Button>
     </ToolBar>
 
-</AnchorPane>
+</VBox>

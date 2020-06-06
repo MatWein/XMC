@@ -1,4 +1,4 @@
-package org.xmc.fe.stages.main;
+package org.xmc.fe.stages.main.logic;
 
 import javafx.application.Platform;
 import javafx.scene.control.ProgressBar;
@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 @Component
 public class MemoryBarController {
-    void startMemoryBarThread(ProgressBar memoryProgressbar) {
+    public void startMemoryBarThread(ProgressBar memoryProgressbar) {
         Thread memoryBarThread = new Thread(() -> runProgressbarUpdate(memoryProgressbar));
         memoryBarThread.setDaemon(true);
         memoryBarThread.start();

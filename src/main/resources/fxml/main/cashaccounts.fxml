@@ -1,12 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
-            xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.VBox?>
+<?import org.xmc.fe.ui.components.BreadcrumbBar?>
+<VBox prefHeight="700.0" prefWidth="900.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.CashAccountController">
 
-    <ToolBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" styleClass="toolbar">
-
+    <ToolBar styleClass="toolbar">
+        <BreadcrumbBar fx:id="breadcrumbBar"/>
     </ToolBar>
 
-</AnchorPane>
+    <ToolBar styleClass="toolbar">
+        <Button mnemonicParsing="false" text="%main.cashaccounts.create">
+            <graphic>
+                <ImageView>
+                    <Image url="@/images/feather/plus.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button mnemonicParsing="false" text="%main.cashaccounts.edit">
+            <graphic>
+                <ImageView>
+                    <Image url="@/images/feather/edit.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button mnemonicParsing="false" text="%main.cashaccounts.delete">
+            <graphic>
+                <ImageView>
+                    <Image url="@/images/feather/delete.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
+    </ToolBar>
+
+
+</VBox>

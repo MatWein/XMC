@@ -40,7 +40,8 @@ public class MessageAdapter {
         BOOTSTRAP_STATUS_LOGIN("bootstrap.status.login"),
 
         MAIN_MEMORY("main.memory"),
-        MAIN_DISPLAYNAME("main.displayname")
+        MAIN_DISPLAYNAME("main.displayname"),
+        MAIN_CASHACCOUNTS_BREADCRUMB_OVERVIEW("main.cashaccounts.breadcrumb.overview")
         ;
 
         private final String key;

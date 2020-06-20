@@ -39,6 +39,6 @@
                 text="%bootstrap.back" visible="false"/>
     </VBox>
 
-    <Label styleClass="version-label" text="%app.version" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0"/>
+    <Label styleClass="version-label" fx:id="versionLabel" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0"/>
 
 </AnchorPane>

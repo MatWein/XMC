@@ -8,6 +8,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.Pair;
+import org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration;
+import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
 import org.springframework.stereotype.Component;
 import org.xmc.be.services.login.dto.DtoBootstrapFile;
 import org.xmc.fe.ui.DefaultScene;
@@ -24,9 +26,11 @@ public class LoginController {
     @FXML private CheckBox saveCredentialsToggle;
     @FXML private CheckBox autoLoginToggle;
     @FXML private Label unsafeWarningLabel;
+    @FXML private Label versionLabel;
 
     @FXML
-    public void initialize() {
+    public void initialize() throws Exception {
+        versionLabel.setText(new ProjectInfoAutoConfiguration(new ProjectInfoProperties()).buildProperties().getVersion());
         unsafeWarningLabel.visibleProperty().bind(saveCredentialsToggle.selectedProperty());
 
         autoLoginToggle.selectedProperty().addListener((observableValue, oldValue, newValue) -> {

@@ -14,6 +14,10 @@ public class MessageAdapter {
     static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("messages.messages", Locale.getDefault());
 
     public static String getByKey(MessageKey key, Object... args) {
+        if (key == null) {
+            return null;
+        }
+
         try {
             return MessageFormat.format(RESOURCE_BUNDLE.getString(key.getKey()), args);
         } catch (MissingResourceException e) {
@@ -26,6 +30,7 @@ public class MessageAdapter {
         APP_NAME("app.name"),
         PASSWORD("password"),
         TABLE_NO_CONTENT("table.noContent"),
+        DIALOG_OK("dialog.ok"),
 
         VALIDATION_REQUIRED("validation.required"),
         VALIDATION_MIN_LENGTH("validation.minLength"),
@@ -42,7 +47,9 @@ public class MessageAdapter {
 
         MAIN_MEMORY("main.memory"),
         MAIN_DISPLAYNAME("main.displayname"),
-        MAIN_CASHACCOUNTS_BREADCRUMB_OVERVIEW("main.cashaccounts.breadcrumb.overview")
+        MAIN_CASHACCOUNTS_BREADCRUMB_OVERVIEW("main.cashaccounts.breadcrumb.overview"),
+
+        ABOUT_TITLE("about.title")
         ;
 
         private final String key;

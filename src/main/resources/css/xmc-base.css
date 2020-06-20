@@ -14,6 +14,10 @@
     -fx-font-weight: bold;
 }
 
+.underline {
+    -fx-underline: true;
+}
+
 .text-white {
     -fx-text-fill: white;
 }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import org.xmc.fe.ui.components.*?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="290.0" prefWidth="545.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css" xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.AboutController">
+
+    <VBox alignment="TOP_CENTER" prefWidth="100.0" styleClass="background-akzent-1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <ImageView fitHeight="64" fitWidth="64" pickOnBounds="true" preserveRatio="true">
+            <Image url="@/images/XMC_512.png" />
+        </ImageView>
+    </VBox>
+
+    <VBox AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+
+        <TextFlow lineSpacing="5.0">
+            <Text styleClass="bold,underline" text="%app.name.full" />
+            <LineBreak />
+            <LineBreak />
+
+            <Text styleClass="bold" text="%about.header.branch" /> <Text text=" " /> <Text fx:id="branchText" />
+            <LineBreak />
+            <Text styleClass="bold" text="%about.header.version" /> <Text text=" " /> <Text fx:id="versionText" />
+            <LineBreak />
+            <Text styleClass="bold" text="%about.header.commitId" /> <Text text=" " /> <Text fx:id="commitIdText" />
+            <LineBreak />
+            <Text styleClass="bold" text="%about.header.commitTime" /> <Text text=" " /> <Text fx:id="commitTimeText" />
+            <LineBreak />
+            <Text styleClass="bold" text="%about.header.author" /> <Text text=" " /> <Text text="%about.header.author.value" />
+            <LineBreak />
+            <Text styleClass="bold" text="%about.header.license" /> <Text text=" " /> <Text text="%about.header.license.value" />
+            <LineBreak />
+            <Text styleClass="bold" text="%about.header.website" /> <Text text=" " /> <Hyperlink text="%about.header.website.value" onAction="#onShowWebsite" fx:id="hyperlink" />
+        </TextFlow>
+
+    </VBox>
+
+</AnchorPane>

@@ -12,6 +12,8 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration;
+import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
 import org.springframework.stereotype.Component;
 import org.xmc.Main;
 import org.xmc.be.services.login.UserLoginService;
@@ -32,10 +34,16 @@ public class BootstrapController {
     @FXML private Label statusLabel;
     @FXML private ProgressBar progressbar;
     @FXML private Label errorLabel;
+    @FXML private Label versionLabel;
     @FXML private Button backButton;
 
     private DtoBootstrapFile dtoBootstrapFile;
     private Runnable preprocessing;
+
+    @FXML
+    public void initialize() throws Exception {
+        versionLabel.setText(new ProjectInfoAutoConfiguration(new ProjectInfoProperties()).buildProperties().getVersion());
+    }
 
     public void start(DtoBootstrapFile dtoBootstrapFile, Runnable preprocessing) {
         this.dtoBootstrapFile = dtoBootstrapFile;

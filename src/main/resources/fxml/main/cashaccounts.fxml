@@ -21,14 +21,14 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Button mnemonicParsing="false" text="%main.cashaccounts.edit">
+        <Button mnemonicParsing="false" text="%main.cashaccounts.edit" fx:id="editButton">
             <graphic>
                 <ImageView>
                     <Image url="@/images/feather/edit.png"/>
                 </ImageView>
             </graphic>
         </Button>
-        <Button mnemonicParsing="false" text="%main.cashaccounts.delete">
+        <Button mnemonicParsing="false" text="%main.cashaccounts.delete" fx:id="deleteButton">
             <graphic>
                 <ImageView>
                     <Image url="@/images/feather/delete.png"/>
@@ -37,7 +37,7 @@
         </Button>
     </ToolBar>
 
-    <TableViewEx VBox.vgrow="ALWAYS">
+    <TableViewEx VBox.vgrow="ALWAYS" fx:id="tableView">
         <columns>
             <TableColumn editable="false" prefWidth="50"/>
             <TableColumn editable="false" prefWidth="200" text="%main.cashaccounts.overview.table.column.bankName"/>

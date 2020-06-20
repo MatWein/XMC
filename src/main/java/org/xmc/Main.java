@@ -1,6 +1,7 @@
 package org.xmc;
 
 import javafx.application.Application;
+import javafx.application.HostServices;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.StringUtils;
@@ -33,7 +34,8 @@ public class Main extends Application {
         }
     }
 
-    public static ConfigurableApplicationContext applicationContext = null;
+    public static ConfigurableApplicationContext applicationContext;
+    public static HostServices hostServices;
     public static String[] args;
 
     public static void main(String[] args) {
@@ -43,6 +45,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        hostServices = getHostServices();
         LoggerFactory.getLogger(Main.class).info("Opening login window.");
 
         Optional<DtoBootstrapFile> dtoBootstrapFile = BootstrapFileController.readBootstrapFile();

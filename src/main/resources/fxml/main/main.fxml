@@ -89,7 +89,7 @@
                     </ImageView>
                 </graphic>
             </MenuItem>
-            <MenuItem mnemonicParsing="false" text="%main.menu.about">
+            <MenuItem mnemonicParsing="false" text="%main.menu.about" onAction="#onAbout">
                 <graphic>
                     <ImageView>
                         <Image url="@/images/feather/info.png"/>

@@ -26,7 +26,7 @@
         </Label>
     </VBox>
 
-    <Label styleClass="version-label" text="%app.version" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0"/>
+    <Label styleClass="version-label" fx:id="versionLabel" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0"/>
 
     <VBox AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="316.0" AnchorPane.rightAnchor="30.0"
           AnchorPane.topAnchor="30.0">

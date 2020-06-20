@@ -25,6 +25,7 @@ public class MessageAdapter {
     public enum MessageKey {
         APP_NAME("app.name"),
         PASSWORD("password"),
+        TABLE_NO_CONTENT("table.noContent"),
 
         VALIDATION_REQUIRED("validation.required"),
         VALIDATION_MIN_LENGTH("validation.minLength"),

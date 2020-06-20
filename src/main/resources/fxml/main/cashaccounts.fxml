@@ -4,8 +4,10 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.VBox?>
 <?import org.xmc.fe.ui.components.BreadcrumbBar?>
-<VBox prefHeight="700.0" prefWidth="900.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.CashAccountController">
+<?import org.xmc.fe.ui.components.TableViewEx?>
+<VBox prefHeight="700.0" prefWidth="900.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css" xmlns="http://javafx.com/javafx/11.0.0"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.CashAccountController"
+      styleClass="cashaccounts-vbox">
 
     <ToolBar styleClass="toolbar">
         <BreadcrumbBar fx:id="breadcrumbBar"/>
@@ -35,5 +37,22 @@
         </Button>
     </ToolBar>
 
+    <TableViewEx VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn editable="false" prefWidth="50"/>
+            <TableColumn editable="false" prefWidth="200" text="%main.cashaccounts.overview.table.column.bankName"/>
+            <TableColumn editable="false" prefWidth="200"
+                         text="%main.cashaccounts.overview.table.column.cashAccountName"/>
+            <TableColumn editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.iban"/>
+            <TableColumn editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.bic"/>
+            <TableColumn editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.number"/>
+            <TableColumn editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.blz"/>
+            <TableColumn editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.creationDate"/>
+            <TableColumn editable="false" prefWidth="100" text="%main.cashaccounts.overview.table.column.currency"/>
+            <TableColumn editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.lastSaldo"/>
+            <TableColumn editable="false" prefWidth="200"
+                         text="%main.cashaccounts.overview.table.column.lastSaldoDate"/>
+        </columns>
+    </TableViewEx>
 
 </VBox>

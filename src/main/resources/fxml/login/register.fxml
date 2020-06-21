@@ -17,7 +17,7 @@
             </padding>
         </Label>
         <ValidationTextField fx:id="displayNameTextfield" required="true" minLength="3" maxLength="255"/>
-        <Label text="%register.username" styleClass="form-label">
+        <Label text="%register.username" styleClass="form-label" />
         <ValidationTextField fx:id="usernameTextfield" required="true" minLength="5"
                              customValidator="org.xmc.fe.stages.login.validation.UserAlreadyExistsValidator"
                              maxLength="255"/>

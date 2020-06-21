@@ -9,22 +9,26 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import org.apache.commons.lang3.tuple.Pair;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 
-public class DialogBuilder<T> {
+public class DialogBuilder<CONTROLLER_TYPE, RETURN_TYPE> {
     public static DialogBuilder getInstance() { return new DialogBuilder(); }
 
     private MessageKey titleKey;
     private MessageKey headerTextKey;
     private Node content;
     private Node headerGraphic;
-    private Callback<ButtonType, T> resultConverter;
+    private BiFunction<ButtonType, CONTROLLER_TYPE, RETURN_TYPE> resultConverter;
+    private BiConsumer<CONTROLLER_TYPE, RETURN_TYPE> inputConverter;
+    private CONTROLLER_TYPE controller;
+    private RETURN_TYPE input;
     private List<ButtonType> buttons = new ArrayList<>();
     private boolean useDefaultIcon;
 
@@ -49,7 +53,8 @@ public class DialogBuilder<T> {
     }
 
     public DialogBuilder withFxmlContent(FxmlKey key) {
-        Pair<Parent, Object> component = FxmlComponentFactory.load(key);
+        Pair<Parent, CONTROLLER_TYPE> component = FxmlComponentFactory.load(key);
+        this.controller = component.getRight();
         return withContent(component.getLeft());
     }
 
@@ -58,8 +63,18 @@ public class DialogBuilder<T> {
         return this;
     }
 
-    public DialogBuilder resultConverter(Callback<ButtonType, T> resultConverter) {
+    public DialogBuilder resultConverter(BiFunction<ButtonType, CONTROLLER_TYPE, RETURN_TYPE> resultConverter) {
         this.resultConverter = resultConverter;
+        return this;
+    }
+
+    public DialogBuilder inputConverter(BiConsumer<CONTROLLER_TYPE, RETURN_TYPE> inputConverter) {
+        this.inputConverter = inputConverter;
+        return this;
+    }
+
+    public DialogBuilder withInput(RETURN_TYPE input) {
+        this.input = input;
         return this;
     }
 
@@ -68,8 +83,8 @@ public class DialogBuilder<T> {
         return this;
     }
 
-    public Dialog<T> build() {
-        Dialog<T> dialog = new Dialog<>();
+    public Dialog<RETURN_TYPE> build() {
+        Dialog<RETURN_TYPE> dialog = new Dialog<>();
 
         dialog.setTitle(MessageAdapter.getByKey(titleKey));
         dialog.setHeaderText(MessageAdapter.getByKey(headerTextKey));
@@ -80,7 +95,10 @@ public class DialogBuilder<T> {
         dialogPane.getButtonTypes().addAll(buttons);
 
         if (resultConverter != null) {
-            dialog.setResultConverter(resultConverter);
+            dialog.setResultConverter(param -> resultConverter.apply(param, controller));
+        }
+        if (inputConverter != null && input != null) {
+            inputConverter.accept(controller, input);
         }
 
         Scene scene = SceneBuilder.getInstance().build(dialog.getDialogPane().getScene());

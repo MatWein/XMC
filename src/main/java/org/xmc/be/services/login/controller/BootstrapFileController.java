@@ -4,7 +4,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.SerializationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xmc.be.services.login.dto.DtoBootstrapFile;
+import org.xmc.common.stubs.login.DtoBootstrapFile;
 import org.xmc.common.utils.Crypter;
 import org.xmc.common.utils.HomeDirectoryPathCalculator;
 

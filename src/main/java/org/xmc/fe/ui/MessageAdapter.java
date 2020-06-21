@@ -49,7 +49,11 @@ public class MessageAdapter {
         MAIN_DISPLAYNAME("main.displayname"),
         MAIN_CASHACCOUNTS_BREADCRUMB_OVERVIEW("main.cashaccounts.breadcrumb.overview"),
 
-        ABOUT_TITLE("about.title")
+        ABOUT_TITLE("about.title"),
+
+        CASHACCOUNT_EDIT_TITLE("cashaccount.edit.title"),
+        CASHACCOUNT_EDIT_SAVE("cashaccount.edit.save"),
+        CASHACCOUNT_EDIT_CANCEL("cashaccount.edit.cancel")
         ;
 
         private final String key;

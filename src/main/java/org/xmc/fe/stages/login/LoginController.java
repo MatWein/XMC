@@ -10,7 +10,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration;
 import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
 import org.springframework.stereotype.Component;
-import org.xmc.be.services.login.dto.DtoBootstrapFile;
+import org.xmc.common.stubs.login.DtoBootstrapFile;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.SceneUtil;
 

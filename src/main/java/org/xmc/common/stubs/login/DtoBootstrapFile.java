@@ -1,4 +1,4 @@
-package org.xmc.be.services.login.dto;
+package org.xmc.common.stubs.login;
 
 import java.io.Serializable;
 

@@ -1,13 +1,11 @@
 package org.xmc.be.entities;
 
-import org.xmc.common.interfaces.IIdentifiable;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @MappedSuperclass
-public class PersistentObject implements IIdentifiable<Long> {
+public class PersistentObject {
 	@Id
 	@Column(name = "ID", unique = true, nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

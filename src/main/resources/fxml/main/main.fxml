@@ -25,7 +25,7 @@
                     <Image url="@/images/feather/shopping-cart.png"/>
                 </ImageView>
             </graphic>
-            <fx:include source="cashaccounts.fxml"/>
+            <fx:include source="cashaccount/cashaccounts.fxml"/>
         </Tab>
         <Tab text="%main.tabs.depots">
             <graphic>

@@ -1,7 +1,7 @@
 package org.xmc.fe.stages.main;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ public class MainController {
     public void onAbout() {
         DialogBuilder.getInstance()
                 .titleKey(MessageKey.ABOUT_TITLE)
-                .addButton(MessageKey.DIALOG_OK, ButtonBar.ButtonData.OK_DONE)
+                .addButton(MessageKey.DIALOG_OK, ButtonData.OK_DONE)
                 .withFxmlContent(FxmlKey.ABOUT)
                 .withDefaultIcon()
                 .build()

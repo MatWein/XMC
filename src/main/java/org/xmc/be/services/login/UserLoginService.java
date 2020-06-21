@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.xmc.be.entities.user.User;
 import org.xmc.be.repositories.user.UserRepository;
 import org.xmc.be.services.login.controller.BootstrapFileController;
-import org.xmc.be.services.login.dto.DtoBootstrapFile;
+import org.xmc.common.stubs.login.DtoBootstrapFile;
 
 import java.time.LocalDateTime;
 

@@ -6,7 +6,7 @@
 <?import org.xmc.fe.ui.components.BreadcrumbBar?>
 <?import org.xmc.fe.ui.components.TableViewEx?>
 <VBox prefHeight="700.0" prefWidth="900.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css" xmlns="http://javafx.com/javafx/11.0.0"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.CashAccountController"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.cashaccount.CashAccountController"
       styleClass="cashaccounts-vbox">
 
     <ToolBar styleClass="toolbar">
@@ -14,14 +14,14 @@
     </ToolBar>
 
     <ToolBar styleClass="toolbar">
-        <Button mnemonicParsing="false" text="%main.cashaccounts.create">
+        <Button mnemonicParsing="false" text="%main.cashaccounts.create" onAction="#onNewCashAccount">
             <graphic>
                 <ImageView>
                     <Image url="@/images/feather/plus.png"/>
                 </ImageView>
             </graphic>
         </Button>
-        <Button mnemonicParsing="false" text="%main.cashaccounts.edit" fx:id="editButton">
+        <Button mnemonicParsing="false" text="%main.cashaccounts.edit" fx:id="editButton" onAction="#onEditCashAccount">
             <graphic>
                 <ImageView>
                     <Image url="@/images/feather/edit.png"/>

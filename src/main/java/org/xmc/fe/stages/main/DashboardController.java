@@ -8,7 +8,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Component;
 import org.xmc.Main;
 import org.xmc.be.services.login.controller.BootstrapFileController;
-import org.xmc.be.services.login.dto.DtoBootstrapFile;
+import org.xmc.common.stubs.login.DtoBootstrapFile;
 import org.xmc.fe.stages.login.LoginController;
 import org.xmc.fe.ui.FxmlComponentFactory;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;

@@ -52,3 +52,7 @@
 .check-box {
     -fx-label-padding: 10px;
 }
+
+.form-label {
+    -fx-padding: 15px 0px 5px 0px;
+}

@@ -3,6 +3,7 @@ package org.xmc.fe.ui;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TitledPane;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.Pair;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
@@ -42,6 +43,9 @@ public class SceneUtil {
             nodes.add(node);
             if (node instanceof Parent) {
                 addAllChildrenRecursive((Parent) node, nodes);
+            }
+            if (node instanceof TitledPane) {
+                addAllChildrenRecursive((Parent) ((TitledPane)node).getContent(), nodes);
             }
         }
     }

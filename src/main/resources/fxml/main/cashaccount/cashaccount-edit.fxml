@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
+<?import org.xmc.fe.ui.validation.components.*?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="541.0"
       prefWidth="719.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.cashaccount.CashAccountEditController">
+
     <Label text="%cashaccount.edit.bank">
         <padding>
             <Insets bottom="5.0"/>
@@ -35,44 +37,21 @@
                         <Insets bottom="5.0"/>
                     </padding>
                 </Label>
-                <TextField/>
-                <Label text="%cashaccount.edit.bank.bic">
-                    <padding>
-                        <Insets bottom="5.0" top="15.0"/>
-                    </padding>
-                </Label>
-                <TextField/>
-                <Label text="%cashaccount.edit.bank.blz">
-                    <padding>
-                        <Insets bottom="5.0" top="15.0"/>
-                    </padding>
-                </Label>
-                <TextField/>
+                <ValidationTextField required="true"/>
+                <Label text="%cashaccount.edit.bank.bic" styleClass="form-label" />
+                <ValidationTextField required="false"/>
+                <Label text="%cashaccount.edit.bank.blz" styleClass="form-label" />
+                <ValidationTextField required="false"/>
             </VBox>
         </HBox>
     </TitledPane>
-    <Label text="%cashaccount.edit.name">
-        <padding>
-            <Insets bottom="5.0" top="15.0"/>
-        </padding>
-    </Label>
-    <TextField/>
-    <Label text="%cashaccount.edit.iban">
-        <padding>
-            <Insets bottom="5.0" top="15.0"/>
-        </padding>
-    </Label>
-    <TextField/>
-    <Label text="%cashaccount.edit.number">
-        <padding>
-            <Insets bottom="5.0" top="15.0"/>
-        </padding>
-    </Label>
-    <TextField/>
-    <Label text="%cashaccount.edit.currency">
-        <padding>
-            <Insets bottom="5.0" top="15.0"/>
-        </padding>
-    </Label>
+
+    <Label text="%cashaccount.edit.name" styleClass="form-label" />
+    <ValidationTextField required="true"/>
+    <Label text="%cashaccount.edit.iban" styleClass="form-label" />
+    <ValidationTextField required="false"/>
+    <Label text="%cashaccount.edit.number" styleClass="form-label" />
+    <ValidationTextField required="false"/>
+    <Label text="%cashaccount.edit.currency" styleClass="form-label" />
     <ChoiceBox prefHeight="25.0" prefWidth="719.0"/>
 </VBox>

@@ -102,7 +102,6 @@ public class DialogBuilder<CONTROLLER_TYPE, RETURN_TYPE> {
         }
 
         Scene scene = SceneBuilder.getInstance().build(dialog.getDialogPane().getScene());
-        SceneUtil.getOrCreateValidationSceneState(scene);
 
         if (useDefaultIcon) {
             ((Stage)scene.getWindow()).getIcons().add(new Image(getClass().getResourceAsStream("/images/XMC_512.png")));

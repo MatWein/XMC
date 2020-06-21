@@ -38,11 +38,7 @@
         <ValidationTextField fx:id="usernameTextfield"
                              customValidator="org.xmc.fe.stages.login.validation.UserNotExistingValidator"
                              maxLength="255" onAction="#onLogin" required="true"/>
-        <Label text="%login.password">
-            <padding>
-                <Insets bottom="5.0" top="15.0"/>
-            </padding>
-        </Label>
+        <Label text="%login.password" styleClass="form-label" />
         <ValidationPasswordField fx:id="passwordField" maxLength="255" onAction="#onLogin" required="true"/>
     </VBox>
 

@@ -6,16 +6,13 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration;
 import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
 import org.springframework.stereotype.Component;
 import org.xmc.be.services.login.dto.DtoBootstrapFile;
-import org.xmc.fe.ui.DefaultScene;
-import org.xmc.fe.ui.FxmlComponentFactory;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
-import org.xmc.fe.ui.validation.ValidationScene;
+import org.xmc.fe.ui.SceneUtil;
 
 import java.util.Optional;
 
@@ -51,18 +48,12 @@ public class LoginController {
 
     @FXML
     public void onRegister() {
-        Pair<Parent, LoginController> registerComponent = FxmlComponentFactory.load(FxmlKey.LOGIN_REGISTER);
-
-        Stage stage = (Stage)usernameTextfield.getScene().getWindow();
-        stage.setScene(new ValidationScene(registerComponent.getLeft()));
+        SceneUtil.switchSceneOfComponent(usernameTextfield, FxmlKey.LOGIN_REGISTER);
     }
 
     @FXML
     public void onLogin() {
-        Pair<Parent, BootstrapController> bootstrapComponent = FxmlComponentFactory.load(FxmlKey.BOOTSTRAP);
-
-        Stage stage = (Stage) usernameTextfield.getScene().getWindow();
-        stage.setScene(new DefaultScene(bootstrapComponent.getLeft()));
+        Pair<Parent, BootstrapController> bootstrapComponent = SceneUtil.switchSceneOfComponent(usernameTextfield, FxmlKey.BOOTSTRAP);
 
         bootstrapComponent.getRight().start(
                 new DtoBootstrapFile(

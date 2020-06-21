@@ -1,6 +1,7 @@
 package org.xmc.fe.ui;
 
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.Pair;
@@ -12,7 +13,7 @@ import java.awt.*;
 public class StageBuilder {
     public static StageBuilder getInstance() { return new StageBuilder(); }
 
-    private DefaultScene scene;
+    private Scene scene;
     private boolean useDefaultIcon;
     private MessageKey titleKey;
     private boolean resizable;
@@ -38,7 +39,9 @@ public class StageBuilder {
     }
 
     public StageBuilder withSceneComponent(Parent component) {
-        this.scene = new DefaultScene(component);
+        this.scene = SceneBuilder.getInstance()
+                .withRoot(component)
+                .build();
         return this;
     }
 
@@ -47,7 +50,7 @@ public class StageBuilder {
         return withSceneComponent(component.getLeft());
     }
 
-    public StageBuilder withScene(DefaultScene scene) {
+    public StageBuilder withScene(Scene scene) {
         this.scene = scene;
         return this;
     }
@@ -73,7 +76,7 @@ public class StageBuilder {
     }
 
     public Stage build(Stage existingStage) {
-        existingStage.setScene(scene);
+        existingStage.setScene(SceneBuilder.getInstance().build(scene));
         existingStage.setResizable(resizable);
         existingStage.setMaximized(maximized);
         existingStage.setTitle(MessageAdapter.getByKey(titleKey));

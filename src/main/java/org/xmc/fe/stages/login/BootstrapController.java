@@ -2,13 +2,11 @@ package org.xmc.fe.stages.login;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -19,12 +17,11 @@ import org.xmc.Main;
 import org.xmc.be.services.login.UserLoginService;
 import org.xmc.be.services.login.dto.DtoBootstrapFile;
 import org.xmc.common.utils.HomeDirectoryPathCalculator;
-import org.xmc.fe.ui.FxmlComponentFactory;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
+import org.xmc.fe.ui.SceneUtil;
 import org.xmc.fe.ui.StageBuilder;
-import org.xmc.fe.ui.validation.ValidationScene;
 
 @Component
 public class BootstrapController {
@@ -123,9 +120,6 @@ public class BootstrapController {
 
     @FXML
     public void onBack() {
-        Pair<Parent, LoginController> loginComponent = FxmlComponentFactory.load(FxmlKey.LOGIN);
-
-        Stage stage = (Stage)backButton.getScene().getWindow();
-        stage.setScene(new ValidationScene(loginComponent.getLeft()));
+        SceneUtil.switchSceneOfComponent(backButton, FxmlKey.LOGIN);
     }
 }

@@ -1,8 +1,8 @@
 package org.xmc.fe.ui.validation.components;
 
+import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import org.xmc.fe.ui.validation.IValidationComponent;
-import org.xmc.fe.ui.validation.ValidationScene;
 
 public class ValidationPasswordField extends PasswordField implements IValidationComponent {
     private static final String CSS_CLASS_INVALID = "passwordfield-invalid";
@@ -19,7 +19,7 @@ public class ValidationPasswordField extends PasswordField implements IValidatio
     }
 
     @Override
-    public void initValidationEvent(ValidationScene scene) {
+    public void initValidationEvent(Scene scene) {
         CommonTextfieldValidator.initValidationEvent(this, scene);
     }
 

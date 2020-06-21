@@ -1,6 +1,7 @@
 package org.xmc.fe.ui.validation.components;
 
 import javafx.animation.PauseTransition;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.util.Duration;
@@ -8,8 +9,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.xmc.common.utils.ReflectionUtil;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
+import org.xmc.fe.ui.SceneUtil;
 import org.xmc.fe.ui.validation.ICustomValidator;
-import org.xmc.fe.ui.validation.ValidationScene;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -42,8 +43,7 @@ public class CommonTextfieldValidator {
             errorMessages.add(PREFIX + MessageAdapter.getByKey(MessageKey.VALIDATION_MAX_LENGTH, maxLength));
         }
         if (equalTo != null) {
-            ValidationScene validationScene = (ValidationScene)textField.getScene();
-            Optional<TextField> otherTextfield = validationScene.getAllChildren(validationScene.getRoot()).stream()
+            Optional<TextField> otherTextfield = SceneUtil.getAllChildren(textField.getScene().getRoot()).stream()
                     .filter(node -> StringUtils.equals(equalTo, node.getId()))
                     .map(node -> (TextField)node)
                     .findAny();
@@ -68,10 +68,10 @@ public class CommonTextfieldValidator {
         return valid;
     }
 
-    public static void initValidationEvent(TextField textField, ValidationScene scene) {
+    public static void initValidationEvent(TextField textField, Scene scene) {
         PauseTransition pause = new PauseTransition(DELAY);
         textField.textProperty().addListener((observable, oldValue, newValue) -> {
-            pause.setOnFinished(event -> scene.validate());
+            pause.setOnFinished(event -> SceneUtil.getOrCreateValidationSceneState(scene).validate());
             pause.playFromStart();
         });
     }

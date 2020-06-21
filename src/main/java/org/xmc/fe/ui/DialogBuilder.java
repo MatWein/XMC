@@ -10,7 +10,6 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import jfxtras.styles.jmetro.JMetro;
 import org.apache.commons.lang3.tuple.Pair;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
@@ -84,13 +83,12 @@ public class DialogBuilder<T> {
             dialog.setResultConverter(resultConverter);
         }
 
-        Scene scene = dialog.getDialogPane().getScene();
+        Scene scene = SceneBuilder.getInstance().build(dialog.getDialogPane().getScene());
+        SceneUtil.getOrCreateValidationSceneState(scene);
+
         if (useDefaultIcon) {
             ((Stage)scene.getWindow()).getIcons().add(new Image(getClass().getResourceAsStream("/images/XMC_512.png")));
         }
-
-        JMetro jMetro = new JMetro(scene, DefaultScene.WINDOW_STYLE);
-        jMetro.reApplyTheme();
 
         return dialog;
     }

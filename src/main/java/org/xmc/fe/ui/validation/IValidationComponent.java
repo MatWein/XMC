@@ -1,7 +1,9 @@
 package org.xmc.fe.ui.validation;
 
+import javafx.scene.Scene;
+
 public interface IValidationComponent {
     boolean validate();
 
-    void initValidationEvent(ValidationScene scene);
+    void initValidationEvent(Scene scene);
 }

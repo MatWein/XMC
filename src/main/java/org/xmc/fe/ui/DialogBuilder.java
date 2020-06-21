@@ -2,11 +2,15 @@ package org.xmc.fe.ui;
 
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 import javafx.util.Callback;
+import jfxtras.styles.jmetro.JMetro;
 import org.apache.commons.lang3.tuple.Pair;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
@@ -23,6 +27,7 @@ public class DialogBuilder<T> {
     private Node headerGraphic;
     private Callback<ButtonType, T> resultConverter;
     private List<ButtonType> buttons = new ArrayList<>();
+    private boolean useDefaultIcon;
 
     public DialogBuilder titleKey(MessageKey titleKey) {
         this.titleKey = titleKey;
@@ -59,6 +64,11 @@ public class DialogBuilder<T> {
         return this;
     }
 
+    public DialogBuilder withDefaultIcon() {
+        this.useDefaultIcon = true;
+        return this;
+    }
+
     public Dialog<T> build() {
         Dialog<T> dialog = new Dialog<>();
 
@@ -73,6 +83,14 @@ public class DialogBuilder<T> {
         if (resultConverter != null) {
             dialog.setResultConverter(resultConverter);
         }
+
+        Scene scene = dialog.getDialogPane().getScene();
+        if (useDefaultIcon) {
+            ((Stage)scene.getWindow()).getIcons().add(new Image(getClass().getResourceAsStream("/images/XMC_512.png")));
+        }
+
+        JMetro jMetro = new JMetro(scene, DefaultScene.WINDOW_STYLE);
+        jMetro.reApplyTheme();
 
         return dialog;
     }

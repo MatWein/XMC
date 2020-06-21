@@ -10,10 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DefaultScene extends Scene {
+    public static final Style WINDOW_STYLE = Style.LIGHT;
+
     public DefaultScene(Parent component) {
         super(component);
 
-        JMetro jMetro = new JMetro(this, Style.LIGHT);
+        JMetro jMetro = new JMetro(this, WINDOW_STYLE);
         jMetro.reApplyTheme();
     }
 

@@ -38,6 +38,7 @@ public class MainController {
                 .titleKey(MessageKey.ABOUT_TITLE)
                 .addButton(MessageKey.DIALOG_OK, ButtonBar.ButtonData.OK_DONE)
                 .withFxmlContent(FxmlKey.ABOUT)
+                .withDefaultIcon()
                 .build()
                 .showAndWait();
     }

@@ -14,17 +14,17 @@
             <Insets bottom="5.0"/>
         </padding>
     </Label>
-    <ValidationChoiceBox prefHeight="25.0" prefWidth="719.0" required="false" fx:id="bankChoiceBox">
+    <ValidationComboBox prefHeight="25.0" prefWidth="719.0" required="false" fx:id="bankComboBox" visibleRowCount="5">
         <VBox.margin>
             <Insets bottom="5.0"/>
         </VBox.margin>
-    </ValidationChoiceBox>
+    </ValidationComboBox>
     <TitledPane animated="false" collapsible="false" prefHeight="217.0" text="%cashaccount.edit.bank.details">
         <HBox>
             <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="64.0" AnchorPane.leftAnchor="0.0"
                     AnchorPane.topAnchor="0.0">
                 <graphic>
-                    <ImageView />
+                    <ImageView fx:id="bankLogoImageView" />
                 </graphic>
                 <HBox.margin>
                     <Insets right="10.0"/>
@@ -53,5 +53,5 @@
     <Label text="%cashaccount.edit.number" styleClass="form-label" />
     <ValidationTextField required="false" maxLength="255" fx:id="cashAccountNumberTextfield" />
     <Label text="%cashaccount.edit.currency" styleClass="form-label" />
-    <ValidationChoiceBox prefHeight="25.0" prefWidth="719.0" required="true" fx:id="cashAccountCurrencyChoiceBox" />
+    <ValidationComboBox prefHeight="25.0" prefWidth="719.0" required="true" fx:id="cashAccountCurrencyComboBox" visibleRowCount="5"/>
 </VBox>

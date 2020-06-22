@@ -1,7 +1,7 @@
 package org.xmc.fe.ui.validation.components;
 
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import org.xmc.common.utils.ReflectionUtil;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
@@ -14,7 +14,7 @@ import org.xmc.fe.ui.validation.IValidationComponent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ValidationChoiceBox<T> extends ChoiceBox<T> implements IValidationComponent, IRequired, ICustomValidator {
+public class ValidationComboBox<T> extends ComboBox<T> implements IValidationComponent, IRequired, ICustomValidator {
     private static final String CSS_CLASS_INVALID = "textfield-invalid";
 
     private boolean required;
@@ -30,7 +30,7 @@ public class ValidationChoiceBox<T> extends ChoiceBox<T> implements IValidationC
             errorMessages.add(MessageAdapter.getByKey(MessageKey.VALIDATION_REQUIRED));
         }
         if (customValidator != null) {
-            ICustomFieldValidator<ChoiceBox<T>> validator = (ICustomFieldValidator<ChoiceBox<T>>) ReflectionUtil.createNewInstanceFactory().call(ReflectionUtil.forName(customValidator));
+            ICustomFieldValidator<ComboBox<T>> validator = (ICustomFieldValidator<ComboBox<T>>) ReflectionUtil.createNewInstanceFactory().call(ReflectionUtil.forName(customValidator));
             errorMessages.addAll(validator.validate(this));
         }
 

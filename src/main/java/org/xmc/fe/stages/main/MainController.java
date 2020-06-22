@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.layout.Region;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.xmc.be.services.login.UserLoginService;
@@ -17,6 +18,8 @@ import org.xmc.fe.ui.MessageAdapter.MessageKey;
 public class MainController {
     private final MemoryBarController memoryBarController;
 
+    public static Region backdropRef;
+    @FXML private Region backdrop;
     @FXML private Label statusLabel;
     @FXML private ProgressBar memoryProgressbar;
     @FXML private Label displayNameLabel;
@@ -28,6 +31,8 @@ public class MainController {
 
     @FXML
     public void initialize() {
+        backdropRef = backdrop;
+
         memoryBarController.startMemoryBarThread(memoryProgressbar);
         displayNameLabel.setText(MessageAdapter.getByKey(MessageKey.MAIN_DISPLAYNAME, System.getProperty(UserLoginService.SYSTEM_PROPERTY_DISPLAYNAME)));
     }

@@ -10,6 +10,7 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.Pair;
+import org.xmc.fe.stages.main.MainController;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 
@@ -31,6 +32,7 @@ public class DialogBuilder<CONTROLLER_TYPE, RETURN_TYPE> {
     private RETURN_TYPE input;
     private List<ButtonType> buttons = new ArrayList<>();
     private boolean useDefaultIcon;
+    private boolean showBackdrop;
 
     public DialogBuilder titleKey(MessageKey titleKey) {
         this.titleKey = titleKey;
@@ -44,6 +46,11 @@ public class DialogBuilder<CONTROLLER_TYPE, RETURN_TYPE> {
 
     public DialogBuilder headerGraphic(Node headerGraphic) {
         this.headerGraphic = headerGraphic;
+        return this;
+    }
+
+    public DialogBuilder showBackdrop(boolean showBackdrop) {
+        this.showBackdrop = showBackdrop;
         return this;
     }
 
@@ -105,6 +112,11 @@ public class DialogBuilder<CONTROLLER_TYPE, RETURN_TYPE> {
 
         if (useDefaultIcon) {
             ((Stage)scene.getWindow()).getIcons().add(new Image(getClass().getResourceAsStream("/images/XMC_512.png")));
+        }
+
+        if (showBackdrop) {
+            dialog.setOnShown(event -> MainController.backdropRef.setVisible(true));
+            dialog.setOnCloseRequest(event -> MainController.backdropRef.setVisible(false));
         }
 
         return dialog;

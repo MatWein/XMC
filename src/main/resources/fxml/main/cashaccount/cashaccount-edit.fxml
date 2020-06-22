@@ -14,11 +14,11 @@
             <Insets bottom="5.0"/>
         </padding>
     </Label>
-    <ChoiceBox prefHeight="25.0" prefWidth="719.0">
+    <ValidationChoiceBox prefHeight="25.0" prefWidth="719.0" required="false">
         <VBox.margin>
             <Insets bottom="5.0"/>
         </VBox.margin>
-    </ChoiceBox>
+    </ValidationChoiceBox>
     <TitledPane animated="false" collapsible="false" prefHeight="217.0" text="%cashaccount.edit.bank.details">
         <HBox>
             <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="64.0" AnchorPane.leftAnchor="0.0"
@@ -37,21 +37,21 @@
                         <Insets bottom="5.0"/>
                     </padding>
                 </Label>
-                <ValidationTextField required="true"/>
+                <ValidationTextField maxLength="255"/>
                 <Label text="%cashaccount.edit.bank.bic" styleClass="form-label" />
-                <ValidationTextField required="false"/>
+                <ValidationTextField maxLength="255"/>
                 <Label text="%cashaccount.edit.bank.blz" styleClass="form-label" />
-                <ValidationTextField required="false"/>
+                <ValidationTextField maxLength="255"/>
             </VBox>
         </HBox>
     </TitledPane>
 
     <Label text="%cashaccount.edit.name" styleClass="form-label" />
-    <ValidationTextField required="true"/>
+    <ValidationTextField required="true" maxLength="255"/>
     <Label text="%cashaccount.edit.iban" styleClass="form-label" />
-    <ValidationTextField required="false"/>
+    <ValidationTextField required="false" maxLength="255"/>
     <Label text="%cashaccount.edit.number" styleClass="form-label" />
-    <ValidationTextField required="false"/>
+    <ValidationTextField required="false" maxLength="255"/>
     <Label text="%cashaccount.edit.currency" styleClass="form-label" />
-    <ChoiceBox prefHeight="25.0" prefWidth="719.0"/>
+    <ValidationChoiceBox prefHeight="25.0" prefWidth="719.0" required="true"/>
 </VBox>

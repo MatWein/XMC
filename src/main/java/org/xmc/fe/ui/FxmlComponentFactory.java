@@ -12,7 +12,7 @@ import java.nio.charset.StandardCharsets;
 public class FxmlComponentFactory {
     private static final Charset CHARSET = StandardCharsets.UTF_8;
 
-    public static <COMPONENT_TYPE extends Parent, C> Pair<COMPONENT_TYPE, C> load(FxmlKey fxmlKey) {
+    public static <COMPONENT_TYPE extends Parent, CONTROLLER_TYPE> Pair<COMPONENT_TYPE, CONTROLLER_TYPE> load(FxmlKey fxmlKey) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
 
@@ -22,7 +22,10 @@ public class FxmlComponentFactory {
             fxmlLoader.setControllerFactory(ReflectionUtil.createNewInstanceFactory());
 
             COMPONENT_TYPE component = fxmlLoader.load();
-            return ImmutablePair.of(component, fxmlLoader.getController());
+            CONTROLLER_TYPE controller = fxmlLoader.getController();
+            component.setUserData(controller);
+
+            return ImmutablePair.of(component, controller);
         } catch (Throwable e) {
             String message = String.format("Error on loading fxml file: %s", fxmlKey.getFxmlPath());
             throw new RuntimeException(message, e);

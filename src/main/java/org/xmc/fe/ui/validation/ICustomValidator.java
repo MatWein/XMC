@@ -4,6 +4,6 @@ import javafx.scene.Parent;
 
 import java.util.Collection;
 
-public interface ICustomValidator<T extends Parent> {
-    Collection<String> validate(T component);
+public interface ICustomValidator<COMPONENT_TYPE extends Parent> {
+    Collection<String> validate(COMPONENT_TYPE component);
 }

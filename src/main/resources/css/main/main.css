@@ -1,3 +1,7 @@
 .cashaccounts-vbox {
     -fx-background-color: white;
 }
+
+.backdrop {
+    -fx-background-color: rgba(0, 0, 0, 0.3);
+}

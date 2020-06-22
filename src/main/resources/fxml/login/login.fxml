@@ -36,7 +36,7 @@
             </padding>
         </Label>
         <ValidationTextField fx:id="usernameTextfield"
-                             customValidator="org.xmc.fe.stages.login.validation.UserNotExistingValidator"
+                             customValidator="org.xmc.fe.stages.login.validation.UserNotExistingFieldValidator"
                              maxLength="255" onAction="#onLogin" required="true"/>
         <Label text="%login.password" styleClass="form-label" />
         <ValidationPasswordField fx:id="passwordField" maxLength="255" onAction="#onLogin" required="true"/>

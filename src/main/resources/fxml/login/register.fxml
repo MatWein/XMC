@@ -19,12 +19,12 @@
         <ValidationTextField fx:id="displayNameTextfield" required="true" minLength="3" maxLength="255"/>
         <Label text="%register.username" styleClass="form-label" />
         <ValidationTextField fx:id="usernameTextfield" required="true" minLength="5"
-                             customValidator="org.xmc.fe.stages.login.validation.UserAlreadyExistsValidator"
+                             customValidator="org.xmc.fe.stages.login.validation.UserAlreadyExistsFieldValidator"
                              maxLength="255"/>
         <Label text="%register.password1" styleClass="form-label" />
         <ValidationPasswordField fx:id="passwordField" required="true" minLength="7" maxLength="255"/>
         <Label text="%register.password2" styleClass="form-label" />
-        <ValidationPasswordField required="true" minLength="7" equalTo="passwordField1"
+        <ValidationPasswordField required="true" minLength="7" equalTo="passwordField"
                                  maxLength="255"/>
     </VBox>
 

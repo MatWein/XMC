@@ -2,47 +2,39 @@ package org.xmc.fe.ui.validation.components;
 
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Tooltip;
 import org.xmc.common.utils.ReflectionUtil;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.SceneUtil;
+import org.xmc.fe.ui.validation.ICustomFieldValidator;
 import org.xmc.fe.ui.validation.ICustomValidator;
+import org.xmc.fe.ui.validation.IRequired;
 import org.xmc.fe.ui.validation.IValidationComponent;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ValidationChoiceBox<T> extends ChoiceBox<T> implements IValidationComponent {
+public class ValidationChoiceBox<T> extends ChoiceBox<T> implements IValidationComponent, IRequired, ICustomValidator {
     private static final String CSS_CLASS_INVALID = "textfield-invalid";
 
     private boolean required;
     private String customValidator;
 
     @Override
-    public boolean validate() {
+    public List<String> validate() {
         T selectedItem = this.getSelectionModel().getSelectedItem();
 
-        Set<String> errorMessages = new HashSet<>();
+        List<String> errorMessages = new ArrayList<>();
 
         if (required && selectedItem == null) {
-            errorMessages.add(CommonTextfieldValidator.PREFIX + MessageAdapter.getByKey(MessageKey.VALIDATION_REQUIRED));
+            errorMessages.add(MessageAdapter.getByKey(MessageKey.VALIDATION_REQUIRED));
         }
         if (customValidator != null) {
-            ICustomValidator<ChoiceBox<T>> validator = (ICustomValidator<ChoiceBox<T>>) ReflectionUtil.createNewInstanceFactory().call(ReflectionUtil.forName(customValidator));
+            ICustomFieldValidator<ChoiceBox<T>> validator = (ICustomFieldValidator<ChoiceBox<T>>) ReflectionUtil.createNewInstanceFactory().call(ReflectionUtil.forName(customValidator));
             errorMessages.addAll(validator.validate(this));
         }
 
-        boolean valid = errorMessages.isEmpty();
-        if (valid) {
-            this.getStyleClass().removeAll(CSS_CLASS_INVALID);
-            this.setTooltip(null);
-        } else {
-            this.getStyleClass().add(CSS_CLASS_INVALID);
-            this.setTooltip(new Tooltip(String.join(System.lineSeparator(), errorMessages)));
-        }
-
-        return valid;
+        return errorMessages;
     }
 
     @Override
@@ -50,18 +42,27 @@ public class ValidationChoiceBox<T> extends ChoiceBox<T> implements IValidationC
         this.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> SceneUtil.getOrCreateValidationSceneState(scene).validate());
     }
 
+    @Override
+    public String getCssClassInvalid() {
+        return CSS_CLASS_INVALID;
+    }
+
+    @Override
     public boolean isRequired() {
         return required;
     }
 
+    @Override
     public void setRequired(boolean required) {
         this.required = required;
     }
 
+    @Override
     public String getCustomValidator() {
         return customValidator;
     }
 
+    @Override
     public void setCustomValidator(String customValidator) {
         this.customValidator = customValidator;
     }

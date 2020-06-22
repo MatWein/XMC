@@ -14,7 +14,7 @@
             <Insets bottom="5.0"/>
         </padding>
     </Label>
-    <ValidationChoiceBox prefHeight="25.0" prefWidth="719.0" required="false">
+    <ValidationChoiceBox prefHeight="25.0" prefWidth="719.0" required="false" fx:id="bankChoiceBox">
         <VBox.margin>
             <Insets bottom="5.0"/>
         </VBox.margin>
@@ -37,21 +37,21 @@
                         <Insets bottom="5.0"/>
                     </padding>
                 </Label>
-                <ValidationTextField maxLength="255"/>
+                <ValidationTextField maxLength="255" fx:id="bankNameTextfield" />
                 <Label text="%cashaccount.edit.bank.bic" styleClass="form-label" />
-                <ValidationTextField maxLength="255"/>
+                <ValidationTextField maxLength="255" fx:id="bankBicTextfield" />
                 <Label text="%cashaccount.edit.bank.blz" styleClass="form-label" />
-                <ValidationTextField maxLength="255"/>
+                <ValidationTextField maxLength="255" fx:id="bankBlzTextfield" />
             </VBox>
         </HBox>
     </TitledPane>
 
     <Label text="%cashaccount.edit.name" styleClass="form-label" />
-    <ValidationTextField required="true" maxLength="255"/>
+    <ValidationTextField required="true" maxLength="255" fx:id="cashAccountNameTextfield" />
     <Label text="%cashaccount.edit.iban" styleClass="form-label" />
-    <ValidationTextField required="false" maxLength="255"/>
+    <ValidationTextField required="false" maxLength="255" fx:id="cashAccountIbanTextfield" />
     <Label text="%cashaccount.edit.number" styleClass="form-label" />
-    <ValidationTextField required="false" maxLength="255"/>
+    <ValidationTextField required="false" maxLength="255" fx:id="cashAccountNumberTextfield" />
     <Label text="%cashaccount.edit.currency" styleClass="form-label" />
-    <ValidationChoiceBox prefHeight="25.0" prefWidth="719.0" required="true"/>
+    <ValidationChoiceBox prefHeight="25.0" prefWidth="719.0" required="true" fx:id="cashAccountCurrencyChoiceBox" />
 </VBox>

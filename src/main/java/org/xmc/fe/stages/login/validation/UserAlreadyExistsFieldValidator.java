@@ -6,14 +6,14 @@ import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import java.io.File;
 
 @Component
-public class UserNotExistingValidator extends CommonUsernameValidator {
+public class UserAlreadyExistsFieldValidator extends CommonUsernameFieldValidator {
     @Override
     protected boolean isError(File userDatabaseDir) {
-        return !userDatabaseDir.isDirectory();
+        return userDatabaseDir.isDirectory();
     }
 
     @Override
     protected MessageKey getErrorKey() {
-        return MessageKey.VALIDATION_USER_NOT_EXISTING;
+        return MessageKey.VALIDATION_USER_ALREADY_EXISTS;
     }
 }

@@ -3,69 +3,72 @@ package org.xmc.fe.ui.validation.components;
 import javafx.animation.PauseTransition;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 import javafx.util.Duration;
 import org.apache.commons.lang3.StringUtils;
 import org.xmc.common.utils.ReflectionUtil;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.SceneUtil;
-import org.xmc.fe.ui.validation.ICustomValidator;
+import org.xmc.fe.ui.validation.*;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 public class CommonTextfieldValidator {
-    public static final String PREFIX = "- ";
     private static final Duration DELAY = Duration.millis(500);
 
-    public static boolean validate(
-            TextField textField,
-            String cssClassInvalid,
-            boolean required,
-            int minLength,
-            int maxLength,
-            String equalTo,
-            String customValidatorType) {
+    public static List<String> validate(TextField textField) {
+        List<String> errorMessages = new ArrayList<>();
 
-        String text = textField.getText();
+        if (textField instanceof IRequired) {
+            IRequired fieldWrapper = (IRequired) textField;
+            boolean required = fieldWrapper.isRequired();
 
-        Set<String> errorMessages = new HashSet<>();
-
-        if (required && StringUtils.isBlank(text)) {
-            errorMessages.add(PREFIX + MessageAdapter.getByKey(MessageKey.VALIDATION_REQUIRED));
-        }
-        if (text.length() < minLength) {
-            errorMessages.add(PREFIX + MessageAdapter.getByKey(MessageKey.VALIDATION_MIN_LENGTH, minLength));
-        }
-        if (text.length() > maxLength) {
-            errorMessages.add(PREFIX + MessageAdapter.getByKey(MessageKey.VALIDATION_MAX_LENGTH, maxLength));
-        }
-        if (equalTo != null) {
-            Optional<TextField> otherTextfield = SceneUtil.getAllChildren(textField.getScene().getRoot()).stream()
-                    .filter(node -> StringUtils.equals(equalTo, node.getId()))
-                    .map(node -> (TextField)node)
-                    .findAny();
-            if (otherTextfield.isPresent() && !StringUtils.equals(text, otherTextfield.get().getText())) {
-                errorMessages.add(PREFIX + MessageAdapter.getByKey(MessageKey.VALIDATION_NOT_EQUAL_TO, MessageAdapter.getByKey(MessageKey.PASSWORD)));
+            if (required && StringUtils.isBlank(textField.getText())) {
+                errorMessages.add(MessageAdapter.getByKey(MessageKey.VALIDATION_REQUIRED));
             }
         }
-        if (customValidatorType != null) {
-            ICustomValidator<TextField> validator = (ICustomValidator<TextField>)ReflectionUtil.createNewInstanceFactory().call(ReflectionUtil.forName(customValidatorType));
-            errorMessages.addAll(validator.validate(textField));
+
+        if (textField instanceof ILength) {
+            ILength fieldWrapper = (ILength)textField;
+            Integer minLength = fieldWrapper.getMinLength();
+            Integer maxLength = fieldWrapper.getMaxLength();
+
+            if (minLength != null && textField.getText().length() < minLength) {
+                errorMessages.add(MessageAdapter.getByKey(MessageKey.VALIDATION_MIN_LENGTH, minLength));
+            }
+            if (maxLength != null && textField.getText().length() > maxLength) {
+                errorMessages.add(MessageAdapter.getByKey(MessageKey.VALIDATION_MAX_LENGTH, maxLength));
+            }
         }
 
-        boolean valid = errorMessages.isEmpty();
-        if (valid) {
-            textField.getStyleClass().removeAll(cssClassInvalid);
-            textField.setTooltip(null);
-        } else {
-            textField.getStyleClass().add(cssClassInvalid);
-            textField.setTooltip(new Tooltip(String.join(System.lineSeparator(), errorMessages)));
+        if (textField instanceof IEqualTo) {
+            IEqualTo fieldWrapper = (IEqualTo)textField;
+            String equalTo = fieldWrapper.getEqualTo();
+
+            if (equalTo != null) {
+                Optional<TextField> otherTextfield = SceneUtil.getAllChildren(textField.getScene().getRoot()).stream()
+                        .filter(node -> StringUtils.equals(equalTo, node.getId()))
+                        .map(node -> (TextField)node)
+                        .findAny();
+                if (otherTextfield.isPresent() && !StringUtils.equals(textField.getText(), otherTextfield.get().getText())) {
+                    errorMessages.add(MessageAdapter.getByKey(MessageKey.VALIDATION_NOT_EQUAL_TO, MessageAdapter.getByKey(MessageKey.PASSWORD)));
+                }
+            }
         }
 
-        return valid;
+        if (textField instanceof ICustomValidator) {
+            ICustomValidator fieldWrapper = (ICustomValidator) textField;
+            String customValidator = fieldWrapper.getCustomValidator();
+
+            if (customValidator != null) {
+                ICustomFieldValidator<TextField> validator = (ICustomFieldValidator<TextField>)ReflectionUtil.createNewInstanceFactory().call(ReflectionUtil.forName(customValidator));
+                errorMessages.addAll(validator.validate(textField));
+            }
+        }
+
+        return errorMessages;
     }
 
     public static void initValidationEvent(TextField textField, Scene scene) {

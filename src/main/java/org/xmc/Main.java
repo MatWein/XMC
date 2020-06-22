@@ -14,7 +14,6 @@ import org.xmc.be.services.login.controller.BootstrapFileController;
 import org.xmc.common.stubs.login.DtoBootstrapFile;
 import org.xmc.common.utils.HomeDirectoryPathCalculator;
 import org.xmc.fe.stages.login.BootstrapController;
-import org.xmc.fe.stages.login.LoginController;
 import org.xmc.fe.ui.FxmlComponentFactory;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
@@ -66,8 +65,6 @@ public class Main extends Application {
 
         if (autoLogin) {
             stage.setOnShown(windowEvent -> ((BootstrapController)component.getRight()).start(dtoBootstrapFile.get(), null));
-        } else {
-            ((LoginController)component.getRight()).initialize(dtoBootstrapFile);
         }
 
         stage.show();

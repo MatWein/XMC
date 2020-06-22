@@ -80,7 +80,6 @@ public class CashAccountController {
                 .resultConverter(cashAccountEditDialogMapper)
                 .inputConverter(cashAccountEditDialogMapper)
                 .withInput(input)
-                .showBackdrop(true)
                 .build()
                 .showAndWait();
 

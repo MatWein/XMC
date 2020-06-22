@@ -32,7 +32,7 @@ public class DialogBuilder<CONTROLLER_TYPE, RETURN_TYPE> {
     private RETURN_TYPE input;
     private List<ButtonType> buttons = new ArrayList<>();
     private boolean useDefaultIcon;
-    private boolean showBackdrop;
+    private boolean showBackdrop = true;
 
     public DialogBuilder titleKey(MessageKey titleKey) {
         this.titleKey = titleKey;

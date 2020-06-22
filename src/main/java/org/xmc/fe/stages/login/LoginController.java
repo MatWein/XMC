@@ -10,6 +10,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration;
 import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
 import org.springframework.stereotype.Component;
+import org.xmc.be.services.login.controller.BootstrapFileController;
 import org.xmc.common.stubs.login.DtoBootstrapFile;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.SceneUtil;
@@ -35,9 +36,8 @@ public class LoginController {
                 saveCredentialsToggle.setSelected(true);
             }
         });
-    }
 
-    public void initialize(Optional<DtoBootstrapFile> dtoBootstrapFile) {
+        Optional<DtoBootstrapFile> dtoBootstrapFile = BootstrapFileController.readBootstrapFile();
         if (dtoBootstrapFile.isPresent()) {
             saveCredentialsToggle.setSelected(dtoBootstrapFile.get().isSaveCredentials());
             autoLoginToggle.setSelected(dtoBootstrapFile.get().isAutoLogin());

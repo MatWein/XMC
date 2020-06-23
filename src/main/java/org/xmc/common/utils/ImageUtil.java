@@ -6,6 +6,7 @@ import org.apache.commons.io.FileUtils;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class ImageUtil {
     public static Image readFromFile$(File file) {
@@ -18,7 +19,7 @@ public class ImageUtil {
 
     public static Image readFromFile(File file) throws IOException {
         try (var inputStream = FileUtils.openInputStream(file)) {
-            return new Image(inputStream);
+            return createImageFromInputStream(inputStream, file.getAbsolutePath());
         }
     }
 
@@ -32,7 +33,15 @@ public class ImageUtil {
 
     public static Image readFromByteArray(byte[] image) throws IOException {
         try (var inputStream = new ByteArrayInputStream(image)) {
-            return new Image(inputStream);
+            return createImageFromInputStream(inputStream, "byte array");
         }
+    }
+
+    private static Image createImageFromInputStream(InputStream inputStream, String errorParam) throws IOException {
+        Image image = new Image(inputStream);
+        if (image.isError()) {
+            throw new IOException(String.format("Error on loading image from %s.", errorParam), image.getException());
+        }
+        return image;
     }
 }

@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -45,7 +46,11 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         hostServices = getHostServices();
-        LoggerFactory.getLogger(Main.class).info("Opening login window.");
+
+        Logger logger = LoggerFactory.getLogger(Main.class);
+        logger.info("Opening login window.");
+
+        Thread.setDefaultUncaughtExceptionHandler((t, e) -> logger.error("Unexpected error on thread '{}'.", t.getName(), e));
 
         Optional<DtoBootstrapFile> dtoBootstrapFile = BootstrapFileController.readBootstrapFile();
         boolean autoLogin = dtoBootstrapFile.isPresent()

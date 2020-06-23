@@ -31,6 +31,8 @@ public class MessageAdapter {
         PASSWORD("password"),
         TABLE_NO_CONTENT("table.noContent"),
         DIALOG_OK("dialog.ok"),
+        FILECHOOSER_IMAGES("filechooser.extensionfilter.images"),
+        FILECHOOSER_TITLE("filechooser.title"),
 
         VALIDATION_REQUIRED("validation.required"),
         VALIDATION_MIN_LENGTH("validation.minLength"),

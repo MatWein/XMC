@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.xmc.JUnitTestBase;
 
-public class CrypterTest extends JUnitTestBase {
+class CrypterTest extends JUnitTestBase {
 	private Crypter crypter;
 
 	@BeforeEach

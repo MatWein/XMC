@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.Method;
 
-public class GraphGeneratorTest extends DerbyDatabaseTest {
+class GraphGeneratorTest extends DerbyDatabaseTest {
 	private static final Logger LOGGER = LoggerFactory.getLogger(GraphGeneratorTest.class);
 	
 	@Autowired 

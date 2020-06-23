@@ -2,13 +2,16 @@ package org.xmc.be;
 
 import org.hibernate.Session;
 import org.junit.Ignore;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import org.xmc.JUnitTestBase;
+import org.xmc.Main;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -24,6 +27,17 @@ public class DerbyDatabaseTest extends JUnitTestBase {
 
     @Autowired
     protected GraphGenerator graphGenerator;
+
+    @Autowired
+    protected ConfigurableApplicationContext applicationContext;
+
+    @BeforeEach
+    @Override
+    public void init() {
+        super.init();
+
+        Main.applicationContext = applicationContext;
+    }
 
     protected Session session() {
         return entityManager.unwrap(Session.class);

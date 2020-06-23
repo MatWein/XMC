@@ -11,6 +11,7 @@ import org.xmc.be.services.login.controller.BootstrapFileController;
 import org.xmc.common.stubs.login.DtoBootstrapFile;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -27,16 +28,21 @@ public class UserLoginService {
     }
 
     public void login(DtoBootstrapFile dtoBootstrapFile) {
-        LOGGER.info("Logging in user '{}'.", dtoBootstrapFile.getUsername());
+        String username = dtoBootstrapFile.getUsername();
+        LOGGER.info("Logging in user '{}'.", username);
 
-        User user = userRepository.findByUsername(dtoBootstrapFile.getUsername());
-        user.setLastLogin(LocalDateTime.now());
-        userRepository.save(user);
+        Optional<User> user = userRepository.findByUsername(username);
+        if (user.isPresent()) {
+            user.get().setLastLogin(LocalDateTime.now());
+            userRepository.save(user.get());
+        } else {
+            throw new RuntimeException(String.format("Could not find user for username '%s'.", username));
+        }
 
         System.clearProperty("user.name");
         System.clearProperty("user.password");
         System.clearProperty("user.database.dir");
-        System.setProperty(SYSTEM_PROPERTY_DISPLAYNAME, user.getDisplayName());
+        System.setProperty(SYSTEM_PROPERTY_DISPLAYNAME, user.get().getDisplayName());
 
         BootstrapFileController.writeBootstrapFile(dtoBootstrapFile);
     }

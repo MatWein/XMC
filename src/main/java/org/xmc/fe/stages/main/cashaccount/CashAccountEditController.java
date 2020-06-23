@@ -9,6 +9,8 @@ import javafx.scene.image.Image;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.xmc.be.services.bank.BankService;
+import org.xmc.be.services.currency.CurrencyService;
 import org.xmc.common.stubs.DtoBank;
 import org.xmc.fe.stages.main.cashaccount.converter.CurrencyConverter;
 import org.xmc.fe.stages.main.cashaccount.converter.DtoBankConverter;
@@ -21,15 +23,14 @@ import org.xmc.fe.ui.validation.IValidationController;
 import org.xmc.fe.ui.validation.components.ValidationComboBox;
 import org.xmc.fe.ui.validation.components.ValidationTextField;
 
-import java.util.Comparator;
 import java.util.Currency;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class CashAccountEditController implements IValidationController {
     private final CurrencyConverter currencyConverter;
     private final DtoBankConverter dtoBankConverter;
+    private final CurrencyService currencyService;
+    private final BankService bankService;
 
     @FXML private ImageSelectionButton logoButton;
     @FXML private TitledPane bankTitledPane;
@@ -45,10 +46,14 @@ public class CashAccountEditController implements IValidationController {
     @Autowired
     public CashAccountEditController(
             CurrencyConverter currencyConverter,
-            DtoBankConverter dtoBankConverter) {
+            DtoBankConverter dtoBankConverter,
+            CurrencyService currencyService,
+            BankService bankService) {
 
         this.currencyConverter = currencyConverter;
         this.dtoBankConverter = dtoBankConverter;
+        this.currencyService = currencyService;
+        this.bankService = bankService;
     }
 
     @FXML
@@ -57,15 +62,12 @@ public class CashAccountEditController implements IValidationController {
 
         bankComboBox.setConverter(GenericItemToStringConverter.getInstance(dtoBankConverter));
         bankComboBox.getItems().add(emptyBank);
+        bankComboBox.getItems().addAll(bankService.loadAllBanks());
         bankComboBox.getSelectionModel().selectedItemProperty().addListener(createBankChangeListener());
         bankComboBox.getSelectionModel().select(emptyBank);
 
-        List<Currency> currencies = Currency.getAvailableCurrencies().stream()
-                .sorted(Comparator.comparing(Currency::toString, Comparator.naturalOrder()))
-                .collect(Collectors.toList());
-
         cashAccountCurrencyComboBox.setConverter(GenericItemToStringConverter.getInstance(currencyConverter));
-        cashAccountCurrencyComboBox.getItems().addAll(currencies);
+        cashAccountCurrencyComboBox.getItems().addAll(currencyService.loadAllCurrencies());
     }
 
     private ChangeListener<DtoBank> createBankChangeListener() {

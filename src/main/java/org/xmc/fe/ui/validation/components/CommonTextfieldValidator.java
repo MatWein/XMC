@@ -35,10 +35,10 @@ public class CommonTextfieldValidator {
             Integer minLength = fieldWrapper.getMinLength();
             Integer maxLength = fieldWrapper.getMaxLength();
 
-            if (minLength != null && textField.getText().length() < minLength) {
+            if (minLength != null && StringUtils.defaultString(textField.getText()).length() < minLength) {
                 errorMessages.add(MessageAdapter.getByKey(MessageKey.VALIDATION_MIN_LENGTH, minLength));
             }
-            if (maxLength != null && textField.getText().length() > maxLength) {
+            if (maxLength != null && StringUtils.defaultString(textField.getText()).length() > maxLength) {
                 errorMessages.add(MessageAdapter.getByKey(MessageKey.VALIDATION_MAX_LENGTH, maxLength));
             }
         }

@@ -2,8 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
+<?import org.xmc.fe.ui.components.ImageSelectionButton?>
 <?import org.xmc.fe.ui.validation.components.*?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="541.0"
       prefWidth="719.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
@@ -19,17 +19,17 @@
             <Insets bottom="5.0"/>
         </VBox.margin>
     </ValidationComboBox>
-    <TitledPane animated="false" collapsible="false" prefHeight="217.0" text="%cashaccount.edit.bank.details" fx:id="bankTitledPane">
+    <TitledPane animated="false" collapsible="false" prefHeight="217.0" text="%cashaccount.edit.bank.details"
+                fx:id="bankTitledPane">
         <HBox>
-            <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="64.0" AnchorPane.leftAnchor="0.0"
-                    AnchorPane.topAnchor="0.0" text="%cashaccount.edit.bank.logo">
-                <graphic>
-                    <ImageView fx:id="bankLogoImageView" />
-                </graphic>
+            <ImageSelectionButton mnemonicParsing="false" prefHeight="64.0" prefWidth="64.0"
+                                  maxWidth="64.0" maxHeight="64.0" AnchorPane.leftAnchor="0.0"
+                                  AnchorPane.topAnchor="0.0" messageKey="CASHACCOUNT_EDIT_BANK_LOGO"
+                                  fx:id="logoButton" fitHeight="32.0" fitWidth="32.0">
                 <HBox.margin>
                     <Insets right="10.0"/>
                 </HBox.margin>
-            </Button>
+            </ImageSelectionButton>
 
             <VBox HBox.hgrow="ALWAYS">
                 <Label text="%cashaccount.edit.bank.name">
@@ -37,21 +37,22 @@
                         <Insets bottom="5.0"/>
                     </padding>
                 </Label>
-                <ValidationTextField maxLength="255" fx:id="bankNameTextfield" />
-                <Label text="%cashaccount.edit.bank.bic" styleClass="form-label" />
-                <ValidationTextField maxLength="255" fx:id="bankBicTextfield" />
-                <Label text="%cashaccount.edit.bank.blz" styleClass="form-label" />
-                <ValidationTextField maxLength="255" fx:id="bankBlzTextfield" />
+                <ValidationTextField maxLength="255" fx:id="bankNameTextfield"/>
+                <Label text="%cashaccount.edit.bank.bic" styleClass="form-label"/>
+                <ValidationTextField maxLength="255" fx:id="bankBicTextfield"/>
+                <Label text="%cashaccount.edit.bank.blz" styleClass="form-label"/>
+                <ValidationTextField maxLength="255" fx:id="bankBlzTextfield"/>
             </VBox>
         </HBox>
     </TitledPane>
 
-    <Label text="%cashaccount.edit.name" styleClass="form-label" />
-    <ValidationTextField required="true" maxLength="255" fx:id="cashAccountNameTextfield" />
-    <Label text="%cashaccount.edit.iban" styleClass="form-label" />
-    <ValidationTextField required="false" maxLength="255" fx:id="cashAccountIbanTextfield" />
-    <Label text="%cashaccount.edit.number" styleClass="form-label" />
-    <ValidationTextField required="false" maxLength="255" fx:id="cashAccountNumberTextfield" />
-    <Label text="%cashaccount.edit.currency" styleClass="form-label" />
-    <ValidationComboBox prefHeight="25.0" prefWidth="719.0" required="true" fx:id="cashAccountCurrencyComboBox" visibleRowCount="5"/>
+    <Label text="%cashaccount.edit.name" styleClass="form-label"/>
+    <ValidationTextField required="true" maxLength="255" fx:id="cashAccountNameTextfield"/>
+    <Label text="%cashaccount.edit.iban" styleClass="form-label"/>
+    <ValidationTextField required="false" maxLength="255" fx:id="cashAccountIbanTextfield"/>
+    <Label text="%cashaccount.edit.number" styleClass="form-label"/>
+    <ValidationTextField required="false" maxLength="255" fx:id="cashAccountNumberTextfield"/>
+    <Label text="%cashaccount.edit.currency" styleClass="form-label"/>
+    <ValidationComboBox prefHeight="25.0" prefWidth="719.0" required="true" fx:id="cashAccountCurrencyComboBox"
+                        visibleRowCount="5"/>
 </VBox>

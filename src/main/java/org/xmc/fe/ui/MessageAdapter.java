@@ -54,7 +54,8 @@ public class MessageAdapter {
         CASHACCOUNT_EDIT_TITLE("cashaccount.edit.title"),
         CASHACCOUNT_EDIT_SAVE("cashaccount.edit.save"),
         CASHACCOUNT_EDIT_CANCEL("cashaccount.edit.cancel"),
-        CASHACCOUNT_EDIT_ADD_BANK("cashaccount.edit.addBank")
+        CASHACCOUNT_EDIT_ADD_BANK("cashaccount.edit.addBank"),
+        CASHACCOUNT_EDIT_BANK_LOGO("cashaccount.edit.bank.logo")
         ;
 
         private final String key;

@@ -19,8 +19,8 @@ import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 
-public class DialogBuilder<CONTROLLER_TYPE, RETURN_TYPE> {
-    public static DialogBuilder getInstance() { return new DialogBuilder(); }
+public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE> {
+    public static CustomDialogBuilder getInstance() { return new CustomDialogBuilder(); }
 
     private MessageKey titleKey;
     private MessageKey headerTextKey;
@@ -34,58 +34,58 @@ public class DialogBuilder<CONTROLLER_TYPE, RETURN_TYPE> {
     private boolean useDefaultIcon;
     private boolean showBackdrop = true;
 
-    public DialogBuilder titleKey(MessageKey titleKey) {
+    public CustomDialogBuilder titleKey(MessageKey titleKey) {
         this.titleKey = titleKey;
         return this;
     }
 
-    public DialogBuilder headerTextKey(MessageKey headerTextKey) {
+    public CustomDialogBuilder headerTextKey(MessageKey headerTextKey) {
         this.headerTextKey = headerTextKey;
         return this;
     }
 
-    public DialogBuilder headerGraphic(Node headerGraphic) {
+    public CustomDialogBuilder headerGraphic(Node headerGraphic) {
         this.headerGraphic = headerGraphic;
         return this;
     }
 
-    public DialogBuilder showBackdrop(boolean showBackdrop) {
+    public CustomDialogBuilder showBackdrop(boolean showBackdrop) {
         this.showBackdrop = showBackdrop;
         return this;
     }
 
-    public DialogBuilder withContent(Node content) {
+    public CustomDialogBuilder withContent(Node content) {
         this.content = content;
         return this;
     }
 
-    public DialogBuilder withFxmlContent(FxmlKey key) {
+    public CustomDialogBuilder withFxmlContent(FxmlKey key) {
         Pair<Parent, CONTROLLER_TYPE> component = FxmlComponentFactory.load(key);
         this.controller = component.getRight();
         return withContent(component.getLeft());
     }
 
-    public DialogBuilder addButton(MessageKey buttonTextKey, ButtonData buttonData) {
+    public CustomDialogBuilder addButton(MessageKey buttonTextKey, ButtonData buttonData) {
         buttons.add(new ButtonType(MessageAdapter.getByKey(buttonTextKey), buttonData));
         return this;
     }
 
-    public DialogBuilder resultConverter(BiFunction<ButtonType, CONTROLLER_TYPE, RETURN_TYPE> resultConverter) {
+    public CustomDialogBuilder resultConverter(BiFunction<ButtonType, CONTROLLER_TYPE, RETURN_TYPE> resultConverter) {
         this.resultConverter = resultConverter;
         return this;
     }
 
-    public DialogBuilder inputConverter(BiConsumer<CONTROLLER_TYPE, RETURN_TYPE> inputConverter) {
+    public CustomDialogBuilder inputConverter(BiConsumer<CONTROLLER_TYPE, RETURN_TYPE> inputConverter) {
         this.inputConverter = inputConverter;
         return this;
     }
 
-    public DialogBuilder withInput(RETURN_TYPE input) {
+    public CustomDialogBuilder withInput(RETURN_TYPE input) {
         this.input = input;
         return this;
     }
 
-    public DialogBuilder withDefaultIcon() {
+    public CustomDialogBuilder withDefaultIcon() {
         this.useDefaultIcon = true;
         return this;
     }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import org.xmc.be.services.cashaccount.CashAccountService;
 import org.xmc.common.stubs.cashaccount.DtoCashAccount;
 import org.xmc.fe.stages.main.cashaccount.mapper.CashAccountEditDialogMapper;
-import org.xmc.fe.ui.DialogBuilder;
+import org.xmc.fe.ui.CustomDialogBuilder;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
@@ -71,7 +71,7 @@ public class CashAccountController {
     }
 
     private void createOrEditCashAccount(DtoCashAccount input) {
-        Optional<DtoCashAccount> dtoCashAccount = DialogBuilder.getInstance()
+        Optional<DtoCashAccount> dtoCashAccount = CustomDialogBuilder.getInstance()
                 .titleKey(MessageKey.CASHACCOUNT_EDIT_TITLE)
                 .addButton(MessageKey.CASHACCOUNT_EDIT_CANCEL, ButtonData.NO)
                 .addButton(MessageKey.CASHACCOUNT_EDIT_SAVE, ButtonData.OK_DONE)

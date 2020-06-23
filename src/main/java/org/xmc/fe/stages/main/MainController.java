@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.xmc.be.services.login.UserLoginService;
 import org.xmc.fe.stages.main.logic.MemoryBarController;
-import org.xmc.fe.ui.DialogBuilder;
+import org.xmc.fe.ui.CustomDialogBuilder;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
@@ -39,7 +39,7 @@ public class MainController {
 
     @FXML
     public void onAbout() {
-        DialogBuilder.getInstance()
+        CustomDialogBuilder.getInstance()
                 .titleKey(MessageKey.ABOUT_TITLE)
                 .addButton(MessageKey.DIALOG_OK, ButtonData.OK_DONE)
                 .withFxmlContent(FxmlKey.ABOUT)

@@ -19,10 +19,10 @@
             <Insets bottom="5.0"/>
         </VBox.margin>
     </ValidationComboBox>
-    <TitledPane animated="false" collapsible="false" prefHeight="217.0" text="%cashaccount.edit.bank.details">
+    <TitledPane animated="false" collapsible="false" prefHeight="217.0" text="%cashaccount.edit.bank.details" fx:id="bankTitledPane">
         <HBox>
             <Button mnemonicParsing="false" prefHeight="64.0" prefWidth="64.0" AnchorPane.leftAnchor="0.0"
-                    AnchorPane.topAnchor="0.0">
+                    AnchorPane.topAnchor="0.0" text="%cashaccount.edit.bank.logo">
                 <graphic>
                     <ImageView fx:id="bankLogoImageView" />
                 </graphic>

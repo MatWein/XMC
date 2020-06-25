@@ -1,6 +1,5 @@
 package org.xmc.be.services.currency;
 
-import com.google.common.collect.Iterables;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,9 +20,8 @@ class CurrencyServiceTest extends JUnitTestBase {
     void loadAllCurrencies() {
         List<Currency> currencies = service.loadAllCurrencies();
 
-        Assert.assertEquals(227, currencies.size());
-        Assert.assertEquals(Currency.getInstance("ADP"), Iterables.getFirst(currencies, null));
-        Assert.assertEquals(Currency.getInstance("ZWR"), Iterables.getLast(currencies, null));
+        Assert.assertTrue(currencies.size() > 200);
         Assert.assertTrue(currencies.contains(Currency.getInstance("EUR")));
+        Assert.assertTrue(currencies.contains(Currency.getInstance("USD")));
     }
 }

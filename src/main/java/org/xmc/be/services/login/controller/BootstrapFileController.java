@@ -4,6 +4,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.SerializationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.xmc.common.stubs.login.DtoBootstrapFile;
 import org.xmc.common.utils.Crypter;
 import org.xmc.common.utils.HomeDirectoryPathCalculator;
@@ -11,10 +12,11 @@ import org.xmc.common.utils.HomeDirectoryPathCalculator;
 import java.io.File;
 import java.util.Optional;
 
+@Component
 public class BootstrapFileController {
     private static final Logger LOGGER = LoggerFactory.getLogger(BootstrapFileController.class);
 
-    public static void writeBootstrapFile(DtoBootstrapFile dtoBootstrapFile) {
+    public void writeBootstrapFile(DtoBootstrapFile dtoBootstrapFile) {
         try {
             File credentialFile = new File(HomeDirectoryPathCalculator.calculateCredentialFilePath());
             if (dtoBootstrapFile.isSaveCredentials()) {

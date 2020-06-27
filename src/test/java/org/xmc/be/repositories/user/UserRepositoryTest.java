@@ -3,17 +3,17 @@ package org.xmc.be.repositories.user;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.xmc.be.DerbyDatabaseTest;
+import org.xmc.be.IntegrationTest;
 import org.xmc.be.entities.user.User;
 
 import java.util.Optional;
 
-class UserRepositoryTest extends DerbyDatabaseTest {
+class UserRepositoryTest extends IntegrationTest {
     @Autowired
     private UserRepository userRepository;
 
     @Test
-    void findByUsername() {
+    void testFindByUsername() {
         graphGenerator.createUser();
         String username = "user1";
         User user = graphGenerator.createUser(username);
@@ -27,7 +27,7 @@ class UserRepositoryTest extends DerbyDatabaseTest {
     }
 
     @Test
-    void findByUsername_NotFound() {
+    void testFindByUsername_NotFound() {
         graphGenerator.createUser();
         graphGenerator.createUser();
 

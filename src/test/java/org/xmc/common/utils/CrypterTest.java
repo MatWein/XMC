@@ -14,7 +14,7 @@ class CrypterTest extends JUnitTestBase {
 	}
 	
 	@Test
-	public void testEncryptAndDecrypt() {
+	void testEncryptAndDecrypt() {
 		String source = "This is a test string. With linebreak\r\n and numbers 1234567890.";
 		
 		String encryptedString = crypter.encrypt(source);
@@ -24,7 +24,7 @@ class CrypterTest extends JUnitTestBase {
 	}
 	
 	@Test
-	public void testDecrypt() {
+	void testDecrypt() {
 		Assert.assertEquals("3", crypter.decrypt("on7Etc4Bf5SiRrfNrCu8fg"));
 		Assert.assertEquals("99", crypter.decrypt("jF5AVcmXtBQS9ofkR1SHJQ"));
 	}

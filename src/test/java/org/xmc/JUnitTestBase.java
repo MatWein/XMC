@@ -1,5 +1,7 @@
 package org.xmc;
 
+import io.github.benas.randombeans.EnhancedRandomBuilder;
+import io.github.benas.randombeans.api.EnhancedRandom;
 import javafx.application.Platform;
 import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,8 +13,12 @@ import java.util.concurrent.atomic.AtomicReference;
 
 @Ignore
 public class JUnitTestBase {
-	protected final DtoGraphGenerator dtoGraphGenerator = new DtoGraphGenerator();
+	protected final EnhancedRandom enhancedRandom = EnhancedRandomBuilder.aNewEnhancedRandom();
 	protected final TestObjectFactory testObjectFactory = new TestObjectFactory();
+
+	static {
+		Platform.startup(() -> {});
+	}
 
 	@BeforeEach
 	public void init() {
@@ -23,7 +29,7 @@ public class JUnitTestBase {
 		AtomicBoolean finished = new AtomicBoolean(false);
 		AtomicReference<Throwable> exception = new AtomicReference<>();
 
-		Platform.startup(() -> {
+		Platform.runLater(() -> {
 			try {
 				runnable.run();
 			} catch (Throwable e) {

@@ -18,7 +18,7 @@ public class ImageSelectionButton extends Button {
 
     public ImageSelectionButton() {
         this.setOnAction(event -> {
-            Optional<File> selectedFile = DialogHelper.createOpenFileDialog(getScene().getWindow(), DialogHelper.IMAGE_EXTENSION_FILTER);
+            Optional<File> selectedFile = DialogHelper.showOpenFileDialog(getScene().getWindow(), DialogHelper.IMAGE_EXTENSION_FILTER);
             if (selectedFile.isPresent()) {
                 showImage(ImageUtil.readFromFile$(selectedFile.get()));
             }

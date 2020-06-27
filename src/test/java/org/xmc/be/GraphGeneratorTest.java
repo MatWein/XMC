@@ -1,20 +1,20 @@
 package org.xmc.be;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.Method;
 
-class GraphGeneratorTest extends DerbyDatabaseTest {
+class GraphGeneratorTest extends IntegrationTest {
 	private static final Logger LOGGER = LoggerFactory.getLogger(GraphGeneratorTest.class);
 	
 	@Autowired 
 	private GraphGenerator graphGenerator;
 	
 	@Test
-	public void testCreateAllEntities() throws Exception {
+	void testCreateAllEntities() throws Exception {
 		Method[] methods = graphGenerator.getClass().getDeclaredMethods();
 		for (Method method : methods) {
 			method.setAccessible(true);

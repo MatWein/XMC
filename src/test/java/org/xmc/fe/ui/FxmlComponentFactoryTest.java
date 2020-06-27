@@ -6,10 +6,10 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xmc.be.DerbyDatabaseTest;
+import org.xmc.be.IntegrationTest;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 
-class FxmlComponentFactoryTest extends DerbyDatabaseTest {
+class FxmlComponentFactoryTest extends IntegrationTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(FxmlComponentFactoryTest.class);
 
     @Test

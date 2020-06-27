@@ -17,7 +17,7 @@ class CurrencyServiceTest extends JUnitTestBase {
     }
 
     @Test
-    void loadAllCurrencies() {
+    void testLoadAllCurrencies() {
         List<Currency> currencies = service.loadAllCurrencies();
 
         Assert.assertTrue(currencies.size() > 200);

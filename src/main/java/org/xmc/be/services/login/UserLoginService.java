@@ -21,10 +21,15 @@ public class UserLoginService {
     public static final String SYSTEM_PROPERTY_DISPLAYNAME = "user.displayName";
 
     private final UserRepository userRepository;
+    private final BootstrapFileController bootstrapFileController;
 
     @Autowired
-    public UserLoginService(UserRepository userRepository) {
+    public UserLoginService(
+            UserRepository userRepository,
+            BootstrapFileController bootstrapFileController) {
+
         this.userRepository = userRepository;
+        this.bootstrapFileController = bootstrapFileController;
     }
 
     public void login(DtoBootstrapFile dtoBootstrapFile) {
@@ -44,6 +49,6 @@ public class UserLoginService {
         System.clearProperty("user.database.dir");
         System.setProperty(SYSTEM_PROPERTY_DISPLAYNAME, user.get().getDisplayName());
 
-        BootstrapFileController.writeBootstrapFile(dtoBootstrapFile);
+        bootstrapFileController.writeBootstrapFile(dtoBootstrapFile);
     }
 }

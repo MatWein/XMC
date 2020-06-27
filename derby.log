@@ -1,0 +1,29 @@
+----------------------------------------------------------------
+Wed Jun 24 20:50:04 CEST 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0172-e7aa-671c-0000091aef00 
+on database directory memory:D:\Entwicklung\XMC\xmc\testdb with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@77556fd 
+Loaded from file:/C:/Users/Matthias/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
+java.vendor=Oracle Corporation
+java.runtime.version=11+28
+user.dir=D:\Entwicklung\XMC\xmc
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Wed Jun 24 20:50:06 CEST 2020:
+Shutting down instance a816c00e-0172-e7aa-671c-0000091aef00 on database directory memory:D:\Entwicklung\XMC\xmc\testdb with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@77556fd 
+----------------------------------------------------------------
+Wed Jun 24 20:50:06 CEST 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance 522b00e8-0172-e7aa-671c-0000091aef00 
+on database directory memory:D:\Entwicklung\XMC\xmc\testdb with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@77556fd 
+Loaded from file:/C:/Users/Matthias/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
+java.vendor=Oracle Corporation
+java.runtime.version=11+28
+user.dir=D:\Entwicklung\XMC\xmc
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

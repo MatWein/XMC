@@ -11,7 +11,11 @@ import java.util.ResourceBundle;
 public class MessageAdapter {
     private static final Logger LOGGER = LoggerFactory.getLogger(MessageAdapter.class);
 
-    static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("messages.messages", Locale.getDefault());
+    static ResourceBundle RESOURCE_BUNDLE = initBundle();
+
+    static ResourceBundle initBundle() {
+        return RESOURCE_BUNDLE = ResourceBundle.getBundle("messages.messages", Locale.getDefault());
+    }
 
     public static String getByKey(MessageKey key, Object... args) {
         if (key == null) {

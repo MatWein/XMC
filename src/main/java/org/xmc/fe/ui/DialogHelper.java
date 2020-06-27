@@ -14,17 +14,17 @@ public class DialogHelper {
             MessageAdapter.getByKey(MessageKey.FILECHOOSER_IMAGES),
             "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif");
 
-    public static Optional<File> createOpenFileDialog(Window ownerWindow, ExtensionFilter extensionFilter) {
+    public static Optional<File> showOpenFileDialog(Window ownerWindow, ExtensionFilter extensionFilter) {
         FileChooser fileChooser = createFileChooser(extensionFilter);
         return Optional.ofNullable(fileChooser.showOpenDialog(ownerWindow));
     }
 
-    public static List<File> createOpenMultipleFileDialog(Window ownerWindow, ExtensionFilter extensionFilter) {
+    public static List<File> showOpenMultipleFileDialog(Window ownerWindow, ExtensionFilter extensionFilter) {
         FileChooser fileChooser = createFileChooser(extensionFilter);
         return fileChooser.showOpenMultipleDialog(ownerWindow);
     }
 
-    private static FileChooser createFileChooser(ExtensionFilter extensionFilter) {
+    static FileChooser createFileChooser(ExtensionFilter extensionFilter) {
         FileChooser fileChooser = new FileChooser();
 
         fileChooser.setTitle(MessageAdapter.getByKey(MessageKey.FILECHOOSER_TITLE));

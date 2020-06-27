@@ -2,6 +2,7 @@ package org.xmc.be;
 
 import org.hibernate.Session;
 import org.junit.Ignore;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ import javax.persistence.PersistenceContext;
 @SpringBootTest
 @ActiveProfiles("test")
 @RunWith(SpringJUnit4ClassRunner.class)
-public class DerbyDatabaseTest extends JUnitTestBase {
+public class IntegrationTest extends JUnitTestBase {
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -37,6 +38,11 @@ public class DerbyDatabaseTest extends JUnitTestBase {
         super.init();
 
         Main.applicationContext = applicationContext;
+    }
+
+    @AfterEach
+    public void destroy() {
+        Main.applicationContext = null;
     }
 
     protected Session session() {

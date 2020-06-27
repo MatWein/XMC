@@ -15,7 +15,7 @@ public class HomeDirectoryPathCalculator {
     private static final String HOME_WORKINGDIR = "workingdir";
     private static final String HOME_CUSTOM = "custom";
 
-    private static String cachedHomeDir;
+    static String cachedHomeDir;
 
     public static void initializeSystemProperties() {
         String homeDir = calculateHomeDir();

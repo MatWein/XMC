@@ -9,6 +9,20 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class ImageUtil {
+    public static Image readFromClasspath$(String path) {
+        try {
+            return readFromClasspath(path);
+        } catch (IOException e) {
+            throw new RuntimeException(String.format("Error on reading image from classpath '%s'.", path), e);
+        }
+    }
+
+    public static Image readFromClasspath(String path) throws IOException {
+        try (InputStream inputStream = ImageUtil.class.getResourceAsStream(path)) {
+            return createImageFromInputStream(inputStream, "classpath");
+        }
+    }
+
     public static Image readFromFile$(File file) {
         try {
             return readFromFile(file);

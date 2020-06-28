@@ -2,9 +2,9 @@ package org.xmc.fe.ui;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.Pair;
+import org.xmc.fe.FeConstants;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 
@@ -82,7 +82,7 @@ public class StageBuilder {
         existingStage.setTitle(MessageAdapter.getByKey(titleKey));
 
         if (useDefaultIcon) {
-            existingStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/XMC_512.png")));
+            existingStage.getIcons().add(FeConstants.APP_ICON);
         }
 
         if (minSize != null) {

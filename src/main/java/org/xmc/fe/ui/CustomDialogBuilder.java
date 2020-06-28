@@ -7,9 +7,9 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.Pair;
+import org.xmc.fe.FeConstants;
 import org.xmc.fe.stages.main.MainController;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
@@ -98,6 +98,7 @@ public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE> {
         dialog.setGraphic(headerGraphic);
 
         DialogPane dialogPane = dialog.getDialogPane();
+        dialogPane.getStylesheets().add(FeConstants.BASE_CSS_PATH);
         dialogPane.setContent(content);
         dialogPane.getButtonTypes().addAll(buttons);
 
@@ -111,7 +112,7 @@ public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE> {
         Scene scene = SceneBuilder.getInstance().build(dialog.getDialogPane().getScene());
 
         if (useDefaultIcon) {
-            ((Stage)scene.getWindow()).getIcons().add(new Image(getClass().getResourceAsStream("/images/XMC_512.png")));
+            ((Stage)scene.getWindow()).getIcons().add(FeConstants.APP_ICON);
         }
 
         if (showBackdrop) {

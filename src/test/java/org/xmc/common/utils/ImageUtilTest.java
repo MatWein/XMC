@@ -6,13 +6,14 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.xmc.JUnitTestBase;
+import org.xmc.fe.FeConstants;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
 class ImageUtilTest extends JUnitTestBase {
-    private static final String VALID_IMAGE = "/images/XMC_512.png";
+    private static final String VALID_IMAGE = FeConstants.APP_ICON_PATH;
     private static final String INVALID_IMAGE = "/application-test.yaml";
 
     @Test
@@ -73,5 +74,10 @@ class ImageUtilTest extends JUnitTestBase {
     @Test()
     void testReadFromByteArray_Error() {
         Assert.assertThrows(IOException.class, () -> ImageUtil.readFromByteArray(IOUtils.resourceToByteArray(INVALID_IMAGE)));
+    }
+
+    @Test
+    void testReadFromClasspath() {
+        throw new RuntimeException("not yet implemented");
     }
 }

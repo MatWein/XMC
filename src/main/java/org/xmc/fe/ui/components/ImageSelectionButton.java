@@ -44,6 +44,10 @@ public class ImageSelectionButton extends Button {
         }
     }
 
+    public byte[] getImageAsByteArray() {
+        return ImageUtil.imageToByteArray(getImage());
+    }
+
     private void showImage(Image image) {
         setGraphic(createLogoImageView(image));
         setText(null);

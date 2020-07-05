@@ -1,12 +1,11 @@
 package org.xmc.common.utils;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import org.apache.commons.io.FileUtils;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import javax.imageio.ImageIO;
+import java.io.*;
 
 public class ImageUtil {
     public static Image readFromClasspath$(String path) {
@@ -61,5 +60,15 @@ public class ImageUtil {
             throw new IOException(String.format("Error on loading image from %s.", errorParam), image.getException());
         }
         return image;
+    }
+
+    public static byte[] imageToByteArray(Image image) {
+        var bufferedImage = SwingFXUtils.fromFXImage(image, null);
+        try (var outputStream = new ByteArrayOutputStream()) {
+            ImageIO.write(bufferedImage, "png", outputStream);
+            return outputStream.toByteArray();
+        } catch (IOException e) {
+            throw new RuntimeException("Error on creating byte array from image.");
+        }
     }
 }

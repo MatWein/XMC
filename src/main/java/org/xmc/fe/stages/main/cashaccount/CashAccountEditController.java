@@ -36,6 +36,8 @@ public class CashAccountEditController implements IValidationController {
     private final DtoBankInformationBlzConverter dtoBankInformationBlzConverter;
     private final DtoBankInformationBicConverter dtoBankInformationBicConverter;
 
+    private Long cashAccountId;
+
     @FXML private ImageSelectionButton logoButton;
     @FXML private TitledPane bankTitledPane;
     @FXML private ValidationComboBox<DtoBank> bankComboBox;
@@ -125,5 +127,49 @@ public class CashAccountEditController implements IValidationController {
         }
 
         return validationErrors;
+    }
+
+    public ValidationComboBox<DtoBank> getBankComboBox() {
+        return bankComboBox;
+    }
+
+    public ValidationTextField getCashAccountNameTextfield() {
+        return cashAccountNameTextfield;
+    }
+
+    public ValidationTextField getCashAccountIbanTextfield() {
+        return cashAccountIbanTextfield;
+    }
+
+    public ValidationTextField getCashAccountNumberTextfield() {
+        return cashAccountNumberTextfield;
+    }
+
+    public ValidationAutoComplete<Currency> getCashAccountCurrencyAutoComplete() {
+        return cashAccountCurrencyAutoComplete;
+    }
+
+    public Long getCashAccountId() {
+        return cashAccountId;
+    }
+
+    public void setCashAccountId(Long cashAccountId) {
+        this.cashAccountId = cashAccountId;
+    }
+
+    public ImageSelectionButton getLogoButton() {
+        return logoButton;
+    }
+
+    public ValidationAutoComplete<DtoBankInformation> getBankNameAutoComplete() {
+        return bankNameAutoComplete;
+    }
+
+    public ValidationAutoComplete<DtoBankInformation> getBankBicAutoComplete() {
+        return bankBicAutoComplete;
+    }
+
+    public ValidationAutoComplete<DtoBankInformation> getBankBlzAutoComplete() {
+        return bankBlzAutoComplete;
     }
 }

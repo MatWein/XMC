@@ -7,6 +7,7 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.xmc.be.services.cashaccount.CashAccountService;
+import org.xmc.common.stubs.cashaccount.CashAccountOverviewFields;
 import org.xmc.common.stubs.cashaccount.DtoCashAccount;
 import org.xmc.fe.stages.main.cashaccount.mapper.CashAccountEditDialogMapper;
 import org.xmc.fe.ui.CustomDialogBuilder;
@@ -15,7 +16,7 @@ import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.components.BreadcrumbBar;
 import org.xmc.fe.ui.components.BreadcrumbBar.BreadcrumbPathElement;
-import org.xmc.fe.ui.components.TableViewEx;
+import org.xmc.fe.ui.components.table.TableViewEx;
 
 import java.util.Optional;
 
@@ -27,7 +28,7 @@ public class CashAccountController {
     @FXML private BreadcrumbBar<?> breadcrumbBar;
     @FXML private Button editButton;
     @FXML private Button deleteButton;
-    @FXML private TableViewEx<DtoCashAccount, Object> tableView;
+    @FXML private TableViewEx<DtoCashAccount, CashAccountOverviewFields> tableView;
 
     @Autowired
     public CashAccountController(
@@ -45,6 +46,7 @@ public class CashAccountController {
         BooleanBinding noTableItemSelected = tableView.getSelectionModel().selectedItemProperty().isNull();
         editButton.disableProperty().bind(noTableItemSelected);
         deleteButton.disableProperty().bind(noTableItemSelected);
+        tableView.setDataProvider(cashAccountService::loadOverview);
     }
 
     @FXML

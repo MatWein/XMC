@@ -1,6 +1,7 @@
 package org.xmc.fe;
 
 import javafx.scene.image.Image;
+import javafx.util.Duration;
 import org.xmc.common.utils.ImageUtil;
 
 public interface FeConstants {
@@ -13,4 +14,6 @@ public interface FeConstants {
     Image CHEVRONS_RIGHT = ImageUtil.readFromClasspath$("/images/feather/chevrons-right.png");
 
     String BASE_CSS_PATH = "/css/xmc-base.css";
+
+    Duration DEFAULT_DELAY = Duration.millis(500);
 }

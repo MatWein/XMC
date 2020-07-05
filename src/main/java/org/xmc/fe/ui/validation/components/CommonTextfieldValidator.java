@@ -4,9 +4,9 @@ import javafx.animation.PauseTransition;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import javafx.util.Duration;
 import org.apache.commons.lang3.StringUtils;
 import org.xmc.common.utils.ReflectionUtil;
+import org.xmc.fe.FeConstants;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.SceneUtil;
@@ -17,8 +17,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class CommonTextfieldValidator {
-    private static final Duration DELAY = Duration.millis(500);
-
     public static List<String> validate(TextField textField) {
         List<String> errorMessages = new ArrayList<>();
 
@@ -73,7 +71,7 @@ public class CommonTextfieldValidator {
     }
 
     public static void initValidationEvent(TextField textField, Scene scene) {
-        PauseTransition pause = new PauseTransition(DELAY);
+        PauseTransition pause = new PauseTransition(FeConstants.DEFAULT_DELAY);
         textField.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             pause.setOnFinished(e -> SceneUtil.getOrCreateValidationSceneState(scene).validate());
             pause.playFromStart();

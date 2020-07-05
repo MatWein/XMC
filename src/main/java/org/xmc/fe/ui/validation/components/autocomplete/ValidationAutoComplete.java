@@ -14,9 +14,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Popup;
-import javafx.util.Duration;
 import org.apache.commons.lang3.StringUtils;
 import org.xmc.common.utils.ReflectionUtil;
+import org.xmc.fe.FeConstants;
 import org.xmc.fe.ui.SceneUtil;
 import org.xmc.fe.ui.validation.components.ValidationTextField;
 
@@ -28,7 +28,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class ValidationAutoComplete<T> extends ValidationTextField {
-    private static final Duration DELAY = Duration.millis(500);
     private static final Set<KeyCode> KEYS_TO_IGNORE = Sets.newHashSet(
             KeyCode.ESCAPE, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP,
             KeyCode.DOWN, KeyCode.SHIFT, KeyCode.CONTROL, KeyCode.ALT);
@@ -62,7 +61,7 @@ public class ValidationAutoComplete<T> extends ValidationTextField {
     public void initialize(Scene scene) {
         super.initialize(scene);
 
-        PauseTransition pause = new PauseTransition(DELAY);
+        PauseTransition pause = new PauseTransition(FeConstants.DEFAULT_DELAY);
 
         this.focusedProperty().addListener((observable, oldValue, newValue) -> {
             boolean lostFocus = !Boolean.TRUE.equals(newValue);

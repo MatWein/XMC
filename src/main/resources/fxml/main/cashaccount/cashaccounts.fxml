@@ -3,8 +3,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.VBox?>
-<?import org.xmc.fe.ui.components.*?>
-<VBox prefHeight="700.0" prefWidth="900.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css" xmlns="http://javafx.com/javafx/11.0.0"
+<?import org.xmc.fe.ui.components.BreadcrumbBar?>
+<?import org.xmc.fe.ui.components.table.*?>
+<VBox prefHeight="700.0" prefWidth="900.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css"
+      xmlns="http://javafx.com/javafx/11.0.0"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.cashaccount.CashAccountController"
       styleClass="cashaccounts-vbox">
 
@@ -36,33 +38,54 @@
         </Button>
     </ToolBar>
 
-    <TableViewEx VBox.vgrow="ALWAYS" fx:id="tableView">
+    <TableViewEx VBox.vgrow="ALWAYS" fx:id="tableView"
+                 fieldEnumType="org.xmc.common.stubs.cashaccount.CashAccountOverviewFields">
         <columns>
-            <TableColumn editable="false" prefWidth="50"/>
-            <TableColumn editable="false" prefWidth="200" text="%main.cashaccounts.overview.table.column.bankName">
-                <cellValueFactory><NestedPropertyValueFactory property="bank.name" /></cellValueFactory>
-            </TableColumn>
-            <TableColumn editable="false" prefWidth="200"
-                         text="%main.cashaccounts.overview.table.column.cashAccountName">
-                <cellValueFactory><NestedPropertyValueFactory property="name" /></cellValueFactory>
-            </TableColumn>
-            <TableColumn editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.iban">
-                <cellValueFactory><NestedPropertyValueFactory property="iban" /></cellValueFactory>
-            </TableColumn>
-            <TableColumn editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.bic">
-                <cellValueFactory><NestedPropertyValueFactory property="bank.bic" /></cellValueFactory>
-            </TableColumn>
-            <TableColumn editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.number">
-                <cellValueFactory><NestedPropertyValueFactory property="number" /></cellValueFactory>
-            </TableColumn>
-            <TableColumn editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.blz">
-                <cellValueFactory><NestedPropertyValueFactory property="bank.blz" /></cellValueFactory>
-            </TableColumn>
-            <TableColumn editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.creationDate"/>
-            <TableColumn editable="false" prefWidth="100" text="%main.cashaccounts.overview.table.column.currency"/>
-            <TableColumn editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.lastSaldo"/>
-            <TableColumn editable="false" prefWidth="200"
-                         text="%main.cashaccounts.overview.table.column.lastSaldoDate"/>
+            <TableColumnEx editable="false" prefWidth="50" sortable="false"/>
+            <TableColumnEx editable="false" prefWidth="200" text="%main.cashaccounts.overview.table.column.bankName"
+                           sortField="BANK_NAME">
+                <cellValueFactory>
+                    <NestedPropertyValueFactory property="bank.name"/>
+                </cellValueFactory>
+            </TableColumnEx>
+            <TableColumnEx editable="false" prefWidth="200"
+                           text="%main.cashaccounts.overview.table.column.cashAccountName" sortField="NAME">
+                <cellValueFactory>
+                    <NestedPropertyValueFactory property="name"/>
+                </cellValueFactory>
+            </TableColumnEx>
+            <TableColumnEx editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.iban"
+                           sortField="IBAN">
+                <cellValueFactory>
+                    <NestedPropertyValueFactory property="iban"/>
+                </cellValueFactory>
+            </TableColumnEx>
+            <TableColumnEx editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.bic"
+                           sortField="BANK_BIC">
+                <cellValueFactory>
+                    <NestedPropertyValueFactory property="bank.bic"/>
+                </cellValueFactory>
+            </TableColumnEx>
+            <TableColumnEx editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.number"
+                           sortField="NUMBER">
+                <cellValueFactory>
+                    <NestedPropertyValueFactory property="number"/>
+                </cellValueFactory>
+            </TableColumnEx>
+            <TableColumnEx editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.blz"
+                           sortField="BANK_BLZ">
+                <cellValueFactory>
+                    <NestedPropertyValueFactory property="bank.blz"/>
+                </cellValueFactory>
+            </TableColumnEx>
+            <TableColumnEx editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.creationDate"
+                           sortField="CREATION_DATE"/>
+            <TableColumnEx editable="false" prefWidth="100" text="%main.cashaccounts.overview.table.column.currency"
+                           sortField="CURRENCY"/>
+            <TableColumnEx editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.lastSaldo"
+                           sortField="LAST_SALDO"/>
+            <TableColumnEx editable="false" prefWidth="200"
+                           text="%main.cashaccounts.overview.table.column.lastSaldoDate" sortField="LAST_SALDO_DATE"/>
         </columns>
     </TableViewEx>
 

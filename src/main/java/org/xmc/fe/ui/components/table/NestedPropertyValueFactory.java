@@ -1,4 +1,4 @@
-package org.xmc.fe.ui.components;
+package org.xmc.fe.ui.components.table;
 
 import javafx.beans.NamedArg;
 import javafx.beans.property.ReadOnlyObjectWrapper;

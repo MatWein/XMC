@@ -1,13 +1,17 @@
-package org.xmc.fe.ui.components;
+package org.xmc.fe.ui.components.table;
 
+import com.google.common.collect.Iterables;
 import com.querydsl.core.QueryResults;
+import javafx.animation.PauseTransition;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.control.TableColumn.SortType;
 import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,6 +19,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
+import org.apache.commons.lang3.StringUtils;
+import org.xmc.common.stubs.PagingParams;
+import org.xmc.common.utils.ReflectionUtil;
 import org.xmc.fe.FeConstants;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
@@ -22,23 +29,36 @@ import scalc.SCalcBuilder;
 
 import java.math.RoundingMode;
 
-public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE> extends VBox {
+public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE>> extends VBox {
     private final TableView<ITEM_TYPE> tableView;
     private final Label placeholder;
+    private final TextField filterTextfield;
 
     private final SimpleIntegerProperty pageSize = new SimpleIntegerProperty(50);
     private final SimpleIntegerProperty page = new SimpleIntegerProperty(0);
     private final SimpleIntegerProperty lastPage = new SimpleIntegerProperty(0);
     private final SimpleIntegerProperty currentItemCount = new SimpleIntegerProperty(0);
+    private final TableOrderMapper orderMapper;
 
     private ITableDataProvider<ITEM_TYPE, SORT_ENUM_TYPE> dataProvider;
+    private Class<SORT_ENUM_TYPE> fieldEnumType;
+    private SortType sortType;
+    private SORT_ENUM_TYPE sortBy;
 
     public TableViewEx() {
+        orderMapper = (TableOrderMapper)ReflectionUtil.createNewInstanceFactory().call(TableOrderMapper.class);
+
         tableView = new TableView<>();
         tableView.setPlaceholder(new Label(MessageAdapter.getByKey(MessageKey.TABLE_NO_CONTENT)));
         VBox.setVgrow(tableView, Priority.ALWAYS);
 
         tableView.getItems().addListener((ListChangeListener<ITEM_TYPE>) c -> currentItemCount.set(tableView.getItems().size()));
+        getColumns().addListener(this::validateNewColumns);
+        currentItemCount.addListener((observable, oldValue, newValue) -> {
+            for (TableColumnEx<ITEM_TYPE, ?> column : getColumns()) {
+                column.setVisible(newValue.intValue() > 0);
+            }
+        });
 
         ToolBar toolBar = new ToolBar();
 
@@ -55,6 +75,18 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE> extends VBox {
         });
         previousPageButton.disableProperty().bind(page.isEqualTo(0).or(currentItemCount.isEqualTo(0)));
         toolBar.getItems().add(previousPageButton);
+
+        PauseTransition pause = new PauseTransition(FeConstants.DEFAULT_DELAY);
+
+        filterTextfield = new TextField();
+        filterTextfield.setPrefWidth(250);
+        filterTextfield.setPromptText(MessageAdapter.getByKey(MessageKey.PAGING_FILTER_PROMPT));
+        filterTextfield.disableProperty().bind(currentItemCount.isEqualTo(0));
+        filterTextfield.textProperty().addListener(event -> {
+            pause.setOnFinished(e -> { page.set(0); reload(); });
+            pause.playFromStart();
+        });
+        toolBar.getItems().add(filterTextfield);
 
         Button nextPageButton = createImageButton(FeConstants.CHEVRON_RIGHT, MessageKey.PAGING_NEXT, event -> {
             page.set(page.get() + 1);
@@ -74,6 +106,7 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE> extends VBox {
         placeholder.setMaxWidth(Double.MAX_VALUE);
         placeholder.setAlignment(Pos.CENTER);
         placeholder.setTextAlignment(TextAlignment.CENTER);
+        placeholder.disableProperty().bind(currentItemCount.isEqualTo(0));
         HBox.setHgrow(placeholder, Priority.ALWAYS);
         toolBar.getItems().add(placeholder);
 
@@ -85,7 +118,33 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE> extends VBox {
         getChildren().add(tableView);
         getChildren().add(toolBar);
 
+        tableView.setOnSort(event -> onSort());
+
         reload();
+    }
+
+    private void onSort() {
+        TableColumnEx<ITEM_TYPE, ?> columnToSort = (TableColumnEx<ITEM_TYPE, ?>) Iterables.getFirst(tableView.getSortOrder(), null);
+        if (columnToSort == null) {
+            sortType = null;
+            sortBy = null;
+        } else {
+            sortType = columnToSort.getSortType();
+            sortBy = Enum.valueOf(fieldEnumType, columnToSort.getSortField());
+        }
+
+        page.set(0);
+        reload();
+    }
+
+    private void validateNewColumns(Change<? extends TableColumnEx<ITEM_TYPE, ?>> c) {
+        if (c.next()) {
+            for (TableColumnEx<ITEM_TYPE, ?> column : c.getAddedSubList()) {
+                if (column.isSortable() && StringUtils.isBlank(column.getSortField())) {
+                    throw new IllegalArgumentException(String.format("Sortable column '%s' must have specified a sort field!", column.getText()));
+                }
+            }
+        }
     }
 
     private Button createTextButton(String text, EventHandler<ActionEvent> runnable) {
@@ -104,11 +163,8 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE> extends VBox {
         return button;
     }
 
-    public void reload() {
-        QueryResults<ITEM_TYPE> items = dataProvider == null
-                ? QueryResults.emptyResults()
-                : dataProvider.loadItems(page.get() * pageSize.get(), pageSize.get(), null, null);
-
+    private void reload() {
+        QueryResults<ITEM_TYPE> items = loadItemsFromProvider();
         tableView.getItems().setAll(items.getResults());
 
         int currentPage, pageCount;
@@ -131,6 +187,20 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE> extends VBox {
         placeholder.setText(String.format("%s / %s (%s: %s)", currentPage, pageCount, MessageAdapter.getByKey(MessageKey.PAGING_COUNT), items.getTotal()));
     }
 
+    private QueryResults<ITEM_TYPE> loadItemsFromProvider() {
+        if (dataProvider == null) {
+            return QueryResults.emptyResults();
+        }
+
+        int offset = page.get() * pageSize.get();
+        int limit = pageSize.get();
+
+        return dataProvider.loadItems(new PagingParams<>(
+                offset, limit,
+                sortBy, orderMapper.mapOrder(sortType),
+                filterTextfield.getText()));
+    }
+
     public int getPageSize() {
         return pageSize.get();
     }
@@ -148,11 +218,19 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE> extends VBox {
         reload();
     }
 
-    public ObservableList<TableColumn<ITEM_TYPE, ?>> getColumns() {
-        return tableView.getColumns();
+    public ObservableList<TableColumnEx<ITEM_TYPE, ?>> getColumns() {
+        return (ObservableList)tableView.getColumns();
     }
 
     public TableViewSelectionModel<ITEM_TYPE> getSelectionModel() {
         return tableView.getSelectionModel();
+    }
+
+    public String getFieldEnumType() {
+        return fieldEnumType.getName();
+    }
+
+    public void setFieldEnumType(String fieldEnumType) {
+        this.fieldEnumType = (Class)ReflectionUtil.forName(fieldEnumType);
     }
 }

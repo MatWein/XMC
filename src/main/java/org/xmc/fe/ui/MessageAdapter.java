@@ -52,6 +52,7 @@ public class MessageAdapter {
         PAGING_NEXT("paging.next"),
         PAGING_LAST_PAGE("paging.lastPage"),
         PAGING_COUNT("paging.count"),
+        PAGING_FILTER_PROMPT("paging.filterPrompt"),
 
         LOGIN_TITLE("login.title"),
 

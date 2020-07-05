@@ -1,23 +1,21 @@
 package org.xmc.fe.stages.main.cashaccount.mapper;
 
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import nl.garvelink.iban.IBAN;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.xmc.common.stubs.DtoBank;
 import org.xmc.common.stubs.cashaccount.DtoCashAccount;
 import org.xmc.fe.stages.main.cashaccount.CashAccountEditController;
+import org.xmc.fe.ui.IDialogMapper;
 
 import java.util.Currency;
-import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
 
 @Component
-public class CashAccountEditDialogMapper implements BiFunction<ButtonType, CashAccountEditController, DtoCashAccount>, BiConsumer<CashAccountEditController, DtoCashAccount> {
+public class CashAccountEditDialogMapper implements IDialogMapper<CashAccountEditController, DtoCashAccount> {
     @Override
-    public DtoCashAccount apply(ButtonType buttonType, CashAccountEditController controller) {
-        if (buttonType.getButtonData() != ButtonBar.ButtonData.OK_DONE) {
+    public DtoCashAccount apply(ButtonData buttonData, CashAccountEditController controller) {
+        if (buttonData != ButtonData.OK_DONE) {
             return null;
         }
 

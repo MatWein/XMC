@@ -16,8 +16,6 @@ import org.xmc.fe.ui.MessageAdapter.MessageKey;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
 
 public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE> {
     public static CustomDialogBuilder getInstance() { return new CustomDialogBuilder(); }
@@ -26,8 +24,7 @@ public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE> {
     private MessageKey headerTextKey;
     private Node content;
     private Node headerGraphic;
-    private BiFunction<ButtonType, CONTROLLER_TYPE, RETURN_TYPE> resultConverter;
-    private BiConsumer<CONTROLLER_TYPE, RETURN_TYPE> inputConverter;
+    private IDialogMapper<CONTROLLER_TYPE, RETURN_TYPE> mapper;
     private CONTROLLER_TYPE controller;
     private RETURN_TYPE input;
     private List<ButtonType> buttons = new ArrayList<>();
@@ -70,13 +67,8 @@ public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE> {
         return this;
     }
 
-    public CustomDialogBuilder resultConverter(BiFunction<ButtonType, CONTROLLER_TYPE, RETURN_TYPE> resultConverter) {
-        this.resultConverter = resultConverter;
-        return this;
-    }
-
-    public CustomDialogBuilder inputConverter(BiConsumer<CONTROLLER_TYPE, RETURN_TYPE> inputConverter) {
-        this.inputConverter = inputConverter;
+    public CustomDialogBuilder withMapper(IDialogMapper<CONTROLLER_TYPE, RETURN_TYPE> mapper) {
+        this.mapper = mapper;
         return this;
     }
 
@@ -102,11 +94,11 @@ public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE> {
         dialogPane.setContent(content);
         dialogPane.getButtonTypes().addAll(buttons);
 
-        if (resultConverter != null) {
-            dialog.setResultConverter(param -> resultConverter.apply(param, controller));
+        if (mapper != null) {
+            dialog.setResultConverter(param -> mapper.apply(param.getButtonData(), controller));
         }
-        if (inputConverter != null && input != null) {
-            inputConverter.accept(controller, input);
+        if (mapper != null && input != null) {
+            mapper.accept(controller, input);
         }
 
         Scene scene = SceneBuilder.getInstance().build(dialog.getDialogPane().getScene());

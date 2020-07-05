@@ -77,8 +77,7 @@ public class CashAccountController {
                 .addButton(MessageKey.CASHACCOUNT_EDIT_SAVE, ButtonData.OK_DONE)
                 .withFxmlContent(FxmlKey.CASH_ACCOUNT_EDIT)
                 .withDefaultIcon()
-                .resultConverter(cashAccountEditDialogMapper)
-                .inputConverter(cashAccountEditDialogMapper)
+                .withMapper(cashAccountEditDialogMapper)
                 .withInput(input)
                 .build()
                 .showAndWait();

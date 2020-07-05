@@ -1,5 +1,7 @@
 package org.xmc.common.stubs.cashaccount;
 
+import com.querydsl.core.annotations.QueryProjection;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.xmc.common.stubs.DtoBank;
 
 import java.io.Serializable;
@@ -13,6 +15,22 @@ public class DtoCashAccount implements Serializable {
     private String number;
     private String name;
     private Currency currency;
+
+    public DtoCashAccount() {
+    }
+
+    @QueryProjection
+    public DtoCashAccount(
+            Long id, String iban, String number, String name, String currency,
+            Long bankId, String bankName, String bic, String blz, byte[] logo) {
+
+        this.id = id;
+        this.bank = new DtoBank(bankId, bankName, bic, blz, logo);
+        this.iban = iban;
+        this.number = number;
+        this.name = name;
+        this.currency = Currency.getInstance(currency);
+    }
 
     public Long getId() {
         return id;
@@ -60,5 +78,17 @@ public class DtoCashAccount implements Serializable {
 
     public void setCurrency(Currency currency) {
         this.currency = currency;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("bank", bank)
+                .append("iban", iban)
+                .append("number", number)
+                .append("name", name)
+                .append("currency", currency)
+                .toString();
     }
 }

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.xmc.be.annotations.DisableServiceCallLogging;
 import org.xmc.be.entities.user.ServiceCallLog;
-import org.xmc.be.repositories.user.ServiceCallLogRepository;
+import org.xmc.be.repositories.user.ServiceCallLogJpaRepository;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Component
 public class ServiceCallLogInterceptor implements MethodInterceptor {
 	@Autowired
-	private ServiceCallLogRepository serviceCallLogRepository;
+	private ServiceCallLogJpaRepository serviceCallLogJpaRepository;
 	
 	@Override
 	public Object invoke(MethodInvocation invocation) throws Throwable {
@@ -62,7 +62,7 @@ public class ServiceCallLogInterceptor implements MethodInterceptor {
 			
 			serviceCallLog.setCallDuration(duration);
 			
-			serviceCallLogRepository.save(serviceCallLog);
+			serviceCallLogJpaRepository.save(serviceCallLog);
 		}
 	}
 }

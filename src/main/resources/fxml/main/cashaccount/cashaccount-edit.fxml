@@ -64,5 +64,6 @@
     <Label styleClass="form-label" text="%cashaccount.edit.currency"/>
     <ValidationAutoComplete fx:id="cashAccountCurrencyAutoComplete"
                             autoCompleteController="org.xmc.fe.stages.main.cashaccount.autocomplete.CurrencyAutoCompleteController"
+                            customValidator="org.xmc.fe.ui.validation.CurrencyFieldValidator"
                             required="true" visibleRowCount="5"/>
 </VBox>

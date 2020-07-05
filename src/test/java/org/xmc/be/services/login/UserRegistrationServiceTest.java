@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.xmc.JUnitTestBase;
 import org.xmc.be.entities.user.User;
-import org.xmc.be.repositories.user.UserRepository;
+import org.xmc.be.repositories.user.UserJpaRepository;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -14,11 +14,11 @@ class UserRegistrationServiceTest extends JUnitTestBase {
     private UserRegistrationService service;
 
     @Mock
-    private UserRepository userRepository;
+    private UserJpaRepository userJpaRepository;
 
     @BeforeEach
     void setUp() {
-        service = new UserRegistrationService(userRepository);
+        service = new UserRegistrationService(userJpaRepository);
     }
 
     @Test
@@ -26,7 +26,7 @@ class UserRegistrationServiceTest extends JUnitTestBase {
         String username = "username";
         String displayName = "displayName";
 
-        when(userRepository.save(any(User.class))).thenReturn(null);
+        when(userJpaRepository.save(any(User.class))).thenReturn(null);
 
         service.registerNewUser(username, displayName);
     }

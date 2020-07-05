@@ -33,7 +33,11 @@ public class ImageSelectionButton extends Button {
     }
 
     public void setImage(byte[] image) {
-        setImage(ImageUtil.readFromByteArray$(image));
+        if (image == null) {
+            setImage((Image)null);
+        } else {
+            setImage(ImageUtil.readFromByteArray$(image));
+        }
     }
 
     public void setImage(Image image) {
@@ -45,7 +49,12 @@ public class ImageSelectionButton extends Button {
     }
 
     public byte[] getImageAsByteArray() {
-        return ImageUtil.imageToByteArray(getImage());
+        Image image = getImage();
+        if (image == null) {
+            return null;
+        } else {
+            return ImageUtil.imageToByteArray(image);
+        }
     }
 
     private void showImage(Image image) {

@@ -5,7 +5,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
 
-public class PagingParams<T extends Enum<T>> implements Serializable {
+public class PagingParams<T extends Enum<T> & IPagingField> implements Serializable {
     private int offset;
     private int limit;
     private T sortBy;

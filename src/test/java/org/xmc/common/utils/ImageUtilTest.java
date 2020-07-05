@@ -95,7 +95,10 @@ class ImageUtilTest extends JUnitTestBase {
     }
 
     @Test
-    void testImageToByteArray() {
-        throw new RuntimeException("not yet implemented");
+    void testImageToByteArray() throws IOException {
+        Image image = ImageUtil.readFromClasspath("/images/feather/delete.png");
+
+        byte[] result = ImageUtil.imageToByteArray(image);
+        Assert.assertNotNull(result);
     }
 }

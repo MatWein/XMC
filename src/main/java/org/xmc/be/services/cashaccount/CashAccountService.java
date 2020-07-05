@@ -1,8 +1,13 @@
 package org.xmc.be.services.cashaccount;
 
 import com.querydsl.core.QueryResults;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.xmc.be.repositories.cashaccount.CashAccountRepository;
+import org.xmc.be.services.cashaccount.controller.CashAccountSaveController;
 import org.xmc.common.stubs.PagingParams;
 import org.xmc.common.stubs.cashaccount.CashAccountOverviewFields;
 import org.xmc.common.stubs.cashaccount.DtoCashAccount;
@@ -10,12 +15,27 @@ import org.xmc.common.stubs.cashaccount.DtoCashAccount;
 @Service
 @Transactional
 public class CashAccountService {
-    public void saveOrUpdate(DtoCashAccount dtoCashAccount) {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CashAccountService.class);
 
+    private final CashAccountRepository cashAccountRepository;
+    private final CashAccountSaveController cashAccountSaveController;
+
+    @Autowired
+    public CashAccountService(
+            CashAccountRepository cashAccountRepository,
+            CashAccountSaveController cashAccountSaveController) {
+
+        this.cashAccountRepository = cashAccountRepository;
+        this.cashAccountSaveController = cashAccountSaveController;
+    }
+
+    public void saveOrUpdate(DtoCashAccount dtoCashAccount) {
+        LOGGER.info("Saving cash account: {}", dtoCashAccount);
+        cashAccountSaveController.saveOrUpdate(dtoCashAccount);
     }
 
     public QueryResults<DtoCashAccount> loadOverview(PagingParams<CashAccountOverviewFields> pagingParams) {
-        System.out.println(pagingParams);
-        return QueryResults.emptyResults();
+        LOGGER.info("Loading cash account overview: {}", pagingParams);
+        return cashAccountRepository.loadOverview(pagingParams);
     }
 }

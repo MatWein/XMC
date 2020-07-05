@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.xmc.JUnitTestBase;
 import org.xmc.be.entities.user.User;
-import org.xmc.be.repositories.user.UserRepository;
+import org.xmc.be.repositories.user.UserJpaRepository;
 import org.xmc.be.services.login.controller.BootstrapFileController;
 import org.xmc.common.stubs.login.DtoBootstrapFile;
 
@@ -19,12 +19,12 @@ import static org.mockito.Mockito.when;
 class UserLoginServiceTest extends JUnitTestBase {
     private UserLoginService service;
 
-    @Mock private UserRepository userRepository;
+    @Mock private UserJpaRepository userJpaRepository;
     @Mock private BootstrapFileController bootstrapFileController;
 
     @BeforeEach
     void setUp() {
-        service = new UserLoginService(userRepository, bootstrapFileController);
+        service = new UserLoginService(userJpaRepository, bootstrapFileController);
     }
 
     @AfterEach
@@ -43,9 +43,9 @@ class UserLoginServiceTest extends JUnitTestBase {
         userInstance.setDisplayName("displayName");
 
         Optional<User> user = Optional.of(userInstance);
-        when(userRepository.findByUsername(username)).thenReturn(user);
+        when(userJpaRepository.findByUsername(username)).thenReturn(user);
 
-        when(userRepository.save(user.get())).thenReturn(null);
+        when(userJpaRepository.save(user.get())).thenReturn(null);
 
         service.login(dtoBootstrapFile);
 
@@ -60,7 +60,7 @@ class UserLoginServiceTest extends JUnitTestBase {
         dtoBootstrapFile.setUsername(username);
 
         Optional<User> user = Optional.empty();
-        when(userRepository.findByUsername(username)).thenReturn(user);
+        when(userJpaRepository.findByUsername(username)).thenReturn(user);
 
         Assert.assertThrows(RuntimeException.class, () -> service.login(dtoBootstrapFile));
     }

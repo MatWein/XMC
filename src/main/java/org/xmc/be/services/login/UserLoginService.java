@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.xmc.be.entities.user.User;
-import org.xmc.be.repositories.user.UserRepository;
+import org.xmc.be.repositories.user.UserJpaRepository;
 import org.xmc.be.services.login.controller.BootstrapFileController;
 import org.xmc.common.stubs.login.DtoBootstrapFile;
 
@@ -20,15 +20,15 @@ public class UserLoginService {
 
     public static final String SYSTEM_PROPERTY_DISPLAYNAME = "user.displayName";
 
-    private final UserRepository userRepository;
+    private final UserJpaRepository userJpaRepository;
     private final BootstrapFileController bootstrapFileController;
 
     @Autowired
     public UserLoginService(
-            UserRepository userRepository,
+            UserJpaRepository userJpaRepository,
             BootstrapFileController bootstrapFileController) {
 
-        this.userRepository = userRepository;
+        this.userJpaRepository = userJpaRepository;
         this.bootstrapFileController = bootstrapFileController;
     }
 
@@ -36,10 +36,10 @@ public class UserLoginService {
         String username = dtoBootstrapFile.getUsername();
         LOGGER.info("Logging in user '{}'.", username);
 
-        Optional<User> user = userRepository.findByUsername(username);
+        Optional<User> user = userJpaRepository.findByUsername(username);
         if (user.isPresent()) {
             user.get().setLastLogin(LocalDateTime.now());
-            userRepository.save(user.get());
+            userJpaRepository.save(user.get());
         } else {
             throw new RuntimeException(String.format("Could not find user for username '%s'.", username));
         }

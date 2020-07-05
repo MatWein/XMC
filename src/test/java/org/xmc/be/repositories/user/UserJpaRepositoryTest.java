@@ -8,9 +8,9 @@ import org.xmc.be.entities.user.User;
 
 import java.util.Optional;
 
-class UserRepositoryTest extends IntegrationTest {
+class UserJpaRepositoryTest extends IntegrationTest {
     @Autowired
-    private UserRepository userRepository;
+    private UserJpaRepository userJpaRepository;
 
     @Test
     void testFindByUsername() {
@@ -21,7 +21,7 @@ class UserRepositoryTest extends IntegrationTest {
 
         flushAndClear();
 
-        Optional<User> result = userRepository.findByUsername(username);
+        Optional<User> result = userJpaRepository.findByUsername(username);
 
         Assert.assertEquals(user, result.get());
     }
@@ -33,7 +33,7 @@ class UserRepositoryTest extends IntegrationTest {
 
         flushAndClear();
 
-        Optional<User> result = userRepository.findByUsername("test");
+        Optional<User> result = userJpaRepository.findByUsername("test");
 
         Assert.assertEquals(Optional.empty(), result);
     }

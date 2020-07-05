@@ -6,18 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.xmc.be.entities.user.User;
-import org.xmc.be.repositories.user.UserRepository;
+import org.xmc.be.repositories.user.UserJpaRepository;
 
 @Service
 @Transactional
 public class UserRegistrationService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserRegistrationService.class);
 
-    private final UserRepository userRepository;
+    private final UserJpaRepository userJpaRepository;
 
     @Autowired
-    public UserRegistrationService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserRegistrationService(UserJpaRepository userJpaRepository) {
+        this.userJpaRepository = userJpaRepository;
     }
 
     public void registerNewUser(String username, String displayName) {
@@ -26,6 +26,6 @@ public class UserRegistrationService {
         User user = new User();
         user.setUsername(username);
         user.setDisplayName(displayName);
-        userRepository.save(user);
+        userJpaRepository.save(user);
     }
 }

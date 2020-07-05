@@ -17,14 +17,14 @@ public class CashAccount extends DeletablePersistentObject {
     @JoinColumn(name = "BANK_ID")
     private Bank bank;
 
-    @Column(name = "IBAN", nullable = true)
+    @Column(name = "IBAN", nullable = true, length = 50)
     private String iban;
     @Column(name = "NUMBER", nullable = true)
     private String number;
     @Column(name = "NAME", nullable = false)
     private String name;
-    @Column(name = "CURRENCY", nullable = false)
-    private Currency currency;
+    @Column(name = "CURRENCY", nullable = false, length = 5)
+    private String currency;
 
     @Column(name = "LAST_SALDO", nullable = true)
     private BigDecimal lastSaldo;
@@ -64,11 +64,11 @@ public class CashAccount extends DeletablePersistentObject {
     }
 
     public Currency getCurrency() {
-        return currency;
+        return currency == null ? null : Currency.getInstance(currency);
     }
 
     public void setCurrency(Currency currency) {
-        this.currency = currency;
+        this.currency = currency.getCurrencyCode();
     }
 
     public BigDecimal getLastSaldo() {

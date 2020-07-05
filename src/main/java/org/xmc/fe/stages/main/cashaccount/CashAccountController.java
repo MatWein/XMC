@@ -52,12 +52,14 @@ public class CashAccountController {
     @FXML
     public void onNewCashAccount() {
         createOrEditCashAccount(null);
+        tableView.reload();
     }
 
     @FXML
     public void onEditCashAccount() {
         DtoCashAccount selectedCashAccount = tableView.getSelectionModel().getSelectedItem();
         createOrEditCashAccount(selectedCashAccount);
+        tableView.reload();
     }
 
     private void createOrEditCashAccount(DtoCashAccount input) {

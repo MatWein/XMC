@@ -23,7 +23,7 @@ public class CashAccountEditDialogMapper implements IDialogMapper<CashAccountEdi
 
         var dtoCashAccount = new DtoCashAccount();
 
-        if (selectedBank == null) {
+        if (selectedBank == null || selectedBank.getId() == null) {
             selectedBank = new DtoBank();
             selectedBank.setName(controller.getBankNameAutoComplete().getText());
             selectedBank.setLogo(controller.getLogoButton().getImageAsByteArray());
@@ -34,10 +34,14 @@ public class CashAccountEditDialogMapper implements IDialogMapper<CashAccountEdi
 
         dtoCashAccount.setBank(selectedBank);
         dtoCashAccount.setCurrency(Currency.getInstance(controller.getCashAccountCurrencyAutoComplete().getText()));
-        dtoCashAccount.setIban(IBAN.parse(StringUtils.trim(controller.getCashAccountIbanTextfield().getText())).toString());
         dtoCashAccount.setId(controller.getCashAccountId());
         dtoCashAccount.setName(controller.getCashAccountNameTextfield().getText());
         dtoCashAccount.setNumber(controller.getCashAccountNumberTextfield().getText());
+
+        String iban = controller.getCashAccountIbanTextfield().getText();
+        if (StringUtils.isNotBlank(iban)) {
+            dtoCashAccount.setIban(IBAN.parse(StringUtils.trim(iban)).toString());
+        }
 
         return dtoCashAccount;
     }

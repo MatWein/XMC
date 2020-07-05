@@ -15,11 +15,13 @@ import javafx.scene.control.TableColumn.SortType;
 import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import org.apache.commons.lang3.StringUtils;
+import org.xmc.common.stubs.IPagingField;
 import org.xmc.common.stubs.PagingParams;
 import org.xmc.common.utils.ReflectionUtil;
 import org.xmc.fe.FeConstants;
@@ -29,7 +31,7 @@ import scalc.SCalcBuilder;
 
 import java.math.RoundingMode;
 
-public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE>> extends VBox {
+public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> & IPagingField> extends VBox {
     private final TableView<ITEM_TYPE> tableView;
     private final Label placeholder;
     private final TextField filterTextfield;
@@ -62,16 +64,13 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE>>
 
         ToolBar toolBar = new ToolBar();
 
-        Button firstPageButton = createImageButton(FeConstants.CHEVRONS_LEFT, MessageKey.PAGING_FIRST_PAGE, event -> {
-            page.set(0);
-            reload();
-        });
+        Button firstPageButton = createImageButton(FeConstants.CHEVRONS_LEFT, MessageKey.PAGING_FIRST_PAGE, event -> reload(true, false));
         firstPageButton.disableProperty().bind(page.isEqualTo(0).or(currentItemCount.isEqualTo(0)));
         toolBar.getItems().add(firstPageButton);
 
         Button previousPageButton = createImageButton(FeConstants.CHEVRON_LEFT, MessageKey.PAGING_BACK, event -> {
             page.set(page.get() - 1);
-            reload();
+            reload(false, false);
         });
         previousPageButton.disableProperty().bind(page.isEqualTo(0).or(currentItemCount.isEqualTo(0)));
         toolBar.getItems().add(previousPageButton);
@@ -81,23 +80,23 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE>>
         filterTextfield = new TextField();
         filterTextfield.setPrefWidth(250);
         filterTextfield.setPromptText(MessageAdapter.getByKey(MessageKey.PAGING_FILTER_PROMPT));
-        filterTextfield.disableProperty().bind(currentItemCount.isEqualTo(0));
-        filterTextfield.textProperty().addListener(event -> {
-            pause.setOnFinished(e -> { page.set(0); reload(); });
+        filterTextfield.disableProperty().bind(currentItemCount.isEqualTo(0).and(filterTextfield.textProperty().isEmpty()));
+        filterTextfield.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
+            pause.setOnFinished(e -> reload(true, false));
             pause.playFromStart();
         });
         toolBar.getItems().add(filterTextfield);
 
         Button nextPageButton = createImageButton(FeConstants.CHEVRON_RIGHT, MessageKey.PAGING_NEXT, event -> {
             page.set(page.get() + 1);
-            reload();
+            reload(false, false);
         });
         nextPageButton.disableProperty().bind(page.isEqualTo(lastPage).or(currentItemCount.isEqualTo(0)));
         toolBar.getItems().add(nextPageButton);
 
         Button lastPageButton = createImageButton(FeConstants.CHEVRONS_RIGHT, MessageKey.PAGING_LAST_PAGE, event -> {
             page.set(lastPage.get());
-            reload();
+            reload(false, false);
         });
         lastPageButton.disableProperty().bind(page.isEqualTo(lastPage).or(currentItemCount.isEqualTo(0)));
         toolBar.getItems().add(lastPageButton);
@@ -110,17 +109,17 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE>>
         HBox.setHgrow(placeholder, Priority.ALWAYS);
         toolBar.getItems().add(placeholder);
 
-        toolBar.getItems().add(createTextButton(String.valueOf(10), event -> { page.set(0); pageSize.set(10); reload(); }));
-        toolBar.getItems().add(createTextButton(String.valueOf(25), event -> { page.set(0); pageSize.set(25); reload(); }));
-        toolBar.getItems().add(createTextButton(String.valueOf(50), event -> { page.set(0); pageSize.set(50); reload(); }));
-        toolBar.getItems().add(createTextButton(String.valueOf(100), event -> { page.set(0); pageSize.set(100); reload(); }));
+        toolBar.getItems().add(createTextButton(String.valueOf(10), event -> { pageSize.set(10); reload(true, false); }));
+        toolBar.getItems().add(createTextButton(String.valueOf(25), event -> { pageSize.set(25); reload(true, false); }));
+        toolBar.getItems().add(createTextButton(String.valueOf(50), event -> { pageSize.set(50); reload(true, false); }));
+        toolBar.getItems().add(createTextButton(String.valueOf(100), event -> { pageSize.set(100); reload(true, false); }));
 
         getChildren().add(tableView);
         getChildren().add(toolBar);
 
         tableView.setOnSort(event -> onSort());
 
-        reload();
+        reload(false, false);
     }
 
     private void onSort() {
@@ -133,8 +132,7 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE>>
             sortBy = Enum.valueOf(fieldEnumType, columnToSort.getSortField());
         }
 
-        page.set(0);
-        reload();
+        reload(true, true);
     }
 
     private void validateNewColumns(Change<? extends TableColumnEx<ITEM_TYPE, ?>> c) {
@@ -163,7 +161,18 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE>>
         return button;
     }
 
-    private void reload() {
+    public void reload() {
+        reload(true, true);
+    }
+
+    public void reload(boolean resetPage, boolean resetFilter) {
+        if (resetPage) {
+            page.set(0);
+        }
+        if (resetFilter) {
+            filterTextfield.clear();
+        }
+
         QueryResults<ITEM_TYPE> items = loadItemsFromProvider();
         tableView.getItems().setAll(items.getResults());
 
@@ -215,7 +224,7 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE>>
 
     public void setDataProvider(ITableDataProvider<ITEM_TYPE, SORT_ENUM_TYPE> dataProvider) {
         this.dataProvider = dataProvider;
-        reload();
+        reload(true, true);
     }
 
     public ObservableList<TableColumnEx<ITEM_TYPE, ?>> getColumns() {

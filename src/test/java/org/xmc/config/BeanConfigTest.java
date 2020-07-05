@@ -18,7 +18,7 @@ class BeanConfigTest extends IntegrationTest {
 
     @Test
     void testBankInformation() {
-        Assert.assertEquals(15947, bankInformation.size());
+        Assert.assertEquals(4892, bankInformation.size());
     }
 
     @Test

@@ -110,6 +110,11 @@
             <artifactId>opencsv</artifactId>
             <version>5.2</version>
         </dependency>
+        <dependency>
+            <groupId>nl.garvelink.oss</groupId>
+            <artifactId>iban</artifactId>
+            <version>1.6.1</version>
+        </dependency>
 
         <!-- Test / Development -->
         <dependency>

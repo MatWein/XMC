@@ -58,7 +58,7 @@
     <Label styleClass="form-label" text="%cashaccount.edit.name"/>
     <ValidationTextField fx:id="cashAccountNameTextfield" maxLength="255" required="true"/>
     <Label styleClass="form-label" text="%cashaccount.edit.iban"/>
-    <ValidationTextField fx:id="cashAccountIbanTextfield" maxLength="255" required="false"/>
+    <ValidationTextField fx:id="cashAccountIbanTextfield" maxLength="34" required="false" customValidator="org.xmc.fe.ui.validation.IbanFieldValidator"/>
     <Label styleClass="form-label" text="%cashaccount.edit.number"/>
     <ValidationTextField fx:id="cashAccountNumberTextfield" maxLength="255" required="false"/>
     <Label styleClass="form-label" text="%cashaccount.edit.currency"/>

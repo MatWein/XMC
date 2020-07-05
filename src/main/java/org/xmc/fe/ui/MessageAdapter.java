@@ -44,6 +44,7 @@ public class MessageAdapter {
         VALIDATION_NOT_EQUAL_TO("validation.notEqualTo"),
         VALIDATION_USER_ALREADY_EXISTS("validation.userAlreadyExists"),
         VALIDATION_USER_NOT_EXISTING("validation.userNotExisting"),
+        VALIDATION_INVALID_IBAN("validation.invalidIban"),
 
         LOGIN_TITLE("login.title"),
 

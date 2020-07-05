@@ -1,5 +1,6 @@
 package org.xmc.fe.stages.main.cashaccount;
 
+import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -16,7 +17,6 @@ import org.xmc.fe.ui.components.BreadcrumbBar;
 import org.xmc.fe.ui.components.BreadcrumbBar.BreadcrumbPathElement;
 import org.xmc.fe.ui.components.TableViewEx;
 
-import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -27,7 +27,7 @@ public class CashAccountController {
     @FXML private BreadcrumbBar<?> breadcrumbBar;
     @FXML private Button editButton;
     @FXML private Button deleteButton;
-    @FXML private TableViewEx<DtoCashAccount> tableView;
+    @FXML private TableViewEx<DtoCashAccount, Object> tableView;
 
     @Autowired
     public CashAccountController(
@@ -42,32 +42,20 @@ public class CashAccountController {
     public void initialize() {
         breadcrumbBar.getElements().add(new BreadcrumbPathElement<>(MessageAdapter.getByKey(MessageKey.MAIN_CASHACCOUNTS_BREADCRUMB_OVERVIEW)));
 
-        editButton.disableProperty().bind(tableView.getSelectionModel().selectedItemProperty().isNull());
-        deleteButton.disableProperty().bind(tableView.getSelectionModel().selectedItemProperty().isNull());
-
-        resetTableView();
-    }
-
-    private void resetTableView() {
-        List<DtoCashAccount> cashAccounts = cashAccountService.load(0, 50);
-
-        tableView.getItems().clear();
-        tableView.getItems().addAll(cashAccounts);
+        BooleanBinding noTableItemSelected = tableView.getSelectionModel().selectedItemProperty().isNull();
+        editButton.disableProperty().bind(noTableItemSelected);
+        deleteButton.disableProperty().bind(noTableItemSelected);
     }
 
     @FXML
     public void onNewCashAccount() {
         createOrEditCashAccount(null);
-
-        resetTableView();
     }
 
     @FXML
     public void onEditCashAccount() {
         DtoCashAccount selectedCashAccount = tableView.getSelectionModel().getSelectedItem();
         createOrEditCashAccount(selectedCashAccount);
-
-        resetTableView();
     }
 
     private void createOrEditCashAccount(DtoCashAccount input) {

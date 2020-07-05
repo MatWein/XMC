@@ -3,8 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.VBox?>
-<?import org.xmc.fe.ui.components.BreadcrumbBar?>
-<?import org.xmc.fe.ui.components.TableViewEx?>
+<?import org.xmc.fe.ui.components.*?>
 <VBox prefHeight="700.0" prefWidth="900.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css" xmlns="http://javafx.com/javafx/11.0.0"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.cashaccount.CashAccountController"
       styleClass="cashaccounts-vbox">
@@ -40,13 +39,25 @@
     <TableViewEx VBox.vgrow="ALWAYS" fx:id="tableView">
         <columns>
             <TableColumn editable="false" prefWidth="50"/>
-            <TableColumn editable="false" prefWidth="200" text="%main.cashaccounts.overview.table.column.bankName"/>
+            <TableColumn editable="false" prefWidth="200" text="%main.cashaccounts.overview.table.column.bankName">
+                <cellValueFactory><NestedPropertyValueFactory property="bank.name" /></cellValueFactory>
+            </TableColumn>
             <TableColumn editable="false" prefWidth="200"
-                         text="%main.cashaccounts.overview.table.column.cashAccountName"/>
-            <TableColumn editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.iban"/>
-            <TableColumn editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.bic"/>
-            <TableColumn editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.number"/>
-            <TableColumn editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.blz"/>
+                         text="%main.cashaccounts.overview.table.column.cashAccountName">
+                <cellValueFactory><NestedPropertyValueFactory property="name" /></cellValueFactory>
+            </TableColumn>
+            <TableColumn editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.iban">
+                <cellValueFactory><NestedPropertyValueFactory property="iban" /></cellValueFactory>
+            </TableColumn>
+            <TableColumn editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.bic">
+                <cellValueFactory><NestedPropertyValueFactory property="bank.bic" /></cellValueFactory>
+            </TableColumn>
+            <TableColumn editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.number">
+                <cellValueFactory><NestedPropertyValueFactory property="number" /></cellValueFactory>
+            </TableColumn>
+            <TableColumn editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.blz">
+                <cellValueFactory><NestedPropertyValueFactory property="bank.blz" /></cellValueFactory>
+            </TableColumn>
             <TableColumn editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.creationDate"/>
             <TableColumn editable="false" prefWidth="100" text="%main.cashaccounts.overview.table.column.currency"/>
             <TableColumn editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.lastSaldo"/>

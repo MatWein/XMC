@@ -47,6 +47,12 @@ public class MessageAdapter {
         VALIDATION_INVALID_IBAN("validation.invalidIban"),
         VALIDATION_INVALID_CURRENCY("validation.invalidCurrency"),
 
+        PAGING_FIRST_PAGE("paging.firstPage"),
+        PAGING_BACK("paging.back"),
+        PAGING_NEXT("paging.next"),
+        PAGING_LAST_PAGE("paging.lastPage"),
+        PAGING_COUNT("paging.count"),
+
         LOGIN_TITLE("login.title"),
 
         BOOTSTRAP_STATUS_CREATING_CONTEXT("bootstrap.status.creatingContext"),

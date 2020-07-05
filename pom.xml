@@ -120,6 +120,11 @@
             <artifactId>iban</artifactId>
             <version>1.6.1</version>
         </dependency>
+        <dependency>
+            <groupId>scalc</groupId>
+            <artifactId>scalc</artifactId>
+            <version>1.1.0</version>
+        </dependency>
 
         <!-- Test / Development -->
         <dependency>

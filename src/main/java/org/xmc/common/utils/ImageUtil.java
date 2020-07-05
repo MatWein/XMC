@@ -19,6 +19,10 @@ public class ImageUtil {
 
     public static Image readFromClasspath(String path) throws IOException {
         try (InputStream inputStream = ImageUtil.class.getResourceAsStream(path)) {
+            if (inputStream == null) {
+                throw new IOException(String.format("Could not find class path file '%s'.", path));
+            }
+
             return createImageFromInputStream(inputStream, "classpath");
         }
     }

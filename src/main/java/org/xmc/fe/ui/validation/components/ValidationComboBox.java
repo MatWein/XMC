@@ -6,18 +6,17 @@ import org.xmc.common.utils.ReflectionUtil;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.SceneUtil;
-import org.xmc.fe.ui.validation.ICustomFieldValidator;
-import org.xmc.fe.ui.validation.ICustomValidator;
-import org.xmc.fe.ui.validation.IRequired;
-import org.xmc.fe.ui.validation.IValidationComponent;
+import org.xmc.fe.ui.validation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ValidationComboBox<T> extends ComboBox<T> implements IValidationComponent, IRequired, ICustomValidator {
+public class ValidationComboBox<T> extends ComboBox<T> implements IValidationComponent, IRequired, ICustomValidator, ILength {
     private static final String CSS_CLASS_INVALID = "textfield-invalid";
 
     private boolean required;
+    private Integer minLength;
+    private Integer maxLength;
     private String customValidator;
 
     @Override
@@ -34,11 +33,18 @@ public class ValidationComboBox<T> extends ComboBox<T> implements IValidationCom
             errorMessages.addAll(validator.validate(this));
         }
 
+        errorMessages.addAll(CommonTextfieldValidator.validate(getEditor()));
+
         return errorMessages;
     }
 
+    public void clear() {
+        getSelectionModel().clearSelection();
+        getEditor().setText(null);
+    }
+
     @Override
-    public void initValidationEvent(Scene scene) {
+    public void initialize(Scene scene) {
         this.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> SceneUtil.getOrCreateValidationSceneState(scene).validate());
     }
 
@@ -65,5 +71,21 @@ public class ValidationComboBox<T> extends ComboBox<T> implements IValidationCom
     @Override
     public void setCustomValidator(String customValidator) {
         this.customValidator = customValidator;
+    }
+
+    public Integer getMinLength() {
+        return minLength;
+    }
+
+    public void setMinLength(Integer minLength) {
+        this.minLength = minLength;
+    }
+
+    public Integer getMaxLength() {
+        return maxLength;
+    }
+
+    public void setMaxLength(Integer maxLength) {
+        this.maxLength = maxLength;
     }
 }

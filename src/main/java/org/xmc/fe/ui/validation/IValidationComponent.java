@@ -9,7 +9,7 @@ import java.util.List;
 public interface IValidationComponent {
     List<String> validate();
 
-    void initValidationEvent(Scene scene);
+    void initialize(Scene scene);
 
     String getCssClassInvalid();
     void setTooltip(Tooltip tooltip);

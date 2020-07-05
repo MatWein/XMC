@@ -73,8 +73,8 @@ public class CommonTextfieldValidator {
 
     public static void initValidationEvent(TextField textField, Scene scene) {
         PauseTransition pause = new PauseTransition(DELAY);
-        textField.textProperty().addListener((observable, oldValue, newValue) -> {
-            pause.setOnFinished(event -> SceneUtil.getOrCreateValidationSceneState(scene).validate());
+        textField.setOnKeyPressed(event -> {
+            pause.setOnFinished(e -> SceneUtil.getOrCreateValidationSceneState(scene).validate());
             pause.playFromStart();
         });
     }

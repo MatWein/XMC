@@ -21,7 +21,7 @@ public class ValidationTextField extends TextField implements IValidationCompone
     }
 
     @Override
-    public void initValidationEvent(Scene scene) {
+    public void initialize(Scene scene) {
         CommonTextfieldValidator.initValidationEvent(this, scene);
     }
 

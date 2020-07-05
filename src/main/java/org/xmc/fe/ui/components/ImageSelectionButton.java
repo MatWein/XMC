@@ -14,7 +14,7 @@ import java.util.Optional;
 public class ImageSelectionButton extends Button {
     private Double fitWidth;
     private Double fitHeight;
-    private MessageKey messageKey;
+    private String messageKey; // has to be a string because scene builder cannot render enum parameters
 
     public ImageSelectionButton() {
         this.setOnAction(event -> {
@@ -51,7 +51,7 @@ public class ImageSelectionButton extends Button {
 
     private void hideImage() {
         setGraphic(null);
-        setText(MessageAdapter.getByKey(messageKey));
+        setText(MessageAdapter.getByKey(MessageKey.valueOf(messageKey)));
     }
 
     private ImageView createLogoImageView(Image image) {
@@ -61,11 +61,11 @@ public class ImageSelectionButton extends Button {
         return imageView;
     }
 
-    public MessageKey getMessageKey() {
+    public String getMessageKey() {
         return messageKey;
     }
 
-    public void setMessageKey(MessageKey messageKey) {
+    public void setMessageKey(String messageKey) {
         this.messageKey = messageKey;
     }
 

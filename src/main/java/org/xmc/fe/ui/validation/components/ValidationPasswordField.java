@@ -21,7 +21,7 @@ public class ValidationPasswordField extends PasswordField implements IValidatio
     }
 
     @Override
-    public void initValidationEvent(Scene scene) {
+    public void initialize(Scene scene) {
         CommonTextfieldValidator.initValidationEvent(this, scene);
     }
 

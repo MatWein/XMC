@@ -12,6 +12,8 @@ import java.util.function.Function;
 
 @Component
 public class DtoBankConverter implements Function<DtoBank, String> {
+    static final int MAX_WIDTH = 100;
+
     @Override
     public String apply(DtoBank dtoBank) {
         if (dtoBank.getId() == null) {
@@ -25,7 +27,7 @@ public class DtoBankConverter implements Function<DtoBank, String> {
                 params.add(dtoBank.getBlz());
             }
 
-            return dtoBank.getName() + " " + params;
+            return StringUtils.abbreviate(dtoBank.getName() + " " + params, MAX_WIDTH);
         }
     }
 }

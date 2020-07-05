@@ -77,7 +77,20 @@ class ImageUtilTest extends JUnitTestBase {
     }
 
     @Test
-    void testReadFromClasspath() {
-        throw new RuntimeException("not yet implemented");
+    void testReadFromClasspath() throws IOException {
+        Image result = ImageUtil.readFromClasspath("/images/feather/delete.png");
+
+        Assert.assertNotNull(result);
+        Assert.assertFalse(result.isError());
+    }
+
+    @Test
+    void testReadFromClasspath_NotFound() {
+        Assert.assertThrows(IOException.class, () -> ImageUtil.readFromClasspath("/images/feather/delete2.png"));
+    }
+
+    @Test
+    void testReadFromClasspath$() {
+        Assert.assertThrows(RuntimeException.class, () -> ImageUtil.readFromClasspath$("/images/feather/delete2.png"));
     }
 }

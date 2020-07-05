@@ -14,18 +14,17 @@
             <Insets bottom="5.0"/>
         </padding>
     </Label>
-    <ValidationComboBox prefHeight="25.0" prefWidth="719.0" required="false" fx:id="bankComboBox" visibleRowCount="5">
+    <ValidationComboBox fx:id="bankComboBox" prefHeight="25.0" prefWidth="719.0" required="false" visibleRowCount="5">
         <VBox.margin>
             <Insets bottom="5.0"/>
         </VBox.margin>
     </ValidationComboBox>
-    <TitledPane animated="false" collapsible="false" prefHeight="217.0" text="%cashaccount.edit.bank.details"
-                fx:id="bankTitledPane">
+    <TitledPane fx:id="bankTitledPane" animated="false" collapsible="false" prefHeight="217.0"
+                text="%cashaccount.edit.bank.details">
         <HBox>
-            <ImageSelectionButton mnemonicParsing="false" prefHeight="64.0" prefWidth="64.0"
-                                  maxWidth="64.0" maxHeight="64.0" AnchorPane.leftAnchor="0.0"
-                                  AnchorPane.topAnchor="0.0" messageKey="CASHACCOUNT_EDIT_BANK_LOGO"
-                                  fx:id="logoButton" fitHeight="32.0" fitWidth="32.0">
+            <ImageSelectionButton fx:id="logoButton" fitHeight="32.0" fitWidth="32.0" maxHeight="64.0" maxWidth="64.0"
+                                  messageKey="CASHACCOUNT_EDIT_BANK_LOGO" mnemonicParsing="false" prefHeight="64.0"
+                                  prefWidth="64.0">
                 <HBox.margin>
                     <Insets right="10.0"/>
                 </HBox.margin>
@@ -37,22 +36,29 @@
                         <Insets bottom="5.0"/>
                     </padding>
                 </Label>
-                <ValidationTextField maxLength="255" fx:id="bankNameTextfield"/>
-                <Label text="%cashaccount.edit.bank.bic" styleClass="form-label"/>
-                <ValidationTextField maxLength="255" fx:id="bankBicTextfield"/>
-                <Label text="%cashaccount.edit.bank.blz" styleClass="form-label"/>
-                <ValidationTextField maxLength="255" fx:id="bankBlzTextfield"/>
+                <ValidationTextField fx:id="bankNameTextfield" maxLength="255"/>
+                <Label styleClass="form-label" text="%cashaccount.edit.bank.bic"/>
+                <ValidationAutoComplete fx:id="bankBicComboBox"
+                                        autoCompleteController="org.xmc.fe.stages.main.cashaccount.autocomplete.BicAutoCompleteController"
+                                        maxLength="255"
+                                        visibleRowCount="5" autoCompleteLimit="100"/>
+                <Label styleClass="form-label" text="%cashaccount.edit.bank.blz"/>
+                <ValidationAutoComplete fx:id="bankBlzComboBox"
+                                        autoCompleteController="org.xmc.fe.stages.main.cashaccount.autocomplete.BlzAutoCompleteController"
+                                        maxLength="255"
+                                        visibleRowCount="5" autoCompleteLimit="100"/>
             </VBox>
         </HBox>
     </TitledPane>
 
-    <Label text="%cashaccount.edit.name" styleClass="form-label"/>
-    <ValidationTextField required="true" maxLength="255" fx:id="cashAccountNameTextfield"/>
-    <Label text="%cashaccount.edit.iban" styleClass="form-label"/>
-    <ValidationTextField required="false" maxLength="255" fx:id="cashAccountIbanTextfield"/>
-    <Label text="%cashaccount.edit.number" styleClass="form-label"/>
-    <ValidationTextField required="false" maxLength="255" fx:id="cashAccountNumberTextfield"/>
-    <Label text="%cashaccount.edit.currency" styleClass="form-label"/>
-    <ValidationComboBox prefHeight="25.0" prefWidth="719.0" required="true" fx:id="cashAccountCurrencyComboBox"
-                        visibleRowCount="5"/>
+    <Label styleClass="form-label" text="%cashaccount.edit.name"/>
+    <ValidationTextField fx:id="cashAccountNameTextfield" maxLength="255" required="true"/>
+    <Label styleClass="form-label" text="%cashaccount.edit.iban"/>
+    <ValidationTextField fx:id="cashAccountIbanTextfield" maxLength="255" required="false"/>
+    <Label styleClass="form-label" text="%cashaccount.edit.number"/>
+    <ValidationTextField fx:id="cashAccountNumberTextfield" maxLength="255" required="false"/>
+    <Label styleClass="form-label" text="%cashaccount.edit.currency"/>
+    <ValidationAutoComplete fx:id="cashAccountCurrencyComboBox"
+                            autoCompleteController="org.xmc.fe.stages.main.cashaccount.autocomplete.CurrencyAutoCompleteController"
+                            required="true" visibleRowCount="5"/>
 </VBox>

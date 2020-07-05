@@ -77,7 +77,7 @@ public class ValidationSceneState {
 
     private void registerValidationComponent(IValidationComponent component) {
         validationComponents.add(component);
-        component.initValidationEvent(scene);
+        component.initialize(scene);
     }
 
     private void registerNodeToUpdateAfterValidation(IValidatedComponent component) {

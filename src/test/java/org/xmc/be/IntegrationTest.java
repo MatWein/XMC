@@ -1,5 +1,6 @@
 package org.xmc.be;
 
+import org.apache.commons.io.FileUtils;
 import org.hibernate.Session;
 import org.junit.Ignore;
 import org.junit.jupiter.api.AfterEach;
@@ -16,6 +17,7 @@ import org.xmc.Main;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.io.File;
 
 @Ignore
 @Transactional
@@ -31,6 +33,11 @@ public class IntegrationTest extends JUnitTestBase {
 
     @Autowired
     protected ConfigurableApplicationContext applicationContext;
+
+    public IntegrationTest() {
+        String derbyLogFilePath = new File(FileUtils.getTempDirectory(), "derby.log").getAbsolutePath();
+        System.setProperty("derby.stream.error.file", derbyLogFilePath);
+    }
 
     @BeforeEach
     @Override

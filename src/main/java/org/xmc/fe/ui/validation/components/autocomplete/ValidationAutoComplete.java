@@ -1,4 +1,4 @@
-package org.xmc.fe.ui.validation.components;
+package org.xmc.fe.ui.validation.components.autocomplete;
 
 import com.google.common.collect.Sets;
 import javafx.animation.PauseTransition;
@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
@@ -16,10 +17,13 @@ import javafx.stage.Popup;
 import javafx.util.Duration;
 import org.apache.commons.lang3.StringUtils;
 import org.xmc.common.utils.ReflectionUtil;
+import org.xmc.fe.ui.SceneUtil;
+import org.xmc.fe.ui.validation.components.ValidationTextField;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -37,6 +41,8 @@ public class ValidationAutoComplete<T> extends ValidationTextField {
     private int autoCompleteLimit = 50;
     private int visibleRowCount = 5;
     private Function<T, String> converter;
+    private Function<T, String> contextMenuConverter;
+    private Consumer<T> itemSelectedConsumer;
 
     public ValidationAutoComplete() {
         autoCompleteMenu = new Popup();
@@ -65,8 +71,8 @@ public class ValidationAutoComplete<T> extends ValidationTextField {
             }
         });
 
-        this.setOnKeyPressed(event -> autoCompleteMenu.hide());
-        this.setOnKeyReleased(event -> {
+        this.addEventHandler(KeyEvent.KEY_PRESSED, event -> autoCompleteMenu.hide());
+        this.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
             if (KEYS_TO_IGNORE.contains(event.getCode()) || event.isShiftDown() || event.isControlDown() || event.isAltDown()) {
                 autoCompleteMenu.hide();
                 return;
@@ -96,7 +102,6 @@ public class ValidationAutoComplete<T> extends ValidationTextField {
         }
 
         List<Button> menuItems = results.stream()
-                .map(item -> converter != null ? converter.apply(item) : Objects.toString(item))
                 .map(this::createMenuButton)
                 .collect(Collectors.toList());
 
@@ -117,25 +122,39 @@ public class ValidationAutoComplete<T> extends ValidationTextField {
             double maxHeight = (menuItems.get(0).getHeight() * visibleRowCount) + 3;
             scrollPane.setPrefHeight(maxHeight);
             scrollPane.setMaxHeight(maxHeight);
+            scrollPane.setVvalue(0.0);
 
             autoCompleteMenu.show(this.getScene().getWindow(), x, y);
             vbox.requestFocus();
         });
     }
 
-    private Button createMenuButton(String text) {
+    private Button createMenuButton(T item) {
+        String text = contextMenuConverter == null ? Objects.toString(item) : contextMenuConverter.apply(item);
+
         Button button = new Button(text);
 
         button.setMaxWidth(Double.MAX_VALUE);
         button.setTextAlignment(TextAlignment.LEFT);
         button.setAlignment(Pos.CENTER_LEFT);
+        button.setUserData(item);
 
         button.setOnAction(event -> {
-            setText(text);
-            autoCompleteMenu.hide();
+            selectItem(item);
+
+            if (itemSelectedConsumer != null) {
+                itemSelectedConsumer.accept(item);
+            }
         });
 
         return button;
+    }
+
+    public void selectItem(T item) {
+        String selectedText = converter == null ? Objects.toString(item) : converter.apply(item);
+        setText(selectedText);
+        SceneUtil.getOrCreateValidationSceneState(getScene()).validate();
+        autoCompleteMenu.hide();
     }
 
     private IAutoCompleteController<T> getTypedAutoCompleteController() {
@@ -173,5 +192,21 @@ public class ValidationAutoComplete<T> extends ValidationTextField {
 
     public void setVisibleRowCount(int visibleRowCount) {
         this.visibleRowCount = visibleRowCount;
+    }
+
+    public Function<T, String> getContextMenuConverter() {
+        return contextMenuConverter;
+    }
+
+    public void setContextMenuConverter(Function<T, String> contextMenuConverter) {
+        this.contextMenuConverter = contextMenuConverter;
+    }
+
+    public Consumer<T> getItemSelectedConsumer() {
+        return itemSelectedConsumer;
+    }
+
+    public void setItemSelectedConsumer(Consumer<T> itemSelectedConsumer) {
+        this.itemSelectedConsumer = itemSelectedConsumer;
     }
 }

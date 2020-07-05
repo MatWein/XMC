@@ -4,7 +4,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import org.xmc.fe.ui.components.ImageSelectionButton?>
-<?import org.xmc.fe.ui.validation.components.*?>
+<?import org.xmc.fe.ui.validation.components.autocomplete.ValidationAutoComplete?>
+<?import org.xmc.fe.ui.validation.components.ValidationComboBox?>
+<?import org.xmc.fe.ui.validation.components.ValidationTextField?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="541.0"
       prefWidth="719.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.cashaccount.CashAccountEditController">
@@ -36,14 +38,16 @@
                         <Insets bottom="5.0"/>
                     </padding>
                 </Label>
-                <ValidationTextField fx:id="bankNameTextfield" maxLength="255"/>
+                <ValidationAutoComplete fx:id="bankNameAutoComplete" maxLength="255" visibleRowCount="5"
+                                        autoCompleteLimit="100"
+                                        autoCompleteController="org.xmc.fe.stages.main.cashaccount.autocomplete.BankNameAutoCompleteController"/>
                 <Label styleClass="form-label" text="%cashaccount.edit.bank.bic"/>
-                <ValidationAutoComplete fx:id="bankBicComboBox"
+                <ValidationAutoComplete fx:id="bankBicAutoComplete"
                                         autoCompleteController="org.xmc.fe.stages.main.cashaccount.autocomplete.BicAutoCompleteController"
                                         maxLength="255"
                                         visibleRowCount="5" autoCompleteLimit="100"/>
                 <Label styleClass="form-label" text="%cashaccount.edit.bank.blz"/>
-                <ValidationAutoComplete fx:id="bankBlzComboBox"
+                <ValidationAutoComplete fx:id="bankBlzAutoComplete"
                                         autoCompleteController="org.xmc.fe.stages.main.cashaccount.autocomplete.BlzAutoCompleteController"
                                         maxLength="255"
                                         visibleRowCount="5" autoCompleteLimit="100"/>
@@ -58,7 +62,7 @@
     <Label styleClass="form-label" text="%cashaccount.edit.number"/>
     <ValidationTextField fx:id="cashAccountNumberTextfield" maxLength="255" required="false"/>
     <Label styleClass="form-label" text="%cashaccount.edit.currency"/>
-    <ValidationAutoComplete fx:id="cashAccountCurrencyComboBox"
+    <ValidationAutoComplete fx:id="cashAccountCurrencyAutoComplete"
                             autoCompleteController="org.xmc.fe.stages.main.cashaccount.autocomplete.CurrencyAutoCompleteController"
                             required="true" visibleRowCount="5"/>
 </VBox>

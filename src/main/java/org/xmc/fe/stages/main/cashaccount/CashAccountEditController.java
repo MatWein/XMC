@@ -22,9 +22,9 @@ import org.xmc.fe.ui.components.ImageSelectionButton;
 import org.xmc.fe.ui.converter.GenericItemToStringConverter;
 import org.xmc.fe.ui.validation.IValidationComponent;
 import org.xmc.fe.ui.validation.IValidationController;
-import org.xmc.fe.ui.validation.components.ValidationAutoComplete;
 import org.xmc.fe.ui.validation.components.ValidationComboBox;
 import org.xmc.fe.ui.validation.components.ValidationTextField;
+import org.xmc.fe.ui.validation.components.autocomplete.ValidationAutoComplete;
 
 import java.util.Currency;
 
@@ -39,13 +39,13 @@ public class CashAccountEditController implements IValidationController {
     @FXML private ImageSelectionButton logoButton;
     @FXML private TitledPane bankTitledPane;
     @FXML private ValidationComboBox<DtoBank> bankComboBox;
-    @FXML private ValidationTextField bankNameTextfield;
-    @FXML private ValidationAutoComplete<DtoBankInformation> bankBicComboBox;
-    @FXML private ValidationAutoComplete<DtoBankInformation> bankBlzComboBox;
+    @FXML private ValidationAutoComplete<DtoBankInformation> bankNameAutoComplete;
+    @FXML private ValidationAutoComplete<DtoBankInformation> bankBicAutoComplete;
+    @FXML private ValidationAutoComplete<DtoBankInformation> bankBlzAutoComplete;
     @FXML private ValidationTextField cashAccountNameTextfield;
     @FXML private ValidationTextField cashAccountIbanTextfield;
     @FXML private ValidationTextField cashAccountNumberTextfield;
-    @FXML private ValidationAutoComplete<Currency> cashAccountCurrencyComboBox;
+    @FXML private ValidationAutoComplete<Currency> cashAccountCurrencyAutoComplete;
 
     @Autowired
     public CashAccountEditController(
@@ -72,9 +72,29 @@ public class CashAccountEditController implements IValidationController {
         bankComboBox.getSelectionModel().selectedItemProperty().addListener(createBankChangeListener());
         bankComboBox.getSelectionModel().select(emptyBank);
 
-        bankBlzComboBox.setConverter(dtoBankInformationBlzConverter);
-        bankBicComboBox.setConverter(dtoBankInformationBicConverter);
-        cashAccountCurrencyComboBox.setConverter(currencyConverter);
+        bankNameAutoComplete.setContextMenuConverter(dtoBankInformationBlzConverter);
+        bankNameAutoComplete.setConverter(DtoBankInformation::getBankName);
+        bankNameAutoComplete.setItemSelectedConsumer(item -> {
+            bankBlzAutoComplete.selectItem(item);
+            bankBicAutoComplete.selectItem(item);
+        });
+
+        bankBlzAutoComplete.setContextMenuConverter(dtoBankInformationBlzConverter);
+        bankBlzAutoComplete.setConverter(DtoBankInformation::getBlz);
+        bankBlzAutoComplete.setItemSelectedConsumer(item -> {
+            bankNameAutoComplete.selectItem(item);
+            bankBicAutoComplete.selectItem(item);
+        });
+
+        bankBicAutoComplete.setContextMenuConverter(dtoBankInformationBicConverter);
+        bankBicAutoComplete.setConverter(DtoBankInformation::getBic);
+        bankBicAutoComplete.setItemSelectedConsumer(item -> {
+            bankNameAutoComplete.selectItem(item);
+            bankBlzAutoComplete.selectItem(item);
+        });
+
+        cashAccountCurrencyAutoComplete.setContextMenuConverter(currencyConverter);
+        cashAccountCurrencyAutoComplete.setConverter(Currency::getCurrencyCode);
     }
 
     private ChangeListener<DtoBank> createBankChangeListener() {
@@ -83,14 +103,14 @@ public class CashAccountEditController implements IValidationController {
             bankTitledPane.setDisable(existingBankSelected);
 
             if (existingBankSelected) {
-                bankNameTextfield.setText(newValue.getName());
-                bankBicComboBox.setText(newValue.getBic());
-                bankBlzComboBox.setText(newValue.getBlz());
+                bankNameAutoComplete.setText(newValue.getName());
+                bankBicAutoComplete.setText(newValue.getBic());
+                bankBlzAutoComplete.setText(newValue.getBlz());
                 logoButton.setImage(newValue.getLogo());
             } else {
-                bankNameTextfield.clear();
-                bankBicComboBox.clear();
-                bankBlzComboBox.clear();
+                bankNameAutoComplete.clear();
+                bankBicAutoComplete.clear();
+                bankBlzAutoComplete.clear();
                 logoButton.setImage((Image)null);
             }
         };
@@ -100,8 +120,8 @@ public class CashAccountEditController implements IValidationController {
     public Multimap<IValidationComponent, String> validate() {
         Multimap<IValidationComponent, String> validationErrors = ArrayListMultimap.create();
 
-        if (bankComboBox.getSelectionModel().getSelectedItem().getId() == null && StringUtils.isBlank(bankNameTextfield.getText())) {
-            validationErrors.put(bankNameTextfield, MessageAdapter.getByKey(MessageKey.VALIDATION_REQUIRED));
+        if (bankComboBox.getSelectionModel().getSelectedItem().getId() == null && StringUtils.isBlank(bankNameAutoComplete.getText())) {
+            validationErrors.put(bankNameAutoComplete, MessageAdapter.getByKey(MessageKey.VALIDATION_REQUIRED));
         }
 
         return validationErrors;

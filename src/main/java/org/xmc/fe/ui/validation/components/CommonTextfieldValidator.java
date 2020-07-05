@@ -3,6 +3,7 @@ package org.xmc.fe.ui.validation.components;
 import javafx.animation.PauseTransition;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 import org.apache.commons.lang3.StringUtils;
 import org.xmc.common.utils.ReflectionUtil;
@@ -73,7 +74,7 @@ public class CommonTextfieldValidator {
 
     public static void initValidationEvent(TextField textField, Scene scene) {
         PauseTransition pause = new PauseTransition(DELAY);
-        textField.setOnKeyPressed(event -> {
+        textField.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             pause.setOnFinished(e -> SceneUtil.getOrCreateValidationSceneState(scene).validate());
             pause.playFromStart();
         });

@@ -1,4 +1,4 @@
-package org.xmc.fe.ui.validation.components;
+package org.xmc.fe.ui.validation.components.autocomplete;
 
 import java.util.List;
 

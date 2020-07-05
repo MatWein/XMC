@@ -3,18 +3,18 @@ package org.xmc.fe.stages.main.cashaccount.autocomplete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.xmc.common.stubs.DtoBankInformation;
-import org.xmc.fe.stages.main.cashaccount.converter.DtoBankInformationBlzConverter;
+import org.xmc.fe.stages.main.cashaccount.converter.DtoBankInformationNameConverter;
 import org.xmc.fe.ui.validation.components.autocomplete.AutoCompleteByConverterController;
 
 import java.util.List;
 
 @Component
-public class BlzAutoCompleteController extends AutoCompleteByConverterController<DtoBankInformation> {
+public class BankNameAutoCompleteController extends AutoCompleteByConverterController<DtoBankInformation> {
     @Autowired
-    public BlzAutoCompleteController(
+    public BankNameAutoCompleteController(
             List<DtoBankInformation> bankInformation,
-            DtoBankInformationBlzConverter dtoBankInformationBlzConverter) {
+            DtoBankInformationNameConverter dtoBankInformationNameConverter) {
 
-        super(bankInformation, dtoBankInformationBlzConverter);
+        super(bankInformation, dtoBankInformationNameConverter);
     }
 }

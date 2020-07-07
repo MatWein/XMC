@@ -120,8 +120,6 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> 
         getChildren().add(toolBar);
 
         tableView.setOnSort(event -> onSort());
-
-        reload(false, false);
     }
 
     private void onSort() {
@@ -176,11 +174,23 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> 
         }
 
         Main.applicationContext.getBean(AsyncProcessor.class).runAsync(
-                () -> setDisable(true),
                 this::loadItemsFromProvider,
-                this::updateItems,
-                () -> setDisable(false)
+                this::updateItems
         );
+    }
+
+    private QueryResults<ITEM_TYPE> loadItemsFromProvider(AsyncMonitor monitor) {
+        if (dataProvider == null) {
+            return QueryResults.emptyResults();
+        }
+
+        int offset = page.get() * pageSize.get();
+        int limit = pageSize.get();
+
+        return dataProvider.loadItems(monitor, new PagingParams<>(
+                offset, limit,
+                sortBy, orderMapper.mapOrder(sortType),
+                filterTextfield.getText()));
     }
 
     private void updateItems(QueryResults<ITEM_TYPE> items) {
@@ -204,20 +214,6 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> 
         }
 
         placeholder.setText(String.format("%s / %s (%s: %s)", currentPage, pageCount, MessageAdapter.getByKey(MessageKey.PAGING_COUNT), items.getTotal()));
-    }
-
-    private QueryResults<ITEM_TYPE> loadItemsFromProvider(AsyncMonitor monitor) {
-        if (dataProvider == null) {
-            return QueryResults.emptyResults();
-        }
-
-        int offset = page.get() * pageSize.get();
-        int limit = pageSize.get();
-
-        return dataProvider.loadItems(monitor, new PagingParams<>(
-                offset, limit,
-                sortBy, orderMapper.mapOrder(sortType),
-                filterTextfield.getText()));
     }
 
     public int getPageSize() {

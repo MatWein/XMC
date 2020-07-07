@@ -28,17 +28,6 @@ public class ProcessView extends ScrollPane {
         setFitToWidth(true);
 
         elements.addListener((ListChangeListener<ProcessViewElement>) c -> itemCount.set(elements.size()));
-        elements.addListener((ListChangeListener<ProcessViewElement>) c -> Platform.runLater(() -> {
-            while (c.next()) {
-                for (ProcessViewElement elementToAdd : c.getAddedSubList()) {
-                    vBox.getChildren().add(elementToAdd);
-                }
-
-                for (ProcessViewElement elementToRemove : c.getRemoved()) {
-                    vBox.getChildren().remove(elementToRemove);
-                }
-            }
-        }));
         itemCount.addListener((observable, oldValue, newValue) -> {
             if (newValue.intValue() == 0) {
                 setVisible(false);
@@ -51,15 +40,31 @@ public class ProcessView extends ScrollPane {
             return;
         }
 
-        processProgressbar.setProgress(getElements().stream()
+        processProgressbar.setProgress(elements.stream()
                 .mapToDouble(ProcessViewElement::getProgress)
                 .filter(value -> value >= 0.0)
                 .average()
                 .orElse(0.0));
     }
 
-    public ObservableList<ProcessViewElement> getElements() {
-        return elements;
+    public ProcessViewElement addNewElement() {
+        ProcessViewElement element = new ProcessViewElement(this);
+        Platform.runLater(() -> {
+            if (!elements.contains(element)) {
+                elements.add(element);
+            }
+            if (!vBox.getChildren().contains(element)) {
+                vBox.getChildren().add(element);
+            }
+        });
+        return element;
+    }
+
+    public void removeElement(ProcessViewElement element) {
+        Platform.runLater(() -> {
+            elements.remove(element);
+            vBox.getChildren().remove(element);
+        });
     }
 
     public int getItemCount() {

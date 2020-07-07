@@ -21,8 +21,8 @@ import org.xmc.fe.ui.components.async.ProcessView;
 public class MainController {
     private final MemoryBarController memoryBarController;
 
-    public static Region backdropRef;
-    public static ProcessView processViewRef;
+    public volatile static Region backdropRef;
+    public volatile static ProcessView processViewRef;
 
     @FXML private ProcessView processView;
     @FXML private ProgressIndicator progressIndicator;

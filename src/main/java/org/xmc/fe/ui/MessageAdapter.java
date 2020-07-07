@@ -54,6 +54,8 @@ public class MessageAdapter {
         PAGING_COUNT("paging.count"),
         PAGING_FILTER_PROMPT("paging.filterPrompt"),
 
+        ASYNC_TASK_LOAD_CASHACCOUNTS("async.task.loadCashAccounts"),
+
         LOGIN_TITLE("login.title"),
 
         BOOTSTRAP_STATUS_CREATING_CONTEXT("bootstrap.status.creatingContext"),

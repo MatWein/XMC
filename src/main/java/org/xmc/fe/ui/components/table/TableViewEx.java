@@ -21,10 +21,13 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import org.apache.commons.lang3.StringUtils;
+import org.xmc.Main;
 import org.xmc.common.stubs.IPagingField;
 import org.xmc.common.stubs.PagingParams;
 import org.xmc.common.utils.ReflectionUtil;
 import org.xmc.fe.FeConstants;
+import org.xmc.fe.async.AsyncMonitor;
+import org.xmc.fe.async.AsyncProcessor;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import scalc.SCalcBuilder;
@@ -172,7 +175,15 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> 
             filterTextfield.clear();
         }
 
-        QueryResults<ITEM_TYPE> items = loadItemsFromProvider();
+        Main.applicationContext.getBean(AsyncProcessor.class).runAsync(
+                () -> setDisable(true),
+                this::loadItemsFromProvider,
+                this::updateItems,
+                () -> setDisable(false)
+        );
+    }
+
+    private void updateItems(QueryResults<ITEM_TYPE> items) {
         tableView.getItems().setAll(items.getResults());
 
         int currentPage, pageCount;
@@ -195,7 +206,7 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> 
         placeholder.setText(String.format("%s / %s (%s: %s)", currentPage, pageCount, MessageAdapter.getByKey(MessageKey.PAGING_COUNT), items.getTotal()));
     }
 
-    private QueryResults<ITEM_TYPE> loadItemsFromProvider() {
+    private QueryResults<ITEM_TYPE> loadItemsFromProvider(AsyncMonitor monitor) {
         if (dataProvider == null) {
             return QueryResults.emptyResults();
         }
@@ -203,7 +214,7 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> 
         int offset = page.get() * pageSize.get();
         int limit = pageSize.get();
 
-        return dataProvider.loadItems(new PagingParams<>(
+        return dataProvider.loadItems(monitor, new PagingParams<>(
                 offset, limit,
                 sortBy, orderMapper.mapOrder(sortType),
                 filterTextfield.getText()));

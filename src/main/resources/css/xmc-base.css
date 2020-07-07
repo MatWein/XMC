@@ -22,6 +22,10 @@
     -fx-text-fill: white;
 }
 
+.hand {
+    -fx-cursor: hand;
+}
+
 /* ---- Validation ---- */
 
 .textfield-invalid, .passwordfield-invalid {

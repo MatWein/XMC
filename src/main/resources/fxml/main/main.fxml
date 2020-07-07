@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import org.xmc.fe.ui.components.async.ProcessView?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="768.0" minWidth="1024.0" prefHeight="768.0"
-            prefWidth="1024.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css" xmlns="http://javafx.com/javafx/11.0.0"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.MainController">
+            prefWidth="1024.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css,@/css/main/async.css"
+            xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.xmc.fe.stages.main.MainController">
 
     <TabPane layoutX="205.0" layoutY="120.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE"
              AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
@@ -44,37 +46,44 @@
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
         </Tab>
     </TabPane>
-    <AnchorPane prefHeight="30" styleClass="statusbar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                AnchorPane.rightAnchor="0.0">
-        <HBox alignment="CENTER_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-              AnchorPane.topAnchor="0.0">
-            <Label fx:id="statusLabel" text="%main.status.ready">
-                <padding>
-                    <Insets left="10"/>
-                </padding>
-            </Label>
-        </HBox>
-        <HBox alignment="CENTER_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0"
-              AnchorPane.topAnchor="0.0">
-            <ProgressBar prefWidth="150" progress="0" visible="false"/>
-            <Separator orientation="VERTICAL">
-                <padding>
-                    <Insets left="10" right="10"/>
-                </padding>
-            </Separator>
-            <Label fx:id="displayNameLabel"/>
-            <Separator orientation="VERTICAL">
-                <padding>
-                    <Insets left="10" right="10"/>
-                </padding>
-            </Separator>
-            <ProgressBar fx:id="memoryProgressbar" prefWidth="100" progress="0">
-                <HBox.margin>
-                    <Insets right="10"/>
-                </HBox.margin>
-            </ProgressBar>
-        </HBox>
-    </AnchorPane>
+    <HBox alignment="CENTER_LEFT" prefHeight="30" styleClass="statusbar" AnchorPane.bottomAnchor="0.0"
+          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <Label fx:id="statusLabel" text="%main.status.ready">
+            <padding>
+                <Insets left="10"/>
+            </padding>
+        </Label>
+
+        <Pane HBox.hgrow="ALWAYS"/>
+        <ProgressIndicator fx:id="progressIndicator" maxHeight="16.0" maxWidth="16.0"
+                           onMouseClicked="#onToggleProcessView" prefHeight="16.0" prefWidth="16.0" styleClass="hand"
+                           visible="false"/>
+        <Label fx:id="processCountLabel" onMouseClicked="#onToggleProcessView" styleClass="hand" visible="false">
+            <padding>
+                <Insets left="5.0" right="5.0"/>
+            </padding>
+        </Label>
+
+        <ProgressBar fx:id="processProgressbar" onMouseClicked="#onToggleProcessView" prefWidth="150" progress="0.0"
+                     styleClass="hand" visible="false"/>
+        <Separator orientation="VERTICAL">
+            <padding>
+                <Insets left="10" right="10"/>
+            </padding>
+        </Separator>
+        <Label fx:id="displayNameLabel"/>
+        <Separator orientation="VERTICAL">
+            <padding>
+                <Insets left="10" right="10"/>
+            </padding>
+        </Separator>
+        <ProgressBar fx:id="memoryProgressbar" prefWidth="100" progress="0">
+            <HBox.margin>
+                <Insets right="10"/>
+            </HBox.margin>
+        </ProgressBar>
+    </HBox>
+
     <MenuButton mnemonicParsing="false" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
         <graphic>
             <ImageView>
@@ -89,7 +98,7 @@
                     </ImageView>
                 </graphic>
             </MenuItem>
-            <MenuItem mnemonicParsing="false" text="%main.menu.about" onAction="#onAbout">
+            <MenuItem mnemonicParsing="false" onAction="#onAbout" text="%main.menu.about">
                 <graphic>
                     <ImageView>
                         <Image url="@/images/feather/info.png"/>
@@ -99,7 +108,9 @@
         </items>
     </MenuButton>
 
-    <Region AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0"
-            AnchorPane.bottomAnchor="0.0" visible="false" fx:id="backdrop"
-            styleClass="backdrop"/>
+    <ProcessView fx:id="processView" prefHeight="250" prefWidth="400" visible="false" AnchorPane.bottomAnchor="30.0"
+                 AnchorPane.rightAnchor="0.0"/>
+
+    <Region fx:id="backdrop" styleClass="backdrop" visible="false" AnchorPane.bottomAnchor="0.0"
+            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
 </AnchorPane>

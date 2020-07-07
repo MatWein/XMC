@@ -80,7 +80,6 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> 
         filterTextfield = new TextField();
         filterTextfield.setPrefWidth(250);
         filterTextfield.setPromptText(MessageAdapter.getByKey(MessageKey.PAGING_FILTER_PROMPT));
-        filterTextfield.disableProperty().bind(currentItemCount.isEqualTo(0).and(filterTextfield.textProperty().isEmpty()));
         filterTextfield.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
             pause.setOnFinished(e -> reload(true, false));
             pause.playFromStart();

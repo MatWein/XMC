@@ -16,6 +16,7 @@ import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.components.BreadcrumbBar;
 import org.xmc.fe.ui.components.BreadcrumbBar.BreadcrumbPathElement;
+import org.xmc.fe.ui.components.async.AsyncButton;
 import org.xmc.fe.ui.components.table.TableViewEx;
 
 import java.util.Optional;
@@ -26,7 +27,7 @@ public class CashAccountController {
     private final CashAccountEditDialogMapper cashAccountEditDialogMapper;
 
     @FXML private BreadcrumbBar<?> breadcrumbBar;
-    @FXML private Button editButton;
+    @FXML private AsyncButton editButton;
     @FXML private Button deleteButton;
     @FXML private TableViewEx<DtoCashAccount, CashAccountOverviewFields> tableView;
 
@@ -44,7 +45,7 @@ public class CashAccountController {
         breadcrumbBar.getElements().add(new BreadcrumbPathElement<>(MessageAdapter.getByKey(MessageKey.MAIN_CASHACCOUNTS_BREADCRUMB_OVERVIEW)));
 
         BooleanBinding noTableItemSelected = tableView.getSelectionModel().selectedItemProperty().isNull();
-        editButton.disableProperty().bind(noTableItemSelected);
+        editButton.bindDisable(noTableItemSelected);
         deleteButton.disableProperty().bind(noTableItemSelected);
         tableView.setDataProvider(cashAccountService::loadOverview);
     }

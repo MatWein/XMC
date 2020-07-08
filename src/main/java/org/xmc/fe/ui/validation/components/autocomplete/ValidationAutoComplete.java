@@ -31,6 +31,7 @@ public class ValidationAutoComplete<T> extends ValidationTextField {
     private static final Set<KeyCode> KEYS_TO_IGNORE = Sets.newHashSet(
             KeyCode.ESCAPE, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP,
             KeyCode.DOWN, KeyCode.SHIFT, KeyCode.CONTROL, KeyCode.ALT);
+    public static final double BUTTON_HEIGHT = 30.0;
 
     private final ScrollPane scrollPane;
     private final VBox vbox;
@@ -89,37 +90,38 @@ public class ValidationAutoComplete<T> extends ValidationTextField {
     }
 
     private void search() {
-        if (StringUtils.isBlank(getText())) {
-            autoCompleteMenu.hide();
-            return;
-        }
-
-        List<T> results = getTypedAutoCompleteController().search(getText(), autoCompleteLimit);
-        if (results.isEmpty()) {
-            autoCompleteMenu.hide();
-            return;
-        }
-
-        List<Button> menuItems = results.stream()
-                .map(this::createMenuButton)
-                .collect(Collectors.toList());
-
-        vbox.getChildren().setAll(menuItems);
-
-        Point2D txtCoords = localToScene(0.0, 0.0);
-        double x = txtCoords.getX() + getScene().getWindow().getX() + 8;
-        double y = txtCoords.getY() + getScene().getWindow().getY() + 55;
-
-        autoCompleteMenu.show(this.getScene().getWindow(), x, y);
-        autoCompleteMenu.hide();
-
         Platform.runLater(() -> {
+            if (StringUtils.isBlank(getText())) {
+                autoCompleteMenu.hide();
+                return;
+            }
+
+            List<T> results = getTypedAutoCompleteController().search(getText(), autoCompleteLimit);
+            if (results.isEmpty()) {
+                autoCompleteMenu.hide();
+                return;
+            }
+
+            List<Button> menuItems = results.stream()
+                    .map(this::createMenuButton)
+                    .collect(Collectors.toList());
+
+            vbox.getChildren().setAll(menuItems);
+
+            Point2D txtCoords = localToScene(0.0, 0.0);
+            double x = txtCoords.getX() + getScene().getX() + getScene().getWindow().getX();
+            double y = txtCoords.getY() + getScene().getY() + getScene().getWindow().getY() + getHeight();
+
             double maxWidth = getWidth();
             scrollPane.setPrefWidth(maxWidth);
             scrollPane.setMaxWidth(maxWidth);
 
-            double maxHeight = (menuItems.get(0).getHeight() * visibleRowCount) + 3;
+            vbox.applyCss();
+            vbox.layout();
+
+            double maxHeight = (BUTTON_HEIGHT * visibleRowCount) + 3;
             scrollPane.setPrefHeight(maxHeight);
+            scrollPane.setMinHeight(maxHeight);
             scrollPane.setMaxHeight(maxHeight);
             scrollPane.setVvalue(0.0);
 
@@ -137,6 +139,9 @@ public class ValidationAutoComplete<T> extends ValidationTextField {
         button.setTextAlignment(TextAlignment.LEFT);
         button.setAlignment(Pos.CENTER_LEFT);
         button.setUserData(item);
+        button.setMinHeight(BUTTON_HEIGHT);
+        button.setPrefHeight(BUTTON_HEIGHT);
+        button.setMaxHeight(BUTTON_HEIGHT);
 
         button.setOnAction(event -> {
             selectItem(item);

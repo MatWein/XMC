@@ -8,16 +8,16 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.Region;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.xmc.be.services.login.UserLoginService;
 import org.xmc.fe.stages.main.logic.MemoryBarController;
 import org.xmc.fe.ui.CustomDialogBuilder;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
+import org.xmc.fe.ui.FxmlController;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.components.async.ProcessView;
 
-@Component
+@FxmlController
 public class MainController {
     private final MemoryBarController memoryBarController;
 

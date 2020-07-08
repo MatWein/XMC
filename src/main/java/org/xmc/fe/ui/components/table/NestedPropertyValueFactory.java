@@ -7,7 +7,7 @@ import javafx.scene.control.TableColumn;
 import javafx.util.Callback;
 import org.apache.commons.beanutils.PropertyUtils;
 
-public class NestedPropertyValueFactory<S,T> implements Callback<TableColumn.CellDataFeatures<S,T>, ObservableValue<T>> {
+public class NestedPropertyValueFactory implements Callback<TableColumn.CellDataFeatures, ObservableValue> {
     private final String property;
 
     public NestedPropertyValueFactory(@NamedArg("property") String property) {
@@ -15,19 +15,24 @@ public class NestedPropertyValueFactory<S,T> implements Callback<TableColumn.Cel
     }
 
     @Override
-    public ObservableValue<T> call(TableColumn.CellDataFeatures<S, T> param) {
+    public ObservableValue call(TableColumn.CellDataFeatures param) {
         return getCellDataReflectively(param.getValue());
     }
 
-    private ObservableValue<T> getCellDataReflectively(S rowData) {
+    private ObservableValue getCellDataReflectively(Object rowData) {
         if (getProperty() == null || getProperty().isEmpty() || rowData == null) return null;
 
         try {
-            T value = (T)PropertyUtils.getNestedProperty(rowData, getProperty());
-            return new ReadOnlyObjectWrapper<>(value);
+            Object value = PropertyUtils.getNestedProperty(rowData, getProperty());
+            Object mappedValue = mapValue(value);
+            return new ReadOnlyObjectWrapper<>(mappedValue);
         } catch (Throwable e) {
             throw new RuntimeException(String.format("Could not read property '%s' from: %s", getProperty(), rowData), e);
         }
+    }
+
+    protected Object mapValue(Object value) {
+        return value;
     }
 
     public final String getProperty() { return property; }

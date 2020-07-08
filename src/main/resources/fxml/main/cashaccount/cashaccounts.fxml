@@ -43,7 +43,11 @@
     <TableViewEx VBox.vgrow="ALWAYS" fx:id="tableView"
                  fieldEnumType="org.xmc.common.stubs.cashaccount.CashAccountOverviewFields">
         <columns>
-            <TableColumnEx editable="false" prefWidth="50" sortable="false"/>
+            <TableColumnEx editable="false" prefWidth="50" sortable="false">
+                <cellValueFactory>
+                    <NestedPropertyImageFactory property="bank.logo" fitToWidth="24" fitToHeight="24"/>
+                </cellValueFactory>
+            </TableColumnEx>
             <TableColumnEx editable="false" prefWidth="200" text="%main.cashaccounts.overview.table.column.bankName"
                            sortField="BANK_NAME">
                 <cellValueFactory>

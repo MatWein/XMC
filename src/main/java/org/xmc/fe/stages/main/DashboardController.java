@@ -5,13 +5,13 @@ import javafx.scene.Parent;
 import javafx.scene.control.ToolBar;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.Pair;
-import org.springframework.stereotype.Component;
 import org.xmc.Main;
 import org.xmc.fe.stages.login.LoginController;
 import org.xmc.fe.ui.FxmlComponentFactory;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
+import org.xmc.fe.ui.FxmlController;
 
-@Component
+@FxmlController
 public class DashboardController {
     @FXML
     private ToolBar toolbar;

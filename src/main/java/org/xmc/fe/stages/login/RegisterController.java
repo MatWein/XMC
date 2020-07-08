@@ -5,14 +5,14 @@ import javafx.scene.Parent;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.apache.commons.lang3.tuple.Pair;
-import org.springframework.stereotype.Component;
 import org.xmc.Main;
 import org.xmc.be.services.login.UserRegistrationService;
 import org.xmc.common.stubs.login.DtoBootstrapFile;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
+import org.xmc.fe.ui.FxmlController;
 import org.xmc.fe.ui.SceneUtil;
 
-@Component
+@FxmlController
 public class RegisterController {
     @FXML private TextField displayNameTextfield;
     @FXML private TextField usernameTextfield;

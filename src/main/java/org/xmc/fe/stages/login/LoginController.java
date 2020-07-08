@@ -9,15 +9,15 @@ import javafx.scene.control.TextField;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration;
 import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
-import org.springframework.stereotype.Component;
 import org.xmc.be.services.login.controller.BootstrapFileController;
 import org.xmc.common.stubs.login.DtoBootstrapFile;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
+import org.xmc.fe.ui.FxmlController;
 import org.xmc.fe.ui.SceneUtil;
 
 import java.util.Optional;
 
-@Component
+@FxmlController
 public class LoginController {
     @FXML private TextField usernameTextfield;
     @FXML private PasswordField passwordField;

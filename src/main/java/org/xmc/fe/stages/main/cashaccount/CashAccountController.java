@@ -5,13 +5,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.xmc.be.services.cashaccount.CashAccountService;
 import org.xmc.common.stubs.cashaccount.CashAccountOverviewFields;
 import org.xmc.common.stubs.cashaccount.DtoCashAccount;
 import org.xmc.fe.stages.main.cashaccount.mapper.CashAccountEditDialogMapper;
 import org.xmc.fe.ui.CustomDialogBuilder;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
+import org.xmc.fe.ui.FxmlController;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.components.BreadcrumbBar;
@@ -21,7 +21,7 @@ import org.xmc.fe.ui.components.table.TableViewEx;
 
 import java.util.Optional;
 
-@Component
+@FxmlController
 public class CashAccountController {
     private final CashAccountService cashAccountService;
     private final CashAccountEditDialogMapper cashAccountEditDialogMapper;

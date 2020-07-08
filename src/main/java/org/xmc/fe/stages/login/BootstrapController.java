@@ -12,18 +12,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration;
 import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
-import org.springframework.stereotype.Component;
 import org.xmc.Main;
 import org.xmc.be.services.login.UserLoginService;
 import org.xmc.common.stubs.login.DtoBootstrapFile;
 import org.xmc.common.utils.HomeDirectoryPathCalculator;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
+import org.xmc.fe.ui.FxmlController;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.SceneUtil;
 import org.xmc.fe.ui.StageBuilder;
 
-@Component
+@FxmlController
 public class BootstrapController {
     private static final Logger LOGGER = LoggerFactory.getLogger(BootstrapController.class);
 

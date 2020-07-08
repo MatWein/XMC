@@ -6,15 +6,15 @@ import javafx.scene.text.Text;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.boot.info.GitProperties;
-import org.springframework.stereotype.Component;
 import org.xmc.Main;
+import org.xmc.fe.ui.FxmlController;
 
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Locale;
 
-@Component
+@FxmlController
 public class AboutController {
     private final GitProperties gitProperties;
     private final BuildProperties buildProperties;

@@ -8,7 +8,6 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.xmc.be.services.bank.BankService;
 import org.xmc.common.stubs.DtoBank;
 import org.xmc.common.stubs.DtoBankInformation;
@@ -16,6 +15,7 @@ import org.xmc.fe.stages.main.cashaccount.converter.CurrencyConverter;
 import org.xmc.fe.stages.main.cashaccount.converter.DtoBankConverter;
 import org.xmc.fe.stages.main.cashaccount.converter.DtoBankInformationBicConverter;
 import org.xmc.fe.stages.main.cashaccount.converter.DtoBankInformationBlzConverter;
+import org.xmc.fe.ui.FxmlController;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.components.ImageSelectionButton;
@@ -28,7 +28,7 @@ import org.xmc.fe.ui.validation.components.autocomplete.ValidationAutoComplete;
 
 import java.util.Currency;
 
-@Component
+@FxmlController
 public class CashAccountEditController implements IValidationController {
     private final CurrencyConverter currencyConverter;
     private final DtoBankConverter dtoBankConverter;

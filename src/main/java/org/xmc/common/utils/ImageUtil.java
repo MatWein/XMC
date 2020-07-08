@@ -2,7 +2,9 @@ package org.xmc.common.utils;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
+import net.coobird.thumbnailator.Thumbnails;
 import org.apache.commons.io.FileUtils;
+import org.xmc.common.FileMimeType;
 
 import javax.imageio.ImageIO;
 import java.io.*;
@@ -68,7 +70,27 @@ public class ImageUtil {
             ImageIO.write(bufferedImage, "png", outputStream);
             return outputStream.toByteArray();
         } catch (IOException e) {
-            throw new RuntimeException("Error on creating byte array from image.");
+            throw new RuntimeException("Error on creating byte array from image.", e);
+        }
+    }
+
+    public static byte[] resize$(byte[] image, int width, int height) {
+        try {
+            return resize(image, width, height);
+        } catch (IOException e) {
+            throw new RuntimeException("Error on resizing byte array image.", e);
+        }
+    }
+
+    public static byte[] resize(byte[] image, int width, int height) throws IOException {
+        try (var inputStream = new ByteArrayInputStream(image); var outputStream = new ByteArrayOutputStream()) {
+            Thumbnails
+                    .of(inputStream)
+                    .size(width, height)
+                    .outputFormat(FileMimeType.PNG.getFileExtension())
+                    .toOutputStream(outputStream);
+
+            return outputStream.toByteArray();
         }
     }
 }

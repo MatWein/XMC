@@ -30,9 +30,9 @@ public class CashAccountRepository {
         BooleanExpression predicate = cashAccount.name.likeIgnoreCase(filter)
                         .or(cashAccount.number.likeIgnoreCase(filter))
                         .or(cashAccount.iban.likeIgnoreCase(filter))
-                        .or(cashAccount.bank().bic.likeIgnoreCase(filter))
-                        .or(cashAccount.bank().blz.likeIgnoreCase(filter))
-                        .or(cashAccount.bank().name.likeIgnoreCase(filter));
+                        .or(bank.bic.likeIgnoreCase(filter))
+                        .or(bank.blz.likeIgnoreCase(filter))
+                        .or(bank.name.likeIgnoreCase(filter));
 
         return queryUtil.createPagedQuery(pagingParams)
                 .select(Projections.constructor(DtoCashAccount.class,

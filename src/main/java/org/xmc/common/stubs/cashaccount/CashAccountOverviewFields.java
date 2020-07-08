@@ -3,12 +3,13 @@ package org.xmc.common.stubs.cashaccount;
 import com.querydsl.core.types.Expression;
 import org.xmc.common.stubs.IPagingField;
 
+import static org.xmc.be.entities.QBank.bank;
 import static org.xmc.be.entities.cashaccount.QCashAccount.cashAccount;
 
 public enum CashAccountOverviewFields implements IPagingField {
-    BANK_NAME(cashAccount.bank().name),
-    BANK_BIC(cashAccount.bank().bic),
-    BANK_BLZ(cashAccount.bank().blz),
+    BANK_NAME(bank.name),
+    BANK_BIC(bank.bic),
+    BANK_BLZ(bank.blz),
 
     NAME(cashAccount.name),
     IBAN(cashAccount.iban),

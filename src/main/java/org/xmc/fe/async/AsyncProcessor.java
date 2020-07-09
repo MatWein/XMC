@@ -47,6 +47,21 @@ public class AsyncProcessor {
                 () -> {}));
     }
 
+    public void runAsyncVoid(
+            Runnable preProcessor,
+            IAsyncCallableVoid callable,
+            Runnable postProcessor) {
+
+        asyncThreadPool.submit(() -> processAsync(
+                preProcessor,
+                (IAsyncCallable<Void>) monitor -> {
+                    callable.call(monitor);
+                    return null;
+                },
+                (result) -> {},
+                postProcessor));
+    }
+
     public <RESULT_TYPE> void runAsync(
             Runnable preProcessor,
             IAsyncCallable<RESULT_TYPE> callable,
@@ -63,8 +78,6 @@ public class AsyncProcessor {
             Runnable postProcessor) throws Exception {
 
         try {
-            LOGGER.debug("Starting new async process.");
-
             while (MainController.processViewRef == null) {
                 SleepUtil.sleep(1000);
             }

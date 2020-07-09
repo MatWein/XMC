@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.xmc.be.repositories.bank.BankJpaRepository;
 import org.xmc.be.repositories.bank.BankRepository;
+import org.xmc.be.services.bank.controller.BankSaveController;
 import org.xmc.be.services.bank.mapper.BankToDtoBankMapper;
 import org.xmc.common.stubs.PagingParams;
 import org.xmc.common.stubs.bank.BankOverviewFields;
@@ -27,16 +28,19 @@ public class BankService {
     private final BankJpaRepository bankJpaRepository;
     private final BankToDtoBankMapper bankToDtoBankMapper;
     private final BankRepository bankRepository;
+    private final BankSaveController bankSaveController;
 
     @Autowired
     public BankService(
             BankJpaRepository bankJpaRepository,
             BankToDtoBankMapper bankToDtoBankMapper,
-            BankRepository bankRepository) {
+            BankRepository bankRepository,
+            BankSaveController bankSaveController) {
 
         this.bankJpaRepository = bankJpaRepository;
         this.bankToDtoBankMapper = bankToDtoBankMapper;
         this.bankRepository = bankRepository;
+        this.bankSaveController = bankSaveController;
     }
 
     public List<DtoBank> loadAllBanks() {
@@ -47,9 +51,11 @@ public class BankService {
                 .collect(Collectors.toList());
     }
 
-    public void saveOrUpdate(DtoBank dtoBank) {
+    public void saveOrUpdate(AsyncMonitor monitor, DtoBank dtoBank) {
         LOGGER.info("Saving bank: {}", dtoBank);
-//        cashAccountSaveController.saveOrUpdate(dtoCashAccount);
+        monitor.setStatusText(MessageKey.ASYNC_TASK_SAVE_BANK);
+
+        bankSaveController.saveOrUpdate(dtoBank);
     }
 
     public QueryResults<DtoBankOverview> loadOverview(AsyncMonitor monitor, PagingParams<BankOverviewFields> pagingParams) {

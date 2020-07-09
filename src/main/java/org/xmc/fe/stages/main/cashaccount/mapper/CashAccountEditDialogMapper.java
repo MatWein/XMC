@@ -13,6 +13,20 @@ import java.util.Currency;
 @Component
 public class CashAccountEditDialogMapper implements IDialogMapper<CashAccountEditController, DtoCashAccount> {
     @Override
+    public void accept(CashAccountEditController controller, DtoCashAccount dtoCashAccount) {
+        if (dtoCashAccount == null) {
+            return;
+        }
+
+        controller.getBankComboBox().getSelectionModel().select(dtoCashAccount.getBank());
+        controller.getCashAccountCurrencyAutoComplete().setText(dtoCashAccount.getCurrency().getCurrencyCode());
+        controller.getCashAccountIbanTextfield().setText(dtoCashAccount.getIban());
+        controller.getCashAccountNameTextfield().setText(dtoCashAccount.getName());
+        controller.getCashAccountNumberTextfield().setText(dtoCashAccount.getNumber());
+        controller.setCashAccountId(dtoCashAccount.getId());
+    }
+
+    @Override
     public DtoCashAccount apply(ButtonData buttonData, CashAccountEditController controller) {
         if (buttonData != ButtonData.OK_DONE) {
             return null;
@@ -32,19 +46,5 @@ public class CashAccountEditDialogMapper implements IDialogMapper<CashAccountEdi
         }
 
         return dtoCashAccount;
-    }
-
-    @Override
-    public void accept(CashAccountEditController controller, DtoCashAccount dtoCashAccount) {
-        if (dtoCashAccount == null) {
-            return;
-        }
-
-        controller.getBankComboBox().getSelectionModel().select(dtoCashAccount.getBank());
-        controller.getCashAccountCurrencyAutoComplete().setText(dtoCashAccount.getCurrency().getCurrencyCode());
-        controller.getCashAccountIbanTextfield().setText(dtoCashAccount.getIban());
-        controller.getCashAccountNameTextfield().setText(dtoCashAccount.getName());
-        controller.getCashAccountNumberTextfield().setText(dtoCashAccount.getNumber());
-        controller.setCashAccountId(dtoCashAccount.getId());
     }
 }

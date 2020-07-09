@@ -9,6 +9,7 @@ import org.xmc.be.services.cashaccount.CashAccountService;
 import org.xmc.common.stubs.cashaccount.CashAccountOverviewFields;
 import org.xmc.common.stubs.cashaccount.DtoCashAccount;
 import org.xmc.common.stubs.cashaccount.DtoCashAccountOverview;
+import org.xmc.fe.async.AsyncProcessor;
 import org.xmc.fe.stages.main.cashaccount.mapper.CashAccountEditDialogMapper;
 import org.xmc.fe.ui.CustomDialogBuilder;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
@@ -26,6 +27,7 @@ import java.util.Optional;
 public class CashAccountController {
     private final CashAccountService cashAccountService;
     private final CashAccountEditDialogMapper cashAccountEditDialogMapper;
+    private final AsyncProcessor asyncProcessor;
 
     @FXML private BreadcrumbBar<?> breadcrumbBar;
     @FXML private AsyncButton editButton;
@@ -35,10 +37,12 @@ public class CashAccountController {
     @Autowired
     public CashAccountController(
             CashAccountService cashAccountService,
-            CashAccountEditDialogMapper cashAccountEditDialogMapper) {
+            CashAccountEditDialogMapper cashAccountEditDialogMapper,
+            AsyncProcessor asyncProcessor) {
 
         this.cashAccountService = cashAccountService;
         this.cashAccountEditDialogMapper = cashAccountEditDialogMapper;
+        this.asyncProcessor = asyncProcessor;
     }
 
     @FXML
@@ -54,14 +58,16 @@ public class CashAccountController {
     @FXML
     public void onNewCashAccount() {
         createOrEditCashAccount(null);
-        tableView.reload();
     }
 
     @FXML
     public void onEditCashAccount() {
         DtoCashAccountOverview selectedCashAccount = tableView.getSelectionModel().getSelectedItem();
         createOrEditCashAccount(selectedCashAccount);
-        tableView.reload();
+    }
+
+    @FXML
+    public void onDeleteCashAccount() {
     }
 
     private void createOrEditCashAccount(DtoCashAccountOverview input) {
@@ -77,7 +83,11 @@ public class CashAccountController {
                 .showAndWait();
 
         if (dtoCashAccount.isPresent()) {
-            cashAccountService.saveOrUpdate(dtoCashAccount.get());
+            asyncProcessor.runAsyncVoid(
+                    () -> {},
+                    monitor -> cashAccountService.saveOrUpdate(monitor, dtoCashAccount.get()),
+                    () -> tableView.reload()
+            );
         }
     }
 }

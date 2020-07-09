@@ -55,7 +55,9 @@ public class MessageAdapter {
         PAGING_FILTER_PROMPT("paging.filterPrompt"),
 
         ASYNC_TASK_LOAD_CASHACCOUNT_OVERVIEW("async.task.loadCashAccountOverview"),
+        ASYNC_TASK_SAVE_CASHACCOUNT("async.task.saveCashAccount"),
         ASYNC_TASK_LOAD_BANK_OVERVIEW("async.task.loadBankOverview"),
+        ASYNC_TASK_SAVE_BANK("async.task.saveBank"),
 
         LOGIN_TITLE("login.title"),
 
@@ -76,7 +78,11 @@ public class MessageAdapter {
         CASHACCOUNT_EDIT_SAVE("cashaccount.edit.save"),
         CASHACCOUNT_EDIT_CANCEL("cashaccount.edit.cancel"),
         CASHACCOUNT_EDIT_ADD_BANK("cashaccount.edit.addBank"),
-        CASHACCOUNT_EDIT_BANK_LOGO("cashaccount.edit.bank.logo")
+        CASHACCOUNT_EDIT_BANK_LOGO("cashaccount.edit.bank.logo"),
+
+        BANK_EDIT_TITLE("bank.edit.title"),
+        BANK_EDIT_CANCEL("bank.edit.cancel"),
+        BANK_EDIT_SAVE("bank.edit.save"),
         ;
 
         private final String key;

@@ -32,8 +32,10 @@ public class CashAccountService {
         this.cashAccountSaveController = cashAccountSaveController;
     }
 
-    public void saveOrUpdate(DtoCashAccount dtoCashAccount) {
+    public void saveOrUpdate(AsyncMonitor monitor, DtoCashAccount dtoCashAccount) {
         LOGGER.info("Saving cash account: {}", dtoCashAccount);
+        monitor.setStatusText(MessageKey.ASYNC_TASK_SAVE_CASHACCOUNT);
+
         cashAccountSaveController.saveOrUpdate(dtoCashAccount);
     }
 

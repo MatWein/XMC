@@ -28,7 +28,7 @@
                 </ImageView>
             </graphic>
         </AsyncButton>
-        <Button mnemonicParsing="false" text="%main.administration.banks.delete" fx:id="deleteButton">
+        <Button mnemonicParsing="false" text="%main.administration.banks.delete" fx:id="deleteButton" onAction="#onDeleteBank">
             <graphic>
                 <ImageView>
                     <Image url="@/images/feather/delete.png"/>

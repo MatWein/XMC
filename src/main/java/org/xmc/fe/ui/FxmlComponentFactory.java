@@ -38,7 +38,8 @@ public class FxmlComponentFactory {
         BOOTSTRAP("/fxml/login/bootstrap.fxml"),
         MAIN("/fxml/main/main.fxml"),
         ABOUT("/fxml/main/about.fxml"),
-        CASH_ACCOUNT_EDIT("/fxml/main/cashaccount/cashaccount-edit.fxml")
+        CASH_ACCOUNT_EDIT("/fxml/main/cashaccount/cashaccount-edit.fxml"),
+        BANK_EDIT("/fxml/main/administration/bank-edit.fxml")
         ;
 
         private final String fxmlPath;

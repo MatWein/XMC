@@ -43,7 +43,7 @@ public class CashAccountRepository {
                 .from(cashAccount)
                 .innerJoin(cashAccount.bank(), bank)
                 .leftJoin(bank.logo(), binaryData)
-                .where(ExpressionUtils.allOf(predicate))
+                .where(ExpressionUtils.allOf(predicate, cashAccount.deletionDate.isNull()))
                 .fetchResults();
     }
 }

@@ -36,7 +36,7 @@ public class BankRepository {
                         binaryData.rawData, bank.creationDate))
                 .from(bank)
                 .leftJoin(bank.logo(), binaryData)
-                .where(ExpressionUtils.allOf(predicate))
+                .where(ExpressionUtils.allOf(predicate, bank.deletionDate.isNull()))
                 .fetchResults();
     }
 }

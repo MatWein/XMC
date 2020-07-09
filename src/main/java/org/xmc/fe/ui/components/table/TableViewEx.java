@@ -117,11 +117,6 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> 
 
         getChildren().add(tableView);
         getChildren().add(toolBar);
-
-        tableView.setSortPolicy(param -> {
-            onSort();
-            return true;
-        });
     }
 
     private void onSort() {
@@ -229,7 +224,13 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> 
 
     public void setDataProvider(ITableDataProvider<ITEM_TYPE, SORT_ENUM_TYPE> dataProvider) {
         this.dataProvider = dataProvider;
-        reload();
+
+        // This will automatically reload the table.
+        // If we set the policy in constructor and call reload() here, the table will reload two times.
+        tableView.setSortPolicy(param -> {
+            onSort();
+            return true;
+        });
     }
 
     public ObservableList<TableColumnEx<ITEM_TYPE, ?>> getColumns() {

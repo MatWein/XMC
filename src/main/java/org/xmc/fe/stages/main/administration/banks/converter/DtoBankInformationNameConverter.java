@@ -1,8 +1,9 @@
-package org.xmc.fe.stages.main.cashaccount.converter;
+package org.xmc.fe.stages.main.administration.banks.converter;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
-import org.xmc.common.stubs.DtoBankInformation;
+import org.xmc.common.stubs.bank.DtoBankInformation;
+import org.xmc.fe.stages.main.cashaccount.converter.DtoBankConverter;
 
 import java.util.function.Function;
 

@@ -3,7 +3,7 @@ package org.xmc.be.services.bank.mapper;
 import org.springframework.stereotype.Component;
 import org.xmc.be.entities.Bank;
 import org.xmc.be.entities.BinaryData;
-import org.xmc.common.stubs.DtoBank;
+import org.xmc.common.stubs.bank.DtoBank;
 
 import java.util.function.Function;
 

@@ -1,4 +1,4 @@
-package org.xmc.common.stubs;
+package org.xmc.common.stubs.bank;
 
 import com.opencsv.bean.CsvBindByPosition;
 

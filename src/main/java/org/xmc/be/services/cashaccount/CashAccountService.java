@@ -39,7 +39,7 @@ public class CashAccountService {
 
     public QueryResults<DtoCashAccountOverview> loadOverview(AsyncMonitor monitor, PagingParams<CashAccountOverviewFields> pagingParams) {
         LOGGER.info("Loading cash account overview: {}", pagingParams);
-        monitor.setStatusText(MessageKey.ASYNC_TASK_LOAD_CASHACCOUNTS);
+        monitor.setStatusText(MessageKey.ASYNC_TASK_LOAD_CASHACCOUNT_OVERVIEW);
 
         return cashAccountRepository.loadOverview(pagingParams);
     }

@@ -2,7 +2,7 @@ package org.xmc.fe.stages.main.cashaccount.converter;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
-import org.xmc.common.stubs.DtoBank;
+import org.xmc.common.stubs.bank.DtoBank;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.function.Function;
 
 @Component
 public class DtoBankConverter implements Function<DtoBank, String> {
-    static final int MAX_WIDTH = 100;
+    public static final int MAX_WIDTH = 100;
 
     @Override
     public String apply(DtoBank dtoBank) {

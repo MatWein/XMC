@@ -3,7 +3,7 @@ package org.xmc.fe.stages.main.cashaccount;
 import javafx.fxml.FXML;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.services.bank.BankService;
-import org.xmc.common.stubs.DtoBank;
+import org.xmc.common.stubs.bank.DtoBank;
 import org.xmc.fe.stages.main.cashaccount.converter.CurrencyConverter;
 import org.xmc.fe.stages.main.cashaccount.converter.DtoBankConverter;
 import org.xmc.fe.ui.FxmlController;

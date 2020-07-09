@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.IntegrationTest;
-import org.xmc.common.stubs.DtoBankInformation;
+import org.xmc.common.stubs.bank.DtoBankInformation;
 
 import java.util.Currency;
 import java.util.List;

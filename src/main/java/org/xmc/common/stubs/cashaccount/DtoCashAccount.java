@@ -2,7 +2,7 @@ package org.xmc.common.stubs.cashaccount;
 
 import com.querydsl.core.annotations.QueryProjection;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.xmc.common.stubs.DtoBank;
+import org.xmc.common.stubs.bank.DtoBank;
 
 import java.io.Serializable;
 import java.util.Currency;

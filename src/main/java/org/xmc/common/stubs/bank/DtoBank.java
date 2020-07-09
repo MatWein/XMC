@@ -1,4 +1,4 @@
-package org.xmc.common.stubs;
+package org.xmc.common.stubs.bank;
 
 import com.querydsl.core.annotations.QueryProjection;
 import org.apache.commons.lang3.builder.ToStringBuilder;

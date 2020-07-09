@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.VBox?>
+<?import org.xmc.fe.ui.components.async.AsyncButton?>
+<?import org.xmc.fe.ui.components.table.*?>
+<VBox prefHeight="700.0" prefWidth="900.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css"
+      xmlns="http://javafx.com/javafx/11.0.0"
+      xmlns:fx="http://javafx.com/fxml/1"
+      styleClass="main-tab"
+      fx:controller="org.xmc.fe.stages.main.administration.banks.BankController">
+
+    <ToolBar styleClass="toolbar">
+        <AsyncButton mnemonicParsing="false" text="%main.administration.banks.create" onAction="#onNewBank">
+            <graphic>
+                <ImageView>
+                    <Image url="@/images/feather/plus.png"/>
+                </ImageView>
+            </graphic>
+        </AsyncButton>
+        <AsyncButton mnemonicParsing="false" text="%main.administration.banks.edit" fx:id="editButton"
+                     onAction="#onEditBank">
+            <graphic>
+                <ImageView>
+                    <Image url="@/images/feather/edit.png"/>
+                </ImageView>
+            </graphic>
+        </AsyncButton>
+        <Button mnemonicParsing="false" text="%main.administration.banks.delete" fx:id="deleteButton">
+            <graphic>
+                <ImageView>
+                    <Image url="@/images/feather/delete.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
+    </ToolBar>
+
+    <TableViewEx VBox.vgrow="ALWAYS" fx:id="tableView"
+                 fieldEnumType="org.xmc.common.stubs.bank.BankOverviewFields">
+        <columns>
+            <TableColumnEx editable="false" prefWidth="50" sortable="false" resizable="false">
+                <cellValueFactory>
+                    <NestedPropertyValueFactory property="logo" fitToWidth="24" fitToHeight="24"/>
+                </cellValueFactory>
+            </TableColumnEx>
+            <TableColumnEx editable="false" prefWidth="250" text="%main.administration.banks.overview.table.column.name"
+                           sortField="BANK_NAME">
+                <cellValueFactory>
+                    <NestedPropertyValueFactory property="name"/>
+                </cellValueFactory>
+            </TableColumnEx>
+            <TableColumnEx editable="false" prefWidth="150" text="%main.administration.banks.overview.table.column.bic"
+                           sortField="BANK_BIC">
+                <cellValueFactory>
+                    <NestedPropertyValueFactory property="bic"/>
+                </cellValueFactory>
+            </TableColumnEx>
+            <TableColumnEx editable="false" prefWidth="150" text="%main.administration.banks.overview.table.column.blz"
+                           sortField="BANK_BLZ">
+                <cellValueFactory>
+                    <NestedPropertyValueFactory property="blz"/>
+                </cellValueFactory>
+            </TableColumnEx>
+            <TableColumnEx editable="false" prefWidth="150" text="%main.administration.banks.overview.table.column.creationDate"
+                           sortField="CREATION_DATE">
+                <cellValueFactory>
+                    <NestedPropertyValueFactory property="creationDate"/>
+                </cellValueFactory>
+            </TableColumnEx>
+        </columns>
+    </TableViewEx>
+
+</VBox>

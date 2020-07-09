@@ -3,7 +3,7 @@ package org.xmc.config;
 import com.opencsv.bean.CsvToBeanBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.xmc.common.stubs.DtoBankInformation;
+import org.xmc.common.stubs.bank.DtoBankInformation;
 
 import java.io.IOException;
 import java.io.InputStreamReader;

@@ -45,6 +45,14 @@
             </graphic>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
         </Tab>
+        <Tab text="%main.tabs.administration">
+            <graphic>
+                <ImageView>
+                    <Image url="@/images/feather/tool.png"/>
+                </ImageView>
+            </graphic>
+            <fx:include source="administration/administration.fxml"/>
+        </Tab>
     </TabPane>
     <HBox alignment="CENTER_LEFT" prefHeight="30" styleClass="statusbar" AnchorPane.bottomAnchor="0.0"
           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">

@@ -3,7 +3,7 @@ package org.xmc.fe.ui.converter;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.xmc.JUnitTestBase;
-import org.xmc.common.stubs.DtoBank;
+import org.xmc.common.stubs.bank.DtoBank;
 
 class GenericItemToStringConverterTest extends JUnitTestBase {
     @Test

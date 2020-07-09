@@ -10,10 +10,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.xmc.be.services.login.controller.BootstrapFileController;
 import org.xmc.common.stubs.login.DtoBootstrapFile;
 import org.xmc.common.utils.HomeDirectoryPathCalculator;
+import org.xmc.config.properties.XmcProperties;
 import org.xmc.fe.stages.login.BootstrapController;
 import org.xmc.fe.ui.FxmlComponentFactory;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
@@ -24,6 +28,9 @@ import java.util.Locale;
 import java.util.Optional;
 
 @SpringBootApplication
+@EnableConfigurationProperties({ XmcProperties.class })
+@EnableAsync
+@EnableScheduling
 public class Main extends Application {
     static {
         HomeDirectoryPathCalculator.initializeSystemProperties();

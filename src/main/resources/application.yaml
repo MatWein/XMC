@@ -23,3 +23,6 @@ spring:
     change-log: /db/changelog/db.changelog-master.xml
     liquibase-schema: XMC
     default-schema: XMC
+
+xmc:
+  max-servicecalllog-lifetime-in-days: 365

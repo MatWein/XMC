@@ -4,7 +4,6 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import nl.garvelink.iban.IBAN;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
-import org.xmc.common.stubs.DtoBank;
 import org.xmc.common.stubs.cashaccount.DtoCashAccount;
 import org.xmc.fe.stages.main.cashaccount.CashAccountEditController;
 import org.xmc.fe.ui.IDialogMapper;
@@ -19,20 +18,9 @@ public class CashAccountEditDialogMapper implements IDialogMapper<CashAccountEdi
             return null;
         }
 
-        DtoBank selectedBank = controller.getBankComboBox().getSelectionModel().getSelectedItem();
-
         var dtoCashAccount = new DtoCashAccount();
 
-        if (selectedBank == null || selectedBank.getId() == null) {
-            selectedBank = new DtoBank();
-            selectedBank.setName(controller.getBankNameAutoComplete().getText());
-            selectedBank.setLogo(controller.getLogoButton().getImageAsByteArray());
-            selectedBank.setId(null);
-            selectedBank.setBlz(controller.getBankBlzAutoComplete().getText());
-            selectedBank.setBic(controller.getBankBicAutoComplete().getText());
-        }
-
-        dtoCashAccount.setBank(selectedBank);
+        dtoCashAccount.setBank(controller.getBankComboBox().getSelectionModel().getSelectedItem());
         dtoCashAccount.setCurrency(Currency.getInstance(controller.getCashAccountCurrencyAutoComplete().getText()));
         dtoCashAccount.setId(controller.getCashAccountId());
         dtoCashAccount.setName(controller.getCashAccountNameTextfield().getText());

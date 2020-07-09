@@ -45,22 +45,22 @@
         <columns>
             <TableColumnEx editable="false" prefWidth="50" sortable="false">
                 <cellValueFactory>
-                    <NestedPropertyImageFactory property="bank.logo" fitToWidth="24" fitToHeight="24"/>
+                    <NestedPropertyValueFactory property="bank.logo" fitToWidth="24" fitToHeight="24"/>
                 </cellValueFactory>
             </TableColumnEx>
-            <TableColumnEx editable="false" prefWidth="200" text="%main.cashaccounts.overview.table.column.bankName"
+            <TableColumnEx editable="false" prefWidth="250" text="%main.cashaccounts.overview.table.column.bankName"
                            sortField="BANK_NAME">
                 <cellValueFactory>
                     <NestedPropertyValueFactory property="bank.name"/>
                 </cellValueFactory>
             </TableColumnEx>
-            <TableColumnEx editable="false" prefWidth="200"
+            <TableColumnEx editable="false" prefWidth="250"
                            text="%main.cashaccounts.overview.table.column.cashAccountName" sortField="NAME">
                 <cellValueFactory>
                     <NestedPropertyValueFactory property="name"/>
                 </cellValueFactory>
             </TableColumnEx>
-            <TableColumnEx editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.iban"
+            <TableColumnEx editable="false" prefWidth="200" text="%main.cashaccounts.overview.table.column.iban"
                            sortField="IBAN">
                 <cellValueFactory>
                     <NestedPropertyValueFactory property="iban"/>
@@ -85,13 +85,29 @@
                 </cellValueFactory>
             </TableColumnEx>
             <TableColumnEx editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.creationDate"
-                           sortField="CREATION_DATE"/>
+                           sortField="CREATION_DATE">
+                <cellValueFactory>
+                    <NestedPropertyValueFactory property="creationDate"/>
+                </cellValueFactory>
+            </TableColumnEx>
             <TableColumnEx editable="false" prefWidth="100" text="%main.cashaccounts.overview.table.column.currency"
-                           sortField="CURRENCY"/>
+                           sortField="CURRENCY">
+                <cellValueFactory>
+                    <NestedPropertyValueFactory property="currency"/>
+                </cellValueFactory>
+            </TableColumnEx>
             <TableColumnEx editable="false" prefWidth="150" text="%main.cashaccounts.overview.table.column.lastSaldo"
-                           sortField="LAST_SALDO"/>
+                           sortField="LAST_SALDO">
+                <cellValueFactory>
+                    <NestedPropertyValueFactory property="lastSaldo" formatAsCurrency="true"/>
+                </cellValueFactory>
+            </TableColumnEx>
             <TableColumnEx editable="false" prefWidth="200"
-                           text="%main.cashaccounts.overview.table.column.lastSaldoDate" sortField="LAST_SALDO_DATE"/>
+                           text="%main.cashaccounts.overview.table.column.lastSaldoDate" sortField="LAST_SALDO_DATE">
+                <cellValueFactory>
+                    <NestedPropertyValueFactory property="lastSaldoDate"/>
+                </cellValueFactory>
+            </TableColumnEx>
         </columns>
     </TableViewEx>
 

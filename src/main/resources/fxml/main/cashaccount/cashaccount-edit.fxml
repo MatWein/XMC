@@ -2,8 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import org.xmc.fe.ui.components.ImageSelectionButton?>
+<?import javafx.scene.layout.VBox?>
 <?import org.xmc.fe.ui.validation.components.autocomplete.ValidationAutoComplete?>
 <?import org.xmc.fe.ui.validation.components.ValidationComboBox?>
 <?import org.xmc.fe.ui.validation.components.ValidationTextField?>
@@ -16,44 +15,11 @@
             <Insets bottom="5.0"/>
         </padding>
     </Label>
-    <ValidationComboBox fx:id="bankComboBox" prefHeight="25.0" prefWidth="719.0" required="false" visibleRowCount="5">
+    <ValidationComboBox fx:id="bankComboBox" prefHeight="25.0" prefWidth="719.0" required="true" visibleRowCount="5">
         <VBox.margin>
             <Insets bottom="5.0"/>
         </VBox.margin>
     </ValidationComboBox>
-    <TitledPane fx:id="bankTitledPane" animated="false" collapsible="false" prefHeight="217.0"
-                text="%cashaccount.edit.bank.details">
-        <HBox>
-            <ImageSelectionButton fx:id="logoButton" fitHeight="32.0" fitWidth="32.0" maxHeight="64.0" maxWidth="64.0"
-                                  messageKey="CASHACCOUNT_EDIT_BANK_LOGO" mnemonicParsing="false" prefHeight="64.0"
-                                  prefWidth="64.0">
-                <HBox.margin>
-                    <Insets right="10.0"/>
-                </HBox.margin>
-            </ImageSelectionButton>
-
-            <VBox HBox.hgrow="ALWAYS">
-                <Label text="%cashaccount.edit.bank.name">
-                    <padding>
-                        <Insets bottom="5.0"/>
-                    </padding>
-                </Label>
-                <ValidationAutoComplete fx:id="bankNameAutoComplete" maxLength="255" visibleRowCount="5"
-                                        autoCompleteLimit="100"
-                                        autoCompleteController="org.xmc.fe.stages.main.cashaccount.autocomplete.BankNameAutoCompleteController"/>
-                <Label styleClass="form-label" text="%cashaccount.edit.bank.bic"/>
-                <ValidationAutoComplete fx:id="bankBicAutoComplete"
-                                        autoCompleteController="org.xmc.fe.stages.main.cashaccount.autocomplete.BicAutoCompleteController"
-                                        maxLength="255"
-                                        visibleRowCount="5" autoCompleteLimit="100"/>
-                <Label styleClass="form-label" text="%cashaccount.edit.bank.blz"/>
-                <ValidationAutoComplete fx:id="bankBlzAutoComplete"
-                                        autoCompleteController="org.xmc.fe.stages.main.cashaccount.autocomplete.BlzAutoCompleteController"
-                                        maxLength="255"
-                                        visibleRowCount="5" autoCompleteLimit="100"/>
-            </VBox>
-        </HBox>
-    </TitledPane>
 
     <Label styleClass="form-label" text="%cashaccount.edit.name"/>
     <ValidationTextField fx:id="cashAccountNameTextfield" maxLength="255" required="true"/>

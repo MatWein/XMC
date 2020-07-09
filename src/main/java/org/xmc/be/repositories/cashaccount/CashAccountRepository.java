@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.xmc.be.common.QueryUtil;
 import org.xmc.common.stubs.PagingParams;
 import org.xmc.common.stubs.cashaccount.CashAccountOverviewFields;
-import org.xmc.common.stubs.cashaccount.DtoCashAccount;
+import org.xmc.common.stubs.cashaccount.DtoCashAccountOverview;
 
 import static org.xmc.be.entities.QBank.bank;
 import static org.xmc.be.entities.QBinaryData.binaryData;
@@ -25,7 +25,7 @@ public class CashAccountRepository {
         this.queryUtil = queryUtil;
     }
 
-    public QueryResults<DtoCashAccount> loadOverview(PagingParams<CashAccountOverviewFields> pagingParams) {
+    public QueryResults<DtoCashAccountOverview> loadOverview(PagingParams<CashAccountOverviewFields> pagingParams) {
         String filter = "%" + StringUtils.defaultString(pagingParams.getFilter()) + "%";
         BooleanExpression predicate = cashAccount.name.likeIgnoreCase(filter)
                         .or(cashAccount.number.likeIgnoreCase(filter))
@@ -35,8 +35,9 @@ public class CashAccountRepository {
                         .or(bank.name.likeIgnoreCase(filter));
 
         return queryUtil.createPagedQuery(pagingParams)
-                .select(Projections.constructor(DtoCashAccount.class,
+                .select(Projections.constructor(DtoCashAccountOverview.class,
                         cashAccount.id, cashAccount.iban, cashAccount.number, cashAccount.name, cashAccount.currency,
+                        cashAccount.creationDate, cashAccount.lastSaldo, cashAccount.lastSaldoDate,
                         bank.id, bank.name, bank.bic, bank.blz,
                         binaryData.rawData))
                 .from(cashAccount)

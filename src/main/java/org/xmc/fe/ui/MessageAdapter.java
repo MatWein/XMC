@@ -61,6 +61,7 @@ public class MessageAdapter {
         BOOTSTRAP_STATUS_CREATING_CONTEXT("bootstrap.status.creatingContext"),
         BOOTSTRAP_STATUS_PREPROCESSING("bootstrap.status.preprocessing"),
         BOOTSTRAP_STATUS_LOGIN("bootstrap.status.login"),
+        BOOTSTRAP_STATUS_LOGIN_FINISHED("bootstrap.status.loginFinished"),
 
         MAIN_MEMORY("main.memory"),
         MAIN_DISPLAYNAME("main.displayname"),

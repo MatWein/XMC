@@ -16,6 +16,7 @@ import org.xmc.Main;
 import org.xmc.be.services.login.UserLoginService;
 import org.xmc.common.stubs.login.DtoBootstrapFile;
 import org.xmc.common.utils.HomeDirectoryPathCalculator;
+import org.xmc.common.utils.SleepUtil;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.FxmlController;
 import org.xmc.fe.ui.MessageAdapter;
@@ -90,6 +91,13 @@ public class BootstrapController {
 
         UserLoginService userLoginService = Main.applicationContext.getBean(UserLoginService.class);
         userLoginService.login(dtoBootstrapFile);
+
+        Platform.runLater(() -> {
+            progressbar.setVisible(false);
+            statusLabel.setText(MessageAdapter.getByKey(MessageKey.BOOTSTRAP_STATUS_LOGIN_FINISHED));
+        });
+
+        SleepUtil.sleep(500);
 
         Platform.runLater(() -> {
             StageBuilder.getInstance()

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.services.cashaccount.CashAccountService;
 import org.xmc.common.stubs.cashaccount.CashAccountOverviewFields;
 import org.xmc.common.stubs.cashaccount.DtoCashAccount;
+import org.xmc.common.stubs.cashaccount.DtoCashAccountOverview;
 import org.xmc.fe.stages.main.cashaccount.mapper.CashAccountEditDialogMapper;
 import org.xmc.fe.ui.CustomDialogBuilder;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
@@ -29,7 +30,7 @@ public class CashAccountController {
     @FXML private BreadcrumbBar<?> breadcrumbBar;
     @FXML private AsyncButton editButton;
     @FXML private Button deleteButton;
-    @FXML private TableViewEx<DtoCashAccount, CashAccountOverviewFields> tableView;
+    @FXML private TableViewEx<DtoCashAccountOverview, CashAccountOverviewFields> tableView;
 
     @Autowired
     public CashAccountController(
@@ -58,12 +59,12 @@ public class CashAccountController {
 
     @FXML
     public void onEditCashAccount() {
-        DtoCashAccount selectedCashAccount = tableView.getSelectionModel().getSelectedItem();
+        DtoCashAccountOverview selectedCashAccount = tableView.getSelectionModel().getSelectedItem();
         createOrEditCashAccount(selectedCashAccount);
         tableView.reload();
     }
 
-    private void createOrEditCashAccount(DtoCashAccount input) {
+    private void createOrEditCashAccount(DtoCashAccountOverview input) {
         Optional<DtoCashAccount> dtoCashAccount = CustomDialogBuilder.getInstance()
                 .titleKey(MessageKey.CASHACCOUNT_EDIT_TITLE)
                 .addButton(MessageKey.CASHACCOUNT_EDIT_CANCEL, ButtonData.NO)

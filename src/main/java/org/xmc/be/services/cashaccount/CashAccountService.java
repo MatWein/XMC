@@ -11,6 +11,7 @@ import org.xmc.be.services.cashaccount.controller.CashAccountSaveController;
 import org.xmc.common.stubs.PagingParams;
 import org.xmc.common.stubs.cashaccount.CashAccountOverviewFields;
 import org.xmc.common.stubs.cashaccount.DtoCashAccount;
+import org.xmc.common.stubs.cashaccount.DtoCashAccountOverview;
 import org.xmc.fe.async.AsyncMonitor;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 
@@ -36,7 +37,7 @@ public class CashAccountService {
         cashAccountSaveController.saveOrUpdate(dtoCashAccount);
     }
 
-    public QueryResults<DtoCashAccount> loadOverview(AsyncMonitor monitor, PagingParams<CashAccountOverviewFields> pagingParams) {
+    public QueryResults<DtoCashAccountOverview> loadOverview(AsyncMonitor monitor, PagingParams<CashAccountOverviewFields> pagingParams) {
         LOGGER.info("Loading cash account overview: {}", pagingParams);
         monitor.setStatusText(MessageKey.ASYNC_TASK_LOAD_CASHACCOUNTS);
 

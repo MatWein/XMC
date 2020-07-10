@@ -1,10 +1,15 @@
 package org.xmc.common.stubs.login;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 
 public class DtoBootstrapFile implements Serializable {
     private String username;
+
+    @JsonIgnore
     private String password;
+    
     private boolean saveCredentials;
     private boolean autoLogin;
 

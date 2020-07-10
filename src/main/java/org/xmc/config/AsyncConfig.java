@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.annotation.PreDestroy;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -17,9 +18,11 @@ public class AsyncConfig {
     private static final int MAX_THREADS = 5;
     private static final AtomicInteger CURRENT_THREAD_COUNTER = new AtomicInteger(0);
 
+    private ExecutorService asyncThreadPool;
+
     @Bean
     public ExecutorService asyncThreadPool() {
-        return Executors.newFixedThreadPool(MAX_THREADS, runnable -> {
+        return asyncThreadPool = Executors.newFixedThreadPool(MAX_THREADS, runnable -> {
             Thread thread = new Thread(runnable);
 
             thread.setDaemon(true);
@@ -30,7 +33,8 @@ public class AsyncConfig {
         });
     }
 
-    public void shutdown(ExecutorService asyncThreadPool) {
+    @PreDestroy
+    public void shutdown() {
         try {
             asyncThreadPool.shutdown();
         } finally {

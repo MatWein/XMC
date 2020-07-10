@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import org.xmc.be.entities.Bank;
 import org.xmc.be.entities.BinaryData;
 import org.xmc.be.entities.cashaccount.CashAccount;
+import org.xmc.be.entities.user.ServiceCallLog;
 import org.xmc.be.entities.user.User;
 
 import javax.persistence.EntityManager;
@@ -39,6 +40,15 @@ public class GraphGenerator {
 
     public BinaryData createBinaryData() {
         return createBinaryData("some data".getBytes());
+    }
+
+    public BinaryData createBinaryData(Bank bank) {
+        BinaryData binaryData = createBinaryData();
+
+        bank.setLogo(binaryData);
+        session().saveOrUpdate(bank);
+
+        return binaryData;
     }
 
     public BinaryData createBinaryData(byte[] data) {
@@ -83,5 +93,17 @@ public class GraphGenerator {
         session().persist(cashAccount);
 
         return cashAccount;
+    }
+
+    public ServiceCallLog createServiceCallLog() {
+        ServiceCallLog serviceCallLog = new ServiceCallLog();
+
+        serviceCallLog.setCallDuration(100);
+        serviceCallLog.setServiceClass("test");
+        serviceCallLog.setServiceMethod("method");
+
+        session().persist(serviceCallLog);
+
+        return serviceCallLog;
     }
 }

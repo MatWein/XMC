@@ -3,6 +3,8 @@ spring:
     url: jdbc:derby:${user.database.dir};create=true;dataEncryption=true;bootPassword=${user.password}
     username: "\"${user.name}\""
     password: ${user.password}
+    hikari:
+      auto-commit: false
   messages:
     basename: messages/messages
     encoding: ISO-8859-1

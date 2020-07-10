@@ -29,22 +29,24 @@ public class AsyncProcessor {
             IAsyncCallable<RESULT_TYPE> callable,
             Consumer<RESULT_TYPE> resultProcessor) {
 
-        asyncThreadPool.submit(() -> processAsync(
+        runAsync(
                 () -> component.setDisableAsync(true),
                 callable,
                 resultProcessor,
-                () -> component.setDisableAsync(false)));
+                () -> component.setDisableAsync(false)
+        );
     }
 
     public <RESULT_TYPE> void runAsync(
             IAsyncCallable<RESULT_TYPE> callable,
             Consumer<RESULT_TYPE> resultProcessor) {
 
-        asyncThreadPool.submit(() -> processAsync(
+        runAsync(
                 () -> {},
                 callable,
                 resultProcessor,
-                () -> {}));
+                () -> {}
+        );
     }
 
     public void runAsyncVoid(
@@ -52,14 +54,15 @@ public class AsyncProcessor {
             IAsyncCallableVoid callable,
             Runnable postProcessor) {
 
-        asyncThreadPool.submit(() -> processAsync(
+        runAsync(
                 preProcessor,
                 (IAsyncCallable<Void>) monitor -> {
                     callable.call(monitor);
                     return null;
                 },
                 (result) -> {},
-                postProcessor));
+                postProcessor
+        );
     }
 
     public <RESULT_TYPE> void runAsync(

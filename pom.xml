@@ -17,7 +17,7 @@
 
     <properties>
         <java.version>11</java.version>
-        <javafx.version>11.0.2</javafx.version>
+        <openjfx.version>14.0.1</openjfx.version>
         <start-class>org.xmc.Main</start-class>
 
         <querydsl.version>4.3.0</querydsl.version>
@@ -38,27 +38,27 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>${javafx.version}</version>
+            <version>${openjfx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
-            <version>${javafx.version}</version>
+            <version>${openjfx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>${javafx.version}</version>
+            <version>${openjfx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-swing</artifactId>
-            <version>${javafx.version}</version>
+            <version>${openjfx.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jfxtras</groupId>
             <artifactId>jmetro</artifactId>
-            <version>11.6.11</version>
+            <version>11.6.12</version>
             <exclusions>
                 <exclusion>
                     <artifactId>controlsfx</artifactId>

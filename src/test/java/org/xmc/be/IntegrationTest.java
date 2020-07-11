@@ -6,9 +6,10 @@ import org.junit.Ignore;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import org.xmc.JUnitTestBase;
 import org.xmc.Main;
@@ -19,8 +20,8 @@ import java.io.File;
 
 @Ignore
 @SpringBootTest
+@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.DERBY)
 @Transactional
-@ActiveProfiles("test")
 public class IntegrationTest extends JUnitTestBase {
     @PersistenceContext
     private EntityManager entityManager;

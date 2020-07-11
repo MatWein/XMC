@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.VBox?>
-<?import org.xmc.fe.ui.components.async.AsyncButton?>
 <?import org.xmc.fe.ui.components.BreadcrumbBar?>
 <?import org.xmc.fe.ui.components.table.*?>
 <VBox prefHeight="700.0" prefWidth="900.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css"
@@ -17,20 +15,20 @@
     </ToolBar>
 
     <ToolBar styleClass="toolbar">
-        <AsyncButton mnemonicParsing="false" text="%main.cashaccounts.create" onAction="#onNewCashAccount">
+        <Button mnemonicParsing="false" text="%main.cashaccounts.create" onAction="#onNewCashAccount">
             <graphic>
                 <ImageView>
                     <Image url="@/images/feather/plus.png"/>
                 </ImageView>
             </graphic>
-        </AsyncButton>
-        <AsyncButton mnemonicParsing="false" text="%main.cashaccounts.edit" fx:id="editButton" onAction="#onEditCashAccount">
+        </Button>
+        <Button mnemonicParsing="false" text="%main.cashaccounts.edit" fx:id="editButton" onAction="#onEditCashAccount">
             <graphic>
                 <ImageView>
                     <Image url="@/images/feather/edit.png"/>
                 </ImageView>
             </graphic>
-        </AsyncButton>
+        </Button>
         <Button mnemonicParsing="false" text="%main.cashaccounts.delete" fx:id="deleteButton" onAction="#onDeleteCashAccount">
             <graphic>
                 <ImageView>

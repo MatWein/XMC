@@ -15,7 +15,6 @@ import org.xmc.fe.ui.CustomDialogBuilder;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.FxmlController;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
-import org.xmc.fe.ui.components.async.AsyncButton;
 import org.xmc.fe.ui.components.table.TableViewEx;
 
 import java.util.Optional;
@@ -27,7 +26,7 @@ public class BankController {
     private final AsyncProcessor asyncProcessor;
 
     @FXML private TableViewEx<DtoBankOverview, BankOverviewFields> tableView;
-    @FXML private AsyncButton editButton;
+    @FXML private Button editButton;
     @FXML private Button deleteButton;
 
     @Autowired
@@ -44,7 +43,7 @@ public class BankController {
     @FXML
     public void initialize() {
         BooleanBinding noTableItemSelected = tableView.getSelectionModel().selectedItemProperty().isNull();
-        editButton.bindDisable(noTableItemSelected);
+        editButton.disableProperty().bind(noTableItemSelected);
         deleteButton.disableProperty().bind(noTableItemSelected);
         tableView.setDataProvider(bankService::loadOverview);
     }

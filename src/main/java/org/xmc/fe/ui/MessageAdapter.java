@@ -58,6 +58,7 @@ public class MessageAdapter {
         ASYNC_TASK_SAVE_CASHACCOUNT("async.task.saveCashAccount"),
         ASYNC_TASK_LOAD_BANK_OVERVIEW("async.task.loadBankOverview"),
         ASYNC_TASK_SAVE_BANK("async.task.saveBank"),
+        ASYNC_TASK_LOAD_ALL_BANKS("async.task.loadAllBanks"),
 
         LOGIN_TITLE("login.title"),
 

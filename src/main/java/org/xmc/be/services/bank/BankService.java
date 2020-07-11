@@ -43,8 +43,9 @@ public class BankService {
         this.bankSaveController = bankSaveController;
     }
 
-    public List<DtoBank> loadAllBanks() {
+    public List<DtoBank> loadAllBanks(AsyncMonitor monitor) {
         LOGGER.info("Loading all available banks.");
+        monitor.setStatusText(MessageKey.ASYNC_TASK_LOAD_ALL_BANKS);
 
         return bankJpaRepository.findAll().stream()
                 .map(bankToDtoBankMapper)

@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.xmc.be.services.bank.BankService;
 import org.xmc.be.services.cashaccount.CashAccountService;
 import org.xmc.common.stubs.cashaccount.CashAccountOverviewFields;
 import org.xmc.common.stubs.cashaccount.DtoCashAccount;
@@ -18,7 +19,6 @@ import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.components.BreadcrumbBar;
 import org.xmc.fe.ui.components.BreadcrumbBar.BreadcrumbPathElement;
-import org.xmc.fe.ui.components.async.AsyncButton;
 import org.xmc.fe.ui.components.table.TableViewEx;
 
 import java.util.Optional;
@@ -28,9 +28,10 @@ public class CashAccountController {
     private final CashAccountService cashAccountService;
     private final CashAccountEditDialogMapper cashAccountEditDialogMapper;
     private final AsyncProcessor asyncProcessor;
+    private final BankService bankService;
 
     @FXML private BreadcrumbBar<?> breadcrumbBar;
-    @FXML private AsyncButton editButton;
+    @FXML private Button editButton;
     @FXML private Button deleteButton;
     @FXML private TableViewEx<DtoCashAccountOverview, CashAccountOverviewFields> tableView;
 
@@ -38,11 +39,13 @@ public class CashAccountController {
     public CashAccountController(
             CashAccountService cashAccountService,
             CashAccountEditDialogMapper cashAccountEditDialogMapper,
-            AsyncProcessor asyncProcessor) {
+            AsyncProcessor asyncProcessor,
+            BankService bankService) {
 
         this.cashAccountService = cashAccountService;
         this.cashAccountEditDialogMapper = cashAccountEditDialogMapper;
         this.asyncProcessor = asyncProcessor;
+        this.bankService = bankService;
     }
 
     @FXML
@@ -50,7 +53,7 @@ public class CashAccountController {
         breadcrumbBar.getElements().add(new BreadcrumbPathElement<>(MessageAdapter.getByKey(MessageKey.MAIN_CASHACCOUNTS_BREADCRUMB_OVERVIEW)));
 
         BooleanBinding noTableItemSelected = tableView.getSelectionModel().selectedItemProperty().isNull();
-        editButton.bindDisable(noTableItemSelected);
+        editButton.disableProperty().bind(noTableItemSelected);
         deleteButton.disableProperty().bind(noTableItemSelected);
         tableView.setDataProvider(cashAccountService::loadOverview);
     }
@@ -79,6 +82,7 @@ public class CashAccountController {
                 .withDefaultIcon()
                 .withMapper(cashAccountEditDialogMapper)
                 .withInput(input)
+                .withAsyncDataLoading(bankService::loadAllBanks)
                 .build()
                 .showAndWait();
 

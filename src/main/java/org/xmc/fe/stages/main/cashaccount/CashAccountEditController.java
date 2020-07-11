@@ -2,11 +2,11 @@ package org.xmc.fe.stages.main.cashaccount;
 
 import javafx.fxml.FXML;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.xmc.be.services.bank.BankService;
 import org.xmc.common.stubs.bank.DtoBank;
 import org.xmc.fe.stages.main.cashaccount.converter.CurrencyConverter;
 import org.xmc.fe.stages.main.cashaccount.converter.DtoBankConverter;
 import org.xmc.fe.ui.FxmlController;
+import org.xmc.fe.ui.IDialogWithAsyncData;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.converter.GenericItemToStringConverter;
@@ -15,12 +15,12 @@ import org.xmc.fe.ui.validation.components.ValidationTextField;
 import org.xmc.fe.ui.validation.components.autocomplete.ValidationAutoComplete;
 
 import java.util.Currency;
+import java.util.List;
 
 @FxmlController
-public class CashAccountEditController {
+public class CashAccountEditController implements IDialogWithAsyncData<List<DtoBank>> {
     private final CurrencyConverter currencyConverter;
     private final DtoBankConverter dtoBankConverter;
-    private final BankService bankService;
 
     private Long cashAccountId;
 
@@ -33,22 +33,24 @@ public class CashAccountEditController {
     @Autowired
     public CashAccountEditController(
             CurrencyConverter currencyConverter,
-            DtoBankConverter dtoBankConverter,
-            BankService bankService) {
+            DtoBankConverter dtoBankConverter) {
 
         this.currencyConverter = currencyConverter;
         this.dtoBankConverter = dtoBankConverter;
-        this.bankService = bankService;
     }
 
     @FXML
     public void initialize() {
         bankComboBox.setConverter(GenericItemToStringConverter.getInstance(dtoBankConverter));
         bankComboBox.setPromptText(MessageAdapter.getByKey(MessageKey.CASHACCOUNT_EDIT_ADD_BANK));
-        bankComboBox.getItems().addAll(bankService.loadAllBanks());
 
         cashAccountCurrencyAutoComplete.setContextMenuConverter(currencyConverter);
         cashAccountCurrencyAutoComplete.setConverter(Currency::getCurrencyCode);
+    }
+
+    @Override
+    public void acceptAsyncData(List<DtoBank> data) {
+        bankComboBox.getItems().addAll(data);
     }
 
     public ValidationComboBox<DtoBank> getBankComboBox() {

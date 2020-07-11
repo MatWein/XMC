@@ -4,7 +4,6 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.VBox?>
-<?import org.xmc.fe.ui.components.async.AsyncButton?>
 <?import org.xmc.fe.ui.components.table.*?>
 <VBox prefHeight="700.0" prefWidth="900.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css"
       xmlns="http://javafx.com/javafx/11.0.0"
@@ -13,21 +12,21 @@
       fx:controller="org.xmc.fe.stages.main.administration.banks.BankController">
 
     <ToolBar styleClass="toolbar">
-        <AsyncButton mnemonicParsing="false" text="%main.administration.banks.create" onAction="#onNewBank">
+        <Button mnemonicParsing="false" text="%main.administration.banks.create" onAction="#onNewBank">
             <graphic>
                 <ImageView>
                     <Image url="@/images/feather/plus.png"/>
                 </ImageView>
             </graphic>
-        </AsyncButton>
-        <AsyncButton mnemonicParsing="false" text="%main.administration.banks.edit" fx:id="editButton"
+        </Button>
+        <Button mnemonicParsing="false" text="%main.administration.banks.edit" fx:id="editButton"
                      onAction="#onEditBank">
             <graphic>
                 <ImageView>
                     <Image url="@/images/feather/edit.png"/>
                 </ImageView>
             </graphic>
-        </AsyncButton>
+        </Button>
         <Button mnemonicParsing="false" text="%main.administration.banks.delete" fx:id="deleteButton" onAction="#onDeleteBank">
             <graphic>
                 <ImageView>

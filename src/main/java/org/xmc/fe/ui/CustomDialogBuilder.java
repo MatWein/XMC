@@ -9,7 +9,10 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.Pair;
+import org.xmc.Main;
 import org.xmc.fe.FeConstants;
+import org.xmc.fe.async.AsyncProcessor;
+import org.xmc.fe.async.IAsyncCallable;
 import org.xmc.fe.stages.main.MainController;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
@@ -17,7 +20,7 @@ import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE> {
+public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE, ASYNC_DATA_TYPE> {
     public static CustomDialogBuilder getInstance() { return new CustomDialogBuilder(); }
 
     private MessageKey titleKey;
@@ -30,6 +33,7 @@ public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE> {
     private List<ButtonType> buttons = new ArrayList<>();
     private boolean useDefaultIcon;
     private boolean showBackdrop = true;
+    private IAsyncCallable<ASYNC_DATA_TYPE> asyncCallable;
 
     public CustomDialogBuilder titleKey(MessageKey titleKey) {
         this.titleKey = titleKey;
@@ -77,6 +81,11 @@ public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE> {
         return this;
     }
 
+    public CustomDialogBuilder withAsyncDataLoading(IAsyncCallable<ASYNC_DATA_TYPE> asyncCallable) {
+        this.asyncCallable = asyncCallable;
+        return this;
+    }
+
     public CustomDialogBuilder withDefaultIcon() {
         this.useDefaultIcon = true;
         return this;
@@ -110,6 +119,15 @@ public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE> {
         if (showBackdrop) {
             dialog.setOnShown(event -> MainController.backdropRef.setVisible(true));
             dialog.setOnCloseRequest(event -> MainController.backdropRef.setVisible(false));
+        }
+
+        if (asyncCallable != null && controller != null && controller instanceof IDialogWithAsyncData) {
+            Main.applicationContext.getBean(AsyncProcessor.class).runAsync(
+                    () -> dialogPane.setDisable(true),
+                    asyncCallable,
+                    asyncData -> ((IDialogWithAsyncData<ASYNC_DATA_TYPE>)controller).acceptAsyncData(asyncData),
+                    () -> dialogPane.setDisable(false)
+            );
         }
 
         return dialog;

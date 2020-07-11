@@ -5,6 +5,7 @@ import com.querydsl.core.types.Order;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.xmc.be.IntegrationTest;
 import org.xmc.be.entities.Bank;
 import org.xmc.be.entities.BinaryData;
@@ -15,6 +16,7 @@ import org.xmc.common.stubs.cashaccount.DtoCashAccountOverview;
 
 import java.time.LocalDateTime;
 
+@Transactional
 class CashAccountRepositoryTest extends IntegrationTest {
     @Autowired
     private CashAccountRepository repository;

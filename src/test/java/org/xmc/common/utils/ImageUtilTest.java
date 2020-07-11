@@ -14,7 +14,7 @@ import java.util.UUID;
 
 class ImageUtilTest extends JUnitTestBase {
     private static final String VALID_IMAGE = FeConstants.APP_ICON_PATH;
-    private static final String INVALID_IMAGE = "/application-test.yaml";
+    private static final String INVALID_IMAGE = "/logback-test.xml";
 
     @Test
     void testReadFromFile$_Error() throws IOException {

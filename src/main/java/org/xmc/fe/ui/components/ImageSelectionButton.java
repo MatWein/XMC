@@ -80,6 +80,7 @@ public class ImageSelectionButton extends Button {
 
     public void setMessageKey(String messageKey) {
         this.messageKey = messageKey;
+        hideImage();
     }
 
     public Double getFitWidth() {

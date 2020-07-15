@@ -3,6 +3,7 @@ package org.xmc.fe.ui.components.table;
 import com.google.common.collect.Iterables;
 import com.querydsl.core.QueryResults;
 import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ListChangeListener.Change;
@@ -18,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import org.apache.commons.lang3.StringUtils;
 import org.xmc.Main;
@@ -34,6 +36,8 @@ import scalc.SCalcBuilder;
 import java.math.RoundingMode;
 
 public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> & IPagingField> extends VBox {
+    public static final double MAX_AUTORESIZE_COLUMN_WIDTH = 400.0;
+
     private final TableView<ITEM_TYPE> tableView;
     private final Label placeholder;
     private final TextField filterTextfield;
@@ -48,9 +52,10 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> 
     private Class<SORT_ENUM_TYPE> fieldEnumType;
     private SortType sortType;
     private SORT_ENUM_TYPE sortBy;
+    private boolean autoResize = true;
 
     public TableViewEx() {
-        orderMapper = (TableOrderMapper)ReflectionUtil.createNewInstanceFactory().call(TableOrderMapper.class);
+        orderMapper = (TableOrderMapper) ReflectionUtil.createNewInstanceFactory().call(TableOrderMapper.class);
 
         tableView = new TableView<>();
         tableView.setPlaceholder(new Label(MessageAdapter.getByKey(MessageKey.TABLE_NO_CONTENT)));
@@ -110,13 +115,53 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> 
         HBox.setHgrow(placeholder, Priority.ALWAYS);
         toolBar.getItems().add(placeholder);
 
-        toolBar.getItems().add(createTextButton(String.valueOf(10), event -> { pageSize.set(10); reload(true); }));
-        toolBar.getItems().add(createTextButton(String.valueOf(25), event -> { pageSize.set(25); reload(true); }));
-        toolBar.getItems().add(createTextButton(String.valueOf(50), event -> { pageSize.set(50); reload(true); }));
-        toolBar.getItems().add(createTextButton(String.valueOf(100), event -> { pageSize.set(100); reload(true); }));
+        toolBar.getItems().add(createTextButton(String.valueOf(10), event -> {
+            pageSize.set(10);
+            reload(true);
+        }));
+        toolBar.getItems().add(createTextButton(String.valueOf(25), event -> {
+            pageSize.set(25);
+            reload(true);
+        }));
+        toolBar.getItems().add(createTextButton(String.valueOf(50), event -> {
+            pageSize.set(50);
+            reload(true);
+        }));
+        toolBar.getItems().add(createTextButton(String.valueOf(100), event -> {
+            pageSize.set(100);
+            reload(true);
+        }));
 
         getChildren().add(tableView);
         getChildren().add(toolBar);
+    }
+
+    public void autoAdjustColumnSize() {
+        if (!autoResize) {
+            return;
+        }
+
+        tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+
+        for (TableColumn<ITEM_TYPE, ?> column : tableView.getColumns()) {
+            if (!column.isResizable() || StringUtils.isBlank(column.getText()) || ((TableColumnEx)column).isAvoidAutoResize()) {
+                continue;
+            }
+
+            Text text = new Text(column.getText());
+            double max = text.getLayoutBounds().getWidth();
+            for (int i = 0; i < tableView.getItems().size(); i++) {
+                if (column.getCellData(i) instanceof String) {
+                    text = new Text(column.getCellData(i).toString());
+                    double calcwidth = text.getLayoutBounds().getWidth();
+                    if (calcwidth > max) {
+                        max = calcwidth;
+                    }
+                }
+            }
+            column.setMaxWidth(Double.MAX_VALUE);
+            column.setPrefWidth(Math.min(MAX_AUTORESIZE_COLUMN_WIDTH, max + 50.0));
+        }
     }
 
     private void onSort() {
@@ -208,6 +253,7 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> 
         }
 
         placeholder.setText(String.format("%s / %s (%s: %s)", currentPage, pageCount, MessageAdapter.getByKey(MessageKey.PAGING_COUNT), items.getTotal()));
+        Platform.runLater(this::autoAdjustColumnSize);
     }
 
     public int getPageSize() {
@@ -234,7 +280,7 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> 
     }
 
     public ObservableList<TableColumnEx<ITEM_TYPE, ?>> getColumns() {
-        return (ObservableList)tableView.getColumns();
+        return (ObservableList) tableView.getColumns();
     }
 
     public TableViewSelectionModel<ITEM_TYPE> getSelectionModel() {
@@ -246,6 +292,14 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> 
     }
 
     public void setFieldEnumType(String fieldEnumType) {
-        this.fieldEnumType = (Class)ReflectionUtil.forName(fieldEnumType);
+        this.fieldEnumType = (Class) ReflectionUtil.forName(fieldEnumType);
+    }
+
+    public boolean isAutoResize() {
+        return autoResize;
+    }
+
+    public void setAutoResize(boolean autoResize) {
+        this.autoResize = autoResize;
     }
 }

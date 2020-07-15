@@ -5,8 +5,8 @@
 <?import javafx.scene.layout.*?>
 <?import org.xmc.fe.ui.components.ImageSelectionButton?>
 <?import org.xmc.fe.ui.validation.components.autocomplete.ValidationAutoComplete?>
-<VBox prefHeight="541.0"
-      prefWidth="719.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
+<VBox prefHeight="341.0"
+      prefWidth="519.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.administration.banks.BankEditController">
 
     <HBox VBox.vgrow="ALWAYS">

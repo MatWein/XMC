@@ -44,25 +44,25 @@
                     <NestedPropertyValueFactory property="logo" fitToWidth="24" fitToHeight="24"/>
                 </cellValueFactory>
             </TableColumnEx>
-            <TableColumnEx editable="false" prefWidth="250" text="%main.administration.banks.overview.table.column.name"
+            <TableColumnEx editable="false" text="%main.administration.banks.overview.table.column.name"
                            sortField="BANK_NAME">
                 <cellValueFactory>
                     <NestedPropertyValueFactory property="name"/>
                 </cellValueFactory>
             </TableColumnEx>
-            <TableColumnEx editable="false" prefWidth="150" text="%main.administration.banks.overview.table.column.bic"
+            <TableColumnEx editable="false" text="%main.administration.banks.overview.table.column.bic"
                            sortField="BANK_BIC">
                 <cellValueFactory>
                     <NestedPropertyValueFactory property="bic"/>
                 </cellValueFactory>
             </TableColumnEx>
-            <TableColumnEx editable="false" prefWidth="150" text="%main.administration.banks.overview.table.column.blz"
+            <TableColumnEx editable="false" text="%main.administration.banks.overview.table.column.blz"
                            sortField="BANK_BLZ">
                 <cellValueFactory>
                     <NestedPropertyValueFactory property="blz"/>
                 </cellValueFactory>
             </TableColumnEx>
-            <TableColumnEx editable="false" prefWidth="150" text="%main.administration.banks.overview.table.column.creationDate"
+            <TableColumnEx editable="false" text="%main.administration.banks.overview.table.column.creationDate"
                            sortField="CREATION_DATE">
                 <cellValueFactory>
                     <NestedPropertyValueFactory property="creationDate"/>

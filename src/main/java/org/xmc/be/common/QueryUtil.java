@@ -1,6 +1,8 @@
 package org.xmc.be.common;
 
 import com.querydsl.core.types.EntityPath;
+import com.querydsl.core.types.Expression;
+import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.jpa.hibernate.HibernateDeleteClause;
 import com.querydsl.jpa.hibernate.HibernateQuery;
@@ -11,6 +13,8 @@ import org.xmc.common.stubs.PagingParams;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import static com.querydsl.core.types.OrderSpecifier.NullHandling.NullsLast;
 
 @Component
 public class QueryUtil {
@@ -24,10 +28,20 @@ public class QueryUtil {
                 .offset(pagingParams.getOffset());
 
         if (pagingParams.getOrder() != null && pagingParams.getSortBy() != null) {
-            query = query.orderBy(new OrderSpecifier(pagingParams.getOrder(), pagingParams.getSortBy().getExpression()));
+            Expression<?> expression = createOrderByExpression(pagingParams.getSortBy().getExpression());
+            query = query.orderBy(new OrderSpecifier(pagingParams.getOrder(), expression, NullsLast));
         }
 
         return query;
+    }
+
+    private Expression<?> createOrderByExpression(Expression<?> expression) {
+        boolean isStringExpression = String.class.isAssignableFrom(expression.getType());
+        if (isStringExpression) {
+            return ExpressionUtils.toLower((Expression)expression);
+        } else {
+            return expression;
+        }
     }
 
     public <RESULT_TYPE> HibernateQuery<RESULT_TYPE> createQuery() {

@@ -68,7 +68,14 @@ public class ImageSelectionButton extends Button {
     }
 
     private ImageView createLogoImageView(Image image) {
-        ImageView imageView = new ImageView(image);
+        Image imageToShow;
+        if (fitWidth != null && fitHeight != null) {
+            imageToShow = ImageUtil.readFromByteArray$(ImageUtil.resize$(ImageUtil.imageToByteArray(image), fitWidth.intValue(), fitHeight.intValue()));
+        } else {
+            imageToShow = image;
+        }
+
+        ImageView imageView = new ImageView(imageToShow);
         imageView.setFitWidth(fitWidth);
         imageView.setFitHeight(fitHeight);
         return imageView;

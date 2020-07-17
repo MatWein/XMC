@@ -1,7 +1,5 @@
 package org.xmc;
 
-import io.github.benas.randombeans.EnhancedRandomBuilder;
-import io.github.benas.randombeans.api.EnhancedRandom;
 import javafx.application.Platform;
 import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +11,6 @@ import java.util.concurrent.atomic.AtomicReference;
 
 @Ignore
 public class JUnitTestBase {
-	protected final EnhancedRandom enhancedRandom = EnhancedRandomBuilder.aNewEnhancedRandom();
 	protected final TestObjectFactory testObjectFactory = new TestObjectFactory();
 
 	static {

@@ -53,7 +53,7 @@ public class ImageSelectionButton extends Button {
         if (image == null) {
             return null;
         } else {
-            return ImageUtil.imageToByteArray(image);
+            return ImageUtil.imageToByteArray$(image);
         }
     }
 
@@ -70,7 +70,7 @@ public class ImageSelectionButton extends Button {
     private ImageView createLogoImageView(Image image) {
         Image imageToShow;
         if (fitWidth != null && fitHeight != null) {
-            imageToShow = ImageUtil.readFromByteArray$(ImageUtil.resize$(ImageUtil.imageToByteArray(image), fitWidth.intValue(), fitHeight.intValue()));
+            imageToShow = ImageUtil.readFromByteArray$(ImageUtil.resize$(ImageUtil.imageToByteArray$(image), fitWidth.intValue(), fitHeight.intValue()));
         } else {
             imageToShow = image;
         }

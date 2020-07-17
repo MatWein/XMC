@@ -1,5 +1,7 @@
 package org.xmc;
 
+import io.github.benas.randombeans.EnhancedRandomBuilder;
+import io.github.benas.randombeans.api.EnhancedRandom;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xmc.be.entities.PersistentObject;
@@ -8,7 +10,13 @@ import java.util.Random;
 
 public class TestObjectFactory {
 	private static final Logger LOGGER = LoggerFactory.getLogger(TestObjectFactory.class);
-	
+
+	protected final EnhancedRandom enhancedRandom = EnhancedRandomBuilder.aNewEnhancedRandom();
+
+	public <T> T createRandom(Class<T> clazz) {
+		return enhancedRandom.nextObject(clazz);
+	}
+
 	public <T extends PersistentObject> T create(Class<T> clazz) {
 		long id = new Random(System.currentTimeMillis()).nextLong();
 		return create(clazz, id);

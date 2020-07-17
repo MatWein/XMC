@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.xmc.common.utils.SleepUtil;
 import org.xmc.fe.stages.main.MainController;
-import org.xmc.fe.ui.components.async.IDisableAsync;
 import org.xmc.fe.ui.components.async.ProcessViewElement;
 
 import java.util.concurrent.ExecutorService;
@@ -22,19 +21,6 @@ public class AsyncProcessor {
     @Autowired
     public AsyncProcessor(ExecutorService asyncThreadPool) {
         this.asyncThreadPool = asyncThreadPool;
-    }
-
-    public <RESULT_TYPE> void runAsyncAndDisable(
-            IDisableAsync component,
-            IAsyncCallable<RESULT_TYPE> callable,
-            Consumer<RESULT_TYPE> resultProcessor) {
-
-        runAsync(
-                () -> component.setDisableAsync(true),
-                callable,
-                resultProcessor,
-                () -> component.setDisableAsync(false)
-        );
     }
 
     public <RESULT_TYPE> void runAsync(

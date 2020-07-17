@@ -64,13 +64,19 @@ public class ImageUtil {
         return image;
     }
 
-    public static byte[] imageToByteArray(Image image) {
-        var bufferedImage = SwingFXUtils.fromFXImage(image, null);
+    public static byte[] imageToByteArray$(Image image) {
+        try {
+            return imageToByteArray(image);
+        } catch (Exception e) {
+            throw new RuntimeException("Error on creating byte array from image.", e);
+        }
+    }
+
+    public static byte[] imageToByteArray(Image image) throws Exception {
         try (var outputStream = new ByteArrayOutputStream()) {
+            var bufferedImage = SwingFXUtils.fromFXImage(image, null);
             ImageIO.write(bufferedImage, "png", outputStream);
             return outputStream.toByteArray();
-        } catch (IOException e) {
-            throw new RuntimeException("Error on creating byte array from image.", e);
         }
     }
 

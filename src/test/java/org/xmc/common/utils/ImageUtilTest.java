@@ -98,7 +98,7 @@ class ImageUtilTest extends JUnitTestBase {
     void testImageToByteArray() throws IOException {
         Image image = ImageUtil.readFromClasspath("/images/feather/delete.png");
 
-        byte[] result = ImageUtil.imageToByteArray(image);
+        byte[] result = ImageUtil.imageToByteArray$(image);
         Assert.assertNotNull(result);
     }
 }

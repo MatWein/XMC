@@ -34,7 +34,7 @@ class BootstrapFileControllerTest extends JUnitTestBase {
         Optional<DtoBootstrapFile> firstReadResult = BootstrapFileController.readBootstrapFile();
         Assert.assertEquals(Optional.empty(), firstReadResult);
 
-        DtoBootstrapFile dto = enhancedRandom.nextObject(DtoBootstrapFile.class);
+        DtoBootstrapFile dto = testObjectFactory.createRandom(DtoBootstrapFile.class);
         dto.setSaveCredentials(true);
         new BootstrapFileController().writeBootstrapFile(dto);
 
@@ -56,7 +56,7 @@ class BootstrapFileControllerTest extends JUnitTestBase {
         Optional<DtoBootstrapFile> firstReadResult = BootstrapFileController.readBootstrapFile();
         Assert.assertEquals(Optional.empty(), firstReadResult);
 
-        DtoBootstrapFile dto = enhancedRandom.nextObject(DtoBootstrapFile.class);
+        DtoBootstrapFile dto = testObjectFactory.createRandom(DtoBootstrapFile.class);
         dto.setSaveCredentials(false);
         new BootstrapFileController().writeBootstrapFile(dto);
 

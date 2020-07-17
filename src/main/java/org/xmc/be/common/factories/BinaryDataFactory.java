@@ -16,6 +16,7 @@ public class BinaryDataFactory {
         binaryData.setRawData(content);
         binaryData.setDescription(description);
         binaryData.setHash(DigestUtils.md5DigestAsHex(content));
+        binaryData.setSize(content.length);
 
         return binaryData;
     }

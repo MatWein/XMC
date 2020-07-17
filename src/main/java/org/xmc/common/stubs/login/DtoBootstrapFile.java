@@ -1,6 +1,6 @@
 package org.xmc.common.stubs.login;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.xmc.common.annotations.JsonIgnore;
 
 import java.io.Serializable;
 

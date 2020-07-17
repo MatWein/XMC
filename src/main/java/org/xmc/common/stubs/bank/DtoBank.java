@@ -2,6 +2,7 @@ package org.xmc.common.stubs.bank;
 
 import com.querydsl.core.annotations.QueryProjection;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.xmc.common.annotations.JsonIgnore;
 
 import java.io.Serializable;
 
@@ -11,6 +12,8 @@ public class DtoBank implements Serializable {
     private String name;
     private String bic;
     private String blz;
+
+    @JsonIgnore
     private byte[] logo;
 
     public DtoBank() {

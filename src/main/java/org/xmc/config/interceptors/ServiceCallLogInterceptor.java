@@ -1,7 +1,7 @@
 package org.xmc.config.interceptors;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Throwables;
+import com.google.gson.Gson;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.lang3.StringUtils;
@@ -18,12 +18,12 @@ import java.util.stream.Collectors;
 
 @Component
 public class ServiceCallLogInterceptor implements MethodInterceptor {
-	private final ObjectMapper objectMapper;
+	private final Gson gson;
 	private final ServiceCallLogJpaRepository serviceCallLogJpaRepository;
 
 	@Autowired
-	public ServiceCallLogInterceptor(ObjectMapper objectMapper, ServiceCallLogJpaRepository serviceCallLogJpaRepository) {
-		this.objectMapper = objectMapper;
+	public ServiceCallLogInterceptor(Gson gson, ServiceCallLogJpaRepository serviceCallLogJpaRepository) {
+		this.gson = gson;
 		this.serviceCallLogJpaRepository = serviceCallLogJpaRepository;
 	}
 
@@ -41,7 +41,7 @@ public class ServiceCallLogInterceptor implements MethodInterceptor {
 
 		String serviceClass = StringUtils.abbreviate(method.getDeclaringClass().getName(), ServiceCallLog.SMALL_LENGTH);
 		String qualifiedNameOfMethod = StringUtils.abbreviate(method.getName(), ServiceCallLog.SMALL_LENGTH);
-		String parameterValues = StringUtils.abbreviate(objectMapper.writeValueAsString(arguments), ServiceCallLog.DEFAULT_LENGTH);
+		String parameterValues = StringUtils.abbreviate(gson.toJson(arguments), ServiceCallLog.DEFAULT_LENGTH);
 
 		var serviceCallLog = new ServiceCallLog();
 		serviceCallLog.setServiceClass(serviceClass);
@@ -54,7 +54,7 @@ public class ServiceCallLogInterceptor implements MethodInterceptor {
 			Object result = invocation.proceed();
 			
 			if (result != null) {
-				String returnValueAsString = StringUtils.abbreviate(objectMapper.writeValueAsString(result), ServiceCallLog.DEFAULT_LENGTH);
+				String returnValueAsString = StringUtils.abbreviate(gson.toJson(result), ServiceCallLog.DEFAULT_LENGTH);
 				serviceCallLog.setReturnValue(returnValueAsString);
 			}
 			

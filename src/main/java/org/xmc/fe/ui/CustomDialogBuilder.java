@@ -26,12 +26,10 @@ public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE, ASYNC_DATA_TYPE> 
     private MessageKey titleKey;
     private MessageKey headerTextKey;
     private Node content;
-    private Node headerGraphic;
     private IDialogMapper<CONTROLLER_TYPE, RETURN_TYPE> mapper;
     private CONTROLLER_TYPE controller;
     private RETURN_TYPE input;
     private List<ButtonType> buttons = new ArrayList<>();
-    private boolean useDefaultIcon;
     private IAsyncCallable<ASYNC_DATA_TYPE> asyncCallable;
 
     public CustomDialogBuilder titleKey(MessageKey titleKey) {
@@ -41,11 +39,6 @@ public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE, ASYNC_DATA_TYPE> 
 
     public CustomDialogBuilder headerTextKey(MessageKey headerTextKey) {
         this.headerTextKey = headerTextKey;
-        return this;
-    }
-
-    public CustomDialogBuilder headerGraphic(Node headerGraphic) {
-        this.headerGraphic = headerGraphic;
         return this;
     }
 
@@ -80,17 +73,11 @@ public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE, ASYNC_DATA_TYPE> 
         return this;
     }
 
-    public CustomDialogBuilder withDefaultIcon() {
-        this.useDefaultIcon = true;
-        return this;
-    }
-
     public Dialog<RETURN_TYPE> build() {
         Dialog<RETURN_TYPE> dialog = new Dialog<>();
 
         dialog.setTitle(MessageAdapter.getByKey(titleKey));
         dialog.setHeaderText(MessageAdapter.getByKey(headerTextKey));
-        dialog.setGraphic(headerGraphic);
 
         DialogPane dialogPane = dialog.getDialogPane();
         dialogPane.getStylesheets().add(FeConstants.BASE_CSS_PATH);
@@ -105,9 +92,7 @@ public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE, ASYNC_DATA_TYPE> 
         }
 
         Scene scene = SceneBuilder.getInstance().build(dialog.getDialogPane().getScene());
-        if (useDefaultIcon) {
-            ((Stage)scene.getWindow()).getIcons().add(FeConstants.APP_ICON);
-        }
+        ((Stage)scene.getWindow()).getIcons().add(FeConstants.APP_ICON);
 
         showBackdrop(dialog);
 

@@ -13,6 +13,7 @@ import org.xmc.common.stubs.cashaccount.DtoCashAccountOverview;
 import org.xmc.fe.async.AsyncProcessor;
 import org.xmc.fe.stages.main.cashaccount.mapper.CashAccountEditDialogMapper;
 import org.xmc.fe.ui.CustomDialogBuilder;
+import org.xmc.fe.ui.DialogHelper;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.FxmlController;
 import org.xmc.fe.ui.MessageAdapter;
@@ -71,6 +72,15 @@ public class CashAccountController {
 
     @FXML
     public void onDeleteCashAccount() {
+        DtoCashAccountOverview selectedCashAccount = tableView.getSelectionModel().getSelectedItem();
+
+        if (DialogHelper.showConfirmDialog(MessageKey.CASHACCOUNT_CONFIRM_DELETE, selectedCashAccount.getName())) {
+            asyncProcessor.runAsyncVoid(
+                    () -> {},
+                    monitor -> cashAccountService.markAsDeleted(monitor, selectedCashAccount.getId()),
+                    () -> tableView.reload()
+            );
+        }
     }
 
     private void createOrEditCashAccount(DtoCashAccountOverview input) {
@@ -79,7 +89,6 @@ public class CashAccountController {
                 .addButton(MessageKey.CASHACCOUNT_EDIT_CANCEL, ButtonData.NO)
                 .addButton(MessageKey.CASHACCOUNT_EDIT_SAVE, ButtonData.OK_DONE)
                 .withFxmlContent(FxmlKey.CASH_ACCOUNT_EDIT)
-                .withDefaultIcon()
                 .withMapper(cashAccountEditDialogMapper)
                 .withInput(input)
                 .withAsyncDataLoading(bankService::loadAllBanks)

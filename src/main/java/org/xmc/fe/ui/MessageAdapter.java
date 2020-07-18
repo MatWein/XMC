@@ -60,6 +60,7 @@ public class MessageAdapter {
         ASYNC_TASK_SAVE_BANK("async.task.saveBank"),
         ASYNC_TASK_LOAD_ALL_BANKS("async.task.loadAllBanks"),
         ASYNC_TASK_DELETE_BANK("async.task.deleteBank"),
+        ASYNC_TASK_DELETE_CASHACCOUNT("async.task.deleteCashAccount"),
 
         LOGIN_TITLE("login.title"),
 
@@ -81,6 +82,7 @@ public class MessageAdapter {
         CASHACCOUNT_EDIT_CANCEL("cashaccount.edit.cancel"),
         CASHACCOUNT_EDIT_ADD_BANK("cashaccount.edit.addBank"),
         CASHACCOUNT_EDIT_BANK_LOGO("cashaccount.edit.bank.logo"),
+        CASHACCOUNT_CONFIRM_DELETE("cashaccount.confirm.delete"),
 
         BANK_EDIT_TITLE("bank.edit.title"),
         BANK_EDIT_CANCEL("bank.edit.cancel"),

@@ -79,7 +79,6 @@ public class BankController {
                 .addButton(MessageKey.BANK_EDIT_CANCEL, ButtonData.NO)
                 .addButton(MessageKey.BANK_EDIT_SAVE, ButtonData.OK_DONE)
                 .withFxmlContent(FxmlKey.BANK_EDIT)
-                .withDefaultIcon()
                 .withMapper(bankEditDialogMapper)
                 .withInput(input)
                 .build()

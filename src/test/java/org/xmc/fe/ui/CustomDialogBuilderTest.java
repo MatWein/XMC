@@ -14,7 +14,6 @@ class CustomDialogBuilderTest extends IntegrationTest {
             Dialog result = CustomDialogBuilder.getInstance()
                     .addButton(MessageKey.DIALOG_OK, ButtonData.OK_DONE)
                     .titleKey(MessageKey.APP_NAME)
-                    .withDefaultIcon()
                     .withFxmlContent(FxmlComponentFactory.FxmlKey.CASH_ACCOUNT_EDIT)
                     .headerTextKey(MessageKey.APP_NAME)
                     .build();

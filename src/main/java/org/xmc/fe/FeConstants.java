@@ -1,8 +1,11 @@
 package org.xmc.fe;
 
 import javafx.scene.image.Image;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Duration;
 import org.xmc.common.utils.ImageUtil;
+import org.xmc.fe.ui.MessageAdapter;
+import org.xmc.fe.ui.MessageAdapter.MessageKey;
 
 public interface FeConstants {
     String APP_ICON_PATH = "/images/XMC_512.png";
@@ -16,4 +19,8 @@ public interface FeConstants {
     String BASE_CSS_PATH = "/css/xmc-base.css";
 
     Duration DEFAULT_DELAY = Duration.millis(500);
+
+    ExtensionFilter IMAGE_EXTENSION_FILTER = new ExtensionFilter(
+            MessageAdapter.getByKey(MessageKey.FILECHOOSER_IMAGES),
+            "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif");
 }

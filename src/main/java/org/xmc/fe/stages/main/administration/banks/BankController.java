@@ -12,6 +12,7 @@ import org.xmc.common.stubs.bank.DtoBankOverview;
 import org.xmc.fe.async.AsyncProcessor;
 import org.xmc.fe.stages.main.administration.banks.mapper.BankEditDialogMapper;
 import org.xmc.fe.ui.CustomDialogBuilder;
+import org.xmc.fe.ui.DialogHelper;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.FxmlController;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
@@ -61,6 +62,15 @@ public class BankController {
 
     @FXML
     public void onDeleteBank() {
+        DtoBankOverview selectedBank = tableView.getSelectionModel().getSelectedItem();
+
+        if (DialogHelper.showConfirmDialog(MessageKey.BANK_CONFIRM_DELETE, selectedBank.getName())) {
+            asyncProcessor.runAsyncVoid(
+                    () -> {},
+                    monitor -> bankService.markAsDeleted(monitor, selectedBank.getId()),
+                    () -> tableView.reload()
+            );
+        }
     }
 
     private void createOrEditBank(DtoBankOverview input) {

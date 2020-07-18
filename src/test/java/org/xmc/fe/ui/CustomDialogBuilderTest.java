@@ -17,7 +17,6 @@ class CustomDialogBuilderTest extends IntegrationTest {
                     .withDefaultIcon()
                     .withFxmlContent(FxmlComponentFactory.FxmlKey.CASH_ACCOUNT_EDIT)
                     .headerTextKey(MessageKey.APP_NAME)
-                    .showBackdrop(true)
                     .build();
 
             Assert.assertNotNull(result);

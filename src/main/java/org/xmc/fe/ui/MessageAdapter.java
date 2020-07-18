@@ -59,6 +59,7 @@ public class MessageAdapter {
         ASYNC_TASK_LOAD_BANK_OVERVIEW("async.task.loadBankOverview"),
         ASYNC_TASK_SAVE_BANK("async.task.saveBank"),
         ASYNC_TASK_LOAD_ALL_BANKS("async.task.loadAllBanks"),
+        ASYNC_TASK_DELETE_BANK("async.task.deleteBank"),
 
         LOGIN_TITLE("login.title"),
 
@@ -84,6 +85,7 @@ public class MessageAdapter {
         BANK_EDIT_TITLE("bank.edit.title"),
         BANK_EDIT_CANCEL("bank.edit.cancel"),
         BANK_EDIT_SAVE("bank.edit.save"),
+        BANK_CONFIRM_DELETE("bank.confirm.delete"),
         ;
 
         private final String key;

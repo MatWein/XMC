@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.xmc.be.entities.Bank;
 import org.xmc.be.repositories.bank.BankJpaRepository;
 import org.xmc.be.repositories.bank.BankRepository;
 import org.xmc.be.services.bank.controller.BankSaveController;
@@ -17,7 +18,9 @@ import org.xmc.common.stubs.bank.DtoBankOverview;
 import org.xmc.fe.async.AsyncMonitor;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -64,5 +67,16 @@ public class BankService {
         monitor.setStatusText(MessageKey.ASYNC_TASK_LOAD_BANK_OVERVIEW);
 
         return bankRepository.loadOverview(pagingParams);
+    }
+
+    public void markAsDeleted(AsyncMonitor monitor, long bankId) {
+        LOGGER.info("Marking bank '{}' as deleted.", bankId);
+        monitor.setStatusText(MessageKey.ASYNC_TASK_DELETE_BANK);
+
+        Optional<Bank> bank = bankJpaRepository.findById(bankId);
+        if (bank.isPresent()) {
+            bank.get().setDeletionDate(LocalDateTime.now());
+            bankJpaRepository.save(bank.get());
+        }
     }
 }

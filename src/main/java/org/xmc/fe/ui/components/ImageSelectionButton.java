@@ -4,6 +4,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import org.xmc.common.utils.ImageUtil;
+import org.xmc.fe.FeConstants;
 import org.xmc.fe.ui.DialogHelper;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
@@ -18,7 +19,7 @@ public class ImageSelectionButton extends Button {
 
     public ImageSelectionButton() {
         this.setOnAction(event -> {
-            Optional<File> selectedFile = DialogHelper.showOpenFileDialog(getScene().getWindow(), DialogHelper.IMAGE_EXTENSION_FILTER);
+            Optional<File> selectedFile = DialogHelper.showOpenFileDialog(getScene().getWindow(), FeConstants.IMAGE_EXTENSION_FILTER);
             if (selectedFile.isPresent()) {
                 showImage(ImageUtil.readFromFile$(selectedFile.get()));
             }

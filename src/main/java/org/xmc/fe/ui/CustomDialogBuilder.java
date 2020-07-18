@@ -32,7 +32,6 @@ public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE, ASYNC_DATA_TYPE> 
     private RETURN_TYPE input;
     private List<ButtonType> buttons = new ArrayList<>();
     private boolean useDefaultIcon;
-    private boolean showBackdrop = true;
     private IAsyncCallable<ASYNC_DATA_TYPE> asyncCallable;
 
     public CustomDialogBuilder titleKey(MessageKey titleKey) {
@@ -47,11 +46,6 @@ public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE, ASYNC_DATA_TYPE> 
 
     public CustomDialogBuilder headerGraphic(Node headerGraphic) {
         this.headerGraphic = headerGraphic;
-        return this;
-    }
-
-    public CustomDialogBuilder showBackdrop(boolean showBackdrop) {
-        this.showBackdrop = showBackdrop;
         return this;
     }
 
@@ -111,15 +105,11 @@ public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE, ASYNC_DATA_TYPE> 
         }
 
         Scene scene = SceneBuilder.getInstance().build(dialog.getDialogPane().getScene());
-
         if (useDefaultIcon) {
             ((Stage)scene.getWindow()).getIcons().add(FeConstants.APP_ICON);
         }
 
-        if (showBackdrop) {
-            dialog.setOnShown(event -> MainController.backdropRef.setVisible(true));
-            dialog.setOnCloseRequest(event -> MainController.backdropRef.setVisible(false));
-        }
+        showBackdrop(dialog);
 
         if (asyncCallable != null && controller != null && controller instanceof IDialogWithAsyncData) {
             Main.applicationContext.getBean(AsyncProcessor.class).runAsync(
@@ -131,5 +121,12 @@ public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE, ASYNC_DATA_TYPE> 
         }
 
         return dialog;
+    }
+
+    public static void showBackdrop(Dialog<?> dialog) {
+        if (MainController.backdropRef != null && !MainController.backdropRef.isVisible()) {
+            dialog.setOnShown(event -> MainController.backdropRef.setVisible(true));
+            dialog.setOnCloseRequest(event -> MainController.backdropRef.setVisible(false));
+        }
     }
 }

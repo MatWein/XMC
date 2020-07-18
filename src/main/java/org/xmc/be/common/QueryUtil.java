@@ -1,9 +1,6 @@
 package org.xmc.be.common;
 
-import com.querydsl.core.types.EntityPath;
-import com.querydsl.core.types.Expression;
-import com.querydsl.core.types.ExpressionUtils;
-import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.*;
 import com.querydsl.jpa.hibernate.HibernateDeleteClause;
 import com.querydsl.jpa.hibernate.HibernateQuery;
 import org.hibernate.Session;
@@ -22,7 +19,7 @@ public class QueryUtil {
     private EntityManager entityManager;
 
     public <RESULT_TYPE, FIELD_ENUM_TYPE extends Enum<FIELD_ENUM_TYPE> & IPagingField> HibernateQuery<RESULT_TYPE>
-    createPagedQuery(PagingParams<FIELD_ENUM_TYPE> pagingParams) {
+    createPagedQuery(PagingParams<FIELD_ENUM_TYPE> pagingParams, FIELD_ENUM_TYPE defaultSortBy, Order defaultOrder) {
         HibernateQuery<RESULT_TYPE> query = (HibernateQuery)createQuery()
                 .limit(pagingParams.getLimit())
                 .offset(pagingParams.getOffset());
@@ -30,6 +27,9 @@ public class QueryUtil {
         if (pagingParams.getOrder() != null && pagingParams.getSortBy() != null) {
             Expression<?> expression = createOrderByExpression(pagingParams.getSortBy().getExpression());
             query = query.orderBy(new OrderSpecifier(pagingParams.getOrder(), expression, NullsLast));
+        } else {
+            Expression<?> expression = createOrderByExpression(defaultSortBy.getExpression());
+            query = query.orderBy(new OrderSpecifier(defaultOrder, expression, NullsLast));
         }
 
         return query;
@@ -44,7 +44,7 @@ public class QueryUtil {
         }
     }
 
-    public <RESULT_TYPE> HibernateQuery<RESULT_TYPE> createQuery() {
+    private <RESULT_TYPE> HibernateQuery<RESULT_TYPE> createQuery() {
         return new HibernateQuery<>(getSession());
     }
 

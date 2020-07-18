@@ -1,6 +1,11 @@
 package org.xmc.config;
 
 import com.opencsv.bean.CsvToBeanBuilder;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration;
+import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
+import org.springframework.boot.info.BuildProperties;
+import org.springframework.boot.info.GitProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.xmc.common.stubs.bank.DtoBankInformation;
@@ -10,6 +15,7 @@ import java.io.InputStreamReader;
 import java.util.Comparator;
 import java.util.Currency;
 import java.util.List;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 @Configuration
@@ -31,5 +37,33 @@ public class BeanConfig {
         return Currency.getAvailableCurrencies().stream()
                 .sorted(Comparator.comparing(Currency::toString, Comparator.naturalOrder()))
                 .collect(Collectors.toList());
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public GitProperties gitProperties() {
+        Properties properties = new Properties();
+        properties.setProperty("branch", "development");
+        properties.setProperty("commit.id", "development");
+        properties.setProperty("commit.time", String.valueOf((int)(System.currentTimeMillis() / 1000)));
+
+        return new GitProperties(properties);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public BuildProperties buildProperties() {
+        Properties properties = new Properties();
+        properties.setProperty("version", "development");
+
+        return new BuildProperties(properties);
+    }
+
+    public static String loadVersionWithoutSprintContext() {
+        try {
+            return new ProjectInfoAutoConfiguration(new ProjectInfoProperties()).buildProperties().getVersion();
+        } catch (Exception e) {
+            return new BeanConfig().buildProperties().getVersion();
+        }
     }
 }

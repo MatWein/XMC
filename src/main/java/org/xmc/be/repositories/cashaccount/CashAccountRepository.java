@@ -2,6 +2,7 @@ package org.xmc.be.repositories.cashaccount;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.ExpressionUtils;
+import com.querydsl.core.types.Order;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import org.apache.commons.lang3.StringUtils;
@@ -34,7 +35,7 @@ public class CashAccountRepository {
                         .or(bank.blz.likeIgnoreCase(filter))
                         .or(bank.name.likeIgnoreCase(filter));
 
-        return queryUtil.createPagedQuery(pagingParams)
+        return queryUtil.createPagedQuery(pagingParams, CashAccountOverviewFields.NAME, Order.ASC)
                 .select(Projections.constructor(DtoCashAccountOverview.class,
                         cashAccount.id, cashAccount.iban, cashAccount.number, cashAccount.name, cashAccount.currency,
                         cashAccount.creationDate, cashAccount.lastSaldo, cashAccount.lastSaldoDate,

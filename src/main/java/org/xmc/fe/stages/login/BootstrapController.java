@@ -13,9 +13,9 @@ import org.springframework.boot.SpringApplication;
 import org.xmc.Main;
 import org.xmc.be.services.login.UserLoginService;
 import org.xmc.common.stubs.login.DtoBootstrapFile;
-import org.xmc.common.utils.BuildPropertiesUtil;
 import org.xmc.common.utils.HomeDirectoryPathCalculator;
 import org.xmc.common.utils.SleepUtil;
+import org.xmc.config.BeanConfig;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.FxmlController;
 import org.xmc.fe.ui.MessageAdapter;
@@ -39,7 +39,7 @@ public class BootstrapController {
 
     @FXML
     public void initialize() {
-        versionLabel.setText(BuildPropertiesUtil.loadVersionWithoutSprintContext());
+        versionLabel.setText(BeanConfig.loadVersionWithoutSprintContext());
     }
 
     public void start(DtoBootstrapFile dtoBootstrapFile, Runnable preprocessing) {

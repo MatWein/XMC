@@ -23,3 +23,9 @@ To use the internal Scene Builder with Java 11 and ControlsFX do the following:
 4. copy the Scene Builder Kit JAR to the new folder and rename to "SceneBuilderKit-11.0.0.jar"
 5. Add the following JVM argument to Intellij IDEA: ``-Djavafx.version=11.0.0``
 
+### Building application JAR
+Use one of the following commands to build a platform specific jar:  
+``mvn clean install -Djavafx.platform=win``  
+``mvn clean install -Djavafx.platform=linux``  
+``mvn clean install -Djavafx.platform=mac``  
+If no platform is specified, the current OS will be used.

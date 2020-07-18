@@ -7,10 +7,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.apache.commons.lang3.tuple.Pair;
-import org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration;
-import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
 import org.xmc.be.services.login.controller.BootstrapFileController;
 import org.xmc.common.stubs.login.DtoBootstrapFile;
+import org.xmc.common.utils.BuildPropertiesUtil;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.FxmlController;
 import org.xmc.fe.ui.SceneUtil;
@@ -27,8 +26,8 @@ public class LoginController {
     @FXML private Label versionLabel;
 
     @FXML
-    public void initialize() throws Exception {
-        versionLabel.setText(new ProjectInfoAutoConfiguration(new ProjectInfoProperties()).buildProperties().getVersion());
+    public void initialize() {
+        versionLabel.setText(BuildPropertiesUtil.loadVersionWithoutSprintContext());
         unsafeWarningLabel.visibleProperty().bind(saveCredentialsToggle.selectedProperty());
 
         autoLoginToggle.selectedProperty().addListener((observableValue, oldValue, newValue) -> {

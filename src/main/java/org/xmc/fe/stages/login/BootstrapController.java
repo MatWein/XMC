@@ -10,11 +10,10 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration;
-import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
 import org.xmc.Main;
 import org.xmc.be.services.login.UserLoginService;
 import org.xmc.common.stubs.login.DtoBootstrapFile;
+import org.xmc.common.utils.BuildPropertiesUtil;
 import org.xmc.common.utils.HomeDirectoryPathCalculator;
 import org.xmc.common.utils.SleepUtil;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
@@ -39,8 +38,8 @@ public class BootstrapController {
     private Runnable preprocessing;
 
     @FXML
-    public void initialize() throws Exception {
-        versionLabel.setText(new ProjectInfoAutoConfiguration(new ProjectInfoProperties()).buildProperties().getVersion());
+    public void initialize() {
+        versionLabel.setText(BuildPropertiesUtil.loadVersionWithoutSprintContext());
     }
 
     public void start(DtoBootstrapFile dtoBootstrapFile, Runnable preprocessing) {

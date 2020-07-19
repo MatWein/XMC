@@ -42,7 +42,7 @@ public class CashAccountEditController implements IDialogWithAsyncData<List<DtoB
     @FXML
     public void initialize() {
         bankComboBox.setConverter(GenericItemToStringConverter.getInstance(dtoBankConverter));
-        bankComboBox.setPromptText(MessageAdapter.getByKey(MessageKey.CASHACCOUNT_EDIT_ADD_BANK));
+        bankComboBox.setPromptText(MessageAdapter.getByKey(MessageKey.CASHACCOUNT_EDIT_SELECT_BANK));
 
         cashAccountCurrencyAutoComplete.setContextMenuConverter(currencyConverter);
         cashAccountCurrencyAutoComplete.setConverter(Currency::getCurrencyCode);

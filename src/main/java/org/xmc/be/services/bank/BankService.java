@@ -50,7 +50,7 @@ public class BankService {
         LOGGER.info("Loading all available banks.");
         monitor.setStatusText(MessageKey.ASYNC_TASK_LOAD_ALL_BANKS);
 
-        return bankJpaRepository.findAll().stream()
+        return bankJpaRepository.findByDeletionDateIsNull().stream()
                 .map(bankToDtoBankMapper)
                 .collect(Collectors.toList());
     }

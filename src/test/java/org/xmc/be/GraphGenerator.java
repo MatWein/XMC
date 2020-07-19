@@ -4,12 +4,16 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Component;
 import org.xmc.be.entities.Bank;
 import org.xmc.be.entities.BinaryData;
+import org.xmc.be.entities.Category;
 import org.xmc.be.entities.cashaccount.CashAccount;
+import org.xmc.be.entities.cashaccount.CashAccountTransaction;
 import org.xmc.be.entities.user.ServiceCallLog;
 import org.xmc.be.entities.user.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Currency;
 import java.util.UUID;
 
@@ -28,7 +32,7 @@ public class GraphGenerator {
     }
 
     public User createUser(String userName) {
-        User user = new User();
+        var user = new User();
 
         user.setUsername(userName);
         user.setDisplayName(userName);
@@ -43,7 +47,7 @@ public class GraphGenerator {
     }
 
     public BinaryData createBinaryData(Bank bank) {
-        BinaryData binaryData = createBinaryData();
+        var binaryData = createBinaryData();
 
         bank.setLogo(binaryData);
         session().saveOrUpdate(bank);
@@ -52,7 +56,7 @@ public class GraphGenerator {
     }
 
     public BinaryData createBinaryData(byte[] data) {
-        BinaryData binaryData = new BinaryData();
+        var binaryData = new BinaryData();
 
         binaryData.setDescription(UUID.randomUUID().toString());
         binaryData.setHash(UUID.randomUUID().toString());
@@ -65,7 +69,7 @@ public class GraphGenerator {
     }
 
     public Bank createBank() {
-        Bank bank = new Bank();
+        var bank = new Bank();
 
         bank.setBic("bic");
         bank.setBlz("blz");
@@ -82,7 +86,7 @@ public class GraphGenerator {
     }
 
     public CashAccount createCashAccount(Bank bank) {
-        CashAccount cashAccount = new CashAccount();
+        var cashAccount = new CashAccount();
 
         cashAccount.setBank(bank);
         cashAccount.setCurrency(Currency.getInstance("EUR"));
@@ -96,7 +100,7 @@ public class GraphGenerator {
     }
 
     public ServiceCallLog createServiceCallLog() {
-        ServiceCallLog serviceCallLog = new ServiceCallLog();
+        var serviceCallLog = new ServiceCallLog();
 
         serviceCallLog.setCallDuration(100);
         serviceCallLog.setServiceClass("test");
@@ -105,5 +109,52 @@ public class GraphGenerator {
         session().persist(serviceCallLog);
 
         return serviceCallLog;
+    }
+
+    public Category createCategory() {
+        return createCategory(createBinaryData());
+    }
+
+    public Category createCategory(BinaryData icon) {
+        var category = new Category();
+
+        category.setName(UUID.randomUUID().toString());
+        category.setIcon(icon);
+
+        session().persist(category);
+
+        return category;
+    }
+
+    public CashAccountTransaction createCashAccountTransaction() {
+        return createCashAccountTransaction(createCashAccount());
+    }
+
+    public CashAccountTransaction createCashAccountTransaction(CashAccount cashAccount) {
+        return createCashAccountTransaction(cashAccount, createCategory());
+    }
+
+    public CashAccountTransaction createCashAccountTransaction(CashAccount cashAccount, Category category) {
+        return createCashAccountTransaction(cashAccount, category, createBank());
+    }
+
+    public CashAccountTransaction createCashAccountTransaction(CashAccount cashAccount, Category category, Bank bank) {
+        var cashAccountTransaction = new CashAccountTransaction();
+
+        cashAccountTransaction.setCashAccount(cashAccount);
+        cashAccountTransaction.setCategory(category);
+        cashAccountTransaction.setReferenceBank(bank);
+        cashAccountTransaction.setSaldoAfter(new BigDecimal(0.0));
+        cashAccountTransaction.setSaldoBefore(new BigDecimal(0.0));
+        cashAccountTransaction.setUsage("test");
+        cashAccountTransaction.setValue(new BigDecimal(0.0));
+        cashAccountTransaction.setValutaDate(LocalDateTime.now());
+
+        session().persist(cashAccountTransaction);
+
+        cashAccount.getTransactions().add(cashAccountTransaction);
+        session().saveOrUpdate(cashAccount);
+
+        return cashAccountTransaction;
     }
 }

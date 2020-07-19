@@ -1,5 +1,6 @@
 package org.xmc.be.entities.cashaccount;
 
+import com.google.common.collect.Sets;
 import org.xmc.be.entities.Bank;
 import org.xmc.be.entities.DeletablePersistentObject;
 
@@ -7,6 +8,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Currency;
+import java.util.Set;
 
 @Entity
 @Table(name = CashAccount.TABLE_NAME)
@@ -30,6 +32,9 @@ public class CashAccount extends DeletablePersistentObject {
     private BigDecimal lastSaldo;
     @Column(name = "LAST_SALDO_DATE", nullable = true)
     private LocalDateTime lastSaldoDate;
+
+    @OneToMany(mappedBy = "cashAccount")
+    private Set<CashAccountTransaction> transactions = Sets.newHashSet();
 
     public Bank getBank() {
         return bank;
@@ -85,5 +90,13 @@ public class CashAccount extends DeletablePersistentObject {
 
     public void setLastSaldoDate(LocalDateTime lastSaldoDate) {
         this.lastSaldoDate = lastSaldoDate;
+    }
+
+    public Set<CashAccountTransaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(Set<CashAccountTransaction> transactions) {
+        this.transactions = transactions;
     }
 }

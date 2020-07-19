@@ -44,7 +44,7 @@ class BankServiceTest extends JUnitTestBase {
 
         Bank bank = testObjectFactory.create(Bank.class);
         List<Bank> banks = Lists.newArrayList(bank);
-        when(bankJpaRepository.findAll()).thenReturn(banks);
+        when(bankJpaRepository.findByDeletionDateIsNull()).thenReturn(banks);
 
         DtoBank dtoBank = new DtoBank();
         when(bankToDtoBankMapper.apply(bank)).thenReturn(dtoBank);

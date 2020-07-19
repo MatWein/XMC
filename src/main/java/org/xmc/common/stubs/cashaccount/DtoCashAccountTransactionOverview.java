@@ -1,7 +1,7 @@
 package org.xmc.common.stubs.cashaccount;
 
-import org.xmc.common.stubs.DtoCategory;
 import org.xmc.common.stubs.bank.DtoBank;
+import org.xmc.common.stubs.category.DtoCategory;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

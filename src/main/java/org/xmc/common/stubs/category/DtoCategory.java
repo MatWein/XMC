@@ -1,4 +1,4 @@
-package org.xmc.common.stubs;
+package org.xmc.common.stubs.category;
 
 import java.io.Serializable;
 

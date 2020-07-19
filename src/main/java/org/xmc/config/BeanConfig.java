@@ -1,13 +1,15 @@
 package org.xmc.config;
 
 import com.opencsv.bean.CsvToBeanBuilder;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration;
 import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.boot.info.GitProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.xmc.common.annotations.ConditionalOnMissingResource;
 import org.xmc.common.stubs.bank.DtoBankInformation;
 
 import java.io.IOException;
@@ -19,6 +21,7 @@ import java.util.Properties;
 import java.util.stream.Collectors;
 
 @Configuration
+@Order(Ordered.LOWEST_PRECEDENCE)
 public class BeanConfig {
     @Bean
     public List<DtoBankInformation> bankInformation() throws IOException {
@@ -40,7 +43,7 @@ public class BeanConfig {
     }
 
     @Bean
-    @ConditionalOnMissingBean
+    @ConditionalOnMissingResource(resources = "classpath:git.properties")
     public GitProperties gitProperties() {
         Properties properties = new Properties();
         properties.setProperty("branch", "development");
@@ -51,7 +54,7 @@ public class BeanConfig {
     }
 
     @Bean
-    @ConditionalOnMissingBean
+    @ConditionalOnMissingResource(resources = "classpath:META-INF/build-info.properties")
     public BuildProperties buildProperties() {
         Properties properties = new Properties();
         properties.setProperty("version", "development");

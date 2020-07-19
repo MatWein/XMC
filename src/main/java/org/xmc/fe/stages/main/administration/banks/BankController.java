@@ -46,6 +46,7 @@ public class BankController {
         BooleanBinding noTableItemSelected = tableView.getSelectionModel().selectedItemProperty().isNull();
         editButton.disableProperty().bind(noTableItemSelected);
         deleteButton.disableProperty().bind(noTableItemSelected);
+
         tableView.setDataProvider(bankService::loadOverview);
     }
 

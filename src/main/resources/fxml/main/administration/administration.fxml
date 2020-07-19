@@ -27,7 +27,7 @@
                     <Image url="@/images/feather/tag.png"/>
                 </ImageView>
             </graphic>
-            <AnchorPane />
+            <fx:include source="categories.fxml"/>
         </Tab>
     </TabPane>
 

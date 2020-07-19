@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
 <?import org.xmc.fe.ui.validation.components.autocomplete.ValidationAutoComplete?>
@@ -10,23 +9,18 @@
       prefWidth="519.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.cashaccount.CashAccountEditController">
 
-    <Label text="%cashaccount.edit.bank">
-        <padding>
-            <Insets bottom="5.0"/>
-        </padding>
-    </Label>
-    <ValidationComboBox fx:id="bankComboBox" prefHeight="25.0" prefWidth="719.0" required="true" visibleRowCount="5">
-        <VBox.margin>
-            <Insets bottom="5.0"/>
-        </VBox.margin>
-    </ValidationComboBox>
+    <Label text="%cashaccount.edit.bank" styleClass="form-label-first" />
+    <ValidationComboBox fx:id="bankComboBox" required="true" visibleRowCount="5" />
 
     <Label styleClass="form-label" text="%cashaccount.edit.name"/>
     <ValidationTextField fx:id="cashAccountNameTextfield" maxLength="255" required="true"/>
+
     <Label styleClass="form-label" text="%cashaccount.edit.iban"/>
     <ValidationTextField fx:id="cashAccountIbanTextfield" maxLength="50" required="false" customValidator="org.xmc.fe.ui.validation.IbanFieldValidator"/>
+
     <Label styleClass="form-label" text="%cashaccount.edit.number"/>
     <ValidationTextField fx:id="cashAccountNumberTextfield" maxLength="255" required="false"/>
+
     <Label styleClass="form-label" text="%cashaccount.edit.currency"/>
     <ValidationAutoComplete fx:id="cashAccountCurrencyAutoComplete"
                             autoCompleteController="org.xmc.fe.stages.main.cashaccount.autocomplete.CurrencyAutoCompleteController"

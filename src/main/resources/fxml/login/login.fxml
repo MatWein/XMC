@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -30,14 +29,11 @@
 
     <VBox AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="316.0" AnchorPane.rightAnchor="30.0"
           AnchorPane.topAnchor="30.0">
-        <Label text="%login.username">
-            <padding>
-                <Insets bottom="5.0"/>
-            </padding>
-        </Label>
+        <Label text="%login.username" styleClass="form-label-first" />
         <ValidationTextField fx:id="usernameTextfield"
                              customValidator="org.xmc.fe.stages.login.validation.UserNotExistingFieldValidator"
                              maxLength="255" onAction="#onLogin" required="true"/>
+
         <Label text="%login.password" styleClass="form-label" />
         <ValidationPasswordField fx:id="passwordField" maxLength="255" onAction="#onLogin" required="true"/>
     </VBox>

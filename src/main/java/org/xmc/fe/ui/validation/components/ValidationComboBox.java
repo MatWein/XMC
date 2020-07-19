@@ -19,6 +19,10 @@ public class ValidationComboBox<T> extends ComboBox<T> implements IValidationCom
     private Integer maxLength;
     private String customValidator;
 
+    public ValidationComboBox() {
+        setMaxWidth(Double.MAX_VALUE);
+    }
+
     @Override
     public List<String> validate() {
         T selectedItem = this.getSelectionModel().getSelectedItem();

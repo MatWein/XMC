@@ -19,19 +19,17 @@
         </ImageSelectionButton>
 
         <VBox HBox.hgrow="ALWAYS">
-            <Label text="%cashaccount.edit.bank.name">
-                <padding>
-                    <Insets bottom="5.0"/>
-                </padding>
-            </Label>
+            <Label text="%cashaccount.edit.bank.name" styleClass="form-label-first" />
             <ValidationAutoComplete fx:id="bankNameAutoComplete" maxLength="255" visibleRowCount="5"
                                     autoCompleteLimit="100"
                                     autoCompleteController="org.xmc.fe.stages.main.administration.banks.autocomplete.BankNameAutoCompleteController"/>
+
             <Label styleClass="form-label" text="%cashaccount.edit.bank.bic"/>
             <ValidationAutoComplete fx:id="bankBicAutoComplete"
                                     autoCompleteController="org.xmc.fe.stages.main.administration.banks.autocomplete.BicAutoCompleteController"
                                     maxLength="255"
                                     visibleRowCount="5" autoCompleteLimit="100"/>
+
             <Label styleClass="form-label" text="%cashaccount.edit.bank.blz"/>
             <ValidationAutoComplete fx:id="bankBlzAutoComplete"
                                     autoCompleteController="org.xmc.fe.stages.main.administration.banks.autocomplete.BlzAutoCompleteController"

@@ -89,6 +89,21 @@ public class MessageAdapter {
         BANK_EDIT_CANCEL("bank.edit.cancel"),
         BANK_EDIT_SAVE("bank.edit.save"),
         BANK_CONFIRM_DELETE("bank.confirm.delete"),
+
+        CATEGORY_EDIT_ICON("category.edit.icon"),
+        CATEGORY_EDIT_TITLE("category.edit.title"),
+        CATEGORY_EDIT_CANCEL("category.edit.cancel"),
+        CATEGORY_EDIT_SAVE("category.edit.save"),
+        CASHACCOUNT_EDIT_SELECT_PRESET("category.edit.selectPreset"),
+
+        CATEGORY_WORK("category.work"),
+        CATEGORY_CAR("category.car"),
+        CATEGORY_CREDIT("category.credit"),
+        CATEGORY_BUSINESS("category.business"),
+        CATEGORY_HOME("category.home"),
+        CATEGORY_MEDIA("category.media"),
+        CATEGORY_SHOPPING("category.shopping"),
+        CATEGORY_DEPOT("category.depot"),
         ;
 
         private final String key;

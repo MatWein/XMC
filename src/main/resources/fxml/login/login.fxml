@@ -42,11 +42,11 @@
         <ValidationPasswordField fx:id="passwordField" maxLength="255" onAction="#onLogin" required="true"/>
     </VBox>
 
-    <ValidatedButton defaultButton="true" layoutX="702.0" layoutY="425.0" mnemonicParsing="false"
+    <ValidatedButton defaultButton="true" layoutX="702.0" layoutY="425.0"
                      onAction="#onLogin" prefHeight="25.0" prefWidth="141.0" text="%login.submit"
                      AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="30.0"/>
 
-    <Button layoutX="316.0" layoutY="409.0" mnemonicParsing="false" onAction="#onRegister" prefHeight="25.0"
+    <Button layoutX="316.0" layoutY="409.0" onAction="#onRegister" prefHeight="25.0"
             prefWidth="115.0" text="%login.register" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="316.0"/>
 
     <CheckBox fx:id="saveCredentialsToggle" nodeOrientation="RIGHT_TO_LEFT" text="%login.saveCredentials"

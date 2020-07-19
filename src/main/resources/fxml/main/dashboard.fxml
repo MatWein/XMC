@@ -11,7 +11,7 @@
       prefHeight="700.0" prefWidth="900.0">
 
     <ToolBar styleClass="toolbar" fx:id="toolbar">
-        <Button mnemonicParsing="false" text="%main.dashboard.configView">
+        <Button text="%main.dashboard.configView">
             <graphic>
                 <ImageView>
                     <Image url="@/images/feather/layout.png"/>
@@ -19,14 +19,14 @@
             </graphic>
         </Button>
         <Pane HBox.hgrow="ALWAYS"/>
-        <Button mnemonicParsing="false" text="%main.dashboard.logout" onAction="#onLogout">
+        <Button text="%main.dashboard.logout" onAction="#onLogout">
             <graphic>
                 <ImageView>
                     <Image url="@/images/feather/log-out.png"/>
                 </ImageView>
             </graphic>
         </Button>
-        <Button mnemonicParsing="false" text="%main.dashboard.quit" onAction="#onQuit">
+        <Button text="%main.dashboard.quit" onAction="#onQuit">
             <graphic>
                 <ImageView>
                     <Image url="@/images/feather/power.png"/>

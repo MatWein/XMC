@@ -92,21 +92,21 @@
         </ProgressBar>
     </HBox>
 
-    <MenuButton mnemonicParsing="false" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
+    <MenuButton AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
         <graphic>
             <ImageView>
                 <Image url="@/images/feather/menu.png"/>
             </ImageView>
         </graphic>
         <items>
-            <MenuItem mnemonicParsing="false" text="%main.menu.settings">
+            <MenuItem text="%main.menu.settings">
                 <graphic>
                     <ImageView>
                         <Image url="@/images/feather/settings.png"/>
                     </ImageView>
                 </graphic>
             </MenuItem>
-            <MenuItem mnemonicParsing="false" onAction="#onAbout" text="%main.menu.about">
+            <MenuItem onAction="#onAbout" text="%main.menu.about">
                 <graphic>
                     <ImageView>
                         <Image url="@/images/feather/info.png"/>

@@ -28,10 +28,10 @@
                                  maxLength="255"/>
     </VBox>
 
-    <Button layoutX="73.0" layoutY="372.0" mnemonicParsing="false" onAction="#onBack" prefWidth="139.0"
+    <Button layoutX="73.0" layoutY="372.0" onAction="#onBack" prefWidth="139.0"
             text="%register.back" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0"/>
 
-    <ValidatedButton defaultButton="true" layoutX="244.0" layoutY="281.0" mnemonicParsing="false"
+    <ValidatedButton defaultButton="true" layoutX="244.0" layoutY="281.0"
                      onAction="#onRegister" prefHeight="25.0" prefWidth="229.0" text="%register.submit"
                      AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="30.0"/>
 

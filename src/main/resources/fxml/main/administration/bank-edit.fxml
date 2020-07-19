@@ -11,7 +11,7 @@
 
     <HBox VBox.vgrow="ALWAYS">
         <ImageSelectionButton fx:id="logoButton" fitHeight="24.0" fitWidth="24.0" maxHeight="64.0" maxWidth="64.0"
-                              messageKey="CASHACCOUNT_EDIT_BANK_LOGO" mnemonicParsing="false" prefHeight="64.0"
+                              messageKey="CASHACCOUNT_EDIT_BANK_LOGO" prefHeight="64.0"
                               prefWidth="64.0">
             <HBox.margin>
                 <Insets right="10.0"/>

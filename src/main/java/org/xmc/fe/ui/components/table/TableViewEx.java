@@ -34,6 +34,7 @@ import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import scalc.SCalcBuilder;
 
 import java.math.RoundingMode;
+import java.util.function.Consumer;
 
 public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> & IPagingField> extends VBox {
     public static final double MAX_AUTORESIZE_COLUMN_WIDTH = 400.0;
@@ -49,6 +50,7 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> 
     private final TableOrderMapper orderMapper;
 
     private ITableDataProvider<ITEM_TYPE, SORT_ENUM_TYPE> dataProvider;
+    private Consumer<ITEM_TYPE> doubleClickConsumer;
     private Class<SORT_ENUM_TYPE> fieldEnumType;
     private SortType sortType;
     private SORT_ENUM_TYPE sortBy;
@@ -67,6 +69,19 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> 
             for (TableColumnEx<ITEM_TYPE, ?> column : getColumns()) {
                 column.setVisible(newValue.intValue() > 0);
             }
+        });
+
+        tableView.setRowFactory(tv -> {
+            TableRow<ITEM_TYPE> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    ITEM_TYPE rowData = row.getItem();
+                    if (doubleClickConsumer != null) {
+                        doubleClickConsumer.accept(rowData);
+                    }
+                }
+            });
+            return row;
         });
 
         ToolBar toolBar = new ToolBar();
@@ -144,7 +159,7 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> 
         tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
 
         for (TableColumn<ITEM_TYPE, ?> column : tableView.getColumns()) {
-            if (!column.isResizable() || StringUtils.isBlank(column.getText()) || ((TableColumnEx)column).isAvoidAutoResize()) {
+            if (!column.isResizable() || StringUtils.isBlank(column.getText()) || ((TableColumnEx) column).isAvoidAutoResize()) {
                 continue;
             }
 
@@ -301,5 +316,13 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> 
 
     public void setAutoResize(boolean autoResize) {
         this.autoResize = autoResize;
+    }
+
+    public Consumer<ITEM_TYPE> getDoubleClickConsumer() {
+        return doubleClickConsumer;
+    }
+
+    public void setDoubleClickConsumer(Consumer<ITEM_TYPE> doubleClickConsumer) {
+        this.doubleClickConsumer = doubleClickConsumer;
     }
 }

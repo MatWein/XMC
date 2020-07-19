@@ -1,106 +1,53 @@
 package org.xmc.fe.stages.main.cashaccount;
 
-import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar.ButtonData;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.xmc.be.services.bank.BankService;
-import org.xmc.be.services.cashaccount.CashAccountService;
-import org.xmc.common.stubs.cashaccount.CashAccountOverviewFields;
-import org.xmc.common.stubs.cashaccount.DtoCashAccount;
+import javafx.scene.Parent;
+import javafx.scene.layout.VBox;
+import org.apache.commons.lang3.tuple.Pair;
 import org.xmc.common.stubs.cashaccount.DtoCashAccountOverview;
-import org.xmc.fe.async.AsyncProcessor;
-import org.xmc.fe.stages.main.cashaccount.mapper.CashAccountEditDialogMapper;
-import org.xmc.fe.ui.CustomDialogBuilder;
-import org.xmc.fe.ui.DialogHelper;
+import org.xmc.fe.ui.FxmlComponentFactory;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.FxmlController;
+import org.xmc.fe.ui.IAfterInit;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.components.BreadcrumbBar;
 import org.xmc.fe.ui.components.BreadcrumbBar.BreadcrumbPathElement;
-import org.xmc.fe.ui.components.table.TableViewEx;
-
-import java.util.Optional;
 
 @FxmlController
 public class CashAccountController {
-    private final CashAccountService cashAccountService;
-    private final CashAccountEditDialogMapper cashAccountEditDialogMapper;
-    private final AsyncProcessor asyncProcessor;
-    private final BankService bankService;
+    private static final String CASHACCOUNT_CONTENT_CONTAINER_ID = "#cashaccountContentContainer";
 
-    @FXML private BreadcrumbBar<?> breadcrumbBar;
-    @FXML private Button editButton;
-    @FXML private Button deleteButton;
-    @FXML private TableViewEx<DtoCashAccountOverview, CashAccountOverviewFields> tableView;
-
-    @Autowired
-    public CashAccountController(
-            CashAccountService cashAccountService,
-            CashAccountEditDialogMapper cashAccountEditDialogMapper,
-            AsyncProcessor asyncProcessor,
-            BankService bankService) {
-
-        this.cashAccountService = cashAccountService;
-        this.cashAccountEditDialogMapper = cashAccountEditDialogMapper;
-        this.asyncProcessor = asyncProcessor;
-        this.bankService = bankService;
-    }
+    @FXML private VBox rootVbox;
+    @FXML private BreadcrumbBar<String> breadcrumbBar;
 
     @FXML
     public void initialize() {
-        breadcrumbBar.getElements().add(new BreadcrumbPathElement<>(MessageAdapter.getByKey(MessageKey.MAIN_CASHACCOUNTS_BREADCRUMB_OVERVIEW)));
-
-        BooleanBinding noTableItemSelected = tableView.getSelectionModel().selectedItemProperty().isNull();
-        editButton.disableProperty().bind(noTableItemSelected);
-        deleteButton.disableProperty().bind(noTableItemSelected);
-        tableView.setDataProvider(cashAccountService::loadOverview);
+        switchToOverview();
     }
 
-    @FXML
-    public void onNewCashAccount() {
-        createOrEditCashAccount(null);
+    public void switchToOverview() {
+        breadcrumbBar.getElements().clear();
+
+        BreadcrumbPathElement<String> element = new BreadcrumbPathElement<>(MessageAdapter.getByKey(MessageKey.MAIN_CASHACCOUNTS_BREADCRUMB_OVERVIEW));
+        element.setOnAction(actionEvent -> switchToOverview());
+        breadcrumbBar.getElements().add(element);
+
+        switchContentComponent(FxmlKey.CASH_ACCOUNTS_OVERVIEW);
     }
 
-    @FXML
-    public void onEditCashAccount() {
-        DtoCashAccountOverview selectedCashAccount = tableView.getSelectionModel().getSelectedItem();
-        createOrEditCashAccount(selectedCashAccount);
+    public void switchToTransactions(DtoCashAccountOverview selectedCashAccount) {
+        String text = MessageAdapter.getByKey(MessageKey.MAIN_CASHACCOUNTS_BREADCRUMB_TRANSACTIONS, selectedCashAccount.getName());
+        breadcrumbBar.getElements().add(new BreadcrumbPathElement<>(text));
+
+        switchContentComponent(FxmlKey.CASH_ACCOUNT_TRANSACTIONS);
     }
 
-    @FXML
-    public void onDeleteCashAccount() {
-        DtoCashAccountOverview selectedCashAccount = tableView.getSelectionModel().getSelectedItem();
+    private void switchContentComponent(FxmlKey newComponentKey) {
+        rootVbox.getChildren().remove(rootVbox.lookup(CASHACCOUNT_CONTENT_CONTAINER_ID));
 
-        if (DialogHelper.showConfirmDialog(MessageKey.CASHACCOUNT_CONFIRM_DELETE, selectedCashAccount.getName())) {
-            asyncProcessor.runAsyncVoid(
-                    () -> {},
-                    monitor -> cashAccountService.markAsDeleted(monitor, selectedCashAccount.getId()),
-                    () -> tableView.reload()
-            );
-        }
-    }
-
-    private void createOrEditCashAccount(DtoCashAccountOverview input) {
-        Optional<DtoCashAccount> dtoCashAccount = CustomDialogBuilder.getInstance()
-                .titleKey(MessageKey.CASHACCOUNT_EDIT_TITLE)
-                .addButton(MessageKey.CASHACCOUNT_EDIT_CANCEL, ButtonData.NO)
-                .addButton(MessageKey.CASHACCOUNT_EDIT_SAVE, ButtonData.OK_DONE)
-                .withFxmlContent(FxmlKey.CASH_ACCOUNT_EDIT)
-                .withMapper(cashAccountEditDialogMapper)
-                .withInput(input)
-                .withAsyncDataLoading(bankService::loadAllBanks)
-                .build()
-                .showAndWait();
-
-        if (dtoCashAccount.isPresent()) {
-            asyncProcessor.runAsyncVoid(
-                    () -> {},
-                    monitor -> cashAccountService.saveOrUpdate(monitor, dtoCashAccount.get()),
-                    () -> tableView.reload()
-            );
-        }
+        Pair<Parent, ? extends IAfterInit<CashAccountController>> componentPair = FxmlComponentFactory.load(newComponentKey);
+        componentPair.getRight().afterInitialize(this);
+        rootVbox.getChildren().add(componentPair.getLeft());
     }
 }

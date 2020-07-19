@@ -72,6 +72,7 @@ public class MessageAdapter {
         MAIN_MEMORY("main.memory"),
         MAIN_DISPLAYNAME("main.displayname"),
         MAIN_CASHACCOUNTS_BREADCRUMB_OVERVIEW("main.cashaccounts.breadcrumb.overview"),
+        MAIN_CASHACCOUNTS_BREADCRUMB_TRANSACTIONS("main.cashaccounts.breadcrumb.transactions"),
         MAIN_PROCESS_COUNTER("main.processCounter"),
         MAIN_NEW_PROCESS("main.newProcess"),
 

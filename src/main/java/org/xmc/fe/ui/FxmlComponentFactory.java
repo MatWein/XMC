@@ -39,6 +39,8 @@ public class FxmlComponentFactory {
         MAIN("/fxml/main/main.fxml"),
         ABOUT("/fxml/main/about.fxml"),
         CASH_ACCOUNT_EDIT("/fxml/main/cashaccount/cashaccount-edit.fxml"),
+        CASH_ACCOUNTS_OVERVIEW("/fxml/main/cashaccount/cashaccounts-overview.fxml"),
+        CASH_ACCOUNT_TRANSACTIONS("/fxml/main/cashaccount/cashaccount-transactions.fxml"),
         BANK_EDIT("/fxml/main/administration/bank-edit.fxml")
         ;
 

@@ -12,14 +12,14 @@
       fx:controller="org.xmc.fe.stages.main.administration.banks.BankController">
 
     <ToolBar styleClass="toolbar">
-        <Button mnemonicParsing="false" text="%main.administration.banks.create" onAction="#onNewBank">
+        <Button text="%main.administration.banks.create" onAction="#onNewBank">
             <graphic>
                 <ImageView>
                     <Image url="@/images/feather/plus.png"/>
                 </ImageView>
             </graphic>
         </Button>
-        <Button mnemonicParsing="false" text="%main.administration.banks.edit" fx:id="editButton"
+        <Button text="%main.administration.banks.edit" fx:id="editButton"
                      onAction="#onEditBank">
             <graphic>
                 <ImageView>
@@ -27,7 +27,7 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Button mnemonicParsing="false" text="%main.administration.banks.delete" fx:id="deleteButton" onAction="#onDeleteBank">
+        <Button text="%main.administration.banks.delete" fx:id="deleteButton" onAction="#onDeleteBank">
             <graphic>
                 <ImageView>
                     <Image url="@/images/feather/delete.png"/>

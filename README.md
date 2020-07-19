@@ -12,7 +12,7 @@ XMC is a small local application to get an overview for your personal finances. 
 ### Run configuration
 To run the application within intellij IDEA you have to download/extract the SDK and specify the following JVM args in the run configuration:  
 ``-p "C:\Program Files\javafx-sdk-11.0.2\lib" --add-modules javafx.controls,javafx.fxml``  
-This is not neccessary when running the application via command line (for example with java -jar xmx.jar).
+This is not neccessary when running the application via command line (for example with java -jar xmc.jar).
 
 ### Internal Scene Builder
 To use the internal Scene Builder with Java 11 and ControlsFX do the following:  

@@ -1,12 +1,6 @@
 /* ---- Fonts / Colors ---- */
 
-@font-face {
-    font-family: 'OpenSans';
-    src: url('OpenSans-Regular.ttf');
-}
-
 * {
-    -fx-font-family: "OpenSans" !important;
     xmc-border-color-gray: rgb(204, 204, 204);
     xmc-background-color-lightgray: rgb(248, 248, 248);
     xmc-akzent-1: rgb(32, 56, 100);

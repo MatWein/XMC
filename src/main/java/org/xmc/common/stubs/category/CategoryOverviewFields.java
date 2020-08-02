@@ -6,7 +6,8 @@ import org.xmc.common.stubs.IPagingField;
 import static org.xmc.be.entities.QCategory.category;
 
 public enum CategoryOverviewFields implements IPagingField {
-    NAME(category.name);
+    NAME(category.name),
+    CREATION_DATE(category.creationDate);
 
     private final Expression<?> expression;
 

@@ -21,10 +21,10 @@
 
         <VBox HBox.hgrow="ALWAYS">
             <Label text="%category.edit.preset" styleClass="form-label-first" />
-            <ValidationComboBox fx:id="presetComboBox" required="true" visibleRowCount="5" />
+            <ValidationComboBox fx:id="presetComboBox" visibleRowCount="5" />
 
             <Label text="%category.edit.name" styleClass="form-label" />
-            <ValidationTextField fx:id="nameTextfield" maxLength="255" />
+            <ValidationTextField fx:id="nameTextfield" required="true" maxLength="255" />
         </VBox>
     </HBox>
 </VBox>

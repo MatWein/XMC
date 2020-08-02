@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import org.xmc.be.entities.Bank;
 import org.xmc.be.repositories.BinaryDataJpaRepository;
 import org.xmc.be.repositories.bank.BankJpaRepository;
-import org.xmc.be.services.cashaccount.mapper.DtoBankToBankMapper;
+import org.xmc.be.services.bank.mapper.DtoBankToBankMapper;
 import org.xmc.common.stubs.bank.DtoBank;
 
 @Component

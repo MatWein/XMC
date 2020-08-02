@@ -61,6 +61,9 @@ public class MessageAdapter {
         ASYNC_TASK_LOAD_ALL_BANKS("async.task.loadAllBanks"),
         ASYNC_TASK_DELETE_BANK("async.task.deleteBank"),
         ASYNC_TASK_DELETE_CASHACCOUNT("async.task.deleteCashAccount"),
+        ASYNC_TASK_SAVE_CATEGORY("async.task.saveCategory"),
+        ASYNC_TASK_LOAD_CATEGORY_OVERVIEW("async.task.loadCategoryOverview"),
+        ASYNC_TASK_DELETE_CATEGORY("async.task.deleteCategory"),
 
         LOGIN_TITLE("login.title"),
 
@@ -104,6 +107,7 @@ public class MessageAdapter {
         CATEGORY_MEDIA("category.media"),
         CATEGORY_SHOPPING("category.shopping"),
         CATEGORY_DEPOT("category.depot"),
+        CATEGORY_CONFIRM_DELETE("category.confirm.delete"),
         ;
 
         private final String key;

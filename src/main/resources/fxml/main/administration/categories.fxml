@@ -40,13 +40,19 @@
         <columns>
             <TableColumnEx editable="false" prefWidth="50" sortable="false" resizable="false">
                 <cellValueFactory>
-                    <NestedPropertyValueFactory property="logo" fitToWidth="24" fitToHeight="24"/>
+                    <NestedPropertyValueFactory property="icon" fitToWidth="24" fitToHeight="24"/>
                 </cellValueFactory>
             </TableColumnEx>
             <TableColumnEx editable="false" text="%main.administration.categories.overview.table.column.name"
                            sortField="NAME">
                 <cellValueFactory>
                     <NestedPropertyValueFactory property="name"/>
+                </cellValueFactory>
+            </TableColumnEx>
+            <TableColumnEx editable="false" text="%main.administration.categories.overview.table.column.creationDate"
+                           sortField="CREATION_DATE">
+                <cellValueFactory>
+                    <NestedPropertyValueFactory property="creationDate"/>
                 </cellValueFactory>
             </TableColumnEx>
         </columns>

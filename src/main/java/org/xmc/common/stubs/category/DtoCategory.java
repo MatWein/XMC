@@ -1,5 +1,7 @@
 package org.xmc.common.stubs.category;
 
+import com.querydsl.core.annotations.QueryProjection;
+
 import java.io.Serializable;
 
 public class DtoCategory implements Serializable {
@@ -15,6 +17,7 @@ public class DtoCategory implements Serializable {
         this.icon = icon;
     }
 
+    @QueryProjection
     public DtoCategory(Long id, String name, byte[] icon) {
         this.id = id;
         this.name = name;

@@ -1,4 +1,4 @@
-package org.xmc.be.services.cashaccount.mapper;
+package org.xmc.be.services.bank.mapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

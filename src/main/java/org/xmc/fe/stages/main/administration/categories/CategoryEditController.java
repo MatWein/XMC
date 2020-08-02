@@ -29,6 +29,8 @@ public class CategoryEditController {
             new DtoCategory(MessageAdapter.getByKey(MessageKey.CATEGORY_DEPOT), ImageUtil.imageToByteArray$(FeConstants.CATEGORY_TRENDING_UP))
     );
 
+    private Long categoryId;
+
     @FXML private ImageSelectionButton iconButton;
     @FXML private ValidationComboBox<DtoCategory> presetComboBox;
     @FXML private ValidationTextField nameTextfield;
@@ -49,5 +51,21 @@ public class CategoryEditController {
                 nameTextfield.setText(newValue.getName());
             }
         });
+    }
+
+    public ImageSelectionButton getIconButton() {
+        return iconButton;
+    }
+
+    public ValidationTextField getNameTextfield() {
+        return nameTextfield;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 }

@@ -49,7 +49,7 @@
             <column name="DESCRIPTION" type="varchar(1000)">
                 <constraints nullable="true"/>
             </column>
-            <column name="VALUTA_DATE" type="timestamp">
+            <column name="VALUTA_DATE" type="date">
                 <constraints nullable="false" />
             </column>
             <column name="VALUE" type="double">

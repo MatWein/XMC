@@ -34,7 +34,7 @@
     </ToolBar>
 
     <TableViewEx VBox.vgrow="ALWAYS" fx:id="tableView"
-                 fieldEnumType="org.xmc.common.stubs.cashaccount.CashAccountTransactionOverviewFields">
+                 fieldEnumType="org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionOverviewFields">
         <columns>
             <TableColumnEx editable="false" prefWidth="50" sortable="false" resizable="false">
                 <cellValueFactory>

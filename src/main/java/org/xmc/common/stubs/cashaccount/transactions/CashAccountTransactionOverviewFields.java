@@ -1,4 +1,4 @@
-package org.xmc.common.stubs.cashaccount;
+package org.xmc.common.stubs.cashaccount.transactions;
 
 import com.querydsl.core.types.Expression;
 import org.xmc.common.stubs.IPagingField;

@@ -24,6 +24,7 @@ import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.StageBuilder;
 
+import java.io.File;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -64,7 +65,8 @@ public class Main extends Application {
                 && dtoBootstrapFile.get().isSaveCredentials()
                 && dtoBootstrapFile.get().isAutoLogin()
                 && StringUtils.isNotBlank(dtoBootstrapFile.get().getUsername())
-                && StringUtils.isNotBlank(dtoBootstrapFile.get().getPassword());
+                && StringUtils.isNotBlank(dtoBootstrapFile.get().getPassword())
+                && new File(HomeDirectoryPathCalculator.calculateDatabaseDirForUser(dtoBootstrapFile.get().getUsername())).isDirectory();
 
         Pair<Parent, ?> component;
         if (autoLogin) {

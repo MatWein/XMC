@@ -1,13 +1,12 @@
-package org.xmc.common.stubs.cashaccount;
+package org.xmc.common.stubs.cashaccount.transactions;
 
 import org.xmc.common.stubs.bank.DtoBank;
 import org.xmc.common.stubs.category.DtoCategory;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class DtoCashAccountTransactionOverview implements Serializable {
+public class DtoCashAccountTransactionOverview extends DtoCashAccountTransaction {
     private DtoBank referenceBank;
     private DtoCategory category;
     private String usage;

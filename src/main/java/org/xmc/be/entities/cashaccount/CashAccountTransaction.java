@@ -6,7 +6,7 @@ import org.xmc.be.entities.DeletablePersistentObject;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = CashAccountTransaction.TABLE_NAME)
@@ -32,7 +32,7 @@ public class CashAccountTransaction extends DeletablePersistentObject {
     private String description;
 
     @Column(name = "VALUTA_DATE", nullable = false)
-    private LocalDateTime valutaDate;
+    private LocalDate valutaDate;
 
     @Column(name = "VALUE", nullable = false)
     private BigDecimal value;
@@ -92,11 +92,11 @@ public class CashAccountTransaction extends DeletablePersistentObject {
         this.description = description;
     }
 
-    public LocalDateTime getValutaDate() {
+    public LocalDate getValutaDate() {
         return valutaDate;
     }
 
-    public void setValutaDate(LocalDateTime valutaDate) {
+    public void setValutaDate(LocalDate valutaDate) {
         this.valutaDate = valutaDate;
     }
 

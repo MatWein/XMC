@@ -13,7 +13,7 @@ import org.xmc.be.entities.user.User;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Currency;
 import java.util.UUID;
 
@@ -148,7 +148,7 @@ public class GraphGenerator {
         cashAccountTransaction.setSaldoBefore(new BigDecimal(0.0));
         cashAccountTransaction.setUsage("test");
         cashAccountTransaction.setValue(new BigDecimal(0.0));
-        cashAccountTransaction.setValutaDate(LocalDateTime.now());
+        cashAccountTransaction.setValutaDate(LocalDate.now());
 
         session().persist(cashAccountTransaction);
 

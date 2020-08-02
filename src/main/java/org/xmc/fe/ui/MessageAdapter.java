@@ -87,6 +87,9 @@ public class MessageAdapter {
         CASHACCOUNT_EDIT_SELECT_BANK("cashaccount.edit.selectBank"),
         CASHACCOUNT_EDIT_BANK_LOGO("cashaccount.edit.bank.logo"),
         CASHACCOUNT_CONFIRM_DELETE("cashaccount.confirm.delete"),
+        CASHACCOUNT_TRANSACTION_EDIT_TITLE("cashaccount.transaction.edit.title"),
+        CASHACCOUNT_TRANSACTION_EDIT_CANCEL("cashaccount.transaction.edit.cancel"),
+        CASHACCOUNT_TRANSACTION_EDIT_SAVE("cashaccount.transaction.edit.save"),
 
         BANK_EDIT_TITLE("bank.edit.title"),
         BANK_EDIT_CANCEL("bank.edit.cancel"),

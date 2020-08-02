@@ -31,6 +31,7 @@ public class ValidationAutoComplete<T> extends ValidationTextField {
     private static final Set<KeyCode> KEYS_TO_IGNORE = Sets.newHashSet(
             KeyCode.ESCAPE, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP,
             KeyCode.DOWN, KeyCode.SHIFT, KeyCode.CONTROL, KeyCode.ALT);
+
     public static final double BUTTON_HEIGHT = 30.0;
 
     private final ScrollPane scrollPane;

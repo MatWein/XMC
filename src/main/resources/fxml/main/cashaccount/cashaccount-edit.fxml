@@ -13,17 +13,17 @@
     <ValidationComboBox fx:id="bankComboBox" required="true" visibleRowCount="5" />
 
     <Label styleClass="form-label" text="%cashaccount.edit.name"/>
-    <ValidationTextField fx:id="cashAccountNameTextfield" maxLength="255" required="true"/>
+    <ValidationTextField fx:id="cashAccountNameTextfield" required="true"/>
 
     <Label styleClass="form-label" text="%cashaccount.edit.iban"/>
     <ValidationTextField fx:id="cashAccountIbanTextfield" maxLength="50" required="false" customValidator="org.xmc.fe.ui.validation.IbanFieldValidator"/>
 
     <Label styleClass="form-label" text="%cashaccount.edit.number"/>
-    <ValidationTextField fx:id="cashAccountNumberTextfield" maxLength="255" required="false"/>
+    <ValidationTextField fx:id="cashAccountNumberTextfield" required="false"/>
 
     <Label styleClass="form-label" text="%cashaccount.edit.currency"/>
     <ValidationAutoComplete fx:id="cashAccountCurrencyAutoComplete"
                             autoCompleteController="org.xmc.fe.stages.main.cashaccount.autocomplete.CurrencyAutoCompleteController"
                             customValidator="org.xmc.fe.ui.validation.CurrencyFieldValidator"
-                            required="true" visibleRowCount="5"/>
+                            required="true" visibleRowCount="5" maxLength="5"/>
 </VBox>

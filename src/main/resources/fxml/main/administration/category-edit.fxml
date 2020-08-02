@@ -24,7 +24,7 @@
             <ValidationComboBox fx:id="presetComboBox" visibleRowCount="5" />
 
             <Label text="%category.edit.name" styleClass="form-label" />
-            <ValidationTextField fx:id="nameTextfield" required="true" maxLength="255" />
+            <ValidationTextField fx:id="nameTextfield" required="true" />
         </VBox>
     </HBox>
 </VBox>

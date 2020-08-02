@@ -11,7 +11,7 @@ public class ValidationTextField extends TextField implements IValidationCompone
 
     private boolean required;
     private Integer minLength;
-    private Integer maxLength;
+    private Integer maxLength = 255;
     private String equalTo;
     private String customValidator;
 

@@ -1,6 +1,5 @@
 package org.xmc.be.entities.cashaccount;
 
-import org.xmc.be.entities.Bank;
 import org.xmc.be.entities.Category;
 import org.xmc.be.entities.DeletablePersistentObject;
 
@@ -18,10 +17,6 @@ public class CashAccountTransaction extends DeletablePersistentObject {
     private CashAccount cashAccount;
 
     @ManyToOne(optional = true)
-    @JoinColumn(name = "REFERENCE_BANK_ID")
-    private Bank referenceBank;
-
-    @ManyToOne(optional = true)
     @JoinColumn(name = "CATEGORY_ID")
     private Category category;
 
@@ -37,8 +32,14 @@ public class CashAccountTransaction extends DeletablePersistentObject {
     @Column(name = "VALUE", nullable = false)
     private BigDecimal value;
 
+    @Column(name = "REFERENCE_BANK", nullable = true)
+    private String referenceBank;
+
     @Column(name = "REFERENCE", nullable = true)
     private String reference;
+
+    @Column(name = "REFERENCE_IBAN", nullable = true, length = 50)
+    private String referenceIban;
 
     @Column(name = "CREDITOR_IDENTIFIER", nullable = true)
     private String creditorIdentifier;
@@ -58,14 +59,6 @@ public class CashAccountTransaction extends DeletablePersistentObject {
 
     public void setCashAccount(CashAccount cashAccount) {
         this.cashAccount = cashAccount;
-    }
-
-    public Bank getReferenceBank() {
-        return referenceBank;
-    }
-
-    public void setReferenceBank(Bank referenceBank) {
-        this.referenceBank = referenceBank;
     }
 
     public Category getCategory() {
@@ -146,5 +139,21 @@ public class CashAccountTransaction extends DeletablePersistentObject {
 
     public void setSaldoAfter(BigDecimal saldoAfter) {
         this.saldoAfter = saldoAfter;
+    }
+
+    public String getReferenceBank() {
+        return referenceBank;
+    }
+
+    public void setReferenceBank(String referenceBank) {
+        this.referenceBank = referenceBank;
+    }
+
+    public String getReferenceIban() {
+        return referenceIban;
+    }
+
+    public void setReferenceIban(String referenceIban) {
+        this.referenceIban = referenceIban;
     }
 }

@@ -8,7 +8,7 @@ import org.xmc.fe.ui.validation.*;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.List;
+import java.util.LinkedHashSet;
 
 public class ValidationNumberField extends TextField implements IValidationComponent, IRequired, IEqualTo, ICustomValidator, IMinMax {
     private static final String CSS_CLASS_INVALID = "textfield-invalid";
@@ -21,10 +21,11 @@ public class ValidationNumberField extends TextField implements IValidationCompo
 
     public ValidationNumberField() {
         setAlignment(Pos.CENTER_RIGHT);
+        setText("0");
     }
 
     @Override
-    public List<String> validate() {
+    public LinkedHashSet<String> validate() {
         return CommonTextfieldValidator.validate(this);
     }
 

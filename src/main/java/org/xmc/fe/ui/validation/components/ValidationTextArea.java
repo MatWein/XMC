@@ -1,12 +1,12 @@
 package org.xmc.fe.ui.validation.components;
 
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import org.xmc.fe.ui.validation.*;
 
 import java.util.LinkedHashSet;
 
-public class ValidationTextField extends TextField implements IValidationComponent, IRequired, ILength, IEqualTo, ICustomValidator {
+public class ValidationTextArea extends TextArea implements IValidationComponent, IRequired, ILength, IEqualTo, ICustomValidator {
     private static final String CSS_CLASS_INVALID = "textfield-invalid";
 
     private boolean required;

@@ -4,7 +4,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import org.xmc.fe.ui.validation.*;
 
-import java.util.List;
+import java.util.LinkedHashSet;
 
 public class ValidationPasswordField extends PasswordField implements IValidationComponent, IRequired, ILength, IEqualTo, ICustomValidator {
     private static final String CSS_CLASS_INVALID = "passwordfield-invalid";
@@ -16,7 +16,7 @@ public class ValidationPasswordField extends PasswordField implements IValidatio
     private String customValidator;
 
     @Override
-    public List<String> validate() {
+    public LinkedHashSet<String> validate() {
         return CommonTextfieldValidator.validate(this);
     }
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import org.xmc.fe.ui.validation.components.ValidationNumberField?>
+<?import org.xmc.fe.ui.validation.components.*?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
       prefWidth="800.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
       xmlns:fx="http://javafx.com/fxml/1"
@@ -10,12 +10,43 @@
 
     <HBox VBox.vgrow="ALWAYS">
         <VBox prefWidth="150.0">
-            <Label text="%cashaccount.transaction.edit.value" styleClass="form-label-first" />
-            <ValidationNumberField required="true" />
+            <Label styleClass="form-label-first" text="%cashaccount.transaction.edit.value"/>
+            <ValidationNumberField required="true"/>
+
+            <Label styleClass="form-label" text="%cashaccount.transaction.edit.valutaDate"/>
+            <ValidationDatePicker required="true" />
+
+            <Label styleClass="form-label" text="%cashaccount.transaction.edit.saldoBefore"/>
+            <ValidationNumberField required="false" disable="true" />
+
+            <Label styleClass="form-label" text="%cashaccount.transaction.edit.saldoAfter"/>
+            <ValidationNumberField required="false" disable="true" />
         </VBox>
 
-        <VBox HBox.hgrow="ALWAYS">
+        <VBox HBox.hgrow="ALWAYS" styleClass="padding-left-15">
+            <Label styleClass="form-label-first" text="%cashaccount.transaction.edit.usage"/>
+            <ValidationTextArea required="true" prefRowCount="3" maxLength="1000" />
 
+            <Label styleClass="form-label" text="%cashaccount.transaction.edit.description"/>
+            <ValidationTextArea required="false" prefRowCount="3" maxLength="1000" />
+
+            <Label styleClass="form-label" text="%cashaccount.transaction.edit.category"/>
+            <ValidationComboBox required="false" />
+
+            <Label styleClass="form-label" text="%cashaccount.transaction.edit.referenceBank"/>
+            <ValidationTextField required="false" />
+
+            <Label styleClass="form-label" text="%cashaccount.transaction.edit.referenceIban"/>
+            <ValidationTextField maxLength="50" customValidator="org.xmc.fe.ui.validation.IbanFieldValidator" required="false" />
+
+            <Label styleClass="form-label" text="%cashaccount.transaction.edit.reference"/>
+            <ValidationTextField required="false" />
+
+            <Label styleClass="form-label" text="%cashaccount.transaction.edit.creditorIdentifier"/>
+            <ValidationTextField required="false" />
+
+            <Label styleClass="form-label" text="%cashaccount.transaction.edit.mandate"/>
+            <ValidationTextField required="false" />
         </VBox>
     </HBox>
 

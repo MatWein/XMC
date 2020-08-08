@@ -6,6 +6,8 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 
 public class NumberUtils {
+    private static final String VALID_NUMBER_CHARS = "0123456789.,-";
+
     public static double parseDoubleValue(String text) throws ParseException {
         if (StringUtils.isBlank(text)) {
             return 0.0;
@@ -13,7 +15,7 @@ public class NumberUtils {
 
         text = StringUtils.trim(text);
 
-        if (!StringUtils.containsOnly(text, '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', ',')) {
+        if (!StringUtils.containsOnly(text, VALID_NUMBER_CHARS)) {
             throw new ParseException("Not a valid number", 0);
         }
 

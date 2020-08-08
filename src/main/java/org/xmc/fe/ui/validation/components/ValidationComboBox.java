@@ -2,16 +2,16 @@ package org.xmc.fe.ui.validation.components;
 
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
-import org.xmc.common.utils.ReflectionUtil;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.SceneUtil;
-import org.xmc.fe.ui.validation.*;
+import org.xmc.fe.ui.validation.ICustomValidator;
+import org.xmc.fe.ui.validation.ILength;
+import org.xmc.fe.ui.validation.IValidationComponent;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
 
-public class ValidationComboBox<T> extends ComboBox<T> implements IValidationComponent, IRequired, ICustomValidator, ILength {
+public class ValidationComboBox<T> extends ComboBox<T> implements IValidationComponent, ICustomValidator, ILength {
     private static final String CSS_CLASS_INVALID = "textfield-invalid";
 
     private boolean required;
@@ -24,20 +24,16 @@ public class ValidationComboBox<T> extends ComboBox<T> implements IValidationCom
     }
 
     @Override
-    public List<String> validate() {
+    public LinkedHashSet<String> validate() {
         T selectedItem = this.getSelectionModel().getSelectedItem();
 
-        List<String> errorMessages = new ArrayList<>();
+        LinkedHashSet<String> errorMessages = new LinkedHashSet<>();
 
         if (required && selectedItem == null) {
             errorMessages.add(MessageAdapter.getByKey(MessageKey.VALIDATION_REQUIRED));
         }
-        if (customValidator != null) {
-            ICustomFieldValidator<ComboBox<T>> validator = (ICustomFieldValidator<ComboBox<T>>) ReflectionUtil.createNewInstanceFactory().call(ReflectionUtil.forName(customValidator));
-            errorMessages.addAll(validator.validate(this));
-        }
 
-        errorMessages.addAll(CommonTextfieldValidator.validate(getEditor()));
+        errorMessages.addAll(CommonTextfieldValidator.validate(this, ValidationComboBox::getEditor));
 
         return errorMessages;
     }
@@ -57,12 +53,10 @@ public class ValidationComboBox<T> extends ComboBox<T> implements IValidationCom
         return CSS_CLASS_INVALID;
     }
 
-    @Override
     public boolean isRequired() {
         return required;
     }
 
-    @Override
     public void setRequired(boolean required) {
         this.required = required;
     }

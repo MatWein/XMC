@@ -4,10 +4,10 @@ import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Tooltip;
 
-import java.util.List;
+import java.util.LinkedHashSet;
 
 public interface IValidationComponent {
-    List<String> validate();
+    LinkedHashSet<String> validate();
 
     void initialize(Scene scene);
 

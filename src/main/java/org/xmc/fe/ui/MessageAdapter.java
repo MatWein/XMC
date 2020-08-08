@@ -49,6 +49,7 @@ public class MessageAdapter {
         VALIDATION_USER_NOT_EXISTING("validation.userNotExisting"),
         VALIDATION_INVALID_IBAN("validation.invalidIban"),
         VALIDATION_INVALID_CURRENCY("validation.invalidCurrency"),
+        VALIDATION_INVALID_DATE("validation.invalidDate"),
 
         PAGING_FIRST_PAGE("paging.firstPage"),
         PAGING_BACK("paging.back"),

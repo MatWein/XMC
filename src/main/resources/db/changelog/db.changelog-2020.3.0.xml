@@ -77,4 +77,16 @@
         <addUniqueConstraint tableName="CATEGORIES" columnNames="NAME" />
     </changeSet>
 
+    <changeSet id="2020-08-08-drop_bank_reference" author="matthias.weinert">
+        <dropForeignKeyConstraint baseTableName="CASH_ACCOUNT_TRANSACTIONS" constraintName="FK_CASH_ACCOUNT_TRANSACTION_BANK" />
+        <dropColumn tableName="CASH_ACCOUNT_TRANSACTIONS" columnName="REFERENCE_BANK_ID" />
+    </changeSet>
+
+    <changeSet id="2020-08-08-add_bank_reference_and_iban" author="matthias.weinert">
+        <addColumn tableName="CASH_ACCOUNT_TRANSACTIONS">
+            <column name="REFERENCE_BANK" type="varchar(255)" />
+            <column name="REFERENCE_IBAN" type="varchar(50)" />
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

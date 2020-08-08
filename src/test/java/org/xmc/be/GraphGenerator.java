@@ -135,15 +135,10 @@ public class GraphGenerator {
     }
 
     public CashAccountTransaction createCashAccountTransaction(CashAccount cashAccount, Category category) {
-        return createCashAccountTransaction(cashAccount, category, createBank());
-    }
-
-    public CashAccountTransaction createCashAccountTransaction(CashAccount cashAccount, Category category, Bank bank) {
         var cashAccountTransaction = new CashAccountTransaction();
 
         cashAccountTransaction.setCashAccount(cashAccount);
         cashAccountTransaction.setCategory(category);
-        cashAccountTransaction.setReferenceBank(bank);
         cashAccountTransaction.setSaldoAfter(new BigDecimal(0.0));
         cashAccountTransaction.setSaldoBefore(new BigDecimal(0.0));
         cashAccountTransaction.setUsage("test");

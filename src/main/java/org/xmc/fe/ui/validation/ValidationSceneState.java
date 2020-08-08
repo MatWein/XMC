@@ -14,10 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import org.xmc.fe.ui.SceneUtil;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ValidationSceneState {
@@ -92,7 +89,7 @@ public class ValidationSceneState {
         Multimap<IValidationComponent, String> validationErrors = ArrayListMultimap.create();
 
         for (IValidationComponent validationComponent : validationComponents) {
-            List<String> fieldErrors = validationComponent.validate();
+            LinkedHashSet<String> fieldErrors = validationComponent.validate();
             validationErrors.putAll(validationComponent, fieldErrors);
         }
         for (IValidationController validationController : validationControllers) {

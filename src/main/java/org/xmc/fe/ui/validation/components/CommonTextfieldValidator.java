@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import org.apache.commons.lang3.StringUtils;
+import org.xmc.common.utils.NumberUtils;
 import org.xmc.common.utils.ReflectionUtil;
 import org.xmc.fe.FeConstants;
 import org.xmc.fe.ui.MessageAdapter;
@@ -12,6 +13,7 @@ import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.SceneUtil;
 import org.xmc.fe.ui.validation.*;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -39,6 +41,25 @@ public class CommonTextfieldValidator {
             }
             if (maxLength != null && StringUtils.defaultString(textField.getText()).length() > maxLength) {
                 errorMessages.add(MessageAdapter.getByKey(MessageKey.VALIDATION_MAX_LENGTH, maxLength));
+            }
+        }
+
+        if (textField instanceof IMinMax) {
+            IMinMax fieldWrapper = (IMinMax)textField;
+            Double min = fieldWrapper.getMin();
+            Double max = fieldWrapper.getMax();
+
+            try {
+                double value = NumberUtils.parseDoubleValue(textField.getText());
+
+                if (min != null && value < min) {
+                    errorMessages.add(MessageAdapter.getByKey(MessageKey.VALIDATION_MIN, min));
+                }
+                if (max != null && value > max) {
+                    errorMessages.add(MessageAdapter.getByKey(MessageKey.VALIDATION_MAX, max));
+                }
+            } catch (ParseException e) {
+                errorMessages.add(MessageAdapter.getByKey(MessageKey.VALIDATION_NUMBER_PARSE_ERROR));
             }
         }
 

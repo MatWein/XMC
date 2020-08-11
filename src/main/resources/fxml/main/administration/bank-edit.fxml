@@ -27,13 +27,11 @@
             <Label styleClass="form-label" text="%cashaccount.edit.bank.bic"/>
             <ValidationAutoComplete fx:id="bankBicAutoComplete"
                                     autoCompleteController="org.xmc.fe.stages.main.administration.banks.autocomplete.BicAutoCompleteController"
-
                                     visibleRowCount="5" autoCompleteLimit="100"/>
 
             <Label styleClass="form-label" text="%cashaccount.edit.bank.blz"/>
             <ValidationAutoComplete fx:id="bankBlzAutoComplete"
                                     autoCompleteController="org.xmc.fe.stages.main.administration.banks.autocomplete.BlzAutoCompleteController"
-
                                     visibleRowCount="5" autoCompleteLimit="100"/>
         </VBox>
     </HBox>

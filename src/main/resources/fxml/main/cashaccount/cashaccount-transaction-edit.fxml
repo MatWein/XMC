@@ -11,7 +11,7 @@
     <HBox VBox.vgrow="ALWAYS">
         <VBox prefWidth="150.0">
             <Label styleClass="form-label-first" text="%cashaccount.transaction.edit.value"/>
-            <ValidationNumberField required="true"/>
+            <ValidationNumberField required="true" fx:id="valueNumberField"/>
 
             <Label styleClass="form-label" text="%cashaccount.transaction.edit.valutaDate"/>
             <ValidationDatePicker required="true" />
@@ -25,10 +25,10 @@
 
         <VBox HBox.hgrow="ALWAYS" styleClass="padding-left-15">
             <Label styleClass="form-label-first" text="%cashaccount.transaction.edit.usage"/>
-            <ValidationTextArea required="true" prefRowCount="3" maxLength="1000" />
+            <ValidationTextArea required="true" prefRowCount="3" maxLength="1000" disableTabChar="true" />
 
             <Label styleClass="form-label" text="%cashaccount.transaction.edit.description"/>
-            <ValidationTextArea required="false" prefRowCount="3" maxLength="1000" />
+            <ValidationTextArea required="false" prefRowCount="3" maxLength="1000" disableTabChar="true" />
 
             <Label styleClass="form-label" text="%cashaccount.transaction.edit.category"/>
             <ValidationComboBox required="false" />

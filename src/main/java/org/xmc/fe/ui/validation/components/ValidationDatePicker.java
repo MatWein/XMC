@@ -20,6 +20,10 @@ public class ValidationDatePicker extends DatePicker implements IValidationCompo
     private boolean required;
     private String customValidator;
 
+    public ValidationDatePicker() {
+        setValue(LocalDate.now());
+    }
+
     @Override
     public LinkedHashSet<String> validate() {
         LinkedHashSet<String> errorMessages = new LinkedHashSet<>();

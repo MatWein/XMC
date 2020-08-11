@@ -1,7 +1,10 @@
 package org.xmc.fe.ui.validation.components;
 
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import org.xmc.fe.ui.validation.*;
 
 import java.util.LinkedHashSet;
@@ -10,6 +13,7 @@ public class ValidationTextArea extends TextArea implements IValidationComponent
     private static final String CSS_CLASS_INVALID = "textfield-invalid";
 
     private boolean required;
+    private boolean disableTabChar;
     private Integer minLength;
     private Integer maxLength = 255;
     private String equalTo;
@@ -23,6 +27,24 @@ public class ValidationTextArea extends TextArea implements IValidationComponent
     @Override
     public void initialize(Scene scene) {
         CommonTextfieldValidator.initValidationEvent(this, scene);
+
+        if (disableTabChar) {
+            this.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+                if (event.getCode() == KeyCode.TAB && !event.isShiftDown() && !event.isControlDown()) {
+                    event.consume();
+
+                    Node source = (Node) event.getSource();
+                    KeyEvent newEvent = new KeyEvent(source,
+                            event.getTarget(), event.getEventType(),
+                            event.getCharacter(), event.getText(),
+                            event.getCode(), event.isShiftDown(),
+                            true, event.isAltDown(),
+                            event.isMetaDown());
+
+                    source.fireEvent(newEvent);
+                }
+            });
+        }
     }
 
     @Override
@@ -78,5 +100,13 @@ public class ValidationTextArea extends TextArea implements IValidationComponent
     @Override
     public void setCustomValidator(String customValidator) {
         this.customValidator = customValidator;
+    }
+
+    public boolean isDisableTabChar() {
+        return disableTabChar;
+    }
+
+    public void setDisableTabChar(boolean disableTabChar) {
+        this.disableTabChar = disableTabChar;
     }
 }

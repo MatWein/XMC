@@ -17,6 +17,7 @@ class NumberUtilsTest extends JUnitTestBase {
         Assert.assertEquals(25.95, NumberUtils.parseDoubleValue("25,95"), 0.001);
         Assert.assertEquals(2125.99, NumberUtils.parseDoubleValue("2125,99"), 0.001);
         Assert.assertEquals(2125.99, NumberUtils.parseDoubleValue("2.125,99"), 0.001);
+        Assert.assertEquals(-0.99, NumberUtils.parseDoubleValue("-0,99"), 0.001);
         Assert.assertEquals(12125.99, NumberUtils.parseDoubleValue(" 12.125,99 "), 0.001);
     }
 

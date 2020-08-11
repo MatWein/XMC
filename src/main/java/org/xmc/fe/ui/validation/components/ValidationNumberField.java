@@ -21,7 +21,7 @@ public class ValidationNumberField extends TextField implements IValidationCompo
 
     public ValidationNumberField() {
         setAlignment(Pos.CENTER_RIGHT);
-        setText("0");
+        setFormattedValue(0.0);
     }
 
     @Override
@@ -37,10 +37,17 @@ public class ValidationNumberField extends TextField implements IValidationCompo
             if (!Boolean.TRUE.equals(newPropertyValue)) {
                 try {
                     double value = NumberUtils.parseDoubleValue(getText());
-                    setText(NumberFormat.getNumberInstance().format(value));
+                    setFormattedValue(value);
                 } catch (ParseException ignored) { }
             }
         });
+    }
+
+    public void setFormattedValue(double value) {
+        NumberFormat numberInstance = NumberFormat.getNumberInstance();
+        numberInstance.setMinimumFractionDigits(2);
+
+        setText(numberInstance.format(value));
     }
 
     @Override

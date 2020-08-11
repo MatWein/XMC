@@ -4,6 +4,8 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.xmc.be.services.category.CategoryService;
 import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionOverviewFields;
 import org.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransaction;
 import org.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransactionOverview;
@@ -18,11 +20,18 @@ import java.util.Optional;
 
 @FxmlController
 public class CashAccountTransactionsController implements IAfterInit<CashAccountController> {
+    private final CategoryService categoryService;
+
     @FXML private TableViewEx<DtoCashAccountTransactionOverview, CashAccountTransactionOverviewFields> tableView;
     @FXML private Button editButton;
     @FXML private Button deleteButton;
 
     private CashAccountController parentController;
+
+    @Autowired
+    public CashAccountTransactionsController(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
 
     @FXML
     public void initialize() {
@@ -61,7 +70,7 @@ public class CashAccountTransactionsController implements IAfterInit<CashAccount
                 .withFxmlContent(FxmlKey.CASH_ACCOUNT_TRANSACTION_EDIT)
 //                .withMapper(cashAccountEditDialogMapper)
                 .withInput(input)
-//                .withAsyncDataLoading(bankService::loadAllBanks)
+                .withAsyncDataLoading(categoryService::loadAllCategories)
                 .build()
                 .showAndWait();
 

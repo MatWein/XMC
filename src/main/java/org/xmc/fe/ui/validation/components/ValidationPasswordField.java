@@ -2,14 +2,16 @@ package org.xmc.fe.ui.validation.components;
 
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
+import org.xmc.fe.ui.components.IInitialFocus;
 import org.xmc.fe.ui.validation.*;
 
 import java.util.LinkedHashSet;
 
-public class ValidationPasswordField extends PasswordField implements IValidationComponent, IRequired, ILength, IEqualTo, ICustomValidator {
+public class ValidationPasswordField extends PasswordField implements IValidationComponent, IRequired, ILength, IEqualTo, ICustomValidator, IInitialFocus {
     private static final String CSS_CLASS_INVALID = "passwordfield-invalid";
 
     private boolean required;
+    private boolean initialFocus;
     private Integer minLength;
     private Integer maxLength = 255;
     private String equalTo;
@@ -23,6 +25,10 @@ public class ValidationPasswordField extends PasswordField implements IValidatio
     @Override
     public void initialize(Scene scene) {
         CommonTextfieldValidator.initValidationEvent(this, scene);
+
+        if (initialFocus) {
+            requestInitialFocus();
+        }
     }
 
     @Override
@@ -78,5 +84,15 @@ public class ValidationPasswordField extends PasswordField implements IValidatio
     @Override
     public void setCustomValidator(String customValidator) {
         this.customValidator = customValidator;
+    }
+
+    @Override
+    public boolean isInitialFocus() {
+        return initialFocus;
+    }
+
+    @Override
+    public void setInitialFocus(boolean initialFocus) {
+        this.initialFocus = initialFocus;
     }
 }

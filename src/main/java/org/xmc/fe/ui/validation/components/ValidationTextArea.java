@@ -5,15 +5,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import org.xmc.fe.ui.components.IInitialFocus;
 import org.xmc.fe.ui.validation.*;
 
 import java.util.LinkedHashSet;
 
-public class ValidationTextArea extends TextArea implements IValidationComponent, IRequired, ILength, IEqualTo, ICustomValidator {
+public class ValidationTextArea extends TextArea implements IValidationComponent, IRequired, ILength, IEqualTo, ICustomValidator, IInitialFocus {
     private static final String CSS_CLASS_INVALID = "textfield-invalid";
 
     private boolean required;
     private boolean disableTabChar;
+    private boolean initialFocus;
     private Integer minLength;
     private Integer maxLength = 255;
     private String equalTo;
@@ -44,6 +46,10 @@ public class ValidationTextArea extends TextArea implements IValidationComponent
                     source.fireEvent(newEvent);
                 }
             });
+        }
+
+        if (initialFocus) {
+            requestInitialFocus();
         }
     }
 
@@ -108,5 +114,15 @@ public class ValidationTextArea extends TextArea implements IValidationComponent
 
     public void setDisableTabChar(boolean disableTabChar) {
         this.disableTabChar = disableTabChar;
+    }
+
+    @Override
+    public boolean isInitialFocus() {
+        return initialFocus;
+    }
+
+    @Override
+    public void setInitialFocus(boolean initialFocus) {
+        this.initialFocus = initialFocus;
     }
 }

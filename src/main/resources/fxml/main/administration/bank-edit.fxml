@@ -21,7 +21,7 @@
         <VBox HBox.hgrow="ALWAYS">
             <Label text="%cashaccount.edit.bank.name" styleClass="form-label-first" />
             <ValidationAutoComplete fx:id="bankNameAutoComplete" visibleRowCount="5"
-                                    autoCompleteLimit="100"
+                                    autoCompleteLimit="100" initialFocus="true"
                                     autoCompleteController="org.xmc.fe.stages.main.administration.banks.autocomplete.BankNameAutoCompleteController"/>
 
             <Label styleClass="form-label" text="%cashaccount.edit.bank.bic"/>

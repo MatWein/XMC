@@ -1,5 +1,6 @@
 package org.xmc.be.services.category;
 
+import com.google.common.collect.Lists;
 import com.querydsl.core.QueryResults;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,7 @@ import org.xmc.fe.async.AsyncMonitor;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -38,6 +40,10 @@ public class CategoryService {
         this.categoryJpaRepository = categoryJpaRepository;
         this.categorySaveController = categorySaveController;
         this.categoryRepository = categoryRepository;
+    }
+
+    public List<DtoCategory> loadAllCategories(AsyncMonitor monitor) {
+        return Lists.newArrayList();
     }
 
     public void saveOrUpdate(AsyncMonitor monitor, DtoCategory dtoCategory) {

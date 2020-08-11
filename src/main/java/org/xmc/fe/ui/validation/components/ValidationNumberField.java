@@ -4,16 +4,18 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import org.xmc.common.utils.NumberUtils;
+import org.xmc.fe.ui.components.IInitialFocus;
 import org.xmc.fe.ui.validation.*;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.LinkedHashSet;
 
-public class ValidationNumberField extends TextField implements IValidationComponent, IRequired, IEqualTo, ICustomValidator, IMinMax {
+public class ValidationNumberField extends TextField implements IValidationComponent, IRequired, IEqualTo, ICustomValidator, IMinMax, IInitialFocus {
     private static final String CSS_CLASS_INVALID = "textfield-invalid";
 
     private boolean required;
+    private boolean initialFocus;
     private Double min;
     private Double max;
     private String equalTo;
@@ -41,6 +43,10 @@ public class ValidationNumberField extends TextField implements IValidationCompo
                 } catch (ParseException ignored) { }
             }
         });
+
+        if (initialFocus) {
+            requestInitialFocus();
+        }
     }
 
     public void setFormattedValue(double value) {
@@ -103,5 +109,15 @@ public class ValidationNumberField extends TextField implements IValidationCompo
     @Override
     public void setMax(Double max) {
         this.max = max;
+    }
+
+    @Override
+    public boolean isInitialFocus() {
+        return initialFocus;
+    }
+
+    @Override
+    public void setInitialFocus(boolean initialFocus) {
+        this.initialFocus = initialFocus;
     }
 }

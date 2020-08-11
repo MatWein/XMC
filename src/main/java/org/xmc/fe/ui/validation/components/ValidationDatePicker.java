@@ -6,18 +6,20 @@ import org.apache.commons.lang3.StringUtils;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.SceneUtil;
+import org.xmc.fe.ui.components.IInitialFocus;
 import org.xmc.fe.ui.validation.ICustomValidator;
 import org.xmc.fe.ui.validation.IValidationComponent;
 
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
 
-public class ValidationDatePicker extends DatePicker implements IValidationComponent, ICustomValidator {
+public class ValidationDatePicker extends DatePicker implements IValidationComponent, ICustomValidator, IInitialFocus {
     private static final String CSS_CLASS_INVALID = "textfield-invalid";
 
     private static final String VALID_DATE_CHARS = "0123456789./";
 
     private boolean required;
+    private boolean initialFocus;
     private String customValidator;
 
     public ValidationDatePicker() {
@@ -56,6 +58,10 @@ public class ValidationDatePicker extends DatePicker implements IValidationCompo
                 }
             }
         });
+
+        if (initialFocus) {
+            requestInitialFocus();
+        }
     }
 
     @Override
@@ -79,5 +85,15 @@ public class ValidationDatePicker extends DatePicker implements IValidationCompo
     @Override
     public void setCustomValidator(String customValidator) {
         this.customValidator = customValidator;
+    }
+
+    @Override
+    public boolean isInitialFocus() {
+        return initialFocus;
+    }
+
+    @Override
+    public void setInitialFocus(boolean initialFocus) {
+        this.initialFocus = initialFocus;
     }
 }

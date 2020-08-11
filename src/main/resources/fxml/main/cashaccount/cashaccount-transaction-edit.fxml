@@ -11,7 +11,7 @@
     <HBox VBox.vgrow="ALWAYS">
         <VBox prefWidth="150.0">
             <Label styleClass="form-label-first" text="%cashaccount.transaction.edit.value"/>
-            <ValidationNumberField required="true" fx:id="valueNumberField"/>
+            <ValidationNumberField required="true" initialFocus="true" />
 
             <Label styleClass="form-label" text="%cashaccount.transaction.edit.valutaDate"/>
             <ValidationDatePicker required="true" />

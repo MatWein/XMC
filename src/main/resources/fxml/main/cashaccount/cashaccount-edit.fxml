@@ -10,7 +10,7 @@
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.cashaccount.CashAccountEditController">
 
     <Label text="%cashaccount.edit.bank" styleClass="form-label-first" />
-    <ValidationComboBox fx:id="bankComboBox" required="true" visibleRowCount="5" />
+    <ValidationComboBox fx:id="bankComboBox" required="true" visibleRowCount="5" initialFocus="true" />
 
     <Label styleClass="form-label" text="%cashaccount.edit.name"/>
     <ValidationTextField fx:id="cashAccountNameTextfield" required="true"/>

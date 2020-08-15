@@ -11,42 +11,42 @@
     <HBox VBox.vgrow="ALWAYS">
         <VBox prefWidth="150.0">
             <Label styleClass="form-label-first" text="%cashaccount.transaction.edit.value"/>
-            <ValidationNumberField required="true" initialFocus="true" />
+            <ValidationNumberField required="true" initialFocus="true" fx:id="valueNumberField" />
 
             <Label styleClass="form-label" text="%cashaccount.transaction.edit.valutaDate"/>
-            <ValidationDatePicker required="true" />
+            <ValidationDatePicker required="true" fx:id="valutaDatePicker" />
 
             <Label styleClass="form-label" text="%cashaccount.transaction.edit.saldoBefore"/>
-            <ValidationNumberField required="false" disable="true" />
+            <ValidationNumberField required="false" disable="true" fx:id="saldoBeforeNumberField" />
 
             <Label styleClass="form-label" text="%cashaccount.transaction.edit.saldoAfter"/>
-            <ValidationNumberField required="false" disable="true" />
+            <ValidationNumberField required="false" disable="true" fx:id="saldoAfterNumberField" />
         </VBox>
 
         <VBox HBox.hgrow="ALWAYS" styleClass="padding-left-15">
             <Label styleClass="form-label-first" text="%cashaccount.transaction.edit.usage"/>
-            <ValidationTextArea required="true" prefRowCount="3" maxLength="1000" disableTabChar="true" />
+            <ValidationTextArea required="true" prefRowCount="3" maxLength="1000" disableTabChar="true" fx:id="usageTextArea" />
 
             <Label styleClass="form-label" text="%cashaccount.transaction.edit.description"/>
-            <ValidationTextArea required="false" prefRowCount="3" maxLength="1000" disableTabChar="true" />
+            <ValidationTextArea required="false" prefRowCount="3" maxLength="1000" disableTabChar="true" fx:id="descriptionTextArea" />
 
             <Label styleClass="form-label" text="%cashaccount.transaction.edit.category"/>
-            <ValidationComboBox required="false" />
+            <ValidationComboBox required="false" fx:id="categoryComboBox" />
 
             <Label styleClass="form-label" text="%cashaccount.transaction.edit.referenceBank"/>
-            <ValidationTextField required="false" />
+            <ValidationTextField required="false" fx:id="referenceBankTextfield" />
 
             <Label styleClass="form-label" text="%cashaccount.transaction.edit.referenceIban"/>
-            <ValidationTextField maxLength="50" customValidator="org.xmc.fe.ui.validation.IbanFieldValidator" required="false" />
+            <ValidationTextField maxLength="50" customValidator="org.xmc.fe.ui.validation.IbanFieldValidator" required="false" fx:id="referenceIbanTextfield" />
 
             <Label styleClass="form-label" text="%cashaccount.transaction.edit.reference"/>
-            <ValidationTextField required="false" />
+            <ValidationTextField required="false" fx:id="referenceTextfield" />
 
             <Label styleClass="form-label" text="%cashaccount.transaction.edit.creditorIdentifier"/>
-            <ValidationTextField required="false" />
+            <ValidationTextField required="false" fx:id="creditorIdentifierTextfield" />
 
             <Label styleClass="form-label" text="%cashaccount.transaction.edit.mandate"/>
-            <ValidationTextField required="false" />
+            <ValidationTextField required="false" fx:id="mandateTextfield" />
         </VBox>
     </HBox>
 

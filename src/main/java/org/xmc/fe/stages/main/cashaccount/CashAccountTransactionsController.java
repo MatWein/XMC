@@ -5,11 +5,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.xmc.be.services.cashaccount.CashAccountTransactionService;
 import org.xmc.be.services.category.CategoryService;
 import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionOverviewFields;
 import org.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransaction;
 import org.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransactionOverview;
+import org.xmc.fe.async.AsyncProcessor;
+import org.xmc.fe.stages.main.cashaccount.mapper.CashAccountTransactionEditDialogMapper;
 import org.xmc.fe.ui.CustomDialogBuilder;
+import org.xmc.fe.ui.DialogHelper;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.FxmlController;
 import org.xmc.fe.ui.IAfterInit;
@@ -21,6 +25,9 @@ import java.util.Optional;
 @FxmlController
 public class CashAccountTransactionsController implements IAfterInit<CashAccountController> {
     private final CategoryService categoryService;
+    private final CashAccountTransactionEditDialogMapper cashAccountTransactionEditDialogMapper;
+    private final CashAccountTransactionService cashAccountTransactionService;
+    private final AsyncProcessor asyncProcessor;
 
     @FXML private TableViewEx<DtoCashAccountTransactionOverview, CashAccountTransactionOverviewFields> tableView;
     @FXML private Button editButton;
@@ -29,8 +36,16 @@ public class CashAccountTransactionsController implements IAfterInit<CashAccount
     private CashAccountController parentController;
 
     @Autowired
-    public CashAccountTransactionsController(CategoryService categoryService) {
+    public CashAccountTransactionsController(
+            CategoryService categoryService,
+            CashAccountTransactionEditDialogMapper cashAccountTransactionEditDialogMapper,
+            CashAccountTransactionService cashAccountTransactionService,
+            AsyncProcessor asyncProcessor) {
+
         this.categoryService = categoryService;
+        this.cashAccountTransactionEditDialogMapper = cashAccountTransactionEditDialogMapper;
+        this.cashAccountTransactionService = cashAccountTransactionService;
+        this.asyncProcessor = asyncProcessor;
     }
 
     @FXML
@@ -39,7 +54,7 @@ public class CashAccountTransactionsController implements IAfterInit<CashAccount
         editButton.disableProperty().bind(noTableItemSelected);
         deleteButton.disableProperty().bind(noTableItemSelected);
 
-//        tableView.setDataProvider(cashAccountService::loadOverview);
+        tableView.setDataProvider(cashAccountTransactionService::loadOverview);
     }
 
     @Override
@@ -54,12 +69,21 @@ public class CashAccountTransactionsController implements IAfterInit<CashAccount
 
     @FXML
     public void onEditTransaction() {
-        DtoCashAccountTransactionOverview selectedCashAccountTransaction = tableView.getSelectionModel().getSelectedItem();
+        var selectedCashAccountTransaction = tableView.getSelectionModel().getSelectedItem();
         createOrEditCashAccountTransaction(selectedCashAccountTransaction);
     }
 
     @FXML
     public void onDeleteTransaction() {
+        var selectedCashAccountTransaction = tableView.getSelectionModel().getSelectedItem();
+
+        if (DialogHelper.showConfirmDialog(MessageKey.CASHACCOUNT_TRANSACTION_CONFIRM_DELETE)) {
+            asyncProcessor.runAsyncVoid(
+                    () -> {},
+                    monitor -> cashAccountTransactionService.markAsDeleted(monitor, selectedCashAccountTransaction.getId()),
+                    () -> tableView.reload()
+            );
+        }
     }
 
     private void createOrEditCashAccountTransaction(DtoCashAccountTransactionOverview input) {
@@ -68,18 +92,18 @@ public class CashAccountTransactionsController implements IAfterInit<CashAccount
                 .addButton(MessageKey.CASHACCOUNT_TRANSACTION_EDIT_CANCEL, ButtonData.NO)
                 .addButton(MessageKey.CASHACCOUNT_TRANSACTION_EDIT_SAVE, ButtonData.OK_DONE)
                 .withFxmlContent(FxmlKey.CASH_ACCOUNT_TRANSACTION_EDIT)
-//                .withMapper(cashAccountEditDialogMapper)
+                .withMapper(cashAccountTransactionEditDialogMapper)
                 .withInput(input)
                 .withAsyncDataLoading(categoryService::loadAllCategories)
                 .build()
                 .showAndWait();
 
         if (dtoCashAccountTransaction.isPresent()) {
-//            asyncProcessor.runAsyncVoid(
-//                    () -> {},
-//                    monitor -> cashAccountService.saveOrUpdate(monitor, dtoCashAccount.get()),
-//                    () -> tableView.reload()
-//            );
+            asyncProcessor.runAsyncVoid(
+                    () -> {},
+                    monitor -> cashAccountTransactionService.saveOrUpdate(monitor, dtoCashAccountTransaction.get()),
+                    () -> tableView.reload()
+            );
         }
     }
 }

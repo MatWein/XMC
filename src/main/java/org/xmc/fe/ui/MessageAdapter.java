@@ -94,6 +94,8 @@ public class MessageAdapter {
         CASHACCOUNT_TRANSACTION_EDIT_TITLE("cashaccount.transaction.edit.title"),
         CASHACCOUNT_TRANSACTION_EDIT_CANCEL("cashaccount.transaction.edit.cancel"),
         CASHACCOUNT_TRANSACTION_EDIT_SAVE("cashaccount.transaction.edit.save"),
+        CASHACCOUNT_TRANSACTION_EDIT_SELECT_CATEGORY("cashaccount.transaction.edit.selectCategory"),
+        CASHACCOUNT_TRANSACTION_CONFIRM_DELETE("cashaccount.transaction.confirm.delete"),
 
         BANK_EDIT_TITLE("bank.edit.title"),
         BANK_EDIT_CANCEL("bank.edit.cancel"),

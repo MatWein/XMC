@@ -72,6 +72,8 @@ public class MessageAdapter {
         ASYNC_TASK_LOAD_ALL_CATEGORIES("async.task.loadAllCategories"),
         ASYNC_TASK_DELETE_CASHACCOUNT_TRANSACTION("async.task.deleteCashAccountTransaction"),
         ASYNC_TASK_LOAD_CASHACCOUNT_TRANSACTION_OVERVIEW("async.task.loadCashAccountTransactionOverview"),
+        ASYNC_TASK_SAVE_CASHACCOUNT_TRANSACTION("async.task.saveCashAccountTransaction"),
+        ASYNC_TASK_DETECT_CASHACCOUNT_TRANSACTION_CATEGORY("async.task.detectCashAccountTransactionCategory"),
 
         LOGIN_TITLE("login.title"),
 

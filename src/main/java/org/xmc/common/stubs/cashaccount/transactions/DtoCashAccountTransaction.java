@@ -1,6 +1,7 @@
 package org.xmc.common.stubs.cashaccount.transactions;
 
 import com.querydsl.core.annotations.QueryProjection;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.xmc.common.stubs.category.DtoCategory;
 
 import java.io.Serializable;
@@ -138,5 +139,22 @@ public class DtoCashAccountTransaction implements Serializable {
 
     public void setReferenceIban(String referenceIban) {
         this.referenceIban = referenceIban;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("category", category)
+                .append("usage", usage)
+                .append("description", description)
+                .append("valutaDate", valutaDate)
+                .append("value", value)
+                .append("reference", reference)
+                .append("referenceIban", referenceIban)
+                .append("referenceBank", referenceBank)
+                .append("creditorIdentifier", creditorIdentifier)
+                .append("mandate", mandate)
+                .toString();
     }
 }

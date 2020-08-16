@@ -4,9 +4,12 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import org.xmc.common.utils.NumberUtils;
+import org.xmc.fe.ui.MessageAdapter;
+import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.components.IInitialFocus;
 import org.xmc.fe.ui.validation.*;
 
+import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.LinkedHashSet;
@@ -16,6 +19,7 @@ public class ValidationNumberField extends TextField implements IValidationCompo
 
     private boolean required;
     private boolean initialFocus;
+    private boolean zeroAllowed = true;
     private Double min;
     private Double max;
     private String equalTo;
@@ -23,12 +27,18 @@ public class ValidationNumberField extends TextField implements IValidationCompo
 
     public ValidationNumberField() {
         setAlignment(Pos.CENTER_RIGHT);
-        setFormattedValue(0.0);
+        setValue(0.0);
     }
 
     @Override
     public LinkedHashSet<String> validate() {
-        return CommonTextfieldValidator.validate(this);
+        LinkedHashSet<String> errors = CommonTextfieldValidator.validate(this);
+
+        if (!zeroAllowed && getValue() == 0.0) {
+            errors.add(MessageAdapter.getByKey(MessageKey.VALIDATION_ZERO_NOT_ALLOWED));
+        }
+
+        return errors;
     }
 
     @Override
@@ -37,10 +47,7 @@ public class ValidationNumberField extends TextField implements IValidationCompo
 
         this.focusedProperty().addListener((arg0, oldPropertyValue, newPropertyValue) -> {
             if (!Boolean.TRUE.equals(newPropertyValue)) {
-                try {
-                    double value = NumberUtils.parseDoubleValue(getText());
-                    setFormattedValue(value);
-                } catch (ParseException ignored) { }
+                setValue(getValue());
             }
         });
 
@@ -49,11 +56,27 @@ public class ValidationNumberField extends TextField implements IValidationCompo
         }
     }
 
-    public void setFormattedValue(double value) {
+    public void setValue(double value) {
         NumberFormat numberInstance = NumberFormat.getNumberInstance();
         numberInstance.setMinimumFractionDigits(2);
 
         setText(numberInstance.format(value));
+    }
+
+    public void setValue(BigDecimal value) {
+        setValue(value.doubleValue());
+    }
+
+    public double getValue() {
+        try {
+            return NumberUtils.parseDoubleValue(getText());
+        } catch (ParseException ignored) {
+            return 0.0;
+        }
+    }
+
+    public BigDecimal getValueAsBigDecimal() {
+        return new BigDecimal(getValue());
     }
 
     @Override
@@ -119,5 +142,13 @@ public class ValidationNumberField extends TextField implements IValidationCompo
     @Override
     public void setInitialFocus(boolean initialFocus) {
         this.initialFocus = initialFocus;
+    }
+
+    public boolean isZeroAllowed() {
+        return zeroAllowed;
+    }
+
+    public void setZeroAllowed(boolean zeroAllowed) {
+        this.zeroAllowed = zeroAllowed;
     }
 }

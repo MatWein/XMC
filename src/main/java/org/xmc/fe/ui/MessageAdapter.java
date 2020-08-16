@@ -50,6 +50,7 @@ public class MessageAdapter {
         VALIDATION_INVALID_IBAN("validation.invalidIban"),
         VALIDATION_INVALID_CURRENCY("validation.invalidCurrency"),
         VALIDATION_INVALID_DATE("validation.invalidDate"),
+        VALIDATION_ZERO_NOT_ALLOWED("validation.zeroNotAllowed"),
 
         PAGING_FIRST_PAGE("paging.firstPage"),
         PAGING_BACK("paging.back"),
@@ -68,6 +69,7 @@ public class MessageAdapter {
         ASYNC_TASK_SAVE_CATEGORY("async.task.saveCategory"),
         ASYNC_TASK_LOAD_CATEGORY_OVERVIEW("async.task.loadCategoryOverview"),
         ASYNC_TASK_DELETE_CATEGORY("async.task.deleteCategory"),
+        ASYNC_TASK_LOAD_ALL_CATEGORIES("async.task.loadAllCategories"),
 
         LOGIN_TITLE("login.title"),
 

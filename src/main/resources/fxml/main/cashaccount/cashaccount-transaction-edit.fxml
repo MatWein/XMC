@@ -11,16 +11,16 @@
     <HBox VBox.vgrow="ALWAYS">
         <VBox prefWidth="150.0">
             <Label styleClass="form-label-first" text="%cashaccount.transaction.edit.value"/>
-            <ValidationNumberField required="true" initialFocus="true" fx:id="valueNumberField" />
+            <ValidationNumberField required="true" initialFocus="true" fx:id="valueNumberField" zeroAllowed="false" />
 
             <Label styleClass="form-label" text="%cashaccount.transaction.edit.valutaDate"/>
             <ValidationDatePicker required="true" fx:id="valutaDatePicker" />
 
             <Label styleClass="form-label" text="%cashaccount.transaction.edit.saldoBefore"/>
-            <ValidationNumberField required="false" disable="true" fx:id="saldoBeforeNumberField" />
+            <ValidationNumberField required="false" fx:id="saldoBeforeNumberField" editable="false" focusTraversable="false" />
 
             <Label styleClass="form-label" text="%cashaccount.transaction.edit.saldoAfter"/>
-            <ValidationNumberField required="false" disable="true" fx:id="saldoAfterNumberField" />
+            <ValidationNumberField required="false" fx:id="saldoAfterNumberField" editable="false" focusTraversable="false" />
         </VBox>
 
         <VBox HBox.hgrow="ALWAYS" styleClass="padding-left-15">
@@ -31,7 +31,10 @@
             <ValidationTextArea required="false" prefRowCount="3" maxLength="1000" disableTabChar="true" fx:id="descriptionTextArea" />
 
             <Label styleClass="form-label" text="%cashaccount.transaction.edit.category"/>
-            <ValidationComboBox required="false" fx:id="categoryComboBox" />
+            <HBox>
+                <ValidationComboBox required="false" fx:id="categoryComboBox" HBox.hgrow="ALWAYS" />
+                <Button text="%cashaccount.transaction.edit.category.detect" onAction="#autoDetectCategory" fx:id="categoryDetectButton" />
+            </HBox>
 
             <Label styleClass="form-label" text="%cashaccount.transaction.edit.referenceBank"/>
             <ValidationTextField required="false" fx:id="referenceBankTextfield" />

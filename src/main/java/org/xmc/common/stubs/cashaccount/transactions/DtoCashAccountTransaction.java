@@ -4,14 +4,14 @@ import org.xmc.common.stubs.category.DtoCategory;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class DtoCashAccountTransaction implements Serializable {
     private Long id;
     private DtoCategory category;
     private String usage;
     private String description;
-    private LocalDateTime valutaDate;
+    private LocalDate valutaDate;
     private BigDecimal value;
     private String reference;
     private String referenceIban;
@@ -59,11 +59,11 @@ public class DtoCashAccountTransaction implements Serializable {
         this.description = description;
     }
 
-    public LocalDateTime getValutaDate() {
+    public LocalDate getValutaDate() {
         return valutaDate;
     }
 
-    public void setValutaDate(LocalDateTime valutaDate) {
+    public void setValutaDate(LocalDate valutaDate) {
         this.valutaDate = valutaDate;
     }
 

@@ -1,5 +1,6 @@
 package org.xmc.common.stubs.cashaccount.transactions;
 
+import com.querydsl.core.annotations.QueryProjection;
 import org.xmc.common.stubs.category.DtoCategory;
 
 import java.io.Serializable;
@@ -18,6 +19,38 @@ public class DtoCashAccountTransaction implements Serializable {
     private String referenceBank;
     private String creditorIdentifier;
     private String mandate;
+
+    public DtoCashAccountTransaction() {
+    }
+
+    @QueryProjection
+    public DtoCashAccountTransaction(
+            Long id,
+            Long categoryId,
+            String categoryName,
+            byte[] categoryIcon,
+            String usage,
+            String description,
+            LocalDate valutaDate,
+            BigDecimal value,
+            String reference,
+            String referenceIban,
+            String referenceBank,
+            String creditorIdentifier,
+            String mandate) {
+
+        this.id = id;
+        this.category = new DtoCategory(categoryId, categoryName, categoryIcon);
+        this.usage = usage;
+        this.description = description;
+        this.valutaDate = valutaDate;
+        this.value = value;
+        this.reference = reference;
+        this.referenceIban = referenceIban;
+        this.referenceBank = referenceBank;
+        this.creditorIdentifier = creditorIdentifier;
+        this.mandate = mandate;
+    }
 
     public Long getId() {
         return id;

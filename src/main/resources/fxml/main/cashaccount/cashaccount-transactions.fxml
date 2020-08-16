@@ -71,34 +71,26 @@
                     <NestedPropertyValueFactory property="description"/>
                 </cellValueFactory>
             </TableColumnEx>
-            <TableColumnEx editable="false" text="%main.cashaccounts.transactions.overview.table.column.saldoBefore"
-                           sortField="SALDO_BEFORE">
+            <TableColumnEx editable="false" sortable="false" text="%main.cashaccounts.transactions.overview.table.column.saldoBefore">
                 <cellValueFactory>
                     <NestedPropertyValueFactory property="saldoBefore" formatAsCurrency="true"/>
                 </cellValueFactory>
             </TableColumnEx>
-            <TableColumnEx editable="false" text="%main.cashaccounts.transactions.overview.table.column.saldoAfter"
-                           sortField="SALDO_AFTER">
+            <TableColumnEx editable="false" sortable="false" text="%main.cashaccounts.transactions.overview.table.column.saldoAfter">
                 <cellValueFactory>
                     <NestedPropertyValueFactory property="saldoAfter" formatAsCurrency="true"/>
                 </cellValueFactory>
             </TableColumnEx>
-            <TableColumnEx editable="false" text="%main.cashaccounts.transactions.overview.table.column.referenceBank.name"
-                           sortField="REFERENCEBANK_NAME">
+            <TableColumnEx editable="false" text="%main.cashaccounts.transactions.overview.table.column.referenceBank"
+                           sortField="REFERENCE_BANK">
                 <cellValueFactory>
                     <NestedPropertyValueFactory property="referenceBank.name"/>
                 </cellValueFactory>
             </TableColumnEx>
-            <TableColumnEx editable="false" text="%main.cashaccounts.transactions.overview.table.column.referenceBank.bic"
-                           sortField="REFERENCEBANK_BIC">
+            <TableColumnEx editable="false" text="%main.cashaccounts.transactions.overview.table.column.referenceIban"
+                           sortField="REFERENCE_IBAN">
                 <cellValueFactory>
                     <NestedPropertyValueFactory property="referenceBank.bic"/>
-                </cellValueFactory>
-            </TableColumnEx>
-            <TableColumnEx editable="false" text="%main.cashaccounts.transactions.overview.table.column.referenceBank.blz"
-                           sortField="REFERENCEBANK_BLZ">
-                <cellValueFactory>
-                    <NestedPropertyValueFactory property="referenceBank.blz"/>
                 </cellValueFactory>
             </TableColumnEx>
             <TableColumnEx editable="false" text="%main.cashaccounts.transactions.overview.table.column.reference"

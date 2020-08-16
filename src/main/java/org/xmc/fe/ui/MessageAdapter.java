@@ -70,6 +70,8 @@ public class MessageAdapter {
         ASYNC_TASK_LOAD_CATEGORY_OVERVIEW("async.task.loadCategoryOverview"),
         ASYNC_TASK_DELETE_CATEGORY("async.task.deleteCategory"),
         ASYNC_TASK_LOAD_ALL_CATEGORIES("async.task.loadAllCategories"),
+        ASYNC_TASK_DELETE_CASHACCOUNT_TRANSACTION("async.task.deleteCashAccountTransaction"),
+        ASYNC_TASK_LOAD_CASHACCOUNT_TRANSACTION_OVERVIEW("async.task.loadCashAccountTransactionOverview"),
 
         LOGIN_TITLE("login.title"),
 

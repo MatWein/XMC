@@ -40,6 +40,7 @@ public class CashAccountTransactionRepository {
                 .leftJoin(cashAccountTransaction.category(), category)
                 .leftJoin(category.icon(), binaryData)
                 .where(predicate)
+                .orderBy(new OrderSpecifier<>(Order.DESC, cashAccountTransaction.creationDate))
                 .orderBy(new OrderSpecifier<>(Order.DESC, cashAccountTransaction.id))
                 .fetchResults();
     }

@@ -15,6 +15,7 @@ import org.xmc.be.repositories.cashaccount.CashAccountTransactionJpaRepository;
 import org.xmc.be.repositories.cashaccount.CashAccountTransactionRepository;
 import org.xmc.be.services.cashaccount.controller.CashAccountTransactionSaldoUpdater;
 import org.xmc.be.services.cashaccount.controller.CashAccountTransactionSaveController;
+import org.xmc.be.services.cashaccount.controller.CategoryDetectionController;
 import org.xmc.common.stubs.PagingParams;
 import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionOverviewFields;
 import org.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransaction;
@@ -37,6 +38,7 @@ public class CashAccountTransactionService {
     private final CashAccountTransactionSaveController cashAccountTransactionSaveController;
     private final CashAccountJpaRepository cashAccountJpaRepository;
     private final CashAccountTransactionSaldoUpdater cashAccountTransactionSaldoUpdater;
+    private final CategoryDetectionController categoryDetectionController;
 
     @Autowired
     public CashAccountTransactionService(
@@ -44,13 +46,15 @@ public class CashAccountTransactionService {
             CashAccountTransactionRepository cashAccountTransactionRepository,
             CashAccountTransactionSaveController cashAccountTransactionSaveController,
             CashAccountJpaRepository cashAccountJpaRepository,
-            CashAccountTransactionSaldoUpdater cashAccountTransactionSaldoUpdater) {
+            CashAccountTransactionSaldoUpdater cashAccountTransactionSaldoUpdater,
+            CategoryDetectionController categoryDetectionController) {
 
         this.cashAccountTransactionJpaRepository = cashAccountTransactionJpaRepository;
         this.cashAccountTransactionRepository = cashAccountTransactionRepository;
         this.cashAccountTransactionSaveController = cashAccountTransactionSaveController;
         this.cashAccountJpaRepository = cashAccountJpaRepository;
         this.cashAccountTransactionSaldoUpdater = cashAccountTransactionSaldoUpdater;
+        this.categoryDetectionController = categoryDetectionController;
     }
 
     public QueryResults<DtoCashAccountTransactionOverview> loadOverview(
@@ -93,9 +97,7 @@ public class CashAccountTransactionService {
         LOGGER.info("Auto detecting cash account transaction category...");
         monitor.setStatusText(MessageKey.ASYNC_TASK_DETECT_CASHACCOUNT_TRANSACTION_CATEGORY);
 
-
-
-        return Optional.empty();
+        return categoryDetectionController.autoDetectCategory(usage);
     }
 
     public Pair<BigDecimal, BigDecimal> calculateSaldoPreview(LocalDate valutaDate, BigDecimal value) {

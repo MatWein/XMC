@@ -54,12 +54,15 @@ public class CashAccountTransactionsController implements IAfterInit<CashAccount
         editButton.disableProperty().bind(noTableItemSelected);
         deleteButton.disableProperty().bind(noTableItemSelected);
 
-        tableView.setDataProvider(cashAccountTransactionService::loadOverview);
+        tableView.setDoubleClickConsumer(dtoCashAccountTransactionOverview -> onEditTransaction());
     }
 
     @Override
     public void afterInitialize(CashAccountController parentController) {
         this.parentController = parentController;
+
+        long cashAccountId = parentController.getSelectedCashAccount().getId();
+        tableView.setDataProvider((monitor, pagingParams) -> cashAccountTransactionService.loadOverview(monitor, cashAccountId, pagingParams));
     }
 
     @FXML
@@ -99,7 +102,7 @@ public class CashAccountTransactionsController implements IAfterInit<CashAccount
                 .showAndWait();
 
         if (dtoCashAccountTransaction.isPresent()) {
-            Long cashAccountId = parentController.getSelectedCashAccount().getId();
+            long cashAccountId = parentController.getSelectedCashAccount().getId();
 
             asyncProcessor.runAsyncVoid(
                     () -> {},

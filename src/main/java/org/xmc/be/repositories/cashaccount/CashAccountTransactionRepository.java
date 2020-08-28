@@ -1,15 +1,12 @@
 package org.xmc.be.repositories.cashaccount;
 
 import com.querydsl.core.QueryResults;
-import com.querydsl.core.types.ExpressionUtils;
-import com.querydsl.core.types.Order;
-import com.querydsl.core.types.OrderSpecifier;
-import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.xmc.be.common.QueryUtil;
+import org.xmc.be.entities.cashaccount.CashAccount;
 import org.xmc.common.stubs.PagingParams;
 import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionOverviewFields;
 import org.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransactionOverview;
@@ -27,11 +24,8 @@ public class CashAccountTransactionRepository {
         this.queryUtil = queryUtil;
     }
 
-    public QueryResults<DtoCashAccountTransactionOverview> loadOverview(PagingParams<CashAccountTransactionOverviewFields> pagingParams) {
-        String filter = "%" + StringUtils.defaultString(pagingParams.getFilter()) + "%";
-        BooleanExpression predicate = cashAccountTransaction.usage.likeIgnoreCase(filter)
-                .or(cashAccountTransaction.description.likeIgnoreCase(filter))
-                .or(category.name.likeIgnoreCase(filter));
+    public QueryResults<DtoCashAccountTransactionOverview> loadOverview(CashAccount cashAccount, PagingParams<CashAccountTransactionOverviewFields> pagingParams) {
+        Predicate predicate = calculatePredicate(cashAccount, pagingParams);
 
         return queryUtil.createPagedQuery(pagingParams, CashAccountTransactionOverviewFields.VALUTA_DATE, Order.DESC)
                 .select(Projections.constructor(DtoCashAccountTransactionOverview.class,
@@ -45,8 +39,22 @@ public class CashAccountTransactionRepository {
                 .from(cashAccountTransaction)
                 .leftJoin(cashAccountTransaction.category(), category)
                 .leftJoin(category.icon(), binaryData)
-                .where(ExpressionUtils.allOf(predicate, cashAccountTransaction.deletionDate.isNull()))
+                .where(predicate)
                 .orderBy(new OrderSpecifier<>(Order.DESC, cashAccountTransaction.id))
                 .fetchResults();
+    }
+
+    private Predicate calculatePredicate(CashAccount cashAccount, PagingParams<CashAccountTransactionOverviewFields> pagingParams) {
+        String filter = "%" + StringUtils.defaultString(pagingParams.getFilter()) + "%";
+
+        Predicate predicate = cashAccountTransaction.usage.likeIgnoreCase(filter)
+                .or(cashAccountTransaction.description.likeIgnoreCase(filter))
+                .or(category.name.likeIgnoreCase(filter));
+
+        predicate = ExpressionUtils.allOf(predicate,
+                cashAccountTransaction.deletionDate.isNull(),
+                cashAccountTransaction.cashAccount().eq(cashAccount));
+
+        return predicate;
     }
 }

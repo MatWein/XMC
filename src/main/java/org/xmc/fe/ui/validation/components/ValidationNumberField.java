@@ -46,7 +46,7 @@ public class ValidationNumberField extends TextField implements IValidationCompo
         CommonTextfieldValidator.initValidationEvent(this, scene);
 
         this.focusedProperty().addListener((arg0, oldPropertyValue, newPropertyValue) -> {
-            if (!Boolean.TRUE.equals(newPropertyValue)) {
+            if (!Boolean.TRUE.equals(newPropertyValue) && isValid()) {
                 setValue(getValue());
             }
         });

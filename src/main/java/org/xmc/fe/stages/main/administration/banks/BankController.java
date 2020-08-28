@@ -48,6 +48,7 @@ public class BankController {
         deleteButton.disableProperty().bind(noTableItemSelected);
 
         tableView.setDataProvider(bankService::loadOverview);
+        tableView.setDoubleClickConsumer(dtoBankOverview -> onEditBank());
     }
 
     @FXML

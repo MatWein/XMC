@@ -8,6 +8,7 @@ import java.util.LinkedHashSet;
 
 public interface IValidationComponent {
     LinkedHashSet<String> validate();
+    default boolean isValid() { return validate().isEmpty(); }
 
     void initialize(Scene scene);
 

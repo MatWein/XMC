@@ -2,6 +2,7 @@ package org.xmc.fe.stages.main.cashaccount;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.services.cashaccount.CashAccountTransactionService;
 import org.xmc.common.stubs.category.DtoCategory;
@@ -15,6 +16,7 @@ import org.xmc.fe.ui.components.ComboBoxIconCellFactory;
 import org.xmc.fe.ui.converter.GenericItemToStringConverter;
 import org.xmc.fe.ui.validation.components.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @FxmlController
@@ -55,6 +57,9 @@ public class CashAccountTransactionEditController implements IDialogWithAsyncDat
 
         categoryComboBox.setConverter(GenericItemToStringConverter.getInstance(DtoCategory::getName));
         categoryComboBox.setPromptText(MessageAdapter.getByKey(MessageKey.CASHACCOUNT_TRANSACTION_EDIT_SELECT_CATEGORY));
+
+        valueNumberField.textProperty().addListener((observableValue, s, t1) -> updateSaldoPreview());
+        valutaDatePicker.valueProperty().addListener((observableValue, s, t1) -> updateSaldoPreview());
     }
 
     @Override
@@ -76,6 +81,17 @@ public class CashAccountTransactionEditController implements IDialogWithAsyncDat
                     categoryDetectButton.setDisable(false);
                 }
         );
+    }
+
+    private void updateSaldoPreview() {
+        if (valueNumberField.isValid() && valutaDatePicker.isValid()) {
+            Pair<BigDecimal, BigDecimal> saldoPreview = cashAccountTransactionService.calculateSaldoPreview(
+                    valutaDatePicker.getValue(),
+                    valueNumberField.getValueAsBigDecimal());
+
+            saldoBeforeNumberField.setValue(saldoPreview.getLeft());
+            saldoAfterNumberField.setValue(saldoPreview.getRight());
+        }
     }
 
     public ValidationNumberField getValueNumberField() {

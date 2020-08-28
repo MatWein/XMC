@@ -48,6 +48,7 @@ public class CategoryController {
         deleteButton.disableProperty().bind(noTableItemSelected);
 
         tableView.setDataProvider(categoryService::loadOverview);
+        tableView.setDoubleClickConsumer(dtoCategoryOverview -> onEditCategory());
     }
 
     @FXML

@@ -1,7 +1,6 @@
 package org.xmc.be.services.cashaccount;
 
 import com.querydsl.core.QueryResults;
-import javafx.collections.ObservableList;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
@@ -20,7 +19,6 @@ import org.xmc.common.stubs.PagingParams;
 import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionOverviewFields;
 import org.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransaction;
 import org.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransactionOverview;
-import org.xmc.common.stubs.category.DtoCategory;
 import org.xmc.fe.async.AsyncMonitor;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 
@@ -75,6 +73,8 @@ public class CashAccountTransactionService {
         if (transaction.isPresent()) {
             transaction.get().setDeletionDate(LocalDateTime.now());
             cashAccountTransactionJpaRepository.save(transaction.get());
+
+            cashAccountTransactionSaldoUpdater.updateAll(transaction.get().getValutaDate());
         }
     }
 
@@ -86,9 +86,8 @@ public class CashAccountTransactionService {
         cashAccountTransactionSaveController.saveOrUpdate(cashAccount, dtoCashAccountTransaction);
     }
 
-    public Optional<DtoCategory> autoDetectCategory(
+    public Optional<Long> autoDetectCategory(
             AsyncMonitor monitor,
-            ObservableList<DtoCategory> items,
             String usage) {
 
         LOGGER.info("Auto detecting cash account transaction category...");

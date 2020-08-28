@@ -65,10 +65,6 @@
     -fx-padding: 0px 0px 5px 0px;
 }
 
-.table-row-cell {
-    -fx-cell-size: 40px;
-}
-
 /* ---- Spacing ---- */
 
 .padding-left-15 {

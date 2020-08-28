@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CashAccountTransactionJpaRepository extends JpaRepository<CashAccountTransaction, Long> {
-    List<CashAccountTransaction> findByValutaDateGreaterThanEqualOrderByValutaDate(LocalDate startDate);
+    List<CashAccountTransaction> findByValutaDateGreaterThanEqualAndDeletionDateIsNullOrderByValutaDate(LocalDate startDate);
 
-    Optional<CashAccountTransaction> findFirstByValutaDateIsBeforeOrderByValutaDateDesc(LocalDate valutaDate);
+    Optional<CashAccountTransaction> findFirstByValutaDateIsBeforeAndDeletionDateIsNullOrderByValutaDateDesc(LocalDate valutaDate);
 }

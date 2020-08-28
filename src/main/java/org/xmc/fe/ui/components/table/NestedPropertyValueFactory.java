@@ -65,7 +65,7 @@ public class NestedPropertyValueFactory implements Callback<TableColumn.CellData
         return value;
     }
 
-    private Object createImageView(byte[] value) {
+    private ImageView createImageView(byte[] value) {
         ImageView imageView = new ImageView(ImageUtil.readFromByteArray$(value));
 
         if (fitToWidth != null) {

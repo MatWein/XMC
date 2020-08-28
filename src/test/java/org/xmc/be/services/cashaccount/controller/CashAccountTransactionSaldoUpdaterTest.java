@@ -131,5 +131,31 @@ class CashAccountTransactionSaldoUpdaterTest extends IntegrationTest {
 
         Assert.assertEquals(125.0, cashAccountTransaction3.getSaldoBefore().doubleValue(), 0);
         Assert.assertEquals(-875.0, cashAccountTransaction3.getSaldoAfter().doubleValue(), 0);
+
+        CashAccountTransaction cashAccountTransaction4 = graphGenerator.createCashAccountTransaction(cashAccount);
+        cashAccountTransaction4.setValutaDate(LocalDate.of(2020, Month.AUGUST, 2));
+        cashAccountTransaction4.setValue(new BigDecimal(1000.0));
+        session().saveOrUpdate(cashAccountTransaction4);
+
+        flush();
+        updater.updateAll(cashAccountTransaction4.getValutaDate());
+        flush();
+
+        session().refresh(cashAccountTransaction1);
+        session().refresh(cashAccountTransaction2);
+        session().refresh(cashAccountTransaction3);
+        session().refresh(cashAccountTransaction4);
+
+        Assert.assertEquals(0.0, cashAccountTransaction1.getSaldoBefore().doubleValue(), 0);
+        Assert.assertEquals(100.0, cashAccountTransaction1.getSaldoAfter().doubleValue(), 0);
+
+        Assert.assertEquals(100.0, cashAccountTransaction2.getSaldoBefore().doubleValue(), 0);
+        Assert.assertEquals(125.0, cashAccountTransaction2.getSaldoAfter().doubleValue(), 0);
+
+        Assert.assertEquals(125.0, cashAccountTransaction3.getSaldoBefore().doubleValue(), 0);
+        Assert.assertEquals(-875.0, cashAccountTransaction3.getSaldoAfter().doubleValue(), 0);
+
+        Assert.assertEquals(-875.0, cashAccountTransaction4.getSaldoBefore().doubleValue(), 0);
+        Assert.assertEquals(125.0, cashAccountTransaction4.getSaldoAfter().doubleValue(), 0);
     }
 }

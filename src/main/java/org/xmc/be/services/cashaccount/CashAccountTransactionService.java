@@ -101,7 +101,9 @@ public class CashAccountTransactionService {
     }
 
     public Pair<BigDecimal, BigDecimal> calculateSaldoPreview(LocalDate valutaDate, BigDecimal value) {
-        BigDecimal saldoBefore = cashAccountTransactionSaldoUpdater.calculateSaldoBefore(valutaDate);
+        Optional<CashAccountTransaction> transactionBeforeOrOnDate = cashAccountTransactionJpaRepository.findTransactionBeforeOrOnDate(valutaDate);
+
+        BigDecimal saldoBefore = transactionBeforeOrOnDate.map(CashAccountTransaction::getSaldoAfter).orElse(new BigDecimal(0.0));
         BigDecimal saldoAfter = cashAccountTransactionSaldoUpdater.calculateSaldoAfter(saldoBefore, value);
 
         return ImmutablePair.of(saldoBefore, saldoAfter);

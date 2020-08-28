@@ -166,8 +166,8 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> 
             Text text = new Text(column.getText());
             double max = text.getLayoutBounds().getWidth();
             for (int i = 0; i < tableView.getItems().size(); i++) {
-                if (column.getCellData(i) instanceof String) {
-                    text = new Text(column.getCellData(i).toString());
+                if (column.getCellData(i) instanceof Text) {
+                    text = (Text)column.getCellData(i);
                     double calcwidth = text.getLayoutBounds().getWidth();
                     if (calcwidth > max) {
                         max = calcwidth;

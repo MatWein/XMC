@@ -4,6 +4,7 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TableColumn;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.util.Callback;
 import org.apache.commons.beanutils.NestedNullException;
 import org.apache.commons.beanutils.PropertyUtils;
@@ -46,7 +47,9 @@ public class NestedPropertyValueFactory implements Callback<TableColumn.CellData
     }
 
     protected Object mapValue(Object value) {
-        if (value instanceof byte[]) {
+        if (value instanceof String) {
+            return new Text((String) value);
+        } else if (value instanceof byte[]) {
             return createImageView((byte[]) value);
         } else if (value instanceof Currency) {
             return ((Currency) value).getCurrencyCode();

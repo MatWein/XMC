@@ -15,7 +15,11 @@ public class CashAccountTransactionEditDialogMapper implements IDialogMapper<Cas
         }
 
         controller.setTransactionId(dto.getId());
-        controller.getCategoryComboBox().getSelectionModel().select(dto.getCategory());
+
+        if (dto.getCategory() != null) {
+            controller.getCategoryComboBox().getSelectionModel().select(dto.getCategory());
+        }
+
         controller.getCreditorIdentifierTextfield().setText(dto.getCreditorIdentifier());
         controller.getDescriptionTextArea().setText(dto.getDescription());
         controller.getMandateTextfield().setText(dto.getMandate());
@@ -35,10 +39,10 @@ public class CashAccountTransactionEditDialogMapper implements IDialogMapper<Cas
 
         var dto = new DtoCashAccountTransaction();
 
+        dto.setId(controller.getTransactionId());
         dto.setCategory(controller.getCategoryComboBox().getSelectionModel().getSelectedItem());
         dto.setCreditorIdentifier(controller.getCreditorIdentifierTextfield().getText());
         dto.setDescription(controller.getDescriptionTextArea().getText());
-        dto.setId(controller.getTransactionId());
         dto.setMandate(controller.getMandateTextfield().getText());
         dto.setReference(controller.getReferenceTextfield().getText());
         dto.setReferenceBank(controller.getReferenceBankTextfield().getText());

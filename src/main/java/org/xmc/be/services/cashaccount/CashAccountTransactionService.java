@@ -7,9 +7,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.xmc.be.entities.cashaccount.CashAccount;
 import org.xmc.be.entities.cashaccount.CashAccountTransaction;
+import org.xmc.be.repositories.cashaccount.CashAccountJpaRepository;
 import org.xmc.be.repositories.cashaccount.CashAccountTransactionJpaRepository;
 import org.xmc.be.repositories.cashaccount.CashAccountTransactionRepository;
+import org.xmc.be.services.cashaccount.controller.CashAccountTransactionSaveController;
 import org.xmc.common.stubs.PagingParams;
 import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionOverviewFields;
 import org.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransaction;
@@ -28,14 +31,20 @@ public class CashAccountTransactionService {
 
     private final CashAccountTransactionJpaRepository cashAccountTransactionJpaRepository;
     private final CashAccountTransactionRepository cashAccountTransactionRepository;
+    private final CashAccountTransactionSaveController cashAccountTransactionSaveController;
+    private final CashAccountJpaRepository cashAccountJpaRepository;
 
     @Autowired
     public CashAccountTransactionService(
             CashAccountTransactionJpaRepository cashAccountTransactionJpaRepository,
-            CashAccountTransactionRepository cashAccountTransactionRepository) {
+            CashAccountTransactionRepository cashAccountTransactionRepository,
+            CashAccountTransactionSaveController cashAccountTransactionSaveController,
+            CashAccountJpaRepository cashAccountJpaRepository) {
 
         this.cashAccountTransactionJpaRepository = cashAccountTransactionJpaRepository;
         this.cashAccountTransactionRepository = cashAccountTransactionRepository;
+        this.cashAccountTransactionSaveController = cashAccountTransactionSaveController;
+        this.cashAccountJpaRepository = cashAccountJpaRepository;
     }
 
     public QueryResults<DtoCashAccountTransactionOverview> loadOverview(
@@ -59,11 +68,12 @@ public class CashAccountTransactionService {
         }
     }
 
-    public void saveOrUpdate(AsyncMonitor monitor, DtoCashAccountTransaction dtoCashAccountTransaction) {
+    public void saveOrUpdate(AsyncMonitor monitor, Long cashAccountId, DtoCashAccountTransaction dtoCashAccountTransaction) {
         LOGGER.info("Saving cash account transaction: {}", dtoCashAccountTransaction);
         monitor.setStatusText(MessageKey.ASYNC_TASK_SAVE_CASHACCOUNT_TRANSACTION);
 
-
+        CashAccount cashAccount = cashAccountJpaRepository.getOne(cashAccountId);
+        cashAccountTransactionSaveController.saveOrUpdate(cashAccount, dtoCashAccountTransaction);
     }
 
     public Optional<DtoCategory> autoDetectCategory(

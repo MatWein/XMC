@@ -99,9 +99,11 @@ public class CashAccountTransactionsController implements IAfterInit<CashAccount
                 .showAndWait();
 
         if (dtoCashAccountTransaction.isPresent()) {
+            Long cashAccountId = parentController.getSelectedCashAccount().getId();
+
             asyncProcessor.runAsyncVoid(
                     () -> {},
-                    monitor -> cashAccountTransactionService.saveOrUpdate(monitor, dtoCashAccountTransaction.get()),
+                    monitor -> cashAccountTransactionService.saveOrUpdate(monitor, cashAccountId, dtoCashAccountTransaction.get()),
                     () -> tableView.reload()
             );
         }

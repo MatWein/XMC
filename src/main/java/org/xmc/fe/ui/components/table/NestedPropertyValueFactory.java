@@ -5,6 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TableColumn;
 import javafx.scene.image.ImageView;
 import javafx.util.Callback;
+import org.apache.commons.beanutils.NestedNullException;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.xmc.common.utils.ImageUtil;
 
@@ -37,6 +38,8 @@ public class NestedPropertyValueFactory implements Callback<TableColumn.CellData
             Object value = PropertyUtils.getNestedProperty(rowData, property);
             Object mappedValue = mapValue(value);
             return new ReadOnlyObjectWrapper<>(mappedValue);
+        } catch (NestedNullException | NoSuchMethodException e) {
+            return null;
         } catch (Throwable e) {
             throw new RuntimeException(String.format("Could not read property '%s' from: %s", property, rowData), e);
         }

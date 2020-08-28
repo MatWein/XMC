@@ -43,7 +43,7 @@ public class CashAccountTransactionRepository {
                         cashAccountTransaction.mandate, cashAccountTransaction.creationDate,
                         cashAccountTransaction.saldoBefore, cashAccountTransaction.saldoAfter))
                 .from(cashAccountTransaction)
-                .innerJoin(cashAccountTransaction.category(), category)
+                .leftJoin(cashAccountTransaction.category(), category)
                 .leftJoin(category.icon(), binaryData)
                 .where(ExpressionUtils.allOf(predicate, cashAccountTransaction.deletionDate.isNull()))
                 .orderBy(new OrderSpecifier<>(Order.DESC, cashAccountTransaction.id))

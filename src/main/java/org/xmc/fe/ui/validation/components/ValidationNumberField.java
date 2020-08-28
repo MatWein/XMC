@@ -64,6 +64,10 @@ public class ValidationNumberField extends TextField implements IValidationCompo
     }
 
     public void setValue(BigDecimal value) {
+        if (value == null) {
+            value = new BigDecimal(0.0);
+        }
+
         setValue(value.doubleValue());
     }
 

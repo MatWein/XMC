@@ -10,6 +10,7 @@ import java.time.LocalDate;
 
 public class DtoCashAccountTransaction implements Serializable {
     private Long id;
+
     private DtoCategory category;
     private String usage;
     private String description;
@@ -41,7 +42,11 @@ public class DtoCashAccountTransaction implements Serializable {
             String mandate) {
 
         this.id = id;
-        this.category = new DtoCategory(categoryId, categoryName, categoryIcon);
+
+        if (categoryId != null) {
+            this.category = new DtoCategory(categoryId, categoryName, categoryIcon);
+        }
+
         this.usage = usage;
         this.description = description;
         this.valutaDate = valutaDate;

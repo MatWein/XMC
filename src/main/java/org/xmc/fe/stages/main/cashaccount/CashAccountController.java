@@ -21,12 +21,16 @@ public class CashAccountController {
     @FXML private VBox rootVbox;
     @FXML private BreadcrumbBar<String> breadcrumbBar;
 
+    private DtoCashAccountOverview selectedCashAccount;
+
     @FXML
     public void initialize() {
         switchToOverview();
     }
 
     public void switchToOverview() {
+        this.selectedCashAccount = null;
+
         breadcrumbBar.getElements().clear();
 
         BreadcrumbPathElement<String> element = new BreadcrumbPathElement<>(MessageAdapter.getByKey(MessageKey.MAIN_CASHACCOUNTS_BREADCRUMB_OVERVIEW));
@@ -37,6 +41,8 @@ public class CashAccountController {
     }
 
     public void switchToTransactions(DtoCashAccountOverview selectedCashAccount) {
+        this.selectedCashAccount = selectedCashAccount;
+
         String text = MessageAdapter.getByKey(MessageKey.MAIN_CASHACCOUNTS_BREADCRUMB_TRANSACTIONS, selectedCashAccount.getName());
         breadcrumbBar.getElements().add(new BreadcrumbPathElement<>(text));
 
@@ -49,5 +55,9 @@ public class CashAccountController {
         Pair<Parent, ? extends IAfterInit<CashAccountController>> componentPair = FxmlComponentFactory.load(newComponentKey);
         componentPair.getRight().afterInitialize(this);
         rootVbox.getChildren().add(componentPair.getLeft());
+    }
+
+    public DtoCashAccountOverview getSelectedCashAccount() {
+        return selectedCashAccount;
     }
 }

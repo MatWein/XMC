@@ -26,7 +26,7 @@ public class CashAccountTransactionEditController implements IDialogWithAsyncDat
     private final AsyncProcessor asyncProcessor;
 
     private Long transactionId;
-    private Long cashAccountId;
+    private long cashAccountId;
 
     @FXML private ValidationNumberField valueNumberField;
     @FXML private ValidationDatePicker valutaDatePicker;
@@ -69,6 +69,7 @@ public class CashAccountTransactionEditController implements IDialogWithAsyncDat
         cashAccountId = data.getRight();
 
         categoryComboBox.getItems().addAll(data.getLeft());
+        updateSaldoPreview();
     }
 
     @FXML
@@ -96,6 +97,7 @@ public class CashAccountTransactionEditController implements IDialogWithAsyncDat
         if (valueNumberField.isValid() && valutaDatePicker.isValid()) {
             Pair<BigDecimal, BigDecimal> saldoPreview = cashAccountTransactionService.calculateSaldoPreview(
                     cashAccountId,
+                    transactionId,
                     valutaDatePicker.getValue(),
                     valueNumberField.getValueAsBigDecimal());
 

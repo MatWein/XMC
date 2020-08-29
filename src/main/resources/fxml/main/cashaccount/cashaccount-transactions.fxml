@@ -62,7 +62,7 @@
             <TableColumnEx editable="false" text="%main.cashaccounts.transactions.overview.table.column.value"
                            sortField="VALUE">
                 <cellValueFactory>
-                    <NestedPropertyValueFactory property="value" formatAsCurrency="true"/>
+                    <NestedPropertyValueFactory property="value" />
                 </cellValueFactory>
             </TableColumnEx>
             <TableColumnEx editable="false" text="%main.cashaccounts.transactions.overview.table.column.description"
@@ -73,12 +73,12 @@
             </TableColumnEx>
             <TableColumnEx editable="false" sortable="false" text="%main.cashaccounts.transactions.overview.table.column.saldoBefore">
                 <cellValueFactory>
-                    <NestedPropertyValueFactory property="saldoBefore" formatAsCurrency="true"/>
+                    <NestedPropertyValueFactory property="saldoBefore" />
                 </cellValueFactory>
             </TableColumnEx>
             <TableColumnEx editable="false" sortable="false" text="%main.cashaccounts.transactions.overview.table.column.saldoAfter">
                 <cellValueFactory>
-                    <NestedPropertyValueFactory property="saldoAfter" formatAsCurrency="true"/>
+                    <NestedPropertyValueFactory property="saldoAfter" />
                 </cellValueFactory>
             </TableColumnEx>
             <TableColumnEx editable="false" text="%main.cashaccounts.transactions.overview.table.column.referenceBank"

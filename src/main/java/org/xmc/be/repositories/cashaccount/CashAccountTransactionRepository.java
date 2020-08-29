@@ -13,6 +13,7 @@ import org.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransactionOv
 
 import static org.xmc.be.entities.QBinaryData.binaryData;
 import static org.xmc.be.entities.QCategory.category;
+import static org.xmc.be.entities.cashaccount.QCashAccount.cashAccount;
 import static org.xmc.be.entities.cashaccount.QCashAccountTransaction.cashAccountTransaction;
 
 @Repository
@@ -24,8 +25,8 @@ public class CashAccountTransactionRepository {
         this.queryUtil = queryUtil;
     }
 
-    public QueryResults<DtoCashAccountTransactionOverview> loadOverview(CashAccount cashAccount, PagingParams<CashAccountTransactionOverviewFields> pagingParams) {
-        Predicate predicate = calculatePredicate(cashAccount, pagingParams);
+    public QueryResults<DtoCashAccountTransactionOverview> loadOverview(CashAccount cashAccountEntity, PagingParams<CashAccountTransactionOverviewFields> pagingParams) {
+        Predicate predicate = calculatePredicate(cashAccountEntity, pagingParams);
 
         return queryUtil.createPagedQuery(pagingParams, CashAccountTransactionOverviewFields.VALUTA_DATE, Order.DESC)
                 .select(Projections.constructor(DtoCashAccountTransactionOverview.class,
@@ -35,8 +36,10 @@ public class CashAccountTransactionRepository {
                         cashAccountTransaction.reference, cashAccountTransaction.referenceIban,
                         cashAccountTransaction.referenceBank, cashAccountTransaction.creditorIdentifier,
                         cashAccountTransaction.mandate, cashAccountTransaction.creationDate,
-                        cashAccountTransaction.saldoBefore, cashAccountTransaction.saldoAfter))
+                        cashAccountTransaction.saldoBefore, cashAccountTransaction.saldoAfter,
+                        cashAccount.currency))
                 .from(cashAccountTransaction)
+                .innerJoin(cashAccountTransaction.cashAccount(), cashAccount)
                 .leftJoin(cashAccountTransaction.category(), category)
                 .leftJoin(category.icon(), binaryData)
                 .where(predicate)

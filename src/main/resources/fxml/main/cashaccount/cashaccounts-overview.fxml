@@ -99,7 +99,7 @@
             <TableColumnEx editable="false" text="%main.cashaccounts.overview.table.column.lastSaldo"
                            sortField="LAST_SALDO">
                 <cellValueFactory>
-                    <NestedPropertyValueFactory property="lastSaldo" formatAsCurrency="true"/>
+                    <NestedPropertyValueFactory property="lastSaldo" />
                 </cellValueFactory>
             </TableColumnEx>
             <TableColumnEx editable="false"

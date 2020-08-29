@@ -100,10 +100,21 @@ public class CashAccountTransactionService {
         return categoryDetectionController.autoDetectCategory(cashAccount, usage);
     }
 
-    public Pair<BigDecimal, BigDecimal> calculateSaldoPreview(long cashAccountId, LocalDate valutaDate, BigDecimal value) {
+    public Pair<BigDecimal, BigDecimal> calculateSaldoPreview(long cashAccountId, Long transactionId, LocalDate valutaDate, BigDecimal value) {
         CashAccount cashAccount = cashAccountJpaRepository.getOne(cashAccountId);
 
-        BigDecimal saldoBefore = cashAccountTransactionSaldoUpdater.calculateSaldoBefore(cashAccount, valutaDate.plusDays(1));
+        BigDecimal saldoBefore;
+        if (transactionId == null) {
+            saldoBefore = cashAccountTransactionJpaRepository.findFirstTransactionBeforeOrOnDate(cashAccount, valutaDate, LocalDateTime.now(), Long.MAX_VALUE)
+                    .map(CashAccountTransaction::getSaldoAfter)
+                    .orElse(new BigDecimal(0.0));
+        } else {
+            CashAccountTransaction transaction = cashAccountTransactionJpaRepository.getOne(transactionId);
+            saldoBefore = cashAccountTransactionJpaRepository.findFirstTransactionBeforeOrOnDate(cashAccount, valutaDate, transaction.getCreationDate(), transaction.getId())
+                    .map(CashAccountTransaction::getSaldoAfter)
+                    .orElse(new BigDecimal(0.0));
+        }
+
         BigDecimal saldoAfter = cashAccountTransactionSaldoUpdater.calculateSaldoAfter(saldoBefore, value);
 
         return ImmutablePair.of(saldoBefore, saldoAfter);

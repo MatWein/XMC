@@ -8,6 +8,8 @@ import javafx.scene.text.Text;
 import javafx.util.Callback;
 import org.apache.commons.beanutils.NestedNullException;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.xmc.common.stubs.Money;
+import org.xmc.common.stubs.Percentage;
 import org.xmc.common.utils.ImageUtil;
 
 import java.text.NumberFormat;
@@ -24,8 +26,6 @@ public class NestedPropertyValueFactory implements Callback<TableColumn.CellData
     private String property;
     private Double fitToWidth;
     private Double fitToHeight;
-    private boolean formatAsCurrency;
-    private boolean formatAsPercentage;
 
     @Override
     public ObservableValue call(TableColumn.CellDataFeatures param) {
@@ -57,15 +57,23 @@ public class NestedPropertyValueFactory implements Callback<TableColumn.CellData
             return ((LocalDateTime) value).format(DateTimeFormatter.ofPattern(DATE_TIME_PATTERN));
         } else if (value instanceof LocalDate) {
             return ((LocalDate) value).format(DateTimeFormatter.ofPattern(DATE_PATTERN));
-        } else if (value instanceof Number && formatAsCurrency) {
-            return NumberFormat.getCurrencyInstance(Locale.getDefault()).format(value);
-        } else if (value instanceof Number && formatAsPercentage) {
-            return NumberFormat.getPercentInstance(Locale.getDefault()).format(value);
         } else if (value instanceof Number) {
-            return NumberFormat.getNumberInstance(Locale.getDefault()).format(value);
+            return createNumberInstance().format(value);
+        } else if (value instanceof Money) {
+            Money money = (Money) value;
+            return createNumberInstance().format(money.getValue()) + " " + money.getCurrency();
+        } else if (value instanceof Percentage) {
+            Percentage percentage = (Percentage) value;
+            return createNumberInstance().format(percentage.getValue()) + " %";
         }
 
         return value;
+    }
+
+    private NumberFormat createNumberInstance() {
+        NumberFormat numberInstance = NumberFormat.getNumberInstance(Locale.getDefault());
+        numberInstance.setMinimumFractionDigits(2);
+        return numberInstance;
     }
 
     private ImageView createImageView(byte[] value) {
@@ -103,21 +111,5 @@ public class NestedPropertyValueFactory implements Callback<TableColumn.CellData
 
     public void setFitToHeight(Double fitToHeight) {
         this.fitToHeight = fitToHeight;
-    }
-
-    public boolean isFormatAsCurrency() {
-        return formatAsCurrency;
-    }
-
-    public void setFormatAsCurrency(boolean formatAsCurrency) {
-        this.formatAsCurrency = formatAsCurrency;
-    }
-
-    public boolean isFormatAsPercentage() {
-        return formatAsPercentage;
-    }
-
-    public void setFormatAsPercentage(boolean formatAsPercentage) {
-        this.formatAsPercentage = formatAsPercentage;
     }
 }

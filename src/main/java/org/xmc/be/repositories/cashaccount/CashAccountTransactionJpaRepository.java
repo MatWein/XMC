@@ -8,6 +8,7 @@ import org.xmc.be.entities.cashaccount.CashAccount;
 import org.xmc.be.entities.cashaccount.CashAccountTransaction;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +25,17 @@ public interface CashAccountTransactionJpaRepository extends JpaRepository<CashA
     )
     List<CashAccountTransaction> findTransactionsBeforeDate(CashAccount cashAccount, LocalDate valutaDate, Pageable pageable);
 
+    @Query("SELECT cat FROM CashAccountTransaction cat " +
+            "WHERE cat.valutaDate <= :valutaDate AND cat.deletionDate IS NULL AND cat.cashAccount = :cashAccount AND cat.creationDate <= :creationDate AND cat.id < :maxId " +
+            "ORDER BY cat.valutaDate DESC, cat.creationDate DESC, cat.id DESC"
+    )
+    List<CashAccountTransaction> findTransactionsBeforeOrOnDate(CashAccount cashAccount, LocalDate valutaDate, LocalDateTime creationDate, long maxId, Pageable pageable);
+
     default Optional<CashAccountTransaction> findFirstTransactionBeforeDate(CashAccount cashAccount, LocalDate valutaDate) {
         return findTransactionsBeforeDate(cashAccount, valutaDate, PageRequest.of(0, 1)).stream().findFirst();
+    }
+
+    default Optional<CashAccountTransaction> findFirstTransactionBeforeOrOnDate(CashAccount cashAccount, LocalDate valutaDate, LocalDateTime creationDate, long maxId) {
+        return findTransactionsBeforeOrOnDate(cashAccount, valutaDate, creationDate, maxId, PageRequest.of(0, 1)).stream().findFirst();
     }
 }

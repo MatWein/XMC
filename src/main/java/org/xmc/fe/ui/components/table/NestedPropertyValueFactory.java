@@ -2,12 +2,14 @@ package org.xmc.fe.ui.components.table;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import org.apache.commons.beanutils.NestedNullException;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.xmc.common.stubs.Money;
 import org.xmc.common.stubs.Percentage;
 import org.xmc.common.utils.ImageUtil;
@@ -46,28 +48,32 @@ public class NestedPropertyValueFactory implements Callback<TableColumn.CellData
         }
     }
 
-    protected Object mapValue(Object value) {
+    protected Node mapValue(Object value) {
+        if (value == null) {
+            return null;
+        }
+
         if (value instanceof String) {
-            return new Text((String) value);
+            return new Text(StringUtils.abbreviate((String) value, 255));
         } else if (value instanceof byte[]) {
             return createImageView((byte[]) value);
         } else if (value instanceof Currency) {
-            return ((Currency) value).getCurrencyCode();
+            return new Text(((Currency) value).getCurrencyCode());
         } else if (value instanceof LocalDateTime) {
-            return ((LocalDateTime) value).format(DateTimeFormatter.ofPattern(DATE_TIME_PATTERN));
+            return new Text(((LocalDateTime) value).format(DateTimeFormatter.ofPattern(DATE_TIME_PATTERN)));
         } else if (value instanceof LocalDate) {
-            return ((LocalDate) value).format(DateTimeFormatter.ofPattern(DATE_PATTERN));
+            return new Text(((LocalDate) value).format(DateTimeFormatter.ofPattern(DATE_PATTERN)));
         } else if (value instanceof Number) {
-            return createNumberInstance().format(value);
+            return new Text(createNumberInstance().format(value));
         } else if (value instanceof Money) {
             Money money = (Money) value;
-            return createNumberInstance().format(money.getValue()) + " " + money.getCurrency();
+            return new Text(createNumberInstance().format(money.getValue()) + " " + money.getCurrency());
         } else if (value instanceof Percentage) {
             Percentage percentage = (Percentage) value;
-            return createNumberInstance().format(percentage.getValue()) + " %";
+            return new Text(createNumberInstance().format(percentage.getValue()) + " %");
         }
 
-        return value;
+        return new Text(value.toString());
     }
 
     private NumberFormat createNumberInstance() {

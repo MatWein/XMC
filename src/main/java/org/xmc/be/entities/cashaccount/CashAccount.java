@@ -6,7 +6,7 @@ import org.xmc.be.entities.DeletablePersistentObject;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Currency;
 import java.util.Set;
 
@@ -31,7 +31,7 @@ public class CashAccount extends DeletablePersistentObject {
     @Column(name = "LAST_SALDO", nullable = true)
     private BigDecimal lastSaldo;
     @Column(name = "LAST_SALDO_DATE", nullable = true)
-    private LocalDateTime lastSaldoDate;
+    private LocalDate lastSaldoDate;
 
     @OneToMany(mappedBy = "cashAccount")
     private Set<CashAccountTransaction> transactions = Sets.newHashSet();
@@ -84,11 +84,11 @@ public class CashAccount extends DeletablePersistentObject {
         this.lastSaldo = lastSaldo;
     }
 
-    public LocalDateTime getLastSaldoDate() {
+    public LocalDate getLastSaldoDate() {
         return lastSaldoDate;
     }
 
-    public void setLastSaldoDate(LocalDateTime lastSaldoDate) {
+    public void setLastSaldoDate(LocalDate lastSaldoDate) {
         this.lastSaldoDate = lastSaldoDate;
     }
 

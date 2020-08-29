@@ -3,12 +3,13 @@ package org.xmc.common.stubs.cashaccount;
 import com.querydsl.core.annotations.QueryProjection;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class DtoCashAccountOverview extends DtoCashAccount {
     private LocalDateTime creationDate;
     private BigDecimal lastSaldo;
-    private LocalDateTime lastSaldoDate;
+    private LocalDate lastSaldoDate;
 
     public DtoCashAccountOverview() {
     }
@@ -16,7 +17,7 @@ public class DtoCashAccountOverview extends DtoCashAccount {
     @QueryProjection
     public DtoCashAccountOverview(
             Long id, String iban, String number, String name, String currency,
-            LocalDateTime creationDate, BigDecimal lastSaldo, LocalDateTime lastSaldoDate,
+            LocalDateTime creationDate, BigDecimal lastSaldo, LocalDate lastSaldoDate,
             Long bankId, String bankName, String bic, String blz, byte[] logo) {
 
         super(id, iban, number, name, currency, bankId, bankName, bic, blz, logo);
@@ -42,11 +43,11 @@ public class DtoCashAccountOverview extends DtoCashAccount {
         this.lastSaldo = lastSaldo;
     }
 
-    public LocalDateTime getLastSaldoDate() {
+    public LocalDate getLastSaldoDate() {
         return lastSaldoDate;
     }
 
-    public void setLastSaldoDate(LocalDateTime lastSaldoDate) {
+    public void setLastSaldoDate(LocalDate lastSaldoDate) {
         this.lastSaldoDate = lastSaldoDate;
     }
 }

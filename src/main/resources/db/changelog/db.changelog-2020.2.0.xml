@@ -81,7 +81,7 @@
             <column name="LAST_SALDO" type="double">
                 <constraints nullable="true"/>
             </column>
-            <column name="LAST_SALDO_DATE" type="timestamp">
+            <column name="LAST_SALDO_DATE" type="date">
                 <constraints nullable="true"/>
             </column>
         </createTable>

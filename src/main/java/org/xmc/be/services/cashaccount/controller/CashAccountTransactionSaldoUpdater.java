@@ -1,5 +1,6 @@
 package org.xmc.be.services.cashaccount.controller;
 
+import com.google.common.collect.Iterables;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.xmc.be.entities.cashaccount.CashAccount;
@@ -43,6 +44,10 @@ public class CashAccountTransactionSaldoUpdater {
             cashAccountTransactionJpaRepository.save(cashAccountTransaction);
             saldoBefore = saldoAfter;
         }
+
+        var mostRecentTransaction = Iterables.getLast(transactionsToUpdate);
+        cashAccount.setLastSaldo(mostRecentTransaction.getSaldoAfter());
+        cashAccount.setLastSaldoDate(mostRecentTransaction.getValutaDate());
     }
 
     public BigDecimal calculateSaldoBefore(CashAccount cashAccount, LocalDate valutaDate) {

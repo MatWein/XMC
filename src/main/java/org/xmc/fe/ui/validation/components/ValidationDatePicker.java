@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.SceneUtil;
+import org.xmc.fe.ui.components.FocusLostListener;
 import org.xmc.fe.ui.components.IInitialFocus;
 import org.xmc.fe.ui.validation.ICustomValidator;
 import org.xmc.fe.ui.validation.IValidationComponent;
@@ -23,7 +24,7 @@ public class ValidationDatePicker extends DatePicker implements IValidationCompo
     private String customValidator;
 
     public ValidationDatePicker() {
-        setValue(LocalDate.now());
+        super(LocalDate.now());
     }
 
     @Override
@@ -48,6 +49,13 @@ public class ValidationDatePicker extends DatePicker implements IValidationCompo
     public void initialize(Scene scene) {
         CommonTextfieldValidator.initValidationEvent(getEditor(), scene);
         this.valueProperty().addListener((observable, oldValue, newValue) -> SceneUtil.getOrCreateValidationSceneState(scene).validate());
+
+        this.focusedProperty().addListener((FocusLostListener) () -> {
+            try {
+                setValue(getConverter().fromString(getEditor().getText()));
+                SceneUtil.getOrCreateValidationSceneState(scene).validate();
+            } catch (Throwable ignored) {}
+        });
 
         if (initialFocus) {
             requestInitialFocus();

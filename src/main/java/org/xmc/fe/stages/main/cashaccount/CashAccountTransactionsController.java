@@ -13,6 +13,7 @@ import org.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransaction;
 import org.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransactionOverview;
 import org.xmc.fe.async.AsyncProcessor;
 import org.xmc.fe.stages.main.cashaccount.mapper.CashAccountTransactionEditDialogMapper;
+import org.xmc.fe.stages.main.cashaccount.mapper.DtoCashAccountTransactionOverviewToDtoCashAccountTransactionMapper;
 import org.xmc.fe.ui.CustomDialogBuilder;
 import org.xmc.fe.ui.DialogHelper;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
@@ -29,6 +30,7 @@ public class CashAccountTransactionsController implements IAfterInit<CashAccount
     private final CashAccountTransactionEditDialogMapper cashAccountTransactionEditDialogMapper;
     private final CashAccountTransactionService cashAccountTransactionService;
     private final AsyncProcessor asyncProcessor;
+    private final DtoCashAccountTransactionOverviewToDtoCashAccountTransactionMapper dtoCashAccountTransactionOverviewToDtoCashAccountTransactionMapper;
 
     @FXML private TableViewEx<DtoCashAccountTransactionOverview, CashAccountTransactionOverviewFields> tableView;
     @FXML private Button editButton;
@@ -41,12 +43,14 @@ public class CashAccountTransactionsController implements IAfterInit<CashAccount
             CategoryService categoryService,
             CashAccountTransactionEditDialogMapper cashAccountTransactionEditDialogMapper,
             CashAccountTransactionService cashAccountTransactionService,
-            AsyncProcessor asyncProcessor) {
+            AsyncProcessor asyncProcessor,
+            DtoCashAccountTransactionOverviewToDtoCashAccountTransactionMapper dtoCashAccountTransactionOverviewToDtoCashAccountTransactionMapper) {
 
         this.categoryService = categoryService;
         this.cashAccountTransactionEditDialogMapper = cashAccountTransactionEditDialogMapper;
         this.cashAccountTransactionService = cashAccountTransactionService;
         this.asyncProcessor = asyncProcessor;
+        this.dtoCashAccountTransactionOverviewToDtoCashAccountTransactionMapper = dtoCashAccountTransactionOverviewToDtoCashAccountTransactionMapper;
     }
 
     @FXML
@@ -99,7 +103,7 @@ public class CashAccountTransactionsController implements IAfterInit<CashAccount
                 .addButton(MessageKey.CASHACCOUNT_TRANSACTION_EDIT_SAVE, ButtonData.OK_DONE)
                 .withFxmlContent(FxmlKey.CASH_ACCOUNT_TRANSACTION_EDIT)
                 .withMapper(cashAccountTransactionEditDialogMapper)
-                .withInput(input)
+                .withInput(dtoCashAccountTransactionOverviewToDtoCashAccountTransactionMapper.map(input))
                 .withAsyncDataLoading(monitor -> ImmutablePair.of(categoryService.loadAllCategories(monitor), cashAccountId))
                 .build()
                 .showAndWait();

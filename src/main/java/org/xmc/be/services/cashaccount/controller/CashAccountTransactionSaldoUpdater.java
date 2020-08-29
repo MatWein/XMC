@@ -2,6 +2,7 @@ package org.xmc.be.services.cashaccount.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.xmc.be.entities.cashaccount.CashAccount;
 import org.xmc.be.entities.cashaccount.CashAccountTransaction;
 import org.xmc.be.repositories.cashaccount.CashAccountTransactionJpaRepository;
 
@@ -19,15 +20,19 @@ public class CashAccountTransactionSaldoUpdater {
         this.cashAccountTransactionJpaRepository = cashAccountTransactionJpaRepository;
     }
 
-    public void updateAll(LocalDate startDate) {
+    public void updateAll(CashAccountTransaction transaction) {
+        updateAll(transaction.getCashAccount(), transaction.getValutaDate());
+    }
+
+    public void updateAll(CashAccount cashAccount, LocalDate startDate) {
         cashAccountTransactionJpaRepository.flush();
 
-        List<CashAccountTransaction> transactionsToUpdate = cashAccountTransactionJpaRepository.findTransactionsAfterDate(startDate);
+        List<CashAccountTransaction> transactionsToUpdate = cashAccountTransactionJpaRepository.findTransactionsAfterDate(cashAccount, startDate);
         if (transactionsToUpdate.isEmpty()) {
             return;
         }
 
-        BigDecimal saldoBefore = calculateSaldoBefore(transactionsToUpdate.get(0).getValutaDate());
+        BigDecimal saldoBefore = calculateSaldoBefore(cashAccount, transactionsToUpdate.get(0).getValutaDate());
 
         for (CashAccountTransaction cashAccountTransaction : transactionsToUpdate) {
             cashAccountTransaction.setSaldoBefore(saldoBefore);
@@ -40,8 +45,8 @@ public class CashAccountTransactionSaldoUpdater {
         }
     }
 
-    public BigDecimal calculateSaldoBefore(LocalDate valutaDate) {
-        Optional<CashAccountTransaction> transactionBeforeCurrentDate = cashAccountTransactionJpaRepository.findFirstTransactionBeforeDate(valutaDate);
+    public BigDecimal calculateSaldoBefore(CashAccount cashAccount, LocalDate valutaDate) {
+        Optional<CashAccountTransaction> transactionBeforeCurrentDate = cashAccountTransactionJpaRepository.findFirstTransactionBeforeDate(cashAccount, valutaDate);
         return transactionBeforeCurrentDate.map(CashAccountTransaction::getSaldoAfter).orElse(new BigDecimal(0.0));
     }
 

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.xmc.JUnitTestBase;
 import org.xmc.be.entities.Category;
+import org.xmc.be.entities.cashaccount.CashAccount;
 import org.xmc.be.entities.cashaccount.CashAccountTransaction;
 import org.xmc.be.repositories.cashaccount.CashAccountTransactionJpaRepository;
 
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.when;
 
 class CategoryDetectionControllerTest extends JUnitTestBase {
@@ -70,9 +72,11 @@ class CategoryDetectionControllerTest extends JUnitTestBase {
 
     @Test
     void testAutoDetectCategory_ExactMatch() {
-        when(cashAccountTransactionJpaRepository.findTransactionsAfterDate(any(LocalDate.class))).thenReturn(TRANSACTIONS);
+        CashAccount cashAccount = new CashAccount();
 
-        Optional<Long> result = controller.autoDetectCategory("miete Musterstraße 6 goerlitz 2. og links / we 06 - MUSTERMANN");
+        when(cashAccountTransactionJpaRepository.findTransactionsAfterDate(same(cashAccount), any(LocalDate.class))).thenReturn(TRANSACTIONS);
+
+        Optional<Long> result = controller.autoDetectCategory(cashAccount, "miete Musterstraße 6 goerlitz 2. og links / we 06 - MUSTERMANN");
 
         Assert.assertEquals(6L, result.get(), 0);
     }
@@ -88,9 +92,12 @@ class CategoryDetectionControllerTest extends JUnitTestBase {
                 createTransaction("Vodafone", 1L),
                 createTransaction("Other", 3L)
         );
-        when(cashAccountTransactionJpaRepository.findTransactionsAfterDate(any(LocalDate.class))).thenReturn(transactions);
 
-        Optional<Long> result = controller.autoDetectCategory("Vodafone");
+        CashAccount cashAccount = new CashAccount();
+
+        when(cashAccountTransactionJpaRepository.findTransactionsAfterDate(same(cashAccount), any(LocalDate.class))).thenReturn(transactions);
+
+        Optional<Long> result = controller.autoDetectCategory(cashAccount, "Vodafone");
 
         Assert.assertEquals(1L, result.get(), 0);
     }
@@ -106,36 +113,45 @@ class CategoryDetectionControllerTest extends JUnitTestBase {
                 createTransaction("Vodafone", 1L),
                 createTransaction("Other", 3L)
         );
-        when(cashAccountTransactionJpaRepository.findTransactionsAfterDate(any(LocalDate.class))).thenReturn(transactions);
 
-        Optional<Long> result = controller.autoDetectCategory("Vodafone");
+        CashAccount cashAccount = new CashAccount();
+
+        when(cashAccountTransactionJpaRepository.findTransactionsAfterDate(same(cashAccount), any(LocalDate.class))).thenReturn(transactions);
+
+        Optional<Long> result = controller.autoDetectCategory(cashAccount, "Vodafone");
 
         Assert.assertEquals(2L, result.get(), 0);
     }
 
     @Test
     void testAutoDetectCategory_WordMatch() {
-        when(cashAccountTransactionJpaRepository.findTransactionsAfterDate(any(LocalDate.class))).thenReturn(TRANSACTIONS);
+        CashAccount cashAccount = new CashAccount();
 
-        Optional<Long> result = controller.autoDetectCategory("Gehalt Dezember 2020");
+        when(cashAccountTransactionJpaRepository.findTransactionsAfterDate(same(cashAccount), any(LocalDate.class))).thenReturn(TRANSACTIONS);
+
+        Optional<Long> result = controller.autoDetectCategory(cashAccount, "Gehalt Dezember 2020");
 
         Assert.assertEquals(2L, result.get(), 0);
     }
 
     @Test
     void testAutoDetectCategory_WordMatch2() {
-        when(cashAccountTransactionJpaRepository.findTransactionsAfterDate(any(LocalDate.class))).thenReturn(TRANSACTIONS);
+        CashAccount cashAccount = new CashAccount();
 
-        Optional<Long> result = controller.autoDetectCategory("miete");
+        when(cashAccountTransactionJpaRepository.findTransactionsAfterDate(same(cashAccount), any(LocalDate.class))).thenReturn(TRANSACTIONS);
+
+        Optional<Long> result = controller.autoDetectCategory(cashAccount, "miete");
 
         Assert.assertEquals(6L, result.get(), 0);
     }
 
     @Test
     void testAutoDetectCategory_WordMatch3() {
-        when(cashAccountTransactionJpaRepository.findTransactionsAfterDate(any(LocalDate.class))).thenReturn(TRANSACTIONS);
+        CashAccount cashAccount = new CashAccount();
 
-        Optional<Long> result = controller.autoDetectCategory("PP.22222.PP . Qian Ni Limited, Ihr Einkauf bei Qian Ni Limited, Artikel -222222");
+        when(cashAccountTransactionJpaRepository.findTransactionsAfterDate(same(cashAccount), any(LocalDate.class))).thenReturn(TRANSACTIONS);
+
+        Optional<Long> result = controller.autoDetectCategory(cashAccount, "PP.22222.PP . Qian Ni Limited, Ihr Einkauf bei Qian Ni Limited, Artikel -222222");
 
         Assert.assertEquals(3L, result.get(), 0);
     }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.xmc.be.entities.Category;
 import org.xmc.be.entities.PersistentObject;
+import org.xmc.be.entities.cashaccount.CashAccount;
 import org.xmc.be.entities.cashaccount.CashAccountTransaction;
 import org.xmc.be.repositories.cashaccount.CashAccountTransactionJpaRepository;
 
@@ -23,9 +24,9 @@ public class CategoryDetectionController {
         this.cashAccountTransactionJpaRepository = cashAccountTransactionJpaRepository;
     }
 
-    public Optional<Long> autoDetectCategory(String usage) {
+    public Optional<Long> autoDetectCategory(CashAccount cashAccount, String usage) {
         LocalDate startDate = LocalDate.now().minusYears(1);
-        List<CashAccountTransaction> transactions = cashAccountTransactionJpaRepository.findTransactionsAfterDate(startDate);
+        List<CashAccountTransaction> transactions = cashAccountTransactionJpaRepository.findTransactionsAfterDate(cashAccount, startDate);
 
         Optional<Entry<Category, Long>> exactMatchingCategory = transactions.stream()
                 .filter(transaction -> StringUtils.equalsIgnoreCase(transaction.getUsage(), usage))

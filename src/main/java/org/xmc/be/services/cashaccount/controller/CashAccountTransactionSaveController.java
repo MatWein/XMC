@@ -36,7 +36,7 @@ public class CashAccountTransactionSaveController {
         CashAccountTransaction cashAccountTransaction = createOrUpdateCashAccountTransaction(dtoTransaction, category, cashAccount);
         cashAccountTransactionJpaRepository.save(cashAccountTransaction);
 
-        cashAccountTransactionSaldoUpdater.updateAll(cashAccountTransaction.getValutaDate());
+        cashAccountTransactionSaldoUpdater.updateAll(cashAccountTransaction);
     }
 
     private CashAccountTransaction createOrUpdateCashAccountTransaction(DtoCashAccountTransaction dtoTransaction, Category category, CashAccount cashAccount) {

@@ -20,11 +20,12 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @FxmlController
-public class CashAccountTransactionEditController implements IDialogWithAsyncData<List<DtoCategory>> {
+public class CashAccountTransactionEditController implements IDialogWithAsyncData<Pair<List<DtoCategory>, Long>> {
     private final CashAccountTransactionService cashAccountTransactionService;
     private final AsyncProcessor asyncProcessor;
 
     private Long transactionId;
+    private Long cashAccountId;
 
     @FXML private ValidationNumberField valueNumberField;
     @FXML private ValidationDatePicker valutaDatePicker;
@@ -63,8 +64,10 @@ public class CashAccountTransactionEditController implements IDialogWithAsyncDat
     }
 
     @Override
-    public void acceptAsyncData(List<DtoCategory> data) {
-        categoryComboBox.getItems().addAll(data);
+    public void acceptAsyncData(Pair<List<DtoCategory>, Long> data) {
+        cashAccountId = data.getRight();
+
+        categoryComboBox.getItems().addAll(data.getLeft());
     }
 
     @FXML
@@ -74,7 +77,7 @@ public class CashAccountTransactionEditController implements IDialogWithAsyncDat
                     categoryComboBox.setDisable(true);
                     categoryDetectButton.setDisable(true);
                 },
-                monitor -> cashAccountTransactionService.autoDetectCategory(monitor, usageTextArea.getText()),
+                monitor -> cashAccountTransactionService.autoDetectCategory(monitor, cashAccountId, usageTextArea.getText()),
                 result -> result.ifPresent(foundCategoryId -> {
                     categoryComboBox.getItems().stream()
                             .filter(dto -> foundCategoryId.equals(dto.getId()))
@@ -91,6 +94,7 @@ public class CashAccountTransactionEditController implements IDialogWithAsyncDat
     private void updateSaldoPreview() {
         if (valueNumberField.isValid() && valutaDatePicker.isValid()) {
             Pair<BigDecimal, BigDecimal> saldoPreview = cashAccountTransactionService.calculateSaldoPreview(
+                    cashAccountId,
                     valutaDatePicker.getValue(),
                     valueNumberField.getValueAsBigDecimal());
 

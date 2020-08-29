@@ -20,7 +20,6 @@ import org.xmc.fe.ui.MessageAdapter.MessageKey;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -73,10 +72,8 @@ public class CategoryService {
         LOGGER.info("Marking category '{}' as deleted.", categoryId);
         monitor.setStatusText(MessageKey.ASYNC_TASK_DELETE_CATEGORY);
 
-        Optional<Category> category = categoryJpaRepository.findById(categoryId);
-        if (category.isPresent()) {
-            category.get().setDeletionDate(LocalDateTime.now());
-            categoryJpaRepository.save(category.get());
-        }
+        Category category = categoryJpaRepository.getOne(categoryId);
+        category.setDeletionDate(LocalDateTime.now());
+        categoryJpaRepository.save(category);
     }
 }

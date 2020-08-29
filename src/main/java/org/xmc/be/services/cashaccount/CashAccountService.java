@@ -18,7 +18,6 @@ import org.xmc.fe.async.AsyncMonitor;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -58,10 +57,8 @@ public class CashAccountService {
         LOGGER.info("Marking cash account '{}' as deleted.", cashAccountId);
         monitor.setStatusText(MessageKey.ASYNC_TASK_DELETE_CASHACCOUNT);
 
-        Optional<CashAccount> cashAccount = cashAccountJpaRepository.findById(cashAccountId);
-        if (cashAccount.isPresent()) {
-            cashAccount.get().setDeletionDate(LocalDateTime.now());
-            cashAccountJpaRepository.save(cashAccount.get());
-        }
+        CashAccount cashAccount = cashAccountJpaRepository.getOne(cashAccountId);
+        cashAccount.setDeletionDate(LocalDateTime.now());
+        cashAccountJpaRepository.save(cashAccount);
     }
 }

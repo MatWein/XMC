@@ -25,7 +25,7 @@ class CashAccountTransactionSaldoUpdaterTest extends IntegrationTest {
         session().saveOrUpdate(cashAccountTransaction1);
 
         flush();
-        updater.updateAll(cashAccountTransaction1.getValutaDate());
+        updater.updateAll(cashAccount, cashAccountTransaction1.getValutaDate());
         flush();
 
         session().refresh(cashAccountTransaction1);
@@ -39,7 +39,7 @@ class CashAccountTransactionSaldoUpdaterTest extends IntegrationTest {
         session().saveOrUpdate(cashAccountTransaction2);
 
         flush();
-        updater.updateAll(cashAccountTransaction2.getValutaDate());
+        updater.updateAll(cashAccount, cashAccountTransaction2.getValutaDate());
         flush();
 
         session().refresh(cashAccountTransaction1);
@@ -57,7 +57,7 @@ class CashAccountTransactionSaldoUpdaterTest extends IntegrationTest {
         session().saveOrUpdate(cashAccountTransaction3);
 
         flush();
-        updater.updateAll(cashAccountTransaction3.getValutaDate());
+        updater.updateAll(cashAccount, cashAccountTransaction3.getValutaDate());
         flush();
 
         session().refresh(cashAccountTransaction1);
@@ -84,7 +84,7 @@ class CashAccountTransactionSaldoUpdaterTest extends IntegrationTest {
         session().saveOrUpdate(cashAccountTransaction1);
 
         flush();
-        updater.updateAll(cashAccountTransaction1.getValutaDate());
+        updater.updateAll(cashAccount, cashAccountTransaction1.getValutaDate());
         flush();
 
         session().refresh(cashAccountTransaction1);
@@ -98,7 +98,7 @@ class CashAccountTransactionSaldoUpdaterTest extends IntegrationTest {
         session().saveOrUpdate(cashAccountTransaction2);
 
         flush();
-        updater.updateAll(cashAccountTransaction2.getValutaDate());
+        updater.updateAll(cashAccount, cashAccountTransaction2.getValutaDate());
         flush();
 
         session().refresh(cashAccountTransaction1);
@@ -116,7 +116,7 @@ class CashAccountTransactionSaldoUpdaterTest extends IntegrationTest {
         session().saveOrUpdate(cashAccountTransaction3);
 
         flush();
-        updater.updateAll(cashAccountTransaction3.getValutaDate());
+        updater.updateAll(cashAccount, cashAccountTransaction3.getValutaDate());
         flush();
 
         session().refresh(cashAccountTransaction1);
@@ -138,7 +138,7 @@ class CashAccountTransactionSaldoUpdaterTest extends IntegrationTest {
         session().saveOrUpdate(cashAccountTransaction4);
 
         flush();
-        updater.updateAll(cashAccountTransaction4.getValutaDate());
+        updater.updateAll(cashAccount, cashAccountTransaction4.getValutaDate());
         flush();
 
         session().refresh(cashAccountTransaction1);

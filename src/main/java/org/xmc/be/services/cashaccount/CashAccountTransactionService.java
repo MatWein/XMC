@@ -73,13 +73,11 @@ public class CashAccountTransactionService {
         LOGGER.info("Marking cash account transaction '{}' as deleted.", transactionId);
         monitor.setStatusText(MessageKey.ASYNC_TASK_DELETE_CASHACCOUNT_TRANSACTION);
 
-        Optional<CashAccountTransaction> transaction = cashAccountTransactionJpaRepository.findById(transactionId);
-        if (transaction.isPresent()) {
-            transaction.get().setDeletionDate(LocalDateTime.now());
-            cashAccountTransactionJpaRepository.save(transaction.get());
+        CashAccountTransaction transaction = cashAccountTransactionJpaRepository.getOne(transactionId);
+        transaction.setDeletionDate(LocalDateTime.now());
+        cashAccountTransactionJpaRepository.save(transaction);
 
-            cashAccountTransactionSaldoUpdater.updateAll(transaction.get().getValutaDate());
-        }
+        cashAccountTransactionSaldoUpdater.updateAll(transaction);
     }
 
     public void saveOrUpdate(AsyncMonitor monitor, long cashAccountId, DtoCashAccountTransaction dtoCashAccountTransaction) {
@@ -92,18 +90,20 @@ public class CashAccountTransactionService {
 
     public Optional<Long> autoDetectCategory(
             AsyncMonitor monitor,
+            long cashAccountId,
             String usage) {
 
         LOGGER.info("Auto detecting cash account transaction category...");
         monitor.setStatusText(MessageKey.ASYNC_TASK_DETECT_CASHACCOUNT_TRANSACTION_CATEGORY);
 
-        return categoryDetectionController.autoDetectCategory(usage);
+        CashAccount cashAccount = cashAccountJpaRepository.getOne(cashAccountId);
+        return categoryDetectionController.autoDetectCategory(cashAccount, usage);
     }
 
-    public Pair<BigDecimal, BigDecimal> calculateSaldoPreview(LocalDate valutaDate, BigDecimal value) {
-        Optional<CashAccountTransaction> transactionBeforeOrOnDate = cashAccountTransactionJpaRepository.findTransactionBeforeOrOnDate(valutaDate);
+    public Pair<BigDecimal, BigDecimal> calculateSaldoPreview(long cashAccountId, LocalDate valutaDate, BigDecimal value) {
+        CashAccount cashAccount = cashAccountJpaRepository.getOne(cashAccountId);
 
-        BigDecimal saldoBefore = transactionBeforeOrOnDate.map(CashAccountTransaction::getSaldoAfter).orElse(new BigDecimal(0.0));
+        BigDecimal saldoBefore = cashAccountTransactionSaldoUpdater.calculateSaldoBefore(cashAccount, valutaDate.plusDays(1));
         BigDecimal saldoAfter = cashAccountTransactionSaldoUpdater.calculateSaldoAfter(saldoBefore, value);
 
         return ImmutablePair.of(saldoBefore, saldoAfter);

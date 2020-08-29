@@ -20,7 +20,6 @@ import org.xmc.fe.ui.MessageAdapter.MessageKey;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -73,10 +72,8 @@ public class BankService {
         LOGGER.info("Marking bank '{}' as deleted.", bankId);
         monitor.setStatusText(MessageKey.ASYNC_TASK_DELETE_BANK);
 
-        Optional<Bank> bank = bankJpaRepository.findById(bankId);
-        if (bank.isPresent()) {
-            bank.get().setDeletionDate(LocalDateTime.now());
-            bankJpaRepository.save(bank.get());
-        }
+        Bank bank = bankJpaRepository.getOne(bankId);
+        bank.setDeletionDate(LocalDateTime.now());
+        bankJpaRepository.save(bank);
     }
 }

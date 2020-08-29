@@ -1,8 +1,12 @@
 package org.xmc.be.repositories;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.IntegrationTest;
+import org.xmc.be.entities.BinaryData;
+
+import java.util.Optional;
 
 class BinaryDataJpaRepositoryTest extends IntegrationTest {
     @Autowired
@@ -10,6 +14,14 @@ class BinaryDataJpaRepositoryTest extends IntegrationTest {
 
     @Test
     void testFindById() {
-        throw new RuntimeException("not yet implemented");
+        graphGenerator.createBinaryData();
+        BinaryData expectedResult = graphGenerator.createBinaryData();
+        graphGenerator.createBinaryData();
+
+        flush();
+
+        Optional<BinaryData> result = repository.findById(expectedResult.getId());
+
+        Assert.assertEquals(expectedResult, result.get());
     }
 }

@@ -4,6 +4,7 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
+import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.services.cashaccount.CashAccountTransactionService;
 import org.xmc.be.services.category.CategoryService;
@@ -90,6 +91,8 @@ public class CashAccountTransactionsController implements IAfterInit<CashAccount
     }
 
     private void createOrEditCashAccountTransaction(DtoCashAccountTransactionOverview input) {
+        long cashAccountId = parentController.getSelectedCashAccount().getId();
+
         Optional<DtoCashAccountTransaction> dtoCashAccountTransaction = CustomDialogBuilder.getInstance()
                 .titleKey(MessageKey.CASHACCOUNT_TRANSACTION_EDIT_TITLE)
                 .addButton(MessageKey.CASHACCOUNT_TRANSACTION_EDIT_CANCEL, ButtonData.NO)
@@ -97,13 +100,11 @@ public class CashAccountTransactionsController implements IAfterInit<CashAccount
                 .withFxmlContent(FxmlKey.CASH_ACCOUNT_TRANSACTION_EDIT)
                 .withMapper(cashAccountTransactionEditDialogMapper)
                 .withInput(input)
-                .withAsyncDataLoading(categoryService::loadAllCategories)
+                .withAsyncDataLoading(monitor -> ImmutablePair.of(categoryService.loadAllCategories(monitor), cashAccountId))
                 .build()
                 .showAndWait();
 
         if (dtoCashAccountTransaction.isPresent()) {
-            long cashAccountId = parentController.getSelectedCashAccount().getId();
-
             asyncProcessor.runAsyncVoid(
                     () -> {},
                     monitor -> cashAccountTransactionService.saveOrUpdate(monitor, cashAccountId, dtoCashAccountTransaction.get()),

@@ -18,6 +18,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.xmc.common.utils.ReflectionUtil;
 import org.xmc.fe.FeConstants;
 import org.xmc.fe.ui.SceneUtil;
+import org.xmc.fe.ui.components.FocusLostListener;
 import org.xmc.fe.ui.validation.components.ValidationTextField;
 
 import java.util.List;
@@ -65,12 +66,7 @@ public class ValidationAutoComplete<T> extends ValidationTextField {
 
         PauseTransition pause = new PauseTransition(FeConstants.DEFAULT_DELAY);
 
-        this.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            boolean lostFocus = !Boolean.TRUE.equals(newValue);
-            if (lostFocus) {
-                autoCompleteMenu.hide();
-            }
-        });
+        this.focusedProperty().addListener((FocusLostListener) autoCompleteMenu::hide);
 
         this.addEventHandler(KeyEvent.KEY_PRESSED, event -> autoCompleteMenu.hide());
         this.addEventHandler(KeyEvent.KEY_RELEASED, event -> {

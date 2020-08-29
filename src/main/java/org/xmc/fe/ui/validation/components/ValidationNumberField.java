@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 import org.xmc.common.utils.NumberUtils;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
+import org.xmc.fe.ui.components.FocusLostListener;
 import org.xmc.fe.ui.components.IInitialFocus;
 import org.xmc.fe.ui.validation.*;
 
@@ -45,11 +46,7 @@ public class ValidationNumberField extends TextField implements IValidationCompo
     public void initialize(Scene scene) {
         CommonTextfieldValidator.initValidationEvent(this, scene);
 
-        this.focusedProperty().addListener((arg0, oldPropertyValue, newPropertyValue) -> {
-            if (!Boolean.TRUE.equals(newPropertyValue) && isValid()) {
-                setValue(getValue());
-            }
-        });
+        this.focusedProperty().addListener(FocusLostListener.getInstance(this, () -> setValue(getValue())));
 
         if (initialFocus) {
             requestInitialFocus();

@@ -13,6 +13,7 @@ import org.xmc.fe.ui.IDialogWithAsyncData;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.components.ComboBoxIconCellFactory;
+import org.xmc.fe.ui.components.FocusLostListener;
 import org.xmc.fe.ui.converter.GenericItemToStringConverter;
 import org.xmc.fe.ui.validation.components.*;
 
@@ -59,8 +60,8 @@ public class CashAccountTransactionEditController implements IDialogWithAsyncDat
         categoryComboBox.setConverter(GenericItemToStringConverter.getInstance(DtoCategory::getName));
         categoryComboBox.setPromptText(MessageAdapter.getByKey(MessageKey.CASHACCOUNT_TRANSACTION_EDIT_SELECT_CATEGORY));
 
-        valueNumberField.textProperty().addListener((observableValue, s, t1) -> updateSaldoPreview());
-        valutaDatePicker.valueProperty().addListener((observableValue, s, t1) -> updateSaldoPreview());
+        valueNumberField.focusedProperty().addListener(FocusLostListener.getInstance(valueNumberField, this::updateSaldoPreview));
+        valutaDatePicker.focusedProperty().addListener(FocusLostListener.getInstance(valutaDatePicker, this::updateSaldoPreview));
     }
 
     @Override

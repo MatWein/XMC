@@ -5,6 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import org.xmc.fe.ui.components.async.ProcessView?>
+<?import org.xmc.fe.ui.components.MemoryProgressBar?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="768.0" minWidth="1024.0" prefHeight="768.0"
             prefWidth="1024.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css,@/css/main/async.css"
             xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1"
@@ -85,11 +86,11 @@
                 <Insets left="10" right="10"/>
             </padding>
         </Separator>
-        <ProgressBar fx:id="memoryProgressbar" prefWidth="100" progress="0">
+        <MemoryProgressBar fx:id="memoryProgressbar" prefWidth="100" progress="0">
             <HBox.margin>
                 <Insets right="10"/>
             </HBox.margin>
-        </ProgressBar>
+        </MemoryProgressBar>
     </HBox>
 
     <MenuButton AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">

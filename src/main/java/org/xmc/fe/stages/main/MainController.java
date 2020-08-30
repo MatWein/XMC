@@ -7,20 +7,17 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.Region;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.services.login.UserLoginService;
-import org.xmc.fe.stages.main.logic.MemoryBarController;
 import org.xmc.fe.ui.CustomDialogBuilder;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.FxmlController;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
+import org.xmc.fe.ui.components.MemoryProgressBar;
 import org.xmc.fe.ui.components.async.ProcessView;
 
 @FxmlController
 public class MainController {
-    private final MemoryBarController memoryBarController;
-
     public volatile static Region backdropRef;
     public volatile static ProcessView processViewRef;
 
@@ -30,20 +27,15 @@ public class MainController {
     @FXML private ProgressBar processProgressbar;
     @FXML private Region backdrop;
     @FXML private Label statusLabel;
-    @FXML private ProgressBar memoryProgressbar;
+    @FXML private MemoryProgressBar memoryProgressbar;
     @FXML private Label displayNameLabel;
-
-    @Autowired
-    public MainController(MemoryBarController memoryBarController) {
-        this.memoryBarController = memoryBarController;
-    }
 
     @FXML
     public void initialize() {
         backdropRef = backdrop;
         processViewRef = processView;
 
-        memoryBarController.startMemoryBarThread(memoryProgressbar);
+        memoryProgressbar.initialize();
         displayNameLabel.setText(MessageAdapter.getByKey(MessageKey.MAIN_DISPLAYNAME, System.getProperty(UserLoginService.SYSTEM_PROPERTY_DISPLAYNAME)));
 
         BooleanBinding itemCountObservable = processView.itemCountProperty().greaterThan(0);

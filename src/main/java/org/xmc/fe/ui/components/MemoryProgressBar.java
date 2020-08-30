@@ -1,25 +1,27 @@
-package org.xmc.fe.stages.main.logic;
+package org.xmc.fe.ui.components;
 
 import javafx.application.Platform;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Tooltip;
 import org.apache.commons.io.FileUtils;
-import org.springframework.stereotype.Component;
 import org.xmc.common.utils.SleepUtil;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 
 import java.util.concurrent.TimeUnit;
 
-@Component
-public class MemoryBarController {
-    public void startMemoryBarThread(ProgressBar memoryProgressbar) {
-        Thread memoryBarThread = new Thread(() -> runProgressbarUpdate(memoryProgressbar));
+public class MemoryProgressBar extends ProgressBar {
+    public void initialize() {
+        startMemoryBarThread();
+    }
+
+    private void startMemoryBarThread() {
+        Thread memoryBarThread = new Thread(this::runProgressbarUpdate);
         memoryBarThread.setDaemon(true);
         memoryBarThread.start();
     }
 
-    private void runProgressbarUpdate(ProgressBar memoryProgressbar) {
+    private void runProgressbarUpdate() {
         Runtime runtime = Runtime.getRuntime();
 
         while (true) {
@@ -33,8 +35,8 @@ public class MemoryBarController {
 
             Platform.runLater(() -> {
                 String text = MessageAdapter.getByKey(MessageKey.MAIN_MEMORY, usedMemoryInMb, totalMemoryInMb, usedMemoryInPercent);
-                memoryProgressbar.setTooltip(new Tooltip(text));
-                memoryProgressbar.setProgress((double)usedMemory / (double)totalMemory);
+                this.setTooltip(new Tooltip(text));
+                this.setProgress((double)usedMemory / (double)totalMemory);
             });
             SleepUtil.sleep(TimeUnit.SECONDS.toMillis(15));
         }

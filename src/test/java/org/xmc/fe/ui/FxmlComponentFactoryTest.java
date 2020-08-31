@@ -20,7 +20,6 @@ class FxmlComponentFactoryTest extends IntegrationTest {
 
                 Pair<Parent, Object> component = FxmlComponentFactory.load(fxmlKey);
                 Assert.assertNotNull(component.getLeft());
-                Assert.assertNotNull(component.getRight());
             }
         });
     }

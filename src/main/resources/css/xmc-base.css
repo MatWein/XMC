@@ -20,6 +20,12 @@
 
 .text-white {
     -fx-text-fill: white;
+    -fx-fill: white;
+}
+
+.text-white * {
+    -fx-text-fill: white;
+    -fx-fill: white;
 }
 
 .hand {
@@ -69,4 +75,8 @@
 
 .padding-left-15 {
     -fx-padding: 0px 0px 0px 15px;
+}
+
+.padding-10 {
+    -fx-padding: 10px;
 }

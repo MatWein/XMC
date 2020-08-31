@@ -12,6 +12,9 @@ public class SceneBuilder {
 
     private Parent root;
 
+    private SceneBuilder() {
+    }
+
     public SceneBuilder withRoot(Parent root) {
         this.root = root;
         return this;

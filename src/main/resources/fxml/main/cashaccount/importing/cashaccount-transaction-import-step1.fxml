@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<VBox stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
+      xmlns:fx="http://javafx.com/fxml/1" styleClass="padding-10"
+      fx:controller="org.xmc.fe.stages.main.cashaccount.importing.CashAccountTransactionImportStep1Controller">
+
+    <Text text="Hallo Welt 1" />
+
+</VBox>

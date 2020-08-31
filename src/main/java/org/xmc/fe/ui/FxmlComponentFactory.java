@@ -43,7 +43,12 @@ public class FxmlComponentFactory {
         CASH_ACCOUNT_TRANSACTIONS("/fxml/main/cashaccount/cashaccount-transactions.fxml"),
         CASH_ACCOUNT_TRANSACTION_EDIT("/fxml/main/cashaccount/cashaccount-transaction-edit.fxml"),
         BANK_EDIT("/fxml/main/administration/bank-edit.fxml"),
-        CATEGORY_EDIT("/fxml/main/administration/category-edit.fxml")
+        CATEGORY_EDIT("/fxml/main/administration/category-edit.fxml"),
+        WIZARD("/fxml/wizard/wizard.fxml"),
+        CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP1("/fxml/main/cashaccount/importing/cashaccount-transaction-import-step1.fxml"),
+        CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP2("/fxml/main/cashaccount/importing/cashaccount-transaction-import-step2.fxml"),
+        CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP3("/fxml/main/cashaccount/importing/cashaccount-transaction-import-step3.fxml"),
+        CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4("/fxml/main/cashaccount/importing/cashaccount-transaction-import-step4.fxml")
         ;
 
         private final String fxmlPath;

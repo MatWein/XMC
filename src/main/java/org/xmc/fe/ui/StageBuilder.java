@@ -19,6 +19,8 @@ public class StageBuilder {
     private boolean resizable;
     private boolean maximized;
     private Dimension minSize;
+    private Object controller;
+    private Object input;
 
     private StageBuilder() {
     }
@@ -38,6 +40,11 @@ public class StageBuilder {
         return this;
     }
 
+    public StageBuilder withInput(Object input) {
+        this.input = input;
+        return this;
+    }
+
     public StageBuilder withSceneComponent(Parent component) {
         this.scene = SceneBuilder.getInstance()
                 .withRoot(component)
@@ -47,6 +54,7 @@ public class StageBuilder {
 
     public StageBuilder withFxmlSceneComponent(FxmlKey key) {
         Pair<Parent, Object> component = FxmlComponentFactory.load(key);
+        this.controller = component.getRight();
         return withSceneComponent(component.getLeft());
     }
 
@@ -88,6 +96,10 @@ public class StageBuilder {
         if (minSize != null) {
             existingStage.setMinWidth(minSize.getWidth());
             existingStage.setMinHeight(minSize.getHeight());
+        }
+
+        if (input != null && controller instanceof IAfterInit) {
+            ((IAfterInit)controller).afterInitialize(input);
         }
 
         return existingStage;

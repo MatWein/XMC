@@ -1,12 +1,12 @@
 package org.xmc.fe.ui;
 
+import com.google.common.collect.Maps;
+import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.Pair;
 import org.xmc.Main;
@@ -19,6 +19,8 @@ import org.xmc.fe.ui.MessageAdapter.MessageKey;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.function.BiConsumer;
 
 public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE, ASYNC_DATA_TYPE> {
     public static CustomDialogBuilder getInstance() { return new CustomDialogBuilder(); }
@@ -31,6 +33,10 @@ public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE, ASYNC_DATA_TYPE> 
     private RETURN_TYPE input;
     private List<ButtonType> buttons = new ArrayList<>();
     private IAsyncCallable<ASYNC_DATA_TYPE> asyncCallable;
+    private Map<ButtonType, BiConsumer<ActionEvent, CONTROLLER_TYPE>> customButtonActions = Maps.newHashMap();
+
+    private CustomDialogBuilder() {
+    }
 
     public CustomDialogBuilder titleKey(MessageKey titleKey) {
         this.titleKey = titleKey;
@@ -73,19 +79,28 @@ public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE, ASYNC_DATA_TYPE> 
         return this;
     }
 
+    public CustomDialogBuilder addCustomButtonAction(ButtonType buttonType, BiConsumer<ActionEvent, CONTROLLER_TYPE> onAction) {
+        this.customButtonActions.put(buttonType, onAction);
+        return this;
+    }
+
     public Dialog<RETURN_TYPE> build() {
         Dialog<RETURN_TYPE> dialog = new Dialog<>();
 
         dialog.setTitle(MessageAdapter.getByKey(titleKey));
         dialog.setHeaderText(MessageAdapter.getByKey(headerTextKey));
 
-        DialogPane dialogPane = dialog.getDialogPane();
+        DialogPane dialogPane = createDialogPane();
         dialogPane.getStylesheets().add(FeConstants.BASE_CSS_PATH);
         dialogPane.setContent(content);
         dialogPane.getButtonTypes().addAll(buttons);
+        dialog.setDialogPane(dialogPane);
 
+        if (controller instanceof IAfterInit) {
+            ((IAfterInit) controller).afterInitialize(dialog);
+        }
         if (mapper != null) {
-            dialog.setResultConverter(param -> mapper.apply(param.getButtonData(), controller));
+            dialog.setResultConverter(param -> mapper.apply(param == null ? null : param.getButtonData(), controller));
         }
         if (mapper != null && input != null) {
             mapper.accept(controller, input);
@@ -106,6 +121,28 @@ public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE, ASYNC_DATA_TYPE> 
         }
 
         return dialog;
+    }
+
+    private DialogPane createDialogPane() {
+        return new DialogPane() {
+            @Override
+            protected Node createButton(ButtonType buttonType) {
+                if (customButtonActions.containsKey(buttonType)) {
+                    final Button button = new Button(buttonType.getText());
+                    final ButtonData buttonData = buttonType.getButtonData();
+                    ButtonBar.setButtonData(button, buttonData);
+                    button.setDefaultButton(buttonData.isDefaultButton());
+                    button.setCancelButton(buttonData.isCancelButton());
+                    button.addEventHandler(ActionEvent.ACTION, ae -> {
+                        if (ae.isConsumed()) return;
+                        customButtonActions.get(buttonType).accept(ae, controller);
+                    });
+                    return button;
+                } else {
+                    return super.createButton(buttonType);
+                }
+            }
+        };
     }
 
     public static void showBackdrop(Dialog<?> dialog) {

@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.Region;
+import javafx.stage.Stage;
 import org.xmc.be.services.login.UserLoginService;
 import org.xmc.fe.ui.CustomDialogBuilder;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
@@ -20,6 +21,7 @@ import org.xmc.fe.ui.components.async.ProcessView;
 public class MainController {
     public volatile static Region backdropRef;
     public volatile static ProcessView processViewRef;
+    public volatile static Stage mainWindow;
 
     @FXML private ProcessView processView;
     @FXML private ProgressIndicator progressIndicator;

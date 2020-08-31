@@ -16,6 +16,7 @@ import org.xmc.common.stubs.login.DtoBootstrapFile;
 import org.xmc.common.utils.HomeDirectoryPathCalculator;
 import org.xmc.common.utils.SleepUtil;
 import org.xmc.config.BeanConfig;
+import org.xmc.fe.stages.main.MainController;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.FxmlController;
 import org.xmc.fe.ui.MessageAdapter;
@@ -99,15 +100,16 @@ public class BootstrapController {
         SleepUtil.sleep(500);
 
         Platform.runLater(() -> {
-            StageBuilder.getInstance()
+            MainController.mainWindow = StageBuilder.getInstance()
                     .resizable(true)
                     .maximized(true)
                     .minSize(1024, 768)
                     .withFxmlSceneComponent(FxmlKey.MAIN)
                     .withDefaultTitleKey()
                     .withDefaultIcon()
-                    .build()
-                    .show();
+                    .build();
+
+            MainController.mainWindow.show();
 
             ((Stage)statusLabel.getScene().getWindow()).close();
         });

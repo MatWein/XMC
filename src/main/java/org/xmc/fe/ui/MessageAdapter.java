@@ -102,6 +102,11 @@ public class MessageAdapter {
         CASHACCOUNT_TRANSACTION_EDIT_SAVE("cashaccount.transaction.edit.save"),
         CASHACCOUNT_TRANSACTION_EDIT_SELECT_CATEGORY("cashaccount.transaction.edit.selectCategory"),
         CASHACCOUNT_TRANSACTION_CONFIRM_DELETE("cashaccount.transaction.confirm.delete"),
+        CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_TITLE("cashaccount.transaction.import.dialog.title"),
+        CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP1_TITLE("cashaccount.transaction.import.dialog.step1.title"),
+        CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP2_TITLE("cashaccount.transaction.import.dialog.step2.title"),
+        CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP3_TITLE("cashaccount.transaction.import.dialog.step3.title"),
+        CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_TITLE("cashaccount.transaction.import.dialog.step4.title"),
 
         BANK_EDIT_TITLE("bank.edit.title"),
         BANK_EDIT_CANCEL("bank.edit.cancel"),
@@ -123,6 +128,10 @@ public class MessageAdapter {
         CATEGORY_SHOPPING("category.shopping"),
         CATEGORY_DEPOT("category.depot"),
         CATEGORY_CONFIRM_DELETE("category.confirm.delete"),
+
+        WIZARD_PREVIOUS("wizard.previous"),
+        WIZARD_NEXT("wizard.next"),
+        WIZARD_FINISH("wizard.finish")
         ;
 
         private final String key;

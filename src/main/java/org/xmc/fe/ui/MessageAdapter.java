@@ -2,6 +2,7 @@ package org.xmc.fe.ui;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xmc.common.stubs.cashaccount.transactions.importing.CashAccountTransactionImportColmn;
 
 import java.text.MessageFormat;
 import java.util.Locale;
@@ -22,11 +23,24 @@ public class MessageAdapter {
             return null;
         }
 
+        return getByKey(key.getKey(), args);
+    }
+
+    public static String getByKey(MessageKey prefix, Enum<?> enumValue, Object... args) {
+        if (prefix == null || enumValue == null) {
+            return null;
+        }
+
+        String key = prefix.getKey() + "." + enumValue.name();
+        return getByKey(key, args);
+    }
+
+    private static String getByKey(String key, Object... args) {
         try {
-            return MessageFormat.format(RESOURCE_BUNDLE.getString(key.getKey()), args);
+            return MessageFormat.format(RESOURCE_BUNDLE.getString(key), args);
         } catch (MissingResourceException e) {
-            LOGGER.warn("Message key not found: {}", key.getKey(), e);
-            return key.getKey();
+            LOGGER.warn("Message key not found: {}", key, e);
+            return key;
         }
     }
 
@@ -110,6 +124,7 @@ public class MessageAdapter {
         CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP2_TITLE("cashaccount.transaction.import.dialog.step2.title"),
         CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP3_TITLE("cashaccount.transaction.import.dialog.step3.title"),
         CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_TITLE("cashaccount.transaction.import.dialog.step4.title"),
+        CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_COLUMN_PREFIX("cashaccount.transaction.import.dialog.step4.columns", CashAccountTransactionImportColmn.class),
 
         BANK_EDIT_TITLE("bank.edit.title"),
         BANK_EDIT_CANCEL("bank.edit.cancel"),
@@ -138,13 +153,24 @@ public class MessageAdapter {
         ;
 
         private final String key;
+        private final Class<? extends Enum<?>> enumType;
 
         MessageKey(String key) {
             this.key = key;
+            this.enumType = null;
+        }
+
+        MessageKey(String key, Class<? extends Enum<?>> enumType) {
+            this.key = key;
+            this.enumType = enumType;
         }
 
         public String getKey() {
             return key;
+        }
+
+        public Class<? extends Enum<?>> getEnumType() {
+            return enumType;
         }
     }
 }

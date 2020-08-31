@@ -11,6 +11,7 @@ import org.xmc.fe.ui.components.IInitialFocus;
 import org.xmc.fe.ui.validation.*;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.LinkedHashSet;
@@ -25,6 +26,7 @@ public class ValidationNumberField extends TextField implements IValidationCompo
     private Double max;
     private String equalTo;
     private String customValidator;
+    private int fractionDigits = 2;
 
     public ValidationNumberField() {
         setAlignment(Pos.CENTER_RIGHT);
@@ -55,7 +57,8 @@ public class ValidationNumberField extends TextField implements IValidationCompo
 
     public void setValue(double value) {
         NumberFormat numberInstance = NumberFormat.getNumberInstance();
-        numberInstance.setMinimumFractionDigits(2);
+        numberInstance.setMinimumFractionDigits(fractionDigits);
+        numberInstance.setMaximumFractionDigits(fractionDigits);
 
         setText(numberInstance.format(value));
     }
@@ -70,7 +73,7 @@ public class ValidationNumberField extends TextField implements IValidationCompo
 
     public double getValue() {
         try {
-            return NumberUtils.parseDoubleValue(getText());
+            return new BigDecimal(NumberUtils.parseDoubleValue(getText())).setScale(fractionDigits, RoundingMode.DOWN).doubleValue();
         } catch (ParseException ignored) {
             return 0.0;
         }
@@ -123,6 +126,10 @@ public class ValidationNumberField extends TextField implements IValidationCompo
     @Override
     public void setMin(Double min) {
         this.min = min;
+
+        if (min != null && getValue() < min) {
+            setValue(min);
+        }
     }
 
     @Override
@@ -161,5 +168,14 @@ public class ValidationNumberField extends TextField implements IValidationCompo
     @Override
     public void removeStyleClass(String styleClass) {
         getStyleClass().removeAll(styleClass);
+    }
+
+    public int getFractionDigits() {
+        return fractionDigits;
+    }
+
+    public void setFractionDigits(int fractionDigits) {
+        this.fractionDigits = fractionDigits;
+        setValue(getValue());
     }
 }

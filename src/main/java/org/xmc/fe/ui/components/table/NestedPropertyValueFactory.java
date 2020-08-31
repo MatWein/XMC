@@ -3,7 +3,7 @@ package org.xmc.fe.ui.components.table;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
-import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
@@ -21,16 +21,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.Currency;
 import java.util.Locale;
 
-public class NestedPropertyValueFactory implements Callback<TableColumn.CellDataFeatures, ObservableValue> {
+public class NestedPropertyValueFactory implements Callback<CellDataFeatures, ObservableValue> {
     private static final String DATE_PATTERN = "dd.MM.yyyy";
     private static final String DATE_TIME_PATTERN = DATE_PATTERN + " HH:mm:ss";
 
     private String property;
     private Double fitToWidth;
     private Double fitToHeight;
+    private int fractionDigits = 2;
 
     @Override
-    public ObservableValue call(TableColumn.CellDataFeatures param) {
+    public ObservableValue call(CellDataFeatures param) {
         return getCellDataReflectively(param.getValue());
     }
 
@@ -78,7 +79,8 @@ public class NestedPropertyValueFactory implements Callback<TableColumn.CellData
 
     private NumberFormat createNumberInstance() {
         NumberFormat numberInstance = NumberFormat.getNumberInstance(Locale.getDefault());
-        numberInstance.setMinimumFractionDigits(2);
+        numberInstance.setMinimumFractionDigits(fractionDigits);
+        numberInstance.setMaximumFractionDigits(fractionDigits);
         return numberInstance;
     }
 
@@ -117,5 +119,13 @@ public class NestedPropertyValueFactory implements Callback<TableColumn.CellData
 
     public void setFitToHeight(Double fitToHeight) {
         this.fitToHeight = fitToHeight;
+    }
+
+    public int getFractionDigits() {
+        return fractionDigits;
+    }
+
+    public void setFractionDigits(int fractionDigits) {
+        this.fractionDigits = fractionDigits;
     }
 }

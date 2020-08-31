@@ -9,6 +9,7 @@ import org.xmc.fe.ui.wizard.IWizardStepPopulator;
 public class CashAccountTransactionImportStep3Populator implements IWizardStepPopulator<DtoCashAccountTransactionImportData, CashAccountTransactionImportStep3Controller> {
     @Override
     public void populateState(DtoCashAccountTransactionImportData input, CashAccountTransactionImportStep3Controller controller) {
-
+        input.setStartWithLine((int)controller.getStartWithLineNumberField().getValue());
+        input.setColmuns(controller.getColumnMappingTable().getItems());
     }
 }

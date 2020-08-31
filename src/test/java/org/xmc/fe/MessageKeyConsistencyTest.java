@@ -62,8 +62,15 @@ class MessageKeyConsistencyTest extends JUnitTestBase {
 	@Test
 	void testMessageKeyConsistency_EachFileContainsEachEnumValue() {
 		for (MessageKey messageKey : MessageKey.values()) {
-			String key = messageKey.getKey();
-			Assert.assertTrue(String.format("Message key '%s' is contained in enum but not in any message file.", key), allUniqueKeys.contains(key));
+			if (messageKey.getEnumType() != null) {
+				for (Enum<?> enumConstant : messageKey.getEnumType().getEnumConstants()) {
+					String key = messageKey.getKey() + "." + enumConstant.name();
+					Assert.assertTrue(String.format("Message key '%s' is contained in enum but not in any message file.", key), allUniqueKeys.contains(key));
+				}
+			} else {
+				String key = messageKey.getKey();
+				Assert.assertTrue(String.format("Message key '%s' is contained in enum but not in any message file.", key), allUniqueKeys.contains(key));
+			}
 		}
 	}
 	

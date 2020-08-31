@@ -2,10 +2,17 @@
 
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+<?import org.xmc.fe.ui.components.LineBreak?>
 <VBox stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
       xmlns:fx="http://javafx.com/fxml/1" styleClass="padding-10"
       fx:controller="org.xmc.fe.stages.main.cashaccount.importing.CashAccountTransactionImportStep1Controller">
 
-    <Text text="Hallo Welt 1" />
+    <TextFlow>
+        <Text text="%cashaccount.transaction.import.dialog.step1.hint1" />
+        <LineBreak />
+        <LineBreak />
+        <Text text="%cashaccount.transaction.import.dialog.step1.hint2" />
+    </TextFlow>
 
 </VBox>

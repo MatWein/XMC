@@ -32,4 +32,8 @@ public interface FeConstants {
     ExtensionFilter IMAGE_EXTENSION_FILTER = new ExtensionFilter(
             MessageAdapter.getByKey(MessageKey.FILECHOOSER_IMAGES),
             "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif");
+
+    ExtensionFilter CSV_EXCEL_EXTENSION_FILTER = new ExtensionFilter(
+            MessageAdapter.getByKey(MessageKey.FILECHOOSER_CSV_EXCEL),
+            "*.csv", "*.xlsx");
 }

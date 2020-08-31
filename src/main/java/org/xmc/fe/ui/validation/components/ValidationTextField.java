@@ -8,7 +8,7 @@ import org.xmc.fe.ui.validation.*;
 import java.util.LinkedHashSet;
 
 public class ValidationTextField extends TextField implements IValidationComponent, IRequired, ILength, IEqualTo, ICustomValidator, IInitialFocus {
-    private static final String CSS_CLASS_INVALID = "textfield-invalid";
+    static final String CSS_CLASS_INVALID = "textfield-invalid";
 
     private boolean required;
     private boolean initialFocus;
@@ -94,5 +94,15 @@ public class ValidationTextField extends TextField implements IValidationCompone
     @Override
     public void setInitialFocus(boolean initialFocus) {
         this.initialFocus = initialFocus;
+    }
+
+    @Override
+    public void addStyleClass(String styleClass) {
+        getStyleClass().add(styleClass);
+    }
+
+    @Override
+    public void removeStyleClass(String styleClass) {
+        getStyleClass().removeAll(styleClass);
     }
 }

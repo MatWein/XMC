@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 <VBox stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
-      xmlns:fx="http://javafx.com/fxml/1" styleClass="padding-10"
+      xmlns:fx="http://javafx.com/fxml/1" styleClass="padding-15"
       fx:controller="org.xmc.fe.stages.main.cashaccount.importing.CashAccountTransactionImportStep3Controller">
 
     <Text text="Hallo Welt 3"/>

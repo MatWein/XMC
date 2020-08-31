@@ -107,6 +107,6 @@ public class WizardController<INPUT_TYPE> implements IAfterInit<Pair<List<Wizard
             buttonNext.setText(MessageAdapter.getByKey(MessageAdapter.MessageKey.WIZARD_NEXT));
         }
 
-        SceneUtil.getOrCreateValidationSceneState(buttonNext.getScene()).validate();
+        SceneUtil.createValidationSceneState(buttonNext.getScene()).validate();
     }
 }

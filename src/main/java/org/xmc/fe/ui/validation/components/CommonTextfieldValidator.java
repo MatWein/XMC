@@ -25,7 +25,10 @@ public class CommonTextfieldValidator {
         return validate(component, c -> (TextInputControl)c);
     }
 
-    public static <COMPONENT_TYPE extends Parent> LinkedHashSet<String> validate(COMPONENT_TYPE component, Function<COMPONENT_TYPE, TextInputControl> textFieldExtractor) {
+    public static <COMPONENT_TYPE extends Parent> LinkedHashSet<String> validate(
+            COMPONENT_TYPE component,
+            Function<COMPONENT_TYPE, TextInputControl> textFieldExtractor) {
+
         LinkedHashSet<String> errorMessages = new LinkedHashSet<>();
 
         TextInputControl textfield = textFieldExtractor.apply(component);

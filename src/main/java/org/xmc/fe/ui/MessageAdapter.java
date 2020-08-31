@@ -36,7 +36,9 @@ public class MessageAdapter {
         TABLE_NO_CONTENT("table.noContent"),
         DIALOG_OK("dialog.ok"),
         FILECHOOSER_IMAGES("filechooser.extensionfilter.images"),
+        FILECHOOSER_CSV_EXCEL("filechooser.extensionfilter.csvExcel"),
         FILECHOOSER_TITLE("filechooser.title"),
+        FILECHOOSER_SELECT_FILE("filechooser.selectFile"),
 
         VALIDATION_REQUIRED("validation.required"),
         VALIDATION_MIN_LENGTH("validation.minLength"),
@@ -51,6 +53,7 @@ public class MessageAdapter {
         VALIDATION_INVALID_CURRENCY("validation.invalidCurrency"),
         VALIDATION_INVALID_DATE("validation.invalidDate"),
         VALIDATION_ZERO_NOT_ALLOWED("validation.zeroNotAllowed"),
+        VALIDATION_INVALID_FILE_PATH("validation.invalidFilePath"),
 
         PAGING_FIRST_PAGE("paging.firstPage"),
         PAGING_BACK("paging.back"),

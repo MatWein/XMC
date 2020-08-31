@@ -13,7 +13,7 @@
     <VBox alignment="TOP_CENTER" prefWidth="200.0" styleClass="background-akzent-1, text-white"
           AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
 
-        <TextFlow fx:id="stepsTextflow" lineSpacing="5.0" styleClass="padding-10, background-akzent-1, text-white">
+        <TextFlow fx:id="stepsTextflow" lineSpacing="5.0" styleClass="padding-15, background-akzent-1, text-white">
             <Text styleClass="bold, underline" text="%wizard.steps.header"/>
             <LineBreak/>
             <LineBreak/>

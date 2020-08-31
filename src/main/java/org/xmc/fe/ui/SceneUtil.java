@@ -26,10 +26,14 @@ public class SceneUtil {
         if (scene.getUserData() instanceof ValidationSceneState) {
             return (ValidationSceneState)scene.getUserData();
         } else {
-            var validationSceneState = new ValidationSceneState(scene);
-            scene.setUserData(validationSceneState);
-            return validationSceneState;
+            return createValidationSceneState(scene);
         }
+    }
+
+    public static ValidationSceneState createValidationSceneState(Scene scene) {
+        var validationSceneState = new ValidationSceneState(scene);
+        scene.setUserData(validationSceneState);
+        return validationSceneState;
     }
 
     public static List<Node> getAllChildren(Parent root) {

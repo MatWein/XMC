@@ -102,4 +102,14 @@ public class ValidationComboBox<T> extends ComboBox<T> implements IValidationCom
     public void setInitialFocus(boolean initialFocus) {
         this.initialFocus = initialFocus;
     }
+
+    @Override
+    public void addStyleClass(String styleClass) {
+        getStyleClass().add(styleClass);
+    }
+
+    @Override
+    public void removeStyleClass(String styleClass) {
+        getStyleClass().removeAll(styleClass);
+    }
 }

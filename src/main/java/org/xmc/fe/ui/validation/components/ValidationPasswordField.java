@@ -95,4 +95,14 @@ public class ValidationPasswordField extends PasswordField implements IValidatio
     public void setInitialFocus(boolean initialFocus) {
         this.initialFocus = initialFocus;
     }
+
+    @Override
+    public void addStyleClass(String styleClass) {
+        getStyleClass().add(styleClass);
+    }
+
+    @Override
+    public void removeStyleClass(String styleClass) {
+        getStyleClass().removeAll(styleClass);
+    }
 }

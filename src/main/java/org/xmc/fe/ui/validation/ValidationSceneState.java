@@ -104,10 +104,10 @@ public class ValidationSceneState {
                     .collect(Collectors.toList());
 
             if (validationErrorsForField.isEmpty()) {
-                validationComponent.getStyleClass().removeAll(validationComponent.getCssClassInvalid());
+                validationComponent.removeStyleClass(validationComponent.getCssClassInvalid());
                 validationComponent.setTooltip(null);
             } else {
-                validationComponent.getStyleClass().add(validationComponent.getCssClassInvalid());
+                validationComponent.addStyleClass(validationComponent.getCssClassInvalid());
                 validationComponent.setTooltip(new Tooltip(String.join(System.lineSeparator(), validationErrorsForField)));
             }
         }

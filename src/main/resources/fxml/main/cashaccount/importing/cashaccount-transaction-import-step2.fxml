@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
+<?import org.xmc.fe.ui.validation.components.ValidationComboBox?>
+<?import org.xmc.fe.ui.validation.components.ValidationFileChooserField?>
 <VBox stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
-      xmlns:fx="http://javafx.com/fxml/1" styleClass="padding-10"
+      xmlns:fx="http://javafx.com/fxml/1" styleClass="padding-15"
       fx:controller="org.xmc.fe.stages.main.cashaccount.importing.CashAccountTransactionImportStep2Controller">
 
-    <Text text="Hallo Welt 2"/>
+    <Label styleClass="form-label-first" text="%cashaccount.transaction.import.dialog.step2.chooseFile"/>
+    <ValidationFileChooserField required="true" fx:id="fileChooserField" />
+
+    <Label styleClass="form-label" text="%cashaccount.transaction.import.dialog.step2.chooseFileTemplate"/>
+    <ValidationComboBox required="false" fx:id="fileTemplateComboBox" />
 
 </VBox>

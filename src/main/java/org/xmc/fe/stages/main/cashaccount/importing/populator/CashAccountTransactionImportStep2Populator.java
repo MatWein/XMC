@@ -9,6 +9,6 @@ import org.xmc.fe.ui.wizard.IWizardStepPopulator;
 public class CashAccountTransactionImportStep2Populator implements IWizardStepPopulator<DtoCashAccountTransactionImportData, CashAccountTransactionImportStep2Controller> {
     @Override
     public void populateState(DtoCashAccountTransactionImportData input, CashAccountTransactionImportStep2Controller controller) {
-
+        input.setFilePath(controller.getFileChooserField().getValueAsString());
     }
 }

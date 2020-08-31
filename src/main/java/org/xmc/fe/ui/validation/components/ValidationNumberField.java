@@ -152,4 +152,14 @@ public class ValidationNumberField extends TextField implements IValidationCompo
     public void setZeroAllowed(boolean zeroAllowed) {
         this.zeroAllowed = zeroAllowed;
     }
+
+    @Override
+    public void addStyleClass(String styleClass) {
+        getStyleClass().add(styleClass);
+    }
+
+    @Override
+    public void removeStyleClass(String styleClass) {
+        getStyleClass().removeAll(styleClass);
+    }
 }

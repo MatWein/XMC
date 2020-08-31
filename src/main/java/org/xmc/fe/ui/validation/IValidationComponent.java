@@ -1,6 +1,5 @@
 package org.xmc.fe.ui.validation;
 
-import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Tooltip;
 
@@ -14,5 +13,6 @@ public interface IValidationComponent {
 
     String getCssClassInvalid();
     void setTooltip(Tooltip tooltip);
-    ObservableList<String> getStyleClass();
+    void addStyleClass(String styleClass);
+    void removeStyleClass(String styleClass);
 }

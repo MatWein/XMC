@@ -1,11 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
+<?import org.xmc.fe.ui.components.table.NestedPropertyValueFactory?>
+<?import org.xmc.fe.ui.components.table.TableView?>
+<?import org.xmc.fe.ui.validation.components.ValidationTextField?>
 <VBox stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
       xmlns:fx="http://javafx.com/fxml/1" styleClass="padding-15"
       fx:controller="org.xmc.fe.stages.main.cashaccount.importing.CashAccountTransactionImportStep4Controller">
 
-    <Text text="Hallo Welt 4"/>
+    <CheckBox styleClass="form-label-first" text="%cashaccount.transaction.import.dialog.step4.saveTemplate" fx:id="saveTemplateCheckbox" />
+    <ValidationTextField fx:id="templateToSaveName" />
+
+    <Label styleClass="form-label" text="%cashaccount.transaction.import.dialog.step4.preview"/>
+    <TableView fx:id="previewTable">
+        <columns>
+            <TableColumn editable="false" reorderable="false" sortable="false"
+                         text="%cashaccount.transaction.import.dialog.step4.preview.column">
+                <cellValueFactory>
+                    <NestedPropertyValueFactory property="column"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn editable="false" reorderable="false" sortable="false"
+                         text="%cashaccount.transaction.import.dialog.step4.preview.value">
+                <cellValueFactory>
+                    <NestedPropertyValueFactory property="value"/>
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+        </columnResizePolicy>
+    </TableView>
 
 </VBox>

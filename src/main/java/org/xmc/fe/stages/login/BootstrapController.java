@@ -1,6 +1,7 @@
 package org.xmc.fe.stages.login;
 
 import javafx.application.Platform;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,6 +11,8 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration;
+import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
 import org.xmc.Main;
 import org.xmc.be.services.login.UserLoginService;
 import org.xmc.common.stubs.login.DtoBootstrapFile;
@@ -40,7 +43,15 @@ public class BootstrapController {
 
     @FXML
     public void initialize() {
-        versionLabel.setText(BeanConfig.loadVersionWithoutSprintContext());
+        versionLabel.setText(loadVersionWithoutSprintContext());
+    }
+
+    public static String loadVersionWithoutSprintContext() {
+        try {
+            return new ProjectInfoAutoConfiguration(new ProjectInfoProperties()).buildProperties().getVersion();
+        } catch (Exception e) {
+            return new BeanConfig().buildProperties().getVersion();
+        }
     }
 
     public void start(DtoBootstrapFile dtoBootstrapFile, Runnable preprocessing) {
@@ -53,10 +64,14 @@ public class BootstrapController {
     }
 
     public void run() {
+        getStage().setOnCloseRequest(Event::consume);
+
         try {
             runWithoutErrorHandling();
         } catch (Throwable e) {
             handleErrors(e);
+        } finally {
+            getStage().setOnCloseRequest(null);
         }
     }
 
@@ -111,8 +126,13 @@ public class BootstrapController {
 
             MainController.mainWindow.show();
 
-            ((Stage)statusLabel.getScene().getWindow()).close();
+            getStage().setOnCloseRequest(null);
+            getStage().close();
         });
+    }
+
+    private Stage getStage() {
+        return (Stage)statusLabel.getScene().getWindow();
     }
 
     private void handleErrors(Throwable e) {

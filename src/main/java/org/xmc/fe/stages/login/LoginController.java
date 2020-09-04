@@ -9,7 +9,6 @@ import javafx.scene.control.TextField;
 import org.apache.commons.lang3.tuple.Pair;
 import org.xmc.be.services.login.controller.BootstrapFileController;
 import org.xmc.common.stubs.login.DtoBootstrapFile;
-import org.xmc.config.BeanConfig;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.FxmlController;
 import org.xmc.fe.ui.SceneUtil;
@@ -27,7 +26,7 @@ public class LoginController {
 
     @FXML
     public void initialize() {
-        versionLabel.setText(BeanConfig.loadVersionWithoutSprintContext());
+        versionLabel.setText(BootstrapController.loadVersionWithoutSprintContext());
         unsafeWarningLabel.visibleProperty().bind(saveCredentialsToggle.selectedProperty());
 
         autoLoginToggle.selectedProperty().addListener((observableValue, oldValue, newValue) -> {

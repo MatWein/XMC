@@ -6,7 +6,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import org.xmc.fe.FeConstants;
@@ -31,22 +30,22 @@ public class DialogHelper {
                 .orElse(false);
     }
 
-    public static Optional<File> showOpenFileDialog(Window ownerWindow, ExtensionFilter extensionFilter) {
+    public static Optional<File> showOpenFileDialog(Window ownerWindow, ExtensionFilterType extensionFilter) {
         FileChooser fileChooser = createFileChooser(extensionFilter);
         return showBackdrop(() -> Optional.ofNullable(fileChooser.showOpenDialog(ownerWindow)));
     }
 
-    public static List<File> showOpenMultipleFileDialog(Window ownerWindow, ExtensionFilter extensionFilter) {
+    public static List<File> showOpenMultipleFileDialog(Window ownerWindow, ExtensionFilterType extensionFilter) {
         FileChooser fileChooser = createFileChooser(extensionFilter);
         return showBackdrop(() -> fileChooser.showOpenMultipleDialog(ownerWindow));
     }
 
-    static FileChooser createFileChooser(ExtensionFilter extensionFilter) {
+    static FileChooser createFileChooser(ExtensionFilterType extensionFilter) {
         FileChooser fileChooser = new FileChooser();
 
         fileChooser.setTitle(MessageAdapter.getByKey(MessageKey.FILECHOOSER_TITLE));
-        fileChooser.getExtensionFilters().add(extensionFilter);
-        fileChooser.setSelectedExtensionFilter(extensionFilter);
+        fileChooser.getExtensionFilters().add(extensionFilter.getExtensionFilter());
+        fileChooser.setSelectedExtensionFilter(extensionFilter.getExtensionFilter());
         return fileChooser;
     }
 

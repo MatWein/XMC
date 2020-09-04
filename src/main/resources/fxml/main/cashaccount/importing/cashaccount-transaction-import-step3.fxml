@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.layout.VBox?>
 <?import org.xmc.fe.importing.ImportColumnFieldCellValueFactory?>
 <?import org.xmc.fe.ui.components.table.NestedPropertyValueFactory?>
+<?import org.xmc.fe.ui.components.table.TableView?>
 <?import org.xmc.fe.ui.validation.components.ValidationNumberField?>
 <VBox styleClass="padding-15" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
       xmlns:fx="http://javafx.com/fxml/1"

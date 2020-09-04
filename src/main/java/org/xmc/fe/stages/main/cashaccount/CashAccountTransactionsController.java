@@ -15,6 +15,7 @@ import org.xmc.common.stubs.cashaccount.transactions.importing.DtoCashAccountTra
 import org.xmc.fe.async.AsyncProcessor;
 import org.xmc.fe.stages.main.cashaccount.importing.populator.CashAccountTransactionImportStep2Populator;
 import org.xmc.fe.stages.main.cashaccount.importing.populator.CashAccountTransactionImportStep3Populator;
+import org.xmc.fe.stages.main.cashaccount.importing.populator.CashAccountTransactionImportStep4Populator;
 import org.xmc.fe.stages.main.cashaccount.mapper.CashAccountTransactionEditDialogMapper;
 import org.xmc.fe.stages.main.cashaccount.mapper.DtoCashAccountTransactionOverviewToDtoCashAccountTransactionMapper;
 import org.xmc.fe.ui.CustomDialogBuilder;
@@ -37,6 +38,7 @@ public class CashAccountTransactionsController implements IAfterInit<CashAccount
     private final DtoCashAccountTransactionOverviewToDtoCashAccountTransactionMapper dtoCashAccountTransactionOverviewToDtoCashAccountTransactionMapper;
     private final CashAccountTransactionImportStep2Populator cashAccountTransactionImportStep2Populator;
     private final CashAccountTransactionImportStep3Populator cashAccountTransactionImportStep3Populator;
+    private final CashAccountTransactionImportStep4Populator cashAccountTransactionImportStep4Populator;
 
     @FXML private TableViewEx<DtoCashAccountTransactionOverview, CashAccountTransactionOverviewFields> tableView;
     @FXML private Button editButton;
@@ -52,7 +54,8 @@ public class CashAccountTransactionsController implements IAfterInit<CashAccount
             AsyncProcessor asyncProcessor,
             DtoCashAccountTransactionOverviewToDtoCashAccountTransactionMapper dtoCashAccountTransactionOverviewToDtoCashAccountTransactionMapper,
             CashAccountTransactionImportStep2Populator cashAccountTransactionImportStep2Populator,
-            CashAccountTransactionImportStep3Populator cashAccountTransactionImportStep3Populator) {
+            CashAccountTransactionImportStep3Populator cashAccountTransactionImportStep3Populator,
+            CashAccountTransactionImportStep4Populator cashAccountTransactionImportStep4Populator) {
 
         this.categoryService = categoryService;
         this.cashAccountTransactionEditDialogMapper = cashAccountTransactionEditDialogMapper;
@@ -61,6 +64,7 @@ public class CashAccountTransactionsController implements IAfterInit<CashAccount
         this.dtoCashAccountTransactionOverviewToDtoCashAccountTransactionMapper = dtoCashAccountTransactionOverviewToDtoCashAccountTransactionMapper;
         this.cashAccountTransactionImportStep2Populator = cashAccountTransactionImportStep2Populator;
         this.cashAccountTransactionImportStep3Populator = cashAccountTransactionImportStep3Populator;
+        this.cashAccountTransactionImportStep4Populator = cashAccountTransactionImportStep4Populator;
     }
 
     @FXML
@@ -112,7 +116,7 @@ public class CashAccountTransactionsController implements IAfterInit<CashAccount
                 .addStep(MessageKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP1_TITLE, FxmlKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP1)
                 .addStep(MessageKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP2_TITLE, FxmlKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP2, cashAccountTransactionImportStep2Populator)
                 .addStep(MessageKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP3_TITLE, FxmlKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP3, cashAccountTransactionImportStep3Populator)
-                .addStep(MessageKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_TITLE, FxmlKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4)
+                .addStep(MessageKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_TITLE, FxmlKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4, cashAccountTransactionImportStep4Populator)
                 .build()
                 .showAndWait();
     }

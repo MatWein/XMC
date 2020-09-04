@@ -1,8 +1,6 @@
 package org.xmc.config;
 
 import com.opencsv.bean.CsvToBeanBuilder;
-import org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration;
-import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.boot.info.GitProperties;
 import org.springframework.context.annotation.Bean;
@@ -60,13 +58,5 @@ public class BeanConfig {
         properties.setProperty("version", "development");
 
         return new BuildProperties(properties);
-    }
-
-    public static String loadVersionWithoutSprintContext() {
-        try {
-            return new ProjectInfoAutoConfiguration(new ProjectInfoProperties()).buildProperties().getVersion();
-        } catch (Exception e) {
-            return new BeanConfig().buildProperties().getVersion();
-        }
     }
 }

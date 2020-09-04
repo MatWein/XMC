@@ -9,7 +9,7 @@ class DialogHelperTest extends JUnitTestBase {
     @Test
     void testCreateFileChooser() throws Throwable {
         runJavaFxCode(() -> {
-            FileChooser result = DialogHelper.createFileChooser(new FileChooser.ExtensionFilter("test", "*.exe"));
+            FileChooser result = DialogHelper.createFileChooser(ExtensionFilterType.ALL);
             Assert.assertNotNull(result);
         });
     }

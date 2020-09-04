@@ -7,9 +7,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.xmc.fe.FeConstants;
 import org.xmc.fe.ui.DialogHelper;
+import org.xmc.fe.ui.ExtensionFilterType;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.SceneUtil;
@@ -31,6 +32,7 @@ public class ValidationFileChooserField extends HBox implements IValidationCompo
     private boolean required;
     private String equalTo;
     private String customValidator;
+    private String filterType; // has to be a string because scene builder cannot render enum parameters
 
     public ValidationFileChooserField() {
         this.setFillHeight(true);
@@ -48,10 +50,18 @@ public class ValidationFileChooserField extends HBox implements IValidationCompo
     }
 
     private void selectFile(Button chooseFileButton) {
-        Optional<File> selectedFile = DialogHelper.showOpenFileDialog(chooseFileButton.getScene().getWindow(), FeConstants.CSV_EXCEL_EXTENSION_FILTER);
+        Optional<File> selectedFile = DialogHelper.showOpenFileDialog(chooseFileButton.getScene().getWindow(), findExtensionFilter());
         if (selectedFile.isPresent()) {
             editor.setText(selectedFile.get().getAbsolutePath());
             SceneUtil.getOrCreateValidationSceneState(editor.getScene()).validate();
+        }
+    }
+
+    private ExtensionFilterType findExtensionFilter() {
+        if (filterType == null) {
+            return ExtensionFilterType.ALL;
+        } else {
+            return ExtensionFilterType.valueOf(filterType);
         }
     }
 
@@ -61,6 +71,11 @@ public class ValidationFileChooserField extends HBox implements IValidationCompo
 
         if (StringUtils.isNotBlank(editor.getText()) && !new File(editor.getText()).isFile()) {
             errors.add(MessageAdapter.getByKey(MessageKey.VALIDATION_INVALID_FILE_PATH));
+        }
+
+        String extension = FilenameUtils.getExtension(editor.getText());
+        if (!findExtensionFilter().getExtensionFilter().getExtensions().contains("*." + extension)) {
+            errors.add(MessageAdapter.getByKey(MessageKey.VALIDATION_INVALID_FILE_EXTENSION));
         }
 
         return errors;
@@ -153,5 +168,13 @@ public class ValidationFileChooserField extends HBox implements IValidationCompo
         }
 
         return null;
+    }
+
+    public String getFilterType() {
+        return filterType;
+    }
+
+    public void setFilterType(String filterType) {
+        this.filterType = filterType;
     }
 }

@@ -60,7 +60,6 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> 
         orderMapper = (TableOrderMapper) ReflectionUtil.createNewInstanceFactory().call(TableOrderMapper.class);
 
         tableView = new TableView<>();
-        tableView.setPlaceholder(new Label(MessageAdapter.getByKey(MessageKey.TABLE_NO_CONTENT)));
         VBox.setVgrow(tableView, Priority.ALWAYS);
 
         tableView.getItems().addListener((ListChangeListener<ITEM_TYPE>) c -> currentItemCount.set(tableView.getItems().size()));

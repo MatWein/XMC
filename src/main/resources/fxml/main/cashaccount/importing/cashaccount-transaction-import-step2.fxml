@@ -9,7 +9,7 @@
       fx:controller="org.xmc.fe.stages.main.cashaccount.importing.CashAccountTransactionImportStep2Controller">
 
     <Label styleClass="form-label-first" text="%cashaccount.transaction.import.dialog.step2.chooseFile"/>
-    <ValidationFileChooserField required="true" fx:id="fileChooserField" />
+    <ValidationFileChooserField required="true" fx:id="fileChooserField" filterType="CSV_OR_EXCEL" />
 
     <Label styleClass="form-label" text="%cashaccount.transaction.import.dialog.step2.chooseFileTemplate"/>
     <ValidationComboBox required="false" fx:id="fileTemplateComboBox" />

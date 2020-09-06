@@ -10,7 +10,7 @@
     -fx-background-color: xmc-akzent-1;
 }
 
-.bold {
+.bold, .bold * {
     -fx-font-weight: bold;
 }
 
@@ -18,14 +18,14 @@
     -fx-underline: true;
 }
 
-.text-white {
+.text-white, .text-white * {
     -fx-text-fill: white;
     -fx-fill: white;
 }
 
-.text-white * {
-    -fx-text-fill: white;
-    -fx-fill: white;
+.text-red, .text-red * {
+    -fx-text-fill: red;
+    -fx-fill: red;
 }
 
 .hand {

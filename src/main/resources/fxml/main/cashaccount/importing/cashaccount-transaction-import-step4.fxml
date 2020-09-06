@@ -1,38 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
-<?import org.xmc.fe.ui.components.table.NestedPropertyValueFactory?>
-<?import org.xmc.fe.ui.components.table.TableView?>
+<?import javafx.scene.text.*?>
+<?import org.xmc.fe.ui.components.LineBreak?>
+<?import org.xmc.fe.ui.components.table.*?>
 <?import org.xmc.fe.ui.validation.components.ValidationTextField?>
-<VBox stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
+<VBox stylesheets="@/css/xmc-base.css, @/css/main/cashaccount/importing/cashaccount-importing.css" xmlns="http://javafx.com/javafx/11.0.0"
       xmlns:fx="http://javafx.com/fxml/1" styleClass="padding-15"
       fx:controller="org.xmc.fe.stages.main.cashaccount.importing.CashAccountTransactionImportStep4Controller">
 
     <CheckBox styleClass="form-label-first" text="%cashaccount.transaction.import.dialog.step4.saveTemplate" fx:id="saveTemplateCheckbox" />
     <ValidationTextField fx:id="templateToSaveName" />
 
-    <Label styleClass="form-label" text="%cashaccount.transaction.import.dialog.step4.preview"/>
-    <TableView fx:id="previewTable">
-        <columns>
-            <TableColumn editable="false" reorderable="false" sortable="false"
-                         text="%cashaccount.transaction.import.dialog.step4.preview.column">
-                <cellValueFactory>
-                    <NestedPropertyValueFactory property="column"/>
-                </cellValueFactory>
-            </TableColumn>
-            <TableColumn editable="false" reorderable="false" sortable="false"
-                         text="%cashaccount.transaction.import.dialog.step4.preview.value">
-                <cellValueFactory>
-                    <NestedPropertyValueFactory property="value"/>
-                </cellValueFactory>
-            </TableColumn>
-        </columns>
-        <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-        </columnResizePolicy>
-    </TableView>
+    <TabPane tabClosingPolicy="UNAVAILABLE" styleClass="form-label">
+        <Tab text="%cashaccount.transaction.import.dialog.step4.preview">
+            <BaseTable fx:id="previewTable" styleClass="table-tab-element">
+                <columns>
+                    <TableColumn editable="false" reorderable="false" sortable="false"
+                                 text="%cashaccount.transaction.import.dialog.step4.preview.column">
+                        <cellValueFactory>
+                            <NestedPropertyValueFactory property="column"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn editable="false" reorderable="false" sortable="false"
+                                 text="%cashaccount.transaction.import.dialog.step4.preview.value">
+                        <cellValueFactory>
+                            <NestedPropertyValueFactory property="value"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                </columns>
+                <columnResizePolicy>
+                    <BaseTable fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                </columnResizePolicy>
+            </BaseTable>
+        </Tab>
+        <Tab text="%cashaccount.transaction.import.dialog.step4.errors">
+            <BaseTable fx:id="errorTable" styleClass="table-tab-element">
+                <columns>
+                    <TableColumn editable="false" reorderable="false" sortable="false"
+                                 text="%cashaccount.transaction.import.dialog.step4.errors.row">
+                        <cellValueFactory>
+                            <NestedPropertyValueFactory property="row"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn editable="false" reorderable="false" sortable="false"
+                                 text="%cashaccount.transaction.import.dialog.step4.errors.reason">
+                        <cellValueFactory>
+                            <NestedPropertyValueFactory property="reason"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                </columns>
+                <columnResizePolicy>
+                    <BaseTable fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                </columnResizePolicy>
+            </BaseTable>
+        </Tab>
+    </TabPane>
+
+    <TextFlow styleClass="form-label">
+        <Text text="%cashaccount.transaction.import.dialog.step4.preview.validTransactionCount" />
+        <Text text=" " />
+        <Text fx:id="validTransactionCountText" styleClass="bold" text="0" />
+        <LineBreak />
+        <Text text="%cashaccount.transaction.import.dialog.step4.preview.invalidTransactionCount" />
+        <Text text=" " />
+        <Text fx:id="invalidTransactionCountText" styleClass="bold, text-red" text="0" />
+    </TextFlow>
 
 </VBox>

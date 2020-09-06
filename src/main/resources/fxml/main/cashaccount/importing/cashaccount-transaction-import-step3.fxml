@@ -4,8 +4,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.layout.VBox?>
 <?import org.xmc.fe.importing.ImportColumnFieldCellValueFactory?>
+<?import org.xmc.fe.ui.components.table.BaseTable?>
 <?import org.xmc.fe.ui.components.table.NestedPropertyValueFactory?>
-<?import org.xmc.fe.ui.components.table.TableView?>
 <?import org.xmc.fe.ui.validation.components.ValidationNumberField?>
 <VBox styleClass="padding-15" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
       xmlns:fx="http://javafx.com/fxml/1"
@@ -15,7 +15,7 @@
     <ValidationNumberField fx:id="startWithLineNumberField" fractionDigits="0" min="1" required="true"/>
 
     <Label styleClass="form-label" text="%cashaccount.transaction.import.dialog.step3.columnMapping"/>
-    <TableView fx:id="columnMappingTable">
+    <BaseTable fx:id="columnMappingTable">
         <columns>
             <TableColumn editable="false" reorderable="false" sortable="false"
                          text="%cashaccount.transaction.import.dialog.step3.columnMapping.column">
@@ -33,8 +33,8 @@
             </TableColumn>
         </columns>
         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            <BaseTable fx:constant="CONSTRAINED_RESIZE_POLICY"/>
         </columnResizePolicy>
-    </TableView>
+    </BaseTable>
 
 </VBox>

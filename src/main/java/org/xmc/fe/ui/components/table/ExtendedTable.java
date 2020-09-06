@@ -36,10 +36,10 @@ import scalc.SCalcBuilder;
 import java.math.RoundingMode;
 import java.util.function.Consumer;
 
-public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> & IPagingField> extends VBox {
+public class ExtendedTable<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> & IPagingField> extends VBox {
     public static final double MAX_AUTORESIZE_COLUMN_WIDTH = 400.0;
 
-    private final TableView<ITEM_TYPE> tableView;
+    private final BaseTable<ITEM_TYPE> table;
     private final Label placeholder;
     private final TextField filterTextfield;
 
@@ -56,21 +56,21 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> 
     private SORT_ENUM_TYPE sortBy;
     private boolean autoResize = true;
 
-    public TableViewEx() {
+    public ExtendedTable() {
         orderMapper = (TableOrderMapper) ReflectionUtil.createNewInstanceFactory().call(TableOrderMapper.class);
 
-        tableView = new TableView<>();
-        VBox.setVgrow(tableView, Priority.ALWAYS);
+        table = new BaseTable<>();
+        VBox.setVgrow(table, Priority.ALWAYS);
 
-        tableView.getItems().addListener((ListChangeListener<ITEM_TYPE>) c -> currentItemCount.set(tableView.getItems().size()));
+        table.getItems().addListener((ListChangeListener<ITEM_TYPE>) c -> currentItemCount.set(table.getItems().size()));
         getColumns().addListener(this::validateNewColumns);
         currentItemCount.addListener((observable, oldValue, newValue) -> {
-            for (TableColumnEx<ITEM_TYPE, ?> column : getColumns()) {
+            for (ExtendedTableColumn<ITEM_TYPE, ?> column : getColumns()) {
                 column.setVisible(newValue.intValue() > 0);
             }
         });
 
-        tableView.setRowFactory(tv -> {
+        table.setRowFactory(tv -> {
             TableRow<ITEM_TYPE> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
@@ -146,7 +146,7 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> 
             reload(true);
         }));
 
-        getChildren().add(tableView);
+        getChildren().add(table);
         getChildren().add(toolBar);
     }
 
@@ -155,16 +155,16 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> 
             return;
         }
 
-        tableView.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
+        table.setColumnResizePolicy(BaseTable.UNCONSTRAINED_RESIZE_POLICY);
 
-        for (TableColumn<ITEM_TYPE, ?> column : tableView.getColumns()) {
-            if (!column.isResizable() || StringUtils.isBlank(column.getText()) || ((TableColumnEx) column).isAvoidAutoResize()) {
+        for (TableColumn<ITEM_TYPE, ?> column : table.getColumns()) {
+            if (!column.isResizable() || StringUtils.isBlank(column.getText()) || ((ExtendedTableColumn) column).isAvoidAutoResize()) {
                 continue;
             }
 
             Text text = new Text(column.getText());
             double max = text.getLayoutBounds().getWidth();
-            for (int i = 0; i < tableView.getItems().size(); i++) {
+            for (int i = 0; i < table.getItems().size(); i++) {
                 if (column.getCellData(i) instanceof Text) {
                     text = (Text)column.getCellData(i);
                     double calcwidth = text.getLayoutBounds().getWidth();
@@ -179,7 +179,7 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> 
     }
 
     private void onSort() {
-        TableColumnEx<ITEM_TYPE, ?> columnToSort = (TableColumnEx<ITEM_TYPE, ?>) Iterables.getFirst(tableView.getSortOrder(), null);
+        ExtendedTableColumn<ITEM_TYPE, ?> columnToSort = (ExtendedTableColumn<ITEM_TYPE, ?>) Iterables.getFirst(table.getSortOrder(), null);
         if (columnToSort == null) {
             sortType = null;
             sortBy = null;
@@ -191,9 +191,9 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> 
         reload(true);
     }
 
-    private void validateNewColumns(Change<? extends TableColumnEx<ITEM_TYPE, ?>> c) {
+    private void validateNewColumns(Change<? extends ExtendedTableColumn<ITEM_TYPE, ?>> c) {
         if (c.next()) {
-            for (TableColumnEx<ITEM_TYPE, ?> column : c.getAddedSubList()) {
+            for (ExtendedTableColumn<ITEM_TYPE, ?> column : c.getAddedSubList()) {
                 if (column.isSortable() && StringUtils.isBlank(column.getSortField())) {
                     throw new IllegalArgumentException(String.format("Sortable column '%s' must have specified a sort field!", column.getText()));
                 }
@@ -247,7 +247,7 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> 
     }
 
     private void updateItems(QueryResults<ITEM_TYPE> items) {
-        tableView.getItems().setAll(items.getResults());
+        table.getItems().setAll(items.getResults());
 
         int currentPage, pageCount;
         if (items.isEmpty()) {
@@ -287,18 +287,18 @@ public class TableViewEx<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> 
 
         // This will automatically reload the table.
         // If we set the policy in constructor and call reload() here, the table will reload two times.
-        tableView.setSortPolicy(param -> {
+        table.setSortPolicy(param -> {
             onSort();
             return true;
         });
     }
 
-    public ObservableList<TableColumnEx<ITEM_TYPE, ?>> getColumns() {
-        return (ObservableList) tableView.getColumns();
+    public ObservableList<ExtendedTableColumn<ITEM_TYPE, ?>> getColumns() {
+        return (ObservableList) table.getColumns();
     }
 
     public TableViewSelectionModel<ITEM_TYPE> getSelectionModel() {
-        return tableView.getSelectionModel();
+        return table.getSelectionModel();
     }
 
     public String getFieldEnumType() {

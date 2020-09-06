@@ -36,39 +36,39 @@
         </Button>
     </ToolBar>
 
-    <TableViewEx VBox.vgrow="ALWAYS" fx:id="tableView"
-                 fieldEnumType="org.xmc.common.stubs.bank.BankOverviewFields">
+    <ExtendedTable VBox.vgrow="ALWAYS" fx:id="tableView"
+                   fieldEnumType="org.xmc.common.stubs.bank.BankOverviewFields">
         <columns>
-            <TableColumnEx editable="false" prefWidth="50" sortable="false" resizable="false">
+            <ExtendedTableColumn editable="false" prefWidth="50" sortable="false" resizable="false">
                 <cellValueFactory>
                     <NestedPropertyValueFactory property="logo" fitToWidth="24" fitToHeight="24"/>
                 </cellValueFactory>
-            </TableColumnEx>
-            <TableColumnEx editable="false" text="%main.administration.banks.overview.table.column.name"
-                           sortField="BANK_NAME">
+            </ExtendedTableColumn>
+            <ExtendedTableColumn editable="false" text="%main.administration.banks.overview.table.column.name"
+                                 sortField="BANK_NAME">
                 <cellValueFactory>
                     <NestedPropertyValueFactory property="name"/>
                 </cellValueFactory>
-            </TableColumnEx>
-            <TableColumnEx editable="false" text="%main.administration.banks.overview.table.column.bic"
-                           sortField="BANK_BIC">
+            </ExtendedTableColumn>
+            <ExtendedTableColumn editable="false" text="%main.administration.banks.overview.table.column.bic"
+                                 sortField="BANK_BIC">
                 <cellValueFactory>
                     <NestedPropertyValueFactory property="bic"/>
                 </cellValueFactory>
-            </TableColumnEx>
-            <TableColumnEx editable="false" text="%main.administration.banks.overview.table.column.blz"
-                           sortField="BANK_BLZ">
+            </ExtendedTableColumn>
+            <ExtendedTableColumn editable="false" text="%main.administration.banks.overview.table.column.blz"
+                                 sortField="BANK_BLZ">
                 <cellValueFactory>
                     <NestedPropertyValueFactory property="blz"/>
                 </cellValueFactory>
-            </TableColumnEx>
-            <TableColumnEx editable="false" text="%main.administration.banks.overview.table.column.creationDate"
-                           sortField="CREATION_DATE">
+            </ExtendedTableColumn>
+            <ExtendedTableColumn editable="false" text="%main.administration.banks.overview.table.column.creationDate"
+                                 sortField="CREATION_DATE">
                 <cellValueFactory>
                     <NestedPropertyValueFactory property="creationDate"/>
                 </cellValueFactory>
-            </TableColumnEx>
+            </ExtendedTableColumn>
         </columns>
-    </TableViewEx>
+    </ExtendedTable>
 
 </VBox>

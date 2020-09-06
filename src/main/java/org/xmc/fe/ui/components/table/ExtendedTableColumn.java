@@ -2,11 +2,11 @@ package org.xmc.fe.ui.components.table;
 
 import javafx.scene.control.TableColumn;
 
-public class TableColumnEx<S, T> extends TableColumn<S, T> {
+public class ExtendedTableColumn<S, T> extends TableColumn<S, T> {
     private String sortField;
     private boolean avoidAutoResize = false;
 
-    public TableColumnEx() {
+    public ExtendedTableColumn() {
         this.setVisible(false);
     }
 

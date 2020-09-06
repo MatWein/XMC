@@ -16,7 +16,7 @@ import org.xmc.fe.ui.DialogHelper;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.FxmlController;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
-import org.xmc.fe.ui.components.table.TableViewEx;
+import org.xmc.fe.ui.components.table.ExtendedTable;
 
 import java.util.Optional;
 
@@ -26,7 +26,7 @@ public class CategoryController {
     private final AsyncProcessor asyncProcessor;
     private final CategoryEditDialogMapper categoryEditDialogMapper;
 
-    @FXML private TableViewEx<DtoCategoryOverview, CategoryOverviewFields> tableView;
+    @FXML private ExtendedTable<DtoCategoryOverview, CategoryOverviewFields> tableView;
     @FXML private Button editButton;
     @FXML private Button deleteButton;
 

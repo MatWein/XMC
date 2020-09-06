@@ -18,7 +18,7 @@ import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.FxmlController;
 import org.xmc.fe.ui.IAfterInit;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
-import org.xmc.fe.ui.components.table.TableViewEx;
+import org.xmc.fe.ui.components.table.ExtendedTable;
 
 import java.util.Optional;
 
@@ -32,7 +32,7 @@ public class CashAccountsOverviewController implements IAfterInit<CashAccountCon
     @FXML private Button editButton;
     @FXML private Button deleteButton;
     @FXML private Button navigateTransactionsButton;
-    @FXML private TableViewEx<DtoCashAccountOverview, CashAccountOverviewFields> tableView;
+    @FXML private ExtendedTable<DtoCashAccountOverview, CashAccountOverviewFields> tableView;
 
     private CashAccountController parentController;
 

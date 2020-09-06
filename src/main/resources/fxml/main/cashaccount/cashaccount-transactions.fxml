@@ -40,85 +40,85 @@
         </Button>
     </ToolBar>
 
-    <TableViewEx VBox.vgrow="ALWAYS" fx:id="tableView"
-                 fieldEnumType="org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionOverviewFields">
+    <ExtendedTable VBox.vgrow="ALWAYS" fx:id="tableView"
+                   fieldEnumType="org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionOverviewFields">
         <columns>
-            <TableColumnEx editable="false" prefWidth="50" sortable="false" resizable="false">
+            <ExtendedTableColumn editable="false" prefWidth="50" sortable="false" resizable="false">
                 <cellValueFactory>
                     <NestedPropertyValueFactory property="category.icon" fitToWidth="24" fitToHeight="24"/>
                 </cellValueFactory>
-            </TableColumnEx>
-            <TableColumnEx editable="false" text="%main.cashaccounts.transactions.overview.table.column.categoryName"
-                           sortField="CATEGORY_NAME">
+            </ExtendedTableColumn>
+            <ExtendedTableColumn editable="false" text="%main.cashaccounts.transactions.overview.table.column.categoryName"
+                                 sortField="CATEGORY_NAME">
                 <cellValueFactory>
                     <NestedPropertyValueFactory property="category.name"/>
                 </cellValueFactory>
-            </TableColumnEx>
-            <TableColumnEx editable="false" text="%main.cashaccounts.transactions.overview.table.column.valutaDate"
-                           sortField="VALUTA_DATE">
+            </ExtendedTableColumn>
+            <ExtendedTableColumn editable="false" text="%main.cashaccounts.transactions.overview.table.column.valutaDate"
+                                 sortField="VALUTA_DATE">
                 <cellValueFactory>
                     <NestedPropertyValueFactory property="valutaDate"/>
                 </cellValueFactory>
-            </TableColumnEx>
-            <TableColumnEx editable="false" text="%main.cashaccounts.transactions.overview.table.column.usage"
-                           sortField="USAGE">
+            </ExtendedTableColumn>
+            <ExtendedTableColumn editable="false" text="%main.cashaccounts.transactions.overview.table.column.usage"
+                                 sortField="USAGE">
                 <cellValueFactory>
                     <NestedPropertyValueFactory property="usage"/>
                 </cellValueFactory>
-            </TableColumnEx>
-            <TableColumnEx editable="false" text="%main.cashaccounts.transactions.overview.table.column.value"
-                           sortField="VALUE">
+            </ExtendedTableColumn>
+            <ExtendedTableColumn editable="false" text="%main.cashaccounts.transactions.overview.table.column.value"
+                                 sortField="VALUE">
                 <cellValueFactory>
                     <NestedPropertyValueFactory property="value" />
                 </cellValueFactory>
-            </TableColumnEx>
-            <TableColumnEx editable="false" text="%main.cashaccounts.transactions.overview.table.column.description"
-                           sortField="DESCRIPTION">
+            </ExtendedTableColumn>
+            <ExtendedTableColumn editable="false" text="%main.cashaccounts.transactions.overview.table.column.description"
+                                 sortField="DESCRIPTION">
                 <cellValueFactory>
                     <NestedPropertyValueFactory property="description"/>
                 </cellValueFactory>
-            </TableColumnEx>
-            <TableColumnEx editable="false" sortable="false" text="%main.cashaccounts.transactions.overview.table.column.saldoBefore">
+            </ExtendedTableColumn>
+            <ExtendedTableColumn editable="false" sortable="false" text="%main.cashaccounts.transactions.overview.table.column.saldoBefore">
                 <cellValueFactory>
                     <NestedPropertyValueFactory property="saldoBefore" />
                 </cellValueFactory>
-            </TableColumnEx>
-            <TableColumnEx editable="false" sortable="false" text="%main.cashaccounts.transactions.overview.table.column.saldoAfter">
+            </ExtendedTableColumn>
+            <ExtendedTableColumn editable="false" sortable="false" text="%main.cashaccounts.transactions.overview.table.column.saldoAfter">
                 <cellValueFactory>
                     <NestedPropertyValueFactory property="saldoAfter" />
                 </cellValueFactory>
-            </TableColumnEx>
-            <TableColumnEx editable="false" text="%main.cashaccounts.transactions.overview.table.column.referenceBank"
-                           sortField="REFERENCE_BANK">
+            </ExtendedTableColumn>
+            <ExtendedTableColumn editable="false" text="%main.cashaccounts.transactions.overview.table.column.referenceBank"
+                                 sortField="REFERENCE_BANK">
                 <cellValueFactory>
                     <NestedPropertyValueFactory property="referenceBank.name"/>
                 </cellValueFactory>
-            </TableColumnEx>
-            <TableColumnEx editable="false" text="%main.cashaccounts.transactions.overview.table.column.referenceIban"
-                           sortField="REFERENCE_IBAN">
+            </ExtendedTableColumn>
+            <ExtendedTableColumn editable="false" text="%main.cashaccounts.transactions.overview.table.column.referenceIban"
+                                 sortField="REFERENCE_IBAN">
                 <cellValueFactory>
                     <NestedPropertyValueFactory property="referenceBank.bic"/>
                 </cellValueFactory>
-            </TableColumnEx>
-            <TableColumnEx editable="false" text="%main.cashaccounts.transactions.overview.table.column.reference"
-                           sortField="REFERENCE">
+            </ExtendedTableColumn>
+            <ExtendedTableColumn editable="false" text="%main.cashaccounts.transactions.overview.table.column.reference"
+                                 sortField="REFERENCE">
                 <cellValueFactory>
                     <NestedPropertyValueFactory property="reference"/>
                 </cellValueFactory>
-            </TableColumnEx>
-            <TableColumnEx editable="false" text="%main.cashaccounts.transactions.overview.table.column.creditorIdentifier"
-                           sortField="CREDITOR_IDENTIFIER">
+            </ExtendedTableColumn>
+            <ExtendedTableColumn editable="false" text="%main.cashaccounts.transactions.overview.table.column.creditorIdentifier"
+                                 sortField="CREDITOR_IDENTIFIER">
                 <cellValueFactory>
                     <NestedPropertyValueFactory property="creditorIdentifier"/>
                 </cellValueFactory>
-            </TableColumnEx>
-            <TableColumnEx editable="false" text="%main.cashaccounts.transactions.overview.table.column.mandate"
-                           sortField="MANDATE">
+            </ExtendedTableColumn>
+            <ExtendedTableColumn editable="false" text="%main.cashaccounts.transactions.overview.table.column.mandate"
+                                 sortField="MANDATE">
                 <cellValueFactory>
                     <NestedPropertyValueFactory property="mandate"/>
                 </cellValueFactory>
-            </TableColumnEx>
+            </ExtendedTableColumn>
         </columns>
-    </TableViewEx>
+    </ExtendedTable>
 
 </VBox>

@@ -9,7 +9,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.xmc.fe.stages.main.MainController;
 import org.xmc.fe.ui.FxmlComponentFactory;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
-import org.xmc.fe.ui.IAfterInit;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.StageBuilder;
 
@@ -55,13 +54,6 @@ public class WizardBuilder<INPUT_TYPE> {
     }
 
     public Stage build() {
-        for (WizardStep step : steps) {
-            Object controller = step.getController();
-            if (controller instanceof IAfterInit) {
-                ((IAfterInit) controller).afterInitialize(input);
-            }
-        }
-
         Stage stage = StageBuilder.getInstance()
                 .withDefaultIcon()
                 .withTitleKey(titleKey)

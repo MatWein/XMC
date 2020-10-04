@@ -21,7 +21,7 @@
     <VBox AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="10.0"
           AnchorPane.topAnchor="10.0">
 
-        <TextFlow lineSpacing="5.0">
+        <BaseTextFlow lineSpacing="5.0">
             <Text styleClass="bold,underline" text="%app.name.full"/>
             <LineBreak/>
             <LineBreak/>
@@ -53,7 +53,7 @@
             <Text styleClass="bold" text="%about.header.website"/>
             <Text text=" "/>
             <Hyperlink text="%about.header.website.value" onAction="#onShowWebsite" fx:id="hyperlink"/>
-        </TextFlow>
+        </BaseTextFlow>
 
     </VBox>
 

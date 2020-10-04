@@ -3,11 +3,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.*?>
+<?import org.xmc.fe.ui.components.BaseTextFlow?>
 <?import org.xmc.fe.ui.components.LineBreak?>
 <?import org.xmc.fe.ui.components.table.*?>
 <?import org.xmc.fe.ui.validation.components.ValidationTextField?>
 <VBox stylesheets="@/css/xmc-base.css, @/css/main/cashaccount/importing/cashaccount-importing.css" xmlns="http://javafx.com/javafx/11.0.0"
-      xmlns:fx="http://javafx.com/fxml/1" styleClass="padding-15"
+      xmlns:fx="http://javafx.com/fxml/1" styleClass="padding-15" fx:id="rootVBox"
       fx:controller="org.xmc.fe.stages.main.cashaccount.importing.CashAccountTransactionImportStep4Controller">
 
     <CheckBox styleClass="form-label-first" text="%cashaccount.transaction.import.dialog.step4.saveTemplate" fx:id="saveTemplateCheckbox" />
@@ -58,7 +59,7 @@
         </Tab>
     </TabPane>
 
-    <TextFlow styleClass="form-label">
+    <BaseTextFlow styleClass="form-label">
         <Text text="%cashaccount.transaction.import.dialog.step4.preview.validTransactionCount" />
         <Text text=" " />
         <Text fx:id="validTransactionCountText" styleClass="bold" text="0" />
@@ -66,6 +67,6 @@
         <Text text="%cashaccount.transaction.import.dialog.step4.preview.invalidTransactionCount" />
         <Text text=" " />
         <Text fx:id="invalidTransactionCountText" styleClass="bold, text-red" text="0" />
-    </TextFlow>
+    </BaseTextFlow>
 
 </VBox>

@@ -88,6 +88,10 @@ public class WizardController<INPUT_TYPE> implements IAfterInit<Pair<List<Wizard
         }
 
         updateButtons();
+
+        if (currentStep.getController() instanceof IAfterInit) {
+            ((IAfterInit) currentStep.getController()).afterInitialize(input);
+        }
     }
 
     private void updateButtons() {

@@ -1,6 +1,7 @@
 package org.xmc.common.stubs.cashaccount.transactions.importing;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.xmc.common.stubs.importing.DtoColumnMapping;
 
 import java.io.Serializable;
@@ -51,5 +52,13 @@ public class DtoCashAccountTransactionImportData implements Serializable {
 
     public void setTemplateToSaveName(String templateToSaveName) {
         this.templateToSaveName = templateToSaveName;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("filePath", filePath)
+                .append("startWithLine", startWithLine)
+                .toString();
     }
 }

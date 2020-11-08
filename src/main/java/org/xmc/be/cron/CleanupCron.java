@@ -34,8 +34,8 @@ public class CleanupCron {
         int maxServicecalllogLifetimeInDays = xmcProperties.getMaxServicecalllogLifetimeInDays();
         if (maxServicecalllogLifetimeInDays != DISABLED) {
             LOGGER.info("Cleaning up service call logs...");
-            serviceCallLogRepository.cleanupServiceCallLogs(maxServicecalllogLifetimeInDays);
-            LOGGER.info("Finished.");
+            long deletedEntries = serviceCallLogRepository.cleanupServiceCallLogs(maxServicecalllogLifetimeInDays);
+            LOGGER.info("Finished. Deleted {} entries.", deletedEntries);
         }
 
         LOGGER.info("Finished.");

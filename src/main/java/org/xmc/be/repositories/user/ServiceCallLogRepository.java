@@ -18,8 +18,8 @@ public class ServiceCallLogRepository {
         this.queryUtil = queryUtil;
     }
 
-    public void cleanupServiceCallLogs(int maxServicecalllogLifetimeInDays) {
-        queryUtil.createDeleteClause(serviceCallLog)
+    public long cleanupServiceCallLogs(int maxServicecalllogLifetimeInDays) {
+        return queryUtil.createDeleteClause(serviceCallLog)
                 .where(serviceCallLog.creationDate.before(LocalDateTime.now().minus(maxServicecalllogLifetimeInDays, ChronoUnit.DAYS)))
                 .execute();
     }

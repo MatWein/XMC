@@ -20,7 +20,7 @@
         <java.version>11</java.version>
         <start-class>org.xmc.Main</start-class>
 
-        <openjfx.version>15</openjfx.version>
+        <openjfx.version>15.0.1</openjfx.version>
         <querydsl.version>4.4.0</querydsl.version>
     </properties>
 
@@ -131,12 +131,6 @@
         </dependency>
 
         <!-- Test / Development -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>

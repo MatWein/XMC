@@ -139,10 +139,10 @@ public class GraphGenerator {
 
         cashAccountTransaction.setCashAccount(cashAccount);
         cashAccountTransaction.setCategory(category);
-        cashAccountTransaction.setSaldoAfter(new BigDecimal(0.0));
-        cashAccountTransaction.setSaldoBefore(new BigDecimal(0.0));
+        cashAccountTransaction.setSaldoAfter(BigDecimal.valueOf(0.0));
+        cashAccountTransaction.setSaldoBefore(BigDecimal.valueOf(0.0));
         cashAccountTransaction.setUsage("test");
-        cashAccountTransaction.setValue(new BigDecimal(0.0));
+        cashAccountTransaction.setValue(BigDecimal.valueOf(0.0));
         cashAccountTransaction.setValutaDate(LocalDate.now());
 
         session().persist(cashAccountTransaction);

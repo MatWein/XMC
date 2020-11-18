@@ -14,8 +14,8 @@ public class DtoCashAccountTransactionToCashAccountTransactionMapper {
         var cashAccountTransaction = new CashAccountTransaction();
 
         cashAccountTransaction.setCashAccount(cashAccount);
-        cashAccountTransaction.setSaldoBefore(new BigDecimal(0.0));
-        cashAccountTransaction.setSaldoAfter(new BigDecimal(0.0));
+        cashAccountTransaction.setSaldoBefore(BigDecimal.valueOf(0.0));
+        cashAccountTransaction.setSaldoAfter(BigDecimal.valueOf(0.0));
 
         update(cashAccountTransaction, category, dtoTransaction);
 

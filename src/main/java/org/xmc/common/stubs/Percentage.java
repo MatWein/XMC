@@ -7,11 +7,11 @@ public class Percentage implements Serializable {
     private BigDecimal fraction;
 
     public Percentage(BigDecimal fraction) {
-        this.fraction = fraction == null ? new BigDecimal(0.0) : fraction;
+        this.fraction = fraction == null ? BigDecimal.valueOf(0.0) : fraction;
     }
 
     public BigDecimal getValue() {
-        return fraction.multiply(new BigDecimal(100));
+        return fraction.multiply(BigDecimal.valueOf(100));
     }
 
     public BigDecimal getFraction() {

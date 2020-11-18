@@ -8,7 +8,7 @@ public class Money implements Serializable {
     private String currency;
 
     public Money(BigDecimal value, String currency) {
-        this.value = value == null ? new BigDecimal(0.0) : value;
+        this.value = value == null ? BigDecimal.valueOf(0.0) : value;
         this.currency = currency;
     }
 

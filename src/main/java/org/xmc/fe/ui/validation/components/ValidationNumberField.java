@@ -65,7 +65,7 @@ public class ValidationNumberField extends TextField implements IValidationCompo
 
     public void setValue(BigDecimal value) {
         if (value == null) {
-            value = new BigDecimal(0.0);
+            value = BigDecimal.valueOf(0.0);
         }
 
         setValue(value.doubleValue());
@@ -73,14 +73,14 @@ public class ValidationNumberField extends TextField implements IValidationCompo
 
     public double getValue() {
         try {
-            return new BigDecimal(NumberUtils.parseDoubleValue(getText())).setScale(fractionDigits, RoundingMode.DOWN).doubleValue();
+            return BigDecimal.valueOf(NumberUtils.parseDoubleValue(getText())).setScale(fractionDigits, RoundingMode.DOWN).doubleValue();
         } catch (ParseException ignored) {
             return 0.0;
         }
     }
 
     public BigDecimal getValueAsBigDecimal() {
-        return new BigDecimal(getValue());
+        return BigDecimal.valueOf(getValue());
     }
 
     @Override

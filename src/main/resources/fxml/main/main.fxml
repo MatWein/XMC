@@ -7,9 +7,9 @@
 <?import org.xmc.fe.ui.components.async.ProcessView?>
 <?import org.xmc.fe.ui.components.MemoryProgressBar?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="768.0" minWidth="1024.0" prefHeight="768.0"
-            prefWidth="1024.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css,@/css/main/async.css"
-            xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.xmc.fe.stages.main.MainController">
+			prefWidth="1024.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css,@/css/main/async.css"
+			xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1"
+			fx:controller="org.xmc.fe.stages.main.MainController">
 
     <TabPane layoutX="205.0" layoutY="120.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE"
              AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
@@ -107,13 +107,15 @@
                     </ImageView>
                 </graphic>
             </MenuItem>
-            <MenuItem onAction="#onAbout" text="%main.menu.about">
-                <graphic>
-                    <ImageView>
-                        <Image url="@/images/feather/info.png"/>
-                    </ImageView>
-                </graphic>
-            </MenuItem>
+			<SeparatorMenuItem />
+            <MenuItem onAction="#onChangelog" text="%main.menu.changelog" />
+			<MenuItem onAction="#onAbout" text="%main.menu.about">
+				<graphic>
+					<ImageView>
+						<Image url="@/images/feather/info.png"/>
+					</ImageView>
+				</graphic>
+			</MenuItem>
         </items>
     </MenuButton>
 

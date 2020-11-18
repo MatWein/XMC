@@ -50,6 +50,16 @@ public class MainController {
     }
 
     @FXML
+    public void onChangelog() {
+	    CustomDialogBuilder.getInstance()
+			    .titleKey(MessageKey.CHANGELOG_TITLE)
+			    .addButton(MessageKey.DIALOG_OK, ButtonData.OK_DONE)
+			    .withFxmlContent(FxmlKey.CHANGELOG)
+			    .build()
+			    .showAndWait();
+    }
+    
+    @FXML
     public void onAbout() {
         CustomDialogBuilder.getInstance()
                 .titleKey(MessageKey.ABOUT_TITLE)

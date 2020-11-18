@@ -29,3 +29,6 @@ Use one of the following commands to build a platform specific jar:
 ``mvn clean install -Djavafx.platform=linux``  
 ``mvn clean install -Djavafx.platform=mac``  
 If no platform is specified, the current OS will be used.
+
+## Licence
+XMC is licensed under the [GNU GENERAL PUBLIC LICENSE](https://github.com/MatWein/XMC/blob/master/COPYING)

@@ -110,6 +110,7 @@ public class MessageAdapter {
         MAIN_NEW_PROCESS("main.newProcess"),
 
         ABOUT_TITLE("about.title"),
+	    CHANGELOG_TITLE("changelog.title"),
 
         CASHACCOUNT_EDIT_TITLE("cashaccount.edit.title"),
         CASHACCOUNT_EDIT_SAVE("cashaccount.edit.save"),

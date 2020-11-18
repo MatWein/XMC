@@ -22,6 +22,10 @@ public class CashAccountTransactionSaldoUpdater {
     }
 
     public void updateAll(CashAccountTransaction transaction) {
+        if (transaction == null) {
+            return;
+        }
+
         updateAll(transaction.getCashAccount(), transaction.getValutaDate());
     }
 
@@ -52,7 +56,7 @@ public class CashAccountTransactionSaldoUpdater {
 
     public BigDecimal calculateSaldoBefore(CashAccount cashAccount, LocalDate valutaDate) {
         Optional<CashAccountTransaction> transactionBeforeCurrentDate = cashAccountTransactionJpaRepository.findFirstTransactionBeforeDate(cashAccount, valutaDate);
-        return transactionBeforeCurrentDate.map(CashAccountTransaction::getSaldoAfter).orElse(new BigDecimal(0.0));
+        return transactionBeforeCurrentDate.map(CashAccountTransaction::getSaldoAfter).orElse(BigDecimal.valueOf(0.0));
     }
 
     public BigDecimal calculateSaldoAfter(BigDecimal saldoBefore, BigDecimal value) {

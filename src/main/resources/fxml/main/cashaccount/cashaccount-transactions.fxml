@@ -41,7 +41,8 @@
     </ToolBar>
 
     <ExtendedTable VBox.vgrow="ALWAYS" fx:id="tableView"
-                   fieldEnumType="org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionOverviewFields">
+                   fieldEnumType="org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionOverviewFields"
+                   selectionMode="MULTIPLE">
         <columns>
             <ExtendedTableColumn editable="false" prefWidth="50" sortable="false" resizable="false">
                 <cellValueFactory>

@@ -1,6 +1,8 @@
 package org.xmc.fe.stages.main.cashaccount;
 
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -28,6 +30,7 @@ import org.xmc.fe.ui.components.table.ExtendedTable;
 import org.xmc.fe.ui.wizard.WizardBuilder;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @FxmlController
 public class CashAccountTransactionsController implements IAfterInit<CashAccountController> {
@@ -70,7 +73,11 @@ public class CashAccountTransactionsController implements IAfterInit<CashAccount
     @FXML
     public void initialize() {
         BooleanBinding noTableItemSelected = tableView.getSelectionModel().selectedItemProperty().isNull();
-        editButton.disableProperty().bind(noTableItemSelected);
+
+        SimpleBooleanProperty multipleTableItemsSelected = new SimpleBooleanProperty(false);
+        tableView.getSelectionModel().getSelectedItems().addListener((ListChangeListener<DtoCashAccountTransactionOverview>) change -> multipleTableItemsSelected.set(change.getList().size() > 1));
+
+        editButton.disableProperty().bind(noTableItemSelected.or(multipleTableItemsSelected));
         deleteButton.disableProperty().bind(noTableItemSelected);
 
         tableView.setDoubleClickConsumer(dtoCashAccountTransactionOverview -> onEditTransaction());
@@ -97,12 +104,15 @@ public class CashAccountTransactionsController implements IAfterInit<CashAccount
 
     @FXML
     public void onDeleteTransaction() {
-        var selectedCashAccountTransaction = tableView.getSelectionModel().getSelectedItem();
+        var selectedCashAccountTransactionIds = tableView.getSelectionModel().getSelectedItems()
+                .stream()
+                .map(DtoCashAccountTransactionOverview::getId)
+                .collect(Collectors.toSet());
 
         if (DialogHelper.showConfirmDialog(MessageKey.CASHACCOUNT_TRANSACTION_CONFIRM_DELETE)) {
             asyncProcessor.runAsyncVoid(
                     () -> {},
-                    monitor -> cashAccountTransactionService.markAsDeleted(monitor, selectedCashAccountTransaction.getId()),
+                    monitor -> cashAccountTransactionService.markAsDeleted(monitor, selectedCashAccountTransactionIds),
                     () -> tableView.reload()
             );
         }

@@ -324,4 +324,12 @@ public class ExtendedTable<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE
     public void setDoubleClickConsumer(Consumer<ITEM_TYPE> doubleClickConsumer) {
         this.doubleClickConsumer = doubleClickConsumer;
     }
+
+    public SelectionMode getSelectionMode() {
+        return table.getSelectionModel().getSelectionMode();
+    }
+
+    public void setSelectionMode(SelectionMode selectionMode) {
+        table.getSelectionModel().setSelectionMode(selectionMode);
+    }
 }

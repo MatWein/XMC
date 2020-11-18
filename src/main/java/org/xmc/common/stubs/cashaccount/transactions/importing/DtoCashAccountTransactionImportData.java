@@ -13,6 +13,7 @@ public class DtoCashAccountTransactionImportData implements Serializable {
     private List<DtoColumnMapping<CashAccountTransactionImportColmn>> colmuns = Lists.newArrayList();
     private boolean saveTemplate;
     private String templateToSaveName;
+    private ImportType importType;
 
     public String getFilePath() {
         return filePath;
@@ -54,11 +55,20 @@ public class DtoCashAccountTransactionImportData implements Serializable {
         this.templateToSaveName = templateToSaveName;
     }
 
+    public ImportType getImportType() {
+        return importType;
+    }
+
+    public void setImportType(ImportType importType) {
+        this.importType = importType;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .append("filePath", filePath)
                 .append("startWithLine", startWithLine)
+                .append("importType", importType)
                 .toString();
     }
 }

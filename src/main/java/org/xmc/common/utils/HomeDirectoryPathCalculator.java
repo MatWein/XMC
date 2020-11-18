@@ -53,14 +53,19 @@ public class HomeDirectoryPathCalculator {
                 return System.getProperty("user.dir");
             case HOME_CUSTOM:
                 String homePath = System.getProperty(HOME_PATH);
-                if (StringUtils.isNotBlank(homePath) && new File(homePath).isDirectory()) {
-                    return new File(homePath).getAbsolutePath();
-                } else {
-                    String message = String.format("Try to use custom home directory, but got invalid home path '%s'.", homePath);
-                    throw new RuntimeException(message);
+	            
+	            if (StringUtils.isNotBlank(homePath)) {
+		            File homeDir = new File(homePath);
+		            homeDir.mkdirs();
+		            
+		            if (homeDir.isDirectory()) {
+			            return homeDir.getAbsolutePath();
+		            }
                 }
+                String message = String.format("Try to use custom home directory, but got invalid home path '%s'.", homePath);
+                throw new RuntimeException(message);
             default:
-                String message = String.format("Got invalid home type '%s'. Please use one of the following: %s",
+                message = String.format("Got invalid home type '%s'. Please use one of the following: %s",
                         homeType, Arrays.asList(HOME_HOME, HOME_WORKINGDIR, HOME_CUSTOM));
                 throw new RuntimeException(message);
         }

@@ -1,9 +1,24 @@
 /* ---- Fonts / Colors ---- */
 
+@font-face {
+	font-family: 'Roboto';
+	src: url("/fonts/Roboto-Regular.ttf");
+}
+@font-face {
+	font-family: 'Roboto';
+	font-weight: bold;
+	src: url("/fonts/Roboto-Bold.ttf");
+}
+@font-face {
+	font-family: 'Roboto Mono';
+	src: url("/fonts/RobotoMono-Regular.ttf");
+}
+
 * {
     xmc-border-color-gray: rgb(204, 204, 204);
     xmc-background-color-lightgray: rgb(248, 248, 248);
     xmc-akzent-1: rgb(32, 56, 100);
+	-fx-font-family: "Roboto" !important;
 }
 
 .background-akzent-1 {
@@ -12,6 +27,10 @@
 
 .bold, .bold * {
     -fx-font-weight: bold;
+}
+
+.mono, .mono * {
+	-fx-font-family: "Roboto Mono" !important;
 }
 
 .underline {

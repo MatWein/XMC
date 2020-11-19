@@ -16,6 +16,9 @@ ij_formatter_tags_enabled = false
 ij_smart_tabs = false
 ij_wrap_on_typing = false
 
+[*.properties]
+charset = latin1
+
 [*.java]
 ij_smart_tabs = true
 ij_java_align_consecutive_assignments = false

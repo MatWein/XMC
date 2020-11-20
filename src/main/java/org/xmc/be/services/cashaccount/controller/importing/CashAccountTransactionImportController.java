@@ -3,6 +3,7 @@ package org.xmc.be.services.cashaccount.controller.importing;
 import com.google.common.collect.Sets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.xmc.common.FileMimeType;
 import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
@@ -18,17 +19,35 @@ import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.List;
 import java.util.Set;
 
 @Component
 public class CashAccountTransactionImportController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CashAccountTransactionImportController.class);
 	
-	private static final Set<String> VALID_MIME_TYPES = Sets.newHashSet(
-			FileMimeType.MS_EXCELO.getMimeType(),
-			FileMimeType.MS_EXCELX.getMimeType(),
+	static final Set<String> VALID_CSV_MIME_TYPES = Sets.newHashSet(
 			FileMimeType.CSV.getMimeType()
 	);
+	
+	static final Set<String> VALID_EXCEL_MIME_TYPES = Sets.newHashSet(
+			FileMimeType.MS_EXCELO.getMimeType(),
+			FileMimeType.MS_EXCELX.getMimeType()
+	);
+	
+	static final Set<String> VALID_MIME_TYPES = Sets.union(VALID_CSV_MIME_TYPES, VALID_EXCEL_MIME_TYPES);
+	
+	private final RawImportFileReader rawImportFileReader;
+	private final DtoImportFileValidationResultMapper dtoImportFileValidationResultMapper;
+	
+	@Autowired
+	public CashAccountTransactionImportController(
+			RawImportFileReader rawImportFileReader,
+			DtoImportFileValidationResultMapper dtoImportFileValidationResultMapper) {
+		
+		this.rawImportFileReader = rawImportFileReader;
+		this.dtoImportFileValidationResultMapper = dtoImportFileValidationResultMapper;
+	}
 	
 	public DtoImportFileValidationResult<DtoCashAccountTransaction> readAndValidateImportFile(
 			AsyncMonitor monitor,
@@ -47,20 +66,34 @@ public class CashAccountTransactionImportController {
 	
 	private DtoImportFileValidationResult<DtoCashAccountTransaction> readAndValidateWithoutErrorHandling(
 			AsyncMonitor monitor,
-			DtoImportData<CashAccountTransactionImportColmn> importData) throws ImportFileTypeException {
+			DtoImportData<CashAccountTransactionImportColmn> importData) throws Exception {
+		
+		int processItemCount = 3;
+		int processedItems = 0;
+		monitor.setProgressByItemCount(processedItems, processItemCount);
 		
 		monitor.setStatusText(MessageKey.ASYNC_TASK_VALIDATE_IMPORT_FILE);
-		validateFileContentType(importData.getFileToImport());
+		String contentType = validateFileContentType(importData.getFileToImport());
+		monitor.setProgressByItemCount(++processedItems, processItemCount);
 		
-		return null;
+		monitor.setStatusText(MessageKey.ASYNC_TASK_READ_IMPORT_FILE);
+		List<List<String>> rawFileContent = rawImportFileReader.read(importData, contentType);
+		monitor.setProgressByItemCount(++processedItems, processItemCount);
+		
+		monitor.setStatusText(MessageKey.ASYNC_TASK_MAP_IMPORT_FILE);
+		DtoImportFileValidationResult<DtoCashAccountTransaction> result = dtoImportFileValidationResultMapper.map(rawFileContent, DtoCashAccountTransaction.class);
+		monitor.setProgressByItemCount(++processedItems, processItemCount);
+		
+		return result;
 	}
 	
-	private void validateFileContentType(File fileToImport) throws ImportFileTypeException {
+	private String validateFileContentType(File fileToImport) throws ImportFileTypeException {
 		try {
 			String contentType = Files.probeContentType(fileToImport.toPath());
 			if (!VALID_MIME_TYPES.contains(contentType)) {
 				throw new ImportFileTypeException();
 			}
+			return contentType;
 		} catch (IOException e) {
 			throw new ImportFileTypeException();
 		}

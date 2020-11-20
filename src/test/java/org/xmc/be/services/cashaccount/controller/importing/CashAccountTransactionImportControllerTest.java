@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.IntegrationTest;
 import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
 import org.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransaction;
+import org.xmc.common.stubs.importing.CsvSeparator;
 import org.xmc.common.stubs.importing.DtoImportData;
 import org.xmc.common.stubs.importing.DtoImportFileValidationResult;
 import org.xmc.fe.async.AsyncMonitor;
@@ -20,12 +21,26 @@ class CashAccountTransactionImportControllerTest extends IntegrationTest {
 	private AsyncMonitor asyncMonitor;
 	
 	@Test
-	void readAndValidateImportFile() {
+	void readAndValidateImportFile_Excel() {
 		File fileToImport = new File(getClass().getResource("/importing/Umsatzanzeige_DE11100111171110921111_20200828.xlsx").getFile());
 		
 		DtoImportData<CashAccountTransactionImportColmn> importData = new DtoImportData<>();
 		importData.setFileToImport(fileToImport);
 		importData.setStartWithLine(16);
+		
+		DtoImportFileValidationResult<DtoCashAccountTransaction> result = controller.readAndValidateImportFile(asyncMonitor, importData);
+		
+		
+	}
+	
+	@Test
+	void readAndValidateImportFile_Csv() {
+		File fileToImport = new File(getClass().getResource("/importing/Umsatzanzeige_DE11100111171110921111_20200828.csv").getFile());
+		
+		DtoImportData<CashAccountTransactionImportColmn> importData = new DtoImportData<>();
+		importData.setFileToImport(fileToImport);
+		importData.setStartWithLine(16);
+		importData.setCsvSeparator(CsvSeparator.SEMICOLON);
 		
 		DtoImportFileValidationResult<DtoCashAccountTransaction> result = controller.readAndValidateImportFile(asyncMonitor, importData);
 		

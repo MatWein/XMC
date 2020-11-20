@@ -95,6 +95,8 @@ public class MessageAdapter {
         ASYNC_TASK_SAVE_CASHACCOUNT_TRANSACTION("async.task.saveCashAccountTransaction"),
         ASYNC_TASK_DETECT_CASHACCOUNT_TRANSACTION_CATEGORY("async.task.detectCashAccountTransactionCategory"),
         ASYNC_TASK_VALIDATE_IMPORT_FILE("async.task.validateImportFile"),
+	    ASYNC_TASK_READ_IMPORT_FILE("async.task.readImportFile"),
+	    ASYNC_TASK_MAP_IMPORT_FILE("async.task.mapImportFile"),
 
         LOGIN_TITLE("login.title"),
 

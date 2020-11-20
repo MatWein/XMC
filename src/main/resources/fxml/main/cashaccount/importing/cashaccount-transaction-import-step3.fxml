@@ -8,8 +8,8 @@
 <?import org.xmc.fe.ui.components.table.NestedPropertyValueFactory?>
 <?import org.xmc.fe.ui.validation.components.ValidationNumberField?>
 <VBox styleClass="padding-15" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="org.xmc.fe.stages.main.cashaccount.importing.CashAccountTransactionImportStep3Controller">
+	  xmlns:fx="http://javafx.com/fxml/1"
+	  fx:controller="org.xmc.fe.stages.main.cashaccount.importing.CashAccountTransactionImportStep3Controller">
 
     <Label styleClass="form-label-first" text="%cashaccount.transaction.import.dialog.step3.startWithLine"/>
     <ValidationNumberField fx:id="startWithLineNumberField" fractionDigits="0" min="1" required="true"/>
@@ -28,7 +28,7 @@
                          text="%cashaccount.transaction.import.dialog.step3.columnMapping.field">
                 <cellValueFactory>
                     <ImportColumnFieldCellValueFactory
-                            fieldType="org.xmc.common.stubs.cashaccount.transactions.importing.CashAccountTransactionImportColmn"/>
+                            fieldType="org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn"/>
                 </cellValueFactory>
             </TableColumn>
         </columns>

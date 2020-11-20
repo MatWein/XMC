@@ -10,10 +10,11 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.services.cashaccount.CashAccountTransactionService;
 import org.xmc.be.services.category.CategoryService;
+import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
 import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionOverviewFields;
 import org.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransaction;
 import org.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransactionOverview;
-import org.xmc.common.stubs.cashaccount.transactions.importing.DtoCashAccountTransactionImportData;
+import org.xmc.common.stubs.importing.DtoImportData;
 import org.xmc.fe.async.AsyncProcessor;
 import org.xmc.fe.stages.main.cashaccount.importing.populator.CashAccountTransactionImportStep2Populator;
 import org.xmc.fe.stages.main.cashaccount.importing.populator.CashAccountTransactionImportStep3Populator;
@@ -122,7 +123,7 @@ public class CashAccountTransactionsController implements IAfterInit<CashAccount
     public void onImportTransactions() {
         WizardBuilder.getInstance()
                 .titleKey(MessageKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_TITLE)
-                .withInput(new DtoCashAccountTransactionImportData())
+                .withInput(new DtoImportData<CashAccountTransactionImportColmn>())
                 .addStep(MessageKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP1_TITLE, FxmlKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP1)
                 .addStep(MessageKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP2_TITLE, FxmlKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP2, cashAccountTransactionImportStep2Populator)
                 .addStep(MessageKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP3_TITLE, FxmlKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP3, cashAccountTransactionImportStep3Populator)

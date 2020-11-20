@@ -8,11 +8,13 @@ public enum FileMimeType {
 	PDF("pdf", "application/pdf"),
 	HTML("html", "text/html"),
 	TEXT("txt", "text/plain"),
+	CSV("txt", "text/csv"),
 	
 	MS_WORD("doc", "application/msword"),
 	MS_WORDX("docx", "application/msword"),
 	MS_EXCEL("xls", "application/excel"),
 	MS_EXCELX("xlsx", "application/excel"),
+	MS_EXCELO("xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"),
 	MS_POWERPOINT("ppt", "application/mspowerpoint"),
 	MS_POWERPOINTX("pptx", "application/mspowerpoint"),
 	

@@ -10,8 +10,10 @@ import javafx.scene.text.Text;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.services.cashaccount.CashAccountTransactionImportService;
-import org.xmc.common.stubs.cashaccount.transactions.importing.DtoCashAccountTransactionImportData;
-import org.xmc.common.stubs.cashaccount.transactions.importing.DtoImportFileValidationResult;
+import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
+import org.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransaction;
+import org.xmc.common.stubs.importing.DtoImportData;
+import org.xmc.common.stubs.importing.DtoImportFileValidationResult;
 import org.xmc.fe.async.AsyncProcessor;
 import org.xmc.fe.ui.FxmlController;
 import org.xmc.fe.ui.IAfterInit;
@@ -22,20 +24,20 @@ import org.xmc.fe.ui.validation.IValidationController;
 import org.xmc.fe.ui.validation.components.ValidationTextField;
 
 @FxmlController
-public class CashAccountTransactionImportStep4Controller implements IAfterInit<DtoCashAccountTransactionImportData>, IValidationController {
+public class CashAccountTransactionImportStep4Controller implements IAfterInit<DtoImportData<CashAccountTransactionImportColmn>>, IValidationController {
     private final AsyncProcessor asyncProcessor;
     private final CashAccountTransactionImportService cashAccountTransactionImportService;
 
     @FXML private CheckBox saveTemplateCheckbox;
     @FXML private ValidationTextField templateToSaveName;
-    @FXML private BaseTable previewTable;
+    @FXML private BaseTable<?> previewTable;
     @FXML private Text validTransactionCountText;
     @FXML private Text invalidTransactionCountText;
-    @FXML private BaseTable errorTable;
+    @FXML private BaseTable<?> errorTable;
     @FXML private VBox rootVBox;
 
-    private SimpleBooleanProperty loading = new SimpleBooleanProperty(true);
-    private SimpleBooleanProperty fileErrors = new SimpleBooleanProperty(false);
+    private final SimpleBooleanProperty loading = new SimpleBooleanProperty(true);
+    private final SimpleBooleanProperty fileErrors = new SimpleBooleanProperty(false);
 
     @Autowired
     public CashAccountTransactionImportStep4Controller(
@@ -53,13 +55,13 @@ public class CashAccountTransactionImportStep4Controller implements IAfterInit<D
     }
 
     @Override
-    public void afterInitialize(DtoCashAccountTransactionImportData importData) {
+    public void afterInitialize(DtoImportData<CashAccountTransactionImportColmn> importData) {
         previewTable.getItems().clear();
         errorTable.getItems().clear();
 
         asyncProcessor.runAsync(
                 () -> setLoading(true),
-                monitor -> cashAccountTransactionImportService.validateImportFile(monitor, importData),
+                monitor -> cashAccountTransactionImportService.readAndValidateImportFile(monitor, importData),
                 this::afterValidateInputFile,
                 () -> setLoading(false)
         );
@@ -73,7 +75,7 @@ public class CashAccountTransactionImportStep4Controller implements IAfterInit<D
         }
     }
 
-    private void afterValidateInputFile(DtoImportFileValidationResult validationResult) {
+    private void afterValidateInputFile(DtoImportFileValidationResult<DtoCashAccountTransaction> validationResult) {
         fileErrors.set(CollectionUtils.isNotEmpty(validationResult.getErrors()));
 
         validTransactionCountText.setText(String.valueOf(validationResult.getValidTransactionCount()));

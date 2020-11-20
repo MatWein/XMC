@@ -2,7 +2,8 @@ package org.xmc.fe.ui;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xmc.common.stubs.cashaccount.transactions.importing.CashAccountTransactionImportColmn;
+import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
+import org.xmc.common.stubs.importing.CsvSeparator;
 
 import java.text.MessageFormat;
 import java.util.Locale;
@@ -130,7 +131,10 @@ public class MessageAdapter {
         CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_TITLE("cashaccount.transaction.import.dialog.step4.title"),
         CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_COLUMN_PREFIX("cashaccount.transaction.import.dialog.step4.columns", CashAccountTransactionImportColmn.class),
         CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_COMMON_ERROR("cashaccount.transaction.import.dialog.step4.commonError"),
+	    CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_FILETYPE_ERROR("cashaccount.transaction.import.dialog.step4.fileTypeError"),
 
+	    IMPORTING_CSV_SEPARATOR("importing.csvSeparator", CsvSeparator.class),
+	    
         BANK_EDIT_TITLE("bank.edit.title"),
         BANK_EDIT_CANCEL("bank.edit.cancel"),
         BANK_EDIT_SAVE("bank.edit.save"),

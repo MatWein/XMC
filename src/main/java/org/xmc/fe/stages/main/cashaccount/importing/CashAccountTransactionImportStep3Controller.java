@@ -3,7 +3,7 @@ package org.xmc.fe.stages.main.cashaccount.importing;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.xmc.common.stubs.cashaccount.transactions.importing.CashAccountTransactionImportColmn;
+import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
 import org.xmc.common.stubs.importing.DtoColumnMapping;
 import org.xmc.fe.importing.DtoColumnMappingFactory;
 import org.xmc.fe.ui.FxmlController;

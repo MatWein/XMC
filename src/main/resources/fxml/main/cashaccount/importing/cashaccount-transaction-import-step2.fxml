@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
+<?import org.xmc.common.stubs.importing.CsvSeparator?>
 <?import org.xmc.fe.ui.validation.components.ValidationComboBox?>
 <?import org.xmc.fe.ui.validation.components.ValidationFileChooserField?>
 <VBox stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
@@ -22,5 +24,19 @@
                  fx:id="addOnlyRadioButton" toggleGroup="$importTypeToggleGroup" />
     <RadioButton text="%cashaccount.transaction.import.dialog.step2.importType.addAndUpdateExisting"
                  fx:id="addAndUpdateExistingRadioButton" toggleGroup="$importTypeToggleGroup" />
+
+	<Label styleClass="form-label" text="%cashaccount.transaction.import.dialog.step2.csvSeparator"/>
+	<ValidationComboBox required="true" fx:id="csvSeparatorComboBox">
+		<items>
+			<FXCollections fx:factory="observableArrayList">
+				<CsvSeparator fx:value="SEMICOLON"/>
+				<CsvSeparator fx:value="COMMA"/>
+				<CsvSeparator fx:value="TAB"/>
+			</FXCollections>
+		</items>
+		<value>
+			<CsvSeparator fx:value="SEMICOLON" />
+		</value>
+	</ValidationComboBox>
 
 </VBox>

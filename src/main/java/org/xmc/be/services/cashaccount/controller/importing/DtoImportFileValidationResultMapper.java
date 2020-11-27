@@ -12,6 +12,6 @@ public class DtoImportFileValidationResultMapper {
 			List<List<String>> rawFileContent,
 			Class<T> resultType) {
 		
-		return null;
+		return new DtoImportFileValidationResult<>();
 	}
 }

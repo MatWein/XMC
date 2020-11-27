@@ -13,7 +13,10 @@ import java.io.File;
 public class CashAccountTransactionImportStep2Populator implements IWizardStepPopulator<DtoImportData<CashAccountTransactionImportColmn>, CashAccountTransactionImportStep2Controller> {
     @Override
     public void populateState(DtoImportData<CashAccountTransactionImportColmn> input, CashAccountTransactionImportStep2Controller controller) {
-        input.setFileToImport(new File(controller.getFileChooserField().getValueAsString()));
+	    String fileToImport = controller.getFileChooserField().getValueAsString();
+	    if (fileToImport != null) {
+		    input.setFileToImport(new File(fileToImport));
+	    }
 	    input.setCsvSeparator(controller.getCsvSeparatorComboBox().getSelectionModel().getSelectedItem());
 
         if (controller.getAddOnlyRadioButton().isSelected()) {

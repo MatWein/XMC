@@ -1,6 +1,6 @@
 package org.xmc.be.services.bank.mapper;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.xmc.JUnitTestBase;
@@ -21,11 +21,11 @@ class BankToDtoBankMapperTest extends JUnitTestBase {
 
         DtoBank result = mapper.apply(bank);
 
-        Assert.assertSame(bank.getBic(), result.getBic());
-        Assert.assertSame(bank.getBlz(), result.getBlz());
-        Assert.assertSame(bank.getId(), result.getId());
-        Assert.assertSame(bank.getName(), result.getName());
-        Assert.assertSame(bank.getLogo().getRawData(), result.getLogo());
+        Assertions.assertSame(bank.getBic(), result.getBic());
+        Assertions.assertSame(bank.getBlz(), result.getBlz());
+        Assertions.assertSame(bank.getId(), result.getId());
+        Assertions.assertSame(bank.getName(), result.getName());
+        Assertions.assertSame(bank.getLogo().getRawData(), result.getLogo());
     }
 
     @Test
@@ -35,10 +35,10 @@ class BankToDtoBankMapperTest extends JUnitTestBase {
 
         DtoBank result = mapper.apply(bank);
 
-        Assert.assertSame(bank.getBic(), result.getBic());
-        Assert.assertSame(bank.getBlz(), result.getBlz());
-        Assert.assertSame(bank.getId(), result.getId());
-        Assert.assertSame(bank.getName(), result.getName());
-        Assert.assertNull(result.getLogo());
+        Assertions.assertSame(bank.getBic(), result.getBic());
+        Assertions.assertSame(bank.getBlz(), result.getBlz());
+        Assertions.assertSame(bank.getId(), result.getId());
+        Assertions.assertSame(bank.getName(), result.getName());
+        Assertions.assertNull(result.getLogo());
     }
 }

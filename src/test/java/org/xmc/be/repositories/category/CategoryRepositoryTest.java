@@ -2,7 +2,7 @@ package org.xmc.be.repositories.category;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Order;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.IntegrationTest;
@@ -48,9 +48,9 @@ class CategoryRepositoryTest extends IntegrationTest {
 
         QueryResults<DtoCategoryOverview> result = repository.loadOverview(pagingParams);
 
-        Assert.assertEquals(3, result.getTotal());
-        Assert.assertEquals(2, result.getResults().size());
-        Assert.assertEquals(category1.getId(), result.getResults().get(0).getId());
-        Assert.assertEquals(category2.getId(), result.getResults().get(1).getId());
+        Assertions.assertEquals(3, result.getTotal());
+        Assertions.assertEquals(2, result.getResults().size());
+        Assertions.assertEquals(category1.getId(), result.getResults().get(0).getId());
+        Assertions.assertEquals(category2.getId(), result.getResults().get(1).getId());
     }
 }

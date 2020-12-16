@@ -2,7 +2,7 @@ package org.xmc.be.services.bank;
 
 import com.google.common.collect.Lists;
 import com.querydsl.core.QueryResults;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -54,7 +54,7 @@ class BankServiceTest extends JUnitTestBase {
         verify(monitor).setStatusText(MessageKey.ASYNC_TASK_LOAD_ALL_BANKS);
         verify(bankToDtoBankMapper).apply(bank);
 
-        Assert.assertEquals(Lists.newArrayList(dtoBank), result);
+        Assertions.assertEquals(Lists.newArrayList(dtoBank), result);
     }
 
     @Test
@@ -81,6 +81,6 @@ class BankServiceTest extends JUnitTestBase {
         verify(monitor).setStatusText(MessageKey.ASYNC_TASK_LOAD_BANK_OVERVIEW);
         verify(bankRepository).loadOverview(pagingParams);
 
-        Assert.assertSame(expectedResult, result);
+        Assertions.assertSame(expectedResult, result);
     }
 }

@@ -1,6 +1,6 @@
 package org.xmc.common.utils;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.xmc.JUnitTestBase;
@@ -20,12 +20,12 @@ class CrypterTest extends JUnitTestBase {
 		String encryptedString = crypter.encrypt(source);
 		String decryptedString = crypter.decrypt(encryptedString);
 		
-		Assert.assertEquals(source, decryptedString);
+		Assertions.assertEquals(source, decryptedString);
 	}
 	
 	@Test
 	void testDecrypt() {
-		Assert.assertEquals("3", crypter.decrypt("on7Etc4Bf5SiRrfNrCu8fg"));
-		Assert.assertEquals("99", crypter.decrypt("jF5AVcmXtBQS9ofkR1SHJQ"));
+		Assertions.assertEquals("3", crypter.decrypt("on7Etc4Bf5SiRrfNrCu8fg"));
+		Assertions.assertEquals("99", crypter.decrypt("jF5AVcmXtBQS9ofkR1SHJQ"));
 	}
 }

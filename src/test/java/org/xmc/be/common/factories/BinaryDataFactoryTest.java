@@ -1,6 +1,6 @@
 package org.xmc.be.common.factories;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.xmc.JUnitTestBase;
@@ -21,10 +21,10 @@ class BinaryDataFactoryTest extends JUnitTestBase {
 
         BinaryData result = factory.create(content, description);
 
-        Assert.assertSame(description, result.getDescription());
-        Assert.assertSame(content, result.getRawData());
-        Assert.assertEquals("098f6bcd4621d373cade4e832627b4f6", result.getHash());
-        Assert.assertEquals(4L, result.getSize());
-        Assert.assertNull(result.getId());
+        Assertions.assertSame(description, result.getDescription());
+        Assertions.assertSame(content, result.getRawData());
+        Assertions.assertEquals("098f6bcd4621d373cade4e832627b4f6", result.getHash());
+        Assertions.assertEquals(4L, result.getSize());
+        Assertions.assertNull(result.getId());
     }
 }

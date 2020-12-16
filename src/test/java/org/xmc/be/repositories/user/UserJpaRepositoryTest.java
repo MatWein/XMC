@@ -1,6 +1,6 @@
 package org.xmc.be.repositories.user;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.IntegrationTest;
@@ -23,7 +23,7 @@ class UserJpaRepositoryTest extends IntegrationTest {
 
         Optional<User> result = userJpaRepository.findByUsername(username);
 
-        Assert.assertEquals(user, result.get());
+        Assertions.assertEquals(user, result.get());
     }
 
     @Test
@@ -35,6 +35,6 @@ class UserJpaRepositoryTest extends IntegrationTest {
 
         Optional<User> result = userJpaRepository.findByUsername("test");
 
-        Assert.assertEquals(Optional.empty(), result);
+        Assertions.assertEquals(Optional.empty(), result);
     }
 }

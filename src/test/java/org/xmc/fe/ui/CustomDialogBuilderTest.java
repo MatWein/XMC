@@ -2,7 +2,7 @@ package org.xmc.fe.ui;
 
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.Dialog;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.xmc.be.IntegrationTest;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
@@ -18,7 +18,7 @@ class CustomDialogBuilderTest extends IntegrationTest {
                     .headerTextKey(MessageKey.APP_NAME)
                     .build();
 
-            Assert.assertNotNull(result);
+            Assertions.assertNotNull(result);
         });
     }
 }

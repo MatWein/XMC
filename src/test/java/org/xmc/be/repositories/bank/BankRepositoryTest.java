@@ -2,7 +2,7 @@ package org.xmc.be.repositories.bank;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Order;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.IntegrationTest;
@@ -43,11 +43,11 @@ class BankRepositoryTest extends IntegrationTest {
 
         QueryResults<DtoBankOverview> result = repository.loadOverview(pagingParams);
 
-        Assert.assertEquals(5, result.getTotal());
-        Assert.assertEquals(3, result.getResults().size());
-        Assert.assertEquals(bank5.getId(), result.getResults().get(0).getId());
-        Assert.assertEquals(bank2.getId(), result.getResults().get(1).getId());
-        Assert.assertEquals(bank4.getId(), result.getResults().get(2).getId());
+        Assertions.assertEquals(5, result.getTotal());
+        Assertions.assertEquals(3, result.getResults().size());
+        Assertions.assertEquals(bank5.getId(), result.getResults().get(0).getId());
+        Assertions.assertEquals(bank2.getId(), result.getResults().get(1).getId());
+        Assertions.assertEquals(bank4.getId(), result.getResults().get(2).getId());
     }
 
     @Test
@@ -78,8 +78,8 @@ class BankRepositoryTest extends IntegrationTest {
 
         QueryResults<DtoBankOverview> result = repository.loadOverview(pagingParams);
 
-        Assert.assertEquals(1, result.getTotal());
-        Assert.assertEquals(1, result.getResults().size());
-        Assert.assertEquals(bank1.getId(), result.getResults().get(0).getId());
+        Assertions.assertEquals(1, result.getTotal());
+        Assertions.assertEquals(1, result.getResults().size());
+        Assertions.assertEquals(bank1.getId(), result.getResults().get(0).getId());
     }
 }

@@ -2,7 +2,7 @@ package org.xmc.be.repositories.cashaccount;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Order;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.IntegrationTest;
@@ -56,9 +56,9 @@ class CashAccountTransactionRepositoryTest extends IntegrationTest {
 
         QueryResults<DtoCashAccountTransactionOverview> result = repository.loadOverview(cashAccount, pagingParams);
 
-        Assert.assertEquals(3, result.getTotal());
-        Assert.assertEquals(2, result.getResults().size());
-        Assert.assertEquals(cashAccountTransaction3.getId(), result.getResults().get(0).getId());
-        Assert.assertEquals(cashAccountTransaction2.getId(), result.getResults().get(1).getId());
+        Assertions.assertEquals(3, result.getTotal());
+        Assertions.assertEquals(2, result.getResults().size());
+        Assertions.assertEquals(cashAccountTransaction3.getId(), result.getResults().get(0).getId());
+        Assertions.assertEquals(cashAccountTransaction2.getId(), result.getResults().get(1).getId());
     }
 }

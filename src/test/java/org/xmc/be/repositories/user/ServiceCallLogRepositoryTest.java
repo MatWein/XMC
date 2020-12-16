@@ -2,7 +2,7 @@ package org.xmc.be.repositories.user;
 
 import com.google.common.collect.Sets;
 import com.querydsl.jpa.hibernate.HibernateQuery;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.IntegrationTest;
@@ -43,6 +43,6 @@ class ServiceCallLogRepositoryTest extends IntegrationTest {
                 .from(serviceCallLog)
                 .fetch());
 
-        Assert.assertEquals(Sets.newHashSet(serviceCallLog1, serviceCallLog3), serviceCallLogs);
+        Assertions.assertEquals(Sets.newHashSet(serviceCallLog1, serviceCallLog3), serviceCallLogs);
     }
 }

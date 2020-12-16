@@ -1,7 +1,7 @@
 package org.xmc.be.services.cashaccount;
 
 import org.apache.commons.lang3.tuple.Pair;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.IntegrationTest;
@@ -37,8 +37,8 @@ class CashAccountTransactionServiceIntegrationTest extends IntegrationTest {
 
         Pair<BigDecimal, BigDecimal> result = service.calculateSaldoPreview(cashAccount.getId(), null, LocalDate.of(2020, Month.AUGUST, 3), BigDecimal.valueOf(100.0));
 
-        Assert.assertEquals(30.0, result.getLeft().doubleValue(), 0);
-        Assert.assertEquals(130.0, result.getRight().doubleValue(), 0);
+        Assertions.assertEquals(30.0, result.getLeft().doubleValue(), 0);
+        Assertions.assertEquals(130.0, result.getRight().doubleValue(), 0);
     }
 
     @Test
@@ -70,8 +70,8 @@ class CashAccountTransactionServiceIntegrationTest extends IntegrationTest {
 
         Pair<BigDecimal, BigDecimal> result = service.calculateSaldoPreview(cashAccount.getId(), null, LocalDate.of(2020, Month.AUGUST, 2), BigDecimal.valueOf(100.0));
 
-        Assert.assertEquals(50.0, result.getLeft().doubleValue(), 0);
-        Assert.assertEquals(150.0, result.getRight().doubleValue(), 0);
+        Assertions.assertEquals(50.0, result.getLeft().doubleValue(), 0);
+        Assertions.assertEquals(150.0, result.getRight().doubleValue(), 0);
     }
 
     @Test
@@ -107,7 +107,7 @@ class CashAccountTransactionServiceIntegrationTest extends IntegrationTest {
                 LocalDate.of(2020, Month.AUGUST, 2),
                 BigDecimal.valueOf(100.0));
 
-        Assert.assertEquals(30.0, result.getLeft().doubleValue(), 0);
-        Assert.assertEquals(130.0, result.getRight().doubleValue(), 0);
+        Assertions.assertEquals(30.0, result.getLeft().doubleValue(), 0);
+        Assertions.assertEquals(130.0, result.getRight().doubleValue(), 0);
     }
 }

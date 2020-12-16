@@ -2,7 +2,7 @@ package org.xmc.fe.ui;
 
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.xmc.JUnitTestBase;
 
@@ -19,7 +19,7 @@ class StageBuilderTest extends JUnitTestBase {
                     .withDefaultTitleKey()
                     .build();
 
-            Assert.assertNotNull(result);
+            Assertions.assertNotNull(result);
         });
     }
 }

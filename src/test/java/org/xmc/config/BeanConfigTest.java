@@ -1,6 +1,6 @@
 package org.xmc.config;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.IntegrationTest;
@@ -18,13 +18,13 @@ class BeanConfigTest extends IntegrationTest {
 
     @Test
     void testBankInformation() {
-        Assert.assertEquals(4892, bankInformation.size());
+        Assertions.assertEquals(4892, bankInformation.size());
     }
 
     @Test
     void testCurrencies() {
-        Assert.assertTrue(currencies.size() > 200);
-        Assert.assertTrue(currencies.contains(Currency.getInstance("EUR")));
-        Assert.assertTrue(currencies.contains(Currency.getInstance("USD")));
+        Assertions.assertTrue(currencies.size() > 200);
+        Assertions.assertTrue(currencies.contains(Currency.getInstance("EUR")));
+        Assertions.assertTrue(currencies.contains(Currency.getInstance("USD")));
     }
 }

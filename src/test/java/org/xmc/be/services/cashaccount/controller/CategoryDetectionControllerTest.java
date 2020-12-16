@@ -1,7 +1,7 @@
 package org.xmc.be.services.cashaccount.controller;
 
 import com.google.common.collect.Lists;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -78,7 +78,7 @@ class CategoryDetectionControllerTest extends JUnitTestBase {
 
         Optional<Long> result = controller.autoDetectCategory(cashAccount, "miete Musterstraße 6 goerlitz 2. og links / we 06 - MUSTERMANN");
 
-        Assert.assertEquals(6L, result.get(), 0);
+        Assertions.assertEquals(6L, result.get(), 0);
     }
 
     @Test
@@ -99,7 +99,7 @@ class CategoryDetectionControllerTest extends JUnitTestBase {
 
         Optional<Long> result = controller.autoDetectCategory(cashAccount, "Vodafone");
 
-        Assert.assertEquals(1L, result.get(), 0);
+        Assertions.assertEquals(1L, result.get(), 0);
     }
 
     @Test
@@ -120,7 +120,7 @@ class CategoryDetectionControllerTest extends JUnitTestBase {
 
         Optional<Long> result = controller.autoDetectCategory(cashAccount, "Vodafone");
 
-        Assert.assertEquals(2L, result.get(), 0);
+        Assertions.assertEquals(2L, result.get(), 0);
     }
 
     @Test
@@ -131,7 +131,7 @@ class CategoryDetectionControllerTest extends JUnitTestBase {
 
         Optional<Long> result = controller.autoDetectCategory(cashAccount, "Gehalt Dezember 2020");
 
-        Assert.assertEquals(2L, result.get(), 0);
+        Assertions.assertEquals(2L, result.get(), 0);
     }
 
     @Test
@@ -142,7 +142,7 @@ class CategoryDetectionControllerTest extends JUnitTestBase {
 
         Optional<Long> result = controller.autoDetectCategory(cashAccount, "miete");
 
-        Assert.assertEquals(6L, result.get(), 0);
+        Assertions.assertEquals(6L, result.get(), 0);
     }
 
     @Test
@@ -153,7 +153,7 @@ class CategoryDetectionControllerTest extends JUnitTestBase {
 
         Optional<Long> result = controller.autoDetectCategory(cashAccount, "PP.22222.PP . Qian Ni Limited, Ihr Einkauf bei Qian Ni Limited, Artikel -222222");
 
-        Assert.assertEquals(3L, result.get(), 0);
+        Assertions.assertEquals(3L, result.get(), 0);
     }
 
     private static CashAccountTransaction createTransaction(String usage, Long categoryId) {

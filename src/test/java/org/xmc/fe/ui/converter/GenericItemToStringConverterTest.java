@@ -1,6 +1,6 @@
 package org.xmc.fe.ui.converter;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.xmc.JUnitTestBase;
 import org.xmc.common.stubs.bank.DtoBank;
@@ -14,10 +14,10 @@ class GenericItemToStringConverterTest extends JUnitTestBase {
         dtoBank.setName("testbank");
 
         String result = converter.toString(dtoBank);
-        Assert.assertSame(dtoBank.getName(), result);
+        Assertions.assertSame(dtoBank.getName(), result);
 
         DtoBank result2 = converter.fromString(dtoBank.getName());
-        Assert.assertSame(dtoBank, result2);
+        Assertions.assertSame(dtoBank, result2);
     }
 
     @Test
@@ -28,7 +28,7 @@ class GenericItemToStringConverterTest extends JUnitTestBase {
         dtoBank.setName("testbank");
 
         DtoBank result = converter.fromString(dtoBank.getName());
-        Assert.assertNull(result);
+        Assertions.assertNull(result);
     }
 
     @Test
@@ -36,6 +36,6 @@ class GenericItemToStringConverterTest extends JUnitTestBase {
         var converter = GenericItemToStringConverter.getInstance(DtoBank::getName);
 
         String result = converter.toString(null);
-        Assert.assertNull(result);
+        Assertions.assertNull(result);
     }
 }

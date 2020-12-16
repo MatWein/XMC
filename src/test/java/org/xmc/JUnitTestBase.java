@@ -1,15 +1,15 @@
 package org.xmc;
 
 import javafx.application.Platform;
-import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.mockito.MockitoAnnotations;
 import org.xmc.common.utils.SleepUtil;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
-@Ignore
+@Disabled
 public class JUnitTestBase {
 	protected final TestObjectFactory testObjectFactory = new TestObjectFactory();
 

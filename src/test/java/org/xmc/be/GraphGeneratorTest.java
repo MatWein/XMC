@@ -1,6 +1,6 @@
 package org.xmc.be;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.reflections.Reflections;
 import org.slf4j.Logger;
@@ -40,7 +40,7 @@ class GraphGeneratorTest extends IntegrationTest {
 			try {
 				graphGenerator.getClass().getDeclaredMethod(methodName);
 			} catch (NoSuchMethodException e) {
-				Assert.fail(String.format("Graph generator has no method named '%s'.", methodName));
+				Assertions.fail(String.format("Graph generator has no method named '%s'.", methodName));
 			}
 		}
 	}

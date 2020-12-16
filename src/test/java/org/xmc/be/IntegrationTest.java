@@ -2,9 +2,9 @@ package org.xmc.be;
 
 import org.apache.commons.io.FileUtils;
 import org.hibernate.Session;
-import org.junit.Ignore;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -19,7 +19,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.File;
 
-@Ignore
+@Disabled
 @SpringBootTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.DERBY)
 @Transactional

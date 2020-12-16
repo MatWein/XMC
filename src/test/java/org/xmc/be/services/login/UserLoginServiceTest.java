@@ -1,7 +1,7 @@
 package org.xmc.be.services.login;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -62,6 +62,6 @@ class UserLoginServiceTest extends JUnitTestBase {
         Optional<User> user = Optional.empty();
         when(userJpaRepository.findByUsername(username)).thenReturn(user);
 
-        Assert.assertThrows(RuntimeException.class, () -> service.login(dtoBootstrapFile));
+        Assertions.assertThrows(RuntimeException.class, () -> service.login(dtoBootstrapFile));
     }
 }

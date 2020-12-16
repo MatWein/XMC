@@ -1,7 +1,7 @@
 package org.xmc.be.repositories.cashaccount;
 
 import com.google.common.collect.Lists;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.IntegrationTest;
@@ -53,7 +53,7 @@ class CashAccountTransactionJpaRepositoryTest extends IntegrationTest {
 
         List<CashAccountTransaction> result = repository.findTransactionsAfterDate(cashAccount, LocalDate.of(2020, Month.JANUARY, 1));
 
-        Assert.assertEquals(Lists.newArrayList(cashAccountTransaction1, cashAccountTransaction2, cashAccountTransaction3), result);
+        Assertions.assertEquals(Lists.newArrayList(cashAccountTransaction1, cashAccountTransaction2, cashAccountTransaction3), result);
     }
 
     @Test
@@ -91,7 +91,7 @@ class CashAccountTransactionJpaRepositoryTest extends IntegrationTest {
 
         List<CashAccountTransaction> result = repository.findTransactionsBeforeDate(cashAccount, LocalDate.of(2020, Month.MARCH, 1), null);
 
-        Assert.assertEquals(Lists.newArrayList(cashAccountTransaction3, cashAccountTransaction2, cashAccountTransaction1), result);
+        Assertions.assertEquals(Lists.newArrayList(cashAccountTransaction3, cashAccountTransaction2, cashAccountTransaction1), result);
     }
 
     @Test
@@ -129,6 +129,6 @@ class CashAccountTransactionJpaRepositoryTest extends IntegrationTest {
 
         Optional<CashAccountTransaction> result = repository.findFirstTransactionBeforeDate(cashAccount, LocalDate.of(2020, Month.MARCH, 1));
 
-        Assert.assertEquals(cashAccountTransaction3, result.get());
+        Assertions.assertEquals(cashAccountTransaction3, result.get());
     }
 }

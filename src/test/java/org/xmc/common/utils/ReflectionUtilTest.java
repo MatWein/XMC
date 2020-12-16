@@ -1,7 +1,7 @@
 package org.xmc.common.utils;
 
 import javafx.util.Callback;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.xmc.JUnitTestBase;
 
@@ -11,19 +11,19 @@ class ReflectionUtilTest extends JUnitTestBase {
         Callback<Class<?>, Object> newInstanceFactory = ReflectionUtil.createNewInstanceFactory();
 
         Object result = newInstanceFactory.call(ReflectionUtilTest.class);
-        Assert.assertNotNull(result);
+        Assertions.assertNotNull(result);
     }
 
     @Test
     void testCreateNewInstance() {
         CrypterTest result = ReflectionUtil.createNewInstance(CrypterTest.class);
-        Assert.assertNotNull(result);
+        Assertions.assertNotNull(result);
     }
 
     @Test
     void testForName() {
         Class<ReflectionUtilTest> expectedResult = ReflectionUtilTest.class;
         Class<?> result = ReflectionUtil.forName(expectedResult.getName());
-        Assert.assertEquals(expectedResult, result);
+        Assertions.assertEquals(expectedResult, result);
     }
 }

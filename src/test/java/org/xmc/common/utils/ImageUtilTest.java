@@ -3,7 +3,7 @@ package org.xmc.common.utils;
 import javafx.scene.image.Image;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.xmc.JUnitTestBase;
 import org.xmc.fe.FeConstants;
@@ -23,7 +23,7 @@ class ImageUtilTest extends JUnitTestBase {
         FileUtils.writeByteArrayToFile(tempFile, image);
 
         try {
-            Assert.assertThrows(RuntimeException.class, () -> ImageUtil.readFromFile$(tempFile));
+            Assertions.assertThrows(RuntimeException.class, () -> ImageUtil.readFromFile$(tempFile));
         } finally {
             tempFile.delete();
         }
@@ -38,8 +38,8 @@ class ImageUtilTest extends JUnitTestBase {
         try {
             Image result = ImageUtil.readFromFile(tempFile);
 
-            Assert.assertNotNull(result);
-            Assert.assertFalse(result.isError());
+            Assertions.assertNotNull(result);
+            Assertions.assertFalse(result.isError());
         } finally {
             tempFile.delete();
         }
@@ -52,7 +52,7 @@ class ImageUtilTest extends JUnitTestBase {
         FileUtils.writeByteArrayToFile(tempFile, image);
 
         try {
-            Assert.assertThrows(IOException.class, () -> ImageUtil.readFromFile(tempFile));
+            Assertions.assertThrows(IOException.class, () -> ImageUtil.readFromFile(tempFile));
         } finally {
             tempFile.delete();
         }
@@ -60,38 +60,38 @@ class ImageUtilTest extends JUnitTestBase {
 
     @Test
     void testReadFromByteArray$_Error() {
-        Assert.assertThrows(RuntimeException.class, () -> ImageUtil.readFromByteArray$(IOUtils.resourceToByteArray(INVALID_IMAGE)));
+        Assertions.assertThrows(RuntimeException.class, () -> ImageUtil.readFromByteArray$(IOUtils.resourceToByteArray(INVALID_IMAGE)));
     }
 
     @Test
     void testReadFromByteArray() throws IOException {
         Image result = ImageUtil.readFromByteArray(IOUtils.resourceToByteArray(VALID_IMAGE));
 
-        Assert.assertNotNull(result);
-        Assert.assertFalse(result.isError());
+        Assertions.assertNotNull(result);
+        Assertions.assertFalse(result.isError());
     }
 
     @Test()
     void testReadFromByteArray_Error() {
-        Assert.assertThrows(IOException.class, () -> ImageUtil.readFromByteArray(IOUtils.resourceToByteArray(INVALID_IMAGE)));
+        Assertions.assertThrows(IOException.class, () -> ImageUtil.readFromByteArray(IOUtils.resourceToByteArray(INVALID_IMAGE)));
     }
 
     @Test
     void testReadFromClasspath() throws IOException {
         Image result = ImageUtil.readFromClasspath("/images/feather/delete.png");
 
-        Assert.assertNotNull(result);
-        Assert.assertFalse(result.isError());
+        Assertions.assertNotNull(result);
+        Assertions.assertFalse(result.isError());
     }
 
     @Test
     void testReadFromClasspath_NotFound() {
-        Assert.assertThrows(IOException.class, () -> ImageUtil.readFromClasspath("/images/feather/delete2.png"));
+        Assertions.assertThrows(IOException.class, () -> ImageUtil.readFromClasspath("/images/feather/delete2.png"));
     }
 
     @Test
     void testReadFromClasspath$() {
-        Assert.assertThrows(RuntimeException.class, () -> ImageUtil.readFromClasspath$("/images/feather/delete2.png"));
+        Assertions.assertThrows(RuntimeException.class, () -> ImageUtil.readFromClasspath$("/images/feather/delete2.png"));
     }
 
     @Test
@@ -99,6 +99,6 @@ class ImageUtilTest extends JUnitTestBase {
         Image image = ImageUtil.readFromClasspath("/images/feather/delete.png");
 
         byte[] result = ImageUtil.imageToByteArray$(image);
-        Assert.assertNotNull(result);
+        Assertions.assertNotNull(result);
     }
 }

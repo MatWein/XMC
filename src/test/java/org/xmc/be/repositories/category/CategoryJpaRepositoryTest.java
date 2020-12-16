@@ -1,7 +1,7 @@
 package org.xmc.be.repositories.category;
 
 import com.google.common.collect.Lists;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.IntegrationTest;
@@ -26,6 +26,6 @@ class CategoryJpaRepositoryTest extends IntegrationTest {
 
         List<Category> result = repository.findByDeletionDateIsNull();
 
-        Assert.assertEquals(Lists.newArrayList(expectedResult), result);
+        Assertions.assertEquals(Lists.newArrayList(expectedResult), result);
     }
 }

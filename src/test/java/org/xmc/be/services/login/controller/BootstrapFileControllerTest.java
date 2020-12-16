@@ -1,8 +1,8 @@
 package org.xmc.be.services.login.controller;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.xmc.JUnitTestBase;
@@ -32,7 +32,7 @@ class BootstrapFileControllerTest extends JUnitTestBase {
     @Test
     void testReadAndWriteBootstrapFile() {
         Optional<DtoBootstrapFile> firstReadResult = BootstrapFileController.readBootstrapFile();
-        Assert.assertEquals(Optional.empty(), firstReadResult);
+        Assertions.assertEquals(Optional.empty(), firstReadResult);
 
         DtoBootstrapFile dto = testObjectFactory.createRandom(DtoBootstrapFile.class);
         dto.setSaveCredentials(true);
@@ -42,10 +42,10 @@ class BootstrapFileControllerTest extends JUnitTestBase {
             Optional<DtoBootstrapFile> secondReadResult = BootstrapFileController.readBootstrapFile();
             DtoBootstrapFile result = secondReadResult.get();
 
-            Assert.assertEquals(dto.getUsername(), result.getUsername());
-            Assert.assertEquals(dto.getPassword(), result.getPassword());
-            Assert.assertEquals(dto.isSaveCredentials(), result.isSaveCredentials());
-            Assert.assertEquals(dto.isAutoLogin(), result.isAutoLogin());
+            Assertions.assertEquals(dto.getUsername(), result.getUsername());
+            Assertions.assertEquals(dto.getPassword(), result.getPassword());
+            Assertions.assertEquals(dto.isSaveCredentials(), result.isSaveCredentials());
+            Assertions.assertEquals(dto.isAutoLogin(), result.isAutoLogin());
         } finally {
             new File(HomeDirectoryPathCalculator.calculateCredentialFilePath()).delete();
         }
@@ -54,13 +54,13 @@ class BootstrapFileControllerTest extends JUnitTestBase {
     @Test
     void testReadAndWriteBootstrapFile_NoSaving() {
         Optional<DtoBootstrapFile> firstReadResult = BootstrapFileController.readBootstrapFile();
-        Assert.assertEquals(Optional.empty(), firstReadResult);
+        Assertions.assertEquals(Optional.empty(), firstReadResult);
 
         DtoBootstrapFile dto = testObjectFactory.createRandom(DtoBootstrapFile.class);
         dto.setSaveCredentials(false);
         new BootstrapFileController().writeBootstrapFile(dto);
 
         Optional<DtoBootstrapFile> secondReadResult = BootstrapFileController.readBootstrapFile();
-        Assert.assertEquals(Optional.empty(), secondReadResult);
+        Assertions.assertEquals(Optional.empty(), secondReadResult);
     }
 }

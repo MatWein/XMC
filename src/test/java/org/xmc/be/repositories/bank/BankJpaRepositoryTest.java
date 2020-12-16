@@ -1,7 +1,7 @@
 package org.xmc.be.repositories.bank;
 
 import com.google.common.collect.Sets;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.IntegrationTest;
@@ -28,6 +28,6 @@ class BankJpaRepositoryTest extends IntegrationTest {
 
         List<Bank> result = repository.findByDeletionDateIsNull();
 
-        Assert.assertEquals(Sets.newHashSet(bank1, bank2), Sets.newHashSet(result));
+        Assertions.assertEquals(Sets.newHashSet(bank1, bank2), Sets.newHashSet(result));
     }
 }

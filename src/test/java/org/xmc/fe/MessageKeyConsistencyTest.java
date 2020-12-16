@@ -1,6 +1,6 @@
 package org.xmc.fe;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.xmc.JUnitTestBase;
@@ -26,7 +26,7 @@ class MessageKeyConsistencyTest extends JUnitTestBase {
 		File messagesFolder = new File(MESSAGES_FOLDER);
 		messageFiles = messagesFolder.listFiles((file) -> file.getName().endsWith(MESSAGE_FILE_EXTENSION));
 
-		Assert.assertTrue(messageFiles != null && messageFiles.length > 0);
+		Assertions.assertTrue(messageFiles != null && messageFiles.length > 0);
 
 		messageFileKeys = new HashMap<>();
 		allUniqueKeys = new HashSet<>();
@@ -55,7 +55,7 @@ class MessageKeyConsistencyTest extends JUnitTestBase {
 			Set<String> availableKeys = messageFileKeys.get(messageFile);
 			Set<String> disjunctionKeys = new HashSet<>(allUniqueKeysWithoutCommonKeys); disjunctionKeys.removeAll(availableKeys);
 			
-			Assert.assertEquals(String.format("Message keys '%s' are not contained in every message file.", disjunctionKeys), new HashSet<>(), disjunctionKeys);
+			Assertions.assertEquals(new HashSet<>(), disjunctionKeys, String.format("Message keys '%s' are not contained in every message file.", disjunctionKeys));
 		}
 	}
 
@@ -65,11 +65,11 @@ class MessageKeyConsistencyTest extends JUnitTestBase {
 			if (messageKey.getEnumType() != null) {
 				for (Enum<?> enumConstant : messageKey.getEnumType().getEnumConstants()) {
 					String key = messageKey.getKey() + "." + enumConstant.name();
-					Assert.assertTrue(String.format("Message key '%s' is contained in enum but not in any message file.", key), allUniqueKeys.contains(key));
+					Assertions.assertTrue(allUniqueKeys.contains(key), String.format("Message key '%s' is contained in enum but not in any message file.", key));
 				}
 			} else {
 				String key = messageKey.getKey();
-				Assert.assertTrue(String.format("Message key '%s' is contained in enum but not in any message file.", key), allUniqueKeys.contains(key));
+				Assertions.assertTrue(allUniqueKeys.contains(key), String.format("Message key '%s' is contained in enum but not in any message file.", key));
 			}
 		}
 	}

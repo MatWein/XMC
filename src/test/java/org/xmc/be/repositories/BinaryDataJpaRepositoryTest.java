@@ -1,6 +1,6 @@
 package org.xmc.be.repositories;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.IntegrationTest;
@@ -22,6 +22,6 @@ class BinaryDataJpaRepositoryTest extends IntegrationTest {
 
         Optional<BinaryData> result = repository.findById(expectedResult.getId());
 
-        Assert.assertEquals(expectedResult, result.get());
+        Assertions.assertEquals(expectedResult, result.get());
     }
 }

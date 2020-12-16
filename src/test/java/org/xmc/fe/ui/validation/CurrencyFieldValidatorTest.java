@@ -1,7 +1,7 @@
 package org.xmc.fe.ui.validation;
 
 import javafx.scene.control.TextField;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.xmc.JUnitTestBase;
@@ -18,7 +18,7 @@ class CurrencyFieldValidatorTest extends JUnitTestBase {
     void testValidate_NoInput() throws Throwable {
         runJavaFxCode(() -> {
             TextField textField = new TextField();
-            Assert.assertEquals(0, validator.validate(textField).size());
+            Assertions.assertEquals(0, validator.validate(textField).size());
         });
     }
 
@@ -28,7 +28,7 @@ class CurrencyFieldValidatorTest extends JUnitTestBase {
             TextField textField = new TextField();
             textField.setText("EUR");
 
-            Assert.assertEquals(0, validator.validate(textField).size());
+            Assertions.assertEquals(0, validator.validate(textField).size());
         });
     }
 
@@ -38,7 +38,7 @@ class CurrencyFieldValidatorTest extends JUnitTestBase {
             TextField textField = new TextField();
             textField.setText("EURO");
 
-            Assert.assertEquals(1, validator.validate(textField).size());
+            Assertions.assertEquals(1, validator.validate(textField).size());
         });
     }
 }

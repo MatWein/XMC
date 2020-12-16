@@ -1,6 +1,6 @@
 package org.xmc.be.services.cashaccount.controller;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.IntegrationTest;
@@ -30,8 +30,8 @@ class CashAccountTransactionSaldoUpdaterTest extends IntegrationTest {
 
         session().refresh(cashAccountTransaction1);
 
-        Assert.assertEquals(0.0, cashAccountTransaction1.getSaldoBefore().doubleValue(), 0);
-        Assert.assertEquals(100.0, cashAccountTransaction1.getSaldoAfter().doubleValue(), 0);
+        Assertions.assertEquals(0.0, cashAccountTransaction1.getSaldoBefore().doubleValue(), 0);
+        Assertions.assertEquals(100.0, cashAccountTransaction1.getSaldoAfter().doubleValue(), 0);
 
         CashAccountTransaction cashAccountTransaction2 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction2.setValutaDate(LocalDate.of(2020, Month.AUGUST, 2));
@@ -45,11 +45,11 @@ class CashAccountTransactionSaldoUpdaterTest extends IntegrationTest {
         session().refresh(cashAccountTransaction1);
         session().refresh(cashAccountTransaction2);
 
-        Assert.assertEquals(0.0, cashAccountTransaction1.getSaldoBefore().doubleValue(), 0);
-        Assert.assertEquals(100.0, cashAccountTransaction1.getSaldoAfter().doubleValue(), 0);
+        Assertions.assertEquals(0.0, cashAccountTransaction1.getSaldoBefore().doubleValue(), 0);
+        Assertions.assertEquals(100.0, cashAccountTransaction1.getSaldoAfter().doubleValue(), 0);
 
-        Assert.assertEquals(100.0, cashAccountTransaction2.getSaldoBefore().doubleValue(), 0);
-        Assert.assertEquals(125.0, cashAccountTransaction2.getSaldoAfter().doubleValue(), 0);
+        Assertions.assertEquals(100.0, cashAccountTransaction2.getSaldoBefore().doubleValue(), 0);
+        Assertions.assertEquals(125.0, cashAccountTransaction2.getSaldoAfter().doubleValue(), 0);
 
         CashAccountTransaction cashAccountTransaction3 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction3.setValutaDate(LocalDate.of(2020, Month.JULY, 10));
@@ -64,14 +64,14 @@ class CashAccountTransactionSaldoUpdaterTest extends IntegrationTest {
         session().refresh(cashAccountTransaction2);
         session().refresh(cashAccountTransaction3);
 
-        Assert.assertEquals(0.0, cashAccountTransaction3.getSaldoBefore().doubleValue(), 0);
-        Assert.assertEquals(-1000.0, cashAccountTransaction3.getSaldoAfter().doubleValue(), 0);
+        Assertions.assertEquals(0.0, cashAccountTransaction3.getSaldoBefore().doubleValue(), 0);
+        Assertions.assertEquals(-1000.0, cashAccountTransaction3.getSaldoAfter().doubleValue(), 0);
 
-        Assert.assertEquals(-1000.0, cashAccountTransaction1.getSaldoBefore().doubleValue(), 0);
-        Assert.assertEquals(-900.0, cashAccountTransaction1.getSaldoAfter().doubleValue(), 0);
+        Assertions.assertEquals(-1000.0, cashAccountTransaction1.getSaldoBefore().doubleValue(), 0);
+        Assertions.assertEquals(-900.0, cashAccountTransaction1.getSaldoAfter().doubleValue(), 0);
 
-        Assert.assertEquals(-900.0, cashAccountTransaction2.getSaldoBefore().doubleValue(), 0);
-        Assert.assertEquals(-875.0, cashAccountTransaction2.getSaldoAfter().doubleValue(), 0);
+        Assertions.assertEquals(-900.0, cashAccountTransaction2.getSaldoBefore().doubleValue(), 0);
+        Assertions.assertEquals(-875.0, cashAccountTransaction2.getSaldoAfter().doubleValue(), 0);
     }
 
     @Test
@@ -89,8 +89,8 @@ class CashAccountTransactionSaldoUpdaterTest extends IntegrationTest {
 
         session().refresh(cashAccountTransaction1);
 
-        Assert.assertEquals(0.0, cashAccountTransaction1.getSaldoBefore().doubleValue(), 0);
-        Assert.assertEquals(100.0, cashAccountTransaction1.getSaldoAfter().doubleValue(), 0);
+        Assertions.assertEquals(0.0, cashAccountTransaction1.getSaldoBefore().doubleValue(), 0);
+        Assertions.assertEquals(100.0, cashAccountTransaction1.getSaldoAfter().doubleValue(), 0);
 
         CashAccountTransaction cashAccountTransaction2 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction2.setValutaDate(LocalDate.of(2020, Month.AUGUST, 1));
@@ -104,11 +104,11 @@ class CashAccountTransactionSaldoUpdaterTest extends IntegrationTest {
         session().refresh(cashAccountTransaction1);
         session().refresh(cashAccountTransaction2);
 
-        Assert.assertEquals(0.0, cashAccountTransaction1.getSaldoBefore().doubleValue(), 0);
-        Assert.assertEquals(100.0, cashAccountTransaction1.getSaldoAfter().doubleValue(), 0);
+        Assertions.assertEquals(0.0, cashAccountTransaction1.getSaldoBefore().doubleValue(), 0);
+        Assertions.assertEquals(100.0, cashAccountTransaction1.getSaldoAfter().doubleValue(), 0);
 
-        Assert.assertEquals(100.0, cashAccountTransaction2.getSaldoBefore().doubleValue(), 0);
-        Assert.assertEquals(125.0, cashAccountTransaction2.getSaldoAfter().doubleValue(), 0);
+        Assertions.assertEquals(100.0, cashAccountTransaction2.getSaldoBefore().doubleValue(), 0);
+        Assertions.assertEquals(125.0, cashAccountTransaction2.getSaldoAfter().doubleValue(), 0);
 
         CashAccountTransaction cashAccountTransaction3 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction3.setValutaDate(LocalDate.of(2020, Month.AUGUST, 1));
@@ -123,14 +123,14 @@ class CashAccountTransactionSaldoUpdaterTest extends IntegrationTest {
         session().refresh(cashAccountTransaction2);
         session().refresh(cashAccountTransaction3);
 
-        Assert.assertEquals(0.0, cashAccountTransaction1.getSaldoBefore().doubleValue(), 0);
-        Assert.assertEquals(100.0, cashAccountTransaction1.getSaldoAfter().doubleValue(), 0);
+        Assertions.assertEquals(0.0, cashAccountTransaction1.getSaldoBefore().doubleValue(), 0);
+        Assertions.assertEquals(100.0, cashAccountTransaction1.getSaldoAfter().doubleValue(), 0);
 
-        Assert.assertEquals(100.0, cashAccountTransaction2.getSaldoBefore().doubleValue(), 0);
-        Assert.assertEquals(125.0, cashAccountTransaction2.getSaldoAfter().doubleValue(), 0);
+        Assertions.assertEquals(100.0, cashAccountTransaction2.getSaldoBefore().doubleValue(), 0);
+        Assertions.assertEquals(125.0, cashAccountTransaction2.getSaldoAfter().doubleValue(), 0);
 
-        Assert.assertEquals(125.0, cashAccountTransaction3.getSaldoBefore().doubleValue(), 0);
-        Assert.assertEquals(-875.0, cashAccountTransaction3.getSaldoAfter().doubleValue(), 0);
+        Assertions.assertEquals(125.0, cashAccountTransaction3.getSaldoBefore().doubleValue(), 0);
+        Assertions.assertEquals(-875.0, cashAccountTransaction3.getSaldoAfter().doubleValue(), 0);
 
         CashAccountTransaction cashAccountTransaction4 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction4.setValutaDate(LocalDate.of(2020, Month.AUGUST, 2));
@@ -146,16 +146,16 @@ class CashAccountTransactionSaldoUpdaterTest extends IntegrationTest {
         session().refresh(cashAccountTransaction3);
         session().refresh(cashAccountTransaction4);
 
-        Assert.assertEquals(0.0, cashAccountTransaction1.getSaldoBefore().doubleValue(), 0);
-        Assert.assertEquals(100.0, cashAccountTransaction1.getSaldoAfter().doubleValue(), 0);
+        Assertions.assertEquals(0.0, cashAccountTransaction1.getSaldoBefore().doubleValue(), 0);
+        Assertions.assertEquals(100.0, cashAccountTransaction1.getSaldoAfter().doubleValue(), 0);
 
-        Assert.assertEquals(100.0, cashAccountTransaction2.getSaldoBefore().doubleValue(), 0);
-        Assert.assertEquals(125.0, cashAccountTransaction2.getSaldoAfter().doubleValue(), 0);
+        Assertions.assertEquals(100.0, cashAccountTransaction2.getSaldoBefore().doubleValue(), 0);
+        Assertions.assertEquals(125.0, cashAccountTransaction2.getSaldoAfter().doubleValue(), 0);
 
-        Assert.assertEquals(125.0, cashAccountTransaction3.getSaldoBefore().doubleValue(), 0);
-        Assert.assertEquals(-875.0, cashAccountTransaction3.getSaldoAfter().doubleValue(), 0);
+        Assertions.assertEquals(125.0, cashAccountTransaction3.getSaldoBefore().doubleValue(), 0);
+        Assertions.assertEquals(-875.0, cashAccountTransaction3.getSaldoAfter().doubleValue(), 0);
 
-        Assert.assertEquals(-875.0, cashAccountTransaction4.getSaldoBefore().doubleValue(), 0);
-        Assert.assertEquals(125.0, cashAccountTransaction4.getSaldoAfter().doubleValue(), 0);
+        Assertions.assertEquals(-875.0, cashAccountTransaction4.getSaldoBefore().doubleValue(), 0);
+        Assertions.assertEquals(125.0, cashAccountTransaction4.getSaldoAfter().doubleValue(), 0);
     }
 }

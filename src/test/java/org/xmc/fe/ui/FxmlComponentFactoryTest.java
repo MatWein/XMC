@@ -2,7 +2,7 @@ package org.xmc.fe.ui;
 
 import javafx.scene.Parent;
 import org.apache.commons.lang3.tuple.Pair;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +19,7 @@ class FxmlComponentFactoryTest extends IntegrationTest {
                 LOGGER.debug("Creating component for '{}'.", fxmlKey);
 
                 Pair<Parent, Object> component = FxmlComponentFactory.load(fxmlKey);
-                Assert.assertNotNull(component.getLeft());
+                Assertions.assertNotNull(component.getLeft());
             }
         });
     }

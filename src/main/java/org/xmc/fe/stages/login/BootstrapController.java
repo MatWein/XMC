@@ -10,11 +10,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration;
 import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.xmc.Main;
 import org.xmc.be.services.login.UserLoginService;
+import org.xmc.common.SystemProperties;
 import org.xmc.common.stubs.login.DtoBootstrapFile;
 import org.xmc.common.utils.HomeDirectoryPathCalculator;
 import org.xmc.common.utils.SleepUtil;
@@ -27,11 +28,13 @@ import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.SceneUtil;
 import org.xmc.fe.ui.StageBuilder;
 
+import static org.xmc.common.SystemProperties.*;
+
 @FxmlController
 public class BootstrapController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(BootstrapController.class);
-
-    @FXML private VBox vbox;
+	private static final Logger LOGGER = LoggerFactory.getLogger(BootstrapController.class);
+	
+	@FXML private VBox vbox;
     @FXML private Label statusLabel;
     @FXML private ProgressBar progressbar;
     @FXML private Label errorLabel;
@@ -86,11 +89,13 @@ public class BootstrapController {
     private void createApplicationContext() {
         Platform.runLater(() -> statusLabel.setText(MessageAdapter.getByKey(MessageKey.BOOTSTRAP_STATUS_CREATING_CONTEXT)));
 
-        System.setProperty("user.name", dtoBootstrapFile.getUsername());
-        System.setProperty("user.password", dtoBootstrapFile.getPassword());
-        System.setProperty("user.database.dir", HomeDirectoryPathCalculator.calculateDatabaseDirForUser(dtoBootstrapFile.getUsername()));
+        System.setProperty(USER_NAME, dtoBootstrapFile.getUsername());
+        System.setProperty(USER_PASSWORD, dtoBootstrapFile.getPassword());
+        System.setProperty(USER_DATABASE_DIR, HomeDirectoryPathCalculator.calculateDatabaseDirForUser(dtoBootstrapFile.getUsername()));
 
-        Main.applicationContext = SpringApplication.run(Main.class, Main.args);
+        Main.applicationContext = new SpringApplicationBuilder(Main.class)
+		        .headless(false)
+		        .run(Main.args);
     }
 
     private void runPreprocessing() {
@@ -123,8 +128,14 @@ public class BootstrapController {
                     .withDefaultTitleKey()
                     .withDefaultIcon()
                     .build();
-
-            MainController.mainWindow.show();
+	        
+            boolean silentMode = Boolean.TRUE.toString().equalsIgnoreCase(System.getProperty(SystemProperties.SILENT_MODE));
+	
+            if (silentMode && !getStage().isShowing()) {
+	            MainController.mainWindow.setIconified(true);
+            }
+            
+	        MainController.mainWindow.show();
 
             getStage().setOnCloseRequest(null);
             getStage().close();

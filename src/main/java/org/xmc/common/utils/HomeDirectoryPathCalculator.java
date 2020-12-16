@@ -7,30 +7,26 @@ import org.springframework.util.DigestUtils;
 import java.io.File;
 import java.util.Arrays;
 
+import static org.xmc.common.SystemProperties.*;
+
 public class HomeDirectoryPathCalculator {
-    private static final String HOME_TYPE = "xmc.home.type";
-    private static final String HOME_PATH = "xmc.home.path";
-
-    private static final String HOME_HOME = "home";
-    private static final String HOME_WORKINGDIR = "workingdir";
-    private static final String HOME_CUSTOM = "custom";
-
-    static String cachedHomeDir;
+	static String cachedHomeDir;
 
     public static void initializeSystemProperties() {
         String homeDir = calculateHomeDir();
-        System.setProperty("system.home.dir", homeDir);
-        System.setProperty("spring.config.additional-location", homeDir + "/");
+        System.setProperty(SYSTEM_HOME_DIR, homeDir);
+        System.setProperty(SPRING_CONFIG_ADDITIONAL_LOCATION, homeDir + "/");
+        System.setProperty(JDK_GTK_VERSION, "3");
 
-        if (StringUtils.isBlank(System.getProperty("spring.profiles.active"))) {
-            System.setProperty("spring.profiles.active", "prod");
+        if (StringUtils.isBlank(System.getProperty(SPRING_PROFILES_ACTIVE))) {
+            System.setProperty(SPRING_PROFILES_ACTIVE, "prod");
         }
 
         String logDir = calculateLogDir();
-        System.setProperty("system.home.log.dir", logDir);
+        System.setProperty(SYSTEM_HOME_LOG_DIR, logDir);
 
         String derbyLogFilePath = calculateDerbyLogFilePath();
-        System.setProperty("derby.stream.error.file", derbyLogFilePath);
+        System.setProperty(DERBY_STREAM_ERROR_FILE, derbyLogFilePath);
 
         LoggerFactory.getLogger(HomeDirectoryPathCalculator.class).info("Using home directory '{}'.", homeDir);
     }
@@ -48,9 +44,9 @@ public class HomeDirectoryPathCalculator {
 
         switch (homeType) {
             case HOME_HOME:
-                return new File(System.getProperty("user.home"), ".xmc").getAbsolutePath();
+                return new File(System.getProperty(USER_HOME), ".xmc").getAbsolutePath();
             case HOME_WORKINGDIR:
-                return System.getProperty("user.dir");
+                return System.getProperty(USER_DIR);
             case HOME_CUSTOM:
                 String homePath = System.getProperty(HOME_PATH);
 	            

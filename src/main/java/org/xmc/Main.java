@@ -15,6 +15,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.xmc.be.services.login.controller.BootstrapFileController;
+import org.xmc.common.SystemProperties;
 import org.xmc.common.stubs.login.DtoBootstrapFile;
 import org.xmc.common.utils.HomeDirectoryPathCalculator;
 import org.xmc.config.properties.XmcProperties;
@@ -78,13 +79,23 @@ public class Main extends Application {
         Stage stage = createLoginStage(primaryStage, component);
 
         if (autoLogin) {
-            stage.setOnShown(windowEvent -> ((BootstrapController)component.getRight()).start(dtoBootstrapFile.get(), null));
+            stage.setOnShown(windowEvent -> startBootstrapping(dtoBootstrapFile, component));
         }
-
-        stage.show();
+	
+	    boolean silentMode = Boolean.TRUE.toString().equalsIgnoreCase(System.getProperty(SystemProperties.SILENT_MODE));
+	
+	    if (autoLogin && silentMode) {
+		    startBootstrapping(dtoBootstrapFile, component);
+	    } else {
+		    stage.show();
+	    }
     }
-
-    public static Stage createLoginStage(Stage primaryStage, Pair<Parent, ?> component) {
+	
+	private void startBootstrapping(Optional<DtoBootstrapFile> dtoBootstrapFile, Pair<Parent, ?> component) {
+		((BootstrapController) component.getRight()).start(dtoBootstrapFile.get(), null);
+	}
+	
+	public static Stage createLoginStage(Stage primaryStage, Pair<Parent, ?> component) {
         return StageBuilder.getInstance()
                     .withDefaultIcon()
                     .withTitleKey(MessageKey.LOGIN_TITLE)

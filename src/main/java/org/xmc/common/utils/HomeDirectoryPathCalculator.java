@@ -15,7 +15,7 @@ public class HomeDirectoryPathCalculator {
     public static void initializeSystemProperties() {
         String homeDir = calculateHomeDir();
         System.setProperty(SYSTEM_HOME_DIR, homeDir);
-        System.setProperty(SPRING_CONFIG_ADDITIONAL_LOCATION, homeDir + "/");
+        System.setProperty(SPRING_CONFIG_ADDITIONAL_LOCATION, "optional:" + homeDir + "/");
         System.setProperty(JDK_GTK_VERSION, "3");
 
         if (StringUtils.isBlank(System.getProperty(SPRING_PROFILES_ACTIVE))) {

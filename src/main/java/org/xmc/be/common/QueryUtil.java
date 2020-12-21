@@ -43,8 +43,8 @@ public class QueryUtil {
             return expression;
         }
     }
-
-    private <RESULT_TYPE> HibernateQuery<RESULT_TYPE> createQuery() {
+	
+	public <RESULT_TYPE> HibernateQuery<RESULT_TYPE> createQuery() {
         return new HibernateQuery<>(getSession());
     }
 

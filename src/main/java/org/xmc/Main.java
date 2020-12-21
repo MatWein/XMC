@@ -34,10 +34,10 @@ import java.util.Optional;
 @EnableAsync
 @EnableScheduling
 public class Main extends Application {
-    static {
+	static {
         HomeDirectoryPathCalculator.initializeSystemProperties();
 
-        String languageProperty = System.getProperty("xmc.language");
+        String languageProperty = System.getProperty(SystemProperties.XMC_LANGUAGE);
         if (StringUtils.isNotBlank(languageProperty)) {
             Locale.setDefault(Locale.forLanguageTag(languageProperty));
         }
@@ -82,7 +82,7 @@ public class Main extends Application {
             stage.setOnShown(windowEvent -> startBootstrapping(dtoBootstrapFile, component));
         }
 	
-	    boolean silentMode = Boolean.TRUE.toString().equalsIgnoreCase(System.getProperty(SystemProperties.SILENT_MODE));
+	    boolean silentMode = Boolean.TRUE.toString().equalsIgnoreCase(System.getProperty(SystemProperties.XMC_SILENT_MODE));
 	
 	    if (autoLogin && silentMode) {
 		    startBootstrapping(dtoBootstrapFile, component);

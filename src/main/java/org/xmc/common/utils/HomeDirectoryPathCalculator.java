@@ -16,7 +16,6 @@ public class HomeDirectoryPathCalculator {
         String homeDir = calculateHomeDir();
         System.setProperty(SYSTEM_HOME_DIR, homeDir);
         System.setProperty(SPRING_CONFIG_ADDITIONAL_LOCATION, "optional:" + homeDir + "/");
-        System.setProperty(JDK_GTK_VERSION, "3");
 
         if (StringUtils.isBlank(System.getProperty(SPRING_PROFILES_ACTIVE))) {
             System.setProperty(SPRING_PROFILES_ACTIVE, "prod");
@@ -40,7 +39,7 @@ public class HomeDirectoryPathCalculator {
     }
 
     private static String calculateHomeDirUncached() {
-        String homeType = StringUtils.defaultString(System.getProperty(HOME_TYPE), HOME_HOME);
+        String homeType = StringUtils.defaultString(System.getProperty(XMC_HOME_TYPE), HOME_HOME);
 
         switch (homeType) {
             case HOME_HOME:
@@ -48,7 +47,7 @@ public class HomeDirectoryPathCalculator {
             case HOME_WORKINGDIR:
                 return System.getProperty(USER_DIR);
             case HOME_CUSTOM:
-                String homePath = System.getProperty(HOME_PATH);
+                String homePath = System.getProperty(XMC_HOME_PATH);
 	            
 	            if (StringUtils.isNotBlank(homePath)) {
 		            File homeDir = new File(homePath);

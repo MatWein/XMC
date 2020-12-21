@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.xmc.be.common.importing.DtoImportFileValidationResultMapper;
+import org.xmc.be.common.importing.RawImportFileReader;
 import org.xmc.common.FileMimeType;
 import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
 import org.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransaction;
@@ -26,27 +28,33 @@ import java.util.Set;
 public class CashAccountTransactionImportController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CashAccountTransactionImportController.class);
 	
-	static final Set<String> VALID_CSV_MIME_TYPES = Sets.newHashSet(
+	public static final Set<String> VALID_CSV_MIME_TYPES = Sets.newHashSet(
 			FileMimeType.CSV.getMimeType()
 	);
 	
-	static final Set<String> VALID_EXCEL_MIME_TYPES = Sets.newHashSet(
+	public static final Set<String> VALID_EXCEL_MIME_TYPES = Sets.newHashSet(
 			FileMimeType.MS_EXCELO.getMimeType(),
 			FileMimeType.MS_EXCELX.getMimeType()
 	);
 	
-	static final Set<String> VALID_MIME_TYPES = Sets.union(VALID_CSV_MIME_TYPES, VALID_EXCEL_MIME_TYPES);
+	public static final Set<String> VALID_MIME_TYPES = Sets.union(VALID_CSV_MIME_TYPES, VALID_EXCEL_MIME_TYPES);
 	
 	private final RawImportFileReader rawImportFileReader;
 	private final DtoImportFileValidationResultMapper dtoImportFileValidationResultMapper;
+	private final CashAccountTransactionImportLineMapper cashAccountTransactionImportLineMapper;
+	private final CashAccountTransactionImportLineValidator cashAccountTransactionImportLineValidator;
 	
 	@Autowired
 	public CashAccountTransactionImportController(
 			RawImportFileReader rawImportFileReader,
-			DtoImportFileValidationResultMapper dtoImportFileValidationResultMapper) {
+			DtoImportFileValidationResultMapper dtoImportFileValidationResultMapper,
+			CashAccountTransactionImportLineMapper cashAccountTransactionImportLineMapper,
+			CashAccountTransactionImportLineValidator cashAccountTransactionImportLineValidator) {
 		
 		this.rawImportFileReader = rawImportFileReader;
 		this.dtoImportFileValidationResultMapper = dtoImportFileValidationResultMapper;
+		this.cashAccountTransactionImportLineMapper = cashAccountTransactionImportLineMapper;
+		this.cashAccountTransactionImportLineValidator = cashAccountTransactionImportLineValidator;
 	}
 	
 	public DtoImportFileValidationResult<DtoCashAccountTransaction> readAndValidateImportFile(
@@ -81,7 +89,11 @@ public class CashAccountTransactionImportController {
 		monitor.setProgressByItemCount(++processedItems, processItemCount);
 		
 		monitor.setStatusText(MessageKey.ASYNC_TASK_MAP_IMPORT_FILE);
-		DtoImportFileValidationResult<DtoCashAccountTransaction> result = dtoImportFileValidationResultMapper.map(rawFileContent, DtoCashAccountTransaction.class);
+		DtoImportFileValidationResult<DtoCashAccountTransaction> result = dtoImportFileValidationResultMapper.map(
+				rawFileContent,
+				importData.getColmuns(),
+				cashAccountTransactionImportLineMapper,
+				cashAccountTransactionImportLineValidator);
 		monitor.setProgressByItemCount(++processedItems, processItemCount);
 		
 		return result;

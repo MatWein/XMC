@@ -129,7 +129,7 @@ public class BootstrapController {
                     .withDefaultIcon()
                     .build();
 	        
-            boolean silentMode = Boolean.TRUE.toString().equalsIgnoreCase(System.getProperty(SystemProperties.SILENT_MODE));
+            boolean silentMode = Boolean.TRUE.toString().equalsIgnoreCase(System.getProperty(SystemProperties.XMC_SILENT_MODE));
 	
             if (silentMode && !getStage().isShowing()) {
 	            MainController.mainWindow.setIconified(true);

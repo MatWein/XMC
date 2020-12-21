@@ -1,8 +1,9 @@
-package org.xmc.be.services.cashaccount.controller.importing;
+package org.xmc.be.common.importing;
 
 import com.opencsv.exceptions.CsvValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.xmc.be.services.cashaccount.controller.importing.CashAccountTransactionImportController;
 import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
 import org.xmc.common.stubs.importing.DtoImportData;
 

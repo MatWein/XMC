@@ -1,4 +1,4 @@
-package org.xmc.be.services.cashaccount.controller.importing;
+package org.xmc.be.common.importing;
 
 import com.google.common.collect.Lists;
 import com.opencsv.CSVParser;

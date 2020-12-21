@@ -1,10 +1,10 @@
 package org.xmc.common;
 
 public interface SystemProperties {
-	String SILENT_MODE = "xmc.silent-mode";
-	
-	String HOME_TYPE = "xmc.home.type";
-	String HOME_PATH = "xmc.home.path";
+	String XMC_SILENT_MODE = "xmc.silent-mode";
+	String XMC_HOME_TYPE = "xmc.home.type";
+	String XMC_HOME_PATH = "xmc.home.path";
+	String XMC_LANGUAGE = "xmc.language";
 	
 	String HOME_HOME = "home";
 	String HOME_WORKINGDIR = "workingdir";
@@ -17,7 +17,6 @@ public interface SystemProperties {
 	String SYSTEM_HOME_LOG_DIR = "system.home.log.dir";
 	
 	String DERBY_STREAM_ERROR_FILE = "derby.stream.error.file";
-	String JDK_GTK_VERSION = "jdk.gtk.version";
 	
 	String USER_HOME = "user.home";
 	String USER_DIR = "user.dir";

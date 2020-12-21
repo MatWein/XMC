@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog logicalFilePath="db.changelog-master.xml" xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="2020-12-21-create_import_template_table" author="matthias.weinert">
+        <createTable tableName="IMPORT_TEMPLATES">
+            <column name="ID" autoIncrement="true" type="bigint">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="CREATION_DATE" type="timestamp">
+                <constraints nullable="false" />
+            </column>
+            <column name="DELETION_DATE" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+            <column name="NAME" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+			<column name="START_WITH_LINE" type="integer">
+                <constraints nullable="false"/>
+            </column>
+			<column name="IMPORT_TYPE" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="CSV_SEPARATOR" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="TYPE" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+        </createTable>
+
+		<addUniqueConstraint tableName="IMPORT_TEMPLATES" columnNames="TYPE, NAME" />
+    </changeSet>
+
+	<changeSet id="2020-12-21-create_import_template_mappings_table" author="matthias.weinert">
+		<createTable tableName="IMPORT_TEMPLATE_COLUMN_MAPPINGS">
+			<column name="ID" autoIncrement="true" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="IMPORT_TEMPLATE_ID" type="bigint">
+				<constraints nullable="false" foreignKeyName="FK_IMPORT_TEMPLATE_MAPPING" references="IMPORT_TEMPLATES(ID)"/>
+			</column>
+			<column name="COLUMN_TYPE" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="COLUMN_INDEX" type="integer">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+
+		<addUniqueConstraint tableName="IMPORT_TEMPLATE_COLUMN_MAPPINGS" columnNames="IMPORT_TEMPLATE_ID, COLUMN_INDEX" />
+	</changeSet>
+
+</databaseChangeLog>

@@ -7,8 +7,14 @@ import org.xmc.be.entities.BinaryData;
 import org.xmc.be.entities.Category;
 import org.xmc.be.entities.cashaccount.CashAccount;
 import org.xmc.be.entities.cashaccount.CashAccountTransaction;
+import org.xmc.be.entities.importing.ImportTemplate;
+import org.xmc.be.entities.importing.ImportTemplateColumnMapping;
+import org.xmc.be.entities.importing.ImportTemplateType;
 import org.xmc.be.entities.user.ServiceCallLog;
 import org.xmc.be.entities.user.User;
+import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
+import org.xmc.common.stubs.importing.CsvSeparator;
+import org.xmc.common.stubs.importing.ImportType;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -159,5 +165,58 @@ public class GraphGenerator {
         session().saveOrUpdate(cashAccount);
 
         return cashAccountTransaction;
+    }
+	
+	public ImportTemplate createImportTemplate() {
+    	return createImportTemplate(UUID.randomUUID().toString());
+	}
+    
+    public ImportTemplate createImportTemplate(String name) {
+	    var importTemplate = new ImportTemplate();
+	
+	    importTemplate.setName(name);
+	    importTemplate.setCsvSeparator(CsvSeparator.SEMICOLON);
+	    importTemplate.setImportType(ImportType.ADD_ONLY);
+	    importTemplate.setType(ImportTemplateType.CASH_ACCOUNT_TRANSACTION);
+	    importTemplate.setStartWithLine(1);
+	    
+	    session().persist(importTemplate);
+	    
+	    return importTemplate;
+    }
+	
+	public ImportTemplateColumnMapping createImportTemplateColumnMapping() {
+    	return createImportTemplateColumnMapping(createImportTemplate());
+	}
+ 
+	public ImportTemplateColumnMapping createImportTemplateColumnMapping(ImportTemplate importTemplate) {
+		return createImportTemplateColumnMapping(importTemplate, 1, CashAccountTransactionImportColmn.VALUTA_DATE);
+	}
+ 
+	public ImportTemplateColumnMapping createImportTemplateColumnMapping(
+			ImportTemplate importTemplate,
+			int columnIndex,
+			Enum<?> columnType) {
+    	
+    	return createImportTemplateColumnMapping(importTemplate, columnIndex, columnType.name());
+	}
+    
+    public ImportTemplateColumnMapping createImportTemplateColumnMapping(
+    		ImportTemplate importTemplate,
+		    int columnIndex,
+		    String columnType) {
+    	
+    	var importTemplateColumnMapping = new ImportTemplateColumnMapping();
+	
+	    importTemplateColumnMapping.setImportTemplate(importTemplate);
+	    importTemplateColumnMapping.setColumnIndex(columnIndex);
+	    importTemplateColumnMapping.setColumnType(columnType);
+	    
+	    session().persist(importTemplateColumnMapping);
+	
+	    importTemplate.getColumnMappings().add(importTemplateColumnMapping);
+	    session().saveOrUpdate(importTemplate);
+    	
+    	return importTemplateColumnMapping;
     }
 }

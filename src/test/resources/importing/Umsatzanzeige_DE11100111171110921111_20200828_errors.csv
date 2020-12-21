@@ -1,0 +1,249 @@
+Umsatzanzeige;Datei erstellt am: 28.08.2020 16:13;;;;;;;;
+;Letztes Update: aktuell;;;;;;;;
+;;;;;;;;;
+IBAN;DE07 3581 8237 0254 8564 22;;;;;;;;
+Kontoname;Girokonto;;;;;;;;
+Bank;ING;;;;;;;;
+Kunde;Hans Wurst;;;;;;;;
+Zeitraum;28.08.2019 - 28.08.2020;;;;;;;;
+Saldo;2.000,00;EUR;;;;;;;
+;;;;;;;;;
+Sortierung;Datum absteigend;;;;;;;;
+;;;;;;;;;
+In der CSV-Datei finden Sie alle bereits gebuchten Umsätze. Die vorgemerkten Umsätze werden nicht aufgenommen, auch wenn sie in Ihrem Internetbanking angezeigt werden.;;;;;;;;;
+;;;;;;;;;
+Buchung;Valuta;Auftraggeber/Empfänger;Buchungstext;Kategorie;Verwendungszweck;Saldo;Währung;Betrag;Währung
+27.08.2020;27.08.2020;Hans Wurst;Gutschrift;Einnahmen;Winterraeder;1.000,00;EUR;350,00;EUR
+26.08.2020;26.08.2020;Hans Wurst;Überweisung;Banking und Bargeld;Uebertrag;1.001,00;EUR;-560,00;EUR
+26.08.2020;26.08.2020;SomeCompany GmbH;Gutschrift;Einnahmen;Gehalt August 2020;1.002,00;EUR;1.478,42;EUR
+24.08.2020;24.08.2020;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2020-08-22T 10:27:57 Folgenr.000 Verfalld.2020- 12;1.003,00;EUR;-50,51;EUR
+24.08.2020;24.08.2020;Stadt Berlin, Bussgeldstelle;Überweisung;Mobilität;Verwarnungsgeld, GR-MW-92, vom 14.0 8.20, Aktenzeichen: 80297621;1.004,00;EUR;-25;EUR
+19.08.2020;19.08.2020;VS MINUS Die Gesundheitskasse;Gutschrift;Gesundheit und Wellness;710004011838 400002391969 13,00- BO NUSPROGRAMM 10/2016 06.06.2019 - 31 .12.2020;1.005,00;EUR;13;EUR
+18.08.2020;18.08.2020;Anonym2 PAYMENTS EUROPE S.C.A.;Lastschrift;Shopping und Media;303-1701531-2069937 laden4 DE 4C BXGMENEEW2SG8K;1.006,00;EUR;-24,99;EUR
+17.08.2020;17.08.2020;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2020-08-15T 10:34:43 Folgenr.000 Verfalld.2020- 12;1.007,00;EUR;-45,51;EUR
+14.08.2020;"14.08.2020abc";KK Bank;Lastschrift;Banking und Bargeld;KK BANK AG FUER Hans Ma x Wurst;1.008,00;EUR;-477,87;EUR
+12.08.2020;12.08.2020;tellifon Kabel Deutschland GmbH;Lastschrift;Lebensmittel und Haushalt;08/2020 K-NR. 432300805 Ihre Rechnu ng online bei www.tellifon.de/meink abel;1.009,00;EUR;-36,06;EUR
+10.08.2020;10.08.2020;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2020-08-08T 08:51:40 Folgenr.000 Verfalld.2020- 12;1.010,00;EUR;-40,05;EUR
+06.08.2020;06.08.2020;Anonym2 PAYMENTS EUROPE S.C.A.;Lastschrift;Shopping und Media;303-1515402-7951513 laden4 DE 2S RY0O87TSF3Q9J0;1.011,00;EUR;-16,99;EUR
+06.08.2020;06.08.2020;Anonym2 PAYMENTS EUROPE S.C.A.;Lastschrift;Shopping und Media;303-1515402-7951513 laden4 DE DI 5PVZ4M659BKC1J;1.012,00;EUR;-9,99;EUR
+04.08.2020;04.08.2020;Anonym (Europe) S.a.r.l. et Cie., S .C.A.;Lastschrift;Shopping und Media;PP.6023.PP . , Ihr Einkauf bei , Ar tikel-133473975577;1.013,00;EUR;-32,9;EUR
+03.08.2020;03.08.2020;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2020-08-01T 09:18:40 Folgenr.000 Verfalld.2020- 12;1.014,00;EUR;"-30a";EUR
+03.08.2020;03.08.2020;Stadtwerke Berlin Aktiengesellscha ft;Lastschrift;Wohnen;Kd.Nr. 231000229104/ Berlin, Must erstr.. 6/ Mandat MD-231000229104 -02;1.015,00;EUR;-35;EUR
+03.08.2020;03.08.2020;Some Vermieter;Dauerauftrag / Terminueberweisung;Sonstiges;Miete Musterstraße 6 Berlin 4566456 - Wurst;1.016,00;EUR;-150;EUR
+31.07.2020;31.07.2020;Fränkische BSK Hamburch;Lastschrift;Sparen und Anlegen;Fränkische BSK Hamburch Bausparvertrag 6452290601 S parrate 100,00 EUR;1.017,00;EUR;-100;EUR
+29.07.2020;29.07.2020;Anonym2 PAYMENTS EUROPE S.C.A.;Lastschrift;Shopping und Media;303-4263576-5309902 laden4 DE 51 7L9JMAKM3BP5CV;1.018,00;EUR;-23,88;EUR
+27.07.2020;27.07.2020;VS MINUS Die Gesundheitskasse;Gutschrift;Gesundheit und Wellness;750003854120 400002391969 11,00- BO NUSPROGRAMM 10/2016 06.06.2019 - 31 .12.2020;1.019,00;EUR;11;EUR
+27.07.2020;27.07.2020;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2020-07-25T 10:23:17 Folgenr.000 Verfalld.2020- 12;1.020,00;EUR;-45,39;EUR
+27.07.2020;27.07.2020;SomeCompany GmbH;Gutschrift;Sonstiges;Gehalt Juli 2020;1.021,00;EUR;1.478,42;EUR
+24.07.2020;24.07.2020;Anonym (Europe) S.a.r.l. et Cie., S .C.A.;Lastschrift;Shopping und Media;PP.6023.PP . Qian Ni Limited, Ihr E inkauf bei Qian Ni Limited, Artikel -352872891151;1.022,00;EUR;-19,88;EUR
+23.07.2020;23.07.2020;Anonym (Europe) S.a.r.l. et Cie., S .C.A.;Lastschrift;Shopping und Media;"";1.023,00;EUR;-47,5;EUR
+20.07.2020;20.07.2020;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2020-07-18T 10:27:40 Folgenr.000 Verfalld.2020- 12;1.024,00;EUR;-34,01;EUR
+15.07.2020;15.07.2020;KK Bank;Lastschrift;Mobilität;KK BANK AG FUER Hans Ma x Wurst;1.025,00;EUR;-477,87;EUR
+13.07.2020;13.07.2020;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2020-07-11T 10:20:06 Folgenr.000 Verfalld.2020- 12;1.026,00;EUR;-31,53;EUR
+10.07.2020;10.07.2020;EL;Überweisung;Wohnen;Bestellung laden6 - JACK-JONES T-Shirt, Bestellnr. 10-05371-22048;1.027,00;EUR;-6,09;EUR
+10.07.2020;10.07.2020;tellifon Kabel Deutschland GmbH;Lastschrift;Lebensmittel und Haushalt;07/2020 K-NR. 432300805 Ihre Rechnu ng online bei www.tellifon.de/meink abel;1.028,00;EUR;-36,06;EUR
+06.07.2020;06.07.2020;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2020-07-04T 10:20:35 Folgenr.000 Verfalld.2020- 12;1.029,00;EUR;-42,9;EUR
+03.07.2020;03.07.2020;Hans Wurst;Überweisung;Sparen und Anlegen;Uebertrag;1.030,00;EUR;-2.000,00;EUR
+02.07.2020;02.07.2020;Stadtwerke Berlin Aktiengesellscha ft;Lastschrift;Wohnen;Kd.Nr. 231000229104/ Berlin, Must erstr.. 6/ Mandat MD-231000229104 -02;1.031,00;EUR;-35;EUR
+02.07.2020;02.07.2020;Some Vermieter;Dauerauftrag / Terminueberweisung;Sonstiges;Miete Musterstraße 6 Berlin 4566456 - Wurst;1.032,00;EUR;-150;EUR
+01.07.2020;01.07.2020;Oboy Retail GmbH;Überweisung;Shopping und Media;Rechnungsnr. 010074590, Kundennr. 0 008455566;1.033,00;EUR;-23,7;EUR
+01.07.2020;01.07.2020;Rundfunk ARD, ZDF, DRadio;Lastschrift;Shopping und Media;Rundfunk 07.2020 - 09.2020 Beitrags nr. 580936485 Aenderungen ganz bequ em: www.rundfunkbeitrag.de;1.034,00;EUR;-52,5;EUR
+01.07.2020;01.07.2020;VS UNTERNEHMENSGRUPPE;Lastschrift;Versicherung;VS-Allgemeine, PRIVATHAFTPF LICHT-VERS. VSNR001/01;1.035,00;EUR;-52,76;EUR
+01.07.2020;01.07.2020;VS UNTERNEHMENSGRUPPE;Lastschrift;Versicherung;VS-Allgemeine, HAUSRAT-VERS ICHERUNG VSNR001/02;1.036,00;EUR;-46,19;EUR
+30.06.2020;30.06.2020;VS MINUS Die Gesundheitskasse;Gutschrift;Einnahmen;720003822897 400002391969 13,00- BO NUSPROGRAMM 10/2016 06.06.2019 - 31 .12.2020;1.037,00;EUR;13;EUR
+30.06.2020;30.06.2020;Fränkische BSK Hamburch;Lastschrift;Sparen und Anlegen;Fränkische BSK Hamburch Bausparvertrag 6452290601 S parrate 100,00 EUR;1.038,00;EUR;-100;EUR
+29.06.2020;29.06.2020;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2020-06-27T 13:08:52 Folgenr.000 Verfalld.2020- 12;1.039,00;EUR;-40,32;EUR
+29.06.2020;29.06.2020;SomeCompany GmbH;Gutschrift;Sonstiges;Gehalt Juni 2020;1.040,00;EUR;1.478,42;EUR
+26.06.2020;26.06.2020;Anonym2 PAYMENTS EUROPE S.C.A.;Lastschrift;Shopping und Media;303-0972745-4005961 laden4 DE 1O ISILG3ER2WU2WJ;1.041,00;EUR;-18,99;EUR
+24.06.2020;24.06.2020;Anonym2 PAYMENTS EUROPE S.C.A.;Lastschrift;Shopping und Media;303-9741495-3075560 laden4 DE 6F M44YC293USGOA2;1.042,00;EUR;-13;EUR
+23.06.2020;23.06.2020;Autohaus;Überweisung;Mobilität;Rechnungsnr. 811026128, Kundennr. 4 004298;1.043,00;EUR;-30;EUR
+22.06.2020;22.06.2020;First Data Deutschland GmbH;Abbuchung;Shopping und Media;rtrtrt PCH Breslau//Warschau/P L/2 2020-06-19T17:29:42 Folgenr.000 Verfalld.2020-12;1.044,00;EUR;-47,48;EUR
+22.06.2020;22.06.2020;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2020-06-20T 13:21:26 Folgenr.000 Verfalld.2020- 12;1.045,00;EUR;-44,48;EUR
+19.06.2020;19.06.2020;Anonym2 EU S.A R.L., NIEDERLASSUNG D EUTSCHLAND;Lastschrift;Shopping und Media;303-6203351-2619528 Anonym2.de 42ZNE 3ICOD8CCVTB;1.046,00;EUR;-13,35;EUR
+15.06.2020;15.06.2020;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2020-06-13T 16:15:56 Folgenr.000 Verfalld.2020- 12;1.047,00;EUR;-46,25;EUR
+15.06.2020;15.06.2020;KK Bank;Lastschrift;Banking und Bargeld;KK BANK AG FUER Hans Ma x Wurst;1.048,00;EUR;-477,87;EUR
+12.06.2020;12.06.2020;tellifon Kabel Deutschland GmbH;Lastschrift;Lebensmittel und Haushalt;06/2020 K-NR. 432300805 Ihre Rechnu ng online bei www.tellifon.de/meink abel;1.049,00;EUR;-36,99;EUR
+10.06.2020;10.06.2020;Anonym2 PAYMENTS EUROPE S.C.A.;Lastschrift;Shopping und Media;305-8378172-3199506 laden4 DE 75 9B7G3NJF4K9IOH;1.050,00;EUR;-94,96;EUR
+08.06.2020;08.06.2020;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2020-06-06T 16:46:10 Folgenr.000 Verfalld.2020- 12;1.051,00;EUR;-36,64;EUR
+02.06.2020;02.06.2020;GULF TS Bremen;Lastschrift;Mobilität;Gulf TS Bremen//München /DE 2020-05-30T13:09:10 Folgenr.000 Verfalld.2020-12;1.052,00;EUR;-46,96;EUR
+02.06.2020;02.06.2020;Anonym2 PAYMENTS EUROPE S.C.A.;Lastschrift;Shopping und Media;303-7214981-3577929 laden4 DE 23 U57M7SXLYLHBBJ;1.053,00;EUR;-49,8;EUR
+02.06.2020;02.06.2020;Stadtwerke Berlin Aktiengesellscha ft;Lastschrift;Wohnen;Kd.Nr. 231000229104/ Berlin, Must erstr.. 6/ Mandat MD-231000229104 -02;1.054,00;EUR;-35;EUR
+02.06.2020;02.06.2020;Some Vermieter;Dauerauftrag / Terminueberweisung;Sonstiges;Miete Musterstraße 6 Berlin 4566456 - Wurst;1.055,00;EUR;-150;EUR
+01.06.2020;01.06.2020;LADEN2 GmbH + Co. KG WILSDRUFF;Lastschrift;Lebensmittel und Haushalt;LADEN2 SAGT DANKE 36 079//WILSDRUFF/D E 2020-05-30T14:46:49 Folgenr.000 V erfalld.2020-12;1.056,00;EUR;-34,42;EUR
+01.06.2020;01.06.2020;Hans Wurst;Überweisung;Sparen und Anlegen;Lohn 1;1.057,00;EUR;-1.000,00;EUR
+01.06.2020;01.06.2020;Hans Wurst;Überweisung;Freizeit;Gebuehr :(;1.058,00;EUR;-0,46;EUR
+29.05.2020;29.05.2020;Fränkische BSK Hamburch;Lastschrift;Sparen und Anlegen;Fränkische BSK Hamburch Bausparvertrag 6452290601 S parrate 100,00 EUR;1.059,00;EUR;-100;EUR
+27.05.2020;27.05.2020;SomeCompany GmbH;Gutschrift;Sonstiges;Gehalt Mai 2020;1.060,00;EUR;1.478,42;EUR
+26.05.2020;26.05.2020;VS MINUS Die Gesundheitskasse;Gutschrift;Einnahmen;730003766271 400002391969 15,00- BO NUSPROGRAMM 10/2016 06.06.2019 - 31 .12.2020;1.061,00;EUR;15;EUR
+25.05.2020;25.05.2020;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2020-05-22T 15:40:47 Folgenr.000 Verfalld.2020- 12;1.062,00;EUR;-35,15;EUR
+22.05.2020;22.05.2020;Anonym (Europe) S.a.r.l. et Cie., S .C.A.;Lastschrift;Shopping und Media;. laden6, Ihr Einkauf bei laden6;1.063,00;EUR;-249;EUR
+18.05.2020;18.05.2020;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2020-05-16T 15:51:18 Folgenr.000 Verfalld.2020- 12;1.064,00;EUR;-46,61;EUR
+15.05.2020;15.05.2020;KK Bank;Lastschrift;Mobilität;KK BANK AG FUER Hans Ma x Wurst;1.065,00;EUR;-477,87;EUR
+13.05.2020;13.05.2020;Anonym2 PAYMENTS EUROPE S.C.A.;Lastschrift;Shopping und Media;303-8199747-2805909 laden4 DE 3K BXWE6IJGUTAHML;1.066,00;EUR;-21,9;EUR
+12.05.2020;12.05.2020;tellifon Kabel Deutschland GmbH;Lastschrift;Lebensmittel und Haushalt;05/2020 K-NR. 432300805 Ihre Rechnu ng online bei www.tellifon.de/meink abel;1.067,00;EUR;-36,99;EUR
+11.05.2020;11.05.2020;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2020-05-09T 15:25:06 Folgenr.000 Verfalld.2020- 12;1.068,00;EUR;-25,27;EUR
+04.05.2020;04.05.2020;NETTO MARKEN-DISCOU.;Lastschrift;Lebensmittel und Haushalt;NETTO MARKEN-DISCOU//Berlin/DE 20 20-05-02T12:29:01 Folgenr.000 Verfa lld.2020-12;1.069,00;EUR;-65,78;EUR
+04.05.2020;04.05.2020;Anonym2 EU S.A R.L., NIEDERLASSUNG D EUTSCHLAND;Lastschrift;Shopping und Media;303-1177678-3374748 Anonym2.de 2S2M8 EU90D9CUGRG;1.070,00;EUR;-249;EUR
+04.05.2020;04.05.2020;Some Vermieter;Dauerauftrag / Terminueberweisung;Sonstiges;Miete Musterstraße 6 Berlin 4566456 - Wurst;1.071,00;EUR;-150;EUR
+30.04.2020;30.04.2020;Fränkische BSK Hamburch;Lastschrift;Sparen und Anlegen;Fränkische BSK Hamburch Bausparvertrag 6452290601 S parrate 100,00 EUR;1.072,00;EUR;-100;EUR
+29.04.2020;29.04.2020;VS MINUS Die Gesundheitskasse;Gutschrift;Einnahmen;730003713254 400002391969 15,00- BO NUSPROGRAMM 10/2016 06.06.2019 - 31 .12.2020;1.073,00;EUR;15;EUR
+28.04.2020;28.04.2020;SomeCompany GmbH;Gutschrift;Sonstiges;Gehalt April 2020;1.074,00;EUR;925,19;EUR
+28.04.2020;28.04.2020;Anonym2 PAYMENTS EUROPE S.C.A.;Lastschrift;Shopping und Media;028-6122717-8488348 laden4 DE 2U HIVM8WUEQKECIZ;1.075,00;EUR;-30,68;EUR
+27.04.2020;27.04.2020;laden5 Ostritz;Lastschrift;Lebensmittel und Haushalt;laden5 SAGT DANKE. 37301084//Ostritz /DE 2020-04-25T15:31:47 Folgenr.000 Verfalld.2020-12;1.076,00;EUR;-36,41;EUR
+23.04.2020;23.04.2020;Stadtwerke Berlin Aktiengesellscha ft;Gutschrift;Einnahmen;Kd.Nr. 231000229104/ Berlin, Must erstr.. 6;1.077,00;EUR;20,26;EUR
+20.04.2020;20.04.2020;GULF TS Bremen;Lastschrift;Mobilität;Gulf TS Bremen//München /DE 2020-04-18T13:04:14 Folgenr.000 Verfalld.2020-12;1.078,00;EUR;-50,6;EUR
+20.04.2020;20.04.2020;laden5 Ostritz;Lastschrift;Lebensmittel und Haushalt;laden5 SAGT DANKE. 37301084//Ostritz /DE 2020-04-18T16:18:41 Folgenr.000 Verfalld.2020-12;1.079,00;EUR;-20,51;EUR
+15.04.2020;15.04.2020;Anonym2 EU S.A R.L., NIEDERLASSUNG D EUTSCHLAND;Lastschrift;Shopping und Media;303-2995738-0807553 Anonym2.de 4IFWG 771NSWFUJDN;1.080,00;EUR;-19,99;EUR
+15.04.2020;15.04.2020;KK Bank;Lastschrift;Banking und Bargeld;KK BANK AG FUER Hans Ma x Wurst;1.081,00;EUR;-477,87;EUR
+14.04.2020;14.04.2020;laden3 Benjamin Gesc;Lastschrift;Lebensmittel und Haushalt;laden3 SAGT DANKE. 42655779//Berlin -Rauschwal/DE 2020-04-11T16:27:41 F olgenr.000 Verfalld.2020-12;1.082,00;EUR;-40,31;EUR
+14.04.2020;14.04.2020;tellifon Kabel Deutschland GmbH;Lastschrift;Lebensmittel und Haushalt;04/2020 K-NR. 432300805 Ihre Rechnu ng online bei www.tellifon.de/meink abel;1.083,00;EUR;-36,99;EUR
+07.04.2020;07.04.2020;Anonym (Europe) S.a.r.l. et Cie., S .C.A.;Lastschrift;Shopping und Media;PP.6023.PP . gaming GAMES, Ihr Einka uf bei gaming GAMES;1.084,00;EUR;-8,99;EUR
+06.04.2020;06.04.2020;laden5 Ostritz;Lastschrift;Lebensmittel und Haushalt;laden5 SAGT DANKE. 37301084//Ostritz /DE 2020-04-04T16:13:16 Folgenr.000 Verfalld.2020-12;1.085,00;EUR;-36,71;EUR
+06.04.2020;06.04.2020;Anonym2 PAYMENTS EUROPE S.C.A.;Lastschrift;Shopping und Media;303-0202986-0826743 laden4 DE 3A 6S5NJW9O7MYSLP;1.086,00;EUR;-11,99;EUR
+03.04.2020;03.04.2020;Anonym2 EU S.A R.L., NIEDERLASSUNG D EUTSCHLAND;Lastschrift;Shopping und Media;303-8298346-9628340 Anonym2.de 521FJ FRNONQNLD9Z;1.087,00;EUR;-9,24;EUR
+02.04.2020;02.04.2020;Some Vermieter;Dauerauftrag / Terminueberweisung;Sonstiges;Miete Musterstraße 6 Berlin 4566456 - Wurst;1.088,00;EUR;-150;EUR
+01.04.2020;01.04.2020;Hans Wurst;Gutschrift;Einnahmen;Dividende RD;1.089,00;EUR;4,28;EUR
+01.04.2020;01.04.2020;Stadtwerke Berlin Aktiengesellscha ft;Lastschrift;Wohnen;Kd.Nr. 231000229104/ Berlin, Must erstr.. 6/ Mandat MD-231000229104 -02;1.090,00;EUR;-37;EUR
+01.04.2020;01.04.2020;Rundfunk ARD, ZDF, DRadio;Lastschrift;Shopping und Media;Rundfunk 04.2020 - 06.2020 Beitrags nr. 580936485 Aenderungen ganz bequ em: www.rundfunkbeitrag.de;1.091,00;EUR;-52,5;EUR
+31.03.2020;31.03.2020;Fränkische BSK Hamburch;Lastschrift;Sparen und Anlegen;Fränkische BSK Hamburch Bausparvertrag 6452290601 S parrate 100,00 EUR;1.092,00;EUR;-100;EUR
+30.03.2020;30.03.2020;DANKE, IHR LIDL;Lastschrift;Lebensmittel und Haushalt;DANKE, IHR LIDL//Berlin/DE 2020-0 3-28T11:57:27 Folgenr.000 Verfalld. 2020-12;1.093,00;EUR;-43,88;EUR
+30.03.2020;30.03.2020;UniCredit Bank AG we;Lastschrift;Mobilität;TOTAL Service Station//Berlin/DE 2020-03-28T13:55:51 Folgenr.000 Ver falld.2020-12;1.094,00;EUR;-47,63;EUR
+26.03.2020;26.03.2020;SomeCompany GmbH;Gutschrift;Sonstiges;Gehalt Maerz 2020;1.095,00;EUR;925,19;EUR
+25.03.2020;25.03.2020;JONATHAN GEORGE STEFANOU;Gutschrift;Einnahmen;Erst. Guth. BK-Abr. 2019 Blockhauss tr. 6;1.096,00;EUR;133,49;EUR
+24.03.2020;24.03.2020;Anonym2 PAYMENTS EUROPE S.C.A.;Gutschrift;Shopping und Media;302-4740824-7339544 ppp Lannister F ashion 3Z6VEM4MCT7OPJ4Q;1.097,00;EUR;19,81;EUR
+23.03.2020;23.03.2020;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2020-03-21T 12:56:40 Folgenr.000 Verfalld.2020- 12;1.098,00;EUR;-34,84;EUR
+20.03.2020;20.03.2020;VS MINUS Die Gesundheitskasse;Gutschrift;Einnahmen;710003731628 400002391969 15,00- BO NUSPROGRAMM 10/2016 06.06.2019 - 31 .12.2020;1.099,00;EUR;15;EUR
+18.03.2020;18.03.2020;Anonym2 PAYMENTS EUROPE S.C.A.;Lastschrift;Shopping und Media;302-4740824-7339544 laden4 DE 6Z C4DCJEI8VWV6SC;1.100,00;EUR;-19,81;EUR
+16.03.2020;16.03.2020;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2020-03-14T 17:11:35 Folgenr.000 Verfalld.2020- 12;1.101,00;EUR;-37,68;EUR
+13.03.2020;13.03.2020;KK Bank;Lastschrift;Mobilität;KK BANK AG FUER Hans Ma x Wurst;1.102,00;EUR;-477,87;EUR
+12.03.2020;12.03.2020;VS UNTERNEHMENSGRUPPE;Lastschrift;Versicherung;VS-Allgemeine, KRAFTFAHRT-V ERSICHERUNG 646/341538-T, GR-MW 92;1.103,00;EUR;-633,4;EUR
+12.03.2020;12.03.2020;tellifon Kabel Deutschland GmbH;Lastschrift;Lebensmittel und Haushalt;03/2020 K-NR. 432300805 Ihre Rechnu ng online bei www.tellifon.de/meink abel;1.104,00;EUR;-36,99;EUR
+10.03.2020;10.03.2020;Anonym2 PAYMENTS EUROPE S.C.A.;Lastschrift;Shopping und Media;302-6041015-9859563 laden4 DE 7I EFTO0HOPP2PDMI;1.105,00;EUR;-9,16;EUR
+09.03.2020;09.03.2020;laden5 Ostritz;Lastschrift;Lebensmittel und Haushalt;laden5 SAGT DANKE. 37301084//Ostritz /DE 2020-03-07T14:31:44 Folgenr.000 Verfalld.2020-12 Auszahl. 50,00 EUR;1.106,00;EUR;-94,15;EUR
+03.03.2020;03.03.2020;FRESSNAPF Berlin;Lastschrift;Lebensmittel und Haushalt;ELV61444641 29.02 10.13 ME0;1.107,00;EUR;-14,97;EUR
+03.03.2020;03.03.2020;Stadtwerke Berlin Aktiengesellscha ft;Lastschrift;Wohnen;Kd.Nr. 231000229104/ Berlin, Must erstr.. 6/ Mandat MD-231000229104 -02;1.108,00;EUR;-37;EUR
+02.03.2020;02.03.2020;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2020-02-29T 17:04:30 Folgenr.000 Verfalld.2020- 12;1.109,00;EUR;-38,93;EUR
+02.03.2020;02.03.2020;Hochschule fur Berufstatige Darmsta dt GmbH;Lastschrift;Kinder;695.00 Euro Rechnung 202195342;1.110,00;EUR;-695;EUR
+02.03.2020;02.03.2020;Some Vermieter;Dauerauftrag / Terminueberweisung;Sonstiges;Miete Musterstraße 6 Berlin 4566456 - Wurst;1.111,00;EUR;-150;EUR
+28.02.2020;28.02.2020;Fränkische BSK Hamburch;Lastschrift;Sparen und Anlegen;Fränkische BSK Hamburch Bausparvertrag 6452290601 S parrate 100,00 EUR;1.112,00;EUR;-100;EUR
+27.02.2020;27.02.2020;SomeCompany GmbH;Gutschrift;Sonstiges;Gehalt Feb 2020;1.113,00;EUR;925,19;EUR
+26.02.2020;26.02.2020;LADEN2 GmbH + Co. KG WILSDRUFF;Lastschrift;Lebensmittel und Haushalt;LADEN2 SAGT DANKE 36 082//WILSDRUFF/D E 2020-02-25T17:29:39 Folgenr.000 V erfalld.2020-12;1.114,00;EUR;-0,79;EUR
+25.02.2020;25.02.2020;First Data Deutschland GmbH;Abbuchung;Shopping und Media;rtrtrt PCH Breslau//Warschau/P L/2 2020-02-22T16:10:36 Folgenr.000 Verfalld.2020-12;1.115,00;EUR;-57,39;EUR
+25.02.2020;25.02.2020;Anonym2 PAYMENTS EUROPE S.C.A.;Lastschrift;Shopping und Media;302-1961822-3280343 laden4 DE 4Y VPO4EXVB12QCFT;1.116,00;EUR;-9,99;EUR
+24.02.2020;24.02.2020;laden5 Ostritz;Lastschrift;Lebensmittel und Haushalt;laden5 SAGT DANKE. 37301084//Ostritz /DE 2020-02-22T15:52:20 Folgenr.000 Verfalld.2020-12;1.117,00;EUR;-32,09;EUR
+19.02.2020;19.02.2020;VS MINUS Die Gesundheitskasse;Gutschrift;Einnahmen;760003621522 400002391969 14,00- BO NUSPROGRAMM 10/2016 06.06.2019 - 31 .12.2020;1.118,00;EUR;14;EUR
+19.02.2020;19.02.2020;ROLLER GMBH + CO. KG;Lastschrift;Wohnen;ELV61427784 17.02 18.17 ME0;1.119,00;EUR;-12,98;EUR
+19.02.2020;19.02.2020;Anonym2 PAYMENTS EUROPE S.C.A.;Lastschrift;Shopping und Media;P02-7837551-0885930 ppp ap-kratzbau mland JVNVMWVE9X0WL9XV;1.120,00;EUR;-23,85;EUR
+18.02.2020;18.02.2020;NETTO MARKEN-DISCOU.;Lastschrift;Lebensmittel und Haushalt;150217310248144201299147940 ELV6510 0123 15.02 17.31 ME0;1.121,00;EUR;-47,27;EUR
+14.02.2020;14.02.2020;Anonym2 PAYMENTS EUROPE S.C.A.;Lastschrift;Shopping und Media;302-2821089-1705112 laden4 DE 6J 1ISQYB7FIDL6J0;1.122,00;EUR;-11,11;EUR
+14.02.2020;14.02.2020;Anonym2 PAYMENTS EUROPE S.C.A.;Lastschrift;Shopping und Media;302-8938669-5589120 laden4 DE 6V TAWRELS3LX7T05;1.123,00;EUR;-17,59;EUR
+14.02.2020;14.02.2020;KK Bank;Lastschrift;Banking und Bargeld;KK BANK AG FUER Hans Ma x Wurst;1.124,00;EUR;-477,87;EUR
+13.02.2020;13.02.2020;Bundeskasse in Halle;Lastschrift;Mobilität;Kfz-Steuer fuer GR MW 92 fuer die Z eit vom 02.01.2020 bis zum 01.01.20 21 Kassenzeichen K11826598710;1.125,00;EUR;-292;EUR
+12.02.2020;12.02.2020;tellifon Kabel Deutschland GmbH;Lastschrift;Lebensmittel und Haushalt;02/2020 K-NR. 432300805 Ihre Rechnu ng online bei www.tellifon.de/meink abel;1.126,00;EUR;-36,99;EUR
+10.02.2020;10.02.2020;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2020-02-08T 18:00:18 Folgenr.000 Verfalld.2020- 12;1.127,00;EUR;-40,64;EUR
+07.02.2020;07.02.2020;ROLLER GMBH + CO. KG;Lastschrift;Wohnen;ELV61427782 05.02 17.04 ME0;1.128,00;EUR;-38,94;EUR
+06.02.2020;06.02.2020;HORNBACH 554 Berlin;Lastschrift;Lebensmittel und Haushalt;040215440024668201200005540 ELV6522 1246 04.02 15.44 ME0;1.129,00;EUR;-35,95;EUR
+05.02.2020;05.02.2020;Anonym2 PAYMENTS EUROPE S.C.A.;Lastschrift;Shopping und Media;302-0886607-2723530 laden4 DE 1U RZEI9KXBDI2GMN;1.130,00;EUR;-21,59;EUR
+04.02.2020;04.02.2020;SomeCompany GmbH;Gutschrift;Sonstiges;Gehaltsnachzahlung 01-2020;1.131,00;EUR;60,5;EUR
+03.02.2020;03.02.2020;TIERARZTPRAXIS THOMAS;Lastschrift;Kinder;TIERARZTPRAXIS THOMAS//Berlin/DE 2020-01-31T14:40:06 Folgenr.000 Ver falld.2020-12;1.132,00;EUR;-37,26;EUR
+03.02.2020;03.02.2020;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2020-02-01T 15:56:53 Folgenr.000 Verfalld.2020- 12;1.133,00;EUR;-28,14;EUR
+03.02.2020;03.02.2020;Stadtwerke Berlin Aktiengesellscha ft;Lastschrift;Wohnen;Kd.Nr. 231000229104/ Berlin, Must erstr.. 6/ Mandat MD-231000229104 -02;1.134,00;EUR;-37;EUR
+03.02.2020;03.02.2020;Some Vermieter;Dauerauftrag / Terminueberweisung;Sonstiges;Miete Musterstraße 6 Berlin 4566456 - Wurst;1.135,00;EUR;-150;EUR
+31.01.2020;31.01.2020;Fränkische BSK Hamburch;Lastschrift;Sparen und Anlegen;Fränkische BSK Hamburch Bausparvertrag 6452290601 S parrate 100,00 EUR;1.136,00;EUR;-100;EUR
+29.01.2020;29.01.2020;SomeCompany GmbH;Gutschrift;Sonstiges;Gehalt Januar 2020;1.137,00;EUR;1.468,69;EUR
+27.01.2020;27.01.2020;6321 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;6321 LADEN SAGT DANKE//HIRSCHFELDE/ DE 2020-01-25T14:44:42 Folgenr.000 Verfalld.2020-12;1.138,00;EUR;-61,18;EUR
+27.01.2020;27.01.2020;Anonym2 EU S.A R.L., NIEDERLASSUNG D EUTSCHLAND;Lastschrift;Shopping und Media;302-4863099-0156337 Anonym2.de 9UTFQ BPP4B6VMT6O;1.139,00;EUR;-14,91;EUR
+21.01.2020;21.01.2020;First Data Deutschland GmbH;Abbuchung;Reisen;rtrtrt PCH Breslau//Warschau/P L/2 2020-01-18T14:57:51 Folgenr.000 Verfalld.2020-12;1.140,00;EUR;-52,16;EUR
+20.01.2020;20.01.2020;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2020-01-18T 13:05:25 Folgenr.000 Verfalld.2020- 12;1.141,00;EUR;-31,4;EUR
+15.01.2020;15.01.2020;KK Bank;Lastschrift;Mobilität;KK BANK AG FUER Hans Ma x Wurst;1.142,00;EUR;-477,87;EUR
+13.01.2020;13.01.2020;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2020-01-11T 14:39:10 Folgenr.000 Verfalld.2020- 12;1.143,00;EUR;-40,94;EUR
+13.01.2020;13.01.2020;tellifon Kabel Deutschland GmbH;Lastschrift;Lebensmittel und Haushalt;01/2020 K-NR. 432300805 Ihre Rechnu ng online bei www.tellifon.de/meink abel;1.144,00;EUR;-36,99;EUR
+08.01.2020;08.01.2020;VS MINUS Die Gesundheitskasse;Gutschrift;Gesundheit und Wellness;775003558078 400002391969 15,00- BO NUSPROGRAMM 10/2016 06.06.2019 - 31 .12.2020;1.145,00;EUR;15;EUR
+06.01.2020;06.01.2020;ARAL AG;Lastschrift;Mobilität;ARAL Hamm Hammer Strase 231//Hamm/D E 2020-01-03T15:13:04 Folgenr.000 V erfalld.2020-12;1.146,00;EUR;-57,51;EUR
+06.01.2020;06.01.2020;ESSO STATION;Lastschrift;Mobilität;ECHO TANKSTELLEN GMBH//Bodenbach/DE 2020-01-03T20:11:02 Folgenr.000 Ve rfalld.2020-12;1.147,00;EUR;-72,07;EUR
+06.01.2020;06.01.2020;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2020-01-04T 15:38:38 Folgenr.000 Verfalld.2020- 12;1.148,00;EUR;-23,66;EUR
+06.01.2020;06.01.2020;Anonym (Europe) S.a.r.l. et Cie., S .C.A.;Lastschrift;Shopping und Media;PP.6023.PP . DBVERTRIEBG, Ihr Einka uf bei DBVERTRIEBG;1.149,00;EUR;-79,9;EUR
+02.01.2020;02.01.2020;Rundfunk ARD, ZDF, DRadio;Lastschrift;Shopping und Media;Rundfunk 01.2020 - 03.2020 Beitrags nr. 580936485 Aenderungen ganz bequ em: www.rundfunkbeitrag.de;1.150,00;EUR;-52,5;EUR
+02.01.2020;02.01.2020;Anonym (Europe) S.a.r.l. et Cie., S .C.A.;Lastschrift;Shopping und Media;PP.6023.PP . gaming GAMES, Ihr Einka uf bei gaming GAMES;1.151,00;EUR;-17,49;EUR
+02.01.2020;02.01.2020;Stadtwerke Berlin Aktiengesellscha ft;Lastschrift;Wohnen;Kd.Nr. 231000229104/ Berlin, Must erstr.. 6/ Mandat MD-231000229104 -02;1.152,00;EUR;-37;EUR
+02.01.2020;31.12.2019;NETTO MARKEN-DISCOU.;Lastschrift;Lebensmittel und Haushalt;271212510241561201299147940 ELV6510 0125 27.12 12.51 ME0;1.153,00;EUR;-19,85;EUR
+02.01.2020;02.01.2020;Some Vermieter;Dauerauftrag / Terminueberweisung;Sonstiges;Miete Musterstraße 6 Berlin 4566456 - Wurst;1.154,00;EUR;-150;EUR
+30.12.2019;30.12.2019;Fränkische BSK Hamburch;Lastschrift;Sparen und Anlegen;Fränkische BSK Hamburch Bausparvertrag 6452290601 S parrate 100,00 EUR;1.155,00;EUR;-100;EUR
+23.12.2019;23.12.2019;Autohaus W. Potthoff GmbH;Überweisung;Mobilität;Autokauf VW www. Interne Nr.: 11960 M. Wurst, Angebotsnr.: 0663616A02;1.156,00;EUR;-8.000,00;EUR
+23.12.2019;23.12.2019;Hans Wurst;Gutschrift;Sparen und Anlegen;Umbuchung;1.157,00;EUR;2.400,00;EUR
+23.12.2019;23.12.2019;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2019-12-21T 14:54:29 Folgenr.000 Verfalld.2020- 12;1.158,00;EUR;-49,32;EUR
+23.12.2019;23.12.2019;Hans Wurst;Gutschrift;Einnahmen;Dividende;1.159,00;EUR;4,32;EUR
+23.12.2019;23.12.2019;Anonym2 EU S.A R.L., NIEDERLASSUNG D EUTSCHLAND;Gutschrift;Shopping und Media;D01-7898129-6767049 laden4 DE 25 NVX3X5SD8NNVS3;1.160,00;EUR;7,99;EUR
+23.12.2019;23.12.2019;SomeCompany GmbH;Gutschrift;Einnahmen;Gehalt Dezember 2019;1.161,00;EUR;1.459,55;EUR
+19.12.2019;17.12.2019;Anonym2 EU S.A R.L., NIEDERLASSUNG D EUTSCHLAND;Retouren;Shopping und Media;D01-7898129-6767049 pppNPri Vorgelegt am 17.12.2019 Nicht bezahlt 7,99- Widerspruch;1.162,00;EUR;7,99;EUR
+19.12.2019;18.12.2019;Anonym2 EU S.A R.L., NIEDERLASSUNG D EUTSCHLAND;Retouren;Shopping und Media;D01-3586277-4357446 pppNPri Vorgelegt am 18.12.2019 Nicht bezahlt 7,99- Widerspruch;1.163,00;EUR;7,99;EUR
+19.12.2019;19.12.2019;tellifon Kabel Deutschland GmbH;Lastschrift;Lebensmittel und Haushalt;12/2019 K-NR. 432300805 Ihre Rechnu ng online bei www.tellifon.de/meink abel;1.164,00;EUR;-37,19;EUR
+18.12.2019;18.12.2019;Anonym2 EU S.A R.L., NIEDERLASSUNG D EUTSCHLAND;Lastschrift;Shopping und Media;D01-3586277-4357446 laden4 DE 3X 1TMECY658K800I;1.165,00;EUR;-7,99;EUR
+17.12.2019;17.12.2019;Anonym (Europe) S.a.r.l. et Cie., S .C.A.;Lastschrift;Shopping und Media;PP.6023.PP . DBVERTRIEBG, Ihr Einka uf bei DBVERTRIEBG;1.166,00;EUR;-159,8;EUR
+17.12.2019;17.12.2019;Anonym2 EU S.A R.L., NIEDERLASSUNG D EUTSCHLAND;Lastschrift;Shopping und Media;D01-7898129-6767049 laden4 DE 2A T9YDI9P29JT7XJ;1.167,00;EUR;-7,99;EUR
+16.12.2019;16.12.2019;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2019-12-14T 13:25:59 Folgenr.000 Verfalld.2020- 12;1.168,00;EUR;-34,55;EUR
+11.12.2019;11.12.2019;Hans Wurst;Gutschrift;Sparen und Anlegen;Uebertrag;1.169,00;EUR;5.000,00;EUR
+11.12.2019;11.12.2019;KK Bank;Gutschrift;Banking und Bargeld;KK Bank AG fur Auszahlung KK Bank;1.170,00;EUR;3.000,00;EUR
+09.12.2019;09.12.2019;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2019-12-07T 16:00:43 Folgenr.000 Verfalld.2020- 12;1.171,00;EUR;-36,22;EUR
+04.12.2019;04.12.2019;VS MINUS Die Gesundheitskasse;Gutschrift;Gesundheit und Wellness;710003544822 400002391969 10,00- BO NUSPROGRAMM 10/2016 06.06.2019 - 31 .12.2019;1.172,00;EUR;10;EUR
+02.12.2019;02.12.2019;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2019-11-30T 16:31:06 Folgenr.000 Verfalld.2020- 12;1.173,00;EUR;-36,43;EUR
+02.12.2019;02.12.2019;Stadtwerke Berlin Aktiengesellscha ft;Lastschrift;Wohnen;Kd.Nr. 231000229104/ Berlin, Must erstr.. 6/ Mandat MD-231000229104 -02;1.174,00;EUR;-37;EUR
+02.12.2019;02.12.2019;Some Vermieter;Dauerauftrag / Terminueberweisung;Wohnen;Miete Musterstraße 6 Berlin 4566456 - Wurst;1.175,00;EUR;-150;EUR
+29.11.2019;29.11.2019;Fränkische BSK Hamburch;Lastschrift;Sparen und Anlegen;Fränkische BSK Hamburch Bausparvertrag 6452290601 S parrate 100,00 EUR;1.176,00;EUR;-100;EUR
+27.11.2019;27.11.2019;Anonym2 PAYMENTS EUROPE S.C.A.;Lastschrift;Shopping und Media;028-0427944-6707508 laden4 DE 3F K6UBLE41VBPVKT;1.177,00;EUR;-33,51;EUR
+27.11.2019;27.11.2019;Anonym2 EU S.A R.L., NIEDERLASSUNG D EUTSCHLAND;Lastschrift;Shopping und Media;028-0600029-6062732 Anonym2.de 2AML8 T28XQT1KIOA;1.178,00;EUR;-35,24;EUR
+26.11.2019;26.11.2019;SomeCompany GmbH;Gutschrift;Sonstiges;Gehalt Nov 2019;1.179,00;EUR;1.459,55;EUR
+26.11.2019;26.11.2019;Anonym2 PAYMENTS EUROPE S.C.A.;Lastschrift;Shopping und Media;028-1089232-1566763 laden4 DE 4A OYEKAFFVS5Z2E8;1.180,00;EUR;-14,58;EUR
+26.11.2019;26.11.2019;Anonym2 PAYMENTS EUROPE S.C.A.;Lastschrift;Shopping und Media;028-3711060-3878714 laden4 DE E7 P6P4DUASX5LHFD;1.181,00;EUR;-28,9;EUR
+25.11.2019;25.11.2019;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2019-11-23T 16:43:16 Folgenr.000 Verfalld.2020- 12;1.182,00;EUR;-49,04;EUR
+25.11.2019;25.11.2019;Hans Wurst;Gutschrift;Sparen und Anlegen;Ertragsausschuttung;1.183,00;EUR;17,99;EUR
+25.11.2019;25.11.2019;Anonym2 PAYMENTS EUROPE S.C.A.;Lastschrift;Shopping und Media;028-2777483-8851516 laden4 DE 3G NN49BDBWGTVP6O;1.184,00;EUR;-10,99;EUR
+21.11.2019;21.11.2019;Anonym2 PAYMENTS EUROPE S.C.A.;Lastschrift;Shopping und Media;028-2286480-2502767 laden4 DE 26 3FRVPPWQZC5N9I;1.185,00;EUR;-12,5;EUR
+18.11.2019;18.11.2019;LADEN2 GmbH + Co. KG WILSDRUFF;Lastschrift;Lebensmittel und Haushalt;LADEN2 SAGT DANKE 36 086//WILSDRUFF/D E 2019-11-16T14:53:48 Folgenr.000 V erfalld.2020-12;1.186,00;EUR;-40,26;EUR
+15.11.2019;15.11.2019;VS MINUS Die Gesundheitskasse;Gutschrift;Einnahmen;760003470766 400002391969 12,00- BO NUSPROGRAMM 10/2016 06.06.2019 - 31 .12.2019;1.187,00;EUR;12;EUR
+15.11.2019;15.11.2019;Hans Wurst;Lastschrift;Wohnen;Haus;1.188,00;EUR;-500;EUR
+12.11.2019;12.11.2019;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2019-11-09T 15:45:14 Folgenr.000 Verfalld.2020- 12;1.189,00;EUR;-38,53;EUR
+12.11.2019;12.11.2019;tellifon Kabel Deutschland GmbH;Lastschrift;Lebensmittel und Haushalt;11/2019 K-NR. 432300805 Ihre Rechnu ng online bei www.tellifon.de/meink abel;1.190,00;EUR;-36,99;EUR
+08.11.2019;08.11.2019;Anonym2 PAYMENTS EUROPE S.C.A.;Lastschrift;Shopping und Media;028-6453514-2185110 laden4 DE 19 4DKDO9JX01WW66;1.191,00;EUR;-22,99;EUR
+05.11.2019;05.11.2019;FRESSNAPF Berlin;Lastschrift;Lebensmittel und Haushalt;ELV61444641 02.11 15.46 ME0;1.192,00;EUR;-10,37;EUR
+05.11.2019;05.11.2019;Anonym2 EU S.A R.L., NIEDERLASSUNG D EUTSCHLAND;Lastschrift;Shopping und Media;028-0681407-4992345 Anonym2.de 5FHG3 HXSZISYQFJG;1.193,00;EUR;-24,96;EUR
+05.11.2019;05.11.2019;Anonym2 EU S.A R.L., NIEDERLASSUNG D EUTSCHLAND;Lastschrift;Shopping und Media;028-4373196-1141117 Anonym2.de 6LLVH DA0R9HCVV60;1.194,00;EUR;-24,9;EUR
+04.11.2019;04.11.2019;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2019-11-02T 16:10:36 Folgenr.000 Verfalld.2020- 12;1.195,00;EUR;-44,89;EUR
+04.11.2019;04.11.2019;Some Vermieter;Dauerauftrag / Terminueberweisung;Sonstiges;Miete Musterstraße 6 Berlin 4566456 - Wurst;1.196,00;EUR;-150;EUR
+01.11.2019;01.11.2019;Stadtwerke Berlin Aktiengesellscha ft;Lastschrift;Wohnen;Kd.Nr. 231000229104/ Berlin, Must erstr.. 6/ Mandat MD-231000229104 -02;1.197,00;EUR;-37;EUR
+31.10.2019;31.10.2019;Fränkische BSK Hamburch;Lastschrift;Sparen und Anlegen;Fränkische BSK Hamburch Bausparvertrag 6452290601 S parrate 100,00 EUR;1.198,00;EUR;-100;EUR
+29.10.2019;29.10.2019;SomeCompany GmbH;Gutschrift;Einnahmen;Gehalt Okt 2019;1.199,00;EUR;1.423,55;EUR
+28.10.2019;28.10.2019;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2019-10-26T 16:40:18 Folgenr.000 Verfalld.2020- 12;1.200,00;EUR;-44,07;EUR
+25.10.2019;25.10.2019;VS MINUS Die Gesundheitskasse;Gutschrift;Einnahmen;730003402686 400002391969 10,00- BO NUSPROGRAMM 10/2016 06.06.2019 - 31 .12.2019;1.201,00;EUR;10;EUR
+21.10.2019;21.10.2019;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2019-10-19T 15:39:26 Folgenr.000 Verfalld.2020- 12;1.202,00;EUR;-30,42;EUR
+21.10.2019;21.10.2019;Anonym2 EU S.A R.L., NIEDERLASSUNG D EUTSCHLAND;Lastschrift;Shopping und Media;028-2127307-9669912 Anonym2.de 73MO7 H1FGYGC45EA;1.203,00;EUR;-20,63;EUR
+15.10.2019;15.10.2019;Hans Wurst;Lastschrift;Wohnen;Haus;1.204,00;EUR;-500;EUR
+14.10.2019;14.10.2019;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2019-10-12T 18:08:49 Folgenr.000 Verfalld.2020- 12;1.205,00;EUR;-45,61;EUR
+11.10.2019;11.10.2019;tellifon Kabel Deutschland GmbH;Lastschrift;Lebensmittel und Haushalt;10/2019 K-NR. 432300805 Ihre Rechnu ng online bei www.tellifon.de/meink abel;1.206,00;EUR;-36,99;EUR
+09.10.2019;09.10.2019;Anonym2 PAYMENTS EUROPE S.C.A.;Lastschrift;Shopping und Media;306-6093646-6185159 laden4 DE 4R C9CKCBQ3FFKU6W;1.207,00;EUR;-25,49;EUR
+07.10.2019;07.10.2019;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2019-10-05T 16:33:35 Folgenr.000 Verfalld.2020- 12;1.208,00;EUR;-28,49;EUR
+02.10.2019;02.10.2019;Stadtwerke Berlin Aktiengesellscha ft;Lastschrift;Wohnen;Kd.Nr. 231000229104/ Berlin, Must erstr.. 6/ Mandat MD-231000229104 -02;1.209,00;EUR;-37;EUR
+02.10.2019;02.10.2019;Some Vermieter;Dauerauftrag / Terminueberweisung;Wohnen;Miete Musterstraße 6 Berlin 4566456 - Wurst;1.210,00;EUR;-150;EUR
+01.10.2019;01.10.2019;SomeCompany GmbH;Gutschrift aus Dauerauftrag;Einnahmen;Studium Wurst;1.211,00;EUR;328;EUR
+01.10.2019;01.10.2019;Hochschule fur Berufstatige Darmsta dt GmbH;Lastschrift;Wohnen;328.00 Euro Rate 36;1.212,00;EUR;-328;EUR
+01.10.2019;01.10.2019;Anonym (Europe) S.a.r.l. et Cie., S .C.A.;Lastschrift;Shopping und Media;PP.6023.PP . gaming GAMES, Ihr Einka uf bei gaming GAMES;1.213,00;EUR;-24,31;EUR
+01.10.2019;01.10.2019;Rundfunk ARD, ZDF, DRadio;Lastschrift;Shopping und Media;Rundfunk 10.2019 - 12.2019 Beitrags nr. 580936485 Aenderungen ganz bequ em: www.rundfunkbeitrag.de;1.214,00;EUR;-52,5;EUR
+30.09.2019;30.09.2019;LADEN2 GmbH + Co. KG WILSDRUFF;Lastschrift;Lebensmittel und Haushalt;LADEN2 SAGT DANKE 36 086//WILSDRUFF/D E 2019-09-28T11:04:14 Folgenr.000 V erfalld.2020-12;1.215,00;EUR;-37,14;EUR
+30.09.2019;30.09.2019;Fränkische BSK Hamburch;Lastschrift;Sparen und Anlegen;Fränkische BSK Hamburch Bausparvertrag 6452290601 S parrate 100,00 EUR;1.216,00;EUR;-100;EUR
+26.09.2019;26.09.2019;SomeCompany GmbH;Gutschrift;Einnahmen;Gehalt Sep 2019;1.217,00;EUR;1.459,55;EUR
+25.09.2019;25.09.2019;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2019-09-21T 16:04:37 Folgenr.000 Verfalld.2020- 12;1.218,00;EUR;-35,81;EUR
+17.09.2019;17.09.2019;FRESSNAPF Berlin;Lastschrift;Lebensmittel und Haushalt;ELV61444641 14.09 15.08 ME0;1.219,00;EUR;-8,99;EUR
+16.09.2019;16.09.2019;laden3 Benjamin Gesc;Lastschrift;Lebensmittel und Haushalt;laden3 SAGT DANKE. 42655779//Berlin -Rauschwal/DE 2019-09-14T15:39:10 F olgenr.000 Verfalld.2020-12;1.220,00;EUR;-45,85;EUR
+16.09.2019;16.09.2019;Hans Wurst;Lastschrift;Wohnen;Haus;1.221,00;EUR;-500;EUR
+12.09.2019;12.09.2019;tellifon Kabel Deutschland GmbH;Lastschrift;Lebensmittel und Haushalt;09/2019 K-NR. 432300805 Ihre Rechnu ng online bei www.tellifon.de/meink abel;1.222,00;EUR;-36,99;EUR
+11.09.2019;11.09.2019;VS UNTERNEHMENSGRUPPE;Gutschrift;Einnahmen;VERS.-NR. 646/341538-T BEITRAGSGUTH ABEN;1.223,00;EUR;163,22;EUR
+11.09.2019;11.09.2019;Anonym2 PAYMENTS EUROPE S.C.A.;Lastschrift;Shopping und Media;306-6715447-6000346 laden4 DE 6B E09S5IN0VIXOKI;1.224,00;EUR;-47,96;EUR
+11.09.2019;11.09.2019;Anonym2 PAYMENTS EUROPE S.C.A.;Lastschrift;Shopping und Media;306-6715447-6000346 laden4 DE NB 188T1X1LCKFYRZ;1.225,00;EUR;-22,9;EUR
+09.09.2019;09.09.2019;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2019-09-07T 13:49:00 Folgenr.000 Verfalld.2020- 12;1.226,00;EUR;-26,03;EUR
+03.09.2019;03.09.2019;Stadtwerke Berlin Aktiengesellscha ft;Lastschrift;Wohnen;Kd.Nr. 231000229104/ Berlin, Must erstr.. 6/ Mandat MD-231000229104 -02;1.227,00;EUR;-37;EUR
+02.09.2019;02.09.2019;7750 LADEN SAGT DANKE;Lastschrift;Lebensmittel und Haushalt;7750 LADEN//Berlin/DE 2019-08-31T 15:45:47 Folgenr.000 Verfalld.2020- 12;1.228,00;EUR;-47,13;EUR
+02.09.2019;02.09.2019;TOTAL DEUTSCHLAND GM;Lastschrift;Mobilität;TOTAL Service Station//Berlin/DE 2019-09-01T12:29:26 Folgenr.000 Ver falld.2020-12;1.229,00;EUR;-51,53;EUR
+02.09.2019;02.09.2019;SomeCompany GmbH;Gutschrift aus Dauerauftrag;Einnahmen;Studium Wurst;1.230,00;EUR;328;EUR
+02.09.2019;02.09.2019;Hochschule fur Berufstatige Darmsta dt GmbH;Lastschrift;Wohnen;328.00 Euro Rate 35;1.231,00;EUR;-328;EUR
+02.09.2019;02.09.2019;Some Vermieter;Dauerauftrag / Terminueberweisung;Wohnen;Miete Musterstraße 6 Berlin 4566456 - Wurst;1.232,00;EUR;-150;EUR
+30.08.2019;30.08.2019;Fränkische BSK Hamburch;Lastschrift;Sparen und Anlegen;Fränkische BSK Hamburch Bausparvertrag 6452290601 S parrate 100,00 EUR;1.233,00;EUR;-100;EUR

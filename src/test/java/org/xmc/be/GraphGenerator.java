@@ -114,11 +114,19 @@ public class GraphGenerator {
     public Category createCategory() {
         return createCategory(createBinaryData());
     }
+	
+	public Category createCategory(String name) {
+    	return createCategory(name, createBinaryData());
+	}
+	
+	public Category createCategory(BinaryData icon) {
+    	return createCategory(UUID.randomUUID().toString(), icon);
+	}
 
-    public Category createCategory(BinaryData icon) {
+    public Category createCategory(String name, BinaryData icon) {
         var category = new Category();
 
-        category.setName(UUID.randomUUID().toString());
+        category.setName(name);
         category.setIcon(icon);
 
         session().persist(category);

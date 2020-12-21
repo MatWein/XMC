@@ -17,7 +17,7 @@ public class RawImportExcelFileReader {
 		
 		List<List<String>> lines = Lists.newArrayListWithExpectedSize(sheet.getLastRowNum() + 1);
 		
-		for (int rowIndex = startWithLine - 1; rowIndex < sheet.getLastRowNum(); rowIndex++) {
+		for (int rowIndex = startWithLine - 1; rowIndex <= sheet.getLastRowNum(); rowIndex++) {
 			Row row = sheet.getRow(rowIndex);
 			if (row == null) {
 				continue;

@@ -40,6 +40,11 @@ public class LocalDateParser {
 			return result.get();
 		}
 		
+		result = tryParseDate(value, "dd/MM/yyyy");
+		if (isValidDate(result)) {
+			return result.get();
+		}
+		
 		result = tryParseDateTime(value, "dd.MM.yyyy HH:mm:ss");
 		if (isValidDate(result)) {
 			return result.get();

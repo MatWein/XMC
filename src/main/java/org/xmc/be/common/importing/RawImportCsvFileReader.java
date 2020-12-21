@@ -26,7 +26,7 @@ public class RawImportCsvFileReader {
 		
 		try (var fileReader = new FileReader(fileToImport)) {
 			try (var csvReader = new CSVReaderBuilder(fileReader)
-					.withSkipLines(startWithLine)
+					.withSkipLines(startWithLine - 1)
 					.withCSVParser(csvParser)
 					.build()) {
 				

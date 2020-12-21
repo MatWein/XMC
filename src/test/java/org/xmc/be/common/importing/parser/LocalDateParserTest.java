@@ -22,6 +22,7 @@ class LocalDateParserTest {
 		Assertions.assertEquals(LocalDate.of(2000, Month.MAY, 26), parser.parseDate("26.05.2000 23:32:01"));
 		Assertions.assertEquals(LocalDate.of(2021, Month.DECEMBER, 24), parser.parseDate("   24.12.2021  "));
 		Assertions.assertEquals(LocalDate.of(2020, Month.AUGUST, 12), parser.parseDate("2020-08-12"));
+		Assertions.assertEquals(LocalDate.of(2020, Month.SEPTEMBER, 16), parser.parseDate("16/09/2020"));
 	}
 	
 	@Test

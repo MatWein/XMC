@@ -134,6 +134,7 @@ public class MessageAdapter {
         CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_COLUMN_PREFIX("cashaccount.transaction.import.dialog.step4.columns", CashAccountTransactionImportColmn.class),
         CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_COMMON_ERROR("cashaccount.transaction.import.dialog.step4.commonError"),
 	    CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_FILETYPE_ERROR("cashaccount.transaction.import.dialog.step4.fileTypeError"),
+	    CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_FIELD_ERROR("cashaccount.transaction.import.dialog.step4.fieldError"),
 
 	    IMPORTING_CSV_SEPARATOR("importing.csvSeparator", CsvSeparator.class),
 	    

@@ -21,7 +21,7 @@
 					<TableColumn editable="false" reorderable="false" sortable="false"
 								 text="%cashaccount.transaction.import.dialog.step4.errors.row">
 						<cellValueFactory>
-							<NestedPropertyValueFactory property="line"/>
+							<NestedPropertyValueFactory property="line" fractionDigits="0"/>
 						</cellValueFactory>
 					</TableColumn>
 					<TableColumn editable="false" reorderable="false" sortable="false"
@@ -47,7 +47,7 @@
 							<NestedPropertyValueFactory property="category.name"/>
 						</cellValueFactory>
 					</TableColumn>
-					<TableColumn editable="false" reorderable="false" sortable="false" prefWidth="100"
+					<TableColumn editable="false" reorderable="false" sortable="false" prefWidth="150"
 								 text="%main.cashaccounts.transactions.overview.table.column.valutaDate">
 						<cellValueFactory>
 							<NestedPropertyValueFactory property="valutaDate"/>

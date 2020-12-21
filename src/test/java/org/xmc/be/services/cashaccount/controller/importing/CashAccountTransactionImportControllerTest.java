@@ -154,12 +154,12 @@ class CashAccountTransactionImportControllerTest extends IntegrationTest {
 	
 	private List<DtoColumnMapping<CashAccountTransactionImportColmn>> createColumnMapping() {
 		return Lists.newArrayList(
-				new DtoColumnMapping<>(1, CashAccountTransactionImportColmn.VALUTA_DATE),
-				new DtoColumnMapping<>(2, CashAccountTransactionImportColmn.REFERENCE),
-				new DtoColumnMapping<>(3, CashAccountTransactionImportColmn.DESCRIPTION),
-				new DtoColumnMapping<>(4, CashAccountTransactionImportColmn.CATEGORY),
-				new DtoColumnMapping<>(5, CashAccountTransactionImportColmn.USAGE),
-				new DtoColumnMapping<>(8, CashAccountTransactionImportColmn.VALUE)
+				new DtoColumnMapping<>(2, CashAccountTransactionImportColmn.VALUTA_DATE),
+				new DtoColumnMapping<>(3, CashAccountTransactionImportColmn.REFERENCE),
+				new DtoColumnMapping<>(4, CashAccountTransactionImportColmn.DESCRIPTION),
+				new DtoColumnMapping<>(5, CashAccountTransactionImportColmn.CATEGORY),
+				new DtoColumnMapping<>(6, CashAccountTransactionImportColmn.USAGE),
+				new DtoColumnMapping<>(9, CashAccountTransactionImportColmn.VALUE)
 		);
 	}
 }

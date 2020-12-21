@@ -49,10 +49,10 @@ public class CashAccountTransactionImportLineMapper implements BiFunction<
 		
 		for (DtoColumnMapping<CashAccountTransactionImportColmn> columnMapping : columnMappings) {
 			try {
-				String columnValue = line.get(columnMapping.getColumn());
+				String columnValue = line.get(columnMapping.getColumn() - 1);
 				populateValue(result, columnValue, columnMapping.getField(), categories);
 			} catch (IndexOutOfBoundsException e) {
-				LOGGER.warn("Could not find column value for mapped index {} ({}).", columnMapping.getColumn(), columnMapping.getField());
+				LOGGER.trace("Could not find column value for mapped index {} ({}).", columnMapping.getColumn(), columnMapping.getField());
 			}
 		}
 		
@@ -64,6 +64,10 @@ public class CashAccountTransactionImportLineMapper implements BiFunction<
 			String columnValue,
 			CashAccountTransactionImportColmn field,
 			Map<String, DtoCategory> categories) {
+		
+		if (field == null) {
+			return;
+		}
 		
 		switch (field) {
 			case CATEGORY:

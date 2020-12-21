@@ -21,40 +21,87 @@
 					<TableColumn editable="false" reorderable="false" sortable="false"
 								 text="%cashaccount.transaction.import.dialog.step4.errors.row">
 						<cellValueFactory>
-							<NestedPropertyValueFactory property="row"/>
+							<NestedPropertyValueFactory property="line"/>
 						</cellValueFactory>
 					</TableColumn>
 					<TableColumn editable="false" reorderable="false" sortable="false"
 								 text="%cashaccount.transaction.import.dialog.step4.errors.reason">
 						<cellValueFactory>
-							<NestedPropertyValueFactory property="reason"/>
+							<NestedPropertyValueFactory property="description"/>
 						</cellValueFactory>
 					</TableColumn>
 				</columns>
+
 				<columnResizePolicy>
 					<BaseTable fx:constant="CONSTRAINED_RESIZE_POLICY"/>
 				</columnResizePolicy>
 			</BaseTable>
 		</Tab>
+
         <Tab text="%cashaccount.transaction.import.dialog.step4.preview">
             <BaseTable fx:id="previewTable" styleClass="table-tab-element">
-                <columns>
-                    <TableColumn editable="false" reorderable="false" sortable="false"
-                                 text="%cashaccount.transaction.import.dialog.step4.preview.column">
-                        <cellValueFactory>
-                            <NestedPropertyValueFactory property="column"/>
-                        </cellValueFactory>
-                    </TableColumn>
-                    <TableColumn editable="false" reorderable="false" sortable="false"
-                                 text="%cashaccount.transaction.import.dialog.step4.preview.value">
-                        <cellValueFactory>
-                            <NestedPropertyValueFactory property="value"/>
-                        </cellValueFactory>
-                    </TableColumn>
-                </columns>
-                <columnResizePolicy>
-                    <BaseTable fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-                </columnResizePolicy>
+				<columns>
+					<TableColumn editable="false" reorderable="false" sortable="false" prefWidth="150"
+								 text="%main.cashaccounts.transactions.overview.table.column.categoryName">
+						<cellValueFactory>
+							<NestedPropertyValueFactory property="category.name"/>
+						</cellValueFactory>
+					</TableColumn>
+					<TableColumn editable="false" reorderable="false" sortable="false" prefWidth="100"
+								 text="%main.cashaccounts.transactions.overview.table.column.valutaDate">
+						<cellValueFactory>
+							<NestedPropertyValueFactory property="valutaDate"/>
+						</cellValueFactory>
+					</TableColumn>
+					<TableColumn editable="false" reorderable="false" sortable="false" prefWidth="300"
+								 text="%main.cashaccounts.transactions.overview.table.column.usage">
+						<cellValueFactory>
+							<NestedPropertyValueFactory property="usage"/>
+						</cellValueFactory>
+					</TableColumn>
+					<TableColumn editable="false" reorderable="false" sortable="false" prefWidth="100"
+								 text="%main.cashaccounts.transactions.overview.table.column.value">
+						<cellValueFactory>
+							<NestedPropertyValueFactory property="value" />
+						</cellValueFactory>
+					</TableColumn>
+					<TableColumn editable="false" reorderable="false" sortable="false" prefWidth="300"
+								 text="%main.cashaccounts.transactions.overview.table.column.description">
+						<cellValueFactory>
+							<NestedPropertyValueFactory property="description"/>
+						</cellValueFactory>
+					</TableColumn>
+					<TableColumn editable="false" reorderable="false" sortable="false" prefWidth="150"
+								 text="%main.cashaccounts.transactions.overview.table.column.referenceBank">
+						<cellValueFactory>
+							<NestedPropertyValueFactory property="referenceBank.name"/>
+						</cellValueFactory>
+					</TableColumn>
+					<TableColumn editable="false" reorderable="false" sortable="false" prefWidth="150"
+								 text="%main.cashaccounts.transactions.overview.table.column.referenceIban">
+						<cellValueFactory>
+							<NestedPropertyValueFactory property="referenceBank.bic"/>
+						</cellValueFactory>
+					</TableColumn>
+					<TableColumn editable="false" reorderable="false" sortable="false" prefWidth="150"
+								 text="%main.cashaccounts.transactions.overview.table.column.reference">
+						<cellValueFactory>
+							<NestedPropertyValueFactory property="reference"/>
+						</cellValueFactory>
+					</TableColumn>
+					<TableColumn editable="false" reorderable="false" sortable="false" prefWidth="150"
+								 text="%main.cashaccounts.transactions.overview.table.column.creditorIdentifier">
+						<cellValueFactory>
+							<NestedPropertyValueFactory property="creditorIdentifier"/>
+						</cellValueFactory>
+					</TableColumn>
+					<TableColumn editable="false" reorderable="false" sortable="false" prefWidth="150"
+								 text="%main.cashaccounts.transactions.overview.table.column.mandate">
+						<cellValueFactory>
+							<NestedPropertyValueFactory property="mandate"/>
+						</cellValueFactory>
+					</TableColumn>
+				</columns>
             </BaseTable>
         </Tab>
     </TabPane>

@@ -2,14 +2,14 @@ package org.xmc.common.stubs.importing;
 
 import java.io.Serializable;
 
-public class DtoImportFileValidationResultErrors implements Serializable {
+public class DtoImportFileValidationResultError implements Serializable {
     private int line;
     private String description;
 
-    public DtoImportFileValidationResultErrors() {
+    public DtoImportFileValidationResultError() {
     }
 
-    public DtoImportFileValidationResultErrors(int line, String description) {
+    public DtoImportFileValidationResultError(int line, String description) {
         this.line = line;
         this.description = description;
     }

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class DtoImportFileValidationResult<T extends Serializable> implements Serializable {
     private List<T> successfullyReadLines = Lists.newArrayList();
-    private List<DtoImportFileValidationResultErrors> errors = Lists.newArrayList();
+    private List<DtoImportFileValidationResultError> errors = Lists.newArrayList();
 
     private int validTransactionCount;
     private int invalidTransactionCount;
@@ -20,11 +20,11 @@ public class DtoImportFileValidationResult<T extends Serializable> implements Se
 		this.successfullyReadLines = successfullyReadLines;
 	}
 	
-	public List<DtoImportFileValidationResultErrors> getErrors() {
+	public List<DtoImportFileValidationResultError> getErrors() {
         return errors;
     }
 
-    public void setErrors(List<DtoImportFileValidationResultErrors> errors) {
+    public void setErrors(List<DtoImportFileValidationResultError> errors) {
         this.errors = errors;
     }
 

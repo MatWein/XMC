@@ -3,7 +3,7 @@ package org.xmc.be.common.importing;
 import org.springframework.stereotype.Component;
 import org.xmc.common.stubs.importing.DtoColumnMapping;
 import org.xmc.common.stubs.importing.DtoImportFileValidationResult;
-import org.xmc.common.stubs.importing.DtoImportFileValidationResultErrors;
+import org.xmc.common.stubs.importing.DtoImportFileValidationResultError;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,14 +15,14 @@ public class DtoImportFileValidationResultMapper {
 			List<List<String>> rawFileContent,
 			List<DtoColumnMapping<COLUMN_TYPE>> colmuns,
 			BiFunction<List<String>, List<DtoColumnMapping<COLUMN_TYPE>>, RESULT_TYPE> lineToDtoMapper,
-			BiFunction<RESULT_TYPE, Integer, List<DtoImportFileValidationResultErrors>> lineValidator) {
+			BiFunction<RESULT_TYPE, Integer, List<DtoImportFileValidationResultError>> lineValidator) {
 		
 		DtoImportFileValidationResult<RESULT_TYPE> result = new DtoImportFileValidationResult<>();
 		
 		int currentLineIndex = 1;
 		for (List<String> line : rawFileContent) {
 			RESULT_TYPE mappedLine = lineToDtoMapper.apply(line, colmuns);
-			List<DtoImportFileValidationResultErrors> errors = lineValidator.apply(mappedLine, currentLineIndex++);
+			List<DtoImportFileValidationResultError> errors = lineValidator.apply(mappedLine, currentLineIndex++);
 			
 			if (errors.isEmpty()) {
 				result.getSuccessfullyReadLines().add(mappedLine);

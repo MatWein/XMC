@@ -14,6 +14,7 @@ import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImpor
 import org.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransaction;
 import org.xmc.common.stubs.importing.DtoImportData;
 import org.xmc.common.stubs.importing.DtoImportFileValidationResult;
+import org.xmc.common.stubs.importing.DtoImportFileValidationResultError;
 import org.xmc.fe.async.AsyncProcessor;
 import org.xmc.fe.ui.FxmlController;
 import org.xmc.fe.ui.IAfterInit;
@@ -30,10 +31,10 @@ public class CashAccountTransactionImportStep4Controller implements IAfterInit<D
 
     @FXML private CheckBox saveTemplateCheckbox;
     @FXML private ValidationTextField templateToSaveName;
-    @FXML private BaseTable<?> previewTable;
+    @FXML private BaseTable<DtoCashAccountTransaction> previewTable;
     @FXML private Text validTransactionCountText;
     @FXML private Text invalidTransactionCountText;
-    @FXML private BaseTable<?> errorTable;
+    @FXML private BaseTable<DtoImportFileValidationResultError> errorTable;
     @FXML private VBox rootVBox;
 
     private final SimpleBooleanProperty loading = new SimpleBooleanProperty(true);
@@ -79,9 +80,13 @@ public class CashAccountTransactionImportStep4Controller implements IAfterInit<D
         fileErrors.set(CollectionUtils.isNotEmpty(validationResult.getErrors()));
 
         validTransactionCountText.setText(String.valueOf(validationResult.getValidTransactionCount()));
-        invalidTransactionCountText.setText(String.valueOf(validationResult.getValidTransactionCount()));
-
-        // TODO: update table UI
+        invalidTransactionCountText.setText(String.valueOf(validationResult.getInvalidTransactionCount()));
+	
+	    errorTable.getItems().clear();
+	    errorTable.getItems().addAll(validationResult.getErrors());
+	
+	    previewTable.getItems().clear();
+	    previewTable.getItems().addAll(validationResult.getSuccessfullyReadLines());
     }
 
     public CheckBox getSaveTemplateCheckbox() {

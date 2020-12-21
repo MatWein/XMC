@@ -26,6 +26,11 @@ class LocalDateParserTest {
 	}
 	
 	@Test
+	void parseDate_ExcelDate() {
+		Assertions.assertEquals(LocalDate.of(2019, Month.SEPTEMBER, 11), parser.parseDate("9/11/19"));
+	}
+	
+	@Test
 	void parseDate_Error() {
 		Assertions.assertThrows(DateTimeParseException.class, () -> parser.parseDate("01.01.20a00"));
 	}

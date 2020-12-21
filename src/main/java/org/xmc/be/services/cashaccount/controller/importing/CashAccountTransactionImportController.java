@@ -12,7 +12,7 @@ import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImpor
 import org.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransaction;
 import org.xmc.common.stubs.importing.DtoImportData;
 import org.xmc.common.stubs.importing.DtoImportFileValidationResult;
-import org.xmc.common.stubs.importing.DtoImportFileValidationResultErrors;
+import org.xmc.common.stubs.importing.DtoImportFileValidationResultError;
 import org.xmc.common.stubs.importing.exceptions.ImportFileTypeException;
 import org.xmc.fe.async.AsyncMonitor;
 import org.xmc.fe.ui.MessageAdapter;
@@ -114,7 +114,7 @@ public class CashAccountTransactionImportController {
 	private DtoImportFileValidationResult<DtoCashAccountTransaction> createGeneralErrorResult(MessageKey messageKey, Object... args) {
 		var result = new DtoImportFileValidationResult<DtoCashAccountTransaction>();
 		
-		result.getErrors().add(new DtoImportFileValidationResultErrors(0, MessageAdapter.getByKey(messageKey, args)));
+		result.getErrors().add(new DtoImportFileValidationResultError(0, MessageAdapter.getByKey(messageKey, args)));
 		
 		return result;
 	}

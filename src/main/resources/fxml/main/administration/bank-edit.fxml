@@ -6,13 +6,11 @@
 <?import org.xmc.fe.ui.components.ImageSelectionButton?>
 <?import org.xmc.fe.ui.validation.components.autocomplete.ValidationAutoComplete?>
 <VBox prefHeight="250.0"
-      prefWidth="500.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.administration.banks.BankEditController">
+	  prefWidth="500.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
+	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.administration.banks.BankEditController">
 
     <HBox VBox.vgrow="ALWAYS">
-        <ImageSelectionButton fx:id="logoButton" fitHeight="24.0" fitWidth="24.0" maxHeight="64.0" maxWidth="64.0"
-                              messageKey="CASHACCOUNT_EDIT_BANK_LOGO" prefHeight="64.0"
-                              prefWidth="64.0">
+        <ImageSelectionButton fx:id="logoButton" fitHeight="24.0" fitWidth="24.0" messageKey="CASHACCOUNT_EDIT_BANK_LOGO">
             <HBox.margin>
                 <Insets right="10.0"/>
             </HBox.margin>

@@ -7,13 +7,11 @@
 <?import org.xmc.fe.ui.validation.components.ValidationComboBox?>
 <?import org.xmc.fe.ui.validation.components.ValidationTextField?>
 <VBox prefHeight="250.0"
-      prefWidth="500.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.administration.categories.CategoryEditController">
+	  prefWidth="500.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
+	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.administration.categories.CategoryEditController">
 
     <HBox VBox.vgrow="ALWAYS">
-        <ImageSelectionButton fx:id="iconButton" fitHeight="24.0" fitWidth="24.0" maxHeight="64.0" maxWidth="64.0"
-                              messageKey="CATEGORY_EDIT_ICON" prefHeight="64.0"
-                              prefWidth="64.0">
+        <ImageSelectionButton fx:id="iconButton" fitHeight="24.0" fitWidth="24.0" messageKey="CATEGORY_EDIT_ICON">
             <HBox.margin>
                 <Insets right="10.0"/>
             </HBox.margin>

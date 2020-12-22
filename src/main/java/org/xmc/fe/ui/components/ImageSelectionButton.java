@@ -18,6 +18,8 @@ public class ImageSelectionButton extends Button {
     private String messageKey; // has to be a string because scene builder cannot render enum parameters
 
     public ImageSelectionButton() {
+    	getStyleClass().addAll("image-selection-button");
+    	
         this.setOnAction(event -> {
             Optional<File> selectedFile = DialogHelper.showOpenFileDialog(getScene().getWindow(), ExtensionFilterType.IMAGES);
             if (selectedFile.isPresent()) {

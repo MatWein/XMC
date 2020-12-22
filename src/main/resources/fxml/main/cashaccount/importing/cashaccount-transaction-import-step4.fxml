@@ -18,13 +18,13 @@
 		<Tab text="%cashaccount.transaction.import.dialog.step4.errors">
 			<BaseTable fx:id="errorTable" styleClass="table-tab-element">
 				<columns>
-					<TableColumn editable="false" reorderable="false" sortable="false"
+					<TableColumn editable="false" reorderable="false" sortable="false" resizable="false" prefWidth="100"
 								 text="%cashaccount.transaction.import.dialog.step4.errors.row">
 						<cellValueFactory>
 							<NestedPropertyValueFactory property="line" fractionDigits="0"/>
 						</cellValueFactory>
 					</TableColumn>
-					<TableColumn editable="false" reorderable="false" sortable="false"
+					<TableColumn editable="false" reorderable="false" sortable="false" resizable="false"
 								 text="%cashaccount.transaction.import.dialog.step4.errors.reason">
 						<cellValueFactory>
 							<NestedPropertyValueFactory property="description"/>

@@ -94,6 +94,18 @@
     -fx-padding: 0px 0px 5px 0px;
 }
 
+.text-field, .button, .combo-box, .date-picker {
+	-fx-min-height: 30px;
+	-fx-max-height: 30px;
+}
+
+.image-selection-button {
+	-fx-min-height: 64px !important;
+	-fx-min-width: 64px !important;
+	-fx-max-height: 64px !important;
+	-fx-max-width: 64px !important;
+}
+
 /* ---- Spacing ---- */
 
 .padding-left-15 {

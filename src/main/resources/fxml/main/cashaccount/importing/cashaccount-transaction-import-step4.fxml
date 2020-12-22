@@ -24,7 +24,7 @@
 							<NestedPropertyValueFactory property="line" fractionDigits="0"/>
 						</cellValueFactory>
 					</TableColumn>
-					<TableColumn editable="false" reorderable="false" sortable="false" resizable="false"
+					<TableColumn editable="false" reorderable="false" sortable="false" resizable="false" prefWidth="500"
 								 text="%cashaccount.transaction.import.dialog.step4.errors.reason">
 						<cellValueFactory>
 							<NestedPropertyValueFactory property="description"/>

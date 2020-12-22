@@ -2,6 +2,7 @@ package org.xmc.be.services.cashaccount.controller.importing;
 
 import com.google.common.collect.Lists;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,13 @@ import org.xmc.common.stubs.importing.DtoColumnMapping;
 import org.xmc.common.stubs.importing.DtoImportData;
 import org.xmc.common.stubs.importing.DtoImportFileValidationResult;
 import org.xmc.fe.async.AsyncMonitor;
+import org.xmc.fe.ui.MessageAdapter;
 
 import java.io.File;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
+import java.util.Locale;
 
 class CashAccountTransactionImportPreparationControllerTest extends IntegrationTest {
 	@Autowired
@@ -25,6 +28,12 @@ class CashAccountTransactionImportPreparationControllerTest extends IntegrationT
 	
 	@Mock
 	private AsyncMonitor asyncMonitor;
+	
+	@BeforeEach
+	void setUp() {
+		Locale.setDefault(Locale.GERMANY);
+		MessageAdapter.initBundle();
+	}
 	
 	@Test
 	void readAndValidateImportFile_Excel() {

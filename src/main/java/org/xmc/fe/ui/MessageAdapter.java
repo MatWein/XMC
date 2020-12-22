@@ -15,7 +15,7 @@ public class MessageAdapter {
 
     static ResourceBundle RESOURCE_BUNDLE = initBundle();
 
-    static ResourceBundle initBundle() {
+    public static ResourceBundle initBundle() {
         return RESOURCE_BUNDLE = ResourceBundle.getBundle("messages.messages", Locale.getDefault());
     }
 

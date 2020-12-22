@@ -64,7 +64,7 @@ public class CashAccountTransactionImportController {
 		
 		LOGGER.info("Got {} transactions to import.", processItemCount);
 		
-		List<CashAccountTransaction> allTransactions = cashAccountTransactionJpaRepository.findByCashAccount(cashAccount);
+		List<CashAccountTransaction> allTransactions = cashAccountTransactionJpaRepository.findByCashAccountAndDeletionDateIsNull(cashAccount);
 		
 		for (DtoCashAccountTransaction transactionToImport : fileValidationResult.getSuccessfullyReadLines()) {
 			Optional<CashAccountTransaction> existingTransaction = findExistingTransaction(allTransactions, transactionToImport);

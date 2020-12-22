@@ -1,4 +1,4 @@
-package org.xmc.be.common.importing;
+package org.xmc.be.services.importing.controller;
 
 import com.opencsv.exceptions.CsvValidationException;
 import org.springframework.beans.factory.annotation.Autowired;

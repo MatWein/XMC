@@ -1,4 +1,4 @@
-package org.xmc.be.common.importing.parser;
+package org.xmc.be.services.importing.parser;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

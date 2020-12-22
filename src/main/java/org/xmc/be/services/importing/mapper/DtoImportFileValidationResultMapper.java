@@ -1,4 +1,4 @@
-package org.xmc.be.common.importing;
+package org.xmc.be.services.importing.mapper;
 
 import org.springframework.stereotype.Component;
 import org.xmc.common.stubs.importing.DtoColumnMapping;

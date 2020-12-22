@@ -27,6 +27,7 @@ public class JsonConfig {
     @Bean
     public Gson gson() {
         JsonSerializer<LocalDate> localDateAdapter = (date, type, context) -> new JsonPrimitive(date.format(DateTimeFormatter.ISO_LOCAL_DATE));
+        JsonSerializer<Class> classAdapter = (clazz, type, context) -> new JsonPrimitive(clazz.getName());
         JsonSerializer<LocalDateTime> localDateTimeAdapter = (date, type, context) -> new JsonPrimitive(date.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
         JsonSerializer<byte[]> byteArrayAdapter = (bytes, type, context) -> new JsonPrimitive(Base64Utils.encodeToString(bytes));
 
@@ -37,6 +38,7 @@ public class JsonConfig {
                 .registerTypeAdapter(LocalDate.class, localDateAdapter)
                 .registerTypeAdapter(LocalDateTime.class, localDateTimeAdapter)
                 .registerTypeAdapter(byte[].class, byteArrayAdapter)
+                .registerTypeAdapter(Class.class, classAdapter)
                 .create();
     }
 }

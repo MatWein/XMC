@@ -4,12 +4,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.xmc.be.common.importing.controller.ImportTemplateSaveOrUpdateController;
 import org.xmc.be.entities.cashaccount.CashAccount;
 import org.xmc.be.entities.cashaccount.CashAccountTransaction;
 import org.xmc.be.entities.importing.ImportTemplateType;
 import org.xmc.be.repositories.cashaccount.CashAccountTransactionJpaRepository;
 import org.xmc.be.services.cashaccount.controller.CashAccountTransactionSaveController;
+import org.xmc.be.services.importing.controller.ImportTemplateSaveOrUpdateController;
 import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
 import org.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransaction;
 import org.xmc.common.stubs.importing.DtoImportData;
@@ -28,18 +28,21 @@ public class CashAccountTransactionImportController {
 	private final CashAccountTransactionImportPreparationController cashAccountTransactionImportPreparationController;
 	private final CashAccountTransactionSaveController cashAccountTransactionSaveController;
 	private final CashAccountTransactionJpaRepository cashAccountTransactionJpaRepository;
+	private final CashAccountTransactionFinder cashAccountTransactionFinder;
 	
 	@Autowired
 	public CashAccountTransactionImportController(
 			ImportTemplateSaveOrUpdateController importTemplateSaveOrUpdateController,
 			CashAccountTransactionImportPreparationController cashAccountTransactionImportPreparationController,
 			CashAccountTransactionSaveController cashAccountTransactionSaveController,
-			CashAccountTransactionJpaRepository cashAccountTransactionJpaRepository) {
+			CashAccountTransactionJpaRepository cashAccountTransactionJpaRepository,
+			CashAccountTransactionFinder cashAccountTransactionFinder) {
 		
 		this.importTemplateSaveOrUpdateController = importTemplateSaveOrUpdateController;
 		this.cashAccountTransactionImportPreparationController = cashAccountTransactionImportPreparationController;
 		this.cashAccountTransactionSaveController = cashAccountTransactionSaveController;
 		this.cashAccountTransactionJpaRepository = cashAccountTransactionJpaRepository;
+		this.cashAccountTransactionFinder = cashAccountTransactionFinder;
 	}
 	
 	public void importTransactions(AsyncMonitor monitor, CashAccount cashAccount, DtoImportData<CashAccountTransactionImportColmn> importData) throws Exception {
@@ -67,7 +70,7 @@ public class CashAccountTransactionImportController {
 		List<CashAccountTransaction> allTransactions = cashAccountTransactionJpaRepository.findByCashAccountAndDeletionDateIsNull(cashAccount);
 		
 		for (DtoCashAccountTransaction transactionToImport : fileValidationResult.getSuccessfullyReadLines()) {
-			Optional<CashAccountTransaction> existingTransaction = findExistingTransaction(allTransactions, transactionToImport);
+			Optional<CashAccountTransaction> existingTransaction = cashAccountTransactionFinder.findExistingTransaction(allTransactions, transactionToImport);
 			
 			if (importData.getImportType() == ImportType.ADD_ALL) {
 				cashAccountTransactionSaveController.saveOrUpdate(cashAccount, transactionToImport);
@@ -82,12 +85,5 @@ public class CashAccountTransactionImportController {
 			
 			monitor.setProgressByItemCount(++processedItems, processItemCount);
 		}
-	}
-	
-	private Optional<CashAccountTransaction> findExistingTransaction(
-			List<CashAccountTransaction> allTransactions,
-			DtoCashAccountTransaction transactionToFind) {
-		
-		return Optional.empty();
 	}
 }

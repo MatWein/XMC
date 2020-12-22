@@ -66,6 +66,8 @@ public class WizardController<INPUT_TYPE> implements IAfterInit<Pair<List<Wizard
     }
 
     private void populateState() {
+	    currentStep.setFinished(true);
+	    
         IWizardStepPopulator<INPUT_TYPE, Object> populator = currentStep.getPopulator();
 
         if (populator != null) {

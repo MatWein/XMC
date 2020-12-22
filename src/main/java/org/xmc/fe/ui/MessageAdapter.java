@@ -97,6 +97,8 @@ public class MessageAdapter {
         ASYNC_TASK_VALIDATE_IMPORT_FILE("async.task.validateImportFile"),
 	    ASYNC_TASK_READ_IMPORT_FILE("async.task.readImportFile"),
 	    ASYNC_TASK_MAP_IMPORT_FILE("async.task.mapImportFile"),
+	    ASYNC_TASK_SAVE_IMPORT_TEMPLATE("async.task.saveImportTemplate"),
+	    ASYNC_TASK_IMPORTING_TRANSACTIONS("async.task.importingTransactions"),
 
         LOGIN_TITLE("login.title"),
 

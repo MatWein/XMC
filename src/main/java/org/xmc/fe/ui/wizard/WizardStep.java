@@ -8,6 +8,7 @@ public class WizardStep<INPUT_TYPE> {
     private Parent content;
     private Object controller;
     private IWizardStepPopulator<INPUT_TYPE, Object> populator;
+    private boolean finished;
 
     public WizardStep() {
     }
@@ -55,4 +56,12 @@ public class WizardStep<INPUT_TYPE> {
     public void setPopulator(IWizardStepPopulator<INPUT_TYPE, Object> populator) {
         this.populator = populator;
     }
+	
+	public boolean isFinished() {
+		return finished;
+	}
+	
+	public void setFinished(boolean finished) {
+		this.finished = finished;
+	}
 }

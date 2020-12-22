@@ -38,4 +38,6 @@ public interface CashAccountTransactionJpaRepository extends JpaRepository<CashA
     default Optional<CashAccountTransaction> findFirstTransactionBeforeOrOnDate(CashAccount cashAccount, LocalDate valutaDate, LocalDateTime creationDate, long maxId) {
         return findTransactionsBeforeOrOnDate(cashAccount, valutaDate, creationDate, maxId, PageRequest.of(0, 1)).stream().findFirst();
     }
+    
+    List<CashAccountTransaction> findByCashAccount(CashAccount cashAccount);
 }

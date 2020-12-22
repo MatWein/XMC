@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.xmc.be.services.cashaccount.CashAccountTransactionImportService;
 import org.xmc.be.services.cashaccount.CashAccountTransactionService;
 import org.xmc.be.services.category.CategoryService;
 import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
@@ -43,8 +44,9 @@ public class CashAccountTransactionsController implements IAfterInit<CashAccount
     private final CashAccountTransactionImportStep2Populator cashAccountTransactionImportStep2Populator;
     private final CashAccountTransactionImportStep3Populator cashAccountTransactionImportStep3Populator;
     private final CashAccountTransactionImportStep4Populator cashAccountTransactionImportStep4Populator;
-
-    @FXML private ExtendedTable<DtoCashAccountTransactionOverview, CashAccountTransactionOverviewFields> tableView;
+	private final CashAccountTransactionImportService cashAccountTransactionImportService;
+	
+	@FXML private ExtendedTable<DtoCashAccountTransactionOverview, CashAccountTransactionOverviewFields> tableView;
     @FXML private Button editButton;
     @FXML private Button deleteButton;
 
@@ -52,14 +54,15 @@ public class CashAccountTransactionsController implements IAfterInit<CashAccount
 
     @Autowired
     public CashAccountTransactionsController(
-            CategoryService categoryService,
-            CashAccountTransactionEditDialogMapper cashAccountTransactionEditDialogMapper,
-            CashAccountTransactionService cashAccountTransactionService,
-            AsyncProcessor asyncProcessor,
-            DtoCashAccountTransactionOverviewToDtoCashAccountTransactionMapper dtoCashAccountTransactionOverviewToDtoCashAccountTransactionMapper,
-            CashAccountTransactionImportStep2Populator cashAccountTransactionImportStep2Populator,
-            CashAccountTransactionImportStep3Populator cashAccountTransactionImportStep3Populator,
-            CashAccountTransactionImportStep4Populator cashAccountTransactionImportStep4Populator) {
+		    CategoryService categoryService,
+		    CashAccountTransactionEditDialogMapper cashAccountTransactionEditDialogMapper,
+		    CashAccountTransactionService cashAccountTransactionService,
+		    AsyncProcessor asyncProcessor,
+		    DtoCashAccountTransactionOverviewToDtoCashAccountTransactionMapper dtoCashAccountTransactionOverviewToDtoCashAccountTransactionMapper,
+		    CashAccountTransactionImportStep2Populator cashAccountTransactionImportStep2Populator,
+		    CashAccountTransactionImportStep3Populator cashAccountTransactionImportStep3Populator,
+		    CashAccountTransactionImportStep4Populator cashAccountTransactionImportStep4Populator,
+		    CashAccountTransactionImportService cashAccountTransactionImportService) {
 
         this.categoryService = categoryService;
         this.cashAccountTransactionEditDialogMapper = cashAccountTransactionEditDialogMapper;
@@ -69,6 +72,7 @@ public class CashAccountTransactionsController implements IAfterInit<CashAccount
         this.cashAccountTransactionImportStep2Populator = cashAccountTransactionImportStep2Populator;
         this.cashAccountTransactionImportStep3Populator = cashAccountTransactionImportStep3Populator;
         this.cashAccountTransactionImportStep4Populator = cashAccountTransactionImportStep4Populator;
+	    this.cashAccountTransactionImportService = cashAccountTransactionImportService;
     }
 
     @FXML
@@ -121,15 +125,25 @@ public class CashAccountTransactionsController implements IAfterInit<CashAccount
 
     @FXML
     public void onImportTransactions() {
-        WizardBuilder.getInstance()
+	    var importData = new DtoImportData<CashAccountTransactionImportColmn>();
+	    long cashAccountId = parentController.getSelectedCashAccount().getId();
+	
+	    boolean allStepsFinished = WizardBuilder.getInstance()
                 .titleKey(MessageKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_TITLE)
-                .withInput(new DtoImportData<CashAccountTransactionImportColmn>())
+                .withInput(importData)
                 .addStep(MessageKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP1_TITLE, FxmlKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP1)
                 .addStep(MessageKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP2_TITLE, FxmlKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP2, cashAccountTransactionImportStep2Populator)
                 .addStep(MessageKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP3_TITLE, FxmlKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP3, cashAccountTransactionImportStep3Populator)
                 .addStep(MessageKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_TITLE, FxmlKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4, cashAccountTransactionImportStep4Populator)
-                .build()
-                .showAndWait();
+                .buildAndShow();
+	
+	    if (allStepsFinished) {
+		    asyncProcessor.runAsyncVoid(
+				    () -> {},
+				    monitor -> cashAccountTransactionImportService.importTransactions(monitor, cashAccountId, importData),
+				    () -> tableView.reload()
+		    );
+	    }
     }
 
     private void createOrEditCashAccountTransaction(DtoCashAccountTransactionOverview input) {

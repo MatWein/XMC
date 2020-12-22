@@ -18,7 +18,10 @@ public class CashAccountTransactionImportStep2Populator implements IWizardStepPo
 		    input.setFileToImport(new File(fileToImport));
 	    }
 	    input.setCsvSeparator(controller.getCsvSeparatorComboBox().getSelectionModel().getSelectedItem());
-
+	
+	    if (controller.getAddAllRadioButton().isSelected()) {
+		    input.setImportType(ImportType.ADD_ALL);
+	    }
         if (controller.getAddOnlyRadioButton().isSelected()) {
             input.setImportType(ImportType.ADD_ONLY);
         }

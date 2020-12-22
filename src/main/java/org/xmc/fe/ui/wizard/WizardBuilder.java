@@ -69,6 +69,16 @@ public class WizardBuilder<INPUT_TYPE> {
 
         return stage;
     }
+    
+    public boolean buildAndShow() {
+    	build().showAndWait();
+    	
+    	boolean allStepsFinished = true;
+	    for (WizardStep step : steps) {
+		    allStepsFinished &= step.isFinished();
+	    }
+	    return allStepsFinished;
+    }
 
     private static void showBackdrop(Stage stage) {
         if (MainController.backdropRef != null && !MainController.backdropRef.isVisible()) {

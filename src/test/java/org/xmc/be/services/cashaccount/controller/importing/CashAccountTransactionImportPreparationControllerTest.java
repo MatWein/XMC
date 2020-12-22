@@ -19,9 +19,9 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 
-class CashAccountTransactionImportControllerTest extends IntegrationTest {
+class CashAccountTransactionImportPreparationControllerTest extends IntegrationTest {
 	@Autowired
-	private CashAccountTransactionImportController controller;
+	private CashAccountTransactionImportPreparationController controller;
 	
 	@Mock
 	private AsyncMonitor asyncMonitor;

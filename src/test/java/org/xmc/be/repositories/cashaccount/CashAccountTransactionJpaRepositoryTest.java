@@ -131,4 +131,9 @@ class CashAccountTransactionJpaRepositoryTest extends IntegrationTest {
 
         Assertions.assertEquals(cashAccountTransaction3, result.get());
     }
+	
+	@Test
+	void testFindByCashAccount() {
+		throw new RuntimeException("implement me");
+	}
 }

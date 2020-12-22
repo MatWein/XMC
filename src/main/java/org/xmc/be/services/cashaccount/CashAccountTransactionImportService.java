@@ -5,7 +5,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.xmc.be.entities.cashaccount.CashAccount;
+import org.xmc.be.repositories.cashaccount.CashAccountJpaRepository;
 import org.xmc.be.services.cashaccount.controller.importing.CashAccountTransactionImportController;
+import org.xmc.be.services.cashaccount.controller.importing.CashAccountTransactionImportPreparationController;
 import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
 import org.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransaction;
 import org.xmc.common.stubs.importing.DtoImportData;
@@ -17,10 +20,18 @@ import org.xmc.fe.async.AsyncMonitor;
 public class CashAccountTransactionImportService {
     private static final Logger LOGGER = LoggerFactory.getLogger(CashAccountTransactionImportService.class);
     
+	private final CashAccountTransactionImportPreparationController cashAccountTransactionImportPreparationController;
+	private final CashAccountJpaRepository cashAccountJpaRepository;
 	private final CashAccountTransactionImportController cashAccountTransactionImportController;
 	
 	@Autowired
-	public CashAccountTransactionImportService(CashAccountTransactionImportController cashAccountTransactionImportController) {
+	public CashAccountTransactionImportService(
+			CashAccountTransactionImportPreparationController cashAccountTransactionImportPreparationController,
+			CashAccountJpaRepository cashAccountJpaRepository,
+			CashAccountTransactionImportController cashAccountTransactionImportController) {
+		
+		this.cashAccountTransactionImportPreparationController = cashAccountTransactionImportPreparationController;
+		this.cashAccountJpaRepository = cashAccountJpaRepository;
 		this.cashAccountTransactionImportController = cashAccountTransactionImportController;
 	}
 	
@@ -29,6 +40,17 @@ public class CashAccountTransactionImportService {
 		    DtoImportData<CashAccountTransactionImportColmn> importData) {
     	
         LOGGER.info("Validating cash account transaction import file: {}", importData);
-        return cashAccountTransactionImportController.readAndValidateImportFile(monitor, importData);
+        return cashAccountTransactionImportPreparationController.readAndValidateImportFile(monitor, importData);
     }
+	
+	public void importTransactions(
+			AsyncMonitor monitor,
+			long cashAccountId,
+			DtoImportData<CashAccountTransactionImportColmn> importData) throws Exception {
+		
+		LOGGER.info("Importing cash account transaction import file: {}", importData);
+		CashAccount cashAccount = cashAccountJpaRepository.getOne(cashAccountId);
+		
+		cashAccountTransactionImportController.importTransactions(monitor, cashAccount, importData);
+	}
 }

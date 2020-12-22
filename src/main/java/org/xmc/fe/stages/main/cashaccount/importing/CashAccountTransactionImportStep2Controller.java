@@ -14,6 +14,7 @@ import org.xmc.fe.ui.validation.components.ValidationFileChooserField;
 public class CashAccountTransactionImportStep2Controller {
 	@FXML private ValidationFileChooserField fileChooserField;
     @FXML private ValidationComboBox<?> fileTemplateComboBox;
+    @FXML private RadioButton addAllRadioButton;
     @FXML private RadioButton addOnlyRadioButton;
     @FXML private RadioButton addAndUpdateExistingRadioButton;
 	@FXML private ValidationComboBox<CsvSeparator> csvSeparatorComboBox;
@@ -41,5 +42,9 @@ public class CashAccountTransactionImportStep2Controller {
 	
 	public ValidationComboBox<CsvSeparator> getCsvSeparatorComboBox() {
 		return csvSeparatorComboBox;
+	}
+	
+	public RadioButton getAddAllRadioButton() {
+		return addAllRadioButton;
 	}
 }

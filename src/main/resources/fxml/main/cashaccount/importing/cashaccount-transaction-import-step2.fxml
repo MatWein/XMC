@@ -20,9 +20,11 @@
     <fx:define>
         <ToggleGroup fx:id="importTypeToggleGroup" />
     </fx:define>
-    <RadioButton selected="true" text="%cashaccount.transaction.import.dialog.step2.importType.addOnly"
-                 fx:id="addOnlyRadioButton" toggleGroup="$importTypeToggleGroup" />
-    <RadioButton text="%cashaccount.transaction.import.dialog.step2.importType.addAndUpdateExisting"
+    <RadioButton selected="true" text="%cashaccount.transaction.import.dialog.step2.importType.addAll"
+                 fx:id="addAllRadioButton" toggleGroup="$importTypeToggleGroup" />
+	<RadioButton text="%cashaccount.transaction.import.dialog.step2.importType.addOnly"
+				 fx:id="addOnlyRadioButton" toggleGroup="$importTypeToggleGroup" />
+	<RadioButton text="%cashaccount.transaction.import.dialog.step2.importType.addAndUpdateExisting"
                  fx:id="addAndUpdateExistingRadioButton" toggleGroup="$importTypeToggleGroup" />
 
 	<Label styleClass="form-label" text="%cashaccount.transaction.import.dialog.step2.csvSeparator"/>

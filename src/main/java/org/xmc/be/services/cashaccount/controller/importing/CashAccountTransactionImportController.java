@@ -1,121 +1,93 @@
 package org.xmc.be.services.cashaccount.controller.importing;
 
-import com.google.common.collect.Sets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.xmc.be.common.importing.DtoImportFileValidationResultMapper;
-import org.xmc.be.common.importing.RawImportFileReader;
-import org.xmc.common.FileMimeType;
+import org.xmc.be.common.importing.controller.ImportTemplateSaveOrUpdateController;
+import org.xmc.be.entities.cashaccount.CashAccount;
+import org.xmc.be.entities.cashaccount.CashAccountTransaction;
+import org.xmc.be.entities.importing.ImportTemplateType;
+import org.xmc.be.repositories.cashaccount.CashAccountTransactionJpaRepository;
+import org.xmc.be.services.cashaccount.controller.CashAccountTransactionSaveController;
 import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
 import org.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransaction;
 import org.xmc.common.stubs.importing.DtoImportData;
-import org.xmc.common.stubs.importing.DtoImportFileValidationResult;
-import org.xmc.common.stubs.importing.DtoImportFileValidationResultError;
-import org.xmc.common.stubs.importing.exceptions.ImportFileTypeException;
+import org.xmc.common.stubs.importing.ImportType;
 import org.xmc.fe.async.AsyncMonitor;
-import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 
 @Component
 public class CashAccountTransactionImportController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CashAccountTransactionImportController.class);
 	
-	public static final Set<String> VALID_CSV_MIME_TYPES = Sets.newHashSet(
-			FileMimeType.CSV.getMimeType()
-	);
-	
-	public static final Set<String> VALID_EXCEL_MIME_TYPES = Sets.newHashSet(
-			FileMimeType.MS_EXCELO.getMimeType(),
-			FileMimeType.MS_EXCELX.getMimeType()
-	);
-	
-	public static final Set<String> VALID_MIME_TYPES = Sets.union(VALID_CSV_MIME_TYPES, VALID_EXCEL_MIME_TYPES);
-	
-	private final RawImportFileReader rawImportFileReader;
-	private final DtoImportFileValidationResultMapper dtoImportFileValidationResultMapper;
-	private final CashAccountTransactionImportLineMapper cashAccountTransactionImportLineMapper;
-	private final CashAccountTransactionImportLineValidator cashAccountTransactionImportLineValidator;
+	private final ImportTemplateSaveOrUpdateController importTemplateSaveOrUpdateController;
+	private final CashAccountTransactionImportPreparationController cashAccountTransactionImportPreparationController;
+	private final CashAccountTransactionSaveController cashAccountTransactionSaveController;
+	private final CashAccountTransactionJpaRepository cashAccountTransactionJpaRepository;
 	
 	@Autowired
 	public CashAccountTransactionImportController(
-			RawImportFileReader rawImportFileReader,
-			DtoImportFileValidationResultMapper dtoImportFileValidationResultMapper,
-			CashAccountTransactionImportLineMapper cashAccountTransactionImportLineMapper,
-			CashAccountTransactionImportLineValidator cashAccountTransactionImportLineValidator) {
+			ImportTemplateSaveOrUpdateController importTemplateSaveOrUpdateController,
+			CashAccountTransactionImportPreparationController cashAccountTransactionImportPreparationController,
+			CashAccountTransactionSaveController cashAccountTransactionSaveController,
+			CashAccountTransactionJpaRepository cashAccountTransactionJpaRepository) {
 		
-		this.rawImportFileReader = rawImportFileReader;
-		this.dtoImportFileValidationResultMapper = dtoImportFileValidationResultMapper;
-		this.cashAccountTransactionImportLineMapper = cashAccountTransactionImportLineMapper;
-		this.cashAccountTransactionImportLineValidator = cashAccountTransactionImportLineValidator;
+		this.importTemplateSaveOrUpdateController = importTemplateSaveOrUpdateController;
+		this.cashAccountTransactionImportPreparationController = cashAccountTransactionImportPreparationController;
+		this.cashAccountTransactionSaveController = cashAccountTransactionSaveController;
+		this.cashAccountTransactionJpaRepository = cashAccountTransactionJpaRepository;
 	}
 	
-	public DtoImportFileValidationResult<DtoCashAccountTransaction> readAndValidateImportFile(
-			AsyncMonitor monitor,
-			DtoImportData<CashAccountTransactionImportColmn> importData) {
-		
-		try {
-			return readAndValidateWithoutErrorHandling(monitor, importData);
-		} catch (ImportFileTypeException e) {
-			LOGGER.warn("Unknown error on reading import file: {}", importData.getFileToImport(), e);
-			return createGeneralErrorResult(MessageKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_FILETYPE_ERROR);
-		} catch (Throwable e) {
-			LOGGER.warn("Unknown error on reading import file: {}", importData.getFileToImport(), e);
-			return createGeneralErrorResult(MessageKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_COMMON_ERROR);
+	public void importTransactions(AsyncMonitor monitor, CashAccount cashAccount, DtoImportData<CashAccountTransactionImportColmn> importData) throws Exception {
+		if (importData.isSaveTemplate()) {
+			monitor.setStatusText(MessageKey.ASYNC_TASK_SAVE_IMPORT_TEMPLATE);
+			importTemplateSaveOrUpdateController.saveTemplate(
+					importData.getTemplateToSaveName(),
+					ImportTemplateType.CASH_ACCOUNT_TRANSACTION,
+					importData.getImportType(),
+					importData.getCsvSeparator(),
+					importData.getStartWithLine(),
+					importData.getColmuns());
 		}
-	}
-	
-	private DtoImportFileValidationResult<DtoCashAccountTransaction> readAndValidateWithoutErrorHandling(
-			AsyncMonitor monitor,
-			DtoImportData<CashAccountTransactionImportColmn> importData) throws Exception {
 		
-		int processItemCount = 3;
+		var fileValidationResult = cashAccountTransactionImportPreparationController.readAndValidateWithoutErrorHandling(monitor, importData);
+		
+		int processItemCount = fileValidationResult.getSuccessfullyReadLines().size();
 		int processedItems = 0;
+		
+		monitor.setStatusText(MessageKey.ASYNC_TASK_IMPORTING_TRANSACTIONS);
 		monitor.setProgressByItemCount(processedItems, processItemCount);
 		
-		monitor.setStatusText(MessageKey.ASYNC_TASK_VALIDATE_IMPORT_FILE);
-		String contentType = validateFileContentType(importData.getFileToImport());
-		monitor.setProgressByItemCount(++processedItems, processItemCount);
+		LOGGER.info("Got {} transactions to import.", processItemCount);
 		
-		monitor.setStatusText(MessageKey.ASYNC_TASK_READ_IMPORT_FILE);
-		List<List<String>> rawFileContent = rawImportFileReader.read(importData, contentType);
-		monitor.setProgressByItemCount(++processedItems, processItemCount);
+		List<CashAccountTransaction> allTransactions = cashAccountTransactionJpaRepository.findByCashAccount(cashAccount);
 		
-		monitor.setStatusText(MessageKey.ASYNC_TASK_MAP_IMPORT_FILE);
-		DtoImportFileValidationResult<DtoCashAccountTransaction> result = dtoImportFileValidationResultMapper.map(
-				rawFileContent,
-				importData.getColmuns(),
-				cashAccountTransactionImportLineMapper,
-				cashAccountTransactionImportLineValidator);
-		monitor.setProgressByItemCount(++processedItems, processItemCount);
-		
-		return result;
-	}
-	
-	private String validateFileContentType(File fileToImport) throws ImportFileTypeException {
-		try {
-			String contentType = Files.probeContentType(fileToImport.toPath());
-			if (!VALID_MIME_TYPES.contains(contentType)) {
-				throw new ImportFileTypeException();
+		for (DtoCashAccountTransaction transactionToImport : fileValidationResult.getSuccessfullyReadLines()) {
+			Optional<CashAccountTransaction> existingTransaction = findExistingTransaction(allTransactions, transactionToImport);
+			
+			if (importData.getImportType() == ImportType.ADD_ALL) {
+				cashAccountTransactionSaveController.saveOrUpdate(cashAccount, transactionToImport);
+			} else if (importData.getImportType() == ImportType.ADD_AND_UPDATE_EXISTING) {
+				if (existingTransaction.isPresent()) {
+					transactionToImport.setId(existingTransaction.get().getId());
+				}
+				cashAccountTransactionSaveController.saveOrUpdate(cashAccount, transactionToImport);
+			} else if (importData.getImportType() == ImportType.ADD_ONLY && existingTransaction.isEmpty()) {
+				cashAccountTransactionSaveController.saveOrUpdate(cashAccount, transactionToImport);
 			}
-			return contentType;
-		} catch (IOException e) {
-			throw new ImportFileTypeException();
+			
+			monitor.setProgressByItemCount(++processedItems, processItemCount);
 		}
 	}
 	
-	private DtoImportFileValidationResult<DtoCashAccountTransaction> createGeneralErrorResult(MessageKey messageKey, Object... args) {
-		var result = new DtoImportFileValidationResult<DtoCashAccountTransaction>();
+	private Optional<CashAccountTransaction> findExistingTransaction(
+			List<CashAccountTransaction> allTransactions,
+			DtoCashAccountTransaction transactionToFind) {
 		
-		result.getErrors().add(new DtoImportFileValidationResultError(0, MessageAdapter.getByKey(messageKey, args)));
-		
-		return result;
+		return Optional.empty();
 	}
 }

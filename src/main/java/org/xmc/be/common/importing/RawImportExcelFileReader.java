@@ -11,7 +11,12 @@ import java.util.List;
 @Component
 public class RawImportExcelFileReader {
 	public List<List<String>> read(File fileToImport, int startWithLine) throws IOException {
-		Workbook workbook = WorkbookFactory.create(fileToImport);
+		try (Workbook workbook = WorkbookFactory.create(fileToImport)) {
+			return readFromWorkbook(workbook, startWithLine);
+		}
+	}
+	
+	private List<List<String>> readFromWorkbook(Workbook workbook, int startWithLine) {
 		Sheet sheet = workbook.getSheetAt(0);
 		DataFormatter formatter = new DataFormatter();
 		

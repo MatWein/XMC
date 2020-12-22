@@ -21,6 +21,7 @@ public class ImportColumnFieldCellValueFactory<T extends Enum<T>> implements Cal
         }
 
         ComboBox<T> comboBox = new ComboBox<>();
+        comboBox.getItems().add(null);
         comboBox.getItems().addAll(fieldType.getEnumConstants());
         comboBox.setConverter(GenericItemToStringConverter.getInstance(t -> MessageAdapter.getByKey(MessageKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_COLUMN_PREFIX, t)));
         comboBox.setMaxWidth(Double.MAX_VALUE);

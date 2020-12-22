@@ -22,19 +22,19 @@ public class CashAccountTransactionImportLineValidator implements BiFunction<Dto
 		
 		if (StringUtils.isBlank(transaction.getUsage())) {
 			errors.add(new DtoImportFileValidationResultError(
-					lineIndex, String.format(fieldCannotBeEmptyError,
+					lineIndex + 1, String.format(fieldCannotBeEmptyError,
 					MessageAdapter.getByKey(MessageKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_COLUMN_PREFIX, CashAccountTransactionImportColmn.USAGE))));
 		}
 		
 		if (transaction.getValutaDate() == null) {
 			errors.add(new DtoImportFileValidationResultError(
-					lineIndex, String.format(fieldCannotBeEmptyError,
+					lineIndex + 1, String.format(fieldCannotBeEmptyError,
 					MessageAdapter.getByKey(MessageKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_COLUMN_PREFIX, CashAccountTransactionImportColmn.VALUTA_DATE))));
 		}
 		
 		if (transaction.getValue() == null) {
 			errors.add(new DtoImportFileValidationResultError(
-					lineIndex, String.format(fieldCannotBeEmptyError,
+					lineIndex + 1, String.format(fieldCannotBeEmptyError,
 					MessageAdapter.getByKey(MessageKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_COLUMN_PREFIX, CashAccountTransactionImportColmn.VALUE))));
 		}
 		

@@ -55,6 +55,8 @@ public class WizardController<INPUT_TYPE> implements IAfterInit<Pair<List<Wizard
     @FXML
     public void switchToNextStep() {
         populateState();
+	
+	    currentStep.setFinished(true);
 
         WizardStep lastStep = Iterables.getLast(steps, null);
         if (currentStep == lastStep) {
@@ -66,8 +68,6 @@ public class WizardController<INPUT_TYPE> implements IAfterInit<Pair<List<Wizard
     }
 
     private void populateState() {
-	    currentStep.setFinished(true);
-	    
         IWizardStepPopulator<INPUT_TYPE, Object> populator = currentStep.getPopulator();
 
         if (populator != null) {

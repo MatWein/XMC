@@ -35,6 +35,7 @@ public class RawImportExcelFileReader {
 			for (short columnIndex = firstCellIndex; columnIndex < lastCellIndex; columnIndex++) {
 				Cell cell = row.getCell(columnIndex);
 				if (cell == null) {
+					columValues.add("");
 					continue;
 				}
 				

@@ -226,6 +226,10 @@ public class ExtendedTable<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE
             page.set(0);
         }
 
+        if (Main.applicationContext == null) {
+        	return;
+        }
+        
         Main.applicationContext.getBean(AsyncProcessor.class).runAsync(
                 this::loadItemsFromProvider,
                 this::updateItems

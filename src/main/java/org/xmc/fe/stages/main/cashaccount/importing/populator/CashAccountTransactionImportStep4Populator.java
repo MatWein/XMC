@@ -13,4 +13,9 @@ public class CashAccountTransactionImportStep4Populator implements IWizardStepPo
         input.setSaveTemplate(controller.getSaveTemplateCheckbox().isSelected());
         input.setTemplateToSaveName(controller.getTemplateToSaveName().getText());
     }
+	
+	@Override
+	public void populateGui(DtoImportData<CashAccountTransactionImportColmn> input, CashAccountTransactionImportStep4Controller controller) {
+		controller.getTemplateToSaveName().setText(input.getTemplateToSaveName());
+	}
 }

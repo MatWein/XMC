@@ -29,4 +29,25 @@ public class CashAccountTransactionImportStep2Populator implements IWizardStepPo
             input.setImportType(ImportType.ADD_AND_UPDATE_EXISTING);
         }
     }
+	
+	@Override
+	public void populateGui(DtoImportData<CashAccountTransactionImportColmn> importData, CashAccountTransactionImportStep2Controller controller) {
+    	if (importData.getCsvSeparator() != null) {
+		    controller.getCsvSeparatorComboBox().getSelectionModel().select(importData.getCsvSeparator());
+	    }
+		
+		if (importData.getImportType() != null) {
+			switch (importData.getImportType()) {
+				case ADD_ALL:
+					controller.getAddAllRadioButton().setSelected(true);
+					break;
+				case ADD_ONLY:
+					controller.getAddOnlyRadioButton().setSelected(true);
+					break;
+				case ADD_AND_UPDATE_EXISTING:
+					controller.getAddAndUpdateExistingRadioButton().setSelected(true);
+					break;
+			}
+		}
+	}
 }

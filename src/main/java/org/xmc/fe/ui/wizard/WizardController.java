@@ -77,6 +77,10 @@ public class WizardController<INPUT_TYPE> implements IAfterInit<Pair<List<Wizard
 
     private void switchStep(WizardStep wizardStep) {
         currentStep = wizardStep;
+        
+        if (wizardStep.getPopulator() != null) {
+	        wizardStep.getPopulator().populateGui(input, wizardStep.getController());
+        }
 
         contentVBox.getChildren().clear();
         contentVBox.getChildren().add(wizardStep.getContent());

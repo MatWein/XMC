@@ -16,7 +16,7 @@ public class RawImportExcelFileReader {
 		}
 	}
 	
-	private List<List<String>> readFromWorkbook(Workbook workbook, int startWithLine) {
+	private List<List<String>> readFromWorkbook(Workbook workbook, int startWithLine) throws IOException {
 		Sheet sheet = workbook.getSheetAt(0);
 		DataFormatter formatter = new DataFormatter();
 		
@@ -43,6 +43,10 @@ public class RawImportExcelFileReader {
 			}
 			
 			lines.add(columValues);
+		}
+		
+		if (lines.isEmpty()) {
+			throw new IOException("Error on reading excel file.");
 		}
 		
 		return lines;

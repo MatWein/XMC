@@ -37,6 +37,7 @@ public class CashAccountTransactionImportStep2Controller implements IAfterInit<D
     @FXML private RadioButton addOnlyRadioButton;
     @FXML private RadioButton addAndUpdateExistingRadioButton;
 	@FXML private ValidationComboBox<CsvSeparator> csvSeparatorComboBox;
+	@FXML private ValidationComboBox encodingComboBox;
 	
 	@Autowired
 	public CashAccountTransactionImportStep2Controller(
@@ -79,6 +80,7 @@ public class CashAccountTransactionImportStep2Controller implements IAfterInit<D
 		importData.setImportType(newValue.getImportType());
 		importData.setStartWithLine(newValue.getStartWithLine());
 		importData.setTemplateToSaveName(newValue.getTemplateToSaveName());
+		importData.setEncoding(newValue.getEncoding());
 		
 		cashAccountTransactionImportStep2Populator.populateGui(importData, this);
 	}
@@ -119,5 +121,9 @@ public class CashAccountTransactionImportStep2Controller implements IAfterInit<D
 	
 	public RadioButton getAddAllRadioButton() {
 		return addAllRadioButton;
+	}
+	
+	public ValidationComboBox getEncodingComboBox() {
+		return encodingComboBox;
 	}
 }

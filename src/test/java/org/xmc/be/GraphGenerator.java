@@ -19,6 +19,7 @@ import org.xmc.common.stubs.importing.ImportType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.Currency;
 import java.util.UUID;
@@ -179,6 +180,7 @@ public class GraphGenerator {
 	    importTemplate.setImportType(ImportType.ADD_ONLY);
 	    importTemplate.setType(ImportTemplateType.CASH_ACCOUNT_TRANSACTION);
 	    importTemplate.setStartWithLine(1);
+	    importTemplate.setEncoding(StandardCharsets.UTF_8.name());
 	    
 	    session().persist(importTemplate);
 	    

@@ -18,6 +18,7 @@ public class ImportTemplate extends DeletablePersistentObject {
 	static final String COLUMN_IMPORT_TYPE = "IMPORT_TYPE";
 	static final String COLUMN_CSV_SEPARATOR = "CSV_SEPARATOR";
 	static final String COLUMN_TYPE = "TYPE";
+	static final String COLUMN_ENCODING = "ENCODING";
 	
 	@Column(name = COLUMN_NAME, nullable = false)
 	private String name;
@@ -36,6 +37,9 @@ public class ImportTemplate extends DeletablePersistentObject {
 	@Enumerated(EnumType.STRING)
 	@Column(name = COLUMN_TYPE, nullable = false)
 	private ImportTemplateType type;
+	
+	@Column(name = COLUMN_ENCODING, nullable = false, length = 25)
+	private String encoding;
 	
 	@OneToMany(mappedBy = "importTemplate")
 	private Set<ImportTemplateColumnMapping> columnMappings = Sets.newHashSet();
@@ -86,5 +90,13 @@ public class ImportTemplate extends DeletablePersistentObject {
 	
 	public void setColumnMappings(Set<ImportTemplateColumnMapping> columnMappings) {
 		this.columnMappings = columnMappings;
+	}
+	
+	public String getEncoding() {
+		return encoding;
+	}
+	
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
 	}
 }

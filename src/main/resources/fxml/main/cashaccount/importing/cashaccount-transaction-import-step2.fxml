@@ -6,6 +6,7 @@
 <?import org.xmc.common.stubs.importing.CsvSeparator?>
 <?import org.xmc.fe.ui.validation.components.ValidationComboBox?>
 <?import org.xmc.fe.ui.validation.components.ValidationFileChooserField?>
+<?import java.lang.String?>
 <VBox stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
 	  xmlns:fx="http://javafx.com/fxml/1" styleClass="padding-15"
 	  fx:controller="org.xmc.fe.stages.main.cashaccount.importing.CashAccountTransactionImportStep2Controller">
@@ -38,6 +39,19 @@
 		</items>
 		<value>
 			<CsvSeparator fx:value="SEMICOLON" />
+		</value>
+	</ValidationComboBox>
+
+	<Label styleClass="form-label" text="%cashaccount.transaction.import.dialog.step2.encoding"/>
+	<ValidationComboBox required="true" fx:id="encodingComboBox" editable="true" customValidator="org.xmc.fe.ui.validation.EncodingFieldValidator">
+		<items>
+			<FXCollections fx:factory="observableArrayList">
+				<String fx:value="ISO-8859-1"/>
+				<String fx:value="UTF-8"/>
+			</FXCollections>
+		</items>
+		<value>
+			<String fx:value="ISO-8859-1" />
 		</value>
 	</ValidationComboBox>
 

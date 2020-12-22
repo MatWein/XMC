@@ -71,6 +71,7 @@ public class MessageAdapter {
         VALIDATION_ZERO_NOT_ALLOWED("validation.zeroNotAllowed"),
         VALIDATION_INVALID_FILE_PATH("validation.invalidFilePath"),
         VALIDATION_INVALID_FILE_EXTENSION("validation.invalidFileExtension"),
+	    VALIDATION_INVALID_ENCODING("validation.invalidEncoding"),
 
         PAGING_FIRST_PAGE("paging.firstPage"),
         PAGING_BACK("paging.back"),

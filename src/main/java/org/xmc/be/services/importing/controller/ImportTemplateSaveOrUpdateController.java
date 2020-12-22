@@ -38,11 +38,12 @@ public class ImportTemplateSaveOrUpdateController {
 			ImportType importType,
 			CsvSeparator csvSeparator,
 			int startWithLine,
-			List<DtoColumnMapping<T>> colmuns) {
+			List<DtoColumnMapping<T>> colmuns,
+			String encoding) {
 		
 		deleteExistingTemplate(name, templateType);
 		
-		saveNewTemplate(name, templateType, importType, csvSeparator, startWithLine, colmuns);
+		saveNewTemplate(name, templateType, importType, csvSeparator, startWithLine, colmuns, encoding);
 	}
 	
 	private <T extends Enum<T>> void saveNewTemplate(
@@ -51,7 +52,8 @@ public class ImportTemplateSaveOrUpdateController {
 			ImportType importType,
 			CsvSeparator csvSeparator,
 			int startWithLine,
-			List<DtoColumnMapping<T>> colmuns) {
+			List<DtoColumnMapping<T>> colmuns,
+			String encoding) {
 		
 		ImportTemplate importTemplate = new ImportTemplate();
 		
@@ -60,6 +62,7 @@ public class ImportTemplateSaveOrUpdateController {
 		importTemplate.setName(name);
 		importTemplate.setImportType(importType);
 		importTemplate.setCsvSeparator(csvSeparator);
+		importTemplate.setEncoding(encoding);
 		
 		importTemplateJpaRepository.save(importTemplate);
 		

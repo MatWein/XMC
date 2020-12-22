@@ -141,13 +141,13 @@ class CashAccountTransactionImportPreparationControllerTest extends IntegrationT
 		Assertions.assertEquals(-100.0, result.getSuccessfullyReadLines().get(230).getValue().doubleValue(), 0);
 		Assertions.assertEquals(LocalDate.of(2019, Month.AUGUST, 30), result.getSuccessfullyReadLines().get(230).getValutaDate());
 		
-		Assertions.assertEquals(9, result.getErrors().get(0).getLine());
+		Assertions.assertEquals(10, result.getErrors().get(0).getLine());
 		Assertions.assertEquals("Wert in Spalte 'Valuta-Datum' darf nicht leer/ungültig sein.", result.getErrors().get(0).getDescription());
 		
-		Assertions.assertEquals(15, result.getErrors().get(1).getLine());
+		Assertions.assertEquals(16, result.getErrors().get(1).getLine());
 		Assertions.assertEquals("Wert in Spalte 'Wert' darf nicht leer/ungültig sein.", result.getErrors().get(1).getDescription());
 		
-		Assertions.assertEquals(24, result.getErrors().get(2).getLine());
+		Assertions.assertEquals(25, result.getErrors().get(2).getLine());
 		Assertions.assertEquals("Wert in Spalte 'Verwendungszweck' darf nicht leer/ungültig sein.", result.getErrors().get(2).getDescription());
 	}
 	

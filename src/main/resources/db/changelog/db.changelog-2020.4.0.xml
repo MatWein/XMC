@@ -56,4 +56,12 @@
 		<addUniqueConstraint tableName="IMPORT_TEMPLATE_COLUMN_MAPPINGS" columnNames="IMPORT_TEMPLATE_ID, COLUMN_INDEX" />
 	</changeSet>
 
+	<changeSet id="2020-12-22-add-encoding-column" author="matthias.weinert">
+		<addColumn tableName="IMPORT_TEMPLATES">
+			<column name="ENCODING" type="varchar(25)" defaultValue="UTF-8">
+				<constraints nullable="false" />
+			</column>
+		</addColumn>
+	</changeSet>
+
 </databaseChangeLog>

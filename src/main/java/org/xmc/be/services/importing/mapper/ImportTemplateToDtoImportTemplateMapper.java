@@ -26,6 +26,7 @@ public class ImportTemplateToDtoImportTemplateMapper {
 		dto.setStartWithLine(template.getStartWithLine());
 		dto.setTemplateToSaveName(template.getName());
 		dto.setColmuns(mapColumns(template.getColumnMappings(), columnType));
+		dto.setEncoding(template.getEncoding());
 		
 		return dto;
 	}

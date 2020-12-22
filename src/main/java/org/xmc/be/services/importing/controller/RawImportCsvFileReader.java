@@ -11,11 +11,12 @@ import org.xmc.common.stubs.importing.CsvSeparator;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.List;
 
 @Component
 public class RawImportCsvFileReader {
-	public List<List<String>> read(File fileToImport, int startWithLine, CsvSeparator csvSeparator) throws IOException, CsvValidationException {
+	public List<List<String>> read(File fileToImport, int startWithLine, CsvSeparator csvSeparator, Charset charset) throws IOException, CsvValidationException {
 		CSVParser csvParser = new CSVParserBuilder()
 				.withSeparator(csvSeparator.getCharacter())
 				.withIgnoreLeadingWhiteSpace(true)
@@ -24,7 +25,7 @@ public class RawImportCsvFileReader {
 		
 		List<List<String>> lines = Lists.newArrayList();
 		
-		try (var fileReader = new FileReader(fileToImport)) {
+		try (var fileReader = new FileReader(fileToImport, charset)) {
 			try (var csvReader = new CSVReaderBuilder(fileReader)
 					.withSkipLines(startWithLine - 1)
 					.withCSVParser(csvParser)
@@ -35,6 +36,10 @@ public class RawImportCsvFileReader {
 					lines.add(Lists.newArrayList(line));
 				}
 			}
+		}
+		
+		if (lines.isEmpty()) {
+			throw new IOException(String.format("Error on reading csv file '%s' with encoding '%s'.", fileToImport, charset.name()));
 		}
 		
 		return lines;

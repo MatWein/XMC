@@ -11,6 +11,7 @@ public class DtoImportTemplate<T extends Enum<T>> implements Serializable {
 	private String templateToSaveName;
 	private ImportType importType;
 	private CsvSeparator csvSeparator;
+	private String encoding;
 	
 	public int getStartWithLine() {
 		return startWithLine;
@@ -50,5 +51,13 @@ public class DtoImportTemplate<T extends Enum<T>> implements Serializable {
 	
 	public void setCsvSeparator(CsvSeparator csvSeparator) {
 		this.csvSeparator = csvSeparator;
+	}
+	
+	public String getEncoding() {
+		return encoding;
+	}
+	
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
 	}
 }

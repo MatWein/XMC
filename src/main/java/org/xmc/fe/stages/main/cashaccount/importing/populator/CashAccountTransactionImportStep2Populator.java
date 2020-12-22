@@ -1,5 +1,6 @@
 package org.xmc.fe.stages.main.cashaccount.importing.populator;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
 import org.xmc.common.stubs.importing.DtoImportData;
@@ -18,6 +19,7 @@ public class CashAccountTransactionImportStep2Populator implements IWizardStepPo
 		    input.setFileToImport(new File(fileToImport));
 	    }
 	    input.setCsvSeparator(controller.getCsvSeparatorComboBox().getSelectionModel().getSelectedItem());
+	    input.setEncoding(controller.getEncodingComboBox().getEditor().getText());
 	
 	    if (controller.getAddAllRadioButton().isSelected()) {
 		    input.setImportType(ImportType.ADD_ALL);
@@ -34,6 +36,11 @@ public class CashAccountTransactionImportStep2Populator implements IWizardStepPo
 	public void populateGui(DtoImportData<CashAccountTransactionImportColmn> importData, CashAccountTransactionImportStep2Controller controller) {
     	if (importData.getCsvSeparator() != null) {
 		    controller.getCsvSeparatorComboBox().getSelectionModel().select(importData.getCsvSeparator());
+	    }
+    	
+    	if (StringUtils.isNotBlank(importData.getEncoding())) {
+    		controller.getEncodingComboBox().getSelectionModel().select(importData.getEncoding());
+    		controller.getEncodingComboBox().getEditor().setText(importData.getEncoding());
 	    }
 		
 		if (importData.getImportType() != null) {

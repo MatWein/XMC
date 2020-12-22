@@ -54,7 +54,8 @@ public class CashAccountTransactionImportController {
 					importData.getImportType(),
 					importData.getCsvSeparator(),
 					importData.getStartWithLine(),
-					importData.getColmuns());
+					importData.getColmuns(),
+					importData.getEncoding());
 		}
 		
 		var fileValidationResult = cashAccountTransactionImportPreparationController.readAndValidateWithoutErrorHandling(monitor, importData);

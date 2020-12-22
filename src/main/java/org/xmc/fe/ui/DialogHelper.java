@@ -5,6 +5,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
+import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -21,7 +23,11 @@ public class DialogHelper {
     public static boolean showConfirmDialog(MessageKey messageKey, Object... args) {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setContentText(MessageAdapter.getByKey(messageKey, args));
-        alert.getDialogPane().getButtonTypes().setAll(Lists.newArrayList(ButtonType.NO, ButtonType.OK));
+	    
+        DialogPane dialogPane = alert.getDialogPane();
+	    dialogPane.getStylesheets().add(FeConstants.BASE_CSS_PATH);
+	    dialogPane.setMinHeight(Region.USE_PREF_SIZE);
+        dialogPane.getButtonTypes().setAll(Lists.newArrayList(ButtonType.NO, ButtonType.OK));
 
         prepareDefaultAlert(alert);
 

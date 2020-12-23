@@ -61,7 +61,7 @@ public class CashAccountTransactionEditController implements IDialogWithAsyncDat
         categoryComboBox.setPromptText(MessageAdapter.getByKey(MessageKey.CASHACCOUNT_TRANSACTION_EDIT_SELECT_CATEGORY));
 
         valueNumberField.focusedProperty().addListener(FocusLostListener.getInstance(valueNumberField, this::updateSaldoPreview));
-        valutaDatePicker.focusedProperty().addListener(FocusLostListener.getInstance(valutaDatePicker, this::updateSaldoPreview));
+        valutaDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> updateSaldoPreview());
     }
 
     @Override

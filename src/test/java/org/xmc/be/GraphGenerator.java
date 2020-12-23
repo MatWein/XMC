@@ -10,6 +10,8 @@ import org.xmc.be.entities.cashaccount.CashAccountTransaction;
 import org.xmc.be.entities.importing.ImportTemplate;
 import org.xmc.be.entities.importing.ImportTemplateColumnMapping;
 import org.xmc.be.entities.importing.ImportTemplateType;
+import org.xmc.be.entities.settings.Setting;
+import org.xmc.be.entities.settings.SettingType;
 import org.xmc.be.entities.user.ServiceCallLog;
 import org.xmc.be.entities.user.User;
 import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
@@ -173,12 +175,16 @@ public class GraphGenerator {
 	}
     
     public ImportTemplate createImportTemplate(String name) {
+    	return createImportTemplate(ImportTemplateType.CASH_ACCOUNT_TRANSACTION, name);
+    }
+    
+    public ImportTemplate createImportTemplate(ImportTemplateType type, String name) {
 	    var importTemplate = new ImportTemplate();
 	
 	    importTemplate.setName(name);
 	    importTemplate.setCsvSeparator(CsvSeparator.SEMICOLON);
 	    importTemplate.setImportType(ImportType.ADD_ONLY);
-	    importTemplate.setType(ImportTemplateType.CASH_ACCOUNT_TRANSACTION);
+	    importTemplate.setType(type);
 	    importTemplate.setStartWithLine(1);
 	    importTemplate.setEncoding(StandardCharsets.UTF_8.name());
 	    
@@ -220,5 +226,20 @@ public class GraphGenerator {
 	    session().saveOrUpdate(importTemplate);
     	
     	return importTemplateColumnMapping;
+    }
+	
+	public Setting createSetting() {
+    	return createSetting(SettingType.EXTRAS_SHOW_SNOW, Boolean.TRUE.toString());
+	}
+    
+    public Setting createSetting(SettingType type, String value) {
+	    var setting = new Setting();
+	
+	    setting.setType(type);
+	    setting.setValue(value);
+	    
+	    session().persist(setting);
+	    
+	    return setting;
     }
 }

@@ -68,4 +68,21 @@
 		<dropColumn tableName="IMPORT_TEMPLATES" columnName="DELETION_DATE" />
 	</changeSet>
 
+	<changeSet id="2020-12-23-add-settings-table" author="matthias.weinert">
+		<createTable tableName="SETTINGS">
+			<column name="ID" autoIncrement="true" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="TYPE" type="varchar(255)">
+				<constraints nullable="false" unique="true"/>
+			</column>
+			<column name="VALUE" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
 </databaseChangeLog>

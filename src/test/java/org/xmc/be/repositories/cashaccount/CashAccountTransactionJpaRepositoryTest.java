@@ -133,7 +133,36 @@ class CashAccountTransactionJpaRepositoryTest extends IntegrationTest {
     }
 	
 	@Test
-	void testFindByCashAccount() {
-		throw new RuntimeException("implement me");
+	void testFindByCashAccountAndDeletionDateIsNull() {
+		CashAccount cashAccount = graphGenerator.createCashAccount();
+		
+		graphGenerator.createCashAccountTransaction();
+		CashAccountTransaction expectedResult = graphGenerator.createCashAccountTransaction(cashAccount);
+		graphGenerator.createCashAccountTransaction();
+		
+		flushAndClear();
+		
+		List<CashAccountTransaction> result = repository.findByCashAccountAndDeletionDateIsNull(cashAccount);
+		
+		Assertions.assertEquals(Lists.newArrayList(expectedResult), result);
+	}
+	
+	@Test
+	void testFindByCashAccountAndDeletionDateIsNull_NotFound() {
+		CashAccount cashAccount = graphGenerator.createCashAccount();
+		
+		graphGenerator.createCashAccountTransaction();
+		
+		CashAccountTransaction cashAccountTransaction = graphGenerator.createCashAccountTransaction(cashAccount);
+		cashAccountTransaction.setDeletionDate(LocalDateTime.now());
+		session().saveOrUpdate(cashAccountTransaction);
+		
+		graphGenerator.createCashAccountTransaction();
+		
+		flushAndClear();
+		
+		List<CashAccountTransaction> result = repository.findByCashAccountAndDeletionDateIsNull(cashAccount);
+		
+		Assertions.assertEquals(Lists.newArrayList(), result);
 	}
 }

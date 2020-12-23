@@ -7,9 +7,9 @@
 <?import javafx.scene.text.*?>
 <?import org.xmc.fe.ui.components.*?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="290.0"
-            prefWidth="545.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css"
-            xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.xmc.fe.stages.main.AboutController">
+			prefWidth="545.0" stylesheets="@/css/xmc-base.css"
+			xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1"
+			fx:controller="org.xmc.fe.stages.main.AboutController">
 
     <VBox alignment="TOP_CENTER" prefWidth="100.0" styleClass="background-akzent-1" AnchorPane.bottomAnchor="0.0"
           AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">

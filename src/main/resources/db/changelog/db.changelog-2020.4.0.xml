@@ -64,4 +64,8 @@
 		</addColumn>
 	</changeSet>
 
+	<changeSet id="2020-12-23-remove-deletiondate-column" author="matthias.weinert">
+		<dropColumn tableName="IMPORT_TEMPLATES" columnName="DELETION_DATE" />
+	</changeSet>
+
 </databaseChangeLog>

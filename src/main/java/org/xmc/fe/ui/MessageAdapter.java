@@ -50,6 +50,7 @@ public class MessageAdapter {
         PASSWORD("password"),
         TABLE_NO_CONTENT("table.noContent"),
         DIALOG_OK("dialog.ok"),
+        DIALOG_CLOSE("dialog.close"),
         FILECHOOSER_IMAGES("filechooser.extensionfilter.images"),
         FILECHOOSER_CSV_EXCEL("filechooser.extensionfilter.csvExcel"),
         FILECHOOSER_ALL("filechooser.extensionfilter.all"),
@@ -118,6 +119,7 @@ public class MessageAdapter {
 
         ABOUT_TITLE("about.title"),
 	    CHANGELOG_TITLE("changelog.title"),
+	    SETTINGS_TITLE("settings.title"),
 
         CASHACCOUNT_EDIT_TITLE("cashaccount.edit.title"),
         CASHACCOUNT_EDIT_SAVE("cashaccount.edit.save"),

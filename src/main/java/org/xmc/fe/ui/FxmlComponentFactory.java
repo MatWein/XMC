@@ -49,7 +49,10 @@ public class FxmlComponentFactory {
         CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP1("/fxml/main/cashaccount/importing/cashaccount-transaction-import-step1.fxml"),
         CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP2("/fxml/main/cashaccount/importing/cashaccount-transaction-import-step2.fxml"),
         CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP3("/fxml/main/cashaccount/importing/cashaccount-transaction-import-step3.fxml"),
-        CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4("/fxml/main/cashaccount/importing/cashaccount-transaction-import-step4.fxml")
+        CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4("/fxml/main/cashaccount/importing/cashaccount-transaction-import-step4.fxml"),
+        SETTINGS("/fxml/main/settings/settings.fxml"),
+        SETTINGS_IMPORT_TEMPLATES("/fxml/main/settings/content/settings-importtemplates.fxml"),
+        SETTINGS_EXTRAS("/fxml/main/settings/content/settings-extras.fxml")
         ;
 
         private final String fxmlPath;

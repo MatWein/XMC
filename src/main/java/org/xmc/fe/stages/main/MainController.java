@@ -117,4 +117,14 @@ public class MainController implements IAfterStageShown<Void> {
     public void onToggleProcessView() {
         processView.setVisible(!processView.isVisible());
     }
+    
+    @FXML
+    public void onSettings() {
+	    CustomDialogBuilder.getInstance()
+			    .titleKey(MessageKey.SETTINGS_TITLE)
+			    .addButton(MessageKey.DIALOG_CLOSE, ButtonData.FINISH)
+			    .withFxmlContent(FxmlKey.SETTINGS)
+			    .build()
+			    .showAndWait();
+    }
 }

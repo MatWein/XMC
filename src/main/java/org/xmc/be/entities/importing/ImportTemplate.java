@@ -1,7 +1,7 @@
 package org.xmc.be.entities.importing;
 
 import com.google.common.collect.Sets;
-import org.xmc.be.entities.DeletablePersistentObject;
+import org.xmc.be.entities.PersistentObject;
 import org.xmc.common.stubs.importing.CsvSeparator;
 import org.xmc.common.stubs.importing.ImportType;
 
@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = ImportTemplate.TABLE_NAME, uniqueConstraints = @UniqueConstraint(columnNames = { ImportTemplate.COLUMN_TYPE, ImportTemplate.COLUMN_NAME }))
-public class ImportTemplate extends DeletablePersistentObject {
+public class ImportTemplate extends PersistentObject {
 	public static final String TABLE_NAME = "IMPORT_TEMPLATES";
 	
 	static final String COLUMN_NAME = "NAME";

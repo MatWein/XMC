@@ -100,7 +100,7 @@
             </ImageView>
         </graphic>
         <items>
-            <MenuItem text="%main.menu.settings">
+            <MenuItem text="%main.menu.settings" onAction="#onSettings">
                 <graphic>
                     <ImageView>
                         <Image url="@/images/feather/settings.png"/>

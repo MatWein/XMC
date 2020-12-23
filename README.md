@@ -7,7 +7,6 @@ XMC is a small local application to get an overview for your personal finances. 
 | -Dxmc.home.type      | Use this parameter to specify the application home directory were all data and config will be stored. Default is "home" which will use [USER_HOME]/.xmc       | "home"<br/>"workingdir"<br/>"custom"                | -Dxmc.home.type=workingdir                                                 |
 | -Dxmc.home.path      | Can be used in combination with -Dhome.type=custom to specify a custom path.                                                                                  | path                                                | -Dhome.path="/home/user/mypath"<br/>-Dxmc.home.path="C:\\MyData\\XMC"      |
 | -Dxmc.language       | Parameter to specify the application language. Default is system language.                                                                                    | language code (see java.util.Locale.forLanguageTag) | -Dxmc.language=de                                                          |
-| -Dxmc.silent-mode    | If set to true, the application will start in background and opens the main window minimized.                                                                 | true, false                                         | -Dxmc.silent-mode=true                                                     |
 
 ## Development (IntelliJ IDEA)
 ### Run configuration

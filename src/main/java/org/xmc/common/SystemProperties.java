@@ -1,7 +1,6 @@
 package org.xmc.common;
 
 public interface SystemProperties {
-	String XMC_SILENT_MODE = "xmc.silent-mode";
 	String XMC_HOME_TYPE = "xmc.home.type";
 	String XMC_HOME_PATH = "xmc.home.path";
 	String XMC_LANGUAGE = "xmc.language";

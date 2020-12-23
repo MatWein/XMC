@@ -15,7 +15,6 @@ import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.xmc.Main;
 import org.xmc.be.services.login.UserLoginService;
-import org.xmc.common.SystemProperties;
 import org.xmc.common.stubs.login.DtoBootstrapFile;
 import org.xmc.common.utils.HomeDirectoryPathCalculator;
 import org.xmc.common.utils.SleepUtil;
@@ -129,12 +128,6 @@ public class BootstrapController {
                     .withDefaultIcon()
                     .build();
 	        
-            boolean silentMode = Boolean.TRUE.toString().equalsIgnoreCase(System.getProperty(SystemProperties.XMC_SILENT_MODE));
-	
-            if (silentMode && !getStage().isShowing()) {
-	            MainController.mainWindow.setIconified(true);
-            }
-            
 	        MainController.mainWindow.show();
 
             getStage().setOnCloseRequest(null);

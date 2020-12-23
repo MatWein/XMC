@@ -12,7 +12,6 @@ import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.services.login.UserLoginService;
-import org.xmc.common.SystemProperties;
 import org.xmc.common.utils.SleepUtil;
 import org.xmc.fe.ui.CustomDialogBuilder;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
@@ -78,10 +77,7 @@ public class MainController implements IAfterStageShown<Void> {
 				SleepUtil.sleep(TimeUnit.SECONDS.toMillis(10));
 				
 				Platform.runLater(() -> {
-					boolean silentMode = Boolean.TRUE.toString().equalsIgnoreCase(System.getProperty(SystemProperties.XMC_SILENT_MODE));
-					if (!silentMode) {
-						snowAnimationController.start();
-					}
+					snowAnimationController.start();
 					
 					mainWindow.iconifiedProperty().addListener((observable, oldValue, newValue) -> {
 						if (newValue) {

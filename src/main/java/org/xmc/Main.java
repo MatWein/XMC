@@ -82,13 +82,7 @@ public class Main extends Application {
             stage.setOnShown(windowEvent -> startBootstrapping(dtoBootstrapFile, component));
         }
 	
-	    boolean silentMode = Boolean.TRUE.toString().equalsIgnoreCase(System.getProperty(SystemProperties.XMC_SILENT_MODE));
-	
-	    if (autoLogin && silentMode) {
-		    startBootstrapping(dtoBootstrapFile, component);
-	    } else {
-		    stage.show();
-	    }
+	    stage.show();
     }
 	
 	private void startBootstrapping(Optional<DtoBootstrapFile> dtoBootstrapFile, Pair<Parent, ?> component) {

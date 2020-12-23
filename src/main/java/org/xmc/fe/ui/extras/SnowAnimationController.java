@@ -2,6 +2,7 @@ package org.xmc.fe.ui.extras;
 
 import com.google.common.collect.Lists;
 import javafx.animation.TranslateTransition;
+import javafx.scene.CacheHint;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -66,6 +67,8 @@ public class SnowAnimationController {
 			flakes[i].setFitWidth(size);
 			flakes[i].setFitHeight(size);
 			flakes[i].setEffect(new DropShadow(3.0, Color.BLACK));
+			flakes[i].setCache(true);
+			flakes[i].setCacheHint(CacheHint.SPEED);
 			
 			pane.getChildren().add(flakes[i]);
 			startAnimation(flakes[i]);

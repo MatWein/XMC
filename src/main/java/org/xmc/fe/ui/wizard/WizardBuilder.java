@@ -63,7 +63,7 @@ public class WizardBuilder<INPUT_TYPE> {
                 .build();
 
         stage.initOwner(MainController.mainWindow);
-        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initModality(Modality.WINDOW_MODAL);
 
         showBackdrop(stage);
 

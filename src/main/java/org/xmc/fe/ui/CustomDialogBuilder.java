@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.Pair;
 import org.xmc.Main;
@@ -89,7 +90,9 @@ public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE, ASYNC_DATA_TYPE> 
 
         dialog.setTitle(MessageAdapter.getByKey(titleKey));
         dialog.setHeaderText(MessageAdapter.getByKey(headerTextKey));
-
+	    dialog.initOwner(MainController.mainWindow);
+	    dialog.initModality(Modality.WINDOW_MODAL);
+	    
         DialogPane dialogPane = createDialogPane();
         dialogPane.getStylesheets().add(FeConstants.BASE_CSS_PATH);
         dialogPane.setContent(content);

@@ -101,6 +101,10 @@ public class StageBuilder {
         if (input != null && controller instanceof IAfterInit) {
             ((IAfterInit)controller).afterInitialize(input);
         }
+        
+        if (controller instanceof IAfterStageShown) {
+        	existingStage.setOnShown(windowEvent -> ((IAfterStageShown)controller).afterStageShown(input));
+        }
 
         return existingStage;
     }

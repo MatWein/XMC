@@ -40,7 +40,7 @@ public class ImportTemplateService {
 		LOGGER.info("Loading import templates for enum type '{}'.", columnType.getSimpleName());
 		monitor.setStatusText(MessageKey.ASYNC_TASK_LOAD_IMPORT_TEMPLATES);
 		
-		List<ImportTemplate> templates = importTemplateJpaRepository.findByTypeAndDeletionDateIsNull(templateType);
+		List<ImportTemplate> templates = importTemplateJpaRepository.findByType(templateType);
 		return importTemplateToDtoImportTemplateMapper.mapAll(templates, columnType);
 	}
 }

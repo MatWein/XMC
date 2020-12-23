@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface ImportTemplateJpaRepository extends JpaRepository<ImportTemplate, Long> {
 	Optional<ImportTemplate> findByTypeAndName(ImportTemplateType type, String name);
 	
-	List<ImportTemplate> findByTypeAndDeletionDateIsNull(ImportTemplateType type);
+	List<ImportTemplate> findByType(ImportTemplateType type);
 }

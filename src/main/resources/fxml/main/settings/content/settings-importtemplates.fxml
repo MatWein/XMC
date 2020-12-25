@@ -1,7 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.HBox?>
-<HBox stylesheets="@/css/xmc-base.css,@/css/main/settings/settings.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-	<Label text="Templates"/>
-</HBox>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.VBox?>
+<?import org.xmc.fe.ui.components.ButtonImageView?>
+<?import org.xmc.fe.ui.components.table.BaseTable?>
+<?import org.xmc.fe.ui.components.table.EditableTableColumn?>
+<?import org.xmc.fe.ui.components.table.NestedPropertyValueFactory?>
+<VBox stylesheets="@/css/xmc-base.css,@/css/main/settings/settings.css"
+	  xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+	  fx:controller="org.xmc.fe.stages.main.settings.content.SettingsImportTemplatesController"
+	  fx:id="importTemplatesRoot">
+
+	<ToolBar styleClass="tool-bar-border">
+		<Button text="%settings.content.importTemplates.rename" fx:id="renameButton" onAction="#onRename">
+			<graphic>
+				<ButtonImageView url="@/images/feather/edit.png"/>
+			</graphic>
+		</Button>
+		<Button text="%settings.content.importTemplates.delete" fx:id="deleteButton" onAction="#onDelete">
+			<graphic>
+				<ButtonImageView url="@/images/feather/delete.png"/>
+			</graphic>
+		</Button>
+	</ToolBar>
+
+	<BaseTable fx:id="importTemplatesTable" editable="true">
+		<columns>
+			<EditableTableColumn reorderable="false" sortable="false"
+								 text="%settings.content.importTemplates.table.header.name"
+								 onEditCommit="#onRenameCommit">
+				<cellValueFactory>
+					<PropertyValueFactory property="name"/>
+				</cellValueFactory>
+			</EditableTableColumn>
+
+			<TableColumn editable="false" reorderable="false" sortable="false"
+						 text="%settings.content.importTemplates.table.header.type">
+				<cellValueFactory>
+					<NestedPropertyValueFactory property="type"/>
+				</cellValueFactory>
+			</TableColumn>
+		</columns>
+		<columnResizePolicy>
+			<BaseTable fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+		</columnResizePolicy>
+	</BaseTable>
+</VBox>

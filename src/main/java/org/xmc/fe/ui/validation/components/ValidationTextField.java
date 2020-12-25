@@ -8,12 +8,14 @@ import org.xmc.fe.ui.validation.*;
 import java.util.LinkedHashSet;
 
 public class ValidationTextField extends TextField implements IValidationComponent, IRequired, ILength, IEqualTo, ICustomValidator, IInitialFocus {
-    static final String CSS_CLASS_INVALID = "textfield-invalid";
-
-    private boolean required;
+	static final String CSS_CLASS_INVALID = "textfield-invalid";
+	
+	public static final int MAX_LENGTH = 255;
+	
+	private boolean required;
     private boolean initialFocus;
     private Integer minLength;
-    private Integer maxLength = 255;
+    private Integer maxLength = MAX_LENGTH;
     private String equalTo;
     private String customValidator;
 

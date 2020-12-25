@@ -79,13 +79,21 @@
 
 /* ---- Components ---- */
 
-.toolbar {
+.tool-bar {
     -fx-border-color:
             xmc-background-color-1
             xmc-background-color-1
             xmc-border-color-1
             xmc-background-color-1;
-    -fx-background-color: xmc-background-color-1;
+    -fx-background-color: xmc-background-color-1 !important;
+}
+
+.tool-bar > HBox {
+	-fx-background-color: xmc-background-color-1 !important;
+}
+
+.tool-bar-border {
+	-fx-border-color: xmc-border-color-1 !important;
 }
 
 .statusbar {

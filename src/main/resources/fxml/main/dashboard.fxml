@@ -10,7 +10,7 @@
 	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.DashboardController"
 	  prefHeight="700.0" prefWidth="900.0">
 
-    <ToolBar styleClass="toolbar" fx:id="toolbar">
+    <ToolBar fx:id="toolbar">
         <Button text="%main.dashboard.configView">
             <graphic>
                 <ButtonImageView url="@/images/feather/layout.png" />

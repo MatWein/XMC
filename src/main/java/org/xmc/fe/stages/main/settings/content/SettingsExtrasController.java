@@ -3,7 +3,7 @@ package org.xmc.fe.stages.main.settings.content;
 import com.google.common.collect.Maps;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.entities.settings.SettingType;
 import org.xmc.be.services.settings.SettingsService;
@@ -20,7 +20,7 @@ public class SettingsExtrasController {
 	private final SettingsService settingsService;
 	
 	@FXML private CheckBox showSnowCheckbox;
-	@FXML private HBox extrasRoot;
+	@FXML private VBox extrasRoot;
 	
 	@Autowired
 	public SettingsExtrasController(
@@ -44,9 +44,7 @@ public class SettingsExtrasController {
 	private void applySettings(Map<SettingType, Serializable> settings) {
 		showSnowCheckbox.setSelected(Boolean.TRUE.equals(settings.get(SettingType.EXTRAS_SHOW_SNOW)));
 		showSnowCheckbox.selectedProperty().addListener((observable, oldValue, newValue) -> asyncProcessor.runAsyncVoid(
-				() -> {},
-				monitor -> settingsService.saveSetting(monitor, SettingType.EXTRAS_SHOW_SNOW, newValue),
-				() -> {}
+				monitor -> settingsService.saveSetting(monitor, SettingType.EXTRAS_SHOW_SNOW, newValue)
 		));
 	}
 	

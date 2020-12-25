@@ -102,6 +102,8 @@ public class MessageAdapter {
 	    ASYNC_TASK_SAVE_IMPORT_TEMPLATE("async.task.saveImportTemplate"),
 	    ASYNC_TASK_IMPORTING_TRANSACTIONS("async.task.importingTransactions"),
 	    ASYNC_TASK_LOAD_IMPORT_TEMPLATES("async.task.loadImportTemplates"),
+	    ASYNC_TASK_RENAME_IMPORT_TEMPLATE("async.task.renameImportTemplate"),
+	    ASYNC_TASK_DELETE_IMPORT_TEMPLATE("async.task.deleteImportTemplate"),
 	    ASYNC_TASK_LOAD_SETTING("async.task.loadSetting"),
 	    ASYNC_TASK_SAVE_SETTING("async.task.saveSetting"),
 

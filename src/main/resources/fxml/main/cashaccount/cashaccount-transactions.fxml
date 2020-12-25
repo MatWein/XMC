@@ -8,7 +8,7 @@
 	  xmlns="http://javafx.com/javafx/11.0.0" fx:id="cashaccountContentContainer" VBox.vgrow="ALWAYS"
 	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.cashaccount.CashAccountTransactionsController">
 
-    <ToolBar styleClass="toolbar">
+    <ToolBar>
         <Button text="%main.cashaccounts.transactions.create" onAction="#onNewTransaction">
             <graphic>
 				<ButtonImageView url="@/images/feather/plus.png"/>

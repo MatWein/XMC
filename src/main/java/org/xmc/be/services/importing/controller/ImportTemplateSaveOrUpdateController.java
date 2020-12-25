@@ -13,23 +13,25 @@ import org.xmc.common.stubs.importing.DtoColumnMapping;
 import org.xmc.common.stubs.importing.ImportType;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class ImportTemplateSaveOrUpdateController {
 	private final ImportTemplateJpaRepository importTemplateJpaRepository;
 	private final ImportTemplateColumnMappingJpaRepository importTemplateColumnMappingJpaRepository;
 	private final ImportTemplateColumnMappingMapper importTemplateColumnMappingMapper;
+	private final ImportTemplateDeleteController importTemplateDeleteController;
 	
 	@Autowired
 	public ImportTemplateSaveOrUpdateController(
 			ImportTemplateJpaRepository importTemplateJpaRepository,
 			ImportTemplateColumnMappingJpaRepository importTemplateColumnMappingJpaRepository,
-			ImportTemplateColumnMappingMapper importTemplateColumnMappingMapper) {
+			ImportTemplateColumnMappingMapper importTemplateColumnMappingMapper,
+			ImportTemplateDeleteController importTemplateDeleteController) {
 		
 		this.importTemplateJpaRepository = importTemplateJpaRepository;
 		this.importTemplateColumnMappingJpaRepository = importTemplateColumnMappingJpaRepository;
 		this.importTemplateColumnMappingMapper = importTemplateColumnMappingMapper;
+		this.importTemplateDeleteController = importTemplateDeleteController;
 	}
 	
 	public <T extends Enum<T>> void saveTemplate(
@@ -41,7 +43,7 @@ public class ImportTemplateSaveOrUpdateController {
 			List<DtoColumnMapping<T>> colmuns,
 			String encoding) {
 		
-		deleteExistingTemplate(name, templateType);
+		importTemplateDeleteController.deleteExistingTemplate(name, templateType);
 		
 		saveNewTemplate(name, templateType, importType, csvSeparator, startWithLine, colmuns, encoding);
 	}
@@ -73,19 +75,5 @@ public class ImportTemplateSaveOrUpdateController {
 		}
 		
 		importTemplate.getColumnMappings().addAll(mappedColumnMappings);
-	}
-	
-	private void deleteExistingTemplate(String name, ImportTemplateType templateType) {
-		Optional<ImportTemplate> existingTemplate = importTemplateJpaRepository.findByTypeAndName(templateType, name);
-		
-		if (existingTemplate.isPresent()) {
-			for (ImportTemplateColumnMapping columnMapping : existingTemplate.get().getColumnMappings()) {
-				importTemplateColumnMappingJpaRepository.delete(columnMapping);
-			}
-			
-			importTemplateColumnMappingJpaRepository.flush();
-			importTemplateJpaRepository.delete(existingTemplate.get());
-			importTemplateJpaRepository.flush();
-		}
 	}
 }

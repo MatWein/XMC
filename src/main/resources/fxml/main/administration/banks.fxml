@@ -6,12 +6,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import org.xmc.fe.ui.components.table.*?>
 <VBox prefHeight="700.0" prefWidth="900.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css"
-      xmlns="http://javafx.com/javafx/11.0.0"
-      xmlns:fx="http://javafx.com/fxml/1"
-      styleClass="main-tab"
-      fx:controller="org.xmc.fe.stages.main.administration.banks.BankController">
+	  xmlns="http://javafx.com/javafx/11.0.0"
+	  xmlns:fx="http://javafx.com/fxml/1"
+	  styleClass="main-tab"
+	  fx:controller="org.xmc.fe.stages.main.administration.banks.BankController">
 
-    <ToolBar styleClass="toolbar">
+    <ToolBar>
         <Button text="%main.administration.banks.create" onAction="#onNewBank">
             <graphic>
                 <ImageView>

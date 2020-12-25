@@ -40,7 +40,10 @@ public class SettingsService {
 		Optional<Setting> setting = settingsJpaRepository.findByType(settingType);
 		
 		T savedValue = settingValueCaster.castToType(settingType, setting.map(Setting::getValue).orElse(null));
-		return Optional.ofNullable(savedValue).orElse(settingType.getDefaultValue());
+		T result = Optional.ofNullable(savedValue).orElse(settingType.getDefaultValue());
+		
+		LOGGER.info("Got setting value '{}'.", result);
+		return result;
 	}
 	
 	public void saveSetting(AsyncMonitor monitor, SettingType settingType, Serializable valueToSave) {

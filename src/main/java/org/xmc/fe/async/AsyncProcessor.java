@@ -50,6 +50,18 @@ public class AsyncProcessor {
                 postProcessor
         );
     }
+	
+	public void runAsyncVoid(IAsyncCallableVoid callable) {
+		runAsync(
+				() -> {},
+				(IAsyncCallable<Void>) monitor -> {
+					callable.call(monitor);
+					return null;
+				},
+				(result) -> {},
+				() -> {}
+		);
+	}
 
     public <RESULT_TYPE> void runAsync(
             Runnable preProcessor,

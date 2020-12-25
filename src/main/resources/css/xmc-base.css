@@ -30,7 +30,13 @@
 	xmc-background-color-1: rgb(30, 30, 30);
 	xmc-background-color-2: rgb(51, 51, 51);
 	xmc-background-color-3: rgb(37, 37, 37);
+
 	-fx-background-color: xmc-background-color-3;
+}
+
+.root-dark .text-input {
+	background_focused_color: rgb(17, 17, 17) !important;
+	text_focused_color: white !important;
 }
 
 .background-akzent-1 {
@@ -118,6 +124,10 @@
 	-fx-min-width: 64px !important;
 	-fx-max-height: 64px !important;
 	-fx-max-width: 64px !important;
+}
+
+.text-input > Pane {
+	-fx-background-color: transparent !important;
 }
 
 /* ---- Spacing ---- */

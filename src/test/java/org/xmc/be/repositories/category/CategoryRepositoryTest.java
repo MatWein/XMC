@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.IntegrationTest;
-import org.xmc.be.entities.Category;
+import org.xmc.be.entities.cashaccount.Category;
 import org.xmc.common.stubs.PagingParams;
 import org.xmc.common.stubs.category.CategoryOverviewFields;
 import org.xmc.common.stubs.category.DtoCategoryOverview;

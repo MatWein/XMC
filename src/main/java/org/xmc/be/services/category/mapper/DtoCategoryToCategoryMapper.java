@@ -3,7 +3,7 @@ package org.xmc.be.services.category.mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.xmc.be.common.factories.BinaryDataFactory;
-import org.xmc.be.entities.Category;
+import org.xmc.be.entities.cashaccount.Category;
 import org.xmc.common.stubs.category.DtoCategory;
 import org.xmc.common.utils.ImageUtil;
 

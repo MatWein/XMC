@@ -1,9 +1,9 @@
 package org.xmc.be.services.cashaccount.mapper;
 
 import org.springframework.stereotype.Component;
-import org.xmc.be.entities.Category;
 import org.xmc.be.entities.cashaccount.CashAccount;
 import org.xmc.be.entities.cashaccount.CashAccountTransaction;
+import org.xmc.be.entities.cashaccount.Category;
 import org.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransaction;
 
 import java.math.BigDecimal;

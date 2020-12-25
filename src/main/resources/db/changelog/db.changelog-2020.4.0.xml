@@ -85,4 +85,178 @@
 		</createTable>
 	</changeSet>
 
+	<changeSet id="2020-12-25-add-stock-category-table" author="matthias.weinert">
+		<createTable tableName="STOCK_CATEGORIES">
+			<column name="ID" autoIncrement="true" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="NAME" type="varchar(255)">
+				<constraints nullable="false" unique="true"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="2020-12-25-add-stocks-table" author="matthias.weinert">
+		<createTable tableName="STOCKS">
+			<column name="ID" autoIncrement="true" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="ISIN" type="varchar(255)">
+				<constraints nullable="false" unique="true"/>
+			</column>
+			<column name="WKN" type="varchar(255)" />
+			<column name="NAME" type="varchar(255)" />
+			<column name="CATEGORY_ID" type="bigint">
+				<constraints nullable="true" foreignKeyName="FK_STOCK_CATEGORY_ID" references="STOCK_CATEGORIES(ID)"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="2020-12-25-add-depots-table" author="matthias.weinert">
+		<createTable tableName="DEPOTS">
+			<column name="ID" autoIncrement="true" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="DELETION_DATE" type="timestamp">
+				<constraints nullable="true" />
+			</column>
+			<column name="BANK_ID" type="bigint">
+				<constraints nullable="false" foreignKeyName="FK_DEPOT_BANK" references="BANKS(ID)"/>
+			</column>
+			<column name="NUMBER" type="varchar(255)">
+				<constraints nullable="true"/>
+			</column>
+			<column name="NAME" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="2020-12-25-add-depot-delivery-table" author="matthias.weinert">
+		<createTable tableName="DEPOT_DELIVERIES">
+			<column name="ID" autoIncrement="true" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="DELETION_DATE" type="timestamp">
+				<constraints nullable="true" />
+			</column>
+			<column name="DEPOT_ID" type="bigint">
+				<constraints nullable="false" foreignKeyName="FK_DEPOTDELIVERY_DEPOT" references="DEPOTS(ID)"/>
+			</column>
+			<column name="DELIVERY_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="SALDO" type="double">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="2020-12-25-add-depot-last-delivery-column" author="matthias.weinert">
+		<addColumn tableName="DEPOTS">
+			<column name="LAST_DELIVERY_ID" type="bigint">
+				<constraints nullable="true" foreignKeyName="FK_DEPOT_LAST_DEPOTDELIVERY" references="DEPOT_DELIVERIES(ID)"/>
+			</column>
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="2020-12-25-add-depot-item-table" author="matthias.weinert">
+		<createTable tableName="DEPOT_ITEMS">
+			<column name="ID" autoIncrement="true" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="DELIVERY_ID" type="bigint">
+				<constraints nullable="false" foreignKeyName="FK_DEPOTITEM_DEPOTDELIVERY" references="DEPOT_DELIVERIES(ID)"/>
+			</column>
+			<column name="STOCK_ID" type="bigint">
+				<constraints nullable="false" foreignKeyName="FK_DEPOTITEM_STOCK" references="STOCKS(ID)"/>
+			</column>
+			<column name="AMOUNT" type="double">
+				<constraints nullable="false"/>
+			</column>
+			<column name="COURSE" type="double">
+				<constraints nullable="false"/>
+			</column>
+			<column name="VALUE" type="double">
+				<constraints nullable="false"/>
+			</column>
+			<column name="CURRENCY" type="varchar(5)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="2020-12-25-add-depot-transaction-table" author="matthias.weinert">
+		<createTable tableName="DEPOT_TRANSACTIONS">
+			<column name="ID" autoIncrement="true" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="DELETION_DATE" type="timestamp">
+				<constraints nullable="true" />
+			</column>
+			<column name="DEPOT_ID" type="bigint">
+				<constraints nullable="false" foreignKeyName="FK_DEPOTTRANSACTION_DEPOT" references="DEPOTS(ID)"/>
+			</column>
+			<column name="STOCK_ID" type="bigint">
+				<constraints nullable="false" foreignKeyName="FK_DEPOTTRANSACTION_STOCK" references="STOCKS(ID)"/>
+			</column>
+			<column name="AMOUNT" type="double">
+				<constraints nullable="false"/>
+			</column>
+			<column name="COURSE" type="double">
+				<constraints nullable="false"/>
+			</column>
+			<column name="VALUE" type="double">
+				<constraints nullable="false"/>
+			</column>
+			<column name="CURRENCY" type="varchar(5)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="VALUTA_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="DESCRIPTION" type="varchar(1000)">
+				<constraints nullable="true"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="2020-12-25-add-ccf-table" author="matthias.weinert">
+		<createTable tableName="CURRENCY_CONVERSION_FACTORS">
+			<column name="ID" autoIncrement="true" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="INPUT_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="CURRENCY" type="varchar(5)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="FACTOR_TO_EUR" type="double">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
 </databaseChangeLog>

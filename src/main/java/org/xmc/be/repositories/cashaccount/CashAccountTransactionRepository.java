@@ -12,9 +12,9 @@ import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionOverv
 import org.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransactionOverview;
 
 import static org.xmc.be.entities.QBinaryData.binaryData;
-import static org.xmc.be.entities.QCategory.category;
 import static org.xmc.be.entities.cashaccount.QCashAccount.cashAccount;
 import static org.xmc.be.entities.cashaccount.QCashAccountTransaction.cashAccountTransaction;
+import static org.xmc.be.entities.cashaccount.QCategory.category;
 
 @Repository
 public class CashAccountTransactionRepository {

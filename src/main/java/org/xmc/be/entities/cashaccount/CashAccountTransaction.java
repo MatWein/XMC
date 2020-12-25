@@ -1,6 +1,5 @@
 package org.xmc.be.entities.cashaccount;
 
-import org.xmc.be.entities.Category;
 import org.xmc.be.entities.DeletablePersistentObject;
 
 import javax.persistence.*;

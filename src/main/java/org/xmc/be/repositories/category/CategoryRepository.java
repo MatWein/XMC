@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.xmc.be.common.QueryUtil;
-import org.xmc.be.entities.Category;
+import org.xmc.be.entities.cashaccount.Category;
 import org.xmc.be.services.category.mapper.CategoryToDtoCategoryMapper;
 import org.xmc.common.stubs.PagingParams;
 import org.xmc.common.stubs.category.CategoryOverviewFields;
@@ -22,7 +22,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static org.xmc.be.entities.QBinaryData.binaryData;
-import static org.xmc.be.entities.QCategory.category;
+import static org.xmc.be.entities.cashaccount.QCategory.category;
 
 @Repository
 public class CategoryRepository {

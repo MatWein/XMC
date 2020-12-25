@@ -3,8 +3,8 @@ package org.xmc.common.stubs.cashaccount.transactions;
 import com.querydsl.core.types.Expression;
 import org.xmc.common.stubs.IPagingField;
 
-import static org.xmc.be.entities.QCategory.category;
 import static org.xmc.be.entities.cashaccount.QCashAccountTransaction.cashAccountTransaction;
+import static org.xmc.be.entities.cashaccount.QCategory.category;
 
 public enum CashAccountTransactionOverviewFields implements IPagingField {
     CATEGORY_NAME(category.name),

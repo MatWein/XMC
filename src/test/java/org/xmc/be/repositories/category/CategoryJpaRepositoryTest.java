@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.IntegrationTest;
-import org.xmc.be.entities.Category;
+import org.xmc.be.entities.cashaccount.Category;
 
 import java.time.LocalDateTime;
 import java.util.List;

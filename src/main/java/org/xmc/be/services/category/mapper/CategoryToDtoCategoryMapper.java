@@ -2,7 +2,7 @@ package org.xmc.be.services.category.mapper;
 
 import org.springframework.stereotype.Component;
 import org.xmc.be.entities.BinaryData;
-import org.xmc.be.entities.Category;
+import org.xmc.be.entities.cashaccount.Category;
 import org.xmc.common.stubs.category.DtoCategory;
 
 import java.util.function.Function;

@@ -6,9 +6,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.xmc.JUnitTestBase;
-import org.xmc.be.entities.Category;
 import org.xmc.be.entities.cashaccount.CashAccount;
 import org.xmc.be.entities.cashaccount.CashAccountTransaction;
+import org.xmc.be.entities.cashaccount.Category;
 import org.xmc.be.repositories.cashaccount.CashAccountTransactionJpaRepository;
 
 import java.time.LocalDate;

@@ -13,6 +13,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.xmc.common.stubs.Money;
 import org.xmc.common.stubs.Percentage;
 import org.xmc.common.utils.ImageUtil;
+import org.xmc.fe.ui.MessageAdapter;
+import org.xmc.fe.ui.MessageAdapter.MessageKey;
 
 import java.text.NumberFormat;
 import java.time.LocalDate;
@@ -29,6 +31,7 @@ public class NestedPropertyValueFactory implements Callback<CellDataFeatures, Ob
     private Double fitToWidth;
     private Double fitToHeight;
     private int fractionDigits = 2;
+    private String translationKey;
 
     @Override
     public ObservableValue call(CellDataFeatures param) {
@@ -53,7 +56,13 @@ public class NestedPropertyValueFactory implements Callback<CellDataFeatures, Ob
         if (value == null) {
             return null;
         }
-
+	
+	    if (value instanceof Enum && StringUtils.isNotBlank(translationKey)) {
+		    MessageKey messageKey = MessageKey.valueOf(translationKey);
+		    String text = MessageAdapter.getByKey(messageKey, (Enum) value);
+		    return new Text(StringUtils.abbreviate(text, 255));
+	    }
+        
         if (value instanceof String) {
             return new Text(StringUtils.abbreviate((String) value, 255));
         } else if (value instanceof byte[]) {
@@ -128,4 +137,12 @@ public class NestedPropertyValueFactory implements Callback<CellDataFeatures, Ob
     public void setFractionDigits(int fractionDigits) {
         this.fractionDigits = fractionDigits;
     }
+	
+	public String getTranslationKey() {
+		return translationKey;
+	}
+	
+	public void setTranslationKey(String translationKey) {
+		this.translationKey = translationKey;
+	}
 }

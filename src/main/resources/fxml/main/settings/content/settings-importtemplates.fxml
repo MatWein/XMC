@@ -40,7 +40,7 @@
 			<TableColumn editable="false" reorderable="false" sortable="false"
 						 text="%settings.content.importTemplates.table.header.type">
 				<cellValueFactory>
-					<NestedPropertyValueFactory property="type"/>
+					<NestedPropertyValueFactory property="type" translationKey="IMPORTING_TEMPLATE_TYPE" />
 				</cellValueFactory>
 			</TableColumn>
 		</columns>

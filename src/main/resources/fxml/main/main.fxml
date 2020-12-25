@@ -2,10 +2,9 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import org.xmc.fe.ui.components.async.ProcessView?>
-<?import org.xmc.fe.ui.components.MemoryProgressBar?>
+<?import org.xmc.fe.ui.components.*?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="768.0" minWidth="1024.0" prefHeight="768.0"
 			prefWidth="1024.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css,@/css/main/async.css"
 			xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1"
@@ -16,41 +15,31 @@
              AnchorPane.topAnchor="0.0">
         <Tab text="%main.tabs.dashboard">
             <graphic>
-                <ImageView>
-                    <Image url="@/images/feather/home.png"/>
-                </ImageView>
+				<ButtonImageView url="@/images/feather/home.png"/>
             </graphic>
             <fx:include source="dashboard.fxml"/>
         </Tab>
         <Tab text="%main.tabs.cashaccounts">
             <graphic>
-                <ImageView>
-                    <Image url="@/images/feather/shopping-cart.png"/>
-                </ImageView>
+				<ButtonImageView url="@/images/feather/shopping-cart.png"/>
             </graphic>
             <fx:include source="cashaccount/cashaccounts.fxml"/>
         </Tab>
         <Tab text="%main.tabs.depots">
             <graphic>
-                <ImageView>
-                    <Image url="@/images/feather/trending-up.png"/>
-                </ImageView>
+				<ButtonImageView url="@/images/feather/trending-up.png"/>
             </graphic>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
         </Tab>
         <Tab text="%main.tabs.analysis">
             <graphic>
-                <ImageView>
-                    <Image url="@/images/feather/pie-chart.png"/>
-                </ImageView>
+				<ButtonImageView url="@/images/feather/pie-chart.png"/>
             </graphic>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
         </Tab>
         <Tab text="%main.tabs.administration">
             <graphic>
-                <ImageView>
-                    <Image url="@/images/feather/tool.png"/>
-                </ImageView>
+				<ButtonImageView url="@/images/feather/tool.png"/>
             </graphic>
             <fx:include source="administration/administration.fxml"/>
         </Tab>
@@ -95,25 +84,19 @@
 
     <MenuButton AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="4.0">
         <graphic>
-            <ImageView>
-                <Image url="@/images/feather/menu.png"/>
-            </ImageView>
+			<ButtonImageView url="@/images/feather/menu.png"/>
         </graphic>
         <items>
             <MenuItem text="%main.menu.settings" onAction="#onSettings">
                 <graphic>
-                    <ImageView>
-                        <Image url="@/images/feather/settings.png"/>
-                    </ImageView>
+					<ButtonImageView url="@/images/feather/settings.png"/>
                 </graphic>
             </MenuItem>
 			<SeparatorMenuItem />
             <MenuItem onAction="#onChangelog" text="%main.menu.changelog" />
 			<MenuItem onAction="#onAbout" text="%main.menu.about">
 				<graphic>
-					<ImageView>
-						<Image url="@/images/feather/info.png"/>
-					</ImageView>
+					<ButtonImageView url="@/images/feather/info.png"/>
 				</graphic>
 			</MenuItem>
         </items>

@@ -15,10 +15,22 @@
 }
 
 * {
-    xmc-border-color-gray: rgb(204, 204, 204);
-    xmc-background-color-lightgray: rgb(248, 248, 248);
-    xmc-akzent-1: rgb(32, 56, 100);
 	-fx-font-family: "Roboto" !important;
+    xmc-akzent-1: rgb(32, 56, 100);
+}
+
+.root-light {
+    xmc-border-color-1: rgb(204, 204, 204);
+    xmc-background-color-1: rgb(248, 248, 248);
+    xmc-background-color-2: white;
+}
+
+.root-dark {
+	xmc-border-color-1: black;
+	xmc-background-color-1: rgb(30, 30, 30);
+	xmc-background-color-2: rgb(51, 51, 51);
+	xmc-background-color-3: rgb(37, 37, 37);
+	-fx-background-color: xmc-background-color-3;
 }
 
 .background-akzent-1 {
@@ -63,19 +75,21 @@
 
 .toolbar {
     -fx-border-color:
-            xmc-background-color-lightgray
-            xmc-background-color-lightgray
-            xmc-border-color-gray
-            xmc-background-color-lightgray;
-    -fx-background-color: xmc-background-color-lightgray;
+            xmc-background-color-1
+            xmc-background-color-1
+            xmc-border-color-1
+            xmc-background-color-1;
+    -fx-background-color: xmc-background-color-1;
 }
 
 .statusbar {
+	-fx-background-color: xmc-background-color-1;
+
     -fx-border-color:
-            xmc-border-color-gray
-            xmc-background-color-lightgray
-            xmc-background-color-lightgray
-            xmc-background-color-lightgray;
+            xmc-border-color-1
+            xmc-background-color-1
+            xmc-background-color-1
+            xmc-background-color-1;
 }
 
 .check-box {

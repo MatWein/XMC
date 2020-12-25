@@ -1,15 +1,15 @@
 .progress-view {
     -fx-border-color:
-            xmc-border-color-gray
-            xmc-border-color-gray
-            xmc-border-color-gray
-            xmc-border-color-gray;
+            xmc-border-color-1
+            xmc-border-color-1
+            xmc-border-color-1
+            xmc-border-color-1;
 }
 
 .progress-view-element {
     -fx-padding: 15px;
     -fx-border-width: 0 0 2 0;
-    -fx-border-color: xmc-border-color-gray;
+    -fx-border-color: xmc-border-color-1;
 }
 
 .progress-view-element .label {

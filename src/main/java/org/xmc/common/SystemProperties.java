@@ -4,6 +4,7 @@ public interface SystemProperties {
 	String XMC_HOME_TYPE = "xmc.home.type";
 	String XMC_HOME_PATH = "xmc.home.path";
 	String XMC_LANGUAGE = "xmc.language";
+	String XMC_STYLE = "xmc.style";
 	
 	String HOME_HOME = "home";
 	String HOME_WORKINGDIR = "workingdir";

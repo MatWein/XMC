@@ -1,41 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.VBox?>
+<?import org.xmc.fe.ui.components.ButtonImageView?>
 <?import org.xmc.fe.ui.components.table.*?>
 <VBox prefHeight="700.0" prefWidth="900.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css"
-      xmlns="http://javafx.com/javafx/11.0.0" fx:id="cashaccountContentContainer" VBox.vgrow="ALWAYS"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.cashaccount.CashAccountTransactionsController">
+	  xmlns="http://javafx.com/javafx/11.0.0" fx:id="cashaccountContentContainer" VBox.vgrow="ALWAYS"
+	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.cashaccount.CashAccountTransactionsController">
 
     <ToolBar styleClass="toolbar">
         <Button text="%main.cashaccounts.transactions.create" onAction="#onNewTransaction">
             <graphic>
-                <ImageView>
-                    <Image url="@/images/feather/plus.png"/>
-                </ImageView>
+				<ButtonImageView url="@/images/feather/plus.png"/>
             </graphic>
         </Button>
         <Button text="%main.cashaccounts.transactions.edit" fx:id="editButton" onAction="#onEditTransaction">
             <graphic>
-                <ImageView>
-                    <Image url="@/images/feather/edit.png"/>
-                </ImageView>
+				<ButtonImageView url="@/images/feather/edit.png"/>
             </graphic>
         </Button>
         <Button text="%main.cashaccounts.transactions.delete" fx:id="deleteButton" onAction="#onDeleteTransaction">
             <graphic>
-                <ImageView>
-                    <Image url="@/images/feather/delete.png"/>
-                </ImageView>
+				<ButtonImageView url="@/images/feather/delete.png"/>
             </graphic>
         </Button>
         <Separator orientation="VERTICAL" />
         <Button text="%main.cashaccounts.transactions.importing" onAction="#onImportTransactions">
             <graphic>
-                <ImageView>
-                    <Image url="@/images/feather/download.png"/>
-                </ImageView>
+				<ButtonImageView url="@/images/feather/download.png"/>
             </graphic>
         </Button>
     </ToolBar>

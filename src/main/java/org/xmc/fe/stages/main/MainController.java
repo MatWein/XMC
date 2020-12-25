@@ -11,8 +11,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.xmc.be.entities.settings.SettingType;
 import org.xmc.be.services.login.UserLoginService;
+import org.xmc.be.services.settings.SettingsService;
 import org.xmc.common.utils.SleepUtil;
+import org.xmc.fe.async.AsyncProcessor;
 import org.xmc.fe.ui.CustomDialogBuilder;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.FxmlController;
@@ -33,6 +36,8 @@ public class MainController implements IAfterStageShown<Void> {
     public volatile static Stage mainWindow;
 	
     private final ExtrasUsageCalculator extrasUsageCalculator;
+	private final AsyncProcessor asyncProcessor;
+	private final SettingsService settingsService;
 	
 	private SnowAnimationController snowAnimationController;
 
@@ -47,8 +52,14 @@ public class MainController implements IAfterStageShown<Void> {
     @FXML private Label displayNameLabel;
 	
     @Autowired
-	public MainController(ExtrasUsageCalculator extrasUsageCalculator) {
+	public MainController(
+		    ExtrasUsageCalculator extrasUsageCalculator,
+		    AsyncProcessor asyncProcessor,
+		    SettingsService settingsService) {
+    	
 	    this.extrasUsageCalculator = extrasUsageCalculator;
+	    this.asyncProcessor = asyncProcessor;
+	    this.settingsService = settingsService;
     }
 	
 	@FXML
@@ -70,7 +81,16 @@ public class MainController implements IAfterStageShown<Void> {
 	
 	@Override
 	public void afterStageShown(Void param) {
-		if (extrasUsageCalculator.calculateUseWinterExtras()) {
+		asyncProcessor.runAsync(
+				() -> {},
+				monitor -> settingsService.loadSetting(monitor, SettingType.EXTRAS_SHOW_SNOW),
+				this::initializeSnow,
+				() -> {}
+		);
+	}
+	
+	private void initializeSnow(boolean showSnow) {
+		if (extrasUsageCalculator.calculateUseWinterExtras() && showSnow) {
 			snowAnimationController = new SnowAnimationController(snowRegion);
 			
 			Thread thread = new Thread(() -> {

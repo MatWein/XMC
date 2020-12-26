@@ -73,10 +73,6 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="2020-07-19-category_name_unique" author="matthias.weinert">
-        <addUniqueConstraint tableName="CATEGORIES" columnNames="NAME" />
-    </changeSet>
-
     <changeSet id="2020-08-08-drop_bank_reference" author="matthias.weinert">
         <dropForeignKeyConstraint baseTableName="CASH_ACCOUNT_TRANSACTIONS" constraintName="FK_CASH_ACCOUNT_TRANSACTION_BANK" />
         <dropColumn tableName="CASH_ACCOUNT_TRANSACTIONS" columnName="REFERENCE_BANK_ID" />

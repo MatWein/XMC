@@ -94,7 +94,7 @@
 				<constraints nullable="false" />
 			</column>
 			<column name="NAME" type="varchar(255)">
-				<constraints nullable="false" unique="true"/>
+				<constraints nullable="false" />
 			</column>
 		</createTable>
 	</changeSet>
@@ -265,11 +265,6 @@
 				<constraints nullable="true" />
 			</column>
 		</addColumn>
-	</changeSet>
-
-	<changeSet id="2020-12-26-remove-not-null-constraints" author="matthias.weinert">
-		<dropNotNullConstraint tableName="STOCK_CATEGORIES" columnName="NAME" />
-		<dropNotNullConstraint tableName="CATEGORIES" columnName="NAME" />
 	</changeSet>
 
 </databaseChangeLog>

@@ -2,30 +2,23 @@
 
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
+<?import org.xmc.fe.ui.components.ButtonImageView?>
 <VBox prefHeight="700.0" prefWidth="900.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css"
-      xmlns="http://javafx.com/javafx/11.0.0"
-      xmlns:fx="http://javafx.com/fxml/1"
-      styleClass="main-tab">
+	  xmlns="http://javafx.com/javafx/11.0.0"
+	  xmlns:fx="http://javafx.com/fxml/1"
+	  styleClass="main-tab">
 
-    <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS"
-             AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-             AnchorPane.topAnchor="0.0">
+    <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
         <Tab text="%administration.tabs.banks">
             <graphic>
-                <ImageView>
-                    <Image url="@/images/feather/shopping-bag.png"/>
-                </ImageView>
+				<ButtonImageView url="@/images/feather/shopping-bag.png"/>
             </graphic>
             <fx:include source="banks.fxml"/>
         </Tab>
         <Tab text="%administration.tabs.categories">
             <graphic>
-                <ImageView>
-                    <Image url="@/images/feather/tag.png"/>
-                </ImageView>
+				<ButtonImageView url="@/images/feather/tag.png"/>
             </graphic>
             <fx:include source="categories.fxml"/>
         </Tab>

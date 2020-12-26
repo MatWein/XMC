@@ -170,6 +170,10 @@ public class MessageAdapter {
         CATEGORY_SHOPPING("category.shopping"),
         CATEGORY_DEPOT("category.depot"),
         CATEGORY_CONFIRM_DELETE("category.confirm.delete"),
+	
+	    STOCK_CATEGORY_EDIT_TITLE("stockCategory.edit.title"),
+	    STOCK_CATEGORY_EDIT_CANCEL("stockCategory.edit.cancel"),
+	    STOCK_CATEGORY_EDIT_SAVE("stockCategory.edit.save"),
 
         WIZARD_PREVIOUS("wizard.previous"),
         WIZARD_NEXT("wizard.next"),

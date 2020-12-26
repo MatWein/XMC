@@ -5,12 +5,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.xmc.be.services.category.CategoryService;
-import org.xmc.common.stubs.category.CategoryOverviewFields;
-import org.xmc.common.stubs.category.DtoCategory;
-import org.xmc.common.stubs.category.DtoCategoryOverview;
+import org.xmc.be.services.category.StockCategoryService;
+import org.xmc.common.stubs.category.DtoStockCategory;
+import org.xmc.common.stubs.category.DtoStockCategoryOverview;
+import org.xmc.common.stubs.category.StockCategoryOverviewFields;
 import org.xmc.fe.async.AsyncProcessor;
-import org.xmc.fe.stages.main.administration.categories.mapper.CategoryEditDialogMapper;
+import org.xmc.fe.stages.main.administration.categories.mapper.StockCategoryEditDialogMapper;
 import org.xmc.fe.ui.CustomDialogBuilder;
 import org.xmc.fe.ui.DialogHelper;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
@@ -21,24 +21,24 @@ import org.xmc.fe.ui.components.table.ExtendedTable;
 import java.util.Optional;
 
 @FxmlController
-public class CategoryController {
-    private final CategoryService categoryService;
+public class StockCategoryController {
     private final AsyncProcessor asyncProcessor;
-    private final CategoryEditDialogMapper categoryEditDialogMapper;
-
-    @FXML private ExtendedTable<DtoCategoryOverview, CategoryOverviewFields> tableView;
+	private final StockCategoryService stockCategoryService;
+	private final StockCategoryEditDialogMapper stockCategoryEditDialogMapper;
+	
+	@FXML private ExtendedTable<DtoStockCategoryOverview, StockCategoryOverviewFields> tableView;
     @FXML private Button editButton;
     @FXML private Button deleteButton;
 
     @Autowired
-    public CategoryController(
-            CategoryService categoryService,
-            AsyncProcessor asyncProcessor,
-            CategoryEditDialogMapper categoryEditDialogMapper) {
+    public StockCategoryController(
+		    AsyncProcessor asyncProcessor,
+		    StockCategoryService stockCategoryService,
+		    StockCategoryEditDialogMapper stockCategoryEditDialogMapper) {
 
-        this.categoryService = categoryService;
         this.asyncProcessor = asyncProcessor;
-        this.categoryEditDialogMapper = categoryEditDialogMapper;
+	    this.stockCategoryService = stockCategoryService;
+	    this.stockCategoryEditDialogMapper = stockCategoryEditDialogMapper;
     }
 
     @FXML
@@ -47,7 +47,7 @@ public class CategoryController {
         editButton.disableProperty().bind(noTableItemSelected);
         deleteButton.disableProperty().bind(noTableItemSelected);
 
-        tableView.setDataProvider(categoryService::loadOverview);
+        tableView.setDataProvider(stockCategoryService::loadOverview);
         tableView.setDoubleClickConsumer(dtoCategoryOverview -> onEditCategory());
     }
 
@@ -58,30 +58,30 @@ public class CategoryController {
 
     @FXML
     public void onEditCategory() {
-        DtoCategory selectedCategory = tableView.getSelectionModel().getSelectedItem();
+        DtoStockCategory selectedCategory = tableView.getSelectionModel().getSelectedItem();
         createOrEditCategory(selectedCategory);
     }
 
     @FXML
     public void onDeleteCategory() {
-        DtoCategoryOverview selectedCategory = tableView.getSelectionModel().getSelectedItem();
+        DtoStockCategoryOverview selectedCategory = tableView.getSelectionModel().getSelectedItem();
 
         if (DialogHelper.showConfirmDialog(MessageKey.CATEGORY_CONFIRM_DELETE, selectedCategory.getName())) {
             asyncProcessor.runAsyncVoid(
                     () -> {},
-                    monitor -> categoryService.markAsDeleted(monitor, selectedCategory.getId()),
+                    monitor -> stockCategoryService.markAsDeleted(monitor, selectedCategory.getId()),
                     () -> tableView.reload()
             );
         }
     }
 
-    private void createOrEditCategory(DtoCategory input) {
-        Optional<DtoCategory> dtoCategory = CustomDialogBuilder.getInstance()
-                .titleKey(MessageKey.CATEGORY_EDIT_TITLE)
-                .addButton(MessageKey.CATEGORY_EDIT_CANCEL, ButtonData.NO)
-                .addButton(MessageKey.CATEGORY_EDIT_SAVE, ButtonData.OK_DONE)
-                .withFxmlContent(FxmlKey.CATEGORY_EDIT)
-                .withMapper(categoryEditDialogMapper)
+    private void createOrEditCategory(DtoStockCategory input) {
+        Optional<DtoStockCategory> dtoCategory = CustomDialogBuilder.getInstance()
+                .titleKey(MessageKey.STOCK_CATEGORY_EDIT_TITLE)
+                .addButton(MessageKey.STOCK_CATEGORY_EDIT_CANCEL, ButtonData.NO)
+                .addButton(MessageKey.STOCK_CATEGORY_EDIT_SAVE, ButtonData.OK_DONE)
+                .withFxmlContent(FxmlKey.STOCK_CATEGORY_EDIT)
+                .withMapper(stockCategoryEditDialogMapper)
                 .withInput(input)
                 .build()
                 .showAndWait();
@@ -89,7 +89,7 @@ public class CategoryController {
         if (dtoCategory.isPresent()) {
             asyncProcessor.runAsyncVoid(
                     () -> {},
-                    monitor -> categoryService.saveOrUpdate(monitor, dtoCategory.get()),
+                    monitor -> stockCategoryService.saveOrUpdate(monitor, dtoCategory.get()),
                     () -> tableView.reload()
             );
         }

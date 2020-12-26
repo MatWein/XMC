@@ -259,4 +259,17 @@
 		</createTable>
 	</changeSet>
 
+	<changeSet id="2020-12-26-add-deletiondate-stockcategories" author="matthias.weinert">
+		<addColumn tableName="STOCK_CATEGORIES">
+			<column name="DELETION_DATE" type="timestamp">
+				<constraints nullable="true" />
+			</column>
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="2020-12-26-remove-not-null-constraints" author="matthias.weinert">
+		<dropNotNullConstraint tableName="STOCK_CATEGORIES" columnName="NAME" />
+		<dropNotNullConstraint tableName="CATEGORIES" columnName="NAME" />
+	</changeSet>
+
 </databaseChangeLog>

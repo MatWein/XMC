@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class Category extends DeletablePersistentObject {
     public static final String TABLE_NAME = "CATEGORIES";
 
-    @Column(name = "NAME", nullable = false, unique = true)
+    @Column(name = "NAME", nullable = false)
     private String name;
 
     @ManyToOne(optional = true)

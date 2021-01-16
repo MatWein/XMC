@@ -18,6 +18,7 @@ import org.xmc.fe.async.AsyncMonitor;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @Transactional
@@ -61,4 +62,8 @@ public class StockCategoryService {
         category.setDeletionDate(LocalDateTime.now());
 	    stockCategoryJpaRepository.save(category);
     }
+	
+	public List<DtoStockCategory> loadAllStockCategories(AsyncMonitor monitor) {
+		return null;
+	}
 }

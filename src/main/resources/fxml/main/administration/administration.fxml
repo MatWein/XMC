@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
 <?import org.xmc.fe.ui.components.ButtonImageView?>
 <VBox prefHeight="700.0" prefWidth="900.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css"
@@ -27,6 +26,12 @@
 				<ButtonImageView url="@/images/feather/tag.png"/>
 			</graphic>
 			<fx:include source="stock-categories.fxml"/>
+		</Tab>
+		<Tab text="%administration.tabs.stocks">
+			<graphic>
+				<ButtonImageView url="@/images/feather/activity.png"/>
+			</graphic>
+			<fx:include source="stocks.fxml"/>
 		</Tab>
     </TabPane>
 

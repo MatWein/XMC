@@ -80,7 +80,8 @@ public class CashAccountTransactionsController implements IAfterInit<CashAccount
         BooleanBinding noTableItemSelected = tableView.getSelectionModel().selectedItemProperty().isNull();
 
         SimpleBooleanProperty multipleTableItemsSelected = new SimpleBooleanProperty(false);
-        tableView.getSelectionModel().getSelectedItems().addListener((ListChangeListener<DtoCashAccountTransactionOverview>) change -> multipleTableItemsSelected.set(change.getList().size() > 1));
+        tableView.getSelectionModel().getSelectedItems().addListener((ListChangeListener<DtoCashAccountTransactionOverview>)
+		        change -> multipleTableItemsSelected.set(change.getList().size() > 1));
 
         editButton.disableProperty().bind(noTableItemSelected.or(multipleTableItemsSelected));
         deleteButton.disableProperty().bind(noTableItemSelected);

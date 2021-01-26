@@ -15,9 +15,8 @@ public class DepotTransaction extends DeletablePersistentObject {
 	@JoinColumn(name = "DEPOT_ID")
 	private Depot depot;
 	
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "STOCK_ID")
-	private Stock stock;
+	@Column(name = "ISIN", nullable = false, length = 15)
+	private String isin;
 	
 	@Column(name = "VALUTA_DATE", nullable = false)
 	private LocalDate valutaDate;
@@ -45,12 +44,12 @@ public class DepotTransaction extends DeletablePersistentObject {
 		this.depot = depot;
 	}
 	
-	public Stock getStock() {
-		return stock;
+	public String getIsin() {
+		return isin;
 	}
 	
-	public void setStock(Stock stock) {
-		this.stock = stock;
+	public void setIsin(String isin) {
+		this.isin = isin;
 	}
 	
 	public LocalDate getValutaDate() {

@@ -10,6 +10,7 @@ import org.xmc.be.entities.depot.StockCategory;
 import org.xmc.be.repositories.category.StockCategoryJpaRepository;
 import org.xmc.be.repositories.category.StockCategoryRepository;
 import org.xmc.be.services.category.controller.StockCategorySaveController;
+import org.xmc.be.services.category.mapper.StockCateogoryToDtoStockCategoryMapper;
 import org.xmc.common.stubs.PagingParams;
 import org.xmc.common.stubs.category.DtoStockCategory;
 import org.xmc.common.stubs.category.DtoStockCategoryOverview;
@@ -28,16 +29,19 @@ public class StockCategoryService {
     private final StockCategoryJpaRepository stockCategoryJpaRepository;
 	private final StockCategoryRepository stockCategoryRepository;
 	private final StockCategorySaveController stockCategorySaveController;
+	private final StockCateogoryToDtoStockCategoryMapper stockCateogoryToDtoStockCategoryMapper;
 	
 	@Autowired
 	public StockCategoryService(
 			StockCategoryJpaRepository stockCategoryJpaRepository,
 			StockCategoryRepository stockCategoryRepository,
-			StockCategorySaveController stockCategorySaveController) {
+			StockCategorySaveController stockCategorySaveController,
+			StockCateogoryToDtoStockCategoryMapper stockCateogoryToDtoStockCategoryMapper) {
 		
 		this.stockCategoryJpaRepository = stockCategoryJpaRepository;
 		this.stockCategoryRepository = stockCategoryRepository;
 		this.stockCategorySaveController = stockCategorySaveController;
+		this.stockCateogoryToDtoStockCategoryMapper = stockCateogoryToDtoStockCategoryMapper;
 	}
 	
 	public void saveOrUpdate(AsyncMonitor monitor, DtoStockCategory dtoCategory) {
@@ -64,6 +68,10 @@ public class StockCategoryService {
     }
 	
 	public List<DtoStockCategory> loadAllStockCategories(AsyncMonitor monitor) {
-		return null;
+		LOGGER.info("Loading all stock categories.");
+		monitor.setStatusText(MessageKey.ASYNC_TASK_LOAD_ALL_STOCK_CATEGORIES);
+		
+		List<StockCategory> stockCategories = stockCategoryJpaRepository.findByDeletionDateIsNull();
+		return stockCateogoryToDtoStockCategoryMapper.mapAll(stockCategories);
 	}
 }

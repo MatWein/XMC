@@ -251,6 +251,10 @@ public class ExtendedTable<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE
     }
 
     private void updateItems(QueryResults<ITEM_TYPE> items) {
+    	if (items == null) {
+    		items = QueryResults.emptyResults();
+	    }
+    	
         table.getItems().setAll(items.getResults());
 
         int currentPage, pageCount;

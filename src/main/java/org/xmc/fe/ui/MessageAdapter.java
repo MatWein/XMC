@@ -107,6 +107,7 @@ public class MessageAdapter {
 	    ASYNC_TASK_DELETE_IMPORT_TEMPLATE("async.task.deleteImportTemplate"),
 	    ASYNC_TASK_LOAD_SETTING("async.task.loadSetting"),
 	    ASYNC_TASK_SAVE_SETTING("async.task.saveSetting"),
+	    ASYNC_TASK_LOAD_ALL_STOCK_CATEGORIES("async.task.loadAllStockCategories"),
 
         LOGIN_TITLE("login.title"),
 
@@ -177,7 +178,12 @@ public class MessageAdapter {
 
         WIZARD_PREVIOUS("wizard.previous"),
         WIZARD_NEXT("wizard.next"),
-        WIZARD_FINISH("wizard.finish")
+        WIZARD_FINISH("wizard.finish"),
+	
+	    STOCK_EDIT_TITLE("stock.edit.title"),
+	    STOCK_EDIT_CANCEL("stock.edit.cancel"),
+	    STOCK_EDIT_SAVE("stock.edit.save"),
+	    STOCK_CONFIRM_DELETE("stock.confirm.delete")
         ;
 
         private final String key;

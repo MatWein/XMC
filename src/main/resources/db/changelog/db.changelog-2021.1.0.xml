@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog logicalFilePath="db.changelog-master.xml" xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+	<changeSet id="2021-01-26-drop-stock-id-fk" author="matthias.weinert">
+		<dropColumn tableName="DEPOT_ITEMS" columnName="STOCK_ID" />
+		<dropColumn tableName="DEPOT_TRANSACTIONS" columnName="STOCK_ID" />
+	</changeSet>
+
+	<changeSet id="2021-01-26-change-isin-length" author="matthias.weinert">
+		<dropColumn tableName="STOCKS" columnName="ISIN" />
+		<dropColumn tableName="STOCKS" columnName="WKN" />
+		<addColumn tableName="STOCKS">
+			<column name="ISIN" type="varchar(15)" defaultValue="UNKNOWN_ISIN">
+				<constraints nullable="false" />
+			</column>
+			<column name="WKN" type="varchar(10)" />
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="2021-01-26-add-isin" author="matthias.weinert">
+		<addColumn tableName="DEPOT_ITEMS">
+			<column name="ISIN" type="varchar(15)" defaultValue="UNKNOWN_ISIN">
+				<constraints nullable="false" />
+			</column>
+		</addColumn>
+
+		<addColumn tableName="DEPOT_TRANSACTIONS">
+			<column name="ISIN" type="varchar(15)" defaultValue="UNKNOWN_ISIN">
+				<constraints nullable="false" />
+			</column>
+		</addColumn>
+	</changeSet>
+
+</databaseChangeLog>

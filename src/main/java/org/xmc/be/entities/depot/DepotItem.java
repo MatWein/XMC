@@ -14,9 +14,8 @@ public class DepotItem extends PersistentObject {
 	@JoinColumn(name = "DELIVERY_ID")
 	private DepotDelivery delivery;
 	
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "STOCK_ID")
-	private Stock stock;
+	@Column(name = "ISIN", nullable = false, length = 15)
+	private String isin;
 	
 	@Column(name = "AMOUNT", nullable = false)
 	private BigDecimal amount;
@@ -38,12 +37,12 @@ public class DepotItem extends PersistentObject {
 		this.delivery = delivery;
 	}
 	
-	public Stock getStock() {
-		return stock;
+	public String getIsin() {
+		return isin;
 	}
 	
-	public void setStock(Stock stock) {
-		this.stock = stock;
+	public void setIsin(String isin) {
+		this.isin = isin;
 	}
 	
 	public BigDecimal getAmount() {

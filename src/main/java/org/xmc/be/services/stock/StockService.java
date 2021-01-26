@@ -12,11 +12,15 @@ import org.xmc.fe.async.AsyncMonitor;
 @Service
 @Transactional
 public class StockService {
+	public QueryResults<DtoStockOverview> loadOverview(AsyncMonitor monitor, PagingParams<StockOverviewFields> pagingParams) {
+		return null;
+	}
+	
 	public void saveOrUpdate(AsyncMonitor monitor, DtoStock dtoStock) {
 	
 	}
 	
-	public QueryResults<DtoStockOverview> loadOverview(AsyncMonitor monitor, PagingParams<StockOverviewFields> pagingParams) {
-		return null;
+	public void deleteStock(AsyncMonitor monitor, long stockId) {
+	
 	}
 }

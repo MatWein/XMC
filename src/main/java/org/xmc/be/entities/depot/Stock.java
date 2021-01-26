@@ -9,9 +9,9 @@ import javax.persistence.*;
 public class Stock extends PersistentObject {
 	public static final String TABLE_NAME = "STOCKS";
 	
-	@Column(name = "ISIN", nullable = false, unique = true)
+	@Column(name = "ISIN", nullable = false, unique = true, length = 15)
 	private String isin;
-	@Column(name = "WKN", nullable = true)
+	@Column(name = "WKN", nullable = true, length = 10)
 	private String wkn;
 	@Column(name = "NAME", nullable = true)
 	private String name;

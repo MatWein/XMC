@@ -303,15 +303,11 @@ public class GraphGenerator {
     	return createDepotTransaction(createDepot());
     }
     
-    public DepotTransaction createDepotTransaction(Depot depot) {
-    	return createDepotTransaction(depot, createStock());
-    }
-	
-	public DepotTransaction createDepotTransaction(Depot depot, Stock stock) {
+	public DepotTransaction createDepotTransaction(Depot depot) {
     	var depotTransaction = new DepotTransaction();
 	
 	    depotTransaction.setDepot(depot);
-	    depotTransaction.setStock(stock);
+	    depotTransaction.setIsin(UUID.randomUUID().toString());
 	    depotTransaction.setAmount(BigDecimal.valueOf(100.0));
 	    depotTransaction.setCourse(BigDecimal.valueOf(10.0));
 	    depotTransaction.setValue(BigDecimal.valueOf(1000.0));
@@ -353,15 +349,11 @@ public class GraphGenerator {
     	return createDepotItem(createDepotDelivery());
     }
 	
-	public DepotItem createDepotItem(DepotDelivery depotDelivery) {
-    	return createDepotItem(depotDelivery, createStock());
-	}
-    
-    public DepotItem createDepotItem(DepotDelivery depotDelivery, Stock stock) {
+    public DepotItem createDepotItem(DepotDelivery depotDelivery) {
 	    var depotItem = new DepotItem();
 	
 	    depotItem.setDelivery(depotDelivery);
-	    depotItem.setStock(stock);
+	    depotItem.setIsin(UUID.randomUUID().toString());
 	    depotItem.setAmount(BigDecimal.valueOf(20.0));
 	    depotItem.setCourse(BigDecimal.valueOf(200.0));
 	    depotItem.setValue(BigDecimal.valueOf(2000.0));

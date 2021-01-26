@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import org.xmc.fe.ui.validation.components.ValidationComboBox?>
+<?import org.xmc.fe.ui.validation.components.ValidationTextField?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="341.0"
+	  prefWidth="519.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
+	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.administration.stocks.StockEditController">
+
+    <Label text="%stock.edit.isin" styleClass="form-label-first" />
+    <ValidationTextField fx:id="isinTextfield" required="true" initialFocus="true" maxLength="15" minLength="12" />
+
+	<Label styleClass="form-label" text="%stock.edit.wkn" />
+	<ValidationTextField fx:id="wknTextfield" required="false" maxLength="10" minLength="6" />
+
+	<Label styleClass="form-label" text="%stock.edit.name" />
+	<ValidationTextField fx:id="nameTextfield" required="false" />
+
+	<Label styleClass="form-label" text="%stock.edit.stockCategory" />
+	<ValidationComboBox fx:id="stockCategoryComboBox" required="false" visibleRowCount="5" />
+
+</VBox>

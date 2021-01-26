@@ -61,7 +61,16 @@ public class CommonTextfieldValidator {
             COMPONENT_TYPE component,
             LinkedHashSet<String> errorMessages,
             TextInputControl textfield) {
-
+	
+	    if (component instanceof IRequired) {
+		    IRequired fieldWrapper = (IRequired) component;
+		    boolean required = fieldWrapper.isRequired();
+		    
+		    if (!required && StringUtils.isBlank(textfield.getText())) {
+		    	return;
+		    }
+	    }
+	    
         if (component instanceof ILength) {
             ILength fieldWrapper = (ILength)component;
             Integer minLength = fieldWrapper.getMinLength();

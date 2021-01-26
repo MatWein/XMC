@@ -1,5 +1,6 @@
 package org.xmc.be;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Session;
 import org.springframework.stereotype.Component;
 import org.xmc.be.entities.Bank;
@@ -274,8 +275,8 @@ public class GraphGenerator {
 	public Stock createStock(String isin, String wkn, String name, StockCategory stockCategory) {
 		var stock = new Stock();
 		
-		stock.setIsin(isin);
-		stock.setWkn(wkn);
+		stock.setIsin(StringUtils.abbreviate(isin, 15));
+		stock.setWkn(StringUtils.abbreviate(wkn, 10));
 		stock.setName(name);
 		stock.setStockCategory(stockCategory);
 		
@@ -307,7 +308,7 @@ public class GraphGenerator {
     	var depotTransaction = new DepotTransaction();
 	
 	    depotTransaction.setDepot(depot);
-	    depotTransaction.setIsin(UUID.randomUUID().toString());
+	    depotTransaction.setIsin(StringUtils.abbreviate(UUID.randomUUID().toString(), 15));
 	    depotTransaction.setAmount(BigDecimal.valueOf(100.0));
 	    depotTransaction.setCourse(BigDecimal.valueOf(10.0));
 	    depotTransaction.setValue(BigDecimal.valueOf(1000.0));
@@ -353,7 +354,7 @@ public class GraphGenerator {
 	    var depotItem = new DepotItem();
 	
 	    depotItem.setDelivery(depotDelivery);
-	    depotItem.setIsin(UUID.randomUUID().toString());
+	    depotItem.setIsin(StringUtils.abbreviate(UUID.randomUUID().toString(), 15));
 	    depotItem.setAmount(BigDecimal.valueOf(20.0));
 	    depotItem.setCourse(BigDecimal.valueOf(200.0));
 	    depotItem.setValue(BigDecimal.valueOf(2000.0));

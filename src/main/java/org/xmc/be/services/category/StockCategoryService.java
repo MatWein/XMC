@@ -20,6 +20,7 @@ import org.xmc.fe.ui.MessageAdapter.MessageKey;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -73,5 +74,11 @@ public class StockCategoryService {
 		
 		List<StockCategory> stockCategories = stockCategoryJpaRepository.findByDeletionDateIsNull();
 		return stockCateogoryToDtoStockCategoryMapper.mapAll(stockCategories);
+	}
+	
+	public List<String> loadAllStockCategoryNames() {
+		return stockCategoryJpaRepository.findByDeletionDateIsNull().stream()
+				.map(StockCategory::getName)
+				.collect(Collectors.toList());
 	}
 }

@@ -74,6 +74,7 @@ public class MessageAdapter {
         VALIDATION_INVALID_FILE_PATH("validation.invalidFilePath"),
         VALIDATION_INVALID_FILE_EXTENSION("validation.invalidFileExtension"),
 	    VALIDATION_INVALID_ENCODING("validation.invalidEncoding"),
+	    VALIDATION_STOCK_CATEGORY_ALREADY_EXISTS("validation.stockCategoryAlreadyExists"),
 
         PAGING_FIRST_PAGE("paging.firstPage"),
         PAGING_BACK("paging.back"),
@@ -183,7 +184,8 @@ public class MessageAdapter {
 	    STOCK_EDIT_TITLE("stock.edit.title"),
 	    STOCK_EDIT_CANCEL("stock.edit.cancel"),
 	    STOCK_EDIT_SAVE("stock.edit.save"),
-	    STOCK_CONFIRM_DELETE("stock.confirm.delete")
+	    STOCK_CONFIRM_DELETE("stock.confirm.delete"),
+	    STOCK_EDIT_SELECT_CATEGORY("stock.edit.selectCategory")
         ;
 
         private final String key;

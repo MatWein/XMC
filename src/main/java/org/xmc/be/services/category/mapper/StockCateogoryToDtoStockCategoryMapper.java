@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 import org.xmc.be.entities.depot.StockCategory;
 import org.xmc.common.stubs.category.DtoStockCategory;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,6 +13,7 @@ public class StockCateogoryToDtoStockCategoryMapper {
 	public List<DtoStockCategory> mapAll(List<StockCategory> stockCateogies) {
 		return stockCateogies.stream()
 				.map(this::map)
+				.sorted(Comparator.comparing(DtoStockCategory::getName))
 				.collect(Collectors.toList());
 	}
 	

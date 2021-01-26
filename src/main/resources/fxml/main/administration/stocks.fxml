@@ -49,7 +49,7 @@
 			</ExtendedTableColumn>
 			<ExtendedTableColumn editable="false" text="%main.administration.stocks.overview.table.column.stockCategory" sortField="STOCK_CATEGORY">
 				<cellValueFactory>
-					<NestedPropertyValueFactory property="stockCategory"/>
+					<NestedPropertyValueFactory property="stockCategory.name"/>
 				</cellValueFactory>
 			</ExtendedTableColumn>
             <ExtendedTableColumn editable="false" text="%main.administration.stocks.overview.table.column.creationDate" sortField="CREATION_DATE">

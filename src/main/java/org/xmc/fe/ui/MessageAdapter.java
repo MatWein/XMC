@@ -75,6 +75,7 @@ public class MessageAdapter {
         VALIDATION_INVALID_FILE_EXTENSION("validation.invalidFileExtension"),
 	    VALIDATION_INVALID_ENCODING("validation.invalidEncoding"),
 	    VALIDATION_STOCK_CATEGORY_ALREADY_EXISTS("validation.stockCategoryAlreadyExists"),
+	    VALIDATION_STOCK_ISIN_ALREADY_EXISTS("validation.stockIsinAlreadyExists"),
 
         PAGING_FIRST_PAGE("paging.firstPage"),
         PAGING_BACK("paging.back"),
@@ -109,6 +110,9 @@ public class MessageAdapter {
 	    ASYNC_TASK_LOAD_SETTING("async.task.loadSetting"),
 	    ASYNC_TASK_SAVE_SETTING("async.task.saveSetting"),
 	    ASYNC_TASK_LOAD_ALL_STOCK_CATEGORIES("async.task.loadAllStockCategories"),
+	    ASYNC_TASK_DELETE_STOCK("async.task.deleteStock"),
+	    ASYNC_TASK_LOAD_STOCK_OVERVIEW("async.task.loadStockOverview"),
+	    ASYNC_TASK_SAVE_STOCK("async.task.saveStock"),
 
         LOGIN_TITLE("login.title"),
 

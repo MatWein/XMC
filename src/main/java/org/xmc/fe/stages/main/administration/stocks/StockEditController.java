@@ -19,6 +19,8 @@ public class StockEditController implements IDialogWithAsyncData<List<DtoStockCa
 	@FXML private ValidationTextField nameTextfield;
 	@FXML private ValidationComboBox<DtoStockCategory> stockCategoryComboBox;
 	
+	private Long stockId;
+	
 	@FXML
 	public void initialize() {
 		stockCategoryComboBox.setConverter(GenericItemToStringConverter.getInstance(DtoStockCategory::getName));
@@ -29,5 +31,29 @@ public class StockEditController implements IDialogWithAsyncData<List<DtoStockCa
 	public void acceptAsyncData(List<DtoStockCategory> data) {
 		stockCategoryComboBox.getItems().clear();
 		stockCategoryComboBox.getItems().addAll(data);
+	}
+	
+	public Long getStockId() {
+		return stockId;
+	}
+	
+	public void setStockId(Long stockId) {
+		this.stockId = stockId;
+	}
+	
+	public ValidationTextField getIsinTextfield() {
+		return isinTextfield;
+	}
+	
+	public ValidationTextField getWknTextfield() {
+		return wknTextfield;
+	}
+	
+	public ValidationTextField getNameTextfield() {
+		return nameTextfield;
+	}
+	
+	public ValidationComboBox<DtoStockCategory> getStockCategoryComboBox() {
+		return stockCategoryComboBox;
 	}
 }

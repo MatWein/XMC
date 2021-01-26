@@ -19,6 +19,10 @@
 		</addColumn>
 	</changeSet>
 
+	<changeSet id="2021-01-26-set-isin-unique" author="matthias.weinert">
+		<addUniqueConstraint tableName="STOCKS" columnNames="ISIN" />
+	</changeSet>
+
 	<changeSet id="2021-01-26-add-isin" author="matthias.weinert">
 		<addColumn tableName="DEPOT_ITEMS">
 			<column name="ISIN" type="varchar(15)" defaultValue="UNKNOWN_ISIN">

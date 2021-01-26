@@ -9,7 +9,9 @@
 	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.administration.stocks.StockEditController">
 
     <Label text="%stock.edit.isin" styleClass="form-label-first" />
-    <ValidationTextField fx:id="isinTextfield" required="true" initialFocus="true" maxLength="15" minLength="12" />
+    <ValidationTextField fx:id="isinTextfield" required="true" initialFocus="true"
+						 maxLength="15" minLength="12"
+						 customValidator="org.xmc.fe.stages.main.administration.stocks.validator.StockIsinUniqueValidator" />
 
 	<Label styleClass="form-label" text="%stock.edit.wkn" />
 	<ValidationTextField fx:id="wknTextfield" required="false" maxLength="10" minLength="6" />

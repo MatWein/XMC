@@ -189,7 +189,12 @@ public class MessageAdapter {
 	    STOCK_EDIT_CANCEL("stock.edit.cancel"),
 	    STOCK_EDIT_SAVE("stock.edit.save"),
 	    STOCK_CONFIRM_DELETE("stock.confirm.delete"),
-	    STOCK_EDIT_SELECT_CATEGORY("stock.edit.selectCategory")
+	    STOCK_EDIT_SELECT_CATEGORY("stock.edit.selectCategory"),
+	
+	    CURRENCY_CONVERSION_FACTOR_EDIT_TITLE("currencyConversionFactor.edit.title"),
+	    CURRENCY_CONVERSION_FACTOR_EDIT_CANCEL("currencyConversionFactor.edit.cancel"),
+	    CURRENCY_CONVERSION_FACTOR_EDIT_SAVE("currencyConversionFactor.edit.save"),
+	    CURRENCY_CONVERSION_FACTOR_CONFIRM_DELETE("currencyConversionFactor.edit.confirmDelete")
         ;
 
         private final String key;

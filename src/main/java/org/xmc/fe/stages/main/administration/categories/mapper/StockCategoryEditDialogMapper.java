@@ -10,6 +10,10 @@ import org.xmc.fe.ui.IDialogMapper;
 public class StockCategoryEditDialogMapper implements IDialogMapper<StockCategoryEditController, DtoStockCategory> {
     @Override
     public void accept(StockCategoryEditController categoryEditController, DtoStockCategory dtoCategory) {
+    	if (dtoCategory == null) {
+    		return;
+	    }
+    	
         categoryEditController.setCategoryId(dtoCategory.getId());
 
         categoryEditController.getNameTextfield().setText(dtoCategory.getName());

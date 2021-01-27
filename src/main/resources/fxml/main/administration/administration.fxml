@@ -37,7 +37,7 @@
 			<graphic>
 				<ButtonImageView url="@/images/feather/euro-sign.png"/>
 			</graphic>
-			<fx:include source="currencyConversionFactors.fxml"/>
+			<fx:include source="currency-conversion-factors.fxml"/>
 		</Tab>
     </TabPane>
 

@@ -27,6 +27,7 @@ public class ValidationNumberField extends TextField implements IValidationCompo
     private String equalTo;
     private String customValidator;
     private int fractionDigits = 2;
+    private Integer integerDigits;
 
     public ValidationNumberField() {
         setAlignment(Pos.CENTER_RIGHT);
@@ -59,6 +60,11 @@ public class ValidationNumberField extends TextField implements IValidationCompo
         NumberFormat numberInstance = NumberFormat.getNumberInstance();
         numberInstance.setMinimumFractionDigits(fractionDigits);
         numberInstance.setMaximumFractionDigits(fractionDigits);
+        
+        if (integerDigits != null) {
+	        numberInstance.setMinimumIntegerDigits(integerDigits);
+	        numberInstance.setMaximumIntegerDigits(integerDigits);
+        }
 
         setText(numberInstance.format(value));
     }
@@ -178,4 +184,13 @@ public class ValidationNumberField extends TextField implements IValidationCompo
         this.fractionDigits = fractionDigits;
         setValue(getValue());
     }
+	
+	public Integer getIntegerDigits() {
+		return integerDigits;
+	}
+	
+	public void setIntegerDigits(Integer integerDigits) {
+		this.integerDigits = integerDigits;
+		setValue(getValue());
+	}
 }

@@ -2,7 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
-<?import org.xmc.fe.ui.components.ButtonImageView?>
+<?import org.xmc.fe.ui.components.*?>
 <VBox prefHeight="700.0" prefWidth="900.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css"
 	  xmlns="http://javafx.com/javafx/11.0.0"
 	  xmlns:fx="http://javafx.com/fxml/1"
@@ -32,6 +32,12 @@
 				<ButtonImageView url="@/images/feather/activity.png"/>
 			</graphic>
 			<fx:include source="stocks.fxml"/>
+		</Tab>
+		<Tab text="%administration.tabs.currencyConversionFactors">
+			<graphic>
+				<ButtonImageView url="@/images/feather/euro-sign.png"/>
+			</graphic>
+			<fx:include source="currencyConversionFactors.fxml"/>
 		</Tab>
     </TabPane>
 

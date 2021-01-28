@@ -70,7 +70,7 @@ public class StockController {
 	public void onDeleteStock() {
 		DtoStockOverview selectedStock = tableView.getSelectionModel().getSelectedItem();
 		
-		if (DialogHelper.showConfirmDialog(MessageKey.STOCK_CONFIRM_DELETE, selectedStock.getName())) {
+		if (DialogHelper.showConfirmDialog(MessageKey.STOCK_CONFIRM_DELETE, selectedStock.getIsin())) {
 			asyncProcessor.runAsyncVoid(
 					() -> {},
 					monitor -> stockService.deleteStock(monitor, selectedStock.getId()),

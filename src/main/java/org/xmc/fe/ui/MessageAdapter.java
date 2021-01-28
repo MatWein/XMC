@@ -113,6 +113,9 @@ public class MessageAdapter {
 	    ASYNC_TASK_DELETE_STOCK("async.task.deleteStock"),
 	    ASYNC_TASK_LOAD_STOCK_OVERVIEW("async.task.loadStockOverview"),
 	    ASYNC_TASK_SAVE_STOCK("async.task.saveStock"),
+	    ASYNC_TASK_DELETE_CURRENCY_CONVERSION_FACTOR("async.task.deleteCurrencyConversionFactor"),
+	    ASYNC_TASK_SAVE_CURRENCY_CONVERSION_FACTOR("async.task.saveCurrencyConversionFactor"),
+	    ASYNC_TASK_LOAD_CURRENCY_CONVERSION_FACTOR_OVERVIEW("async.task.loadCurrencyConversionFactorOverview"),
 
         LOGIN_TITLE("login.title"),
 

@@ -1,15 +1,30 @@
 package org.xmc.common.stubs.ccf;
 
+import com.querydsl.core.annotations.QueryProjection;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Currency;
 
 public class DtoCurrencyConversionFactor implements Serializable {
 	private Long id;
 	
 	private LocalDateTime inputDate;
-	private String currency;
+	private Currency currency;
 	private BigDecimal factorToEur;
+	
+	public DtoCurrencyConversionFactor() {
+	}
+	
+	@QueryProjection
+	public DtoCurrencyConversionFactor(Long id, LocalDateTime inputDate, String currency, BigDecimal factorToEur) {
+		this.id = id;
+		this.inputDate = inputDate;
+		this.currency = Currency.getInstance(currency);
+		this.factorToEur = factorToEur;
+	}
 	
 	public Long getId() {
 		return id;
@@ -27,11 +42,11 @@ public class DtoCurrencyConversionFactor implements Serializable {
 		this.inputDate = inputDate;
 	}
 	
-	public String getCurrency() {
+	public Currency getCurrency() {
 		return currency;
 	}
 	
-	public void setCurrency(String currency) {
+	public void setCurrency(Currency currency) {
 		this.currency = currency;
 	}
 	
@@ -41,5 +56,15 @@ public class DtoCurrencyConversionFactor implements Serializable {
 	
 	public void setFactorToEur(BigDecimal factorToEur) {
 		this.factorToEur = factorToEur;
+	}
+	
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this)
+				.append("id", id)
+				.append("inputDate", inputDate)
+				.append("currency", currency)
+				.append("factorToEur", factorToEur)
+				.toString();
 	}
 }

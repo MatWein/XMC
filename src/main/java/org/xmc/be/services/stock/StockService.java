@@ -56,7 +56,7 @@ public class StockService {
 	}
 	
 	public void deleteStock(AsyncMonitor monitor, long stockId) {
-		monitor.setStatusText(MessageKey.ASYNC_TASK_SAVE_SETTING);
+		monitor.setStatusText(MessageKey.ASYNC_TASK_DELETE_STOCK);
 		
 		Optional<Stock> existingStock = stockJpaRepository.findById(stockId);
 		if (existingStock.isPresent()) {

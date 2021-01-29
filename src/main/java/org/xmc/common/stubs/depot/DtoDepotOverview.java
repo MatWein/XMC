@@ -1,13 +1,30 @@
 package org.xmc.common.stubs.depot;
 
+import com.querydsl.core.annotations.QueryProjection;
+
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class DtoDepotOverview extends DtoDepot {
 	private LocalDateTime creationDate;
 	private BigDecimal lastSaldo;
-	private LocalDate lastSaldoDate;
+	private LocalDateTime lastSaldoDate;
+	
+	public DtoDepotOverview() {
+	}
+	
+	@QueryProjection
+	public DtoDepotOverview(
+			Long id, String number, String name,
+			LocalDateTime creationDate, BigDecimal lastSaldo, LocalDateTime lastSaldoDate,
+			Long bankId, String bankName, String bic, String blz, byte[] logo) {
+		
+		super(id, number, name, bankId, bankName, bic, blz, logo);
+		
+		this.creationDate = creationDate;
+		this.lastSaldo = lastSaldo;
+		this.lastSaldoDate = lastSaldoDate;
+	}
 	
 	public LocalDateTime getCreationDate() {
 		return creationDate;
@@ -25,11 +42,11 @@ public class DtoDepotOverview extends DtoDepot {
 		this.lastSaldo = lastSaldo;
 	}
 	
-	public LocalDate getLastSaldoDate() {
+	public LocalDateTime getLastSaldoDate() {
 		return lastSaldoDate;
 	}
 	
-	public void setLastSaldoDate(LocalDate lastSaldoDate) {
+	public void setLastSaldoDate(LocalDateTime lastSaldoDate) {
 		this.lastSaldoDate = lastSaldoDate;
 	}
 }

@@ -14,7 +14,10 @@ public class DepotEditDialogMapper implements IDialogMapper<DepotEditController,
 			return;
 		}
 		
-		
+		controller.getBankComboBox().getSelectionModel().select(dtoDepot.getBank());
+		controller.getDepotNameTextfield().setText(dtoDepot.getName());
+		controller.getDepotNumberTextfield().setText(dtoDepot.getNumber());
+		controller.setDepotId(dtoDepot.getId());
 	}
 	
 	@Override
@@ -23,6 +26,13 @@ public class DepotEditDialogMapper implements IDialogMapper<DepotEditController,
 			return null;
 		}
 		
-		return null;
+		var dtoDepot = new DtoDepot();
+		
+		dtoDepot.setBank(controller.getBankComboBox().getSelectionModel().getSelectedItem());
+		dtoDepot.setId(controller.getDepotId());
+		dtoDepot.setName(controller.getDepotNameTextfield().getText());
+		dtoDepot.setNumber(controller.getDepotNumberTextfield().getText());
+		
+		return dtoDepot;
 	}
 }

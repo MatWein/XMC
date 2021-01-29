@@ -38,19 +38,19 @@ public class CashAccountService {
         this.cashAccountSaveController = cashAccountSaveController;
         this.cashAccountJpaRepository = cashAccountJpaRepository;
     }
+	
+	public QueryResults<DtoCashAccountOverview> loadOverview(AsyncMonitor monitor, PagingParams<CashAccountOverviewFields> pagingParams) {
+		LOGGER.info("Loading cash account overview: {}", pagingParams);
+		monitor.setStatusText(MessageKey.ASYNC_TASK_LOAD_CASHACCOUNT_OVERVIEW);
+		
+		return cashAccountRepository.loadOverview(pagingParams);
+	}
 
     public void saveOrUpdate(AsyncMonitor monitor, DtoCashAccount dtoCashAccount) {
         LOGGER.info("Saving cash account: {}", dtoCashAccount);
         monitor.setStatusText(MessageKey.ASYNC_TASK_SAVE_CASHACCOUNT);
 
         cashAccountSaveController.saveOrUpdate(dtoCashAccount);
-    }
-
-    public QueryResults<DtoCashAccountOverview> loadOverview(AsyncMonitor monitor, PagingParams<CashAccountOverviewFields> pagingParams) {
-        LOGGER.info("Loading cash account overview: {}", pagingParams);
-        monitor.setStatusText(MessageKey.ASYNC_TASK_LOAD_CASHACCOUNT_OVERVIEW);
-
-        return cashAccountRepository.loadOverview(pagingParams);
     }
 
     public void markAsDeleted(AsyncMonitor monitor, Long cashAccountId) {

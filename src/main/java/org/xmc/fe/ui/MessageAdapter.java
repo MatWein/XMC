@@ -116,6 +116,9 @@ public class MessageAdapter {
 	    ASYNC_TASK_DELETE_CURRENCY_CONVERSION_FACTOR("async.task.deleteCurrencyConversionFactor"),
 	    ASYNC_TASK_SAVE_CURRENCY_CONVERSION_FACTOR("async.task.saveCurrencyConversionFactor"),
 	    ASYNC_TASK_LOAD_CURRENCY_CONVERSION_FACTOR_OVERVIEW("async.task.loadCurrencyConversionFactorOverview"),
+	    ASYNC_TASK_LOAD_DEPOT_OVERVIEW("async.task.loadDepotOverview"),
+	    ASYNC_TASK_SAVE_DEPOT("async.task.saveDepot"),
+	    ASYNC_TASK_DELETE_DEPOT("async.task.deleteDepot"),
 
         LOGIN_TITLE("login.title"),
 
@@ -205,7 +208,8 @@ public class MessageAdapter {
 	    DEPOT_CONFIRM_DELETE("depot.confirm.delete"),
 	    DEPOT_EDIT_TITLE("depot.edit.title"),
 	    DEPOT_EDIT_CANCEL("depot.edit.cancel"),
-	    DEPOT_EDIT_SAVE("depot.edit.save")
+	    DEPOT_EDIT_SAVE("depot.edit.save"),
+	    DEPOT_EDIT_SELECT_BANK("depot.edit.selectBank")
         ;
 
         private final String key;

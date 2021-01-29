@@ -29,7 +29,7 @@
             <graphic>
 				<ButtonImageView url="@/images/feather/trending-up.png"/>
             </graphic>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+			<fx:include source="depot/depots.fxml"/>
         </Tab>
         <Tab text="%main.tabs.analysis">
             <graphic>
@@ -44,8 +44,10 @@
             <fx:include source="administration/administration.fxml"/>
         </Tab>
     </TabPane>
+
     <HBox alignment="CENTER_LEFT" prefHeight="30" styleClass="statusbar" AnchorPane.bottomAnchor="0.0"
           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+
         <Label fx:id="statusLabel" text="%main.status.ready">
             <padding>
                 <Insets left="10"/>

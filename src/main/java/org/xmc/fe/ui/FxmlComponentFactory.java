@@ -55,7 +55,11 @@ public class FxmlComponentFactory {
         SETTINGS_IMPORT_TEMPLATES("/fxml/main/settings/content/settings-importtemplates.fxml"),
         SETTINGS_EXTRAS("/fxml/main/settings/content/settings-extras.fxml"),
 	    STOCK_EDIT("/fxml/main/administration/stock-edit.fxml"),
-	    CURRENCY_CONVERSION_FACTOR_EDIT("/fxml/main/administration/currency-conversion-factor-edit.fxml")
+	    CURRENCY_CONVERSION_FACTOR_EDIT("/fxml/main/administration/currency-conversion-factor-edit.fxml"),
+	    DEPOTS_OVERVIEW("/fxml/main/depot/depots-overview.fxml"),
+	    DEPOT_TRANSACTIONS("/fxml/main/depot/depot-transactions.fxml"),
+	    DEPOT_DELIVERIES("/fxml/main/depot/depot-deliveries.fxml"),
+	    DEPOT_EDIT("/fxml/main/depot/depot-edit.fxml")
         ;
 
         private final String fxmlPath;

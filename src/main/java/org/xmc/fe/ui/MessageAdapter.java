@@ -128,6 +128,9 @@ public class MessageAdapter {
         MAIN_DISPLAYNAME("main.displayname"),
         MAIN_CASHACCOUNTS_BREADCRUMB_OVERVIEW("main.cashaccounts.breadcrumb.overview"),
         MAIN_CASHACCOUNTS_BREADCRUMB_TRANSACTIONS("main.cashaccounts.breadcrumb.transactions"),
+	    MAIN_DEPOT_BREADCRUMB_OVERVIEW("main.depots.breadcrumb.overview"),
+	    MAIN_DEPOT_BREADCRUMB_TRANSACTIONS("main.depots.breadcrumb.transactions"),
+	    MAIN_DEPOT_BREADCRUMB_DELIVERIES("main.depots.breadcrumb.deliveries"),
         MAIN_PROCESS_COUNTER("main.processCounter"),
         MAIN_NEW_PROCESS("main.newProcess"),
 
@@ -197,7 +200,12 @@ public class MessageAdapter {
 	    CURRENCY_CONVERSION_FACTOR_EDIT_TITLE("currencyConversionFactor.edit.title"),
 	    CURRENCY_CONVERSION_FACTOR_EDIT_CANCEL("currencyConversionFactor.edit.cancel"),
 	    CURRENCY_CONVERSION_FACTOR_EDIT_SAVE("currencyConversionFactor.edit.save"),
-	    CURRENCY_CONVERSION_FACTOR_CONFIRM_DELETE("currencyConversionFactor.edit.confirmDelete")
+	    CURRENCY_CONVERSION_FACTOR_CONFIRM_DELETE("currencyConversionFactor.edit.confirmDelete"),
+	
+	    DEPOT_CONFIRM_DELETE("depot.confirm.delete"),
+	    DEPOT_EDIT_TITLE("depot.edit.title"),
+	    DEPOT_EDIT_CANCEL("depot.edit.cancel"),
+	    DEPOT_EDIT_SAVE("depot.edit.save")
         ;
 
         private final String key;

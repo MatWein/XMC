@@ -1,5 +1,5 @@
 # XMC: Extended Money Control
-XMC is a small local application to get an overview for your personal finances. The user has to enter account/depot data, transactions, saldi and more. After entering/importing all necessary data, the user can analyse it, for example, via charts.
+XMC is a small local application to get an overview of your personal finances. The user has to enter account/depot data, transactions, saldi and more. After entering/importing all necessary data, the user can analyse it, for example, via charts.
 
 ## Application params
 | Parameter            | Description                                                                                                                                                   | Possible Values                                     | Example                                                                    |

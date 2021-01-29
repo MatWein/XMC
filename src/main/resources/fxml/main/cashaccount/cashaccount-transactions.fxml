@@ -93,6 +93,12 @@
                     <NestedPropertyValueFactory property="referenceBank.bic"/>
                 </cellValueFactory>
             </ExtendedTableColumn>
+			<ExtendedTableColumn editable="false" text="%main.cashaccounts.transactions.overview.table.column.creationDate"
+								 sortField="CREATION_DATE">
+				<cellValueFactory>
+					<NestedPropertyValueFactory property="creationDate"/>
+				</cellValueFactory>
+			</ExtendedTableColumn>
             <ExtendedTableColumn editable="false" text="%main.cashaccounts.transactions.overview.table.column.reference"
                                  sortField="REFERENCE">
                 <cellValueFactory>

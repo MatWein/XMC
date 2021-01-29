@@ -55,6 +55,10 @@ public class ImageUtil {
 	}
 	
 	public static Image readFromByteArray(byte[] image) throws IOException {
+		if (image == null) {
+			return null;
+		}
+		
 		try (var inputStream = new ByteArrayInputStream(image)) {
 			return createImageFromInputStream(inputStream, "byte array");
 		}
@@ -77,6 +81,10 @@ public class ImageUtil {
 	}
 	
 	public static byte[] imageToByteArray(Image image) throws Exception {
+		if (image == null) {
+			return null;
+		}
+		
 		try (var outputStream = new ByteArrayOutputStream()) {
 			var bufferedImage = SwingFXUtils.fromFXImage(image, null);
 			ImageIO.write(bufferedImage, "png", outputStream);
@@ -93,6 +101,10 @@ public class ImageUtil {
 	}
 	
 	public static byte[] resize(byte[] image, int width, int height) throws IOException {
+		if (image == null) {
+			return null;
+		}
+		
 		try (var inputStream = new ByteArrayInputStream(image); var outputStream = new ByteArrayOutputStream()) {
 			Thumbnails
 					.of(inputStream)
@@ -105,6 +117,10 @@ public class ImageUtil {
 	}
 	
 	public static Image invertColors(Image input) {
+		if (input == null) {
+			return null;
+		}
+		
 		PixelReader reader = input.getPixelReader();
 		int w = (int) input.getWidth();
 		int h = (int) input.getHeight();

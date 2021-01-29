@@ -16,7 +16,9 @@ public enum CashAccountTransactionOverviewFields implements IPagingField {
     REFERENCE_IBAN(cashAccountTransaction.referenceIban),
     REFERENCE(cashAccountTransaction.reference),
     CREDITOR_IDENTIFIER(cashAccountTransaction.creditorIdentifier),
-    MANDATE(cashAccountTransaction.mandate);
+    MANDATE(cashAccountTransaction.mandate),
+	CREATION_DATE(cashAccountTransaction.creationDate)
+	;
 
     private final Expression<?> expression;
 

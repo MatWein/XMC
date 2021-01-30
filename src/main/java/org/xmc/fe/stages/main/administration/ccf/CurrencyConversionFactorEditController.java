@@ -2,8 +2,8 @@ package org.xmc.fe.stages.main.administration.ccf;
 
 import javafx.fxml.FXML;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.xmc.fe.stages.main.cashaccount.converter.CurrencyConverter;
 import org.xmc.fe.ui.FxmlController;
+import org.xmc.fe.ui.converter.CurrencyConverter;
 import org.xmc.fe.ui.validation.components.ValidationDatePicker;
 import org.xmc.fe.ui.validation.components.ValidationNumberField;
 import org.xmc.fe.ui.validation.components.ValidationTimePicker;

@@ -19,10 +19,10 @@ public class CashAccountEditDialogMapper implements IDialogMapper<CashAccountEdi
         }
 
         controller.getBankComboBox().getSelectionModel().select(dtoCashAccount.getBank());
-        controller.getCashAccountCurrencyAutoComplete().setText(dtoCashAccount.getCurrency().getCurrencyCode());
-        controller.getCashAccountIbanTextfield().setText(dtoCashAccount.getIban());
-        controller.getCashAccountNameTextfield().setText(dtoCashAccount.getName());
-        controller.getCashAccountNumberTextfield().setText(dtoCashAccount.getNumber());
+        controller.getCurrencyAutoComplete().setText(dtoCashAccount.getCurrency().getCurrencyCode());
+        controller.getIbanTextfield().setText(dtoCashAccount.getIban());
+        controller.getNameTextfield().setText(dtoCashAccount.getName());
+        controller.getNumberTextfield().setText(dtoCashAccount.getNumber());
         controller.setCashAccountId(dtoCashAccount.getId());
     }
 
@@ -35,12 +35,12 @@ public class CashAccountEditDialogMapper implements IDialogMapper<CashAccountEdi
         var dtoCashAccount = new DtoCashAccount();
 
         dtoCashAccount.setBank(controller.getBankComboBox().getSelectionModel().getSelectedItem());
-        dtoCashAccount.setCurrency(Currency.getInstance(controller.getCashAccountCurrencyAutoComplete().getText()));
+        dtoCashAccount.setCurrency(Currency.getInstance(controller.getCurrencyAutoComplete().getText()));
         dtoCashAccount.setId(controller.getCashAccountId());
-        dtoCashAccount.setName(controller.getCashAccountNameTextfield().getText());
-        dtoCashAccount.setNumber(controller.getCashAccountNumberTextfield().getText());
+        dtoCashAccount.setName(controller.getNameTextfield().getText());
+        dtoCashAccount.setNumber(controller.getNumberTextfield().getText());
 
-        String iban = controller.getCashAccountIbanTextfield().getText();
+        String iban = controller.getIbanTextfield().getText();
         if (StringUtils.isNotBlank(iban)) {
             dtoCashAccount.setIban(IBAN.parse(StringUtils.trim(iban)).toString());
         }

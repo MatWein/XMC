@@ -11,6 +11,7 @@ import org.xmc.be.repositories.stock.StockJpaRepository;
 import org.xmc.be.repositories.stock.StockRepository;
 import org.xmc.be.services.stock.controller.StockSaveController;
 import org.xmc.common.stubs.PagingParams;
+import org.xmc.common.stubs.stocks.DtoMinimalStock;
 import org.xmc.common.stubs.stocks.DtoStock;
 import org.xmc.common.stubs.stocks.DtoStockOverview;
 import org.xmc.common.stubs.stocks.StockOverviewFields;
@@ -66,9 +67,16 @@ public class StockService {
 	}
 	
 	public List<String> loadAllStockIsins() {
+		LOGGER.info("Loading all stock isins.");
+		
 		return stockJpaRepository.findAll().stream()
 				.map(Stock::getIsin)
 				.map(String::toUpperCase)
 				.collect(Collectors.toList());
+	}
+	
+	public List<DtoMinimalStock> loadAllStocks(String searchValue, int limit) {
+		LOGGER.info("Loading all stock information. searchValue: {}, limit: {}", searchValue, limit);
+		return stockRepository.loadAllStocks(searchValue, limit);
 	}
 }

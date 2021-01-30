@@ -203,13 +203,17 @@ public class MessageAdapter {
 	    CURRENCY_CONVERSION_FACTOR_EDIT_TITLE("currencyConversionFactor.edit.title"),
 	    CURRENCY_CONVERSION_FACTOR_EDIT_CANCEL("currencyConversionFactor.edit.cancel"),
 	    CURRENCY_CONVERSION_FACTOR_EDIT_SAVE("currencyConversionFactor.edit.save"),
-	    CURRENCY_CONVERSION_FACTOR_CONFIRM_DELETE("currencyConversionFactor.edit.confirmDelete"),
+	    CURRENCY_CONVERSION_FACTOR_CONFIRM_DELETE("currencyConversionFactor.confirmDelete"),
 	
 	    DEPOT_CONFIRM_DELETE("depot.confirm.delete"),
 	    DEPOT_EDIT_TITLE("depot.edit.title"),
 	    DEPOT_EDIT_CANCEL("depot.edit.cancel"),
 	    DEPOT_EDIT_SAVE("depot.edit.save"),
-	    DEPOT_EDIT_SELECT_BANK("depot.edit.selectBank")
+	    DEPOT_EDIT_SELECT_BANK("depot.edit.selectBank"),
+	    DEPOT_TRANSACTION_EDIT_TITLE("depot.transaction.edit.title"),
+	    DEPOT_TRANSACTION_EDIT_CANCEL("depot.transaction.edit.cancel"),
+	    DEPOT_TRANSACTION_EDIT_SAVE("depot.transaction.edit.save"),
+	    DEPOT_TRANSACTION_CONFIRM_DELETE("depot.transaction.confirmDelete")
         ;
 
         private final String key;

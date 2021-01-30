@@ -21,7 +21,6 @@ import org.xmc.fe.stages.main.cashaccount.importing.populator.CashAccountTransac
 import org.xmc.fe.stages.main.cashaccount.importing.populator.CashAccountTransactionImportStep3Populator;
 import org.xmc.fe.stages.main.cashaccount.importing.populator.CashAccountTransactionImportStep4Populator;
 import org.xmc.fe.stages.main.cashaccount.mapper.CashAccountTransactionEditDialogMapper;
-import org.xmc.fe.stages.main.cashaccount.mapper.DtoCashAccountTransactionOverviewToDtoCashAccountTransactionMapper;
 import org.xmc.fe.ui.CustomDialogBuilder;
 import org.xmc.fe.ui.DialogHelper;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
@@ -40,7 +39,6 @@ public class CashAccountTransactionsController implements IAfterInit<CashAccount
     private final CashAccountTransactionEditDialogMapper cashAccountTransactionEditDialogMapper;
     private final CashAccountTransactionService cashAccountTransactionService;
     private final AsyncProcessor asyncProcessor;
-    private final DtoCashAccountTransactionOverviewToDtoCashAccountTransactionMapper dtoCashAccountTransactionOverviewToDtoCashAccountTransactionMapper;
     private final CashAccountTransactionImportStep2Populator cashAccountTransactionImportStep2Populator;
     private final CashAccountTransactionImportStep3Populator cashAccountTransactionImportStep3Populator;
     private final CashAccountTransactionImportStep4Populator cashAccountTransactionImportStep4Populator;
@@ -58,7 +56,6 @@ public class CashAccountTransactionsController implements IAfterInit<CashAccount
 		    CashAccountTransactionEditDialogMapper cashAccountTransactionEditDialogMapper,
 		    CashAccountTransactionService cashAccountTransactionService,
 		    AsyncProcessor asyncProcessor,
-		    DtoCashAccountTransactionOverviewToDtoCashAccountTransactionMapper dtoCashAccountTransactionOverviewToDtoCashAccountTransactionMapper,
 		    CashAccountTransactionImportStep2Populator cashAccountTransactionImportStep2Populator,
 		    CashAccountTransactionImportStep3Populator cashAccountTransactionImportStep3Populator,
 		    CashAccountTransactionImportStep4Populator cashAccountTransactionImportStep4Populator,
@@ -68,7 +65,6 @@ public class CashAccountTransactionsController implements IAfterInit<CashAccount
         this.cashAccountTransactionEditDialogMapper = cashAccountTransactionEditDialogMapper;
         this.cashAccountTransactionService = cashAccountTransactionService;
         this.asyncProcessor = asyncProcessor;
-        this.dtoCashAccountTransactionOverviewToDtoCashAccountTransactionMapper = dtoCashAccountTransactionOverviewToDtoCashAccountTransactionMapper;
         this.cashAccountTransactionImportStep2Populator = cashAccountTransactionImportStep2Populator;
         this.cashAccountTransactionImportStep3Populator = cashAccountTransactionImportStep3Populator;
         this.cashAccountTransactionImportStep4Populator = cashAccountTransactionImportStep4Populator;
@@ -156,7 +152,7 @@ public class CashAccountTransactionsController implements IAfterInit<CashAccount
                 .addButton(MessageKey.CASHACCOUNT_TRANSACTION_EDIT_SAVE, ButtonData.OK_DONE)
                 .withFxmlContent(FxmlKey.CASH_ACCOUNT_TRANSACTION_EDIT)
                 .withMapper(cashAccountTransactionEditDialogMapper)
-                .withInput(dtoCashAccountTransactionOverviewToDtoCashAccountTransactionMapper.map(input))
+                .withInput(input)
                 .withAsyncDataLoading(monitor -> ImmutablePair.of(categoryService.loadAllCategories(monitor), cashAccountId))
                 .build()
                 .showAndWait();

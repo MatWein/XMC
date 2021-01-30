@@ -6,23 +6,23 @@
 <?import org.xmc.fe.ui.validation.components.ValidationComboBox?>
 <?import org.xmc.fe.ui.validation.components.ValidationTextField?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="341.0"
-	  prefWidth="519.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
-	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.cashaccount.CashAccountEditController">
+      prefWidth="519.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.cashaccount.CashAccountEditController">
 
     <Label text="%cashaccount.edit.bank" styleClass="form-label-first" />
     <ValidationComboBox fx:id="bankComboBox" required="true" visibleRowCount="5" initialFocus="true" />
 
     <Label styleClass="form-label" text="%cashaccount.edit.name"/>
-    <ValidationTextField fx:id="cashAccountNameTextfield" required="true"/>
+    <ValidationTextField fx:id="nameTextfield" required="true"/>
 
     <Label styleClass="form-label" text="%cashaccount.edit.iban"/>
-    <ValidationTextField fx:id="cashAccountIbanTextfield" maxLength="50" required="false" customValidator="org.xmc.fe.ui.validation.IbanFieldValidator"/>
+    <ValidationTextField fx:id="ibanTextfield" maxLength="50" required="false" customValidator="org.xmc.fe.ui.validation.IbanFieldValidator"/>
 
     <Label styleClass="form-label" text="%cashaccount.edit.number"/>
-    <ValidationTextField fx:id="cashAccountNumberTextfield" required="false"/>
+    <ValidationTextField fx:id="numberTextfield" required="false"/>
 
     <Label styleClass="form-label" text="%cashaccount.edit.currency"/>
-    <ValidationAutoComplete fx:id="cashAccountCurrencyAutoComplete"
+    <ValidationAutoComplete fx:id="currencyAutoComplete"
                             autoCompleteController="org.xmc.fe.ui.autocomplete.CurrencyAutoCompleteController"
                             customValidator="org.xmc.fe.ui.validation.CurrencyFieldValidator"
                             required="true" visibleRowCount="5" maxLength="5"/>

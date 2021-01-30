@@ -2,6 +2,7 @@ package org.xmc.be.repositories.stock;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import org.apache.commons.lang3.StringUtils;
@@ -9,9 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.xmc.be.common.QueryUtil;
 import org.xmc.common.stubs.PagingParams;
+import org.xmc.common.stubs.stocks.DtoMinimalStock;
 import org.xmc.common.stubs.stocks.DtoStockOverview;
 import org.xmc.common.stubs.stocks.StockOverviewFields;
 
+import java.util.List;
+
+import static com.querydsl.core.types.OrderSpecifier.NullHandling.NullsLast;
 import static org.xmc.be.entities.depot.QStock.stock;
 import static org.xmc.be.entities.depot.QStockCategory.stockCategory;
 
@@ -39,5 +44,20 @@ public class StockRepository {
 				.leftJoin(stock.stockCategory(), stockCategory)
 				.where(predicate)
 				.fetchResults();
+	}
+	
+	public List<DtoMinimalStock> loadAllStocks(String searchValue, int limit) {
+		String filter = "%" + StringUtils.defaultString(searchValue) + "%";
+		BooleanExpression predicate = stock.name.likeIgnoreCase(filter)
+				.or(stock.isin.likeIgnoreCase(filter))
+				.or(stock.wkn.likeIgnoreCase(filter));
+		
+		return queryUtil.createQuery()
+				.select(Projections.constructor(DtoMinimalStock.class, stock.isin, stock.wkn, stock.name))
+				.from(stock)
+				.where(predicate)
+				.orderBy(new OrderSpecifier(Order.ASC, stock.isin, NullsLast))
+				.limit(limit)
+				.fetch();
 	}
 }

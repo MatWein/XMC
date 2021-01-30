@@ -1,7 +1,10 @@
 package org.xmc.be.repositories.cashaccount;
 
 import com.querydsl.core.QueryResults;
-import com.querydsl.core.types.*;
+import com.querydsl.core.types.ExpressionUtils;
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.Projections;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -43,8 +46,6 @@ public class CashAccountTransactionRepository {
                 .leftJoin(cashAccountTransaction.category(), category)
                 .leftJoin(category.icon(), binaryData)
                 .where(predicate)
-                .orderBy(new OrderSpecifier<>(Order.DESC, cashAccountTransaction.creationDate))
-                .orderBy(new OrderSpecifier<>(Order.DESC, cashAccountTransaction.id))
                 .fetchResults();
     }
 

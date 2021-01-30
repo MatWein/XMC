@@ -42,12 +42,12 @@ public class CashAccountTransactionEditDialogMapper implements IDialogMapper<Cas
         dto.setId(controller.getTransactionId());
         dto.setCategory(controller.getCategoryComboBox().getSelectionModel().getSelectedItem());
         dto.setCreditorIdentifier(controller.getCreditorIdentifierTextfield().getTextOrNull());
-        dto.setDescription(controller.getDescriptionTextArea().getText());
+        dto.setDescription(controller.getDescriptionTextArea().getTextOrNull());
         dto.setMandate(controller.getMandateTextfield().getTextOrNull());
         dto.setReference(controller.getReferenceTextfield().getTextOrNull());
         dto.setReferenceBank(controller.getReferenceBankTextfield().getTextOrNull());
         dto.setReferenceIban(controller.getReferenceIbanTextfield().getTextOrNull());
-        dto.setUsage(controller.getUsageTextArea().getText());
+        dto.setUsage(controller.getUsageTextArea().getTextOrNull());
         dto.setValue(controller.getValueNumberField().getValueAsBigDecimal());
         dto.setValutaDate(controller.getValutaDatePicker().getValue());
 

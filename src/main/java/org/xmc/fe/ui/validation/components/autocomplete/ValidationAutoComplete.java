@@ -86,12 +86,12 @@ public class ValidationAutoComplete<T> extends ValidationTextField {
 
     private void search() {
         Platform.runLater(() -> {
-            if (StringUtils.isBlank(getText())) {
+            if (StringUtils.isBlank(getTextOrNull())) {
                 autoCompleteMenu.hide();
                 return;
             }
 
-            List<T> results = getTypedAutoCompleteController().search(getText(), autoCompleteLimit);
+            List<T> results = getTypedAutoCompleteController().search(getTextOrNull(), autoCompleteLimit);
             if (results.isEmpty()) {
                 autoCompleteMenu.hide();
                 return;

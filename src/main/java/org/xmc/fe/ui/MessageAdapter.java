@@ -95,7 +95,7 @@ public class MessageAdapter {
         ASYNC_TASK_LOAD_CATEGORY_OVERVIEW("async.task.loadCategoryOverview"),
         ASYNC_TASK_DELETE_CATEGORY("async.task.deleteCategory"),
         ASYNC_TASK_LOAD_ALL_CATEGORIES("async.task.loadAllCategories"),
-        ASYNC_TASK_DELETE_CASHACCOUNT_TRANSACTION("async.task.deleteCashAccountTransaction"),
+        ASYNC_TASK_DELETE_CASHACCOUNT_TRANSACTIONS("async.task.deleteCashAccountTransactions"),
         ASYNC_TASK_LOAD_CASHACCOUNT_TRANSACTION_OVERVIEW("async.task.loadCashAccountTransactionOverview"),
         ASYNC_TASK_SAVE_CASHACCOUNT_TRANSACTION("async.task.saveCashAccountTransaction"),
         ASYNC_TASK_DETECT_CASHACCOUNT_TRANSACTION_CATEGORY("async.task.detectCashAccountTransactionCategory"),
@@ -119,6 +119,9 @@ public class MessageAdapter {
 	    ASYNC_TASK_LOAD_DEPOT_OVERVIEW("async.task.loadDepotOverview"),
 	    ASYNC_TASK_SAVE_DEPOT("async.task.saveDepot"),
 	    ASYNC_TASK_DELETE_DEPOT("async.task.deleteDepot"),
+	    ASYNC_TASK_DELETE_DEPOT_TRANSACTIONS("async.task.deleteDepotTransactions"),
+	    ASYNC_TASK_LOAD_DEPOT_TRANSACTION_OVERVIEW("async.task.loadDepotTransactionOverview"),
+	    ASYNC_TASK_SAVE_DEPOT_TRANSACTION("async.task.saveDepotTransaction"),
 
         LOGIN_TITLE("login.title"),
 

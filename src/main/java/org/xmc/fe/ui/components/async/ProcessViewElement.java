@@ -33,7 +33,7 @@ public class ProcessViewElement extends VBox {
         getChildren().add(progressBar);
     }
 
-    public String getText() {
+    public String getTextOrNull() {
         return text;
     }
 

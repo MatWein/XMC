@@ -4,10 +4,10 @@
 <?import javafx.scene.layout.*?>
 <?import org.xmc.fe.ui.validation.components.autocomplete.ValidationAutoComplete?>
 <?import org.xmc.fe.ui.validation.components.*?>
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
-	  prefWidth="800.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
-	  xmlns:fx="http://javafx.com/fxml/1"
-	  fx:controller="org.xmc.fe.stages.main.depot.DepotTransactionEditController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+      prefWidth="800.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.xmc.fe.stages.main.depot.DepotTransactionEditController">
 
 	<HBox VBox.vgrow="ALWAYS">
 		<VBox prefWidth="150.0">

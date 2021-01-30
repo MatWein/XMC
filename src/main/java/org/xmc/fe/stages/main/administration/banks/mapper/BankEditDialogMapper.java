@@ -30,9 +30,9 @@ public class BankEditDialogMapper implements IDialogMapper<BankEditController, D
         var dtoBank = new DtoBank();
 
         dtoBank.setId(bankEditController.getBankId());
-        dtoBank.setBic(bankEditController.getBankBicAutoComplete().getText());
-        dtoBank.setBlz(bankEditController.getBankBlzAutoComplete().getText());
-        dtoBank.setName(bankEditController.getBankNameAutoComplete().getText());
+        dtoBank.setBic(bankEditController.getBankBicAutoComplete().getTextOrNull());
+        dtoBank.setBlz(bankEditController.getBankBlzAutoComplete().getTextOrNull());
+        dtoBank.setName(bankEditController.getBankNameAutoComplete().getTextOrNull());
         dtoBank.setLogo(bankEditController.getLogoButton().getImageAsByteArray());
 
         return dtoBank;

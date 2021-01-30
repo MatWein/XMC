@@ -1,5 +1,8 @@
 package org.xmc.common.stubs.depot.transactions;
 
+import com.querydsl.core.annotations.QueryProjection;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,6 +18,24 @@ public class DtoDepotTransaction implements Serializable {
 	private BigDecimal value;
 	private String description;
 	private Currency currency;
+	
+	public DtoDepotTransaction() {
+	}
+	
+	@QueryProjection
+	public DtoDepotTransaction(
+			Long id, String isin, LocalDate valutaDate, BigDecimal amount, BigDecimal course,
+			BigDecimal value, String description, String currency) {
+		
+		this.id = id;
+		this.isin = isin;
+		this.valutaDate = valutaDate;
+		this.amount = amount;
+		this.course = course;
+		this.value = value;
+		this.description = description;
+		this.currency = Currency.getInstance(currency);
+	}
 	
 	public Long getId() {
 		return id;
@@ -78,5 +99,19 @@ public class DtoDepotTransaction implements Serializable {
 	
 	public void setCurrency(Currency currency) {
 		this.currency = currency;
+	}
+	
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this)
+				.append("id", id)
+				.append("isin", isin)
+				.append("valutaDate", valutaDate)
+				.append("amount", amount)
+				.append("course", course)
+				.append("value", value)
+				.append("description", description)
+				.append("currency", currency)
+				.toString();
 	}
 }

@@ -44,7 +44,7 @@ public class BreadcrumbBar<T> extends HBox {
     }
 
     private Button createElementButton(int i, BreadcrumbPathElement<T> element) {
-        Button button = new Button(element.getText());
+        Button button = new Button(element.getTextOrNull());
 
         boolean hasActionAssigned = element.getOnAction() != null;
         if (hasActionAssigned) {
@@ -91,7 +91,7 @@ public class BreadcrumbBar<T> extends HBox {
             this.id = id;
         }
 
-        public String getText() {
+        public String getTextOrNull() {
             return text;
         }
 

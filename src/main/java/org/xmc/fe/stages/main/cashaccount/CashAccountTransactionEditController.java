@@ -79,7 +79,7 @@ public class CashAccountTransactionEditController implements IDialogWithAsyncDat
                     categoryComboBox.setDisable(true);
                     categoryDetectButton.setDisable(true);
                 },
-                monitor -> cashAccountTransactionService.autoDetectCategory(monitor, cashAccountId, usageTextArea.getText()),
+                monitor -> cashAccountTransactionService.autoDetectCategory(monitor, cashAccountId, usageTextArea.getTextOrNull()),
                 result -> result.ifPresent(foundCategoryId -> {
                     categoryComboBox.getItems().stream()
                             .filter(dto -> foundCategoryId.equals(dto.getId()))

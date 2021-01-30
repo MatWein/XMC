@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import org.apache.commons.lang3.StringUtils;
 import org.xmc.fe.ui.components.IInitialFocus;
 import org.xmc.fe.ui.validation.*;
 
@@ -51,6 +52,10 @@ public class ValidationTextArea extends TextArea implements IValidationComponent
         if (initialFocus) {
             requestInitialFocus();
         }
+    }
+    
+    public String getTextOrNull() {
+	    return StringUtils.trimToNull(getText());
     }
 
     @Override

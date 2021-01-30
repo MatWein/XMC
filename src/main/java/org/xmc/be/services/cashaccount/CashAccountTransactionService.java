@@ -73,7 +73,7 @@ public class CashAccountTransactionService {
 
     public void markAsDeleted(AsyncMonitor monitor, Collection<Long> transactionIds) {
         LOGGER.info("Marking cash account transactions '{}' as deleted.", transactionIds);
-        monitor.setStatusText(MessageKey.ASYNC_TASK_DELETE_CASHACCOUNT_TRANSACTION);
+        monitor.setStatusText(MessageKey.ASYNC_TASK_DELETE_CASHACCOUNT_TRANSACTIONS);
 
         List<CashAccountTransaction> transactions = cashAccountTransactionJpaRepository.findAllById(transactionIds);
         CashAccountTransaction oldestTransaction = null;

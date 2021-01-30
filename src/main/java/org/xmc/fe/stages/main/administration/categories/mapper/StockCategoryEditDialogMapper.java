@@ -28,7 +28,7 @@ public class StockCategoryEditDialogMapper implements IDialogMapper<StockCategor
         var dtoCategory = new DtoStockCategory();
 
         dtoCategory.setId(categoryEditController.getCategoryId());
-        dtoCategory.setName(categoryEditController.getNameTextfield().getText());
+        dtoCategory.setName(categoryEditController.getNameTextfield().getTextOrNull());
 
         return dtoCategory;
     }

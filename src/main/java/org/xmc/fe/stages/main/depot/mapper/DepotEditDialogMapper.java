@@ -30,8 +30,8 @@ public class DepotEditDialogMapper implements IDialogMapper<DepotEditController,
 		
 		dtoDepot.setBank(controller.getBankComboBox().getSelectionModel().getSelectedItem());
 		dtoDepot.setId(controller.getDepotId());
-		dtoDepot.setName(controller.getDepotNameTextfield().getText());
-		dtoDepot.setNumber(controller.getDepotNumberTextfield().getText());
+		dtoDepot.setName(controller.getDepotNameTextfield().getTextOrNull());
+		dtoDepot.setNumber(controller.getDepotNumberTextfield().getTextOrNull());
 		
 		return dtoDepot;
 	}

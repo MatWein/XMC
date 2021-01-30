@@ -26,7 +26,7 @@ public class CategoryEditDialogMapper implements IDialogMapper<CategoryEditContr
 
         dtoCategory.setIcon(categoryEditController.getIconButton().getImageAsByteArray());
         dtoCategory.setId(categoryEditController.getCategoryId());
-        dtoCategory.setName(categoryEditController.getNameTextfield().getText());
+        dtoCategory.setName(categoryEditController.getNameTextfield().getTextOrNull());
 
         return dtoCategory;
     }

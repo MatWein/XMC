@@ -37,10 +37,10 @@ public class CashAccountEditDialogMapper implements IDialogMapper<CashAccountEdi
         dtoCashAccount.setBank(controller.getBankComboBox().getSelectionModel().getSelectedItem());
         dtoCashAccount.setCurrency(Currency.getInstance(controller.getCurrencyAutoComplete().getText()));
         dtoCashAccount.setId(controller.getCashAccountId());
-        dtoCashAccount.setName(controller.getNameTextfield().getText());
-        dtoCashAccount.setNumber(controller.getNumberTextfield().getText());
+        dtoCashAccount.setName(controller.getNameTextfield().getTextOrNull());
+        dtoCashAccount.setNumber(controller.getNumberTextfield().getTextOrNull());
 
-        String iban = controller.getIbanTextfield().getText();
+        String iban = controller.getIbanTextfield().getTextOrNull();
         if (StringUtils.isNotBlank(iban)) {
             dtoCashAccount.setIban(IBAN.parse(StringUtils.trim(iban)).toString());
         }

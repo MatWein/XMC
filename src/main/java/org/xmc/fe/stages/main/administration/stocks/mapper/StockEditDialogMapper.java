@@ -31,9 +31,9 @@ public class StockEditDialogMapper implements IDialogMapper<StockEditController,
 		var dto = new DtoStock();
 		
 		dto.setId(controller.getStockId());
-		dto.setIsin(controller.getIsinTextfield().getText());
-		dto.setWkn(controller.getWknTextfield().getText());
-		dto.setName(controller.getNameTextfield().getText());
+		dto.setIsin(controller.getIsinTextfield().getTextOrNull());
+		dto.setWkn(controller.getWknTextfield().getTextOrNull());
+		dto.setName(controller.getNameTextfield().getTextOrNull());
 		dto.setStockCategory(controller.getStockCategoryComboBox().getValue());
 		
 		return dto;

@@ -2,6 +2,7 @@ package org.xmc.fe.ui.validation.components;
 
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import org.apache.commons.lang3.StringUtils;
 import org.xmc.fe.ui.components.IInitialFocus;
 import org.xmc.fe.ui.validation.*;
 
@@ -32,8 +33,12 @@ public class ValidationTextField extends TextField implements IValidationCompone
             requestInitialFocus();
         }
     }
-
-    @Override
+    
+    public String getTextOrNull() {
+    	return StringUtils.trimToNull(getText());
+    }
+    
+	@Override
     public String getCssClassInvalid() {
         return CSS_CLASS_INVALID;
     }

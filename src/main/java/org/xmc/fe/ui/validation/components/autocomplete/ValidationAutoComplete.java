@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 public class ValidationAutoComplete<T> extends ValidationTextField {
     private static final Set<KeyCode> KEYS_TO_IGNORE = Sets.newHashSet(
             KeyCode.ESCAPE, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP,
-            KeyCode.DOWN, KeyCode.SHIFT, KeyCode.CONTROL, KeyCode.ALT);
+            KeyCode.DOWN, KeyCode.TAB);
 
     public static final double BUTTON_HEIGHT = 30.0;
 
@@ -68,10 +68,8 @@ public class ValidationAutoComplete<T> extends ValidationTextField {
 
         this.focusedProperty().addListener((FocusLostListener) autoCompleteMenu::hide);
 
-        this.addEventHandler(KeyEvent.KEY_PRESSED, event -> autoCompleteMenu.hide());
         this.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
-            if (KEYS_TO_IGNORE.contains(event.getCode()) || event.isShiftDown() || event.isControlDown() || event.isAltDown()) {
-                autoCompleteMenu.hide();
+            if (KEYS_TO_IGNORE.contains(event.getCode())) {
                 return;
             }
 

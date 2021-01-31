@@ -14,7 +14,6 @@ import org.xmc.common.stubs.PagingParams;
 import org.xmc.common.stubs.depot.transactions.DepotTransactionOverviewFields;
 import org.xmc.common.stubs.depot.transactions.DtoDepotTransactionOverview;
 
-import static org.xmc.be.entities.depot.QDepot.depot;
 import static org.xmc.be.entities.depot.QDepotTransaction.depotTransaction;
 
 @Repository
@@ -36,7 +35,6 @@ public class DepotTransactionRepository {
 						depotTransaction.description, depotTransaction.currency,
 						depotTransaction.creationDate))
 				.from(depotTransaction)
-				.innerJoin(depotTransaction.depot(), depot)
 				.where(predicate)
 				.fetchResults();
 	}

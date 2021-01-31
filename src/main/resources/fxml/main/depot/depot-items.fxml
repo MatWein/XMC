@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.VBox?>
 <VBox prefHeight="700.0" prefWidth="900.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css"
 	  xmlns="http://javafx.com/javafx/11.0.0" fx:id="depotContentContainer" VBox.vgrow="ALWAYS"
-	  xmlns:fx="http://javafx.com/fxml/1">
+	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.depot.DepotItemsController">
 
 
 </VBox>

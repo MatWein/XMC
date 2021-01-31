@@ -82,6 +82,12 @@ public class BreadcrumbBar<T> extends HBox {
             this();
             this.text = text;
         }
+	
+	    public BreadcrumbPathElement(String text, EventHandler<ActionEvent> onAction) {
+		    this();
+		    this.text = text;
+		    this.onAction = onAction;
+	    }
 
         public String getId() {
             return id;

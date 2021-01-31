@@ -36,9 +36,8 @@ public class DepotController {
 		
 		breadcrumbBar.getElements().clear();
 		
-		BreadcrumbPathElement<String> element = new BreadcrumbPathElement<>(MessageAdapter.getByKey(MessageKey.MAIN_DEPOT_BREADCRUMB_OVERVIEW));
-		element.setOnAction(actionEvent -> switchToOverview());
-		breadcrumbBar.getElements().add(element);
+		String text = MessageAdapter.getByKey(MessageKey.MAIN_DEPOT_BREADCRUMB_OVERVIEW);
+		breadcrumbBar.getElements().add(new BreadcrumbPathElement<>(text, e -> switchToOverview()));
 		
 		switchContentComponent(FxmlKey.DEPOTS_OVERVIEW);
 	}
@@ -57,8 +56,13 @@ public class DepotController {
 		this.selectedDepot = selectedDepot;
 		this.selectedDelivery = null;
 		
-		String text = MessageAdapter.getByKey(MessageKey.MAIN_DEPOT_BREADCRUMB_DELIVERIES, selectedDepot.getName());
-		breadcrumbBar.getElements().add(new BreadcrumbPathElement<>(text));
+		breadcrumbBar.getElements().clear();
+		
+		String text = MessageAdapter.getByKey(MessageKey.MAIN_DEPOT_BREADCRUMB_OVERVIEW);
+		breadcrumbBar.getElements().add(new BreadcrumbPathElement<>(text, e -> switchToOverview()));
+		
+		text = MessageAdapter.getByKey(MessageKey.MAIN_DEPOT_BREADCRUMB_DELIVERIES, selectedDepot.getName());
+		breadcrumbBar.getElements().add(new BreadcrumbPathElement<>(text, e -> switchToDeliveries(selectedDepot)));
 		
 		switchContentComponent(FxmlKey.DEPOT_DELIVERIES);
 	}
@@ -82,5 +86,9 @@ public class DepotController {
 	
 	public DtoDepotOverview getSelectedDepot() {
 		return selectedDepot;
+	}
+	
+	public DtoDepotDeliveryOverview getSelectedDelivery() {
+		return selectedDelivery;
 	}
 }

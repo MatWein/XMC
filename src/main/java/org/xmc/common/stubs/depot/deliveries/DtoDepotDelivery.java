@@ -1,5 +1,7 @@
 package org.xmc.common.stubs.depot.deliveries;
 
+import com.querydsl.core.annotations.QueryProjection;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -7,6 +9,15 @@ public class DtoDepotDelivery implements Serializable {
 	private Long id;
 	
 	private LocalDateTime deliveryDate;
+	
+	public DtoDepotDelivery() {
+	}
+	
+	@QueryProjection
+	public DtoDepotDelivery(Long id, LocalDateTime deliveryDate) {
+		this.id = id;
+		this.deliveryDate = deliveryDate;
+	}
 	
 	public Long getId() {
 		return id;

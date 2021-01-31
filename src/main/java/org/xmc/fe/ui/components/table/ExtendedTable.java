@@ -340,4 +340,12 @@ public class ExtendedTable<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE
     public void setSelectionMode(SelectionMode selectionMode) {
         table.getSelectionModel().setSelectionMode(selectionMode);
     }
+    
+    public boolean isFilteringDisable() {
+    	return filterTextfield.isDisable();
+    }
+    
+    public void setFilteringDisable(boolean filteringDisable) {
+	    filterTextfield.setDisable(filteringDisable);
+    }
 }

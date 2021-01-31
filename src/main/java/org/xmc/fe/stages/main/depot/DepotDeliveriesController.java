@@ -49,7 +49,7 @@ public class DepotDeliveriesController implements IAfterInit<DepotController> {
 		deleteButton.disableProperty().bind(noTableItemSelected);
 		navigateDepotItemsButton.disableProperty().bind(noTableItemSelected);
 		
-		tableView.setDoubleClickConsumer(dtoDepotTransactionOverview -> onEditDelivery());
+		tableView.setDoubleClickConsumer(dtoDepotTransactionOverview -> onNavigateDepotItems());
 	}
 	
 	@Override

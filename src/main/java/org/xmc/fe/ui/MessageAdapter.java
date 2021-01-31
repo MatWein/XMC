@@ -247,7 +247,11 @@ public class MessageAdapter {
 	    DEPOT_DELIVERY_EDIT_TITLE("depot.delivery.edit.title"),
 	    DEPOT_DELIVERY_EDIT_CANCEL("depot.delivery.edit.cancel"),
 	    DEPOT_DELIVERY_EDIT_SAVE("depot.delivery.edit.save"),
-	    DEPOT_DELIVERY_CONFIRM_DELETE("depot.delivery.confirmDelete")
+	    DEPOT_DELIVERY_CONFIRM_DELETE("depot.delivery.confirmDelete"),
+	    DEPOT_ITEM_EDIT_TITLE("depot.item.title"),
+	    DEPOT_ITEM_EDIT_CANCEL("depot.item.cancel"),
+	    DEPOT_ITEM_EDIT_SAVE("depot.item.save"),
+	    DEPOT_ITEM_CONFIRM_DELETE("depot.item.confirmDelete")
         ;
 
         private final String key;

@@ -62,7 +62,8 @@ public class FxmlComponentFactory {
 	    DEPOT_DEPOTITEMS("/fxml/main/depot/depot-items.fxml"),
 	    DEPOT_EDIT("/fxml/main/depot/depot-edit.fxml"),
 	    DEPOT_TRANSACTION_EDIT("/fxml/main/depot/depot-transaction-edit.fxml"),
-	    DEPOT_DELIVERY_EDIT("/fxml/main/depot/depot-delivery-edit.fxml")
+	    DEPOT_DELIVERY_EDIT("/fxml/main/depot/depot-delivery-edit.fxml"),
+	    DEPOT_ITEM_EDIT("/fxml/main/depot/depot-item-edit.fxml")
         ;
 
         private final String fxmlPath;

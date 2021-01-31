@@ -1,13 +1,13 @@
 package org.xmc.be.entities.depot;
 
-import org.xmc.be.entities.PersistentObject;
+import org.xmc.be.entities.DeletablePersistentObject;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = DepotItem.TABLE_NAME)
-public class DepotItem extends PersistentObject {
+public class DepotItem extends DeletablePersistentObject {
 	public static final String TABLE_NAME = "DEPOT_ITEMS";
 	
 	@ManyToOne(optional = false)

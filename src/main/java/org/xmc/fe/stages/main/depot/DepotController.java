@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 import org.apache.commons.lang3.tuple.Pair;
 import org.xmc.common.stubs.depot.DtoDepotOverview;
+import org.xmc.common.stubs.depot.deliveries.DtoDepotDeliveryOverview;
 import org.xmc.fe.ui.FxmlComponentFactory;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.FxmlController;
@@ -22,6 +23,7 @@ public class DepotController {
 	@FXML private BreadcrumbBar<String> breadcrumbBar;
 	
 	private DtoDepotOverview selectedDepot;
+	private DtoDepotDeliveryOverview selectedDelivery;
 	
 	@FXML
 	public void initialize() {
@@ -30,6 +32,7 @@ public class DepotController {
 	
 	public void switchToOverview() {
 		this.selectedDepot = null;
+		this.selectedDelivery = null;
 		
 		breadcrumbBar.getElements().clear();
 		
@@ -42,6 +45,7 @@ public class DepotController {
 	
 	public void switchToTransactions(DtoDepotOverview selectedDepot) {
 		this.selectedDepot = selectedDepot;
+		this.selectedDelivery = null;
 		
 		String text = MessageAdapter.getByKey(MessageKey.MAIN_DEPOT_BREADCRUMB_TRANSACTIONS, selectedDepot.getName());
 		breadcrumbBar.getElements().add(new BreadcrumbPathElement<>(text));
@@ -51,11 +55,21 @@ public class DepotController {
 	
 	public void switchToDeliveries(DtoDepotOverview selectedDepot) {
 		this.selectedDepot = selectedDepot;
+		this.selectedDelivery = null;
 		
 		String text = MessageAdapter.getByKey(MessageKey.MAIN_DEPOT_BREADCRUMB_DELIVERIES, selectedDepot.getName());
 		breadcrumbBar.getElements().add(new BreadcrumbPathElement<>(text));
 		
 		switchContentComponent(FxmlKey.DEPOT_DELIVERIES);
+	}
+	
+	public void switchToDepotItems(DtoDepotDeliveryOverview selectedDelivery) {
+		this.selectedDelivery = selectedDelivery;
+		
+		String text = MessageAdapter.getByKey(MessageKey.MAIN_DEPOT_BREADCRUMB_DEPOTITEMS, MessageAdapter.formatDateTime(selectedDelivery.getDeliveryDate()));
+		breadcrumbBar.getElements().add(new BreadcrumbPathElement<>(text));
+		
+		switchContentComponent(FxmlKey.DEPOT_DEPOTITEMS);
 	}
 	
 	private void switchContentComponent(FxmlKey newComponentKey) {

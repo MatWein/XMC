@@ -19,14 +19,10 @@ import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Currency;
 import java.util.Locale;
 
 public class NestedPropertyValueFactory implements Callback<CellDataFeatures, ObservableValue> {
-    private static final String DATE_PATTERN = "dd.MM.yyyy";
-    private static final String DATE_TIME_PATTERN = DATE_PATTERN + " HH:mm:ss";
-
     private String property;
     private Double fitToWidth;
     private Double fitToHeight;
@@ -70,9 +66,11 @@ public class NestedPropertyValueFactory implements Callback<CellDataFeatures, Ob
         } else if (value instanceof Currency) {
             return new Text(((Currency) value).getCurrencyCode());
         } else if (value instanceof LocalDateTime) {
-            return new Text(((LocalDateTime) value).format(DateTimeFormatter.ofPattern(DATE_TIME_PATTERN)));
+	        LocalDateTime localDateTime = (LocalDateTime) value;
+	        return new Text(MessageAdapter.formatDateTime(localDateTime));
         } else if (value instanceof LocalDate) {
-            return new Text(((LocalDate) value).format(DateTimeFormatter.ofPattern(DATE_PATTERN)));
+	        LocalDate localDate = (LocalDate) value;
+	        return new Text(MessageAdapter.formatDate(localDate));
         } else if (value instanceof Number) {
             return new Text(createNumberInstance().format(value));
         } else if (value instanceof Money) {

@@ -7,6 +7,9 @@ import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImpor
 import org.xmc.common.stubs.importing.CsvSeparator;
 
 import java.text.MessageFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -36,6 +39,24 @@ public class MessageAdapter {
         String key = prefix.getKey() + "." + enumValue.name();
         return getByKey(key, args);
     }
+    
+    public static String formatDate(LocalDate date) {
+    	if (date == null) {
+    		return null;
+	    }
+    	
+    	String dateFormat = getByKey(MessageKey.APP_DATE_FORMAT);
+    	return date.format(DateTimeFormatter.ofPattern(dateFormat));
+    }
+	
+	public static String formatDateTime(LocalDateTime dateTime) {
+		if (dateTime == null) {
+			return null;
+		}
+		
+		String dateTimeFormat = getByKey(MessageKey.APP_DATETIME_FORMAT);
+		return dateTime.format(DateTimeFormatter.ofPattern(dateTimeFormat));
+	}
 
     private static String getByKey(String key, Object... args) {
         try {
@@ -45,9 +66,11 @@ public class MessageAdapter {
             return key;
         }
     }
-
+    
     public enum MessageKey {
         APP_NAME("app.name"),
+        APP_DATE_FORMAT("app.dateFormat"),
+        APP_DATETIME_FORMAT("app.dateTimeFormat"),
         PASSWORD("password"),
         TABLE_NO_CONTENT("table.noContent"),
         DIALOG_OK("dialog.ok"),
@@ -137,6 +160,7 @@ public class MessageAdapter {
 	    MAIN_DEPOT_BREADCRUMB_OVERVIEW("main.depots.breadcrumb.overview"),
 	    MAIN_DEPOT_BREADCRUMB_TRANSACTIONS("main.depots.breadcrumb.transactions"),
 	    MAIN_DEPOT_BREADCRUMB_DELIVERIES("main.depots.breadcrumb.deliveries"),
+	    MAIN_DEPOT_BREADCRUMB_DEPOTITEMS("main.depots.breadcrumb.depotitems"),
         MAIN_PROCESS_COUNTER("main.processCounter"),
         MAIN_NEW_PROCESS("main.newProcess"),
 

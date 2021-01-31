@@ -25,7 +25,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @FxmlController
-public class DepotTransactionsController implements IAfterInit<DepotController>  {
+public class DepotTransactionsController implements IAfterInit<DepotController> {
 	private final DepotTransactionService depotTransactionService;
 	private final AsyncProcessor asyncProcessor;
 	private final DepotTransactionEditDialogMapper depotTransactionEditDialogMapper;

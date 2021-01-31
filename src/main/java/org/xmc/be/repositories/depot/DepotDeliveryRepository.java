@@ -2,15 +2,20 @@ package org.xmc.be.repositories.depot;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.xmc.be.common.QueryUtil;
 import org.xmc.be.entities.depot.Depot;
+import org.xmc.be.entities.depot.DepotDelivery;
 import org.xmc.common.stubs.PagingParams;
 import org.xmc.common.stubs.depot.deliveries.DepotDeliveryOverviewFields;
 import org.xmc.common.stubs.depot.deliveries.DtoDepotDeliveryOverview;
+
+import java.util.List;
+import java.util.Optional;
 
 import static org.xmc.be.entities.depot.QDepotDelivery.depotDelivery;
 
@@ -34,5 +39,22 @@ public class DepotDeliveryRepository {
 				.from(depotDelivery)
 				.where(predicate)
 				.fetchResults();
+	}
+	
+	public Optional<DepotDelivery> loadMostRecentDeliveryOfDepot(Depot depotEntity) {
+		List<DepotDelivery> results = queryUtil.createQuery()
+				.select(depotDelivery)
+				.from(depotDelivery)
+				.where(depotDelivery.depot().eq(depotEntity))
+				.where(depotDelivery.deletionDate.isNull())
+				.orderBy(new OrderSpecifier<>(Order.DESC, depotDelivery.deliveryDate))
+				.limit(1)
+				.fetch();
+		
+		if (results.size() == 1) {
+			return Optional.of(results.get(0));
+		} else {
+			return Optional.empty();
+		}
 	}
 }

@@ -87,10 +87,12 @@ public class DepotItemsController implements IAfterInit<DepotController> {
 				.map(DtoDepotItemOverview::getId)
 				.collect(Collectors.toSet());
 		
+		long depotDeliveryId = parentController.getSelectedDelivery().getId();
+		
 		if (DialogHelper.showConfirmDialog(MessageKey.DEPOT_ITEM_CONFIRM_DELETE)) {
 			asyncProcessor.runAsyncVoid(
 					() -> {},
-					monitor -> depotItemService.markAsDeleted(monitor, selectedDepotItemIds),
+					monitor -> depotItemService.markAsDeleted(monitor, depotDeliveryId, selectedDepotItemIds),
 					() -> tableView.reload()
 			);
 		}

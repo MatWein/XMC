@@ -12,6 +12,7 @@ import org.xmc.be.repositories.depot.DepotDeliveryJpaRepository;
 import org.xmc.be.repositories.depot.DepotDeliveryRepository;
 import org.xmc.be.repositories.depot.DepotJpaRepository;
 import org.xmc.be.services.depot.controller.DepotDeliverySaveController;
+import org.xmc.be.services.depot.controller.LastDeliveryUpdatingController;
 import org.xmc.common.stubs.PagingParams;
 import org.xmc.common.stubs.depot.deliveries.DepotDeliveryOverviewFields;
 import org.xmc.common.stubs.depot.deliveries.DtoDepotDelivery;
@@ -30,18 +31,21 @@ public class DepotDeliveryService {
 	private final DepotDeliveryJpaRepository depotDeliveryJpaRepository;
 	private final DepotDeliveryRepository depotDeliveryRepository;
 	private final DepotDeliverySaveController depotDeliverySaveController;
+	private final LastDeliveryUpdatingController lastDeliveryUpdatingController;
 	
 	@Autowired
 	public DepotDeliveryService(
 			DepotJpaRepository depotJpaRepository,
 			DepotDeliveryJpaRepository depotDeliveryJpaRepository,
 			DepotDeliveryRepository depotDeliveryRepository,
-			DepotDeliverySaveController depotDeliverySaveController) {
+			DepotDeliverySaveController depotDeliverySaveController,
+			LastDeliveryUpdatingController lastDeliveryUpdatingController) {
 		
 		this.depotJpaRepository = depotJpaRepository;
 		this.depotDeliveryJpaRepository = depotDeliveryJpaRepository;
 		this.depotDeliveryRepository = depotDeliveryRepository;
 		this.depotDeliverySaveController = depotDeliverySaveController;
+		this.lastDeliveryUpdatingController = lastDeliveryUpdatingController;
 	}
 	
 	public QueryResults<DtoDepotDeliveryOverview> loadOverview(
@@ -62,6 +66,8 @@ public class DepotDeliveryService {
 		
 		Depot depot = depotJpaRepository.getOne(depotId);
 		depotDeliverySaveController.saveOrUpdate(depot, dtoDepotDelivery);
+		
+		lastDeliveryUpdatingController.updateLastDeliveryOfDepot(depot);
 	}
 	
 	public void markAsDeleted(AsyncMonitor monitor, long deliveryId) {
@@ -71,5 +77,7 @@ public class DepotDeliveryService {
 		DepotDelivery depotDelivery = depotDeliveryJpaRepository.getOne(deliveryId);
 		depotDelivery.setDeletionDate(LocalDateTime.now());
 		depotDeliveryJpaRepository.save(depotDelivery);
+		
+		lastDeliveryUpdatingController.updateLastDeliveryOfDepot(depotDelivery.getDepot());
 	}
 }

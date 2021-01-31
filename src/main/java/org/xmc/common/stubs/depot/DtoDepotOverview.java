@@ -1,13 +1,14 @@
 package org.xmc.common.stubs.depot;
 
 import com.querydsl.core.annotations.QueryProjection;
+import org.xmc.common.stubs.Money;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class DtoDepotOverview extends DtoDepot {
 	private LocalDateTime creationDate;
-	private BigDecimal lastSaldo;
+	private Money lastSaldo;
 	private LocalDateTime lastSaldoDate;
 	
 	public DtoDepotOverview() {
@@ -22,7 +23,7 @@ public class DtoDepotOverview extends DtoDepot {
 		super(id, number, name, bankId, bankName, bic, blz, logo);
 		
 		this.creationDate = creationDate;
-		this.lastSaldo = lastSaldo;
+		this.lastSaldo = new Money(lastSaldo, "EUR");
 		this.lastSaldoDate = lastSaldoDate;
 	}
 	
@@ -34,11 +35,11 @@ public class DtoDepotOverview extends DtoDepot {
 		this.creationDate = creationDate;
 	}
 	
-	public BigDecimal getLastSaldo() {
+	public Money getLastSaldo() {
 		return lastSaldo;
 	}
 	
-	public void setLastSaldo(BigDecimal lastSaldo) {
+	public void setLastSaldo(Money lastSaldo) {
 		this.lastSaldo = lastSaldo;
 	}
 	

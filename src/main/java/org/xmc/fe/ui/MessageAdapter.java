@@ -148,6 +148,9 @@ public class MessageAdapter {
 	    ASYNC_TASK_LOAD_DEPOT_DELIVERY_OVERVIEW("async.task.loadDepotDeliveryOverview"),
 	    ASYNC_TASK_DELETE_DEPOT_DELIVERY("async.task.deleteDepotDelivery"),
 	    ASYNC_TASK_SAVE_DEPOT_DELIVERY("async.task.saveDepotDelivery"),
+	    ASYNC_TASK_LOAD_DEPOT_ITEM_OVERVIEW("async.task.loadDepotItemOverview"),
+	    ASYNC_TASK_SAVE_DEPOT_ITEM("async.task.saveDepotItem"),
+	    ASYNC_TASK_DELETE_DEPOT_ITEMS("async.task.deleteDepotItems"),
 
         LOGIN_TITLE("login.title"),
 

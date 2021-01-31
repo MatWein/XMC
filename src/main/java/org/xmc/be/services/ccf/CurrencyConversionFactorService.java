@@ -10,13 +10,12 @@ import org.xmc.be.entities.depot.CurrencyConversionFactor;
 import org.xmc.be.repositories.ccf.CurrencyConversionFactorJpaRepository;
 import org.xmc.be.repositories.ccf.CurrencyConversionFactorRepository;
 import org.xmc.be.services.ccf.controller.CurrencyConversionFactorSaveController;
+import org.xmc.be.services.depot.controller.DeliverySaldoUpdatingController;
 import org.xmc.common.stubs.PagingParams;
 import org.xmc.common.stubs.ccf.CurrencyConversionFactorOverviewFields;
 import org.xmc.common.stubs.ccf.DtoCurrencyConversionFactor;
 import org.xmc.fe.async.AsyncMonitor;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
-
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -26,16 +25,19 @@ public class CurrencyConversionFactorService {
 	private final CurrencyConversionFactorJpaRepository currencyConversionFactorJpaRepository;
 	private final CurrencyConversionFactorSaveController currencyConversionFactorSaveController;
 	private final CurrencyConversionFactorRepository currencyConversionFactorRepository;
+	private final DeliverySaldoUpdatingController deliverySaldoUpdatingController;
 	
 	@Autowired
 	public CurrencyConversionFactorService(
 			CurrencyConversionFactorJpaRepository currencyConversionFactorJpaRepository,
 			CurrencyConversionFactorSaveController currencyConversionFactorSaveController,
-			CurrencyConversionFactorRepository currencyConversionFactorRepository) {
+			CurrencyConversionFactorRepository currencyConversionFactorRepository,
+			DeliverySaldoUpdatingController deliverySaldoUpdatingController) {
 		
 		this.currencyConversionFactorJpaRepository = currencyConversionFactorJpaRepository;
 		this.currencyConversionFactorSaveController = currencyConversionFactorSaveController;
 		this.currencyConversionFactorRepository = currencyConversionFactorRepository;
+		this.deliverySaldoUpdatingController = deliverySaldoUpdatingController;
 	}
 	
 	public QueryResults<DtoCurrencyConversionFactor> loadOverview(AsyncMonitor monitor, PagingParams<CurrencyConversionFactorOverviewFields> pagingParams) {
@@ -50,15 +52,16 @@ public class CurrencyConversionFactorService {
 		monitor.setStatusText(MessageKey.ASYNC_TASK_SAVE_CURRENCY_CONVERSION_FACTOR);
 		
 		currencyConversionFactorSaveController.saveOrUpdate(dtoCurrencyConversionFactor);
+		deliverySaldoUpdatingController.updateDeliverySaldoForAllDeliveries(dtoCurrencyConversionFactor.getInputDate());
 	}
 	
 	public void delete(AsyncMonitor monitor, long currencyConversionFactorId) {
 		monitor.setStatusText(MessageKey.ASYNC_TASK_DELETE_CURRENCY_CONVERSION_FACTOR);
 		
-		Optional<CurrencyConversionFactor> existingConversionFactor = currencyConversionFactorJpaRepository.findById(currencyConversionFactorId);
-		if (existingConversionFactor.isPresent()) {
-			LOGGER.info("Deleting currency conversion factor '{}'.", existingConversionFactor.get());
-			currencyConversionFactorJpaRepository.delete(existingConversionFactor.get());
-		}
+		CurrencyConversionFactor existingConversionFactor = currencyConversionFactorJpaRepository.getOne(currencyConversionFactorId);
+		LOGGER.info("Deleting currency conversion factor '{}'.", existingConversionFactor);
+	
+		currencyConversionFactorJpaRepository.delete(existingConversionFactor);
+		deliverySaldoUpdatingController.updateDeliverySaldoForAllDeliveries(existingConversionFactor.getInputDate());
 	}
 }

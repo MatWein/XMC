@@ -27,7 +27,7 @@ public class DepotDeliveriesController implements IAfterInit<DepotController> {
 	@FXML private Button editButton;
 	@FXML private Button deleteButton;
 	@FXML private Button navigateDepotItemsButton;
-	@FXML private ExtendedTable<DtoDepotDeliveryOverview, DepotDeliveryOverviewFields> tableView;
+	@FXML private ExtendedTable<DtoDepotDeliveryOverview, DepotDeliveryOverviewFields> depotDeliveriesTableView;
 	
 	private DepotController parentController;
 	
@@ -44,12 +44,12 @@ public class DepotDeliveriesController implements IAfterInit<DepotController> {
 	
 	@FXML
 	public void initialize() {
-		BooleanBinding noTableItemSelected = tableView.getSelectionModel().selectedItemProperty().isNull();
+		BooleanBinding noTableItemSelected = depotDeliveriesTableView.getSelectionModel().selectedItemProperty().isNull();
 		editButton.disableProperty().bind(noTableItemSelected);
 		deleteButton.disableProperty().bind(noTableItemSelected);
 		navigateDepotItemsButton.disableProperty().bind(noTableItemSelected);
 		
-		tableView.setDoubleClickConsumer(dtoDepotTransactionOverview -> onNavigateDepotItems());
+		depotDeliveriesTableView.setDoubleClickConsumer(dtoDepotTransactionOverview -> onNavigateDepotItems());
 	}
 	
 	@Override
@@ -57,7 +57,7 @@ public class DepotDeliveriesController implements IAfterInit<DepotController> {
 		this.parentController = parentController;
 		
 		long depotId = parentController.getSelectedDepot().getId();
-		tableView.setDataProvider((monitor, pagingParams) -> depotDeliveryService.loadOverview(monitor, depotId, pagingParams));
+		depotDeliveriesTableView.setDataProvider((monitor, pagingParams) -> depotDeliveryService.loadOverview(monitor, depotId, pagingParams));
 	}
 	
 	@FXML
@@ -67,27 +67,27 @@ public class DepotDeliveriesController implements IAfterInit<DepotController> {
 	
 	@FXML
 	public void onEditDelivery() {
-		DtoDepotDeliveryOverview selectedDelivery = tableView.getSelectionModel().getSelectedItem();
+		DtoDepotDeliveryOverview selectedDelivery = depotDeliveriesTableView.getSelectionModel().getSelectedItem();
 		createOrEditDepotDelivery(selectedDelivery);
 	}
 	
 	@FXML
 	public void onDeleteDelivery() {
-		DtoDepotDeliveryOverview selectedDelivery = tableView.getSelectionModel().getSelectedItem();
+		DtoDepotDeliveryOverview selectedDelivery = depotDeliveriesTableView.getSelectionModel().getSelectedItem();
 		String name = MessageAdapter.formatDateTime(selectedDelivery.getDeliveryDate());
 		
 		if (DialogHelper.showConfirmDialog(MessageKey.DEPOT_DELIVERY_CONFIRM_DELETE, name)) {
 			asyncProcessor.runAsyncVoid(
 					() -> {},
 					monitor -> depotDeliveryService.markAsDeleted(monitor, selectedDelivery.getId()),
-					() -> tableView.reload()
+					() -> depotDeliveriesTableView.reload()
 			);
 		}
 	}
 	
 	@FXML
 	public void onNavigateDepotItems() {
-		DtoDepotDeliveryOverview selectedDelivery = tableView.getSelectionModel().getSelectedItem();
+		DtoDepotDeliveryOverview selectedDelivery = depotDeliveriesTableView.getSelectionModel().getSelectedItem();
 		parentController.switchToDepotItems(selectedDelivery);
 	}
 	
@@ -108,7 +108,7 @@ public class DepotDeliveriesController implements IAfterInit<DepotController> {
 			asyncProcessor.runAsyncVoid(
 					() -> {},
 					monitor -> depotDeliveryService.saveOrUpdate(monitor, depotId, dtoDepotDelivery.get()),
-					() -> tableView.reload()
+					() -> depotDeliveriesTableView.reload()
 			);
 		}
 	}

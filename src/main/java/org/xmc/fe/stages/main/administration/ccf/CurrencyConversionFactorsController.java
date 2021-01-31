@@ -9,6 +9,7 @@ import org.xmc.be.services.ccf.CurrencyConversionFactorService;
 import org.xmc.common.stubs.ccf.CurrencyConversionFactorOverviewFields;
 import org.xmc.common.stubs.ccf.DtoCurrencyConversionFactor;
 import org.xmc.fe.async.AsyncProcessor;
+import org.xmc.fe.stages.main.MainController;
 import org.xmc.fe.stages.main.administration.ccf.mapper.CurrencyConversionFactorEditDialogMapper;
 import org.xmc.fe.ui.CustomDialogBuilder;
 import org.xmc.fe.ui.DialogHelper;
@@ -69,7 +70,7 @@ public class CurrencyConversionFactorsController {
 			asyncProcessor.runAsyncVoid(
 					() -> {},
 					monitor -> currencyConversionFactorService.delete(monitor, selectedCurrencyConversionFactor.getId()),
-					() -> tableView.reload()
+					this::reloadTables
 			);
 		}
 	}
@@ -89,8 +90,17 @@ public class CurrencyConversionFactorsController {
 			asyncProcessor.runAsyncVoid(
 					() -> {},
 					monitor -> currencyConversionFactorService.saveOrUpdate(monitor, dtoCurrencyConversionFactor.get()),
-					() -> tableView.reload()
+					this::reloadTables
 			);
+		}
+	}
+	
+	private void reloadTables() {
+		tableView.reload();
+		
+		ExtendedTable<?, ?> depotDeliveriesTableView = (ExtendedTable<?, ?>)MainController.mainWindow.getScene().getRoot().lookup("#depotDeliveriesTableView");
+		if (depotDeliveriesTableView != null) {
+			depotDeliveriesTableView.reload();
 		}
 	}
 }

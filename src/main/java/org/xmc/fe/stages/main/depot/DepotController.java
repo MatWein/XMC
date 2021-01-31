@@ -17,7 +17,7 @@ import org.xmc.fe.ui.components.BreadcrumbBar.BreadcrumbPathElement;
 
 @FxmlController
 public class DepotController {
-	private static final String DEPOT_CONTENT_CONTAINER_ID = "#depotContentContainer";
+	public static final String DEPOT_CONTENT_CONTAINER_ID = "#depotContentContainer";
 	
 	@FXML private VBox rootVbox;
 	@FXML private BreadcrumbBar<String> breadcrumbBar;

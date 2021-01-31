@@ -25,6 +25,8 @@ public class ValidationDatePicker extends DatePicker implements IValidationCompo
 
     public ValidationDatePicker() {
         super(LocalDate.now());
+        
+        this.setMaxWidth(Double.MAX_VALUE);
     }
 
     @Override

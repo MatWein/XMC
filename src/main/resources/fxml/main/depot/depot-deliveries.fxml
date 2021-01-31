@@ -33,8 +33,7 @@
 	</ToolBar>
 
 	<ExtendedTable VBox.vgrow="ALWAYS" fx:id="tableView"
-				   fieldEnumType="org.xmc.common.stubs.depot.deliveries.DepotDeliveryOverviewFields"
-				   selectionMode="MULTIPLE">
+				   fieldEnumType="org.xmc.common.stubs.depot.deliveries.DepotDeliveryOverviewFields">
 		<columns>
 			<ExtendedTableColumn editable="false" text="%main.depots.deliveries.overview.table.column.deliveryDate"
 								 sortField="DELIVERY_DATE">

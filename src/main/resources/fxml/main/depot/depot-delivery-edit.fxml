@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import org.xmc.fe.ui.validation.components.ValidationDatePicker?>
+<?import org.xmc.fe.ui.validation.components.ValidationTimePicker?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0"
+	  prefWidth="300.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
+	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.depot.DepotDeliveryEditController">
+
+	<Label text="%depot.delivery.edit.deliveryDate" styleClass="form-label-first" />
+	<ValidationDatePicker fx:id="deliveryDatePicker" required="true" initialFocus="true" />
+
+	<Label text="%depot.delivery.edit.deliveryTime" styleClass="form-label" />
+	<ValidationTimePicker fx:id="deliveryTimePicker" required="true" />
+
+</VBox>

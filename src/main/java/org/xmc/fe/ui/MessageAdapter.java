@@ -240,7 +240,11 @@ public class MessageAdapter {
 	    DEPOT_TRANSACTION_EDIT_TITLE("depot.transaction.edit.title"),
 	    DEPOT_TRANSACTION_EDIT_CANCEL("depot.transaction.edit.cancel"),
 	    DEPOT_TRANSACTION_EDIT_SAVE("depot.transaction.edit.save"),
-	    DEPOT_TRANSACTION_CONFIRM_DELETE("depot.transaction.confirmDelete")
+	    DEPOT_TRANSACTION_CONFIRM_DELETE("depot.transaction.confirmDelete"),
+	    DEPOT_DELIVERY_EDIT_TITLE("depot.delivery.edit.title"),
+	    DEPOT_DELIVERY_EDIT_CANCEL("depot.delivery.edit.cancel"),
+	    DEPOT_DELIVERY_EDIT_SAVE("depot.delivery.edit.save"),
+	    DEPOT_DELIVERY_CONFIRM_DELETE("depot.delivery.confirmDelete")
         ;
 
         private final String key;

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.xmc.common.stubs.PagingParams;
 import org.xmc.common.stubs.depot.deliveries.DepotDeliveryOverviewFields;
+import org.xmc.common.stubs.depot.deliveries.DtoDepotDelivery;
 import org.xmc.common.stubs.depot.deliveries.DtoDepotDeliveryOverview;
 import org.xmc.fe.async.AsyncMonitor;
 
@@ -13,5 +14,13 @@ import org.xmc.fe.async.AsyncMonitor;
 public class DepotDeliveryService {
 	public QueryResults<DtoDepotDeliveryOverview> loadOverview(AsyncMonitor monitor, long depotId, PagingParams<DepotDeliveryOverviewFields> pagingParams) {
 		return null;
+	}
+	
+	public void saveOrUpdate(AsyncMonitor monitor, long depotId, DtoDepotDelivery dtoDepotDelivery) {
+	
+	}
+	
+	public void markAsDeleted(AsyncMonitor monitor, long deliveryId) {
+	
 	}
 }

@@ -2,7 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
-<?import org.xmc.fe.ui.components.ButtonImageView?>
+<?import org.xmc.fe.ui.components.*?>
 <?import org.xmc.fe.ui.components.table.*?>
 <VBox prefHeight="700.0" prefWidth="900.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css"
       xmlns="http://javafx.com/javafx/11.0.0" fx:id="depotContentContainer" VBox.vgrow="ALWAYS"
@@ -28,6 +28,11 @@
 		<Button text="%main.depots.deliveries.navigate.saldi" fx:id="navigateDepotItemsButton" onAction="#onNavigateDepotItems">
 			<graphic>
 				<ButtonImageView url="@/images/feather/package.png"/>
+			</graphic>
+		</Button>
+		<Button text="%main.depots.deliveries.importing" onAction="#onImportDeliveries">
+			<graphic>
+				<ButtonImageView url="@/images/feather/download.png"/>
 			</graphic>
 		</Button>
 	</ToolBar>

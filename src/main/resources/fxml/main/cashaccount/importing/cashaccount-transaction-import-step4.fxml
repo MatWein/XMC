@@ -7,7 +7,7 @@
 <?import org.xmc.fe.ui.components.LineBreak?>
 <?import org.xmc.fe.ui.components.table.*?>
 <?import org.xmc.fe.ui.validation.components.ValidationTextField?>
-<VBox stylesheets="@/css/xmc-base.css, @/css/main/cashaccount/importing/cashaccount-importing.css" xmlns="http://javafx.com/javafx/11.0.0"
+<VBox stylesheets="@/css/xmc-base.css, @/css/main/importing.css" xmlns="http://javafx.com/javafx/11.0.0"
 	  xmlns:fx="http://javafx.com/fxml/1" styleClass="padding-15" fx:id="rootVBox"
 	  fx:controller="org.xmc.fe.stages.main.cashaccount.importing.CashAccountTransactionImportStep4Controller">
 

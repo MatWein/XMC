@@ -1,4 +1,4 @@
-package org.xmc.fe.importing;
+package org.xmc.fe.ui.components.table;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
@@ -10,8 +10,9 @@ import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.converter.GenericItemToStringConverter;
 
-public class ImportColumnFieldCellValueFactory<T extends Enum<T>> implements Callback<CellDataFeatures, ObservableValue> {
+public class ComboBoxCellValueFactory<T extends Enum<T>> implements Callback<CellDataFeatures, ObservableValue> {
     private Class<T> fieldType;
+    private MessageKey translationKey;
 
     @Override
     public ObservableValue call(CellDataFeatures param) {
@@ -23,7 +24,7 @@ public class ImportColumnFieldCellValueFactory<T extends Enum<T>> implements Cal
         ComboBox<T> comboBox = new ComboBox<>();
         comboBox.getItems().add(null);
         comboBox.getItems().addAll(fieldType.getEnumConstants());
-        comboBox.setConverter(GenericItemToStringConverter.getInstance(t -> MessageAdapter.getByKey(MessageKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_COLUMN_PREFIX, t)));
+        comboBox.setConverter(GenericItemToStringConverter.getInstance(t -> MessageAdapter.getByKey(translationKey, t)));
         comboBox.setMaxWidth(Double.MAX_VALUE);
         comboBox.getSelectionModel().select(value.getField());
         comboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> value.setField(newValue));
@@ -37,4 +38,12 @@ public class ImportColumnFieldCellValueFactory<T extends Enum<T>> implements Cal
     public void setFieldType(String fieldType) throws ClassNotFoundException {
         this.fieldType = (Class)Class.forName(fieldType);
     }
+	
+	public String getTranslationKey() {
+		return translationKey.name();
+	}
+	
+	public void setTranslationKey(String translationKey) {
+		this.translationKey = MessageKey.valueOf(translationKey);
+	}
 }

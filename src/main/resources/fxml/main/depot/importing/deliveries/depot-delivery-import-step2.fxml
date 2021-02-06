@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<?import org.xmc.common.stubs.importing.CsvSeparator?>
+<?import org.xmc.fe.ui.validation.components.ValidationComboBox?>
+<?import org.xmc.fe.ui.validation.components.ValidationFileChooserField?>
+<?import java.lang.String?>
+<VBox stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
+	  xmlns:fx="http://javafx.com/fxml/1" styleClass="padding-15"
+	  fx:controller="org.xmc.fe.stages.main.depot.importing.deliveries.DepotDeliveryImportStep2Controller">
+
+	<Label styleClass="form-label-first" text="%depot.delivery.import.dialog.step2.chooseFile"/>
+	<ValidationFileChooserField required="true" fx:id="fileChooserField" filterType="CSV_OR_EXCEL" />
+
+	<Label styleClass="form-label" text="%depot.delivery.import.dialog.step2.chooseFileTemplate"/>
+	<ValidationComboBox required="false" fx:id="fileTemplateComboBox" />
+
+	<Label styleClass="form-label" text="%depot.delivery.import.dialog.step2.importType"/>
+	<fx:define>
+		<ToggleGroup fx:id="importTypeToggleGroup" />
+	</fx:define>
+	<RadioButton selected="true" text="%depot.delivery.import.dialog.step2.importType.addAll"
+				 fx:id="addAllRadioButton" toggleGroup="$importTypeToggleGroup" />
+	<RadioButton text="%depot.delivery.import.dialog.step2.importType.addOnly"
+				 fx:id="addOnlyRadioButton" toggleGroup="$importTypeToggleGroup" />
+	<RadioButton text="%depot.delivery.import.dialog.step2.importType.addAndUpdateExisting"
+				 fx:id="addAndUpdateExistingRadioButton" toggleGroup="$importTypeToggleGroup" />
+
+	<Label styleClass="form-label" text="%depot.delivery.import.dialog.step2.csvSeparator"/>
+	<ValidationComboBox required="true" fx:id="csvSeparatorComboBox">
+		<items>
+			<FXCollections fx:factory="observableArrayList">
+				<CsvSeparator fx:value="SEMICOLON"/>
+				<CsvSeparator fx:value="COMMA"/>
+				<CsvSeparator fx:value="TAB"/>
+			</FXCollections>
+		</items>
+		<value>
+			<CsvSeparator fx:value="SEMICOLON" />
+		</value>
+	</ValidationComboBox>
+
+	<Label styleClass="form-label" text="%depot.delivery.import.dialog.step2.encoding"/>
+	<ValidationComboBox required="true" fx:id="encodingComboBox" editable="true" customValidator="org.xmc.fe.ui.validation.EncodingFieldValidator">
+		<items>
+			<FXCollections fx:factory="observableArrayList">
+				<String fx:value="ISO-8859-1"/>
+				<String fx:value="UTF-8"/>
+			</FXCollections>
+		</items>
+		<value>
+			<String fx:value="ISO-8859-1" />
+		</value>
+	</ValidationComboBox>
+
+</VBox>

@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xmc.be.entities.importing.ImportTemplateType;
 import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
+import org.xmc.common.stubs.depot.deliveries.DepotDeliveryImportColmn;
 import org.xmc.common.stubs.importing.CsvSeparator;
 
 import java.text.MessageFormat;
@@ -254,7 +255,13 @@ public class MessageAdapter {
 	    DEPOT_ITEM_EDIT_TITLE("depot.item.title"),
 	    DEPOT_ITEM_EDIT_CANCEL("depot.item.cancel"),
 	    DEPOT_ITEM_EDIT_SAVE("depot.item.save"),
-	    DEPOT_ITEM_CONFIRM_DELETE("depot.item.confirmDelete")
+	    DEPOT_ITEM_CONFIRM_DELETE("depot.item.confirmDelete"),
+	    DEPOT_DELIVERY_IMPORT_DIALOG_TITLE("depot.delivery.import.dialog.title"),
+	    DEPOT_DELIVERY_IMPORT_DIALOG_STEP1_TITLE("depot.delivery.import.dialog.step1.title"),
+	    DEPOT_DELIVERY_IMPORT_DIALOG_STEP2_TITLE("depot.delivery.import.dialog.step2.title"),
+	    DEPOT_DELIVERY_IMPORT_DIALOG_STEP3_TITLE("depot.delivery.import.dialog.step3.title"),
+	    DEPOT_DELIVERY_IMPORT_DIALOG_STEP4_TITLE("depot.delivery.import.dialog.step4.title"),
+	    DEPOT_DELIVERY_IMPORT_DIALOG_STEP4_COLUMN_PREFIX("depot.delivery.import.dialog.step4.columns", DepotDeliveryImportColmn.class)
         ;
 
         private final String key;

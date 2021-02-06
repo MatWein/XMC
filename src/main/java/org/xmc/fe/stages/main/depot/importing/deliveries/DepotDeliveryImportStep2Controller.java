@@ -88,7 +88,7 @@ public class DepotDeliveryImportStep2Controller implements IAfterInit<DtoImportD
 	private List<DtoImportTemplate<DepotDeliveryImportColmn>> loadTemplates(org.xmc.fe.async.AsyncMonitor monitor) {
 		List<DtoImportTemplate<DepotDeliveryImportColmn>> templates = importTemplateService.loadImportTemplates(
 				monitor,
-				ImportTemplateType.CASH_ACCOUNT_TRANSACTION,
+				ImportTemplateType.DEPOT_DELIVERY,
 				DepotDeliveryImportColmn.class);
 		
 		for (DtoImportTemplate<DepotDeliveryImportColmn> template : templates) {

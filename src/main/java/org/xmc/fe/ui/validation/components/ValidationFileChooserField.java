@@ -32,7 +32,7 @@ public class ValidationFileChooserField extends HBox implements IValidationCompo
     private boolean required;
     private String equalTo;
     private String customValidator;
-    private String filterType; // has to be a string because scene builder cannot render enum parameters
+    private ExtensionFilterType filterType;
 
     public ValidationFileChooserField() {
         this.setFillHeight(true);
@@ -50,18 +50,10 @@ public class ValidationFileChooserField extends HBox implements IValidationCompo
     }
 
     private void selectFile(Button chooseFileButton) {
-        Optional<File> selectedFile = DialogHelper.showOpenFileDialog(chooseFileButton.getScene().getWindow(), findExtensionFilter());
+        Optional<File> selectedFile = DialogHelper.showOpenFileDialog(chooseFileButton.getScene().getWindow(), filterType);
         if (selectedFile.isPresent()) {
             editor.setText(selectedFile.get().getAbsolutePath());
             SceneUtil.getOrCreateValidationSceneState(editor.getScene()).validate();
-        }
-    }
-
-    private ExtensionFilterType findExtensionFilter() {
-        if (filterType == null) {
-            return ExtensionFilterType.ALL;
-        } else {
-            return ExtensionFilterType.valueOf(filterType);
         }
     }
 
@@ -74,7 +66,7 @@ public class ValidationFileChooserField extends HBox implements IValidationCompo
         }
 
         String extension = FilenameUtils.getExtension(editor.getText());
-        if (!findExtensionFilter().getExtensionFilter().getExtensions().contains("*." + extension)) {
+        if (!filterType.getExtensionFilter().getExtensions().contains("*." + extension)) {
             errors.add(MessageAdapter.getByKey(MessageKey.VALIDATION_INVALID_FILE_EXTENSION));
         }
 
@@ -171,10 +163,10 @@ public class ValidationFileChooserField extends HBox implements IValidationCompo
     }
 
     public String getFilterType() {
-        return filterType;
+        return filterType.name();
     }
 
     public void setFilterType(String filterType) {
-        this.filterType = filterType;
+        this.filterType = ExtensionFilterType.valueOf(filterType);
     }
 }

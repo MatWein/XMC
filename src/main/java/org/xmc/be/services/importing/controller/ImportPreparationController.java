@@ -32,7 +32,9 @@ public class ImportPreparationController {
 	
 	public static final Set<String> VALID_EXCEL_MIME_TYPES = Sets.newHashSet(
 			FileMimeType.MS_EXCELO.getMimeType(),
-			FileMimeType.MS_EXCELX.getMimeType()
+			FileMimeType.MS_EXCELX.getMimeType(),
+			FileMimeType.MS_EXCEL2.getMimeType(),
+			FileMimeType.MS_EXCEL.getMimeType()
 	);
 	
 	public static final Set<String> VALID_MIME_TYPES = Sets.union(VALID_CSV_MIME_TYPES, VALID_EXCEL_MIME_TYPES);

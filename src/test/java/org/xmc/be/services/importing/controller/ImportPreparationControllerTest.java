@@ -137,10 +137,10 @@ class ImportPreparationControllerTest extends IntegrationTest {
 				cashAccountTransactionImportLineMapper,
 				cashAccountTransactionImportLineValidator);
 		
-		Assertions.assertEquals(3, result.getErrors().size());
-		Assertions.assertEquals(3, result.getInvalidTransactionCount());
-		Assertions.assertEquals(231, result.getValidTransactionCount());
-		Assertions.assertEquals(231, result.getSuccessfullyReadLines().size());
+		Assertions.assertEquals(2, result.getErrors().size());
+		Assertions.assertEquals(2, result.getInvalidTransactionCount());
+		Assertions.assertEquals(232, result.getValidTransactionCount());
+		Assertions.assertEquals(232, result.getSuccessfullyReadLines().size());
 		
 		Assertions.assertEquals("Einnahmen", result.getSuccessfullyReadLines().get(2).getCategory().getName());
 		Assertions.assertNotNull(result.getSuccessfullyReadLines().get(2).getCategory().getId());
@@ -150,22 +150,19 @@ class ImportPreparationControllerTest extends IntegrationTest {
 		Assertions.assertEquals(1478.42, result.getSuccessfullyReadLines().get(2).getValue().doubleValue(), 0);
 		Assertions.assertEquals(LocalDate.of(2020, Month.AUGUST, 26), result.getSuccessfullyReadLines().get(2).getValutaDate());
 		
-		Assertions.assertEquals("Sparen und Anlegen", result.getSuccessfullyReadLines().get(230).getCategory().getName());
-		Assertions.assertNotNull(result.getSuccessfullyReadLines().get(230).getCategory().getId());
-		Assertions.assertEquals("Lastschrift", result.getSuccessfullyReadLines().get(230).getDescription());
-		Assertions.assertEquals("Fränkische BSK Hamburch", result.getSuccessfullyReadLines().get(230).getReference());
-		Assertions.assertEquals("Fränkische BSK Hamburch Bausparvertrag 6452290601 S parrate 100,00 EUR", result.getSuccessfullyReadLines().get(230).getUsage());
-		Assertions.assertEquals(-100.0, result.getSuccessfullyReadLines().get(230).getValue().doubleValue(), 0);
-		Assertions.assertEquals(LocalDate.of(2019, Month.AUGUST, 30), result.getSuccessfullyReadLines().get(230).getValutaDate());
+		Assertions.assertEquals("Sparen und Anlegen", result.getSuccessfullyReadLines().get(231).getCategory().getName());
+		Assertions.assertNotNull(result.getSuccessfullyReadLines().get(231).getCategory().getId());
+		Assertions.assertEquals("Lastschrift", result.getSuccessfullyReadLines().get(231).getDescription());
+		Assertions.assertEquals("Fränkische BSK Hamburch", result.getSuccessfullyReadLines().get(231).getReference());
+		Assertions.assertEquals("Fränkische BSK Hamburch Bausparvertrag 6452290601 S parrate 100,00 EUR", result.getSuccessfullyReadLines().get(231).getUsage());
+		Assertions.assertEquals(-100.0, result.getSuccessfullyReadLines().get(231).getValue().doubleValue(), 0);
+		Assertions.assertEquals(LocalDate.of(2019, Month.AUGUST, 30), result.getSuccessfullyReadLines().get(231).getValutaDate());
 		
 		Assertions.assertEquals(10, result.getErrors().get(0).getLine());
 		Assertions.assertEquals("Wert in Spalte 'Valuta-Datum' darf nicht leer/ungültig sein.", result.getErrors().get(0).getDescription());
 		
 		Assertions.assertEquals(16, result.getErrors().get(1).getLine());
 		Assertions.assertEquals("Wert in Spalte 'Wert' darf nicht leer/ungültig sein.", result.getErrors().get(1).getDescription());
-		
-		Assertions.assertEquals(25, result.getErrors().get(2).getLine());
-		Assertions.assertEquals("Wert in Spalte 'Verwendungszweck' darf nicht leer/ungültig sein.", result.getErrors().get(2).getDescription());
 	}
 	
 	private void prepareCategories() {

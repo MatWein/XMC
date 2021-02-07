@@ -13,6 +13,7 @@ public enum FileMimeType {
 	MS_WORD("doc", "application/msword"),
 	MS_WORDX("docx", "application/msword"),
 	MS_EXCEL("xls", "application/excel"),
+	MS_EXCEL2("xls", "application/vnd.ms-excel"),
 	MS_EXCELX("xlsx", "application/excel"),
 	MS_EXCELO("xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"),
 	MS_POWERPOINT("ppt", "application/mspowerpoint"),

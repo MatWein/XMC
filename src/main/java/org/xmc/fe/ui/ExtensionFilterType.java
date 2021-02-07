@@ -5,7 +5,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 public enum ExtensionFilterType {
     CSV_OR_EXCEL(new ExtensionFilter(
             MessageAdapter.getByKey(MessageAdapter.MessageKey.FILECHOOSER_CSV_EXCEL),
-            "*.csv", "*.xlsx")),
+            "*.csv", "*.xlsx", "*.xls")),
 
     IMAGES(new ExtensionFilter(
             MessageAdapter.getByKey(MessageAdapter.MessageKey.FILECHOOSER_IMAGES),

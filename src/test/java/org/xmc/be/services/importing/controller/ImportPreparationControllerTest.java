@@ -1,4 +1,4 @@
-package org.xmc.be.services.cashaccount.controller.importing;
+package org.xmc.be.services.importing.controller;
 
 import com.google.common.collect.Lists;
 import org.junit.jupiter.api.Assertions;
@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.IntegrationTest;
+import org.xmc.be.services.cashaccount.controller.importing.CashAccountTransactionImportLineMapper;
+import org.xmc.be.services.cashaccount.controller.importing.CashAccountTransactionImportLineValidator;
 import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
 import org.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransaction;
 import org.xmc.common.stubs.importing.CsvSeparator;
@@ -22,9 +24,12 @@ import java.time.Month;
 import java.util.List;
 import java.util.Locale;
 
-class CashAccountTransactionImportPreparationControllerTest extends IntegrationTest {
+class ImportPreparationControllerTest extends IntegrationTest {
 	@Autowired
-	private CashAccountTransactionImportPreparationController controller;
+	private ImportPreparationController controller;
+	
+	@Autowired private CashAccountTransactionImportLineMapper cashAccountTransactionImportLineMapper;
+	@Autowired private CashAccountTransactionImportLineValidator cashAccountTransactionImportLineValidator;
 	
 	@Mock
 	private AsyncMonitor asyncMonitor;
@@ -46,7 +51,11 @@ class CashAccountTransactionImportPreparationControllerTest extends IntegrationT
 		importData.setStartWithLine(16);
 		importData.setColmuns(createColumnMapping());
 		
-		DtoImportFileValidationResult<DtoCashAccountTransaction> result = controller.readAndValidateImportFile(asyncMonitor, importData);
+		DtoImportFileValidationResult<DtoCashAccountTransaction> result = controller.readAndValidateImportFile(
+				asyncMonitor,
+				importData,
+				cashAccountTransactionImportLineMapper,
+				cashAccountTransactionImportLineValidator);
 		
 		Assertions.assertEquals(Lists.newArrayList(), result.getErrors());
 		Assertions.assertEquals(0, result.getInvalidTransactionCount());
@@ -82,7 +91,11 @@ class CashAccountTransactionImportPreparationControllerTest extends IntegrationT
 		importData.setCsvSeparator(CsvSeparator.SEMICOLON);
 		importData.setColmuns(createColumnMapping());
 		
-		DtoImportFileValidationResult<DtoCashAccountTransaction> result = controller.readAndValidateImportFile(asyncMonitor, importData);
+		DtoImportFileValidationResult<DtoCashAccountTransaction> result = controller.readAndValidateImportFile(
+				asyncMonitor,
+				importData,
+				cashAccountTransactionImportLineMapper,
+				cashAccountTransactionImportLineValidator);
 		
 		Assertions.assertEquals(Lists.newArrayList(), result.getErrors());
 		Assertions.assertEquals(0, result.getInvalidTransactionCount());
@@ -118,7 +131,11 @@ class CashAccountTransactionImportPreparationControllerTest extends IntegrationT
 		importData.setCsvSeparator(CsvSeparator.SEMICOLON);
 		importData.setColmuns(createColumnMapping());
 		
-		DtoImportFileValidationResult<DtoCashAccountTransaction> result = controller.readAndValidateImportFile(asyncMonitor, importData);
+		DtoImportFileValidationResult<DtoCashAccountTransaction> result = controller.readAndValidateImportFile(
+				asyncMonitor,
+				importData,
+				cashAccountTransactionImportLineMapper,
+				cashAccountTransactionImportLineValidator);
 		
 		Assertions.assertEquals(3, result.getErrors().size());
 		Assertions.assertEquals(3, result.getInvalidTransactionCount());

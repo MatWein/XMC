@@ -22,9 +22,9 @@ public class DepotDeliverySaveController {
 		this.dtoDepotDeliveryToDepotDeliveryMapper = dtoDepotDeliveryToDepotDeliveryMapper;
 	}
 	
-	public void saveOrUpdate(Depot depot, DtoDepotDelivery dtoDepotDelivery) {
+	public DepotDelivery saveOrUpdate(Depot depot, DtoDepotDelivery dtoDepotDelivery) {
 		DepotDelivery depotDelivery = createOrUpdateDepotDelivery(dtoDepotDelivery, depot);
-		depotDeliveryJpaRepository.save(depotDelivery);
+		return depotDeliveryJpaRepository.save(depotDelivery);
 	}
 	
 	private DepotDelivery createOrUpdateDepotDelivery(DtoDepotDelivery dtoDepotDelivery, Depot depot) {

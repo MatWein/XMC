@@ -100,6 +100,7 @@ public class MessageAdapter {
 	    VALIDATION_INVALID_ENCODING("validation.invalidEncoding"),
 	    VALIDATION_STOCK_CATEGORY_ALREADY_EXISTS("validation.stockCategoryAlreadyExists"),
 	    VALIDATION_STOCK_ISIN_ALREADY_EXISTS("validation.stockIsinAlreadyExists"),
+	    VALIDATION_IMPORT_FIELD_ERROR("validation.import.field.error"),
 
         PAGING_FIRST_PAGE("paging.firstPage"),
         PAGING_BACK("paging.back"),
@@ -152,6 +153,7 @@ public class MessageAdapter {
 	    ASYNC_TASK_LOAD_DEPOT_ITEM_OVERVIEW("async.task.loadDepotItemOverview"),
 	    ASYNC_TASK_SAVE_DEPOT_ITEM("async.task.saveDepotItem"),
 	    ASYNC_TASK_DELETE_DEPOT_ITEMS("async.task.deleteDepotItems"),
+	    ASYNC_TASK_IMPORTING_DEPOT_DELIVERIES("async.task.importingDepotDeliveries"),
 
         LOGIN_TITLE("login.title"),
 
@@ -194,7 +196,6 @@ public class MessageAdapter {
         CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_COLUMN_PREFIX("cashaccount.transaction.import.dialog.step4.columns", CashAccountTransactionImportColmn.class),
         CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_COMMON_ERROR("cashaccount.transaction.import.dialog.step4.commonError"),
 	    CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_FILETYPE_ERROR("cashaccount.transaction.import.dialog.step4.fileTypeError"),
-	    CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_FIELD_ERROR("cashaccount.transaction.import.dialog.step4.fieldError"),
 
 	    IMPORTING_CSV_SEPARATOR("importing.csvSeparator", CsvSeparator.class),
 	    IMPORTING_TEMPLATE_TYPE("importing.templateType", ImportTemplateType.class),

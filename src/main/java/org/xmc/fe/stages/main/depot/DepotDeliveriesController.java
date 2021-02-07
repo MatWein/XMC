@@ -149,7 +149,7 @@ public class DepotDeliveriesController implements IAfterInit<DepotController> {
 		if (allStepsFinished) {
 			asyncProcessor.runAsyncVoid(
 					() -> {},
-					monitor -> depotDeliveryImportService.importTransactions(monitor, depotId, importData),
+					monitor -> depotDeliveryImportService.importDeliveries(monitor, depotId, importData),
 					() -> depotDeliveriesTableView.reload()
 			);
 		}

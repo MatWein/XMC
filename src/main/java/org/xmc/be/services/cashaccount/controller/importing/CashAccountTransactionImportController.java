@@ -9,6 +9,7 @@ import org.xmc.be.entities.cashaccount.CashAccountTransaction;
 import org.xmc.be.entities.importing.ImportTemplateType;
 import org.xmc.be.repositories.cashaccount.CashAccountTransactionJpaRepository;
 import org.xmc.be.services.cashaccount.controller.CashAccountTransactionSaveController;
+import org.xmc.be.services.importing.controller.ImportPreparationController;
 import org.xmc.be.services.importing.controller.ImportTemplateSaveOrUpdateController;
 import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
 import org.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransaction;
@@ -25,24 +26,30 @@ public class CashAccountTransactionImportController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CashAccountTransactionImportController.class);
 	
 	private final ImportTemplateSaveOrUpdateController importTemplateSaveOrUpdateController;
-	private final CashAccountTransactionImportPreparationController cashAccountTransactionImportPreparationController;
+	private final ImportPreparationController importPreparationController;
 	private final CashAccountTransactionSaveController cashAccountTransactionSaveController;
 	private final CashAccountTransactionJpaRepository cashAccountTransactionJpaRepository;
 	private final CashAccountTransactionFinder cashAccountTransactionFinder;
+	private final CashAccountTransactionImportLineMapper cashAccountTransactionImportLineMapper;
+	private final CashAccountTransactionImportLineValidator cashAccountTransactionImportLineValidator;
 	
 	@Autowired
 	public CashAccountTransactionImportController(
 			ImportTemplateSaveOrUpdateController importTemplateSaveOrUpdateController,
-			CashAccountTransactionImportPreparationController cashAccountTransactionImportPreparationController,
+			ImportPreparationController importPreparationController,
 			CashAccountTransactionSaveController cashAccountTransactionSaveController,
 			CashAccountTransactionJpaRepository cashAccountTransactionJpaRepository,
-			CashAccountTransactionFinder cashAccountTransactionFinder) {
+			CashAccountTransactionFinder cashAccountTransactionFinder,
+			CashAccountTransactionImportLineMapper cashAccountTransactionImportLineMapper,
+			CashAccountTransactionImportLineValidator cashAccountTransactionImportLineValidator) {
 		
 		this.importTemplateSaveOrUpdateController = importTemplateSaveOrUpdateController;
-		this.cashAccountTransactionImportPreparationController = cashAccountTransactionImportPreparationController;
+		this.importPreparationController = importPreparationController;
 		this.cashAccountTransactionSaveController = cashAccountTransactionSaveController;
 		this.cashAccountTransactionJpaRepository = cashAccountTransactionJpaRepository;
 		this.cashAccountTransactionFinder = cashAccountTransactionFinder;
+		this.cashAccountTransactionImportLineMapper = cashAccountTransactionImportLineMapper;
+		this.cashAccountTransactionImportLineValidator = cashAccountTransactionImportLineValidator;
 	}
 	
 	public void importTransactions(AsyncMonitor monitor, CashAccount cashAccount, DtoImportData<CashAccountTransactionImportColmn> importData) throws Exception {
@@ -58,7 +65,11 @@ public class CashAccountTransactionImportController {
 					importData.getEncoding());
 		}
 		
-		var fileValidationResult = cashAccountTransactionImportPreparationController.readAndValidateWithoutErrorHandling(monitor, importData);
+		var fileValidationResult = importPreparationController.readAndValidateWithoutErrorHandling(
+				monitor,
+				importData,
+				cashAccountTransactionImportLineMapper,
+				cashAccountTransactionImportLineValidator);
 		
 		int processItemCount = fileValidationResult.getSuccessfullyReadLines().size();
 		int processedItems = 0;

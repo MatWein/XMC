@@ -5,8 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.xmc.be.services.cashaccount.controller.importing.CashAccountTransactionImportPreparationController;
-import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
 import org.xmc.common.stubs.importing.DtoImportData;
 
 import java.io.IOException;
@@ -31,13 +29,13 @@ public class RawImportFileReader {
 	}
 	
 	public List<List<String>> read(
-			DtoImportData<CashAccountTransactionImportColmn> importData,
+			DtoImportData<?> importData,
 			String contentType) throws IOException, CsvValidationException {
 		
-		if (CashAccountTransactionImportPreparationController.VALID_CSV_MIME_TYPES.contains(contentType)) {
+		if (ImportPreparationController.VALID_CSV_MIME_TYPES.contains(contentType)) {
 			Charset charset = findCharsetOrDefault(importData.getEncoding());
 			return rawImportCsvFileReader.read(importData.getFileToImport(), importData.getStartWithLine(), importData.getCsvSeparator(), charset);
-		} else if (CashAccountTransactionImportPreparationController.VALID_EXCEL_MIME_TYPES.contains(contentType)) {
+		} else if (ImportPreparationController.VALID_EXCEL_MIME_TYPES.contains(contentType)) {
 			return rawImportExcelFileReader.read(importData.getFileToImport(), importData.getStartWithLine());
 		} else {
 			String message = String.format("Cannot import invalid file type: %s", contentType);

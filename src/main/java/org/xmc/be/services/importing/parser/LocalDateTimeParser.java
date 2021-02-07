@@ -7,35 +7,36 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Optional;
 
 @Component
-public class LocalDateParser {
-	private static final Logger LOGGER = LoggerFactory.getLogger(LocalDateParser.class);
+public class LocalDateTimeParser {
+	private static final Logger LOGGER = LoggerFactory.getLogger(LocalDateTimeParser.class);
 	
-	private static final LocalDate MIN_DATE = LocalDate.of(1900, Month.JANUARY, 1);
-	private static final LocalDate MAX_DATE = LocalDate.of(2100, Month.JANUARY, 1);
+	private static final LocalDateTime MIN_DATE = LocalDateTime.of(1900, Month.JANUARY, 1, 0, 0, 0);
+	private static final LocalDateTime MAX_DATE = LocalDateTime.of(2100, Month.JANUARY, 1, 0, 0, 0);
 	
-	public LocalDate parseDateNullOnError(String value) {
+	public LocalDateTime parseDateTimeNullOnError(String value) {
 		try {
-			return parseDate(value);
+			return parseDateTime(value);
 		} catch (Throwable e) {
 			LOGGER.warn("Error on parsing local date from value '{}': {}", value, e.getMessage());
 			return null;
 		}
 	}
 	
-	public LocalDate parseDate(String value) {
+	public LocalDateTime parseDateTime(String value) {
 		if (StringUtils.isBlank(value)) {
 			return null;
 		}
 		
 		value = value.trim();
 		
-		Optional<LocalDate> result = tryParseDate(value, "dd.MM.yyyy");
+		Optional<LocalDateTime> result = tryParseDate(value, "dd.MM.yyyy");
 		if (isValidDate(result)) {
 			return result.get();
 		}
@@ -74,23 +75,23 @@ public class LocalDateParser {
 		throw new DateTimeParseException(message, value, 0);
 	}
 	
-	private boolean isValidDate(Optional<LocalDate> result) {
+	private boolean isValidDate(Optional<LocalDateTime> result) {
 		return result.isPresent()
 				&& result.get().isAfter(MIN_DATE)
 				&& result.get().isBefore(MAX_DATE);
 	}
 	
-	public Optional<LocalDate> tryParseDate(String value, String format) {
+	public Optional<LocalDateTime> tryParseDate(String value, String format) {
 		try {
-			return Optional.of(LocalDate.parse(value, DateTimeFormatter.ofPattern(format)));
+			return Optional.of(LocalDate.parse(value, DateTimeFormatter.ofPattern(format)).atTime(LocalTime.of(0, 0, 0)));
 		} catch (Throwable e) {
 			return Optional.empty();
 		}
 	}
 	
-	public Optional<LocalDate> tryParseDateTime(String value, String format) {
+	public Optional<LocalDateTime> tryParseDateTime(String value, String format) {
 		try {
-			return Optional.of(LocalDateTime.parse(value, DateTimeFormatter.ofPattern(format)).toLocalDate());
+			return Optional.of(LocalDateTime.parse(value, DateTimeFormatter.ofPattern(format)));
 		} catch (Throwable e) {
 			return Optional.empty();
 		}

@@ -1,15 +1,12 @@
-package org.xmc.be.services.cashaccount.controller.importing;
+package org.xmc.be.services.importing.controller;
 
 import com.google.common.collect.Sets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.xmc.be.services.importing.controller.RawImportFileReader;
 import org.xmc.be.services.importing.mapper.DtoImportFileValidationResultMapper;
 import org.xmc.common.FileMimeType;
-import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
-import org.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransaction;
 import org.xmc.common.stubs.importing.DtoImportData;
 import org.xmc.common.stubs.importing.DtoImportFileValidationResult;
 import org.xmc.common.stubs.importing.DtoImportFileValidationResultError;
@@ -20,13 +17,14 @@ import org.xmc.fe.ui.MessageAdapter.MessageKey;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.util.List;
 import java.util.Set;
 
 @Component
-public class CashAccountTransactionImportPreparationController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(CashAccountTransactionImportPreparationController.class);
+public class ImportPreparationController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ImportPreparationController.class);
 	
 	public static final Set<String> VALID_CSV_MIME_TYPES = Sets.newHashSet(
 			FileMimeType.CSV.getMimeType()
@@ -41,28 +39,25 @@ public class CashAccountTransactionImportPreparationController {
 	
 	private final RawImportFileReader rawImportFileReader;
 	private final DtoImportFileValidationResultMapper dtoImportFileValidationResultMapper;
-	private final CashAccountTransactionImportLineMapper cashAccountTransactionImportLineMapper;
-	private final CashAccountTransactionImportLineValidator cashAccountTransactionImportLineValidator;
 	
 	@Autowired
-	public CashAccountTransactionImportPreparationController(
+	public ImportPreparationController(
 			RawImportFileReader rawImportFileReader,
-			DtoImportFileValidationResultMapper dtoImportFileValidationResultMapper,
-			CashAccountTransactionImportLineMapper cashAccountTransactionImportLineMapper,
-			CashAccountTransactionImportLineValidator cashAccountTransactionImportLineValidator) {
+			DtoImportFileValidationResultMapper dtoImportFileValidationResultMapper) {
 		
 		this.rawImportFileReader = rawImportFileReader;
 		this.dtoImportFileValidationResultMapper = dtoImportFileValidationResultMapper;
-		this.cashAccountTransactionImportLineMapper = cashAccountTransactionImportLineMapper;
-		this.cashAccountTransactionImportLineValidator = cashAccountTransactionImportLineValidator;
 	}
 	
-	public DtoImportFileValidationResult<DtoCashAccountTransaction> readAndValidateImportFile(
+	public <RESULT_DTO_TYPE extends Serializable, IMPORT_COLUMN_ENUM extends Enum<IMPORT_COLUMN_ENUM>>
+	DtoImportFileValidationResult<RESULT_DTO_TYPE> readAndValidateImportFile(
 			AsyncMonitor monitor,
-			DtoImportData<CashAccountTransactionImportColmn> importData) {
+			DtoImportData<IMPORT_COLUMN_ENUM> importData,
+			IImportRowMapper<RESULT_DTO_TYPE, IMPORT_COLUMN_ENUM> rowMapper,
+			IImportRowValidator<RESULT_DTO_TYPE> rowValidator) {
 		
 		try {
-			return readAndValidateWithoutErrorHandling(monitor, importData);
+			return readAndValidateWithoutErrorHandling(monitor, importData, rowMapper, rowValidator);
 		} catch (ImportFileTypeException e) {
 			LOGGER.warn("Unknown error on reading import file: {}", importData.getFileToImport(), e);
 			return createGeneralErrorResult(MessageKey.CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_FILETYPE_ERROR);
@@ -72,9 +67,12 @@ public class CashAccountTransactionImportPreparationController {
 		}
 	}
 	
-	public DtoImportFileValidationResult<DtoCashAccountTransaction> readAndValidateWithoutErrorHandling(
+	public <RESULT_DTO_TYPE extends Serializable, IMPORT_COLUMN_ENUM extends Enum<IMPORT_COLUMN_ENUM>>
+	DtoImportFileValidationResult<RESULT_DTO_TYPE> readAndValidateWithoutErrorHandling(
 			AsyncMonitor monitor,
-			DtoImportData<CashAccountTransactionImportColmn> importData) throws Exception {
+			DtoImportData<IMPORT_COLUMN_ENUM> importData,
+			IImportRowMapper<RESULT_DTO_TYPE, IMPORT_COLUMN_ENUM> rowMapper,
+			IImportRowValidator<RESULT_DTO_TYPE> rowValidator) throws Exception {
 		
 		int processItemCount = 3;
 		int processedItems = 0;
@@ -89,11 +87,11 @@ public class CashAccountTransactionImportPreparationController {
 		monitor.setProgressByItemCount(++processedItems, processItemCount);
 		
 		monitor.setStatusText(MessageKey.ASYNC_TASK_MAP_IMPORT_FILE);
-		DtoImportFileValidationResult<DtoCashAccountTransaction> result = dtoImportFileValidationResultMapper.map(
+		DtoImportFileValidationResult<RESULT_DTO_TYPE> result = dtoImportFileValidationResultMapper.map(
 				rawFileContent,
 				importData.getColmuns(),
-				cashAccountTransactionImportLineMapper,
-				cashAccountTransactionImportLineValidator);
+				rowMapper,
+				rowValidator);
 		monitor.setProgressByItemCount(++processedItems, processItemCount);
 		
 		return result;
@@ -111,8 +109,9 @@ public class CashAccountTransactionImportPreparationController {
 		}
 	}
 	
-	private DtoImportFileValidationResult<DtoCashAccountTransaction> createGeneralErrorResult(MessageKey messageKey, Object... args) {
-		var result = new DtoImportFileValidationResult<DtoCashAccountTransaction>();
+	private <RESULT_DTO_TYPE extends Serializable>
+	DtoImportFileValidationResult<RESULT_DTO_TYPE> createGeneralErrorResult(MessageKey messageKey, Object... args) {
+		var result = new DtoImportFileValidationResult<RESULT_DTO_TYPE>();
 		
 		result.getErrors().add(new DtoImportFileValidationResultError(0, MessageAdapter.getByKey(messageKey, args)));
 		

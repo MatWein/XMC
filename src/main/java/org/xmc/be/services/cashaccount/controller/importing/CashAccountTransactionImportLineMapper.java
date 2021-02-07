@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.xmc.be.repositories.category.CategoryRepository;
+import org.xmc.be.services.importing.controller.IImportRowMapper;
 import org.xmc.be.services.importing.parser.BigDecimalParser;
 import org.xmc.be.services.importing.parser.LocalDateParser;
 import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
@@ -16,14 +17,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiFunction;
 
 @Component
-public class CashAccountTransactionImportLineMapper implements BiFunction<
-		List<String>,
-		List<DtoColumnMapping<CashAccountTransactionImportColmn>>,
-		DtoCashAccountTransaction> {
-	
+public class CashAccountTransactionImportLineMapper implements IImportRowMapper<DtoCashAccountTransaction, CashAccountTransactionImportColmn> {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CashAccountTransactionImportLineMapper.class);
 	
 	private final LocalDateParser localDateParser;

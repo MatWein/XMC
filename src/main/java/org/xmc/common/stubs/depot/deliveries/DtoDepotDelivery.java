@@ -13,6 +13,10 @@ public class DtoDepotDelivery implements Serializable {
 	public DtoDepotDelivery() {
 	}
 	
+	public DtoDepotDelivery(LocalDateTime deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
+	
 	@QueryProjection
 	public DtoDepotDelivery(Long id, LocalDateTime deliveryDate) {
 		this.id = id;

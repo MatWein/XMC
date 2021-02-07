@@ -1,7 +1,6 @@
 package org.xmc.be.services.cashaccount.controller.importing;
 
 import com.google.common.collect.Lists;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.xmc.be.services.importing.controller.IImportRowValidator;
 import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
@@ -17,10 +16,6 @@ public class CashAccountTransactionImportLineValidator implements IImportRowVali
 	@Override
 	public List<DtoImportFileValidationResultError> apply(DtoCashAccountTransaction transaction, Integer lineIndex) {
 		List<DtoImportFileValidationResultError> errors = Lists.newArrayList();
-		
-		if (StringUtils.isBlank(transaction.getUsage())) {
-			errors.add(createValueEmptyError(lineIndex, CashAccountTransactionImportColmn.USAGE));
-		}
 		
 		if (transaction.getValutaDate() == null) {
 			errors.add(createValueEmptyError(lineIndex, CashAccountTransactionImportColmn.VALUTA_DATE));

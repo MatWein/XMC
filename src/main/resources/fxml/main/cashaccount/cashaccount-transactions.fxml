@@ -62,7 +62,7 @@
             <ExtendedTableColumn editable="false" text="%main.cashaccounts.transactions.overview.table.column.value"
                                  sortField="VALUE">
                 <cellValueFactory>
-                    <NestedPropertyValueFactory property="value" />
+                    <NestedPropertyValueFactory property="valueWithCurrency" />
                 </cellValueFactory>
             </ExtendedTableColumn>
             <ExtendedTableColumn editable="false" text="%main.cashaccounts.transactions.overview.table.column.description"

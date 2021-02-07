@@ -10,6 +10,7 @@ import org.xmc.be.entities.depot.Depot;
 import org.xmc.be.entities.depot.DepotDelivery;
 import org.xmc.be.entities.importing.ImportTemplateType;
 import org.xmc.be.repositories.depot.DepotDeliveryJpaRepository;
+import org.xmc.be.services.depot.controller.DeliverySaldoUpdatingController;
 import org.xmc.be.services.depot.controller.DepotDeliverySaveController;
 import org.xmc.be.services.depot.controller.DepotItemSaveController;
 import org.xmc.be.services.depot.mapper.DtoDepotDeliveryImportRowToDtoDepotItemMapper;
@@ -43,6 +44,7 @@ public class DepotDeliveryImportController {
 	private final DepotItemSaveController depotItemSaveController;
 	private final DepotDeliveryFinder depotDeliveryFinder;
 	private final DtoDepotDeliveryImportRowToDtoDepotItemMapper dtoDepotDeliveryImportRowToDtoDepotItemMapper;
+	private final DeliverySaldoUpdatingController deliverySaldoUpdatingController;
 	
 	@Autowired
 	public DepotDeliveryImportController(
@@ -54,7 +56,8 @@ public class DepotDeliveryImportController {
 			DepotDeliverySaveController depotDeliverySaveController,
 			DepotItemSaveController depotItemSaveController,
 			DepotDeliveryFinder depotDeliveryFinder,
-			DtoDepotDeliveryImportRowToDtoDepotItemMapper dtoDepotDeliveryImportRowToDtoDepotItemMapper) {
+			DtoDepotDeliveryImportRowToDtoDepotItemMapper dtoDepotDeliveryImportRowToDtoDepotItemMapper,
+			DeliverySaldoUpdatingController deliverySaldoUpdatingController) {
 		
 		this.importTemplateSaveOrUpdateController = importTemplateSaveOrUpdateController;
 		this.importPreparationController = importPreparationController;
@@ -65,6 +68,7 @@ public class DepotDeliveryImportController {
 		this.depotItemSaveController = depotItemSaveController;
 		this.depotDeliveryFinder = depotDeliveryFinder;
 		this.dtoDepotDeliveryImportRowToDtoDepotItemMapper = dtoDepotDeliveryImportRowToDtoDepotItemMapper;
+		this.deliverySaldoUpdatingController = deliverySaldoUpdatingController;
 	}
 	
 	public void importTransactions(AsyncMonitor monitor, Depot depot, DtoImportData<DepotDeliveryImportColmn> importData) {
@@ -127,5 +131,7 @@ public class DepotDeliveryImportController {
 		for (DtoDepotDeliveryImportRow dtoDepotDeliveryImportRow : depotItems) {
 			depotItemSaveController.saveOrUpdate(depotDelivery, dtoDepotDeliveryImportRowToDtoDepotItemMapper.map(dtoDepotDeliveryImportRow));
 		}
+		
+		deliverySaldoUpdatingController.updateDeliverySaldo(depotDelivery);
 	}
 }

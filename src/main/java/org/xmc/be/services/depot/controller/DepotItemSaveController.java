@@ -24,7 +24,7 @@ public class DepotItemSaveController {
 	
 	public void saveOrUpdate(DepotDelivery depotDelivery, DtoDepotItem dtoDepotItem) {
 		DepotItem depotItem = createOrUpdateDepotItem(dtoDepotItem, depotDelivery);
-		depotItemJpaRepository.save(depotItem);
+		depotDelivery.getDepotItems().add(depotItemJpaRepository.save(depotItem));
 	}
 	
 	private DepotItem createOrUpdateDepotItem(DtoDepotItem dtoDepotItem, DepotDelivery depotDelivery) {

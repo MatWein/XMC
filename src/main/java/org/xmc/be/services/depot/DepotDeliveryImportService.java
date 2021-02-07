@@ -63,6 +63,6 @@ public class DepotDeliveryImportService {
 		LOGGER.info("Importing depot delivery import file: {}", importData);
 		Depot depot = depotJpaRepository.getOne(depotId);
 		
-		depotDeliveryImportController.importTransactions(monitor, depot, importData);
+		depotDeliveryImportController.importDeliveries(monitor, depot, importData);
 	}
 }

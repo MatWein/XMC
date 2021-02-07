@@ -13,6 +13,7 @@ import org.xmc.be.repositories.depot.DepotDeliveryJpaRepository;
 import org.xmc.be.services.depot.controller.DeliverySaldoUpdatingController;
 import org.xmc.be.services.depot.controller.DepotDeliverySaveController;
 import org.xmc.be.services.depot.controller.DepotItemSaveController;
+import org.xmc.be.services.depot.controller.LastDeliveryUpdatingController;
 import org.xmc.be.services.depot.mapper.DtoDepotDeliveryImportRowToDtoDepotItemMapper;
 import org.xmc.be.services.importing.controller.ImportPreparationController;
 import org.xmc.be.services.importing.controller.ImportTemplateSaveOrUpdateController;
@@ -45,6 +46,7 @@ public class DepotDeliveryImportController {
 	private final DepotDeliveryFinder depotDeliveryFinder;
 	private final DtoDepotDeliveryImportRowToDtoDepotItemMapper dtoDepotDeliveryImportRowToDtoDepotItemMapper;
 	private final DeliverySaldoUpdatingController deliverySaldoUpdatingController;
+	private final LastDeliveryUpdatingController lastDeliveryUpdatingController;
 	
 	@Autowired
 	public DepotDeliveryImportController(
@@ -57,7 +59,8 @@ public class DepotDeliveryImportController {
 			DepotItemSaveController depotItemSaveController,
 			DepotDeliveryFinder depotDeliveryFinder,
 			DtoDepotDeliveryImportRowToDtoDepotItemMapper dtoDepotDeliveryImportRowToDtoDepotItemMapper,
-			DeliverySaldoUpdatingController deliverySaldoUpdatingController) {
+			DeliverySaldoUpdatingController deliverySaldoUpdatingController,
+			LastDeliveryUpdatingController lastDeliveryUpdatingController) {
 		
 		this.importTemplateSaveOrUpdateController = importTemplateSaveOrUpdateController;
 		this.importPreparationController = importPreparationController;
@@ -69,9 +72,10 @@ public class DepotDeliveryImportController {
 		this.depotDeliveryFinder = depotDeliveryFinder;
 		this.dtoDepotDeliveryImportRowToDtoDepotItemMapper = dtoDepotDeliveryImportRowToDtoDepotItemMapper;
 		this.deliverySaldoUpdatingController = deliverySaldoUpdatingController;
+		this.lastDeliveryUpdatingController = lastDeliveryUpdatingController;
 	}
 	
-	public void importTransactions(AsyncMonitor monitor, Depot depot, DtoImportData<DepotDeliveryImportColmn> importData) {
+	public void importDeliveries(AsyncMonitor monitor, Depot depot, DtoImportData<DepotDeliveryImportColmn> importData) {
 		if (importData.isSaveTemplate()) {
 			monitor.setStatusText(MessageKey.ASYNC_TASK_SAVE_IMPORT_TEMPLATE);
 			importTemplateSaveOrUpdateController.saveTemplate(
@@ -123,6 +127,8 @@ public class DepotDeliveryImportController {
 			processedItems += depotItems.size();
 			monitor.setProgressByItemCount(processedItems, processItemCount);
 		}
+		
+		lastDeliveryUpdatingController.updateLastDeliveryOfDepot(depot);
 	}
 	
 	private void saveNewDeliveryWithItems(Depot depot, Collection<DtoDepotDeliveryImportRow> depotItems, LocalDateTime deliveryDate) {

@@ -32,7 +32,7 @@ public class DepotTransactionsController implements IAfterInit<DepotController> 
 	
 	@FXML private Button editButton;
 	@FXML private Button deleteButton;
-	@FXML private ExtendedTable<DtoDepotTransactionOverview, DepotTransactionOverviewFields> tableView;
+	@FXML private ExtendedTable<DtoDepotTransactionOverview, DepotTransactionOverviewFields> depotTransactionsTableView;
 	
 	private DepotController parentController;
 	
@@ -49,16 +49,16 @@ public class DepotTransactionsController implements IAfterInit<DepotController> 
 	
 	@FXML
 	public void initialize() {
-		BooleanBinding noTableItemSelected = tableView.getSelectionModel().selectedItemProperty().isNull();
+		BooleanBinding noTableItemSelected = depotTransactionsTableView.getSelectionModel().selectedItemProperty().isNull();
 		
 		SimpleBooleanProperty multipleTableItemsSelected = new SimpleBooleanProperty(false);
-		tableView.getSelectionModel().getSelectedItems().addListener((ListChangeListener<DtoDepotTransactionOverview>)
+		depotTransactionsTableView.getSelectionModel().getSelectedItems().addListener((ListChangeListener<DtoDepotTransactionOverview>)
 				change -> multipleTableItemsSelected.set(change.getList().size() > 1));
 		
 		editButton.disableProperty().bind(noTableItemSelected.or(multipleTableItemsSelected));
 		deleteButton.disableProperty().bind(noTableItemSelected);
 		
-		tableView.setDoubleClickConsumer(dtoDepotTransactionOverview -> onEditTransaction());
+		depotTransactionsTableView.setDoubleClickConsumer(dtoDepotTransactionOverview -> onEditTransaction());
 	}
 	
 	@Override
@@ -66,7 +66,7 @@ public class DepotTransactionsController implements IAfterInit<DepotController> 
 		this.parentController = parentController;
 		
 		long depotId = parentController.getSelectedDepot().getId();
-		tableView.setDataProvider((monitor, pagingParams) -> depotTransactionService.loadOverview(monitor, depotId, pagingParams));
+		depotTransactionsTableView.setDataProvider((monitor, pagingParams) -> depotTransactionService.loadOverview(monitor, depotId, pagingParams));
 	}
 	
 	@FXML
@@ -76,13 +76,13 @@ public class DepotTransactionsController implements IAfterInit<DepotController> 
 	
 	@FXML
 	public void onEditTransaction() {
-		var selectedDepotTransaction = tableView.getSelectionModel().getSelectedItem();
+		var selectedDepotTransaction = depotTransactionsTableView.getSelectionModel().getSelectedItem();
 		createOrEditDepotTransaction(selectedDepotTransaction);
 	}
 	
 	@FXML
 	public void onDeleteTransaction() {
-		var selectedDepotTransactionIds = tableView.getSelectionModel().getSelectedItems()
+		var selectedDepotTransactionIds = depotTransactionsTableView.getSelectionModel().getSelectedItems()
 				.stream()
 				.map(DtoDepotTransactionOverview::getId)
 				.collect(Collectors.toSet());
@@ -91,7 +91,7 @@ public class DepotTransactionsController implements IAfterInit<DepotController> 
 			asyncProcessor.runAsyncVoid(
 					() -> {},
 					monitor -> depotTransactionService.markAsDeleted(monitor, selectedDepotTransactionIds),
-					() -> tableView.reload()
+					() -> depotTransactionsTableView.reload()
 			);
 		}
 	}
@@ -117,7 +117,7 @@ public class DepotTransactionsController implements IAfterInit<DepotController> 
 			asyncProcessor.runAsyncVoid(
 					() -> {},
 					monitor -> depotTransactionService.saveOrUpdate(monitor, depotId, dtoDepotTransaction.get()),
-					() -> tableView.reload()
+					() -> depotTransactionsTableView.reload()
 			);
 		}
 	}

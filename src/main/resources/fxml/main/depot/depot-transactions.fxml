@@ -32,7 +32,7 @@
 		</Button>
 	</ToolBar>
 
-	<ExtendedTable VBox.vgrow="ALWAYS" fx:id="tableView"
+	<ExtendedTable VBox.vgrow="ALWAYS" fx:id="depotTransactionsTableView"
 				   fieldEnumType="org.xmc.common.stubs.depot.transactions.DepotTransactionOverviewFields"
 				   selectionMode="MULTIPLE">
 		<columns>
@@ -46,6 +46,18 @@
 								 sortField="ISIN">
 				<cellValueFactory>
 					<NestedPropertyValueFactory property="isin"/>
+				</cellValueFactory>
+			</ExtendedTableColumn>
+			<ExtendedTableColumn editable="false" text="%main.depots.transactions.overview.table.column.wkn"
+								 sortField="WKN">
+				<cellValueFactory>
+					<NestedPropertyValueFactory property="wkn"/>
+				</cellValueFactory>
+			</ExtendedTableColumn>
+			<ExtendedTableColumn editable="false" text="%main.depots.transactions.overview.table.column.name"
+								 sortField="NAME">
+				<cellValueFactory>
+					<NestedPropertyValueFactory property="name"/>
 				</cellValueFactory>
 			</ExtendedTableColumn>
 			<ExtendedTableColumn editable="false" text="%main.depots.transactions.overview.table.column.amount"

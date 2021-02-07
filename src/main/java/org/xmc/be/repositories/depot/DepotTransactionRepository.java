@@ -14,7 +14,9 @@ import org.xmc.common.stubs.PagingParams;
 import org.xmc.common.stubs.depot.transactions.DepotTransactionOverviewFields;
 import org.xmc.common.stubs.depot.transactions.DtoDepotTransactionOverview;
 
+import static org.xmc.be.entities.depot.QDepotItem.depotItem;
 import static org.xmc.be.entities.depot.QDepotTransaction.depotTransaction;
+import static org.xmc.be.entities.depot.QStock.stock;
 
 @Repository
 public class DepotTransactionRepository {
@@ -33,8 +35,9 @@ public class DepotTransactionRepository {
 						depotTransaction.id, depotTransaction.isin, depotTransaction.valutaDate,
 						depotTransaction.amount, depotTransaction.course, depotTransaction.value,
 						depotTransaction.description, depotTransaction.currency,
-						depotTransaction.creationDate))
+						depotTransaction.creationDate, stock.wkn, stock.name))
 				.from(depotTransaction)
+				.leftJoin(stock).on(stock.isin.eq(depotItem.isin))
 				.where(predicate)
 				.fetchResults();
 	}

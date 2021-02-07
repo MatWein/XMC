@@ -4,10 +4,13 @@ import com.querydsl.core.types.Expression;
 import org.xmc.common.stubs.IPagingField;
 
 import static org.xmc.be.entities.depot.QDepotTransaction.depotTransaction;
+import static org.xmc.be.entities.depot.QStock.stock;
 
 public enum DepotTransactionOverviewFields implements IPagingField {
 	VALUTA_DATE(depotTransaction.valutaDate),
 	ISIN(depotTransaction.isin),
+	WKN(stock.wkn),
+	NAME(stock.name),
 	AMOUNT(depotTransaction.amount),
 	COURSE(depotTransaction.course),
 	VALUE(depotTransaction.value),

@@ -11,6 +11,7 @@ import org.xmc.common.stubs.stocks.DtoStock;
 import org.xmc.common.stubs.stocks.DtoStockOverview;
 import org.xmc.common.stubs.stocks.StockOverviewFields;
 import org.xmc.fe.async.AsyncProcessor;
+import org.xmc.fe.stages.main.MainController;
 import org.xmc.fe.stages.main.administration.stocks.mapper.StockEditDialogMapper;
 import org.xmc.fe.ui.CustomDialogBuilder;
 import org.xmc.fe.ui.DialogHelper;
@@ -74,7 +75,7 @@ public class StockController {
 			asyncProcessor.runAsyncVoid(
 					() -> {},
 					monitor -> stockService.deleteStock(monitor, selectedStock.getId()),
-					() -> tableView.reload()
+					this::reloadTables
 			);
 		}
 	}
@@ -95,8 +96,22 @@ public class StockController {
 			asyncProcessor.runAsyncVoid(
 					() -> {},
 					monitor -> stockService.saveOrUpdate(monitor, dtoStock.get()),
-					() -> tableView.reload()
+					this::reloadTables
 			);
+		}
+	}
+	
+	private void reloadTables() {
+		tableView.reload();
+		
+		ExtendedTable<?, ?> depotItemsTableView = (ExtendedTable<?, ?>) MainController.mainWindow.getScene().getRoot().lookup("#depotItemsTableView");
+		if (depotItemsTableView != null) {
+			depotItemsTableView.reload();
+		}
+		
+		ExtendedTable<?, ?> depotTransactionsTableView = (ExtendedTable<?, ?>) MainController.mainWindow.getScene().getRoot().lookup("#depotTransactionsTableView");
+		if (depotTransactionsTableView != null) {
+			depotTransactionsTableView.reload();
 		}
 	}
 }

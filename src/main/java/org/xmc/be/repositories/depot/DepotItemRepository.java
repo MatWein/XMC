@@ -15,6 +15,7 @@ import org.xmc.common.stubs.depot.deliveries.DepotItemOverviewFields;
 import org.xmc.common.stubs.depot.deliveries.DtoDepotItemOverview;
 
 import static org.xmc.be.entities.depot.QDepotItem.depotItem;
+import static org.xmc.be.entities.depot.QStock.stock;
 
 @Repository
 public class DepotItemRepository {
@@ -31,8 +32,10 @@ public class DepotItemRepository {
 		return queryUtil.createPagedQuery(pagingParams, DepotItemOverviewFields.ISIN, Order.ASC)
 				.select(Projections.constructor(DtoDepotItemOverview.class,
 						depotItem.id, depotItem.isin, depotItem.amount, depotItem.course,
-						depotItem.value, depotItem.currency, depotItem.creationDate))
+						depotItem.value, depotItem.currency, depotItem.creationDate,
+						stock.wkn, stock.name))
 				.from(depotItem)
+				.leftJoin(stock).on(stock.isin.eq(depotItem.isin))
 				.where(predicate)
 				.fetchResults();
 	}

@@ -43,8 +43,11 @@ public class DepotItemRepository {
 	private Predicate calculatePredicate(DepotDelivery depotDeliveryEntity, PagingParams<DepotItemOverviewFields> pagingParams) {
 		String filter = "%" + StringUtils.defaultString(pagingParams.getFilter()) + "%";
 		
-		return ExpressionUtils.allOf(
-				depotItem.isin.likeIgnoreCase(filter),
+		Predicate predicate = depotItem.isin.likeIgnoreCase(filter)
+				.or(stock.wkn.likeIgnoreCase(filter))
+				.or(stock.name.likeIgnoreCase(filter));
+		
+		return ExpressionUtils.allOf(predicate,
 				depotItem.deletionDate.isNull(),
 				depotItem.delivery().eq(depotDeliveryEntity));
 	}

@@ -46,12 +46,12 @@ public class DepotTransactionRepository {
 		String filter = "%" + StringUtils.defaultString(pagingParams.getFilter()) + "%";
 		
 		Predicate predicate = depotTransaction.isin.likeIgnoreCase(filter)
-				.or(depotTransaction.description.likeIgnoreCase(filter));
+				.or(depotTransaction.description.likeIgnoreCase(filter))
+				.or(stock.wkn.likeIgnoreCase(filter))
+				.or(stock.name.likeIgnoreCase(filter));
 		
-		predicate = ExpressionUtils.allOf(predicate,
+		return ExpressionUtils.allOf(predicate,
 				depotTransaction.deletionDate.isNull(),
 				depotTransaction.depot().eq(depot));
-		
-		return predicate;
 	}
 }

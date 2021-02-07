@@ -3,46 +3,452 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-	<changeSet id="2021-01-26-drop-stock-id-fk" author="matthias.weinert">
-		<dropColumn tableName="DEPOT_ITEMS" columnName="STOCK_ID" />
-		<dropColumn tableName="DEPOT_TRANSACTIONS" columnName="STOCK_ID" />
-	</changeSet>
-
-	<changeSet id="2021-01-26-change-isin-length" author="matthias.weinert">
-		<dropColumn tableName="STOCKS" columnName="ISIN" />
-		<dropColumn tableName="STOCKS" columnName="WKN" />
-		<addColumn tableName="STOCKS">
-			<column name="ISIN" type="varchar(15)" defaultValue="UNKNOWN_ISIN">
+	<changeSet id="2021-02-07-create_user_table" author="matthias.weinert">
+		<createTable tableName="USERS">
+			<column name="ID" autoIncrement="true" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="timestamp">
 				<constraints nullable="false" />
 			</column>
-			<column name="WKN" type="varchar(10)" />
-		</addColumn>
+			<column name="USERNAME" type="varchar(255)">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="DISPLAY_NAME" type="varchar(255)">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="LAST_LOGIN" type="timestamp" />
+		</createTable>
 	</changeSet>
 
-	<changeSet id="2021-01-26-set-isin-unique" author="matthias.weinert">
-		<addUniqueConstraint tableName="STOCKS" columnNames="ISIN" />
-	</changeSet>
-
-	<changeSet id="2021-01-26-add-isin" author="matthias.weinert">
-		<addColumn tableName="DEPOT_ITEMS">
-			<column name="ISIN" type="varchar(15)" defaultValue="UNKNOWN_ISIN">
+	<changeSet id="2021-02-07-create_servicecalllog_table" author="matthias.weinert">
+		<createTable tableName="SERVICE_CALL_LOGS">
+			<column name="ID" autoIncrement="true" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="timestamp">
 				<constraints nullable="false" />
 			</column>
-		</addColumn>
-
-		<addColumn tableName="DEPOT_TRANSACTIONS">
-			<column name="ISIN" type="varchar(15)" defaultValue="UNKNOWN_ISIN">
+			<column name="SERVICE_CLASS" type="varchar(255)">
 				<constraints nullable="false" />
 			</column>
-		</addColumn>
+			<column name="SERVICE_METHOD" type="varchar(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="RETURN_VALUE" type="varchar(1000)" />
+			<column name="PARAMETER_VALUES" type="varchar(1000)" />
+			<column name="ERROR" type="varchar(10000)" />
+			<column name="CALL_DURATION" type="bigint">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
 	</changeSet>
 
-	<changeSet id="2021-01-31-add-deletiondate" author="matthias.weinert">
-		<addColumn tableName="DEPOT_ITEMS">
+	<changeSet id="2021-02-07-create_binary_data_table" author="matthias.weinert">
+		<createTable tableName="BINARY_DATA">
+			<column name="ID" autoIncrement="true" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="DESCRIPTION" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="HASH" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="SIZE" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="RAW_DATA" type="blob">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="2021-02-07-create_banks_table" author="matthias.weinert">
+		<createTable tableName="BANKS">
+			<column name="ID" autoIncrement="true" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
 			<column name="DELETION_DATE" type="timestamp">
 				<constraints nullable="true" />
 			</column>
+			<column name="NAME" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="BIC" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="BLZ" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="LOGO_ID" type="bigint">
+				<constraints nullable="true" foreignKeyName="FK_BANK_BINARY_DATA_LOGO" references="BINARY_DATA(ID)"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="2021-02-07-create_cashaccounts_table" author="matthias.weinert">
+		<createTable tableName="CASH_ACCOUNTS">
+			<column name="ID" autoIncrement="true" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="DELETION_DATE" type="timestamp">
+				<constraints nullable="true" />
+			</column>
+			<column name="BANK_ID" type="bigint">
+				<constraints nullable="false" foreignKeyName="FK_CASHACCOUNT_BANK" references="BANKS(ID)"/>
+			</column>
+			<column name="IBAN" type="varchar(50)">
+				<constraints nullable="true"/>
+			</column>
+			<column name="NUMBER" type="varchar(255)">
+				<constraints nullable="true"/>
+			</column>
+			<column name="NAME" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="CURRENCY" type="varchar(5)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="LAST_SALDO" type="double">
+				<constraints nullable="true"/>
+			</column>
+			<column name="LAST_SALDO_DATE" type="date">
+				<constraints nullable="true"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="2021-02-07-create_categories_table" author="matthias.weinert">
+		<createTable tableName="CATEGORIES">
+			<column name="ID" autoIncrement="true" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="DELETION_DATE" type="timestamp">
+				<constraints nullable="true" />
+			</column>
+			<column name="NAME" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="ICON_ID" type="bigint">
+				<constraints nullable="true" foreignKeyName="FK_CATEGORY_BINARY_DATA_ICON" references="BINARY_DATA(ID)"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="2021-02-07-create_cashaccount_transaction_table" author="matthias.weinert">
+		<createTable tableName="CASH_ACCOUNT_TRANSACTIONS">
+			<column name="ID" autoIncrement="true" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="DELETION_DATE" type="timestamp">
+				<constraints nullable="true" />
+			</column>
+			<column name="CASH_ACCOUNT_ID" type="bigint">
+				<constraints nullable="false" foreignKeyName="FK_CASH_ACCOUNT_TRANSACTION_CASHACCOUNT" references="CASH_ACCOUNTS(ID)"/>
+			</column>
+			<column name="CATEGORY_ID" type="bigint">
+				<constraints nullable="true" foreignKeyName="FK_CASH_ACCOUNT_TRANSACTION_CATEGORY" references="CATEGORIES(ID)"/>
+			</column>
+			<column name="USAGE" type="varchar(1000)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="DESCRIPTION" type="varchar(1000)">
+				<constraints nullable="true"/>
+			</column>
+			<column name="VALUTA_DATE" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="VALUE" type="double">
+				<constraints nullable="false"/>
+			</column>
+			<column name="REFERENCE" type="varchar(255)">
+				<constraints nullable="true"/>
+			</column>
+			<column name="REFERENCE_BANK" type="varchar(255)">
+				<constraints nullable="true"/>
+			</column>
+			<column name="REFERENCE_IBAN" type="varchar(50)">
+				<constraints nullable="true"/>
+			</column>
+			<column name="CREDITOR_IDENTIFIER" type="varchar(255)">
+				<constraints nullable="true"/>
+			</column>
+			<column name="MANDATE" type="varchar(255)">
+				<constraints nullable="true"/>
+			</column>
+			<column name="SALDO_BEFORE" type="double">
+				<constraints nullable="false"/>
+			</column>
+			<column name="SALDO_AFTER" type="double">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="2021-02-07-create_import_template_table" author="matthias.weinert">
+		<createTable tableName="IMPORT_TEMPLATES">
+			<column name="ID" autoIncrement="true" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="NAME" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="START_WITH_LINE" type="integer">
+				<constraints nullable="false"/>
+			</column>
+			<column name="IMPORT_TYPE" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="CSV_SEPARATOR" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="TYPE" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="ENCODING" type="varchar(25)" defaultValue="UTF-8">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<addUniqueConstraint tableName="IMPORT_TEMPLATES" columnNames="TYPE, NAME" />
+	</changeSet>
+
+	<changeSet id="2021-02-07-create_import_template_mappings_table" author="matthias.weinert">
+		<createTable tableName="IMPORT_TEMPLATE_COLUMN_MAPPINGS">
+			<column name="ID" autoIncrement="true" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="IMPORT_TEMPLATE_ID" type="bigint">
+				<constraints nullable="false" foreignKeyName="FK_IMPORT_TEMPLATE_MAPPING" references="IMPORT_TEMPLATES(ID)"/>
+			</column>
+			<column name="COLUMN_TYPE" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="COLUMN_INDEX" type="integer">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+
+		<addUniqueConstraint tableName="IMPORT_TEMPLATE_COLUMN_MAPPINGS" columnNames="IMPORT_TEMPLATE_ID, COLUMN_INDEX" />
+	</changeSet>
+
+	<changeSet id="2021-02-07-create_settings_table" author="matthias.weinert">
+		<createTable tableName="SETTINGS">
+			<column name="ID" autoIncrement="true" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="TYPE" type="varchar(255)">
+				<constraints nullable="false" unique="true"/>
+			</column>
+			<column name="VALUE" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="2021-02-07-create_stock_category_table" author="matthias.weinert">
+		<createTable tableName="STOCK_CATEGORIES">
+			<column name="ID" autoIncrement="true" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="DELETION_DATE" type="timestamp">
+				<constraints nullable="true" />
+			</column>
+			<column name="NAME" type="varchar(255)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="2021-02-07-create_stocks_table" author="matthias.weinert">
+		<createTable tableName="STOCKS">
+			<column name="ID" autoIncrement="true" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="ISIN" type="varchar(15)">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="WKN" type="varchar(10)" />
+			<column name="NAME" type="varchar(255)" />
+			<column name="CATEGORY_ID" type="bigint">
+				<constraints nullable="true" foreignKeyName="FK_STOCK_CATEGORY_ID" references="STOCK_CATEGORIES(ID)"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="2021-02-07-create_depots_table" author="matthias.weinert">
+		<createTable tableName="DEPOTS">
+			<column name="ID" autoIncrement="true" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="DELETION_DATE" type="timestamp">
+				<constraints nullable="true" />
+			</column>
+			<column name="BANK_ID" type="bigint">
+				<constraints nullable="false" foreignKeyName="FK_DEPOT_BANK" references="BANKS(ID)"/>
+			</column>
+			<column name="NUMBER" type="varchar(255)">
+				<constraints nullable="true"/>
+			</column>
+			<column name="NAME" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="2021-02-07-create_depot_delivery_table" author="matthias.weinert">
+		<createTable tableName="DEPOT_DELIVERIES">
+			<column name="ID" autoIncrement="true" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="DELETION_DATE" type="timestamp">
+				<constraints nullable="true" />
+			</column>
+			<column name="DEPOT_ID" type="bigint">
+				<constraints nullable="false" foreignKeyName="FK_DEPOTDELIVERY_DEPOT" references="DEPOTS(ID)"/>
+			</column>
+			<column name="DELIVERY_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="SALDO" type="double">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="2021-02-07-add_depot_last_delivery_column" author="matthias.weinert">
+		<addColumn tableName="DEPOTS">
+			<column name="LAST_DELIVERY_ID" type="bigint">
+				<constraints nullable="true" foreignKeyName="FK_DEPOT_LAST_DEPOTDELIVERY" references="DEPOT_DELIVERIES(ID)"/>
+			</column>
 		</addColumn>
+	</changeSet>
+
+	<changeSet id="2021-02-07-create_depot_item_table" author="matthias.weinert">
+		<createTable tableName="DEPOT_ITEMS">
+			<column name="ID" autoIncrement="true" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="DELETION_DATE" type="timestamp">
+				<constraints nullable="true" />
+			</column>
+			<column name="DELIVERY_ID" type="bigint">
+				<constraints nullable="false" foreignKeyName="FK_DEPOTITEM_DEPOTDELIVERY" references="DEPOT_DELIVERIES(ID)"/>
+			</column>
+			<column name="ISIN" type="varchar(15)">
+				<constraints nullable="false" />
+			</column>
+			<column name="AMOUNT" type="double">
+				<constraints nullable="false"/>
+			</column>
+			<column name="COURSE" type="double">
+				<constraints nullable="false"/>
+			</column>
+			<column name="VALUE" type="double">
+				<constraints nullable="false"/>
+			</column>
+			<column name="CURRENCY" type="varchar(5)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="2021-02-07-create_depot_transaction_table" author="matthias.weinert">
+		<createTable tableName="DEPOT_TRANSACTIONS">
+			<column name="ID" autoIncrement="true" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="DELETION_DATE" type="timestamp">
+				<constraints nullable="true" />
+			</column>
+			<column name="DEPOT_ID" type="bigint">
+				<constraints nullable="false" foreignKeyName="FK_DEPOTTRANSACTION_DEPOT" references="DEPOTS(ID)"/>
+			</column>
+			<column name="ISIN" type="varchar(15)">
+				<constraints nullable="false" />
+			</column>
+			<column name="AMOUNT" type="double">
+				<constraints nullable="false"/>
+			</column>
+			<column name="COURSE" type="double">
+				<constraints nullable="false"/>
+			</column>
+			<column name="VALUE" type="double">
+				<constraints nullable="false"/>
+			</column>
+			<column name="CURRENCY" type="varchar(5)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="VALUTA_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="DESCRIPTION" type="varchar(1000)">
+				<constraints nullable="true"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="2021-02-07-create_ccf_table" author="matthias.weinert">
+		<createTable tableName="CURRENCY_CONVERSION_FACTORS">
+			<column name="ID" autoIncrement="true" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="INPUT_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="CURRENCY" type="varchar(5)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="FACTOR_TO_EUR" type="double">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
 	</changeSet>
 
 </databaseChangeLog>

@@ -138,6 +138,15 @@
 	-fx-background-color: transparent !important;
 }
 
+.dashboard-grid-pane Line {
+	-fx-stroke: gray;
+}
+
+.dahboard-tile-hover {
+	-fx-border-width: 1 1 1 1;
+	-fx-border-color: xmc-border-color-1;
+}
+
 /* ---- Spacing ---- */
 
 .padding-left-15 {

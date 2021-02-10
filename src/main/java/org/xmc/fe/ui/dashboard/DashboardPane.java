@@ -112,13 +112,27 @@ public class DashboardPane extends ScrollPane {
 					if (node instanceof DashboardTile) {
 						int oldX = GridPane.getColumnIndex(dragAndDropPane);
 						int oldY = GridPane.getRowIndex(dragAndDropPane);
-						gridPane.getChildren().remove(dragAndDropPane);
-						
 						int newX = GridPane.getColumnIndex(node);
 						int newY = GridPane.getRowIndex(node);
-						gridPane.add(dragAndDropPane, newX, newY);
 						
-						tilesData[oldX][oldY] = tilesData[newX][newY];
+						DtoDashboardTile dtoDashboardTile = tilesData[oldX][oldY];
+						
+						boolean[][] tileSpace = calculateTileSpace(tilesData);
+						freeTileSpace(tileSpace, dtoDashboardTile);
+						
+						dtoDashboardTile.setColumnIndex(newX);
+						dtoDashboardTile.setRowIndex(newY);
+						
+						if (calculateIsEnoughSpace(dtoDashboardTile, tileSpace)) {
+							gridPane.getChildren().remove(dragAndDropPane);
+							gridPane.add(dragAndDropPane, newX, newY);
+							
+							tilesData[newX][newY] = dtoDashboardTile;
+							tilesData[oldX][oldY] = null;
+						} else {
+							dtoDashboardTile.setColumnIndex(oldX);
+							dtoDashboardTile.setRowIndex(oldY);
+						}
 					}
 					
 					event.setDropCompleted(true);
@@ -137,6 +151,80 @@ public class DashboardPane extends ScrollPane {
 				&& !(node instanceof DashboardTile));
 		
 		gridPane.add(titledPane, tile.getColumnIndex(), tile.getRowIndex(), tile.getColumnSpan(), tile.getRowSpan());
+	}
+	
+	private void freeTileSpace(boolean[][] tileSpace, DtoDashboardTile dtoDashboardTile) {
+		for (int c = dtoDashboardTile.getColumnIndex(); c < dtoDashboardTile.getColumnIndex() + dtoDashboardTile.getColumnSpan() && c < COLUMNS; c++) {
+			for (int r = dtoDashboardTile.getRowIndex(); r < dtoDashboardTile.getRowIndex() + dtoDashboardTile.getRowSpan() && r < ROWS; r++) {
+				tileSpace[c][r] = false;
+			}
+		}
+	}
+	
+	public boolean addTileAtFreePosition(DtoDashboardTile tile) {
+		boolean[][] tileSpace = calculateTileSpace(tilesData);
+		
+		if (addTileIfEnoughSpace(tile, tileSpace)) return true;
+		
+		for (int r = 0; r < ROWS; r++) {
+			for (int c = 0; c < COLUMNS; c++) {
+				tile.setColumnIndex(c);
+				tile.setRowIndex(r);
+				
+				if (addTileIfEnoughSpace(tile, tileSpace)) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	private boolean[][] calculateTileSpace(DtoDashboardTile[][] tilesData) {
+		boolean[][] result = new boolean[tilesData.length][tilesData[0].length];
+		
+		for (int c = 0; c < tilesData.length; c++) {
+			for (int r = 0; r < tilesData[c].length; r++) {
+				if (tilesData[c][r] == null) {
+					continue;
+				}
+				
+				for (int a = c; a < c + tilesData[c][r].getColumnSpan() && a < COLUMNS; a++) {
+					for (int b = r; b < r + tilesData[c][r].getRowSpan() && b < ROWS; b++) {
+						result[a][b] = true;
+					}
+				}
+			}
+		}
+		
+		return result;
+	}
+	
+	private boolean addTileIfEnoughSpace(DtoDashboardTile tile, boolean[][] tileSpace) {
+		boolean spaceFree = calculateIsEnoughSpace(tile, tileSpace);
+		if (spaceFree) {
+			addTile(tile);
+			return true;
+		}
+		
+		return false;
+	}
+	
+	private boolean calculateIsEnoughSpace(DtoDashboardTile tile, boolean[][] tileSpace) {
+		if (tile.getColumnIndex() + tile.getColumnSpan() > COLUMNS) {
+			return false;
+		}
+		if (tile.getRowIndex() + tile.getRowSpan() > ROWS) {
+			return false;
+		}
+		
+		boolean spaceFree = true;
+		for (int c = tile.getColumnIndex(); c < tile.getColumnIndex() + tile.getColumnSpan() && c < COLUMNS; c++) {
+			for (int r = tile.getRowIndex(); r < tile.getRowIndex() + tile.getRowSpan() && r < ROWS; r++) {
+				spaceFree &= !tileSpace[c][r];
+			}
+		}
+		return spaceFree;
 	}
 	
 	public boolean isEditable() {

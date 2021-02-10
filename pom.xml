@@ -19,6 +19,7 @@
     <properties>
         <java.version>11</java.version>
         <start-class>org.xmc.Main</start-class>
+		<javafx.platform>current</javafx.platform>
 
         <openjfx.version>15.0.1</openjfx.version>
         <querydsl.version>4.4.0</querydsl.version>
@@ -167,7 +168,7 @@
     </dependencies>
 
     <build>
-        <finalName>xmc</finalName>
+        <finalName>xmc-${javafx.platform}</finalName>
 
         <plugins>
             <plugin>

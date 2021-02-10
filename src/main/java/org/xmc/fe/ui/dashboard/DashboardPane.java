@@ -71,7 +71,6 @@ public class DashboardPane extends ScrollPane {
 		}
 		
 		this.setContent(gridPane);
-//		gridPane.gridLinesVisibleProperty().bind(editable);
 	}
 	
 	public void addTile(DtoDashboardTile tile) {

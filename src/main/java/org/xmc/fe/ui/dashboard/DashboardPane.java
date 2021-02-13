@@ -1,5 +1,6 @@
 package org.xmc.fe.ui.dashboard;
 
+import com.google.gson.Gson;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -82,9 +83,9 @@ public class DashboardPane extends ScrollPane {
 						int newX = GridPane.getColumnIndex(node);
 						int newY = GridPane.getRowIndex(node);
 						
-						DtoDashboardTile dtoDashboardTile = getTilesData()[oldX][oldY];
+						DtoDashboardTile dtoDashboardTile = tilesData[oldX][oldY];
 						
-						boolean[][] tileSpace = TileSpaceCalculator.calculateTileSpace(getTilesData());
+						boolean[][] tileSpace = TileSpaceCalculator.calculateTileSpace(tilesData);
 						TileSpaceCalculator.freeTileSpace(tileSpace, dtoDashboardTile);
 						
 						dtoDashboardTile.setColumnIndex(newX);
@@ -94,8 +95,8 @@ public class DashboardPane extends ScrollPane {
 							gridPane.getChildren().remove(dragAndDropTile);
 							gridPane.add(dragAndDropTile, newX, newY);
 							
-							getTilesData()[newX][newY] = dtoDashboardTile;
-							getTilesData()[oldX][oldY] = null;
+							tilesData[newX][newY] = dtoDashboardTile;
+							tilesData[oldX][oldY] = null;
 						} else {
 							dtoDashboardTile.setColumnIndex(oldX);
 							dtoDashboardTile.setRowIndex(oldY);
@@ -114,7 +115,7 @@ public class DashboardPane extends ScrollPane {
 	}
 	
 	public boolean addTileAtNextFreePosition(DtoDashboardTile tile) {
-		boolean[][] tileSpace = TileSpaceCalculator.calculateTileSpace(getTilesData());
+		boolean[][] tileSpace = TileSpaceCalculator.calculateTileSpace(tilesData);
 		
 		if (addTileIfEnoughSpace(tile, tileSpace)) return true;
 		
@@ -171,12 +172,12 @@ public class DashboardPane extends ScrollPane {
 		gridPane.getChildren().removeIf(node -> node instanceof DashboardContentTile && ((DashboardContentTile) node).getTile() == tile);
 	}
 	
-	public void applyTilesData(DtoDashboardTile[][] tilesData) {
+	public void applyTilesData(String tilesData) {
 		gridPane.getChildren().removeIf(node -> node instanceof DashboardContentTile);
 		
-		this.tilesData = tilesData;
+		this.tilesData = new Gson().fromJson(tilesData, DtoDashboardTile[][].class);
 		
-		for (DtoDashboardTile[] tilesDatum : tilesData) {
+		for (DtoDashboardTile[] tilesDatum : this.tilesData) {
 			for (DtoDashboardTile tile : tilesDatum) {
 				if (tile == null) {
 					continue;
@@ -185,6 +186,10 @@ public class DashboardPane extends ScrollPane {
 				addTile(tile);
 			}
 		}
+	}
+	
+	public String saveTilesData() {
+		return new Gson().toJson(tilesData);
 	}
 	
 	public boolean isEditable() {
@@ -201,9 +206,5 @@ public class DashboardPane extends ScrollPane {
 	
 	void setDragAndDropTile(DashboardContentTile dragAndDropTile) {
 		this.dragAndDropTile = dragAndDropTile;
-	}
-	
-	public DtoDashboardTile[][] getTilesData() {
-		return tilesData;
 	}
 }

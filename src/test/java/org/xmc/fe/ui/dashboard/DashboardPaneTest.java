@@ -15,6 +15,8 @@ import org.xmc.fe.ui.StageBuilder;
 
 @Disabled
 class DashboardPaneTest extends JUnitTestBase {
+	private String tilesData;
+	
 	@Test
 	void testBuild() throws Throwable {
 		runJavaFxCode(() -> {
@@ -33,6 +35,10 @@ class DashboardPaneTest extends JUnitTestBase {
 					Integer.parseInt(columnSpanTextField.getText()) + " x " + Integer.parseInt(rowSpanTextField.getText()), 0, 0,
 					Integer.parseInt(columnSpanTextField.getText()),
 					Integer.parseInt(rowSpanTextField.getText())))));
+			menuBar.getChildren().add(createButton("Speichern", e -> {
+				tilesData = dashboardPane.saveTilesData();
+			}));
+			menuBar.getChildren().add(createButton("Laden", e -> dashboardPane.applyTilesData(tilesData)));
 			
 			VBox vBox = new VBox();
 			vBox.getChildren().add(menuBar);

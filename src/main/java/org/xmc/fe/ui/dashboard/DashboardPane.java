@@ -3,6 +3,7 @@ package org.xmc.fe.ui.dashboard;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.DataFormat;
 import javafx.scene.input.Dragboard;
@@ -10,6 +11,10 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import org.apache.commons.lang3.tuple.Pair;
+import org.xmc.Main;
+import org.xmc.fe.async.AsyncProcessor;
+import org.xmc.fe.ui.FxmlComponentFactory;
 
 public class DashboardPane extends ScrollPane {
 	public static final String CSS_CLASS_DASHBOARD_GRID_PANE = "dashboard-grid-pane";
@@ -20,10 +25,10 @@ public class DashboardPane extends ScrollPane {
 	static final int ROWS = 15;
 	private static final double DEFAULT_TILE_HEIGHT = 150.0;
 	
-	private final DtoDashboardTile[][] tilesData = new DtoDashboardTile[COLUMNS][ROWS];
 	private final GridPane gridPane = new GridPane();
 	private final SimpleBooleanProperty editable = new SimpleBooleanProperty(false);
 	
+	private DtoDashboardTile[][] tilesData = new DtoDashboardTile[COLUMNS][ROWS];
 	private DashboardContentTile dragAndDropTile;
 	
 	public DashboardPane() {
@@ -55,11 +60,61 @@ public class DashboardPane extends ScrollPane {
 			}
 		}
 		
+		gridPane.setOnDragOver(event -> {
+			if (isEditable()) {
+				Dragboard db = event.getDragboard();
+				if (db.hasContent(CLIP_BOARD_DATA_FORMAT) && dragAndDropTile != null) {
+					event.acceptTransferModes(TransferMode.MOVE);
+				}
+			}
+		});
+		
+		gridPane.setOnDragDropped(event -> {
+			if (isEditable()) {
+				Dragboard db = event.getDragboard();
+				
+				if (db.hasContent(CLIP_BOARD_DATA_FORMAT)) {
+					Node node = event.getPickResult().getIntersectedNode();
+					
+					if (node instanceof EmptyDashboardTile) {
+						int oldX = GridPane.getColumnIndex(dragAndDropTile);
+						int oldY = GridPane.getRowIndex(dragAndDropTile);
+						int newX = GridPane.getColumnIndex(node);
+						int newY = GridPane.getRowIndex(node);
+						
+						DtoDashboardTile dtoDashboardTile = getTilesData()[oldX][oldY];
+						
+						boolean[][] tileSpace = TileSpaceCalculator.calculateTileSpace(getTilesData());
+						TileSpaceCalculator.freeTileSpace(tileSpace, dtoDashboardTile);
+						
+						dtoDashboardTile.setColumnIndex(newX);
+						dtoDashboardTile.setRowIndex(newY);
+						
+						if (TileSpaceCalculator.calculateIsEnoughSpace(dtoDashboardTile, tileSpace)) {
+							gridPane.getChildren().remove(dragAndDropTile);
+							gridPane.add(dragAndDropTile, newX, newY);
+							
+							getTilesData()[newX][newY] = dtoDashboardTile;
+							getTilesData()[oldX][oldY] = null;
+						} else {
+							dtoDashboardTile.setColumnIndex(oldX);
+							dtoDashboardTile.setRowIndex(oldY);
+						}
+					}
+					
+					event.setDropCompleted(true);
+					
+					dragAndDropTile.setMouseTransparent(false);
+					dragAndDropTile = null;
+				}
+			}
+		});
+		
 		this.setContent(gridPane);
 	}
 	
 	public boolean addTileAtNextFreePosition(DtoDashboardTile tile) {
-		boolean[][] tileSpace = TileSpaceCalculator.calculateTileSpace(tilesData);
+		boolean[][] tileSpace = TileSpaceCalculator.calculateTileSpace(getTilesData());
 		
 		if (addTileIfEnoughSpace(tile, tileSpace)) return true;
 		
@@ -90,66 +145,46 @@ public class DashboardPane extends ScrollPane {
 	private void addTile(DtoDashboardTile tile) {
 		tilesData[tile.getColumnIndex()][tile.getRowIndex()] = tile;
 		
-		DashboardContentTile contentTile = new DashboardContentTile(this, tile.getTitle());
-		
-		gridPane.setOnDragOver(event -> {
-			if (isEditable()) {
-				Dragboard db = event.getDragboard();
-				if (db.hasContent(CLIP_BOARD_DATA_FORMAT) && dragAndDropTile != null) {
-					event.acceptTransferModes(TransferMode.MOVE);
-				}
-			}
-		});
-		
-		gridPane.setOnDragDropped(event -> {
-			if (isEditable()) {
-				Dragboard db = event.getDragboard();
-				
-				if (db.hasContent(CLIP_BOARD_DATA_FORMAT)) {
-					Node node = event.getPickResult().getIntersectedNode();
-					
-					if (node instanceof EmptyDashboardTile) {
-						int oldX = GridPane.getColumnIndex(dragAndDropTile);
-						int oldY = GridPane.getRowIndex(dragAndDropTile);
-						int newX = GridPane.getColumnIndex(node);
-						int newY = GridPane.getRowIndex(node);
-						
-						DtoDashboardTile dtoDashboardTile = tilesData[oldX][oldY];
-						
-						boolean[][] tileSpace = TileSpaceCalculator.calculateTileSpace(tilesData);
-						TileSpaceCalculator.freeTileSpace(tileSpace, dtoDashboardTile);
-						
-						dtoDashboardTile.setColumnIndex(newX);
-						dtoDashboardTile.setRowIndex(newY);
-						
-						if (TileSpaceCalculator.calculateIsEnoughSpace(dtoDashboardTile, tileSpace)) {
-							gridPane.getChildren().remove(dragAndDropTile);
-							gridPane.add(dragAndDropTile, newX, newY);
-							
-							tilesData[newX][newY] = dtoDashboardTile;
-							tilesData[oldX][oldY] = null;
-						} else {
-							dtoDashboardTile.setColumnIndex(oldX);
-							dtoDashboardTile.setRowIndex(oldY);
-						}
-					}
-					
-					event.setDropCompleted(true);
-					
-					dragAndDropTile.setMouseTransparent(false);
-					dragAndDropTile = null;
-				}
-			}
-		});
-		
-		GridPane.setFillWidth(contentTile, true);
-		GridPane.setFillHeight(contentTile, true);
+		DashboardContentTile contentTile = new DashboardContentTile(this, tile);
 		
 		gridPane.getChildren().removeIf(node -> Integer.valueOf(tile.getRowIndex()).equals(GridPane.getRowIndex(node))
 				&& Integer.valueOf(tile.getColumnIndex()).equals(GridPane.getColumnIndex(node))
 				&& !(node instanceof EmptyDashboardTile));
 		
 		gridPane.add(contentTile, tile.getColumnIndex(), tile.getRowIndex(), tile.getColumnSpan(), tile.getRowSpan());
+		
+		if (tile.getFxmlKey() == null) {
+			return;
+		}
+		
+		Main.applicationContext.getBean(AsyncProcessor.class).runAsyncVoid(monitor -> {
+			Pair<Parent, IDashboardTileController> fxmlComponent = FxmlComponentFactory.load(tile.getFxmlKey());
+			
+			fxmlComponent.getRight().loadAndApplyData(monitor, tile);
+			
+			contentTile.setContentNode(fxmlComponent.getLeft());
+		});
+	}
+	
+	public void removeTile(DtoDashboardTile tile) {
+		this.tilesData[tile.getColumnIndex()][tile.getRowIndex()] = null;
+		gridPane.getChildren().removeIf(node -> node instanceof DashboardContentTile && ((DashboardContentTile) node).getTile() == tile);
+	}
+	
+	public void applyTilesData(DtoDashboardTile[][] tilesData) {
+		gridPane.getChildren().removeIf(node -> node instanceof DashboardContentTile);
+		
+		this.tilesData = tilesData;
+		
+		for (DtoDashboardTile[] tilesDatum : tilesData) {
+			for (DtoDashboardTile tile : tilesDatum) {
+				if (tile == null) {
+					continue;
+				}
+				
+				addTile(tile);
+			}
+		}
 	}
 	
 	public boolean isEditable() {
@@ -166,5 +201,9 @@ public class DashboardPane extends ScrollPane {
 	
 	void setDragAndDropTile(DashboardContentTile dragAndDropTile) {
 		this.dragAndDropTile = dragAndDropTile;
+	}
+	
+	public DtoDashboardTile[][] getTilesData() {
+		return tilesData;
 	}
 }

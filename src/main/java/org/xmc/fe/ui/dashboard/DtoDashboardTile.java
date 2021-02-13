@@ -1,9 +1,13 @@
 package org.xmc.fe.ui.dashboard;
 
+import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
+
 import java.io.Serializable;
 
 public class DtoDashboardTile implements Serializable {
 	private String title;
+	private FxmlKey fxmlKey;
+	
 	private int columnIndex;
 	private int rowIndex;
 	private int columnSpan;
@@ -15,6 +19,14 @@ public class DtoDashboardTile implements Serializable {
 	
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	
+	public FxmlKey getFxmlKey() {
+		return fxmlKey;
+	}
+	
+	public void setFxmlKey(FxmlKey fxmlKey) {
+		this.fxmlKey = fxmlKey;
 	}
 	
 	public int getColumnIndex() {

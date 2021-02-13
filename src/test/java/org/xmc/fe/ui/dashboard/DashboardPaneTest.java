@@ -29,7 +29,7 @@ class DashboardPaneTest extends JUnitTestBase {
 			menuBar.getChildren().add(editableCheckBox);
 			menuBar.getChildren().add(columnSpanTextField);
 			menuBar.getChildren().add(rowSpanTextField);
-			menuBar.getChildren().add(createButton("Neues Tile", e -> dashboardPane.addTileAtFreePosition(createTile(
+			menuBar.getChildren().add(createButton("Neues Tile", e -> dashboardPane.addTileAtNextFreePosition(createTile(
 					Integer.parseInt(columnSpanTextField.getText()) + " x " + Integer.parseInt(rowSpanTextField.getText()), 0, 0,
 					Integer.parseInt(columnSpanTextField.getText()),
 					Integer.parseInt(rowSpanTextField.getText())))));

@@ -21,10 +21,11 @@ public interface FeConstants {
     Image CATEGORY_PHONE = ImageUtil.readFromClasspath$("/images/categories/phone24.png");
     Image CATEGORY_SHOPPING_CART = ImageUtil.readFromClasspath$("/images/categories/shopping-cart24.png");
     Image CATEGORY_TRENDING_UP = ImageUtil.readFromClasspath$("/images/categories/trending-up24.png");
+    
+    Image IMAGE_MOVE = ImageUtil.readFromClasspath$("/images/feather/move.png");
+    Image IMAGE_MINUS_SQUARE = ImageUtil.readFromClasspath$("/images/feather/minus-square.png");
 
     String BASE_CSS_PATH = "/css/xmc-base.css";
 
     Duration DEFAULT_DELAY = Duration.millis(500);
-
-
 }

@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
@@ -19,6 +18,9 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import org.xmc.common.utils.ImageUtil;
+import org.xmc.fe.FeConstants;
+import org.xmc.fe.ui.MessageAdapter;
+import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.components.ButtonImageView;
 
 public class DashboardContentTile extends VBox {
@@ -41,7 +43,7 @@ public class DashboardContentTile extends VBox {
 		titleBar.setAlignment(Pos.CENTER_LEFT);
 		titleBar.getStyleClass().add(CSS_CLASS_TITLE_BAR);
 		
-		ImageView moveIconView = new ImageView(ImageUtil.invertColors(new Image("/images/feather/move.png")));
+		ImageView moveIconView = new ImageView(ImageUtil.invertColors(FeConstants.IMAGE_MOVE));
 		moveIconView.visibleProperty().bind(dashboardPane.editableProperty());
 		moveIconView.managedProperty().bind(moveIconView.visibleProperty());
 		HBox.setMargin(moveIconView, new Insets(0, 0, 0, 5));
@@ -59,8 +61,8 @@ public class DashboardContentTile extends VBox {
 		titleBar.getChildren().add(titleLabel);
 		
 		Button removeTileButton = new Button();
-		removeTileButton.setTooltip(new Tooltip("Kachel entfernen"));
-		removeTileButton.setGraphic(new ButtonImageView("/images/feather/minus-square.png"));
+		removeTileButton.setTooltip(new Tooltip(MessageAdapter.getByKey(MessageKey.DASHBOARD_REMOVE_TILE)));
+		removeTileButton.setGraphic(new ButtonImageView(FeConstants.IMAGE_MINUS_SQUARE));
 		removeTileButton.visibleProperty().bind(dashboardPane.editableProperty());
 		removeTileButton.setOnAction(e -> dashboardPane.removeTile(tile));
 		titleBar.getChildren().add(removeTileButton);
@@ -76,7 +78,7 @@ public class DashboardContentTile extends VBox {
 		
 		ProgressBar spinner = new ProgressBar(-1.0);
 		spinner.setMaxWidth(Double.MAX_VALUE);
-		spinnerPane.getChildren().add(new Label("Wird geladen..."));
+		spinnerPane.getChildren().add(new Label(MessageAdapter.getByKey(MessageKey.DASHBOARD_LOADING_TILE)));
 		spinnerPane.getChildren().add(spinner);
 		
 		this.contentNode = spinnerPane;

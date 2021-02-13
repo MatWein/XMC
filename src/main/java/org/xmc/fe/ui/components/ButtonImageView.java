@@ -9,8 +9,10 @@ import org.xmc.fe.ui.SceneBuilder;
 
 public class ButtonImageView extends ImageView {
 	public ButtonImageView(@NamedArg("url") String url) {
-		Image image = new Image(url);
-		
+		this(new Image(url));
+	}
+	
+	public ButtonImageView(Image image) {
 		boolean useDarkTheme = SceneBuilder.getStyle() == Style.DARK;
 		if (useDarkTheme) {
 			image = ImageUtil.invertColors(image);

@@ -262,7 +262,10 @@ public class MessageAdapter {
 	    DEPOT_DELIVERY_IMPORT_DIALOG_STEP2_TITLE("depot.delivery.import.dialog.step2.title"),
 	    DEPOT_DELIVERY_IMPORT_DIALOG_STEP3_TITLE("depot.delivery.import.dialog.step3.title"),
 	    DEPOT_DELIVERY_IMPORT_DIALOG_STEP4_TITLE("depot.delivery.import.dialog.step4.title"),
-	    DEPOT_DELIVERY_IMPORT_DIALOG_STEP4_COLUMN_PREFIX("depot.delivery.import.dialog.step4.columns", DepotDeliveryImportColmn.class)
+	    DEPOT_DELIVERY_IMPORT_DIALOG_STEP4_COLUMN_PREFIX("depot.delivery.import.dialog.step4.columns", DepotDeliveryImportColmn.class),
+	    
+	    DASHBOARD_REMOVE_TILE("dashboard.removeTile"),
+	    DASHBOARD_LOADING_TILE("dashboard.loadingTile")
         ;
 
         private final String key;

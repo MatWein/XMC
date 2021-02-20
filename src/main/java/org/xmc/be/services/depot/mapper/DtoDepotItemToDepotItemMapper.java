@@ -3,7 +3,7 @@ package org.xmc.be.services.depot.mapper;
 import org.springframework.stereotype.Component;
 import org.xmc.be.entities.depot.DepotDelivery;
 import org.xmc.be.entities.depot.DepotItem;
-import org.xmc.common.stubs.depot.deliveries.DtoDepotItem;
+import org.xmc.common.stubs.depot.items.DtoDepotItem;
 
 @Component
 public class DtoDepotItemToDepotItemMapper {

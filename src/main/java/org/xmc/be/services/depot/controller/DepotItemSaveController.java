@@ -6,7 +6,7 @@ import org.xmc.be.entities.depot.DepotDelivery;
 import org.xmc.be.entities.depot.DepotItem;
 import org.xmc.be.repositories.depot.DepotItemJpaRepository;
 import org.xmc.be.services.depot.mapper.DtoDepotItemToDepotItemMapper;
-import org.xmc.common.stubs.depot.deliveries.DtoDepotItem;
+import org.xmc.common.stubs.depot.items.DtoDepotItem;
 
 @Component
 public class DepotItemSaveController {

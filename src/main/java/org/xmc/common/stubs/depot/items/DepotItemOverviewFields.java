@@ -1,4 +1,4 @@
-package org.xmc.common.stubs.depot.deliveries;
+package org.xmc.common.stubs.depot.items;
 
 import com.querydsl.core.types.Expression;
 import org.xmc.common.stubs.IPagingField;

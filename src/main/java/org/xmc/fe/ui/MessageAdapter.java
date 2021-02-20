@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.xmc.be.entities.importing.ImportTemplateType;
 import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
 import org.xmc.common.stubs.depot.deliveries.DepotDeliveryImportColmn;
+import org.xmc.common.stubs.depot.items.DepotItemImportColmn;
 import org.xmc.common.stubs.importing.CsvSeparator;
 
 import java.text.MessageFormat;
@@ -263,6 +264,13 @@ public class MessageAdapter {
 	    DEPOT_DELIVERY_IMPORT_DIALOG_STEP3_TITLE("depot.delivery.import.dialog.step3.title"),
 	    DEPOT_DELIVERY_IMPORT_DIALOG_STEP4_TITLE("depot.delivery.import.dialog.step4.title"),
 	    DEPOT_DELIVERY_IMPORT_DIALOG_STEP4_COLUMN_PREFIX("depot.delivery.import.dialog.step4.columns", DepotDeliveryImportColmn.class),
+	
+	    DEPOT_ITEM_IMPORT_DIALOG_TITLE("depot.item.import.dialog.title"),
+	    DEPOT_ITEM_IMPORT_DIALOG_STEP1_TITLE("depot.item.import.dialog.step1.title"),
+	    DEPOT_ITEM_IMPORT_DIALOG_STEP2_TITLE("depot.item.import.dialog.step2.title"),
+	    DEPOT_ITEM_IMPORT_DIALOG_STEP3_TITLE("depot.item.import.dialog.step3.title"),
+	    DEPOT_ITEM_IMPORT_DIALOG_STEP4_TITLE("depot.item.import.dialog.step4.title"),
+	    DEPOT_ITEM_IMPORT_DIALOG_STEP4_COLUMN_PREFIX("depot.item.import.dialog.step4.columns", DepotItemImportColmn.class),
 	    
 	    DASHBOARD_REMOVE_TILE("dashboard.removeTile"),
 	    DASHBOARD_LOADING_TILE("dashboard.loadingTile")

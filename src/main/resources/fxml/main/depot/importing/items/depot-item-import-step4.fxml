@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.*?>
+<?import org.xmc.fe.ui.components.BaseTextFlow?>
+<?import org.xmc.fe.ui.components.LineBreak?>
+<?import org.xmc.fe.ui.components.table.*?>
+<?import org.xmc.fe.ui.validation.components.ValidationTextField?>
+<VBox stylesheets="@/css/xmc-base.css, @/css/main/importing.css" xmlns="http://javafx.com/javafx/11.0.0"
+      xmlns:fx="http://javafx.com/fxml/1" styleClass="padding-15" fx:id="rootVBox"
+      fx:controller="org.xmc.fe.stages.main.depot.importing.items.DepotItemImportStep4Controller">
+
+	<CheckBox styleClass="form-label-first" text="%depot.item.import.dialog.step4.saveTemplate" fx:id="saveTemplateCheckbox" />
+	<ValidationTextField fx:id="templateToSaveName" />
+
+	<TabPane tabClosingPolicy="UNAVAILABLE" styleClass="form-label">
+		<Tab text="%depot.item.import.dialog.step4.errors">
+			<BaseTable fx:id="errorTable" styleClass="table-tab-element">
+				<columns>
+					<TableColumn editable="false" reorderable="false" sortable="false" resizable="false" prefWidth="100"
+								 text="%depot.item.import.dialog.step4.errors.row">
+						<cellValueFactory>
+							<NestedPropertyValueFactory property="line" fractionDigits="0"/>
+						</cellValueFactory>
+					</TableColumn>
+					<TableColumn editable="false" reorderable="false" sortable="false" resizable="false" prefWidth="500"
+								 text="%depot.item.import.dialog.step4.errors.reason">
+						<cellValueFactory>
+							<NestedPropertyValueFactory property="description"/>
+						</cellValueFactory>
+					</TableColumn>
+				</columns>
+
+				<columnResizePolicy>
+					<BaseTable fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+				</columnResizePolicy>
+			</BaseTable>
+		</Tab>
+
+		<Tab text="%depot.item.import.dialog.step4.preview">
+			<BaseTable fx:id="previewTable" styleClass="table-tab-element">
+				<columns>
+					<TableColumn editable="false" reorderable="false" sortable="false" prefWidth="200"
+								 text="%main.depots.item.overview.table.column.isin">
+						<cellValueFactory>
+							<NestedPropertyValueFactory property="isin"/>
+						</cellValueFactory>
+					</TableColumn>
+					<TableColumn editable="false" reorderable="false" sortable="false" prefWidth="100"
+								 text="%main.depots.item.overview.table.column.amount">
+						<cellValueFactory>
+							<NestedPropertyValueFactory property="amount" />
+						</cellValueFactory>
+					</TableColumn>
+					<TableColumn editable="false" reorderable="false" sortable="false" prefWidth="100"
+								 text="%main.depots.item.overview.table.column.course">
+						<cellValueFactory>
+							<NestedPropertyValueFactory property="course"/>
+						</cellValueFactory>
+					</TableColumn>
+					<TableColumn editable="false" reorderable="false" sortable="false" prefWidth="150"
+								 text="%main.depots.item.overview.table.column.value">
+						<cellValueFactory>
+							<NestedPropertyValueFactory property="value"/>
+						</cellValueFactory>
+					</TableColumn>
+					<TableColumn editable="false" reorderable="false" sortable="false" prefWidth="100"
+								 text="%main.depots.item.overview.table.column.currency">
+						<cellValueFactory>
+							<NestedPropertyValueFactory property="currency"/>
+						</cellValueFactory>
+					</TableColumn>
+				</columns>
+			</BaseTable>
+		</Tab>
+	</TabPane>
+
+	<BaseTextFlow styleClass="form-label">
+		<Text text="%depot.item.import.dialog.step4.preview.validTransactionCount" />
+		<Text text=" " />
+		<Text fx:id="validTransactionCountText" styleClass="bold" text="0" />
+		<LineBreak />
+		<Text text="%depot.item.import.dialog.step4.preview.invalidTransactionCount" />
+		<Text text=" " />
+		<Text fx:id="invalidTransactionCountText" styleClass="bold, text-red" text="0" />
+	</BaseTextFlow>
+
+</VBox>

@@ -67,7 +67,11 @@ public class FxmlComponentFactory {
 	    DEPOT_DELIVERY_IMPORT_DIALOG_STEP1("/fxml/main/depot/importing/deliveries/depot-delivery-import-step1.fxml"),
 	    DEPOT_DELIVERY_IMPORT_DIALOG_STEP2("/fxml/main/depot/importing/deliveries/depot-delivery-import-step2.fxml"),
 	    DEPOT_DELIVERY_IMPORT_DIALOG_STEP3("/fxml/main/depot/importing/deliveries/depot-delivery-import-step3.fxml"),
-	    DEPOT_DELIVERY_IMPORT_DIALOG_STEP4("/fxml/main/depot/importing/deliveries/depot-delivery-import-step4.fxml")
+	    DEPOT_DELIVERY_IMPORT_DIALOG_STEP4("/fxml/main/depot/importing/deliveries/depot-delivery-import-step4.fxml"),
+	    DEPOT_ITEM_IMPORT_DIALOG_STEP1("/fxml/main/depot/importing/items/depot-item-import-step1.fxml"),
+	    DEPOT_ITEM_IMPORT_DIALOG_STEP2("/fxml/main/depot/importing/items/depot-item-import-step2.fxml"),
+	    DEPOT_ITEM_IMPORT_DIALOG_STEP3("/fxml/main/depot/importing/items/depot-item-import-step3.fxml"),
+	    DEPOT_ITEM_IMPORT_DIALOG_STEP4("/fxml/main/depot/importing/items/depot-item-import-step4.fxml"),
         ;
 
         private final String fxmlPath;

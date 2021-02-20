@@ -7,11 +7,17 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.xmc.be.services.depot.DepotItemImportService;
 import org.xmc.be.services.depot.DepotItemService;
-import org.xmc.common.stubs.depot.deliveries.DepotItemOverviewFields;
-import org.xmc.common.stubs.depot.deliveries.DtoDepotItem;
-import org.xmc.common.stubs.depot.deliveries.DtoDepotItemOverview;
+import org.xmc.common.stubs.depot.items.DepotItemImportColmn;
+import org.xmc.common.stubs.depot.items.DepotItemOverviewFields;
+import org.xmc.common.stubs.depot.items.DtoDepotItem;
+import org.xmc.common.stubs.depot.items.DtoDepotItemOverview;
+import org.xmc.common.stubs.importing.DtoImportData;
 import org.xmc.fe.async.AsyncProcessor;
+import org.xmc.fe.stages.main.depot.importing.items.populator.DepotItemImportStep2Populator;
+import org.xmc.fe.stages.main.depot.importing.items.populator.DepotItemImportStep3Populator;
+import org.xmc.fe.stages.main.depot.importing.items.populator.DepotItemImportStep4Populator;
 import org.xmc.fe.stages.main.depot.mapper.DepotItemEditDialogMapper;
 import org.xmc.fe.ui.CustomDialogBuilder;
 import org.xmc.fe.ui.DialogHelper;
@@ -20,6 +26,7 @@ import org.xmc.fe.ui.FxmlController;
 import org.xmc.fe.ui.IAfterInit;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.components.table.ExtendedTable;
+import org.xmc.fe.ui.wizard.WizardBuilder;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,6 +36,10 @@ public class DepotItemsController implements IAfterInit<DepotController> {
 	private final DepotItemService depotItemService;
 	private final AsyncProcessor asyncProcessor;
 	private final DepotItemEditDialogMapper depotItemEditDialogMapper;
+	private final DepotItemImportService depotItemImportService;
+	private final DepotItemImportStep2Populator depotItemImportStep2Populator;
+	private final DepotItemImportStep3Populator depotItemImportStep3Populator;
+	private final DepotItemImportStep4Populator depotItemImportStep4Populator;
 	
 	@FXML private ExtendedTable<DtoDepotItemOverview, DepotItemOverviewFields> depotItemsTableView;
 	@FXML private Button editButton;
@@ -40,11 +51,19 @@ public class DepotItemsController implements IAfterInit<DepotController> {
 	public DepotItemsController(
 			DepotItemService depotItemService,
 			AsyncProcessor asyncProcessor,
-			DepotItemEditDialogMapper depotItemEditDialogMapper) {
+			DepotItemEditDialogMapper depotItemEditDialogMapper,
+			DepotItemImportService depotItemImportService,
+			DepotItemImportStep2Populator depotItemImportStep2Populator,
+			DepotItemImportStep3Populator depotItemImportStep3Populator,
+			DepotItemImportStep4Populator depotItemImportStep4Populator) {
 		
 		this.depotItemService = depotItemService;
 		this.asyncProcessor = asyncProcessor;
 		this.depotItemEditDialogMapper = depotItemEditDialogMapper;
+		this.depotItemImportService = depotItemImportService;
+		this.depotItemImportStep2Populator = depotItemImportStep2Populator;
+		this.depotItemImportStep3Populator = depotItemImportStep3Populator;
+		this.depotItemImportStep4Populator = depotItemImportStep4Populator;
 	}
 	
 	@FXML
@@ -100,6 +119,25 @@ public class DepotItemsController implements IAfterInit<DepotController> {
 	
 	@FXML
 	public void onImportDepotItems() {
+		var importData = new DtoImportData<DepotItemImportColmn>();
+		long depotDeliveryId = parentController.getSelectedDelivery().getId();
+		
+		boolean allStepsFinished = WizardBuilder.getInstance()
+				.titleKey(MessageKey.DEPOT_ITEM_IMPORT_DIALOG_TITLE)
+				.withInput(importData)
+				.addStep(MessageKey.DEPOT_ITEM_IMPORT_DIALOG_STEP1_TITLE, FxmlKey.DEPOT_ITEM_IMPORT_DIALOG_STEP1)
+				.addStep(MessageKey.DEPOT_ITEM_IMPORT_DIALOG_STEP2_TITLE, FxmlKey.DEPOT_ITEM_IMPORT_DIALOG_STEP2, depotItemImportStep2Populator)
+				.addStep(MessageKey.DEPOT_ITEM_IMPORT_DIALOG_STEP3_TITLE, FxmlKey.DEPOT_ITEM_IMPORT_DIALOG_STEP3, depotItemImportStep3Populator)
+				.addStep(MessageKey.DEPOT_ITEM_IMPORT_DIALOG_STEP4_TITLE, FxmlKey.DEPOT_ITEM_IMPORT_DIALOG_STEP4, depotItemImportStep4Populator)
+				.buildAndShow();
+		
+		if (allStepsFinished) {
+			asyncProcessor.runAsyncVoid(
+					() -> {},
+					monitor -> depotItemImportService.importDeliveries(monitor, depotDeliveryId, importData),
+					() -> depotItemsTableView.reload()
+			);
+		}
 	}
 	
 	private void createOrEditDepotItem(DtoDepotItemOverview input) {

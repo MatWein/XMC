@@ -2,7 +2,7 @@ package org.xmc.fe.stages.main.depot.mapper;
 
 import javafx.scene.control.ButtonBar.ButtonData;
 import org.springframework.stereotype.Component;
-import org.xmc.common.stubs.depot.deliveries.DtoDepotItem;
+import org.xmc.common.stubs.depot.items.DtoDepotItem;
 import org.xmc.fe.stages.main.depot.DepotItemEditController;
 import org.xmc.fe.ui.IDialogMapper;
 

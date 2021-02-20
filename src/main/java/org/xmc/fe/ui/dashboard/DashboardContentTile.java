@@ -86,6 +86,8 @@ public class DashboardContentTile extends VBox {
 		VBox.setVgrow(spinnerPane, Priority.ALWAYS);
 		getChildren().add(spinnerPane);
 		
+		setCursor(dashboardPane.isEditable());
+		
 		this.setOnDragDetected(event -> {
 			if (dashboardPane.isEditable()) {
 				Dragboard db = this.startDragAndDrop(TransferMode.MOVE);
@@ -99,13 +101,15 @@ public class DashboardContentTile extends VBox {
 			}
 		});
 		
-		dashboardPane.editableProperty().addListener((observable, oldValue, newValue) -> {
-			if (Boolean.TRUE.equals(newValue)) {
-				setCursor(Cursor.MOVE);
-			} else {
-				setCursor(Cursor.DEFAULT);
-			}
-		});
+		dashboardPane.editableProperty().addListener((observable, oldValue, newValue) -> setCursor(newValue));
+	}
+	
+	private void setCursor(Boolean editable) {
+		if (Boolean.TRUE.equals(editable)) {
+			setCursor(Cursor.MOVE);
+		} else {
+			setCursor(Cursor.DEFAULT);
+		}
 	}
 	
 	public Node getContentNode() {

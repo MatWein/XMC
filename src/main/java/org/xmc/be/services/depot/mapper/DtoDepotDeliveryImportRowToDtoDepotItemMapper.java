@@ -2,7 +2,7 @@ package org.xmc.be.services.depot.mapper;
 
 import org.springframework.stereotype.Component;
 import org.xmc.common.stubs.depot.deliveries.DtoDepotDeliveryImportRow;
-import org.xmc.common.stubs.depot.deliveries.DtoDepotItem;
+import org.xmc.common.stubs.depot.items.DtoDepotItem;
 
 @Component
 public class DtoDepotDeliveryImportRowToDtoDepotItemMapper {

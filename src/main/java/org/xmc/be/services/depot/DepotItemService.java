@@ -14,9 +14,9 @@ import org.xmc.be.repositories.depot.DepotItemRepository;
 import org.xmc.be.services.depot.controller.DeliverySaldoUpdatingController;
 import org.xmc.be.services.depot.controller.DepotItemSaveController;
 import org.xmc.common.stubs.PagingParams;
-import org.xmc.common.stubs.depot.deliveries.DepotItemOverviewFields;
-import org.xmc.common.stubs.depot.deliveries.DtoDepotItem;
-import org.xmc.common.stubs.depot.deliveries.DtoDepotItemOverview;
+import org.xmc.common.stubs.depot.items.DepotItemOverviewFields;
+import org.xmc.common.stubs.depot.items.DtoDepotItem;
+import org.xmc.common.stubs.depot.items.DtoDepotItemOverview;
 import org.xmc.fe.async.AsyncMonitor;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 

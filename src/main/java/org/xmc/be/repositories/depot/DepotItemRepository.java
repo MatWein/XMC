@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 import org.xmc.be.common.QueryUtil;
 import org.xmc.be.entities.depot.DepotDelivery;
 import org.xmc.common.stubs.PagingParams;
-import org.xmc.common.stubs.depot.deliveries.DepotItemOverviewFields;
-import org.xmc.common.stubs.depot.deliveries.DtoDepotItemOverview;
+import org.xmc.common.stubs.depot.items.DepotItemOverviewFields;
+import org.xmc.common.stubs.depot.items.DtoDepotItemOverview;
 
 import static org.xmc.be.entities.depot.QDepotItem.depotItem;
 import static org.xmc.be.entities.depot.QStock.stock;

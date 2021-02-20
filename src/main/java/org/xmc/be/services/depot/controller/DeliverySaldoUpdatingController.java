@@ -55,6 +55,7 @@ public class DeliverySaldoUpdatingController {
 		depotDelivery = depotDeliveryJpaRepository.getOne(depotDelivery.getId());
 		
 		Set<String> currencies = depotDelivery.getDepotItems().stream()
+				.filter(depotItem -> depotItem.getDeletionDate() == null)
 				.map(DepotItem::getCurrency)
 				.collect(Collectors.toSet());
 		Multimap<String, CurrencyConversionFactor> currencyConversionFactors = currencyConversionFactorLoadingController.load(currencies);
@@ -64,6 +65,7 @@ public class DeliverySaldoUpdatingController {
 	
 	private void updateDeliverySaldo(DepotDelivery depotDelivery, Multimap<String, CurrencyConversionFactor> currencyConversionFactors) {
 		BigDecimal sum = depotDelivery.getDepotItems().stream()
+				.filter(depotItem -> depotItem.getDeletionDate() == null)
 				.map(depotItem -> depotItemEuroValueCalculator.calculateEuroValue(depotItem, currencyConversionFactors))
 				.reduce(BigDecimal::add)
 				.orElse(BigDecimal.valueOf(0.0));

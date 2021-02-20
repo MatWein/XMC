@@ -1,4 +1,4 @@
-package org.xmc.be.services.depot.controller.importing;
+package org.xmc.be.services.depot.mapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,40 +7,35 @@ import org.springframework.stereotype.Component;
 import org.xmc.be.services.importing.controller.IImportRowMapper;
 import org.xmc.be.services.importing.parser.BigDecimalParser;
 import org.xmc.be.services.importing.parser.CurrencyParser;
-import org.xmc.be.services.importing.parser.LocalDateTimeParser;
-import org.xmc.common.stubs.depot.deliveries.DepotDeliveryImportColmn;
-import org.xmc.common.stubs.depot.deliveries.DtoDepotDeliveryImportRow;
+import org.xmc.common.stubs.depot.items.DepotItemImportColmn;
+import org.xmc.common.stubs.depot.items.DtoDepotItemImportRow;
 import org.xmc.common.stubs.importing.DtoColumnMapping;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Currency;
 import java.util.List;
 
 @Component
-public class DepotDeliveryImportLineMapper implements IImportRowMapper<DtoDepotDeliveryImportRow, DepotDeliveryImportColmn> {
-	private static final Logger LOGGER = LoggerFactory.getLogger(DepotDeliveryImportLineMapper.class);
+public class DepotItemImportLineMapper implements IImportRowMapper<DtoDepotItemImportRow, DepotItemImportColmn> {
+	private static final Logger LOGGER = LoggerFactory.getLogger(DepotItemImportLineMapper.class);
 	
-	private final LocalDateTimeParser localDateTimeParser;
 	private final BigDecimalParser bigDecimalParser;
 	private final CurrencyParser currencyParser;
 	
 	@Autowired
-	public DepotDeliveryImportLineMapper(
-			LocalDateTimeParser localDateTimeParser,
+	public DepotItemImportLineMapper(
 			BigDecimalParser bigDecimalParser,
 			CurrencyParser currencyParser) {
 		
-		this.localDateTimeParser = localDateTimeParser;
 		this.bigDecimalParser = bigDecimalParser;
 		this.currencyParser = currencyParser;
 	}
 	
 	@Override
-	public DtoDepotDeliveryImportRow apply(List<String> line, List<DtoColumnMapping<DepotDeliveryImportColmn>> columnMappings) {
-		var result = new DtoDepotDeliveryImportRow();
+	public DtoDepotItemImportRow apply(List<String> line, List<DtoColumnMapping<DepotItemImportColmn>> columnMappings) {
+		var result = new DtoDepotItemImportRow();
 		
-		for (DtoColumnMapping<DepotDeliveryImportColmn> columnMapping : columnMappings) {
+		for (DtoColumnMapping<DepotItemImportColmn> columnMapping : columnMappings) {
 			try {
 				String columnValue = line.get(columnMapping.getColumn() - 1);
 				populateValue(result, columnValue, columnMapping.getField());
@@ -52,16 +47,12 @@ public class DepotDeliveryImportLineMapper implements IImportRowMapper<DtoDepotD
 		return result;
 	}
 	
-	private void populateValue(DtoDepotDeliveryImportRow result, String columnValue, DepotDeliveryImportColmn field) {
+	private void populateValue(DtoDepotItemImportRow result, String columnValue, DepotItemImportColmn field) {
 		if (field == null) {
 			return;
 		}
 		
 		switch (field) {
-			case DELIVERY_DATE:
-				LocalDateTime deliveryDate = localDateTimeParser.parseDateTimeNullOnError(columnValue);
-				result.setDeliveryDate(deliveryDate);
-				break;
 			case ISIN:
 				result.setIsin(columnValue);
 				break;

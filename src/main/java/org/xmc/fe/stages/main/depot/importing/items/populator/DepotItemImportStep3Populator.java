@@ -2,6 +2,7 @@ package org.xmc.fe.stages.main.depot.importing.items.populator;
 
 import com.google.common.collect.Lists;
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.xmc.common.stubs.depot.items.DepotItemImportColmn;
 import org.xmc.common.stubs.importing.DtoImportData;
@@ -9,13 +10,11 @@ import org.xmc.fe.importing.DtoColumnMappingFactory;
 import org.xmc.fe.stages.main.depot.importing.items.DepotItemImportStep3Controller;
 import org.xmc.fe.ui.wizard.IWizardStepPopulator;
 
-import javax.inject.Inject;
-
 @Component
 public class DepotItemImportStep3Populator implements IWizardStepPopulator<DtoImportData<DepotItemImportColmn>, DepotItemImportStep3Controller> {
 	private final DtoColumnMappingFactory dtoColumnMappingFactory;
 	
-	@Inject
+	@Autowired
 	public DepotItemImportStep3Populator(DtoColumnMappingFactory dtoColumnMappingFactory) {
 		this.dtoColumnMappingFactory = dtoColumnMappingFactory;
 	}

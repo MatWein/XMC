@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import org.xmc.fe.ui.components.ButtonImageView?>
+<VBox stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
+	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.analysis.AnalysisController"
+	  prefHeight="700.0" prefWidth="900.0">
+
+	<ToolBar>
+		<Button text="%main.analysis.clear" onAction="#clearInput">
+			<graphic>
+				<ButtonImageView url="@/images/feather/file.png" />
+			</graphic>
+		</Button>
+		<Button text="%main.analysis.saveAsFavourite" onAction="#saveAsFavourite">
+			<graphic>
+				<ButtonImageView url="@/images/feather/save.png" />
+			</graphic>
+		</Button>
+		<Pane HBox.hgrow="ALWAYS" />
+		<MenuButton fx:id="favouriteMenuButton" disable="true">
+			<graphic>
+				<ButtonImageView url="@/images/feather/star.png" />
+			</graphic>
+		</MenuButton>
+	</ToolBar>
+
+</VBox>

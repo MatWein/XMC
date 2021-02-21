@@ -6,8 +6,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import org.xmc.fe.ui.components.ButtonImageView?>
+<?import org.xmc.fe.ui.dashboard.DashboardPane?>
 <VBox stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
-	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.DashboardController"
+	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.dashboard.DashboardController"
 	  prefHeight="700.0" prefWidth="900.0">
 
     <ToolBar fx:id="toolbar">
@@ -28,5 +29,7 @@
             </graphic>
         </Button>
     </ToolBar>
+
+	<DashboardPane VBox.vgrow="ALWAYS" />
 
 </VBox>

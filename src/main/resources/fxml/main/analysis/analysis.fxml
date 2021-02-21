@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import org.xmc.fe.ui.components.ButtonImageView?>
+<?import org.xmc.fe.ui.validation.components.ValidationComboBox?>
+<?import org.xmc.fe.ui.validation.components.ValidationDatePicker?>
 <VBox stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
 	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.analysis.AnalysisController"
 	  prefHeight="700.0" prefWidth="900.0">
@@ -29,5 +27,27 @@
 			</graphic>
 		</MenuButton>
 	</ToolBar>
+
+	<SplitPane VBox.vgrow="ALWAYS">
+		<VBox maxWidth="350" minWidth="350" styleClass="panel-bg1, padding-15">
+			<Label styleClass="form-label-first" text="%main.analysis.analysisType"/>
+			<ValidationComboBox required="false" />
+
+			<Label styleClass="form-label" text="%main.analysis.selectAssets"/>
+			<TreeView prefHeight="300" />
+
+			<Label styleClass="form-label" text="%main.analysis.timeRange"/>
+			<ValidationComboBox required="false" />
+
+			<Label styleClass="form-label" text="%main.analysis.timeRange.start"/>
+			<ValidationDatePicker required="false" />
+
+			<Label styleClass="form-label" text="%main.analysis.timeRange.end"/>
+			<ValidationDatePicker required="false" />
+		</VBox>
+		<AnchorPane>
+
+		</AnchorPane>
+	</SplitPane>
 
 </VBox>

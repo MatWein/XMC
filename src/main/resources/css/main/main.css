@@ -9,3 +9,7 @@
 .snow-region {
 	-fx-background-color: rgba(0, 0, 0, 0.0);
 }
+
+.panel-bg1 {
+	-fx-background-color: xmc-background-color-1;
+}

@@ -132,6 +132,16 @@ public class MainController implements IAfterStageShown<Void> {
                 .build()
                 .showAndWait();
     }
+    
+    @FXML
+    public void onProtocol() {
+	    CustomDialogBuilder.getInstance()
+			    .titleKey(MessageKey.PROTOCOL_TITLE)
+			    .addButton(MessageKey.DIALOG_OK, ButtonData.OK_DONE)
+			    .withFxmlContent(FxmlKey.PROTOCOL)
+			    .build()
+			    .showAndWait();
+    }
 
     @FXML
     public void onToggleProcessView() {

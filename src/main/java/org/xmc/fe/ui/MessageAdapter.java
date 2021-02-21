@@ -73,10 +73,12 @@ public class MessageAdapter {
         APP_NAME("app.name"),
         APP_DATE_FORMAT("app.dateFormat"),
         APP_DATETIME_FORMAT("app.dateTimeFormat"),
+	    
         PASSWORD("password"),
         TABLE_NO_CONTENT("table.noContent"),
         DIALOG_OK("dialog.ok"),
         DIALOG_CLOSE("dialog.close"),
+	    
         FILECHOOSER_IMAGES("filechooser.extensionfilter.images"),
         FILECHOOSER_CSV_EXCEL("filechooser.extensionfilter.csvExcel"),
         FILECHOOSER_ALL("filechooser.extensionfilter.all"),
@@ -156,6 +158,7 @@ public class MessageAdapter {
 	    ASYNC_TASK_DELETE_DEPOT_ITEMS("async.task.deleteDepotItems"),
 	    ASYNC_TASK_IMPORTING_DEPOT_DELIVERIES("async.task.importingDepotDeliveries"),
 	    ASYNC_TASK_IMPORTING_DEPOT_ITEMS("async.task.importingDepotItems"),
+	    ASYNC_TASK_LOAD_SERVICECALLLOGS("async.task.loadingServiceCallLogs"),
 
         LOGIN_TITLE("login.title"),
 
@@ -178,6 +181,7 @@ public class MessageAdapter {
         ABOUT_TITLE("about.title"),
 	    CHANGELOG_TITLE("changelog.title"),
 	    SETTINGS_TITLE("settings.title"),
+	    PROTOCOL_TITLE("protocol.title"),
 
         CASHACCOUNT_EDIT_TITLE("cashaccount.edit.title"),
         CASHACCOUNT_EDIT_SAVE("cashaccount.edit.save"),

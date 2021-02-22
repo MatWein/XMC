@@ -4,6 +4,7 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
@@ -28,6 +29,9 @@ public class NestedPropertyValueFactory implements Callback<CellDataFeatures, Ob
     private Double fitToHeight;
     private int fractionDigits = 2;
     private String translationKey;
+    private Double maxHeight;
+    private boolean useTextArea = false;
+    private boolean abbreviate = true;
 
     @Override
     public ObservableValue call(CellDataFeatures param) {
@@ -39,8 +43,25 @@ public class NestedPropertyValueFactory implements Callback<CellDataFeatures, Ob
 
         try {
             Object value = PropertyUtils.getNestedProperty(rowData, property);
-            Object mappedValue = mapValue(value);
-            return new ReadOnlyObjectWrapper<>(mappedValue);
+	        
+            Node nodeForValue = mapValue(value);
+            if (nodeForValue instanceof Text && useTextArea) {
+	            Text textNode = (Text) nodeForValue;
+	            
+	            TextArea textArea = new TextArea(textNode.getText());
+	            textArea.setPrefHeight(textNode.getLayoutBounds().getHeight() + 50.0);
+	            textArea.setPrefWidth(textNode.getLayoutBounds().getWidth() + 50.0);
+	            textArea.setEditable(false);
+	            
+	            if (maxHeight != null) {
+		            textArea.setPrefHeight(Math.min(textArea.getPrefHeight(), maxHeight));
+		            textArea.setMaxHeight(maxHeight);
+	            }
+	            
+	            nodeForValue = textArea;
+            }
+	        
+            return new ReadOnlyObjectWrapper<>(nodeForValue);
         } catch (NestedNullException | NoSuchMethodException e) {
             return null;
         } catch (Throwable e) {
@@ -56,32 +77,40 @@ public class NestedPropertyValueFactory implements Callback<CellDataFeatures, Ob
 	    if (value instanceof Enum && StringUtils.isNotBlank(translationKey)) {
 		    MessageKey messageKey = MessageKey.valueOf(translationKey);
 		    String text = MessageAdapter.getByKey(messageKey, (Enum) value);
-		    return new Text(StringUtils.abbreviate(text, 255));
+		    return createText(text);
 	    }
         
         if (value instanceof String) {
-            return new Text(StringUtils.abbreviate((String) value, 255));
+            return createText((String) value);
         } else if (value instanceof byte[]) {
             return createImageView((byte[]) value);
         } else if (value instanceof Currency) {
-            return new Text(((Currency) value).getCurrencyCode());
+            return createText(((Currency) value).getCurrencyCode());
         } else if (value instanceof LocalDateTime) {
 	        LocalDateTime localDateTime = (LocalDateTime) value;
-	        return new Text(MessageAdapter.formatDateTime(localDateTime));
+	        return createText(MessageAdapter.formatDateTime(localDateTime));
         } else if (value instanceof LocalDate) {
 	        LocalDate localDate = (LocalDate) value;
-	        return new Text(MessageAdapter.formatDate(localDate));
+	        return createText(MessageAdapter.formatDate(localDate));
         } else if (value instanceof Number) {
-            return new Text(createNumberInstance().format(value));
+            return createText(createNumberInstance().format(value));
         } else if (value instanceof Money) {
             Money money = (Money) value;
-            return new Text(createNumberInstance().format(money.getValue()) + " " + money.getCurrency());
+            return createText(createNumberInstance().format(money.getValue()) + " " + money.getCurrency());
         } else if (value instanceof Percentage) {
             Percentage percentage = (Percentage) value;
-            return new Text(createNumberInstance().format(percentage.getValue()) + " %");
+            return createText(createNumberInstance().format(percentage.getValue()) + " %");
         }
 
         return new Text(value.toString());
+    }
+    
+    private Text createText(String value) {
+    	if (abbreviate) {
+		    return new Text(StringUtils.abbreviate(value, 255));
+	    } else {
+		    return new Text(value);
+	    }
     }
 
     private NumberFormat createNumberInstance() {
@@ -142,5 +171,29 @@ public class NestedPropertyValueFactory implements Callback<CellDataFeatures, Ob
 	
 	public void setTranslationKey(String translationKey) {
 		this.translationKey = translationKey;
+	}
+	
+	public Double getMaxHeight() {
+		return maxHeight;
+	}
+	
+	public void setMaxHeight(Double maxHeight) {
+		this.maxHeight = maxHeight;
+	}
+	
+	public boolean isAbbreviate() {
+		return abbreviate;
+	}
+	
+	public void setAbbreviate(boolean abbreviate) {
+		this.abbreviate = abbreviate;
+	}
+	
+	public boolean isUseTextArea() {
+		return useTextArea;
+	}
+	
+	public void setUseTextArea(boolean useTextArea) {
+		this.useTextArea = useTextArea;
 	}
 }

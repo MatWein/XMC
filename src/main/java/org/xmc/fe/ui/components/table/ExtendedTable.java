@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.TableColumn.SortType;
 import javafx.scene.control.TableView.TableViewSelectionModel;
@@ -18,6 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -162,12 +164,17 @@ public class ExtendedTable<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE
                 continue;
             }
 
-            Text text = new Text(column.getText());
+            Node text = new Text(column.getText());
             double max = text.getLayoutBounds().getWidth();
             for (int i = 0; i < table.getItems().size(); i++) {
-                if (column.getCellData(i) instanceof Text) {
-                    text = (Text)column.getCellData(i);
+                if (column.getCellData(i) instanceof Node) {
+                    text = (Node)column.getCellData(i);
+                    
                     double calcwidth = text.getLayoutBounds().getWidth();
+                    if (calcwidth == 0.0 && text instanceof Region) {
+	                    calcwidth = ((TextArea) text).getPrefWidth() + 50.0;
+                    }
+                    
                     if (calcwidth > max) {
                         max = calcwidth;
                     }

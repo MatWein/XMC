@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import org.xmc.fe.ui.components.async.ProcessView?>
 <?import org.xmc.fe.ui.components.*?>
@@ -48,11 +50,15 @@
     <HBox alignment="CENTER_LEFT" prefHeight="30" styleClass="statusbar" AnchorPane.bottomAnchor="0.0"
           AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
 
-        <Label fx:id="statusLabel" text="%main.status.ready">
-            <padding>
-                <Insets left="10"/>
-            </padding>
-        </Label>
+		<Label visible="false" fx:id="errorAlertImageView" styleClass="padding-left-10">
+			<graphic>
+				<ImageView>
+					<Image url="@/images/feather/alert-triangle.png" />
+				</ImageView>
+			</graphic>
+		</Label>
+
+        <Label fx:id="statusLabel" text="%main.status.ready" styleClass="padding-left-10" />
 
         <Pane HBox.hgrow="ALWAYS"/>
         <ProgressIndicator fx:id="progressIndicator" maxHeight="16.0" maxWidth="16.0"

@@ -1,8 +1,11 @@
 package org.xmc.fe.stages.main;
 
+import javafx.animation.Animation;
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -10,6 +13,7 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.entities.settings.SettingType;
 import org.xmc.be.services.login.UserLoginService;
@@ -33,6 +37,8 @@ import java.util.concurrent.TimeUnit;
 public class MainController implements IAfterStageShown<Void> {
     public volatile static Region backdropRef;
     public volatile static ProcessView processViewRef;
+    public volatile static Label errorAlertImageViewRef;
+    public volatile static Label statusLabelRef;
     public volatile static Stage mainWindow;
 	
     private final ExtrasUsageCalculator extrasUsageCalculator;
@@ -50,6 +56,7 @@ public class MainController implements IAfterStageShown<Void> {
     @FXML private Label statusLabel;
     @FXML private MemoryProgressBar memoryProgressbar;
     @FXML private Label displayNameLabel;
+	@FXML private Label errorAlertImageView;
 	
     @Autowired
 	public MainController(
@@ -66,6 +73,8 @@ public class MainController implements IAfterStageShown<Void> {
     public void initialize() {
         backdropRef = backdrop;
         processViewRef = processView;
+		errorAlertImageViewRef = errorAlertImageView;
+		statusLabelRef = statusLabel;
 
         memoryProgressbar.initialize();
         displayNameLabel.setText(MessageAdapter.getByKey(MessageKey.MAIN_DISPLAYNAME, System.getProperty(UserLoginService.SYSTEM_PROPERTY_DISPLAYNAME)));
@@ -77,6 +86,28 @@ public class MainController implements IAfterStageShown<Void> {
 
         processView.itemCountProperty().addListener((observable, oldValue, newValue) -> processCountLabel.setText(MessageAdapter.getByKey(MessageKey.MAIN_PROCESS_COUNTER, newValue.intValue())));
         processView.setProcessProgressbar(processProgressbar);
+		
+		errorAlertImageView.managedProperty().bind(errorAlertImageView.visibleProperty());
+		errorAlertImageView.setCursor(Cursor.HAND);
+		errorAlertImageView.setOnMouseClicked(event -> {
+			errorAlertImageView.setVisible(false);
+			statusLabel.setText(MessageAdapter.getByKey(MessageKey.STATUS_READY));
+			
+			onLogs();
+		});
+		
+		FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2.5), errorAlertImageView);
+		fadeTransition.setFromValue(1.0);
+		fadeTransition.setToValue(0.0);
+		fadeTransition.setCycleCount(Animation.INDEFINITE);
+		
+		errorAlertImageView.visibleProperty().addListener((observable, oldValue, newValue) -> {
+			if (Boolean.TRUE.equals(newValue)) {
+				fadeTransition.play();
+			} else {
+				fadeTransition.stop();
+			}
+		});
     }
 	
 	@Override

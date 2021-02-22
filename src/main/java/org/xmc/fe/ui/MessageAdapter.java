@@ -105,6 +105,9 @@ public class MessageAdapter {
 	    VALIDATION_STOCK_ISIN_ALREADY_EXISTS("validation.stockIsinAlreadyExists"),
 	    VALIDATION_IMPORT_FIELD_ERROR("validation.import.field.error"),
 
+	    STATUS_READY("main.status.ready"),
+	    STATUS_ERROR("main.status.error"),
+	    
         PAGING_FIRST_PAGE("paging.firstPage"),
         PAGING_BACK("paging.back"),
         PAGING_NEXT("paging.next"),

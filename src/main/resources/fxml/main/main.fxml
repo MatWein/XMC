@@ -97,6 +97,8 @@
 			<SeparatorMenuItem />
             <MenuItem onAction="#onChangelog" text="%main.menu.changelog" />
             <MenuItem onAction="#onProtocol" text="%main.menu.protocol" />
+            <MenuItem onAction="#onLogs" text="%main.menu.logs" />
+			<SeparatorMenuItem />
 			<MenuItem onAction="#onAbout" text="%main.menu.about">
 				<graphic>
 					<ButtonImageView url="@/images/feather/info.png"/>

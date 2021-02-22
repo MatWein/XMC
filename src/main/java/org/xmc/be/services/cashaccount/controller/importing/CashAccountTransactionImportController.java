@@ -52,7 +52,7 @@ public class CashAccountTransactionImportController {
 		this.cashAccountTransactionImportLineValidator = cashAccountTransactionImportLineValidator;
 	}
 	
-	public void importTransactions(AsyncMonitor monitor, CashAccount cashAccount, DtoImportData<CashAccountTransactionImportColmn> importData) throws Exception {
+	public void importTransactions(AsyncMonitor monitor, CashAccount cashAccount, DtoImportData<CashAccountTransactionImportColmn> importData) {
 		if (importData.isSaveTemplate()) {
 			monitor.setStatusText(MessageKey.ASYNC_TASK_SAVE_IMPORT_TEMPLATE);
 			importTemplateSaveOrUpdateController.saveTemplate(
@@ -65,7 +65,7 @@ public class CashAccountTransactionImportController {
 					importData.getEncoding());
 		}
 		
-		var fileValidationResult = importPreparationController.readAndValidateWithoutErrorHandling(
+		var fileValidationResult = importPreparationController.readAndValidateImportFile(
 				monitor,
 				importData,
 				cashAccountTransactionImportLineMapper,

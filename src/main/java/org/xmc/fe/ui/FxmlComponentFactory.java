@@ -40,6 +40,7 @@ public class FxmlComponentFactory {
         ABOUT("/fxml/main/about.fxml"),
 	    CHANGELOG("/fxml/main/changelog.fxml"),
 	    PROTOCOL("/fxml/main/protocol.fxml"),
+	    LOGS("/fxml/main/logs.fxml"),
         CASH_ACCOUNT_EDIT("/fxml/main/cashaccount/cashaccount-edit.fxml"),
         CASH_ACCOUNTS_OVERVIEW("/fxml/main/cashaccount/cashaccounts-overview.fxml"),
         CASH_ACCOUNT_TRANSACTIONS("/fxml/main/cashaccount/cashaccount-transactions.fxml"),

@@ -58,7 +58,7 @@ public class CashAccountTransactionImportService {
 	public void importTransactions(
 			AsyncMonitor monitor,
 			long cashAccountId,
-			DtoImportData<CashAccountTransactionImportColmn> importData) throws Exception {
+			DtoImportData<CashAccountTransactionImportColmn> importData) {
 		
 		LOGGER.info("Importing cash account transaction import file: {}", importData);
 		CashAccount cashAccount = cashAccountJpaRepository.getOne(cashAccountId);

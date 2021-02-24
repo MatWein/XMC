@@ -8,7 +8,7 @@ public enum FileMimeType {
 	PDF("pdf", "application/pdf"),
 	HTML("html", "text/html"),
 	TEXT("txt", "text/plain"),
-	CSV("txt", "text/csv"),
+	CSV("csv", "text/csv"),
 	
 	MS_WORD("doc", "application/msword"),
 	MS_WORDX("docx", "application/msword"),

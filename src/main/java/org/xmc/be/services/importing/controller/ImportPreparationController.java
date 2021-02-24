@@ -1,6 +1,7 @@
 package org.xmc.be.services.importing.controller;
 
 import com.google.common.collect.Sets;
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,7 @@ import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
-import java.nio.file.Files;
 import java.util.List;
 import java.util.Set;
 
@@ -26,18 +25,19 @@ import java.util.Set;
 public class ImportPreparationController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ImportPreparationController.class);
 	
-	public static final Set<String> VALID_CSV_MIME_TYPES = Sets.newHashSet(
-			FileMimeType.CSV.getMimeType()
+	public static final Set<String> VALID_CSV_EXTENSIONS = Sets.newHashSet(
+			FileMimeType.TEXT.getFileExtension().toUpperCase(),
+			FileMimeType.CSV.getFileExtension().toUpperCase()
 	);
 	
-	public static final Set<String> VALID_EXCEL_MIME_TYPES = Sets.newHashSet(
-			FileMimeType.MS_EXCELO.getMimeType(),
-			FileMimeType.MS_EXCELX.getMimeType(),
-			FileMimeType.MS_EXCEL2.getMimeType(),
-			FileMimeType.MS_EXCEL.getMimeType()
+	public static final Set<String> VALID_EXCEL_EXTENSIONS = Sets.newHashSet(
+			FileMimeType.MS_EXCELO.getFileExtension().toUpperCase(),
+			FileMimeType.MS_EXCELX.getFileExtension().toUpperCase(),
+			FileMimeType.MS_EXCEL2.getFileExtension().toUpperCase(),
+			FileMimeType.MS_EXCEL.getFileExtension().toUpperCase()
 	);
 	
-	public static final Set<String> VALID_MIME_TYPES = Sets.union(VALID_CSV_MIME_TYPES, VALID_EXCEL_MIME_TYPES);
+	public static final Set<String> VALID_EXTENSIONS = Sets.union(VALID_CSV_EXTENSIONS, VALID_EXCEL_EXTENSIONS);
 	
 	private final RawImportFileReader rawImportFileReader;
 	private final DtoImportFileValidationResultMapper dtoImportFileValidationResultMapper;
@@ -81,11 +81,11 @@ public class ImportPreparationController {
 		monitor.setProgressByItemCount(processedItems, processItemCount);
 		
 		monitor.setStatusText(MessageKey.ASYNC_TASK_VALIDATE_IMPORT_FILE);
-		String contentType = validateFileContentType(importData.getFileToImport());
+		String fileExtension = validateFileExtension(importData.getFileToImport());
 		monitor.setProgressByItemCount(++processedItems, processItemCount);
 		
 		monitor.setStatusText(MessageKey.ASYNC_TASK_READ_IMPORT_FILE);
-		List<List<String>> rawFileContent = rawImportFileReader.read(importData, contentType);
+		List<List<String>> rawFileContent = rawImportFileReader.read(importData, fileExtension);
 		monitor.setProgressByItemCount(++processedItems, processItemCount);
 		
 		monitor.setStatusText(MessageKey.ASYNC_TASK_MAP_IMPORT_FILE);
@@ -99,16 +99,12 @@ public class ImportPreparationController {
 		return result;
 	}
 	
-	private String validateFileContentType(File fileToImport) throws ImportFileTypeException {
-		try {
-			String contentType = Files.probeContentType(fileToImport.toPath());
-			if (!VALID_MIME_TYPES.contains(contentType)) {
-				throw new ImportFileTypeException();
-			}
-			return contentType;
-		} catch (IOException e) {
+	private String validateFileExtension(File fileToImport) throws ImportFileTypeException {
+		String contentType = FilenameUtils.getExtension(fileToImport.getAbsolutePath()).toUpperCase();
+		if (!VALID_EXTENSIONS.contains(contentType)) {
 			throw new ImportFileTypeException();
 		}
+		return contentType;
 	}
 	
 	private <RESULT_DTO_TYPE extends Serializable>

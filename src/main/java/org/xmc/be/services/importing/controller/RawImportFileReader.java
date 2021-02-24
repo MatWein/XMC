@@ -30,15 +30,15 @@ public class RawImportFileReader {
 	
 	public List<List<String>> read(
 			DtoImportData<?> importData,
-			String contentType) throws IOException, CsvValidationException {
+			String fileExtension) throws IOException, CsvValidationException {
 		
-		if (ImportPreparationController.VALID_CSV_MIME_TYPES.contains(contentType)) {
+		if (ImportPreparationController.VALID_CSV_EXTENSIONS.contains(fileExtension)) {
 			Charset charset = findCharsetOrDefault(importData.getEncoding());
 			return rawImportCsvFileReader.read(importData.getFileToImport(), importData.getStartWithLine(), importData.getCsvSeparator(), charset);
-		} else if (ImportPreparationController.VALID_EXCEL_MIME_TYPES.contains(contentType)) {
+		} else if (ImportPreparationController.VALID_EXCEL_EXTENSIONS.contains(fileExtension)) {
 			return rawImportExcelFileReader.read(importData.getFileToImport(), importData.getStartWithLine());
 		} else {
-			String message = String.format("Cannot import invalid file type: %s", contentType);
+			String message = String.format("Cannot import invalid file extension: %s", fileExtension);
 			throw new IllegalArgumentException(message);
 		}
 	}

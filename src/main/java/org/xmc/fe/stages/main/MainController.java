@@ -7,6 +7,7 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
@@ -18,8 +19,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.entities.settings.SettingType;
 import org.xmc.be.services.login.UserLoginService;
 import org.xmc.be.services.settings.SettingsService;
+import org.xmc.common.utils.DesktopUtils;
+import org.xmc.common.utils.HomeDirectoryPathCalculator;
 import org.xmc.common.utils.SleepUtil;
 import org.xmc.fe.async.AsyncProcessor;
+import org.xmc.fe.stages.main.logs.LogsController;
 import org.xmc.fe.ui.CustomDialogBuilder;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.FxmlController;
@@ -32,6 +36,7 @@ import org.xmc.fe.ui.extras.ExtrasUsageCalculator;
 import org.xmc.fe.ui.extras.SnowAnimationController;
 
 import java.util.concurrent.TimeUnit;
+import java.util.function.BiConsumer;
 
 @FxmlController
 public class MainController implements IAfterStageShown<Void> {
@@ -178,6 +183,10 @@ public class MainController implements IAfterStageShown<Void> {
 	public void onLogs() {
 		CustomDialogBuilder.getInstance()
 				.titleKey(MessageKey.LOGS_TITLE)
+				.addButton(MessageKey.LOGS_OPEN_FOLDER, ButtonData.CANCEL_CLOSE, (BiConsumer<Dialog<?>, LogsController>) (dialog, controller) -> {
+					DesktopUtils.openInFileExplorer(HomeDirectoryPathCalculator.calculateLogDir());
+					dialog.close();
+				})
 				.addButton(MessageKey.DIALOG_OK, ButtonData.OK_DONE)
 				.withFxmlContent(FxmlKey.LOGS)
 				.build()

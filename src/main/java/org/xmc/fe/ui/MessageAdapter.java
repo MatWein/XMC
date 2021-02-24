@@ -185,7 +185,9 @@ public class MessageAdapter {
 	    CHANGELOG_TITLE("changelog.title"),
 	    SETTINGS_TITLE("settings.title"),
 	    PROTOCOL_TITLE("protocol.title"),
+
 	    LOGS_TITLE("logs.title"),
+	    LOGS_OPEN_FOLDER("logs.openFolder"),
 
         CASHACCOUNT_EDIT_TITLE("cashaccount.edit.title"),
         CASHACCOUNT_EDIT_SAVE("cashaccount.edit.save"),

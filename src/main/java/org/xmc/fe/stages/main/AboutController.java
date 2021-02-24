@@ -6,7 +6,7 @@ import javafx.scene.text.Text;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.boot.info.GitProperties;
-import org.xmc.Main;
+import org.xmc.common.utils.DesktopUtils;
 import org.xmc.fe.ui.FxmlController;
 
 import java.time.ZoneId;
@@ -48,6 +48,6 @@ public class AboutController {
 
     @FXML
     public void onShowWebsite() {
-        Main.hostServices.showDocument(hyperlink.getText());
+	    DesktopUtils.openInBrowser(hyperlink.getText());
     }
 }

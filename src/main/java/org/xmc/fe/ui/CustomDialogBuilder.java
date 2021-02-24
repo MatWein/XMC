@@ -26,15 +26,16 @@ import java.util.function.BiConsumer;
 public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE, ASYNC_DATA_TYPE> {
     public static CustomDialogBuilder getInstance() { return new CustomDialogBuilder(); }
 
+    private final List<ButtonType> buttons = new ArrayList<>();
+    private final Map<ButtonType, BiConsumer<Dialog<RETURN_TYPE>, CONTROLLER_TYPE>> customButtonActions = Maps.newHashMap();
+    
     private MessageKey titleKey;
     private MessageKey headerTextKey;
     private Node content;
     private IDialogMapper<CONTROLLER_TYPE, RETURN_TYPE> mapper;
     private CONTROLLER_TYPE controller;
     private RETURN_TYPE input;
-    private List<ButtonType> buttons = new ArrayList<>();
     private IAsyncCallable<ASYNC_DATA_TYPE> asyncCallable;
-    private Map<ButtonType, BiConsumer<ActionEvent, CONTROLLER_TYPE>> customButtonActions = Maps.newHashMap();
 
     private CustomDialogBuilder() {
     }
@@ -64,6 +65,19 @@ public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE, ASYNC_DATA_TYPE> 
         buttons.add(new ButtonType(MessageAdapter.getByKey(buttonTextKey), buttonData));
         return this;
     }
+    
+    public CustomDialogBuilder addButton(
+    		MessageKey buttonTextKey,
+		    ButtonData buttonData,
+		    BiConsumer<Dialog<RETURN_TYPE>, CONTROLLER_TYPE> onAction) {
+    	
+	    ButtonType buttonType = new ButtonType(MessageAdapter.getByKey(buttonTextKey), buttonData);
+	    
+	    buttons.add(buttonType);
+	    customButtonActions.put(buttonType, onAction);
+	    
+        return this;
+    }
 
     public CustomDialogBuilder withMapper(IDialogMapper<CONTROLLER_TYPE, RETURN_TYPE> mapper) {
         this.mapper = mapper;
@@ -80,11 +94,6 @@ public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE, ASYNC_DATA_TYPE> 
         return this;
     }
 
-    public CustomDialogBuilder addCustomButtonAction(ButtonType buttonType, BiConsumer<ActionEvent, CONTROLLER_TYPE> onAction) {
-        this.customButtonActions.put(buttonType, onAction);
-        return this;
-    }
-
     public Dialog<RETURN_TYPE> build() {
         Dialog<RETURN_TYPE> dialog = new Dialog<>();
 
@@ -93,7 +102,7 @@ public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE, ASYNC_DATA_TYPE> 
 	    dialog.initOwner(MainController.mainWindow);
 	    dialog.initModality(Modality.WINDOW_MODAL);
 	    
-        DialogPane dialogPane = createDialogPane();
+        DialogPane dialogPane = createDialogPane(dialog);
         dialogPane.getStylesheets().add(FeConstants.BASE_CSS_PATH);
         dialogPane.setContent(content);
         dialogPane.getButtonTypes().addAll(buttons);
@@ -126,7 +135,7 @@ public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE, ASYNC_DATA_TYPE> 
         return dialog;
     }
 
-    private DialogPane createDialogPane() {
+    private DialogPane createDialogPane(Dialog<RETURN_TYPE> dialog) {
         return new DialogPane() {
             @Override
             protected Node createButton(ButtonType buttonType) {
@@ -138,7 +147,7 @@ public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE, ASYNC_DATA_TYPE> 
                     button.setCancelButton(buttonData.isCancelButton());
                     button.addEventHandler(ActionEvent.ACTION, ae -> {
                         if (ae.isConsumed()) return;
-                        customButtonActions.get(buttonType).accept(ae, controller);
+                        customButtonActions.get(buttonType).accept(dialog, controller);
                     });
                     return button;
                 } else {

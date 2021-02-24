@@ -40,7 +40,7 @@ public class DepotTransactionEditDialogMapper implements IDialogMapper<DepotTran
 		dto.setId(controller.getTransactionId());
 		dto.setIsin(controller.getIsinAutoComplete().getTextOrNull());
 		dto.setValue(controller.getValueNumberField().getValueAsBigDecimal());
-		dto.setValutaDate(controller.getValutaDatePicker().getValue());
+		dto.setValutaDate(controller.getValutaDatePicker().getValueOrNull());
 		
 		String currencyCode = controller.getCurrencyAutoComplete().getTextOrNull();
 		if (currencyCode != null) {

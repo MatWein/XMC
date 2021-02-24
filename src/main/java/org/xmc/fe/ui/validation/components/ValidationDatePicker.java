@@ -46,25 +46,32 @@ public class ValidationDatePicker extends DatePicker implements IValidationCompo
 
         return errorMessages;
     }
+    
+    public LocalDate getValueOrNull() {
+	    updateValueAndValidate(getScene());
+	    return getValue();
+    }
 
     @Override
     public void initialize(Scene scene) {
         CommonTextfieldValidator.initValidationEvent(getEditor(), scene);
+
         this.valueProperty().addListener((observable, oldValue, newValue) -> SceneUtil.getOrCreateValidationSceneState(scene).validate());
-
-        this.focusedProperty().addListener((FocusLostListener) () -> {
-            try {
-                setValue(getConverter().fromString(getEditor().getText()));
-                SceneUtil.getOrCreateValidationSceneState(scene).validate();
-            } catch (Throwable ignored) {}
-        });
-
+        this.focusedProperty().addListener((FocusLostListener) () -> updateValueAndValidate(scene));
+	    
         if (initialFocus) {
             requestInitialFocus();
         }
     }
-
-    @Override
+	
+	private void updateValueAndValidate(Scene scene) {
+		try {
+		    setValue(getConverter().fromString(getEditor().getText()));
+		    SceneUtil.getOrCreateValidationSceneState(scene).validate();
+		} catch (Throwable ignored) {}
+	}
+	
+	@Override
     public String getCssClassInvalid() {
         return CSS_CLASS_INVALID;
     }

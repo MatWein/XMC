@@ -34,7 +34,7 @@ public class CurrencyConversionFactorEditDialogMapper implements IDialogMapper<C
 		dto.setCurrency(Currency.getInstance(controller.getSourceCurrencyAutoComplete().getTextOrNull()));
 		dto.setFactorToEur(controller.getConversionFactorNumberField().getValueAsBigDecimal());
 		dto.setId(controller.getCurrencyConversionFactorId());
-		dto.setInputDate(controller.getInputDatePicker().getValue().atTime(controller.getInputTimePicker().getValue()));
+		dto.setInputDate(controller.getInputDatePicker().getValueOrNull().atTime(controller.getInputTimePicker().getValue()));
 		
 		return dto;
 	}

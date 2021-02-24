@@ -49,7 +49,7 @@ public class CashAccountTransactionEditDialogMapper implements IDialogMapper<Cas
         dto.setReferenceIban(controller.getReferenceIbanTextfield().getTextOrNull());
         dto.setUsage(controller.getUsageTextArea().getTextOrNull());
         dto.setValue(controller.getValueNumberField().getValueAsBigDecimal());
-        dto.setValutaDate(controller.getValutaDatePicker().getValue());
+        dto.setValutaDate(controller.getValutaDatePicker().getValueOrNull());
 
         return dto;
     }

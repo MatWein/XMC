@@ -28,7 +28,7 @@ public class DepotDeliveryEditDialogMapper implements IDialogMapper<DepotDeliver
 		var dto = new DtoDepotDelivery();
 		
 		dto.setId(controller.getDeliveryId());
-		dto.setDeliveryDate(controller.getDeliveryDatePicker().getValue().atTime(controller.getDeliveryTimePicker().getValue()));
+		dto.setDeliveryDate(controller.getDeliveryDatePicker().getValueOrNull().atTime(controller.getDeliveryTimePicker().getValue()));
 		
 		return dto;
 	}

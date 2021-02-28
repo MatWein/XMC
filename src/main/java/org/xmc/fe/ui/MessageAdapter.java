@@ -3,6 +3,8 @@ package org.xmc.fe.ui;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xmc.be.entities.importing.ImportTemplateType;
+import org.xmc.common.stubs.analysis.AnalysisType;
+import org.xmc.common.stubs.analysis.TimeRange;
 import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
 import org.xmc.common.stubs.depot.deliveries.DepotDeliveryImportColmn;
 import org.xmc.common.stubs.depot.items.DepotItemImportColmn;
@@ -284,7 +286,10 @@ public class MessageAdapter {
 	    DEPOT_ITEM_IMPORT_DIALOG_STEP4_COLUMN_PREFIX("depot.item.import.dialog.step4.columns", DepotItemImportColmn.class),
 	    
 	    DASHBOARD_REMOVE_TILE("dashboard.removeTile"),
-	    DASHBOARD_LOADING_TILE("dashboard.loadingTile")
+	    DASHBOARD_LOADING_TILE("dashboard.loadingTile"),
+	    
+	    ANALYSIS_TYPE("analysis.type", AnalysisType.class),
+	    TIME_RANGE_TYPE("timerange.type",TimeRange .class)
         ;
 
         private final String key;

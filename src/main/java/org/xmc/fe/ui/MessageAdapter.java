@@ -164,6 +164,7 @@ public class MessageAdapter {
 	    ASYNC_TASK_IMPORTING_DEPOT_DELIVERIES("async.task.importingDepotDeliveries"),
 	    ASYNC_TASK_IMPORTING_DEPOT_ITEMS("async.task.importingDepotItems"),
 	    ASYNC_TASK_LOAD_SERVICECALLLOGS("async.task.loadingServiceCallLogs"),
+	    ASYNC_TASK_CALCULATE_STARTEND_DATE("async.task.calculateStartEndDate"),
 
         LOGIN_TITLE("login.title"),
 

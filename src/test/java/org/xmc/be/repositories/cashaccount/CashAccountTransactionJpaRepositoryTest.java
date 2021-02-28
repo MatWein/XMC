@@ -165,4 +165,29 @@ class CashAccountTransactionJpaRepositoryTest extends IntegrationTest {
 		
 		Assertions.assertEquals(Lists.newArrayList(), result);
 	}
+	
+	@Test
+	void testFindFirstTransaction() {
+		CashAccount cashAccount = graphGenerator.createCashAccount();
+		
+		CashAccountTransaction transaction1 = graphGenerator.createCashAccountTransaction(cashAccount);
+		transaction1.setValutaDate(LocalDate.of(2020, Month.JANUARY, 1));
+		session().saveOrUpdate(transaction1);
+		
+		CashAccountTransaction transaction2 = graphGenerator.createCashAccountTransaction(cashAccount);
+		transaction2.setValutaDate(LocalDate.of(2019, Month.JANUARY, 1));
+		session().saveOrUpdate(transaction2);
+		
+		CashAccountTransaction transaction3 = graphGenerator.createCashAccountTransaction(cashAccount);
+		transaction3.setValutaDate(LocalDate.of(2018, Month.JANUARY, 1));
+		transaction3.setDeletionDate(LocalDateTime.now());
+		session().saveOrUpdate(transaction3);
+		
+		flushAndClear();
+		
+		Optional<CashAccountTransaction> result = repository.findFirstTransaction(Lists.newArrayList(cashAccount.getId()));
+		
+		Assertions.assertTrue(result.isPresent());
+		Assertions.assertEquals(transaction2, result.get());
+	}
 }

@@ -9,6 +9,7 @@ import org.xmc.be.entities.cashaccount.CashAccountTransaction;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,15 +30,35 @@ public interface CashAccountTransactionJpaRepository extends JpaRepository<CashA
             "WHERE cat.valutaDate <= :valutaDate AND cat.deletionDate IS NULL AND cat.cashAccount = :cashAccount AND cat.creationDate <= :creationDate AND cat.id < :maxId " +
             "ORDER BY cat.valutaDate DESC, cat.creationDate DESC, cat.id DESC"
     )
-    List<CashAccountTransaction> findTransactionsBeforeOrOnDate(CashAccount cashAccount, LocalDate valutaDate, LocalDateTime creationDate, long maxId, Pageable pageable);
+    List<CashAccountTransaction> findTransactionsBeforeOrOnDate(
+    		CashAccount cashAccount,
+		    LocalDate valutaDate,
+		    LocalDateTime creationDate,
+		    long maxId,
+		    Pageable pageable);
 
     default Optional<CashAccountTransaction> findFirstTransactionBeforeDate(CashAccount cashAccount, LocalDate valutaDate) {
         return findTransactionsBeforeDate(cashAccount, valutaDate, PageRequest.of(0, 1)).stream().findFirst();
     }
 
-    default Optional<CashAccountTransaction> findFirstTransactionBeforeOrOnDate(CashAccount cashAccount, LocalDate valutaDate, LocalDateTime creationDate, long maxId) {
+    default Optional<CashAccountTransaction> findFirstTransactionBeforeOrOnDate(
+    		CashAccount cashAccount,
+		    LocalDate valutaDate,
+		    LocalDateTime creationDate,
+		    long maxId) {
+    	
         return findTransactionsBeforeOrOnDate(cashAccount, valutaDate, creationDate, maxId, PageRequest.of(0, 1)).stream().findFirst();
     }
     
     List<CashAccountTransaction> findByCashAccountAndDeletionDateIsNull(CashAccount cashAccount);
+	
+	@Query("SELECT cat FROM CashAccountTransaction cat " +
+			"WHERE cat.deletionDate IS NULL AND cat.cashAccount.id in (:cashAccountIds) " +
+			"ORDER BY cat.valutaDate ASC, cat.creationDate ASC, cat.id ASC"
+	)
+    List<CashAccountTransaction> findAllTransaction(Collection<Long> cashAccountIds, Pageable pageable);
+	
+	default Optional<CashAccountTransaction> findFirstTransaction(Collection<Long> cashAccountIds) {
+		return findAllTransaction(cashAccountIds, PageRequest.of(0, 1)).stream().findFirst();
+	}
 }

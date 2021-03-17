@@ -13,7 +13,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.xmc</groupId>
     <artifactId>xmc</artifactId>
-    <version>2021.1.1</version>
+    <version>2021.2.0</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -21,7 +21,7 @@
         <start-class>org.xmc.Main</start-class>
 		<javafx.platform>current</javafx.platform>
 
-        <openjfx.version>15.0.1</openjfx.version>
+        <openjfx.version>16</openjfx.version>
         <querydsl.version>4.4.0</querydsl.version>
         <apache.poi.version>4.1.2</apache.poi.version>
     </properties>
@@ -57,7 +57,7 @@
         <dependency>
             <groupId>org.jfxtras</groupId>
             <artifactId>jmetro</artifactId>
-            <version>11.6.12</version>
+            <version>11.6.14</version>
             <exclusions>
                 <exclusion>
                     <artifactId>*</artifactId>

@@ -14,25 +14,29 @@ public class FxmlComponentFactory {
 
     public static <COMPONENT_TYPE extends Parent, CONTROLLER_TYPE> Pair<COMPONENT_TYPE, CONTROLLER_TYPE> load(FxmlKey fxmlKey) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-
-            fxmlLoader.setCharset(CHARSET);
-            fxmlLoader.setResources(MessageAdapter.RESOURCE_BUNDLE);
-            fxmlLoader.setLocation(FxmlComponentFactory.class.getResource(fxmlKey.getFxmlPath()));
-            fxmlLoader.setControllerFactory(ReflectionUtil.createNewInstanceFactory());
-
-            COMPONENT_TYPE component = fxmlLoader.load();
-            CONTROLLER_TYPE controller = fxmlLoader.getController();
-            component.setUserData(controller);
-
-            return ImmutablePair.of(component, controller);
+	        return loadWithoutErrorHandling(fxmlKey);
         } catch (Throwable e) {
             String message = String.format("Error on loading fxml file: %s", fxmlKey.getFxmlPath());
             throw new RuntimeException(message, e);
         }
     }
-
-    public enum FxmlKey {
+	
+	private static <COMPONENT_TYPE extends Parent, CONTROLLER_TYPE> Pair<COMPONENT_TYPE, CONTROLLER_TYPE> loadWithoutErrorHandling(FxmlKey fxmlKey) throws java.io.IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader();
+		
+		fxmlLoader.setCharset(CHARSET);
+		fxmlLoader.setResources(MessageAdapter.RESOURCE_BUNDLE);
+		fxmlLoader.setLocation(FxmlComponentFactory.class.getResource(fxmlKey.getFxmlPath()));
+		fxmlLoader.setControllerFactory(ReflectionUtil.createNewInstanceFactory());
+		
+		COMPONENT_TYPE component = fxmlLoader.load();
+		CONTROLLER_TYPE controller = fxmlLoader.getController();
+		component.setUserData(controller);
+		
+		return ImmutablePair.of(component, controller);
+	}
+	
+	public enum FxmlKey {
         LOGIN("/fxml/login/login.fxml"),
         LOGIN_REGISTER("/fxml/login/register.fxml"),
         BOOTSTRAP("/fxml/login/bootstrap.fxml"),
@@ -74,6 +78,10 @@ public class FxmlComponentFactory {
 	    DEPOT_ITEM_IMPORT_DIALOG_STEP2("/fxml/main/depot/importing/items/depot-item-import-step2.fxml"),
 	    DEPOT_ITEM_IMPORT_DIALOG_STEP3("/fxml/main/depot/importing/items/depot-item-import-step3.fxml"),
 	    DEPOT_ITEM_IMPORT_DIALOG_STEP4("/fxml/main/depot/importing/items/depot-item-import-step4.fxml"),
+		DEPOT_TRANSACTION_IMPORT_DIALOG_STEP1("/fxml/main/depot/importing/transactions/depot-transaction-import-step1.fxml"),
+		DEPOT_TRANSACTION_IMPORT_DIALOG_STEP2("/fxml/main/depot/importing/transactions/depot-transaction-import-step2.fxml"),
+		DEPOT_TRANSACTION_IMPORT_DIALOG_STEP3("/fxml/main/depot/importing/transactions/depot-transaction-import-step3.fxml"),
+		DEPOT_TRANSACTION_IMPORT_DIALOG_STEP4("/fxml/main/depot/importing/transactions/depot-transaction-import-step4.fxml"),
         ;
 
         private final String fxmlPath;

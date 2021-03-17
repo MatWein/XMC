@@ -8,6 +8,7 @@ import org.xmc.common.stubs.analysis.TimeRange;
 import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
 import org.xmc.common.stubs.depot.deliveries.DepotDeliveryImportColmn;
 import org.xmc.common.stubs.depot.items.DepotItemImportColmn;
+import org.xmc.common.stubs.depot.transactions.DepotTransactionImportColmn;
 import org.xmc.common.stubs.importing.CsvSeparator;
 
 import java.text.MessageFormat;
@@ -165,6 +166,7 @@ public class MessageAdapter {
 	    ASYNC_TASK_IMPORTING_DEPOT_ITEMS("async.task.importingDepotItems"),
 	    ASYNC_TASK_LOAD_SERVICECALLLOGS("async.task.loadingServiceCallLogs"),
 	    ASYNC_TASK_CALCULATE_STARTEND_DATE("async.task.calculateStartEndDate"),
+	    ASYNC_TASK_IMPORTING_DEPOT_TRANSACTIONS("async.task.importingDepotTransactions"),
 
         LOGIN_TITLE("login.title"),
 
@@ -272,6 +274,7 @@ public class MessageAdapter {
 	    DEPOT_ITEM_EDIT_CANCEL("depot.item.cancel"),
 	    DEPOT_ITEM_EDIT_SAVE("depot.item.save"),
 	    DEPOT_ITEM_CONFIRM_DELETE("depot.item.confirmDelete"),
+	    
 	    DEPOT_DELIVERY_IMPORT_DIALOG_TITLE("depot.delivery.import.dialog.title"),
 	    DEPOT_DELIVERY_IMPORT_DIALOG_STEP1_TITLE("depot.delivery.import.dialog.step1.title"),
 	    DEPOT_DELIVERY_IMPORT_DIALOG_STEP2_TITLE("depot.delivery.import.dialog.step2.title"),
@@ -285,6 +288,13 @@ public class MessageAdapter {
 	    DEPOT_ITEM_IMPORT_DIALOG_STEP3_TITLE("depot.item.import.dialog.step3.title"),
 	    DEPOT_ITEM_IMPORT_DIALOG_STEP4_TITLE("depot.item.import.dialog.step4.title"),
 	    DEPOT_ITEM_IMPORT_DIALOG_STEP4_COLUMN_PREFIX("depot.item.import.dialog.step4.columns", DepotItemImportColmn.class),
+	
+	    DEPOT_TRANSACTION_IMPORT_DIALOG_TITLE("depot.transaction.import.dialog.title"),
+	    DEPOT_TRANSACTION_IMPORT_DIALOG_STEP1_TITLE("depot.transaction.import.dialog.step1.title"),
+	    DEPOT_TRANSACTION_IMPORT_DIALOG_STEP2_TITLE("depot.transaction.import.dialog.step2.title"),
+	    DEPOT_TRANSACTION_IMPORT_DIALOG_STEP3_TITLE("depot.transaction.import.dialog.step3.title"),
+	    DEPOT_TRANSACTION_IMPORT_DIALOG_STEP4_TITLE("depot.transaction.import.dialog.step4.title"),
+	    DEPOT_TRANSACTION_IMPORT_DIALOG_STEP4_COLUMN_PREFIX("depot.transaction.import.dialog.step4.columns", DepotTransactionImportColmn.class),
 	    
 	    DASHBOARD_REMOVE_TILE("dashboard.removeTile"),
 	    DASHBOARD_LOADING_TILE("dashboard.loadingTile"),

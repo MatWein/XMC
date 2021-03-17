@@ -60,7 +60,7 @@ public class DepotItemImportService {
 			long depotDeliveryId,
 			DtoImportData<DepotItemImportColmn> importData) {
 		
-		LOGGER.info("Importing depot delivery import file: {}", importData);
+		LOGGER.info("Importing depot item import file: {}", importData);
 		DepotDelivery depotDelivery = depotDeliveryJpaRepository.getOne(depotDeliveryId);
 		
 		depotItemImportController.importDepotItems(monitor, depotDelivery, importData);

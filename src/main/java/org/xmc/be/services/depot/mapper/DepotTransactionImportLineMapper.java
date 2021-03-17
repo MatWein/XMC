@@ -7,35 +7,40 @@ import org.springframework.stereotype.Component;
 import org.xmc.be.services.importing.controller.IImportRowMapper;
 import org.xmc.be.services.importing.parser.BigDecimalParser;
 import org.xmc.be.services.importing.parser.CurrencyParser;
-import org.xmc.common.stubs.depot.items.DepotItemImportColmn;
-import org.xmc.common.stubs.depot.items.DtoDepotItemImportRow;
+import org.xmc.be.services.importing.parser.LocalDateParser;
+import org.xmc.common.stubs.depot.transactions.DepotTransactionImportColmn;
+import org.xmc.common.stubs.depot.transactions.DtoDepotTransactionImportRow;
 import org.xmc.common.stubs.importing.DtoColumnMapping;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Currency;
 import java.util.List;
 
 @Component
-public class DepotItemImportLineMapper implements IImportRowMapper<DtoDepotItemImportRow, DepotItemImportColmn> {
-	private static final Logger LOGGER = LoggerFactory.getLogger(DepotItemImportLineMapper.class);
+public class DepotTransactionImportLineMapper implements IImportRowMapper<DtoDepotTransactionImportRow, DepotTransactionImportColmn> {
+	private static final Logger LOGGER = LoggerFactory.getLogger(DepotTransactionImportLineMapper.class);
 	
 	private final BigDecimalParser bigDecimalParser;
+	private final LocalDateParser localDateParser;
 	private final CurrencyParser currencyParser;
 	
 	@Autowired
-	public DepotItemImportLineMapper(
+	public DepotTransactionImportLineMapper(
 			BigDecimalParser bigDecimalParser,
+			LocalDateParser localDateParser,
 			CurrencyParser currencyParser) {
 		
 		this.bigDecimalParser = bigDecimalParser;
+		this.localDateParser = localDateParser;
 		this.currencyParser = currencyParser;
 	}
 	
 	@Override
-	public DtoDepotItemImportRow apply(List<String> line, List<DtoColumnMapping<DepotItemImportColmn>> columnMappings) {
-		var result = new DtoDepotItemImportRow();
+	public DtoDepotTransactionImportRow apply(List<String> line, List<DtoColumnMapping<DepotTransactionImportColmn>> columnMappings) {
+		var result = new DtoDepotTransactionImportRow();
 		
-		for (DtoColumnMapping<DepotItemImportColmn> columnMapping : columnMappings) {
+		for (DtoColumnMapping<DepotTransactionImportColmn> columnMapping : columnMappings) {
 			try {
 				String columnValue = line.get(columnMapping.getColumn() - 1);
 				populateValue(result, columnValue, columnMapping.getField());
@@ -51,12 +56,16 @@ public class DepotItemImportLineMapper implements IImportRowMapper<DtoDepotItemI
 		return result;
 	}
 	
-	private void populateValue(DtoDepotItemImportRow result, String columnValue, DepotItemImportColmn field) {
+	private void populateValue(DtoDepotTransactionImportRow result, String columnValue, DepotTransactionImportColmn field) {
 		if (field == null) {
 			return;
 		}
 		
 		switch (field) {
+			case VALUTA_DATE:
+				LocalDate valutaDate = localDateParser.parseDateNullOnError(columnValue);
+				result.setValutaDate(valutaDate);
+				break;
 			case ISIN:
 				result.setIsin(columnValue);
 				break;
@@ -71,6 +80,9 @@ public class DepotItemImportLineMapper implements IImportRowMapper<DtoDepotItemI
 			case VALUE:
 				BigDecimal value = bigDecimalParser.parseBigDecimalNullOnError(columnValue);
 				result.setValue(value);
+				break;
+			case DESCRIPTION:
+				result.setDescription(columnValue);
 				break;
 			case CURRENCY:
 				Currency currency = currencyParser.parseCurrencyNullOnError(columnValue);

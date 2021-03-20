@@ -19,6 +19,7 @@ import org.xmc.fe.ui.validation.components.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 @FxmlController
 public class CashAccountTransactionEditController implements IDialogWithAsyncData<Pair<List<DtoCategory>, Long>> {
@@ -68,7 +69,9 @@ public class CashAccountTransactionEditController implements IDialogWithAsyncDat
     public void acceptAsyncData(Pair<List<DtoCategory>, Long> data) {
         cashAccountId = data.getRight();
 
+        categoryComboBox.getItems().add(null);
         categoryComboBox.getItems().addAll(data.getLeft());
+        
         updateSaldoPreview();
     }
 
@@ -82,6 +85,7 @@ public class CashAccountTransactionEditController implements IDialogWithAsyncDat
                 monitor -> cashAccountTransactionService.autoDetectCategory(monitor, cashAccountId, usageTextArea.getTextOrNull()),
                 result -> result.ifPresent(foundCategoryId -> {
                     categoryComboBox.getItems().stream()
+		                    .filter(Objects::nonNull)
                             .filter(dto -> foundCategoryId.equals(dto.getId()))
                             .findFirst()
                             .ifPresent(dtoCategory -> categoryComboBox.getSelectionModel().select(dtoCategory));

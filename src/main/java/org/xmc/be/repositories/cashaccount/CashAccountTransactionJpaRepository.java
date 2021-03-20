@@ -19,6 +19,12 @@ public interface CashAccountTransactionJpaRepository extends JpaRepository<CashA
             "ORDER BY cat.valutaDate, cat.creationDate, cat.id"
     )
     List<CashAccountTransaction> findTransactionsAfterDate(CashAccount cashAccount, LocalDate startDate);
+	
+	@Query("SELECT cat FROM CashAccountTransaction cat " +
+			"WHERE cat.valutaDate >= :startDate AND cat.deletionDate IS NULL AND cat.cashAccount = :cashAccount AND cat.category is not null " +
+			"ORDER BY cat.valutaDate, cat.creationDate, cat.id"
+	)
+	List<CashAccountTransaction> findTransactionsAfterDateWithCategory(CashAccount cashAccount, LocalDate startDate);
 
     @Query("SELECT cat FROM CashAccountTransaction cat " +
             "WHERE cat.valutaDate < :valutaDate AND cat.deletionDate IS NULL AND cat.cashAccount = :cashAccount " +

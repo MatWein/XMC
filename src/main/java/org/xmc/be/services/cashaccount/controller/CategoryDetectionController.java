@@ -11,8 +11,11 @@ import org.xmc.be.entities.cashaccount.Category;
 import org.xmc.be.repositories.cashaccount.CashAccountTransactionJpaRepository;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -26,12 +29,11 @@ public class CategoryDetectionController {
 
     public Optional<Long> autoDetectCategory(CashAccount cashAccount, String usage) {
         LocalDate startDate = LocalDate.now().minusYears(1);
-        List<CashAccountTransaction> transactions = cashAccountTransactionJpaRepository.findTransactionsAfterDate(cashAccount, startDate);
+        List<CashAccountTransaction> transactions = cashAccountTransactionJpaRepository.findTransactionsAfterDateWithCategory(cashAccount, startDate);
 
         Optional<Entry<Category, Long>> exactMatchingCategory = transactions.stream()
                 .filter(transaction -> StringUtils.equalsIgnoreCase(transaction.getUsage(), usage))
                 .map(CashAccountTransaction::getCategory)
-                .filter(Objects::nonNull)
                 .collect(Collectors.groupingBy(e -> e, Collectors.counting()))
                 .entrySet()
                 .stream()

@@ -13,3 +13,7 @@
 .panel-bg1 {
 	-fx-background-color: xmc-background-color-1;
 }
+
+.check-box-tree-cell .check-box {
+	-fx-padding: 0px 7px 0px 0px;
+}

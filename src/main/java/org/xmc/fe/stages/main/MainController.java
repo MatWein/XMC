@@ -23,7 +23,7 @@ import org.xmc.common.utils.DesktopUtils;
 import org.xmc.common.utils.HomeDirectoryPathCalculator;
 import org.xmc.common.utils.SleepUtil;
 import org.xmc.fe.async.AsyncProcessor;
-import org.xmc.fe.stages.main.logs.LogsController;
+import org.xmc.fe.stages.main.logging.LogsController;
 import org.xmc.fe.ui.CustomDialogBuilder;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.FxmlController;

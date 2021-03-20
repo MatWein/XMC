@@ -3,9 +3,11 @@ package org.xmc.fe.stages.main.analysis;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
+import javafx.scene.control.CheckBoxTreeItem;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
+import javafx.scene.control.cell.CheckBoxTreeCell;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.services.analysis.AnalysisAssetService;
 import org.xmc.be.services.analysis.TimeRangeService;
@@ -18,8 +20,6 @@ import org.xmc.fe.stages.main.analysis.mapper.DtoAssetSelectionTreeItemMapper;
 import org.xmc.fe.ui.FxmlController;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
-import org.xmc.fe.ui.components.treetable.BaseTreeTable;
-import org.xmc.fe.ui.components.treetable.TreeItemWithParams;
 import org.xmc.fe.ui.converter.GenericItemToStringConverter;
 import org.xmc.fe.ui.validation.components.ValidationComboBox;
 import org.xmc.fe.ui.validation.components.ValidationDatePicker;
@@ -33,7 +33,7 @@ public class AnalysisController {
 	
 	@FXML private MenuButton favouriteMenuButton;
 	@FXML private ValidationComboBox<AnalysisType> analysisTypeComboBox;
-	@FXML private BaseTreeTable<DtoAssetSelection> selectedAssetsTreeView;
+	@FXML private TreeView<DtoAssetSelection> selectedAssetsTreeView;
 	@FXML private ValidationComboBox<TimeRange> timeRangeComboBox;
 	@FXML private ValidationDatePicker startDatePicker;
 	@FXML private ValidationDatePicker endDatePicker;
@@ -61,12 +61,12 @@ public class AnalysisController {
 		startDatePicker.disableProperty().bind(timeRangeComboBox.valueProperty().isNotEqualTo(TimeRange.USER_DEFINED));
 		endDatePicker.disableProperty().bind(timeRangeComboBox.valueProperty().isNotEqualTo(TimeRange.USER_DEFINED));
 		
-		selectedAssetsTreeView.setOnTreeItemSelectionChanged(() -> onTimeRangeSelected(timeRangeComboBox.getValue()));
+		selectedAssetsTreeView.setCellFactory(CheckBoxTreeCell.forTreeView());
 		
 		asyncProcessor.runAsync(
 				analysisAssetService::loadAssets,
 				result -> {
-					TreeItemWithParams<DtoAssetSelection, ?> rootNode = dtoAssetSelectionTreeItemMapper.map(result);
+					CheckBoxTreeItem<DtoAssetSelection> rootNode = dtoAssetSelectionTreeItemMapper.map(result, () -> onTimeRangeSelected(timeRangeComboBox.getValue()));
 					selectedAssetsTreeView.setRoot(rootNode);
 				}
 		);
@@ -99,20 +99,20 @@ public class AnalysisController {
 	}
 	
 	private Multimap<AssetType, Long> extractSelectedAssetIds() {
-		TreeItemWithParams<DtoAssetSelection, CheckBox> root = (TreeItemWithParams<DtoAssetSelection, CheckBox>)selectedAssetsTreeView.getRoot();
+		CheckBoxTreeItem<DtoAssetSelection> root = (CheckBoxTreeItem<DtoAssetSelection>)selectedAssetsTreeView.getRoot();
 		
 		Multimap<AssetType, Long> result = ArrayListMultimap.create();
 		populateSelectedAssets(result, root);
 		return result;
 	}
 	
-	private void populateSelectedAssets(Multimap<AssetType, Long> result, TreeItemWithParams<DtoAssetSelection, CheckBox> node) {
-		if (node.getValue().getId() != null && node.getParam().isSelected()) {
+	private void populateSelectedAssets(Multimap<AssetType, Long> result, CheckBoxTreeItem<DtoAssetSelection> node) {
+		if (node.getValue().getId() != null && node.isSelected()) {
 			result.put(node.getValue().getAssetType(), node.getValue().getId());
 		}
 		
 		for (TreeItem<DtoAssetSelection> child : node.getChildren()) {
-			populateSelectedAssets(result, (TreeItemWithParams<DtoAssetSelection, CheckBox>)child);
+			populateSelectedAssets(result, (CheckBoxTreeItem<DtoAssetSelection>)child);
 		}
 	}
 }

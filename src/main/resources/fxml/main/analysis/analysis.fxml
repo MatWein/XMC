@@ -6,9 +6,6 @@
 <?import javafx.scene.layout.*?>
 <?import org.xmc.common.stubs.analysis.*?>
 <?import org.xmc.fe.ui.components.ButtonImageView?>
-<?import org.xmc.fe.ui.components.treetable.BaseTreeTable?>
-<?import org.xmc.fe.ui.components.treetable.CheckBoxTreeCellFactory?>
-<?import org.xmc.fe.ui.components.treetable.TreeTableCellValueFactory?>
 <?import org.xmc.fe.ui.validation.components.*?>
 <VBox stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
 	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.analysis.AnalysisController"
@@ -47,21 +44,7 @@
 			</ValidationComboBox>
 
 			<Label styleClass="form-label" text="%main.analysis.selectAssets"/>
-			<BaseTreeTable prefHeight="250" fx:id="selectedAssetsTreeView">
-				<columns>
-					<TreeTableColumn editable="false" text="%main.analysis.assetTable.columnHeader">
-						<cellValueFactory>
-							<TreeTableCellValueFactory />
-						</cellValueFactory>
-						<cellFactory>
-							<CheckBoxTreeCellFactory textProperty="name" />
-						</cellFactory>
-					</TreeTableColumn>
-				</columns>
-				<columnResizePolicy>
-					<TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-				</columnResizePolicy>
-			</BaseTreeTable>
+			<TreeView prefHeight="250" fx:id="selectedAssetsTreeView" />
 
 			<Label styleClass="form-label" text="%main.analysis.timeRange"/>
 			<ValidationComboBox required="false" fx:id="timeRangeComboBox">

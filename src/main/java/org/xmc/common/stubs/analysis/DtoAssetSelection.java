@@ -51,4 +51,9 @@ public class DtoAssetSelection implements Serializable {
 	public void setChildren(List<DtoAssetSelection> children) {
 		this.children = children;
 	}
+	
+	@Override
+	public String toString() {
+		return name;
+	}
 }

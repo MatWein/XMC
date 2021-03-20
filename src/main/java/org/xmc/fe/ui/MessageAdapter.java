@@ -169,6 +169,7 @@ public class MessageAdapter {
 	    ASYNC_TASK_CALCULATE_STARTEND_DATE("async.task.calculateStartEndDate"),
 	    ASYNC_TASK_IMPORTING_DEPOT_TRANSACTIONS("async.task.importingDepotTransactions"),
 	    ASYNC_TASK_LOAD_SELECTABLE_ASSETS_FOR_ANALYSIS("async.task.loadSelectableAssetsForAnalysis"),
+	    ASYNC_TASK_CALCULATING_CHART("async.task.calculatingChart"),
 
         LOGIN_TITLE("login.title"),
 
@@ -299,12 +300,16 @@ public class MessageAdapter {
 	    DEPOT_TRANSACTION_IMPORT_DIALOG_STEP4_COLUMN_PREFIX("depot.transaction.import.dialog.step4.columns", DepotTransactionImportColmn.class),
 	    
 	    DASHBOARD_REMOVE_TILE("dashboard.removeTile"),
-	    DASHBOARD_LOADING_TILE("dashboard.loadingTile"),
 	    
 	    ANALYSIS_TYPE("analysis.type", AnalysisType.class),
 	    ASSET_TYPE("asset.type", AssetType.class),
 	    ASSET_TYPE_ALL("asset.type.all"),
-	    TIME_RANGE_TYPE("timerange.type",TimeRange .class)
+	    TIME_RANGE_TYPE("timerange.type",TimeRange .class),
+	    
+	    ANALYSIS_NO_CALCULATION_RESULT("analysis.noCalculationResult"),
+	    ANALYSIS_HINT("analysis.hint"),
+	    ANALYSIS_AXIS_DATE("analysis.axis.date"),
+	    ANALYSIS_AXIS_VALUE_IN_EUR("analysis.axis.valueInEur")
         ;
 
         private final String key;

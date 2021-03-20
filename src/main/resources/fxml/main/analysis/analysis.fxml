@@ -31,7 +31,7 @@
 	</ToolBar>
 
 	<SplitPane VBox.vgrow="ALWAYS">
-		<VBox maxWidth="350" minWidth="350" styleClass="panel-bg1, padding-15">
+		<VBox maxWidth="350" minWidth="350" styleClass="panel-bg1, padding-15" fx:id="analysisInputVBox">
 			<Label styleClass="form-label-first" text="%main.analysis.analysisType"/>
 			<ValidationComboBox required="false" fx:id="analysisTypeComboBox">
 				<items>
@@ -75,9 +75,9 @@
 				</VBox.margin>
 			</ValidatedButton>
 		</VBox>
-		<AnchorPane>
+		<VBox fx:id="analysisContentVBox" maxHeight="Infinity">
 
-		</AnchorPane>
+		</VBox>
 	</SplitPane>
 
 </VBox>

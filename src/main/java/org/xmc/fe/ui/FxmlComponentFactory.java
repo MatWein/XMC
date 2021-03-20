@@ -11,7 +11,11 @@ import java.nio.charset.StandardCharsets;
 
 public class FxmlComponentFactory {
     private static final Charset CHARSET = StandardCharsets.UTF_8;
-
+	
+	public static <COMPONENT_TYPE extends Parent> COMPONENT_TYPE loadWithoutController(FxmlKey fxmlKey) {
+		return (COMPONENT_TYPE)load(fxmlKey).getLeft();
+	}
+    
     public static <COMPONENT_TYPE extends Parent, CONTROLLER_TYPE> Pair<COMPONENT_TYPE, CONTROLLER_TYPE> load(FxmlKey fxmlKey) {
         try {
 	        return loadWithoutErrorHandling(fxmlKey);
@@ -82,6 +86,8 @@ public class FxmlComponentFactory {
 		DEPOT_TRANSACTION_IMPORT_DIALOG_STEP2("/fxml/main/depot/importing/transactions/depot-transaction-import-step2.fxml"),
 		DEPOT_TRANSACTION_IMPORT_DIALOG_STEP3("/fxml/main/depot/importing/transactions/depot-transaction-import-step3.fxml"),
 		DEPOT_TRANSACTION_IMPORT_DIALOG_STEP4("/fxml/main/depot/importing/transactions/depot-transaction-import-step4.fxml"),
+		FRAGMENT_SPINNER_PANE("/fxml/fragments/spinner-pane.fxml"),
+		FRAGMENT_MESSAGE_PANE("/fxml/fragments/message-pane.fxml")
         ;
 
         private final String fxmlPath;

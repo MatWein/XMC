@@ -6,7 +6,6 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -19,6 +18,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 import org.xmc.common.utils.ImageUtil;
 import org.xmc.fe.FeConstants;
+import org.xmc.fe.ui.FxmlComponentFactory;
+import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.components.ButtonImageView;
@@ -69,17 +70,7 @@ public class DashboardContentTile extends VBox {
 		
 		getChildren().add(titleBar);
 		
-		VBox spinnerPane = new VBox();
-		spinnerPane.setSpacing(10.0);
-		spinnerPane.setPadding(new Insets(0.0, 20.0, 0.0, 20.0));
-		spinnerPane.setAlignment(Pos.CENTER);
-		spinnerPane.setMaxWidth(Double.MAX_VALUE);
-		spinnerPane.setMaxHeight(Double.MAX_VALUE);
-		
-		ProgressBar spinner = new ProgressBar(-1.0);
-		spinner.setMaxWidth(Double.MAX_VALUE);
-		spinnerPane.getChildren().add(new Label(MessageAdapter.getByKey(MessageKey.DASHBOARD_LOADING_TILE)));
-		spinnerPane.getChildren().add(spinner);
+		VBox spinnerPane = FxmlComponentFactory.loadWithoutController(FxmlKey.FRAGMENT_SPINNER_PANE);
 		
 		this.contentNode = spinnerPane;
 		

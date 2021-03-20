@@ -1,4 +1,4 @@
-package org.xmc.fe.ui.components.table;
+package org.xmc.fe.importing;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
@@ -10,7 +10,7 @@ import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.converter.GenericItemToStringConverter;
 
-public class ComboBoxCellValueFactory<T extends Enum<T>> implements Callback<CellDataFeatures, ObservableValue> {
+public class DtoColumnMappingComboBoxCellValueFactory<T extends Enum<T>> implements Callback<CellDataFeatures, ObservableValue> {
     private Class<T> fieldType;
     private MessageKey translationKey;
 

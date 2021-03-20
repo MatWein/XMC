@@ -3,8 +3,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.layout.VBox?>
+<?import org.xmc.fe.importing.DtoColumnMappingComboBoxCellValueFactory?>
 <?import org.xmc.fe.ui.components.table.BaseTable?>
-<?import org.xmc.fe.ui.components.table.ComboBoxCellValueFactory?>
 <?import org.xmc.fe.ui.components.table.NestedPropertyValueFactory?>
 <?import org.xmc.fe.ui.validation.components.ValidationNumberField?>
 <VBox styleClass="padding-15" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
@@ -27,7 +27,7 @@
             <TableColumn reorderable="false" sortable="false"
                          text="%cashaccount.transaction.import.dialog.step3.columnMapping.field">
                 <cellValueFactory>
-                    <ComboBoxCellValueFactory
+                    <DtoColumnMappingComboBoxCellValueFactory
                             fieldType="org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn"
 							translationKey="CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_COLUMN_PREFIX" />
                 </cellValueFactory>

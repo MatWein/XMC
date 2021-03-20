@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xmc.be.entities.importing.ImportTemplateType;
 import org.xmc.common.stubs.analysis.AnalysisType;
+import org.xmc.common.stubs.analysis.AssetType;
 import org.xmc.common.stubs.analysis.TimeRange;
 import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
 import org.xmc.common.stubs.depot.deliveries.DepotDeliveryImportColmn;
@@ -167,6 +168,7 @@ public class MessageAdapter {
 	    ASYNC_TASK_LOAD_SERVICECALLLOGS("async.task.loadingServiceCallLogs"),
 	    ASYNC_TASK_CALCULATE_STARTEND_DATE("async.task.calculateStartEndDate"),
 	    ASYNC_TASK_IMPORTING_DEPOT_TRANSACTIONS("async.task.importingDepotTransactions"),
+	    ASYNC_TASK_LOAD_SELECTABLE_ASSETS_FOR_ANALYSIS("async.task.loadSelectableAssetsForAnalysis"),
 
         LOGIN_TITLE("login.title"),
 
@@ -300,6 +302,8 @@ public class MessageAdapter {
 	    DASHBOARD_LOADING_TILE("dashboard.loadingTile"),
 	    
 	    ANALYSIS_TYPE("analysis.type", AnalysisType.class),
+	    ASSET_TYPE("asset.type", AssetType.class),
+	    ASSET_TYPE_ALL("asset.type.all"),
 	    TIME_RANGE_TYPE("timerange.type",TimeRange .class)
         ;
 

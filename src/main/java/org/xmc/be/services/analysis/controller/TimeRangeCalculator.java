@@ -83,7 +83,7 @@ public class TimeRangeCalculator {
 		} else if (assetType == AssetType.DEPOT) {
 			return depotDeliveryJpaRepository.findFirstDelivery(assetids).map(DepotDelivery::getDeliveryDate).map(LocalDateTime::toLocalDate);
 		} else {
-			String message = String.format("Could not load minimum date for asset of type '%s'.", assetType);
+			String message = String.format("Could not load minimum date for asset of unknown type '%s'.", assetType);
 			LOGGER.error(message);
 			throw new IllegalArgumentException(message);
 		}

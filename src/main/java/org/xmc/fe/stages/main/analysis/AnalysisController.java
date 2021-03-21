@@ -37,6 +37,7 @@ import org.xmc.fe.ui.validation.components.ValidationComboBox;
 import org.xmc.fe.ui.validation.components.ValidationDatePicker;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -85,6 +86,8 @@ public class AnalysisController {
 		timeRangeComboBox.valueProperty().addListener((observable, oldValue, newValue) -> onTimeRangeSelected(newValue));
 		
 		startDatePicker.disableProperty().bind(timeRangeComboBox.valueProperty().isNotEqualTo(TimeRange.USER_DEFINED));
+		startDatePicker.setValue(LocalDate.now().minusMonths(12));
+		
 		endDatePicker.disableProperty().bind(timeRangeComboBox.valueProperty().isNotEqualTo(TimeRange.USER_DEFINED));
 		
 		showMessagePane(MessageKey.ANALYSIS_HINT);
@@ -190,9 +193,10 @@ public class AnalysisController {
 				LineChart<String, Number> lineChart = new LineChart<>(xAxis, yAxis);
 				lineChart.setTitle(MessageAdapter.getByKey(MessageKey.ANALYSIS_TYPE, analysisType));
 				
-				List<DtoChartSeries<LocalDate, Number>> series = (List<DtoChartSeries<LocalDate, Number>>)result;
+				List<DtoChartSeries<LocalDateTime, Number>> series = (List<DtoChartSeries<LocalDateTime, Number>>)result;
 				List<XYChart.Series<String, Number>> mappedSeries = xyChartSeriesMapper.mapAll(series);
 				
+				lineChart.getStyleClass().add("line-chart");
 				lineChart.getData().addAll(mappedSeries);
 				
 				return lineChart;

@@ -13,6 +13,7 @@ import org.xmc.common.stubs.depot.transactions.DepotTransactionImportColmn;
 import org.xmc.common.stubs.importing.CsvSeparator;
 
 import java.text.MessageFormat;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -62,6 +63,17 @@ public class MessageAdapter {
 		
 		String dateTimeFormat = getByKey(MessageKey.APP_DATETIME_FORMAT);
 		return dateTime.format(DateTimeFormatter.ofPattern(dateTimeFormat));
+	}
+	
+	public static String formatNumber(Number number) {
+    	if (number == null) {
+    		return null;
+	    }
+		
+		NumberFormat numberInstance = NumberFormat.getNumberInstance(Locale.getDefault());
+		numberInstance.setMinimumFractionDigits(2);
+		numberInstance.setMaximumFractionDigits(2);
+		return numberInstance.format(number);
 	}
 
     private static String getByKey(String key, Object... args) {
@@ -309,7 +321,8 @@ public class MessageAdapter {
 	    ANALYSIS_NO_CALCULATION_RESULT("analysis.noCalculationResult"),
 	    ANALYSIS_HINT("analysis.hint"),
 	    ANALYSIS_AXIS_DATE("analysis.axis.date"),
-	    ANALYSIS_AXIS_VALUE_IN_EUR("analysis.axis.valueInEur")
+	    ANALYSIS_AXIS_VALUE_IN_EUR("analysis.axis.valueInEur"),
+	    ANALYSIS_CHART_POINT_XY_HOVER("analysis.chartPointXY.hover")
         ;
 
         private final String key;

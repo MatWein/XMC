@@ -15,6 +15,7 @@ import org.xmc.fe.async.AsyncMonitor;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,7 +36,7 @@ public class AnalysisChartCalculationService {
 		this.absoluteAssetValueLineChartAggregator = absoluteAssetValueLineChartAggregator;
 	}
 	
-	public Optional<List<DtoChartSeries<LocalDate, Number>>> calculateAbsoluteAssetValueLineChart(
+	public Optional<List<DtoChartSeries<LocalDateTime, Number>>> calculateAbsoluteAssetValueLineChart(
 			AsyncMonitor monitor,
 			Multimap<AssetType, Long> assetIds,
 			LocalDate startDate,
@@ -51,7 +52,7 @@ public class AnalysisChartCalculationService {
 		return Optional.ofNullable(absoluteAssetValueLineChartCalculator.calculate(assetIds, startDate, endDate));
 	}
 	
-	public Optional<List<DtoChartSeries<LocalDate, Number>>> calculateAggregatedAssetValueLineChart(
+	public Optional<List<DtoChartSeries<LocalDateTime, Number>>> calculateAggregatedAssetValueLineChart(
 			AsyncMonitor monitor,
 			Multimap<AssetType, Long> assetIds,
 			LocalDate startDate,
@@ -64,13 +65,13 @@ public class AnalysisChartCalculationService {
 			return Optional.empty();
 		}
 		
-		List<DtoChartSeries<LocalDate, Number>> assetLines = absoluteAssetValueLineChartCalculator.calculate(assetIds, startDate, endDate);
-		DtoChartSeries<LocalDate, Number> aggregatedLine = absoluteAssetValueLineChartAggregator.aggregate(assetLines);
+		List<DtoChartSeries<LocalDateTime, Number>> assetLines = absoluteAssetValueLineChartCalculator.calculate(assetIds, startDate, endDate);
+		DtoChartSeries<LocalDateTime, Number> aggregatedLine = absoluteAssetValueLineChartAggregator.aggregate(assetLines);
 		
 		return Optional.of(Lists.newArrayList(aggregatedLine));
 	}
 	
-	public Optional<List<DtoChartSeries<LocalDate, Number>>> calculateAbsoluteAndAggregatedAssetValueLineChart(
+	public Optional<List<DtoChartSeries<LocalDateTime, Number>>> calculateAbsoluteAndAggregatedAssetValueLineChart(
 			AsyncMonitor monitor,
 			Multimap<AssetType, Long> assetIds,
 			LocalDate startDate,
@@ -83,10 +84,12 @@ public class AnalysisChartCalculationService {
 			return Optional.empty();
 		}
 		
-		List<DtoChartSeries<LocalDate, Number>> assetLines = absoluteAssetValueLineChartCalculator.calculate(assetIds, startDate, endDate);
+		List<DtoChartSeries<LocalDateTime, Number>> assetLines = absoluteAssetValueLineChartCalculator.calculate(assetIds, startDate, endDate);
 		
-		DtoChartSeries<LocalDate, Number> aggregatedLine = absoluteAssetValueLineChartAggregator.aggregate(assetLines);
-		assetLines.add(aggregatedLine);
+		if (assetLines.size() > 1) {
+			DtoChartSeries<LocalDateTime, Number> aggregatedLine = absoluteAssetValueLineChartAggregator.aggregate(assetLines);
+			assetLines.add(aggregatedLine);
+		}
 		
 		return Optional.of(assetLines);
 	}

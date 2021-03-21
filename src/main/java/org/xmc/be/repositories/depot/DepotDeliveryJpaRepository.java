@@ -23,6 +23,12 @@ public interface DepotDeliveryJpaRepository extends JpaRepository<DepotDelivery,
 	)
 	List<DepotDelivery> findAllDeliveries(Collection<Long> depotIds, Pageable pageable);
 	
+	@Query("SELECT del FROM DepotDelivery del " +
+			"WHERE del.deletionDate IS NULL AND del.depot.id = :depotId AND del.deliveryDate >= :startDateInclusive AND del.deliveryDate <= :endDateInclusive " +
+			"ORDER BY del.deliveryDate ASC, del.creationDate ASC, del.id ASC"
+	)
+	List<DepotDelivery> findAllDeliveriesInRange(long depotId, LocalDateTime startDateInclusive, LocalDateTime endDateInclusive);
+	
 	default Optional<DepotDelivery> findFirstDelivery(Collection<Long> depotIds) {
 		return findAllDeliveries(depotIds, PageRequest.of(0, 1)).stream().findFirst();
 	}

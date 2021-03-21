@@ -6,6 +6,14 @@ public class DtoChartPoint<X, Y> implements Serializable {
 	private X x;
 	private Y y;
 	
+	public DtoChartPoint() {
+	}
+	
+	public DtoChartPoint(X x, Y y) {
+		this.x = x;
+		this.y = y;
+	}
+	
 	public X getX() {
 		return x;
 	}

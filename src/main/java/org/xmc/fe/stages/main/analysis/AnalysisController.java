@@ -4,7 +4,6 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -32,6 +31,7 @@ import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.FxmlController;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
+import org.xmc.fe.ui.charts.LocalDateTimeAxis;
 import org.xmc.fe.ui.converter.GenericItemToStringConverter;
 import org.xmc.fe.ui.validation.components.ValidationComboBox;
 import org.xmc.fe.ui.validation.components.ValidationDatePicker;
@@ -184,19 +184,18 @@ public class AnalysisController {
 			case ABSOLUTE_ASSET_VALUE:
 			case AGGREGATED_ASSET_VALUE:
 			case ABSOLUTE_AND_AGGREGATED_ASSET_VALUE:
-				CategoryAxis xAxis = new CategoryAxis();
+				NumberAxis xAxis = LocalDateTimeAxis.createAxis();
 				xAxis.setLabel(MessageAdapter.getByKey(MessageKey.ANALYSIS_AXIS_DATE));
 				
 				NumberAxis yAxis = new NumberAxis();
 				yAxis.setLabel(MessageAdapter.getByKey(MessageKey.ANALYSIS_AXIS_VALUE_IN_EUR));
 				
-				LineChart<String, Number> lineChart = new LineChart<>(xAxis, yAxis);
+				LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
 				lineChart.setTitle(MessageAdapter.getByKey(MessageKey.ANALYSIS_TYPE, analysisType));
 				
 				List<DtoChartSeries<LocalDateTime, Number>> series = (List<DtoChartSeries<LocalDateTime, Number>>)result;
-				List<XYChart.Series<String, Number>> mappedSeries = xyChartSeriesMapper.mapAll(series);
+				List<XYChart.Series<Number, Number>> mappedSeries = xyChartSeriesMapper.mapAll(series);
 				
-				lineChart.getStyleClass().add("line-chart");
 				lineChart.getData().addAll(mappedSeries);
 				
 				return lineChart;

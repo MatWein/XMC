@@ -67,4 +67,10 @@ public interface CashAccountTransactionJpaRepository extends JpaRepository<CashA
 	default Optional<CashAccountTransaction> findFirstTransaction(Collection<Long> cashAccountIds) {
 		return findAllTransaction(cashAccountIds, PageRequest.of(0, 1)).stream().findFirst();
 	}
+	
+	@Query("SELECT cat FROM CashAccountTransaction cat " +
+			"WHERE cat.deletionDate IS NULL AND cat.cashAccount.id = :cashAccountId AND cat.valutaDate >= :startDateInclusive AND cat.valutaDate <= :endDateInclusive " +
+			"ORDER BY cat.valutaDate ASC, cat.creationDate ASC, cat.id ASC"
+	)
+	List<CashAccountTransaction> findAllTransactionsInRange(long cashAccountId, LocalDate startDateInclusive, LocalDate endDateInclusive);
 }

@@ -9,19 +9,20 @@ import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.charts.HoveredThresholdNode;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
 public class XYChartSeriesMapper {
-	public List<XYChart.Series<String, Number>> mapAll(List<DtoChartSeries<LocalDateTime, Number>> series) {
+	public List<XYChart.Series<Number, Number>> mapAll(List<DtoChartSeries<LocalDateTime, Number>> series) {
 		return series.stream()
 				.map(this::map)
 				.collect(Collectors.toList());
 	}
 	
-	private XYChart.Series<String, Number> map(DtoChartSeries<LocalDateTime, Number> series) {
-		XYChart.Series<String, Number> mappedSeries = new XYChart.Series<>();
+	private XYChart.Series<Number, Number> map(DtoChartSeries<LocalDateTime, Number> series) {
+		XYChart.Series<Number, Number> mappedSeries = new XYChart.Series<>();
 		
 		mappedSeries.setName(series.getName());
 		mappedSeries.getData().addAll(mapPoints(series.getPoints()));
@@ -29,16 +30,16 @@ public class XYChartSeriesMapper {
 		return mappedSeries;
 	}
 	
-	private List<XYChart.Data<String, Number>> mapPoints(List<DtoChartPoint<LocalDateTime, Number>> points) {
+	private List<XYChart.Data<Number, Number>> mapPoints(List<DtoChartPoint<LocalDateTime, Number>> points) {
 		return points.stream()
 				.map(this::mapPoint)
 				.collect(Collectors.toList());
 	}
 	
-	private XYChart.Data<String, Number> mapPoint(DtoChartPoint<LocalDateTime, Number> point) {
-		XYChart.Data<String, Number> mappedPoint = new XYChart.Data<>();
+	private XYChart.Data<Number, Number> mapPoint(DtoChartPoint<LocalDateTime, Number> point) {
+		XYChart.Data<Number, Number> mappedPoint = new XYChart.Data<>();
 		
-		mappedPoint.setXValue(MessageAdapter.formatDateTime(point.getX()));
+		mappedPoint.setXValue(point.getX().toInstant(ZoneOffset.UTC).toEpochMilli());
 		mappedPoint.setYValue(point.getY());
 		mappedPoint.setNode(new HoveredThresholdNode(
 				MessageAdapter.getByKey(MessageKey.ANALYSIS_CHART_POINT_XY_HOVER,

@@ -15,7 +15,7 @@ import java.util.List;
 
 @Component
 public class SeriesReducer {
-	private static final double DEFAULT_EPSILON = 200.0;
+	private static final double DEFAULT_EPSILON = 0.1;
 	
 	public <X, Y> List<DtoChartPoint<X, Y>> reduce(List<DtoChartPoint<X, Y>> points) {
 		return reduce(points, DEFAULT_EPSILON);

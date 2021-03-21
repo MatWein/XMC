@@ -7,8 +7,8 @@ import org.xmc.be.entities.depot.CurrencyConversionFactor;
 import org.xmc.be.entities.depot.DepotDelivery;
 import org.xmc.be.entities.depot.DepotItem;
 import org.xmc.be.repositories.depot.DepotDeliveryJpaRepository;
+import org.xmc.be.services.ccf.controller.AssetEuroValueCalculator;
 import org.xmc.be.services.ccf.controller.CurrencyConversionFactorLoadingController;
-import org.xmc.be.services.depot.calculation.DepotItemEuroValueCalculator;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -20,17 +20,17 @@ import java.util.stream.Collectors;
 public class DeliverySaldoUpdatingController {
 	private final DepotDeliveryJpaRepository depotDeliveryJpaRepository;
 	private final CurrencyConversionFactorLoadingController currencyConversionFactorLoadingController;
-	private final DepotItemEuroValueCalculator depotItemEuroValueCalculator;
+	private final AssetEuroValueCalculator assetEuroValueCalculator;
 	
 	@Autowired
 	public DeliverySaldoUpdatingController(
 			DepotDeliveryJpaRepository depotDeliveryJpaRepository,
 			CurrencyConversionFactorLoadingController currencyConversionFactorLoadingController,
-			DepotItemEuroValueCalculator depotItemEuroValueCalculator) {
+			AssetEuroValueCalculator assetEuroValueCalculator) {
 		
 		this.depotDeliveryJpaRepository = depotDeliveryJpaRepository;
 		this.currencyConversionFactorLoadingController = currencyConversionFactorLoadingController;
-		this.depotItemEuroValueCalculator = depotItemEuroValueCalculator;
+		this.assetEuroValueCalculator = assetEuroValueCalculator;
 	}
 	
 	public void updateDeliverySaldoForAllDeliveries(LocalDateTime startDate) {
@@ -66,7 +66,11 @@ public class DeliverySaldoUpdatingController {
 	private void updateDeliverySaldo(DepotDelivery depotDelivery, Multimap<String, CurrencyConversionFactor> currencyConversionFactors) {
 		BigDecimal sum = depotDelivery.getDepotItems().stream()
 				.filter(depotItem -> depotItem.getDeletionDate() == null)
-				.map(depotItem -> depotItemEuroValueCalculator.calculateEuroValue(depotItem, currencyConversionFactors))
+				.map(depotItem -> assetEuroValueCalculator.calculateEuroValue(
+						depotItem.getValue(),
+						depotItem.getDelivery().getDeliveryDate(),
+						depotItem.getCurrency(),
+						currencyConversionFactors))
 				.reduce(BigDecimal::add)
 				.orElse(BigDecimal.valueOf(0.0));
 		

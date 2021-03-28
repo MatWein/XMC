@@ -74,7 +74,7 @@ public class TimeRangeCalculator {
 			}
 		}
 		
-		return startDate;
+		return startDate.map(date -> date.minusDays(1));
 	}
 	
 	private Optional<LocalDate> loadMinimumDateForAssets(AssetType assetType, Collection<Long> assetids) {

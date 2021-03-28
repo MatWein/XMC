@@ -322,7 +322,8 @@ public class MessageAdapter {
 	    ANALYSIS_HINT("analysis.hint"),
 	    ANALYSIS_AXIS_DATE("analysis.axis.date"),
 	    ANALYSIS_AXIS_VALUE_IN_EUR("analysis.axis.valueInEur"),
-	    ANALYSIS_CHART_POINT_XY_HOVER("analysis.chartPointXY.hover")
+	    ANALYSIS_CHART_POINT_XY_HOVER("analysis.chartPointXY.hover"),
+	    ANALYSIS_CHART_AGGREGATED_SERIES_NAME("analysis.chartPointXY.aggregatedSeriesName")
         ;
 
         private final String key;

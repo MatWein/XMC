@@ -66,7 +66,7 @@ public class AnalysisChartCalculationService {
 		}
 		
 		List<DtoChartSeries<LocalDateTime, Number>> assetLines = absoluteAssetValueLineChartCalculator.calculate(assetIds, startDate, endDate);
-		DtoChartSeries<LocalDateTime, Number> aggregatedLine = absoluteAssetValueLineChartAggregator.aggregate(assetLines);
+		DtoChartSeries<LocalDateTime, Number> aggregatedLine = absoluteAssetValueLineChartAggregator.aggregate(assetLines, startDate, endDate);
 		
 		return Optional.of(Lists.newArrayList(aggregatedLine));
 	}
@@ -87,7 +87,7 @@ public class AnalysisChartCalculationService {
 		List<DtoChartSeries<LocalDateTime, Number>> assetLines = absoluteAssetValueLineChartCalculator.calculate(assetIds, startDate, endDate);
 		
 		if (assetLines.size() > 1) {
-			DtoChartSeries<LocalDateTime, Number> aggregatedLine = absoluteAssetValueLineChartAggregator.aggregate(assetLines);
+			DtoChartSeries<LocalDateTime, Number> aggregatedLine = absoluteAssetValueLineChartAggregator.aggregate(assetLines, startDate, endDate);
 			assetLines.add(aggregatedLine);
 		}
 		

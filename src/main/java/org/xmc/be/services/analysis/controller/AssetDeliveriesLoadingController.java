@@ -20,10 +20,15 @@ public class AssetDeliveriesLoadingController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AssetDeliveriesLoadingController.class);
 	
 	private final CashAccountDeliveryLoadingController cashAccountDeliveryLoadingController;
+	private final DepotDeliveryLoadingController depotDeliveryLoadingController;
 	
 	@Autowired
-	public AssetDeliveriesLoadingController(CashAccountDeliveryLoadingController cashAccountDeliveryLoadingController) {
+	public AssetDeliveriesLoadingController(
+			CashAccountDeliveryLoadingController cashAccountDeliveryLoadingController,
+			DepotDeliveryLoadingController depotDeliveryLoadingController) {
+		
 		this.cashAccountDeliveryLoadingController = cashAccountDeliveryLoadingController;
+		this.depotDeliveryLoadingController = depotDeliveryLoadingController;
 	}
 	
 	public List<DtoAssetDeliveries> loadAssetDeliveries(Multimap<AssetType, Long> assetIds, LocalDate startDate, LocalDate endDate) {
@@ -48,7 +53,7 @@ public class AssetDeliveriesLoadingController {
 		if (assetType == AssetType.CASHACCOUNT) {
 			return cashAccountDeliveryLoadingController.loadDeliveriesForCashAccounts(sortedAssetIds, startDate, endDate);
 		} else if (assetType == AssetType.DEPOT) {
-			return Lists.newArrayList();
+			return depotDeliveryLoadingController.loadDeliveriesForDepots(sortedAssetIds, startDate, endDate);
 		} else {
 			String message = String.format("Could not load deliveries for asset of unknown type '%s'.", assetType);
 			LOGGER.error(message);

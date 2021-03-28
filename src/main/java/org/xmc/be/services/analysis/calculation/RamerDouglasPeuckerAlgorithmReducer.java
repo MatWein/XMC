@@ -14,16 +14,25 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
-public class SeriesReducer {
-	private static final double DEFAULT_EPSILON = 0.1;
+public class RamerDouglasPeuckerAlgorithmReducer {
+	private static final int MINIMUM_POINTS_TO_RUN_REDUCING = 300;
 	
 	public <X, Y> List<DtoChartPoint<X, Y>> reduce(List<DtoChartPoint<X, Y>> points) {
-		return reduce(points, DEFAULT_EPSILON);
+		return reduce(points, points.size() / 4.0);
 	}
 	
-	private <X, Y> List<DtoChartPoint<X, Y>> reduce(List<DtoChartPoint<X, Y>> points, double epsilon) {
+	/**
+	 * The algorithm removes points from the series while maintaining the shape of the curve.
+	 * @param points ordered list of points
+	 * @param epsilon defines a margin within which points can be removed
+	 */
+	public <X, Y> List<DtoChartPoint<X, Y>> reduce(List<DtoChartPoint<X, Y>> points, double epsilon) {
 		if (CollectionUtils.isEmpty(points)) {
 			return new ArrayList<>();
+		}
+		
+		if (points.size() <= MINIMUM_POINTS_TO_RUN_REDUCING) {
+			return points;
 		}
 		
 		double furthestPointDistance = 0.0;

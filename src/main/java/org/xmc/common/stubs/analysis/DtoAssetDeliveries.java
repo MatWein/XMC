@@ -9,6 +9,7 @@ import java.util.List;
 
 public class DtoAssetDeliveries implements Serializable {
 	private long assetId;
+	private AssetType assetType;
 	private String assetName;
 	
 	private List<Pair<LocalDateTime, Double>> deliveries = Lists.newArrayList();
@@ -35,5 +36,13 @@ public class DtoAssetDeliveries implements Serializable {
 	
 	public void setDeliveries(List<Pair<LocalDateTime, Double>> deliveries) {
 		this.deliveries = deliveries;
+	}
+	
+	public AssetType getAssetType() {
+		return assetType;
+	}
+	
+	public void setAssetType(AssetType assetType) {
+		this.assetType = assetType;
 	}
 }

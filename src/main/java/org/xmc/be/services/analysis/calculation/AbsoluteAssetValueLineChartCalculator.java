@@ -19,15 +19,15 @@ import java.util.stream.Collectors;
 @Component
 public class AbsoluteAssetValueLineChartCalculator {
 	private final AssetDeliveriesLoadingController assetDeliveriesLoadingController;
-	private final SeriesReducer seriesReducer;
+	private final RamerDouglasPeuckerAlgorithmReducer ramerDouglasPeuckerAlgorithmReducer;
 	
 	@Autowired
 	public AbsoluteAssetValueLineChartCalculator(
 			AssetDeliveriesLoadingController assetDeliveriesLoadingController,
-			SeriesReducer seriesReducer) {
+			RamerDouglasPeuckerAlgorithmReducer ramerDouglasPeuckerAlgorithmReducer) {
 		
 		this.assetDeliveriesLoadingController = assetDeliveriesLoadingController;
-		this.seriesReducer = seriesReducer;
+		this.ramerDouglasPeuckerAlgorithmReducer = ramerDouglasPeuckerAlgorithmReducer;
 	}
 	
 	public List<DtoChartSeries<LocalDateTime, Number>> calculate(Multimap<AssetType, Long> assetIds, LocalDate startDate, LocalDate endDate) {
@@ -48,7 +48,7 @@ public class AbsoluteAssetValueLineChartCalculator {
 		calculatedSerie.setName(dtoAssetDeliveries.getAssetName());
 		
 		List<DtoChartPoint<LocalDateTime, Number>> points = calculatePoints(dtoAssetDeliveries);
-		points = seriesReducer.reduce(points);
+		points = ramerDouglasPeuckerAlgorithmReducer.reduce(points);
 		calculatedSerie.setPoints(points);
 		
 		return calculatedSerie;

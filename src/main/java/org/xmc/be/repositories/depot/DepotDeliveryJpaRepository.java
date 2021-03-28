@@ -32,4 +32,10 @@ public interface DepotDeliveryJpaRepository extends JpaRepository<DepotDelivery,
 	default Optional<DepotDelivery> findFirstDelivery(Collection<Long> depotIds) {
 		return findAllDeliveries(depotIds, PageRequest.of(0, 1)).stream().findFirst();
 	}
+	
+	@Query("SELECT del FROM DepotDelivery del " +
+			"WHERE del.deliveryDate <= :deliveryDate AND del.deletionDate IS NULL AND del.depot = :depot " +
+			"ORDER BY del.deliveryDate DESC, del.creationDate DESC, del.id DESC"
+	)
+	List<DepotDelivery> findDeliveryBeforeOrOnDate(Depot depot, LocalDateTime deliveryDate, Pageable pageable);
 }

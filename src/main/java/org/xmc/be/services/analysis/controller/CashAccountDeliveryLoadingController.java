@@ -6,6 +6,7 @@ import com.google.common.collect.Multimaps;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 import org.xmc.be.entities.PersistentObject;
 import org.xmc.be.entities.cashaccount.CashAccount;
@@ -15,6 +16,7 @@ import org.xmc.be.repositories.cashaccount.CashAccountJpaRepository;
 import org.xmc.be.repositories.cashaccount.CashAccountTransactionJpaRepository;
 import org.xmc.be.services.ccf.controller.AssetEuroValueCalculator;
 import org.xmc.be.services.ccf.controller.CurrencyConversionFactorLoadingController;
+import org.xmc.common.stubs.analysis.AssetType;
 import org.xmc.common.stubs.analysis.DtoAssetDeliveries;
 
 import java.math.BigDecimal;
@@ -57,14 +59,30 @@ public class CashAccountDeliveryLoadingController {
 		CashAccount cashAccount = cashAccountJpaRepository.getOne(cashAccountId);
 		Multimap<String, CurrencyConversionFactor> currencyConversionFactors = currencyConversionFactorLoadingController.load(cashAccount.getCurrency());
 		
-		List<CashAccountTransaction> transactions = cashAccountTransactionJpaRepository.findAllTransactionsInRange(
-				cashAccountId, startDate, endDate);
-		
 		DtoAssetDeliveries result = new DtoAssetDeliveries();
 		
 		result.setAssetId(cashAccountId);
 		result.setAssetName(cashAccount.getName());
-		result.setDeliveries(mapCashAccountDeliveries(transactions, currencyConversionFactors));
+		result.setAssetType(AssetType.CASHACCOUNT);
+		
+		List<CashAccountTransaction> transactions = cashAccountTransactionJpaRepository.findAllTransactionsInRange(
+				cashAccountId, startDate, endDate);
+		
+		List<Pair<LocalDateTime, Double>> mappedDeliveries = mapCashAccountDeliveries(transactions, currencyConversionFactors);
+		
+		List<CashAccountTransaction> transactionsBeforeOrOnDate = cashAccountTransactionJpaRepository.findTransactionsBeforeOrOnDate(
+				cashAccount, startDate, LocalDateTime.now(), Long.MAX_VALUE, PageRequest.of(0, 1));
+		
+		if (transactionsBeforeOrOnDate.size() == 1) {
+			double saldoBefore = transactionsBeforeOrOnDate.get(0).getSaldoAfter().doubleValue();
+			mappedDeliveries.add(0, ImmutablePair.of(startDate.atStartOfDay(), saldoBefore));
+			
+			if (mappedDeliveries.size() == 0) {
+				mappedDeliveries.add(ImmutablePair.of(endDate.atStartOfDay(), saldoBefore));
+			}
+		}
+		
+		result.setDeliveries(mappedDeliveries);
 		
 		return result;
 	}
@@ -76,7 +94,7 @@ public class CashAccountDeliveryLoadingController {
 		List<CashAccountTransaction> transactionsWithMaxDatePerDay = calculateTransactionsWithMaxDatePerDay(transactions);
 		
 		return transactionsWithMaxDatePerDay.stream()
-				.map(transaction -> mapCashAccountDelivery(transaction, currencyConversionFactors))
+				.flatMap(transaction -> mapCashAccountDelivery(transaction, currencyConversionFactors).stream())
 				.collect(Collectors.toList());
 	}
 	
@@ -94,18 +112,29 @@ public class CashAccountDeliveryLoadingController {
 		return result;
 	}
 	
-	private Pair<LocalDateTime, Double> mapCashAccountDelivery(
+	private List<Pair<LocalDateTime, Double>> mapCashAccountDelivery(
 			CashAccountTransaction transaction,
 			Multimap<String, CurrencyConversionFactor> currencyConversionFactors) {
 		
+		List<Pair<LocalDateTime, Double>> points = Lists.newArrayList();
+		
 		LocalDate valutaDate = transaction.getValutaDate();
 		
-		BigDecimal euroValue = assetEuroValueCalculator.calculateEuroValue(
+		BigDecimal euroValueBefore = assetEuroValueCalculator.calculateEuroValue(
+				transaction.getSaldoBefore(),
+				transaction.getValutaDate().atStartOfDay().minusSeconds(1),
+				transaction.getCashAccount().getCurrency(),
+				currencyConversionFactors);
+		
+		BigDecimal euroValueAfter = assetEuroValueCalculator.calculateEuroValue(
 				transaction.getSaldoAfter(),
 				transaction.getValutaDate().atStartOfDay(),
 				transaction.getCashAccount().getCurrency(),
 				currencyConversionFactors);
 		
-		return ImmutablePair.of(valutaDate.atStartOfDay(), euroValue.doubleValue());
+		points.add(ImmutablePair.of(valutaDate.atStartOfDay().minusSeconds(1), euroValueBefore.doubleValue()));
+		points.add(ImmutablePair.of(valutaDate.atStartOfDay(), euroValueAfter.doubleValue()));
+		
+		return points;
 	}
 }

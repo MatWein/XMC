@@ -25,26 +25,27 @@ public class XYChartSeriesMapper {
 		XYChart.Series<Number, Number> mappedSeries = new XYChart.Series<>();
 		
 		mappedSeries.setName(series.getName());
-		mappedSeries.getData().addAll(mapPoints(series.getPoints()));
+		mappedSeries.getData().addAll(mapPoints(series.getPoints(), series.getName()));
 		
 		return mappedSeries;
 	}
 	
-	private List<XYChart.Data<Number, Number>> mapPoints(List<DtoChartPoint<LocalDateTime, Number>> points) {
+	private List<XYChart.Data<Number, Number>> mapPoints(List<DtoChartPoint<LocalDateTime, Number>> points, String name) {
 		return points.stream()
-				.map(this::mapPoint)
+				.map(point -> mapPoint(point, name))
 				.collect(Collectors.toList());
 	}
 	
-	private XYChart.Data<Number, Number> mapPoint(DtoChartPoint<LocalDateTime, Number> point) {
+	private XYChart.Data<Number, Number> mapPoint(DtoChartPoint<LocalDateTime, Number> point, String name) {
 		XYChart.Data<Number, Number> mappedPoint = new XYChart.Data<>();
 		
 		mappedPoint.setXValue(point.getX().toInstant(ZoneOffset.UTC).toEpochMilli());
 		mappedPoint.setYValue(point.getY());
 		mappedPoint.setNode(new HoveredThresholdNode(
 				MessageAdapter.getByKey(MessageKey.ANALYSIS_CHART_POINT_XY_HOVER,
-					MessageAdapter.formatDate(point.getX().toLocalDate()),
-					MessageAdapter.formatNumber(point.getY())))
+						name,
+						MessageAdapter.formatDate(point.getX().toLocalDate()),
+						MessageAdapter.formatNumber(point.getY())))
 		);
 		
 		return mappedPoint;

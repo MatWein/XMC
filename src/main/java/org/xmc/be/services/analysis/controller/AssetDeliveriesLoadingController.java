@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 @Component
 public class AssetDeliveriesLoadingController {
@@ -47,10 +48,12 @@ public class AssetDeliveriesLoadingController {
 			LocalDate startDate,
 			LocalDate endDate) {
 		
+		List<Long> sortedAssetIds = assetIds.stream().sorted().collect(Collectors.toList());
+		
 		if (assetType == AssetType.CASHACCOUNT) {
-			return cashAccountDeliveryLoadingController.loadDeliveriesForCashAccounts(assetIds, startDate, endDate);
+			return cashAccountDeliveryLoadingController.loadDeliveriesForCashAccounts(sortedAssetIds, startDate, endDate);
 		} else if (assetType == AssetType.DEPOT) {
-			return depotDeliveryLoadingController.loadDeliveriesForDepots(assetIds, startDate, endDate);
+			return depotDeliveryLoadingController.loadDeliveriesForDepots(sortedAssetIds, startDate, endDate);
 		} else {
 			String message = String.format("Could not load deliveries for asset of unknown type '%s'.", assetType);
 			LOGGER.error(message);

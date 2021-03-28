@@ -19,15 +19,15 @@ import java.util.stream.Collectors;
 @Component
 public class AbsoluteAssetValueLineChartCalculator {
 	private final AssetDeliveriesLoadingController assetDeliveriesLoadingController;
-	private final RamerDouglasPeuckerAlgorithmReducer ramerDouglasPeuckerAlgorithmReducer;
+	private final DuplicatedChartPointsReducer duplicatedChartPointsReducer;
 	
 	@Autowired
 	public AbsoluteAssetValueLineChartCalculator(
 			AssetDeliveriesLoadingController assetDeliveriesLoadingController,
-			RamerDouglasPeuckerAlgorithmReducer ramerDouglasPeuckerAlgorithmReducer) {
+			DuplicatedChartPointsReducer duplicatedChartPointsReducer) {
 		
 		this.assetDeliveriesLoadingController = assetDeliveriesLoadingController;
-		this.ramerDouglasPeuckerAlgorithmReducer = ramerDouglasPeuckerAlgorithmReducer;
+		this.duplicatedChartPointsReducer = duplicatedChartPointsReducer;
 	}
 	
 	public List<DtoChartSeries<LocalDateTime, Number>> calculate(Multimap<AssetType, Long> assetIds, LocalDate startDate, LocalDate endDate) {
@@ -48,7 +48,7 @@ public class AbsoluteAssetValueLineChartCalculator {
 		calculatedSerie.setName(dtoAssetDeliveries.getAssetName());
 		
 		List<DtoChartPoint<LocalDateTime, Number>> points = calculatePoints(dtoAssetDeliveries);
-		points = ramerDouglasPeuckerAlgorithmReducer.reduce(points);
+		points = duplicatedChartPointsReducer.reduce(points);
 		calculatedSerie.setPoints(points);
 		
 		return calculatedSerie;
@@ -59,14 +59,9 @@ public class AbsoluteAssetValueLineChartCalculator {
 			return Lists.newArrayList();
 		}
 		
-		List<DtoChartPoint<LocalDateTime, Number>> points = dtoAssetDeliveries.getDeliveries().stream()
+		return dtoAssetDeliveries.getDeliveries().stream()
 				.map(this::mapToPoint)
 				.collect(Collectors.toList());
-		
-		Pair<LocalDateTime, Double> firstDelivery = dtoAssetDeliveries.getDeliveries().get(0);
-		points.add(0, new DtoChartPoint<>(firstDelivery.getLeft(), firstDelivery.getRight()));
-		
-		return points;
 	}
 	
 	private DtoChartPoint<LocalDateTime, Number> mapToPoint(Pair<LocalDateTime, Double> delivery) {

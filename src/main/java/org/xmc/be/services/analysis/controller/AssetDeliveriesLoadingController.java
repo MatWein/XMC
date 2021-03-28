@@ -19,15 +19,10 @@ import java.util.stream.Collectors;
 public class AssetDeliveriesLoadingController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AssetDeliveriesLoadingController.class);
 	
-	private final DepotDeliveryLoadingController depotDeliveryLoadingController;
 	private final CashAccountDeliveryLoadingController cashAccountDeliveryLoadingController;
 	
 	@Autowired
-	public AssetDeliveriesLoadingController(
-			DepotDeliveryLoadingController depotDeliveryLoadingController,
-			CashAccountDeliveryLoadingController cashAccountDeliveryLoadingController) {
-		
-		this.depotDeliveryLoadingController = depotDeliveryLoadingController;
+	public AssetDeliveriesLoadingController(CashAccountDeliveryLoadingController cashAccountDeliveryLoadingController) {
 		this.cashAccountDeliveryLoadingController = cashAccountDeliveryLoadingController;
 	}
 	
@@ -53,7 +48,7 @@ public class AssetDeliveriesLoadingController {
 		if (assetType == AssetType.CASHACCOUNT) {
 			return cashAccountDeliveryLoadingController.loadDeliveriesForCashAccounts(sortedAssetIds, startDate, endDate);
 		} else if (assetType == AssetType.DEPOT) {
-			return depotDeliveryLoadingController.loadDeliveriesForDepots(sortedAssetIds, startDate, endDate);
+			return Lists.newArrayList();
 		} else {
 			String message = String.format("Could not load deliveries for asset of unknown type '%s'.", assetType);
 			LOGGER.error(message);

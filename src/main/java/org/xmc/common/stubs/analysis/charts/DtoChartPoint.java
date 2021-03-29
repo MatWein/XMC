@@ -5,7 +5,6 @@ import java.io.Serializable;
 public class DtoChartPoint<X, Y> implements Serializable {
 	private X x;
 	private Y y;
-	private String message;
 	
 	public DtoChartPoint() {
 	}
@@ -29,13 +28,5 @@ public class DtoChartPoint<X, Y> implements Serializable {
 	
 	public void setY(Y y) {
 		this.y = y;
-	}
-	
-	public String getMessage() {
-		return message;
-	}
-	
-	public void setMessage(String message) {
-		this.message = message;
 	}
 }

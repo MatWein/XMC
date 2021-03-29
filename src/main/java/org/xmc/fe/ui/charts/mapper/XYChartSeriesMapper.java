@@ -1,11 +1,9 @@
 package org.xmc.fe.ui.charts.mapper;
 
 import javafx.scene.chart.XYChart;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.xmc.common.stubs.analysis.charts.DtoChartPoint;
 import org.xmc.common.stubs.analysis.charts.DtoChartSeries;
-import org.xmc.fe.ui.charts.HoveredThresholdNode;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,13 +34,9 @@ public class XYChartSeriesMapper {
 	private <X, Y> XYChart.Data<X, Y> mapPoint(DtoChartPoint<X, Y> point) {
 		XYChart.Data<X, Y> mappedPoint = new XYChart.Data<>();
 		
-		mappedPoint.setXValue((X)convertXValue(point.getX()));
-		mappedPoint.setYValue((Y)convertYValue(point.getY()));
-		mappedPoint.setNode(new HoveredThresholdNode(StringUtils.defaultString(point.getMessage())));
+		mappedPoint.setXValue(point.getX());
+		mappedPoint.setYValue(point.getY());
 		
 		return mappedPoint;
 	}
-	
-	protected Object convertXValue(Object originalValue) { return originalValue; }
-	protected Object convertYValue(Object originalValue) { return originalValue; }
 }

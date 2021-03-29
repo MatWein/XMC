@@ -12,6 +12,7 @@ import org.xmc.be.repositories.depot.DepotJpaRepository;
 import org.xmc.common.CommonConstants;
 import org.xmc.common.stubs.analysis.AssetType;
 import org.xmc.common.stubs.analysis.DtoAssetDeliveries;
+import org.xmc.common.utils.LocalDateUtil;
 
 import java.math.BigDecimal;
 import java.time.Duration;
@@ -56,9 +57,9 @@ public class DepotDeliveryLoadingController {
 		return result;
 	}
 	
-	private List<Pair<LocalDateTime, Double>> loadDeliveryPoints(Depot depot, LocalDate startDate, LocalDate endDate) {
+	private List<Pair<Number, Number>> loadDeliveryPoints(Depot depot, LocalDate startDate, LocalDate endDate) {
 		long days = Duration.between(startDate.atStartOfDay(), endDate.atStartOfDay()).toDays();
-		List<Pair<LocalDateTime, Double>> result = Lists.newArrayListWithExpectedSize((int)days);
+		List<Pair<Number, Number>> result = Lists.newArrayListWithExpectedSize((int)days);
 		
 		List<DepotDelivery> deliveries = depotDeliveryJpaRepository.findByDepotAndDeletionDateIsNull(depot);
 		
@@ -67,7 +68,7 @@ public class DepotDeliveryLoadingController {
 			Optional<DepotDelivery> delivery = findLastDeliveryBeforeOrOnDate(date, deliveries);
 			double valueAtDate = delivery.map(DepotDelivery::getSaldo).orElse(BigDecimal.ZERO).doubleValue();
 			
-			result.add(ImmutablePair.of(date, valueAtDate));
+			result.add(ImmutablePair.of(LocalDateUtil.toMillis(date), valueAtDate));
 		}
 		
 		return result;

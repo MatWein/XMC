@@ -12,11 +12,11 @@ import org.xmc.be.repositories.cashaccount.CashAccountTransactionJpaRepository;
 import org.xmc.common.CommonConstants;
 import org.xmc.common.stubs.analysis.AssetType;
 import org.xmc.common.stubs.analysis.DtoAssetDeliveries;
+import org.xmc.common.utils.LocalDateUtil;
 
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -56,14 +56,14 @@ public class CashAccountDeliveryLoadingController {
 		return result;
 	}
 	
-	private List<Pair<LocalDateTime, Double>> loadDeliveryPoints(CashAccount cashAccount, LocalDate startDate, LocalDate endDate) {
+	private List<Pair<Number, Number>> loadDeliveryPoints(CashAccount cashAccount, LocalDate startDate, LocalDate endDate) {
 		long days = Duration.between(startDate.atStartOfDay(), endDate.atStartOfDay()).toDays();
-		List<Pair<LocalDateTime, Double>> result = Lists.newArrayListWithExpectedSize((int)days);
+		List<Pair<Number, Number>> result = Lists.newArrayListWithExpectedSize((int)days);
 		
 		List<CashAccountTransaction> transactions = cashAccountTransactionJpaRepository.findByCashAccountAndDeletionDateIsNull(cashAccount);
 		
 		for (LocalDate currentDate = startDate; currentDate.isBefore(endDate); currentDate = currentDate.plusDays(1)) {
-			LocalDateTime date = currentDate.atTime(CommonConstants.END_OF_DAY);
+			long date = LocalDateUtil.toMillis(currentDate.atTime(CommonConstants.END_OF_DAY));
 			Optional<CashAccountTransaction> transaction = findLastTransactionBeforeOrOnDate(currentDate, transactions);
 			double valueAtDate = transaction.map(CashAccountTransaction::getSaldoAfter).orElse(BigDecimal.ZERO).doubleValue();
 			

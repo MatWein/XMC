@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class DtoAssetDeliveries implements Serializable {
@@ -12,7 +11,7 @@ public class DtoAssetDeliveries implements Serializable {
 	private AssetType assetType;
 	private String assetName;
 	
-	private List<Pair<LocalDateTime, Double>> deliveries = Lists.newArrayList();
+	private List<Pair<Number, Number>> deliveries = Lists.newArrayList();
 	
 	public long getAssetId() {
 		return assetId;
@@ -30,11 +29,11 @@ public class DtoAssetDeliveries implements Serializable {
 		this.assetName = assetName;
 	}
 	
-	public List<Pair<LocalDateTime, Double>> getDeliveries() {
+	public List<Pair<Number, Number>> getDeliveries() {
 		return deliveries;
 	}
 	
-	public void setDeliveries(List<Pair<LocalDateTime, Double>> deliveries) {
+	public void setDeliveries(List<Pair<Number, Number>> deliveries) {
 		this.deliveries = deliveries;
 	}
 	

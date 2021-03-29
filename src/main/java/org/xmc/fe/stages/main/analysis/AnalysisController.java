@@ -4,7 +4,6 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.chart.Axis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTreeCell;
@@ -31,13 +30,11 @@ import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.charts.ExtendedLineChart;
 import org.xmc.fe.ui.charts.LocalDateTimeAxis;
-import org.xmc.fe.ui.charts.mapper.LocalDateTimeDoubleChartSeriesMapper;
 import org.xmc.fe.ui.converter.GenericItemToStringConverter;
 import org.xmc.fe.ui.validation.components.ValidationComboBox;
 import org.xmc.fe.ui.validation.components.ValidationDatePicker;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,7 +47,6 @@ public class AnalysisController {
 	private final AnalysisAssetService analysisAssetService;
 	private final DtoAssetSelectionTreeItemMapper dtoAssetSelectionTreeItemMapper;
 	private final AnalysisChartCalculationService analysisChartCalculationService;
-	private final LocalDateTimeDoubleChartSeriesMapper localDateTimeDoubleChartSeriesMapper;
 	
 	@FXML private MenuButton favouriteMenuButton;
 	@FXML private ValidationComboBox<AnalysisType> analysisTypeComboBox;
@@ -67,15 +63,13 @@ public class AnalysisController {
 			AsyncProcessor asyncProcessor,
 			AnalysisAssetService analysisAssetService,
 			DtoAssetSelectionTreeItemMapper dtoAssetSelectionTreeItemMapper,
-			AnalysisChartCalculationService analysisChartCalculationService,
-			LocalDateTimeDoubleChartSeriesMapper localDateTimeDoubleChartSeriesMapper) {
+			AnalysisChartCalculationService analysisChartCalculationService) {
 		
 		this.timeRangeService = timeRangeService;
 		this.asyncProcessor = asyncProcessor;
 		this.analysisAssetService = analysisAssetService;
 		this.dtoAssetSelectionTreeItemMapper = dtoAssetSelectionTreeItemMapper;
 		this.analysisChartCalculationService = analysisChartCalculationService;
-		this.localDateTimeDoubleChartSeriesMapper = localDateTimeDoubleChartSeriesMapper;
 	}
 	
 	@FXML
@@ -186,17 +180,20 @@ public class AnalysisController {
 			case ABSOLUTE_ASSET_VALUE:
 			case AGGREGATED_ASSET_VALUE:
 			case ABSOLUTE_AND_AGGREGATED_ASSET_VALUE:
-				Axis<LocalDateTime> xAxis = LocalDateTimeAxis.createAxis();
+				NumberAxis xAxis = LocalDateTimeAxis.createAxis();
 				xAxis.setLabel(MessageAdapter.getByKey(MessageKey.ANALYSIS_AXIS_DATE));
 				
 				NumberAxis yAxis = new NumberAxis();
 				yAxis.setLabel(MessageAdapter.getByKey(MessageKey.ANALYSIS_AXIS_VALUE_IN_EUR));
+				yAxis.setTickLabelFormatter(GenericItemToStringConverter.getInstance(MessageAdapter::formatNumber));
 				
-				ExtendedLineChart<LocalDateTime, Number> lineChart = new ExtendedLineChart<>(xAxis, yAxis);
+				ExtendedLineChart<Number, Number> lineChart = new ExtendedLineChart<>(xAxis, yAxis);
 				lineChart.setTitle(MessageAdapter.getByKey(MessageKey.ANALYSIS_TYPE, analysisType));
+				lineChart.setCreateSymbols(false);
+				lineChart.setTooltipOnClick(true);
 				
-				List<DtoChartSeries<LocalDateTime, Number>> series = (List<DtoChartSeries<LocalDateTime, Number>>)result;
-				lineChart.applyData(series, localDateTimeDoubleChartSeriesMapper);
+				List<DtoChartSeries<Number, Number>> series = (List<DtoChartSeries<Number, Number>>)result;
+				lineChart.applyData(series);
 				
 				return lineChart;
 			default:

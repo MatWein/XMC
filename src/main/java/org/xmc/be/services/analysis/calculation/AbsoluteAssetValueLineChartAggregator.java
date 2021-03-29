@@ -4,12 +4,12 @@ import org.springframework.stereotype.Component;
 import org.xmc.common.CommonConstants;
 import org.xmc.common.stubs.analysis.charts.DtoChartPoint;
 import org.xmc.common.stubs.analysis.charts.DtoChartSeries;
+import org.xmc.common.utils.LocalDateUtil;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 
 import java.awt.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -17,12 +17,12 @@ import java.util.Optional;
 
 @Component
 public class AbsoluteAssetValueLineChartAggregator {
-	public DtoChartSeries<LocalDateTime, Number> aggregate(
-			List<DtoChartSeries<LocalDateTime, Number>> assetLines,
+	public DtoChartSeries<Number, Number> aggregate(
+			List<DtoChartSeries<Number, Number>> assetLines,
 			LocalDate startDate,
 			LocalDate endDate) {
 		
-		DtoChartSeries<LocalDateTime, Number> series = new DtoChartSeries<>();
+		DtoChartSeries<Number, Number> series = new DtoChartSeries<>();
 		
 		series.setName(MessageAdapter.getByKey(MessageKey.ANALYSIS_CHART_AGGREGATED_SERIES_NAME));
 		series.setColor(Color.BLACK);
@@ -31,12 +31,12 @@ public class AbsoluteAssetValueLineChartAggregator {
 		return series;
 	}
 	
-	private List<DtoChartPoint<LocalDateTime, Number>> calculateAggregatedPoints(
-			List<DtoChartSeries<LocalDateTime, Number>> assetLines,
+	private List<DtoChartPoint<Number, Number>> calculateAggregatedPoints(
+			List<DtoChartSeries<Number, Number>> assetLines,
 			LocalDate startDate,
 			LocalDate endDate) {
 		
-		var result = new ArrayList<DtoChartPoint<LocalDateTime, Number>>();
+		var result = new ArrayList<DtoChartPoint<Number, Number>>();
 		
 		var currentDate = startDate;
 		
@@ -53,26 +53,19 @@ public class AbsoluteAssetValueLineChartAggregator {
 		return result;
 	}
 	
-	private DtoChartPoint<LocalDateTime, Number> createPoint(LocalDate currentDate, double sum) {
-		DtoChartPoint<LocalDateTime, Number> point = new DtoChartPoint<>();
+	private DtoChartPoint<Number, Number> createPoint(LocalDate currentDate, double sum) {
+		DtoChartPoint<Number, Number> point = new DtoChartPoint<>();
 		
-		point.setX(currentDate.atTime(CommonConstants.END_OF_DAY));
+		point.setX(LocalDateUtil.toMillis(currentDate.atTime(CommonConstants.END_OF_DAY)));
 		point.setY(sum);
-		
-		String message = MessageAdapter.getByKey(MessageKey.ANALYSIS_CHART_POINT_XY_HOVER,
-				MessageAdapter.getByKey(MessageKey.ANALYSIS_CHART_AGGREGATED_SERIES_NAME),
-				MessageAdapter.formatDate(point.getX().toLocalDate()),
-				MessageAdapter.formatNumber(point.getY()));
-		
-		point.setMessage(message);
 		
 		return point;
 	}
 	
-	private List<DtoChartPoint<LocalDateTime, Number>> calculateAssetPointsOnCurrentDateOrBefore(List<DtoChartSeries<LocalDateTime, Number>> assetLines, LocalDate currentDate) {
-		var result = new ArrayList<DtoChartPoint<LocalDateTime, Number>>();
+	private List<DtoChartPoint<Number, Number>> calculateAssetPointsOnCurrentDateOrBefore(List<DtoChartSeries<Number, Number>> assetLines, LocalDate currentDate) {
+		var result = new ArrayList<DtoChartPoint<Number, Number>>();
 		
-		for (DtoChartSeries<LocalDateTime, Number> asset : assetLines) {
+		for (DtoChartSeries<Number, Number> asset : assetLines) {
 			var assetPointOnCurrentDateOrBefore = findAssetPointOnCurrentDateOrBefore(asset, currentDate);
 			if (assetPointOnCurrentDateOrBefore.isPresent()) {
 				result.add(assetPointOnCurrentDateOrBefore.get());
@@ -82,9 +75,9 @@ public class AbsoluteAssetValueLineChartAggregator {
 		return result;
 	}
 	
-	private Optional<DtoChartPoint<LocalDateTime, Number>> findAssetPointOnCurrentDateOrBefore(DtoChartSeries<LocalDateTime, Number> asset, LocalDate maxDate) {
+	private Optional<DtoChartPoint<Number, Number>> findAssetPointOnCurrentDateOrBefore(DtoChartSeries<Number, Number> asset, LocalDate maxDate) {
 		return asset.getPoints().stream()
-				.filter((o) -> o.getX().toLocalDate().isBefore(maxDate) || o.getX().toLocalDate().isEqual(maxDate))
-				.max(Comparator.comparing(DtoChartPoint::getX));
+				.filter((o) -> o.getX().longValue() <= LocalDateUtil.toMillis(maxDate))
+				.max(Comparator.comparing(point -> point.getX().longValue()));
 	}
 }

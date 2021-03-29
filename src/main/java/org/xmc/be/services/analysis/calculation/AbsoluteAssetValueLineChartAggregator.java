@@ -1,11 +1,13 @@
 package org.xmc.be.services.analysis.calculation;
 
 import org.springframework.stereotype.Component;
+import org.xmc.common.CommonConstants;
 import org.xmc.common.stubs.analysis.charts.DtoChartPoint;
 import org.xmc.common.stubs.analysis.charts.DtoChartSeries;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 
+import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ public class AbsoluteAssetValueLineChartAggregator {
 		DtoChartSeries<LocalDateTime, Number> series = new DtoChartSeries<>();
 		
 		series.setName(MessageAdapter.getByKey(MessageKey.ANALYSIS_CHART_AGGREGATED_SERIES_NAME));
+		series.setColor(Color.BLACK);
 		series.setPoints(calculateAggregatedPoints(assetLines, startDate, endDate));
 		
 		return series;
@@ -43,11 +46,27 @@ public class AbsoluteAssetValueLineChartAggregator {
 					.mapToDouble(point -> point.getY().doubleValue())
 					.sum();
 			
-			result.add(new DtoChartPoint<>(currentDate.atTime(12, 0, 0), sum));
+			result.add(createPoint(currentDate, sum));
 			currentDate = currentDate.plusDays(1);
 		}
 		
 		return result;
+	}
+	
+	private DtoChartPoint<LocalDateTime, Number> createPoint(LocalDate currentDate, double sum) {
+		DtoChartPoint<LocalDateTime, Number> point = new DtoChartPoint<>();
+		
+		point.setX(currentDate.atTime(CommonConstants.END_OF_DAY));
+		point.setY(sum);
+		
+		String message = MessageAdapter.getByKey(MessageKey.ANALYSIS_CHART_POINT_XY_HOVER,
+				MessageAdapter.getByKey(MessageKey.ANALYSIS_CHART_AGGREGATED_SERIES_NAME),
+				MessageAdapter.formatDate(point.getX().toLocalDate()),
+				MessageAdapter.formatNumber(point.getY()));
+		
+		point.setMessage(message);
+		
+		return point;
 	}
 	
 	private List<DtoChartPoint<LocalDateTime, Number>> calculateAssetPointsOnCurrentDateOrBefore(List<DtoChartSeries<LocalDateTime, Number>> assetLines, LocalDate currentDate) {

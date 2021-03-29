@@ -10,6 +10,9 @@ import org.xmc.common.stubs.analysis.AssetType;
 import org.xmc.common.stubs.analysis.DtoAssetDeliveries;
 import org.xmc.common.stubs.analysis.charts.DtoChartPoint;
 import org.xmc.common.stubs.analysis.charts.DtoChartSeries;
+import org.xmc.common.utils.StringColorConverter;
+import org.xmc.fe.ui.MessageAdapter;
+import org.xmc.fe.ui.MessageAdapter.MessageKey;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -46,6 +49,7 @@ public class AbsoluteAssetValueLineChartCalculator {
 		DtoChartSeries<LocalDateTime, Number> calculatedSerie = new DtoChartSeries<>();
 		
 		calculatedSerie.setName(dtoAssetDeliveries.getAssetName());
+		calculatedSerie.setColor(StringColorConverter.convertTextToColor(String.valueOf(dtoAssetDeliveries.getAssetId())));
 		
 		List<DtoChartPoint<LocalDateTime, Number>> points = calculatePoints(dtoAssetDeliveries);
 		points = duplicatedChartPointsReducer.reduce(points);
@@ -60,15 +64,22 @@ public class AbsoluteAssetValueLineChartCalculator {
 		}
 		
 		return dtoAssetDeliveries.getDeliveries().stream()
-				.map(this::mapToPoint)
+				.map(delivery -> mapToPoint(delivery, dtoAssetDeliveries.getAssetName()))
 				.collect(Collectors.toList());
 	}
 	
-	private DtoChartPoint<LocalDateTime, Number> mapToPoint(Pair<LocalDateTime, Double> delivery) {
+	private DtoChartPoint<LocalDateTime, Number> mapToPoint(Pair<LocalDateTime, Double> delivery, String name) {
 		DtoChartPoint<LocalDateTime, Number> point = new DtoChartPoint<>();
 		
 		point.setX(delivery.getLeft());
 		point.setY(delivery.getRight());
+		
+		String message = MessageAdapter.getByKey(MessageKey.ANALYSIS_CHART_POINT_XY_HOVER,
+				name,
+				MessageAdapter.formatDate(point.getX().toLocalDate()),
+				MessageAdapter.formatNumber(point.getY()));
+		
+		point.setMessage(message);
 		
 		return point;
 	}

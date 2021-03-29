@@ -6,10 +6,14 @@ import javafx.scene.layout.StackPane;
 public class HoveredThresholdNode extends StackPane {
 	private static final int POINT_RADIUS = 5;
 	
+	private final Label label;
+	
 	public HoveredThresholdNode(String message) {
 		setPrefSize(POINT_RADIUS, POINT_RADIUS);
 		
-		Label label = createDataThresholdLabel(message);
+		label = new Label(message);
+		label.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
+		label.getStyleClass().addAll("default-color0", "chart-line-symbol", "chart-series-line");
 		
 		setOnMouseEntered(mouseEvent -> {
 			getChildren().setAll(label);
@@ -19,12 +23,7 @@ public class HoveredThresholdNode extends StackPane {
 		setOnMouseExited(mouseEvent -> getChildren().clear());
 	}
 	
-	private Label createDataThresholdLabel(String message) {
-		Label label = new Label(message);
-		
-		label.getStyleClass().addAll("default-color0", "chart-line-symbol", "chart-series-line");
-		label.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
-		
+	public Label getLabel() {
 		return label;
 	}
 }

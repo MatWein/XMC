@@ -38,7 +38,7 @@ public class PersistentObject {
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+		if (o == null || !PersistentObject.class.isAssignableFrom(o.getClass())) return false;
 		PersistentObject that = (PersistentObject) o;
 		return Objects.equals(getId(), that.getId());
 	}

@@ -1,52 +1,46 @@
 package org.xmc.fe.stages.main.analysis;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckBoxTreeItem;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.CheckBoxTreeCell;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.services.analysis.AnalysisAssetService;
-import org.xmc.be.services.analysis.AnalysisChartCalculationService;
 import org.xmc.be.services.analysis.TimeRangeService;
 import org.xmc.common.stubs.analysis.AnalysisType;
-import org.xmc.common.stubs.analysis.AssetType;
 import org.xmc.common.stubs.analysis.DtoAssetSelection;
 import org.xmc.common.stubs.analysis.TimeRange;
-import org.xmc.common.stubs.analysis.charts.DtoChartSeries;
-import org.xmc.fe.async.AsyncMonitor;
 import org.xmc.fe.async.AsyncProcessor;
+import org.xmc.fe.stages.main.analysis.logic.ChartDataForSelectedTypeLoadingController;
+import org.xmc.fe.stages.main.analysis.logic.ChartNodeFactory;
+import org.xmc.fe.stages.main.analysis.logic.SelectedAssetIdsExtractor;
 import org.xmc.fe.stages.main.analysis.mapper.DtoAssetSelectionTreeItemMapper;
 import org.xmc.fe.ui.FxmlComponentFactory;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.FxmlController;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
-import org.xmc.fe.ui.charts.ExtendedLineChart;
-import org.xmc.fe.ui.charts.LocalDateTimeAxis;
 import org.xmc.fe.ui.converter.GenericItemToStringConverter;
 import org.xmc.fe.ui.validation.components.ValidationComboBox;
 import org.xmc.fe.ui.validation.components.ValidationDatePicker;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 
 @FxmlController
 public class AnalysisContentController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(AnalysisContentController.class);
-	
 	private final TimeRangeService timeRangeService;
 	private final AsyncProcessor asyncProcessor;
 	private final AnalysisAssetService analysisAssetService;
 	private final DtoAssetSelectionTreeItemMapper dtoAssetSelectionTreeItemMapper;
-	private final AnalysisChartCalculationService analysisChartCalculationService;
+	private final ChartNodeFactory chartNodeFactory;
+	private final ChartDataForSelectedTypeLoadingController chartDataForSelectedTypeLoadingController;
+	private final SelectedAssetIdsExtractor selectedAssetIdsExtractor;
 	
 	@FXML private MenuButton favouriteMenuButton;
 	@FXML private ValidationComboBox<AnalysisType> analysisTypeComboBox;
@@ -63,13 +57,17 @@ public class AnalysisContentController {
 			AsyncProcessor asyncProcessor,
 			AnalysisAssetService analysisAssetService,
 			DtoAssetSelectionTreeItemMapper dtoAssetSelectionTreeItemMapper,
-			AnalysisChartCalculationService analysisChartCalculationService) {
+			ChartNodeFactory chartNodeFactory,
+			ChartDataForSelectedTypeLoadingController chartDataForSelectedTypeLoadingController,
+			SelectedAssetIdsExtractor selectedAssetIdsExtractor) {
 		
 		this.timeRangeService = timeRangeService;
 		this.asyncProcessor = asyncProcessor;
 		this.analysisAssetService = analysisAssetService;
 		this.dtoAssetSelectionTreeItemMapper = dtoAssetSelectionTreeItemMapper;
-		this.analysisChartCalculationService = analysisChartCalculationService;
+		this.chartNodeFactory = chartNodeFactory;
+		this.chartDataForSelectedTypeLoadingController = chartDataForSelectedTypeLoadingController;
+		this.selectedAssetIdsExtractor = selectedAssetIdsExtractor;
 	}
 	
 	@FXML
@@ -90,17 +88,18 @@ public class AnalysisContentController {
 		selectedAssetsTreeView.setCellFactory(CheckBoxTreeCell.forTreeView());
 		timeRangeComboBox.setValue(TimeRange.LAST_YEAR);
 		
-		asyncProcessor.runAsync(
-				analysisAssetService::loadAssets,
-				result -> {
-					CheckBoxTreeItem<DtoAssetSelection> rootNode = dtoAssetSelectionTreeItemMapper.map(result, () -> onTimeRangeSelected(timeRangeComboBox.getValue()));
-					selectedAssetsTreeView.setRoot(rootNode);
-				}
-		);
+		refreshAssetTree();
 	}
 	
 	@FXML
 	public void clearInput() {
+		analysisTypeComboBox.setValue(null);
+		
+		refreshAssetTree();
+		
+		timeRangeComboBox.setValue(TimeRange.LAST_YEAR);
+		
+		onCalculate();
 	}
 	
 	@FXML
@@ -111,9 +110,24 @@ public class AnalysisContentController {
 	public void onCalculate() {
 		asyncProcessor.runAsync(
 				this::beforeCalculation,
-				this::calculateChartForSelectedType,
+				monitor -> chartDataForSelectedTypeLoadingController.calculateChartForSelectedType(
+						monitor,
+						analysisTypeComboBox.getValue(),
+						selectedAssetIdsExtractor.extractSelectedAssetIds(selectedAssetsTreeView),
+						startDatePicker.getValueOrNull(),
+						endDatePicker.getValueOrNull()),
 				this::showResultChart,
 				this::afterCalculation
+		);
+	}
+	
+	private void refreshAssetTree() {
+		asyncProcessor.runAsync(
+				analysisAssetService::loadAssets,
+				result -> {
+					CheckBoxTreeItem<DtoAssetSelection> rootNode = dtoAssetSelectionTreeItemMapper.map(result, () -> onTimeRangeSelected(timeRangeComboBox.getValue()));
+					selectedAssetsTreeView.setRoot(rootNode);
+				}
 		);
 	}
 	
@@ -129,38 +143,6 @@ public class AnalysisContentController {
 		analysisContentVBox.getChildren().add(spinnerPane);
 	}
 	
-	private <T> Optional<T> calculateChartForSelectedType(AsyncMonitor monitor) {
-		AnalysisType analysisType = analysisTypeComboBox.getValue();
-		if (analysisType == null) {
-			return Optional.empty();
-		}
-		
-		switch (analysisType) {
-			case ABSOLUTE_ASSET_VALUE:
-				return (Optional<T>)analysisChartCalculationService.calculateAbsoluteAssetValueLineChart(
-						monitor,
-						extractSelectedAssetIds(),
-						startDatePicker.getValueOrNull(),
-						endDatePicker.getValueOrNull());
-			case AGGREGATED_ASSET_VALUE:
-				return (Optional<T>)analysisChartCalculationService.calculateAggregatedAssetValueLineChart(
-						monitor,
-						extractSelectedAssetIds(),
-						startDatePicker.getValueOrNull(),
-						endDatePicker.getValueOrNull());
-			case ABSOLUTE_AND_AGGREGATED_ASSET_VALUE:
-				return (Optional<T>)analysisChartCalculationService.calculateAbsoluteAndAggregatedAssetValueLineChart(
-						monitor,
-						extractSelectedAssetIds(),
-						startDatePicker.getValueOrNull(),
-						endDatePicker.getValueOrNull());
-			default:
-				String message = String.format("Could not calculate chart for unknown analysis type '%s'.", analysisType);
-				LOGGER.error(message);
-				throw new IllegalArgumentException(message);
-		}
-	}
-	
 	private <T> void showResultChart(Optional<T> result) {
 		if (result.isEmpty()) {
 			showMessagePane(MessageKey.ANALYSIS_NO_CALCULATION_RESULT);
@@ -168,38 +150,9 @@ public class AnalysisContentController {
 		}
 		
 		analysisContentVBox.getChildren().clear();
-		Node chart = createChart(result.get());
+		Node chart = chartNodeFactory.createChart(result.get(), analysisTypeComboBox.getValue());
 		VBox.setVgrow(chart, Priority.ALWAYS);
 		analysisContentVBox.getChildren().add(chart);
-	}
-	
-	private <T> Node createChart(T result) {
-		AnalysisType analysisType = analysisTypeComboBox.getValue();
-		
-		switch (analysisType) {
-			case ABSOLUTE_ASSET_VALUE:
-			case AGGREGATED_ASSET_VALUE:
-			case ABSOLUTE_AND_AGGREGATED_ASSET_VALUE:
-				NumberAxis xAxis = LocalDateTimeAxis.createAxis();
-				xAxis.setLabel(MessageAdapter.getByKey(MessageKey.ANALYSIS_AXIS_DATE));
-				
-				NumberAxis yAxis = new NumberAxis();
-				yAxis.setLabel(MessageAdapter.getByKey(MessageKey.ANALYSIS_AXIS_VALUE_IN_EUR));
-				yAxis.setTickLabelFormatter(GenericItemToStringConverter.getInstance(MessageAdapter::formatNumber));
-				
-				ExtendedLineChart<Number, Number> lineChart = new ExtendedLineChart<>(xAxis, yAxis);
-				lineChart.setTitle(MessageAdapter.getByKey(MessageKey.ANALYSIS_TYPE, analysisType));
-				lineChart.setShowHoverLabel(true);
-				
-				List<DtoChartSeries<Number, Number>> series = (List<DtoChartSeries<Number, Number>>)result;
-				lineChart.applyData(series);
-				
-				return lineChart;
-			default:
-				String message = String.format("Could not show chart for unknown analysis type '%s'.", analysisType);
-				LOGGER.error(message);
-				throw new IllegalArgumentException(message);
-		}
 	}
 	
 	private void showMessagePane(MessageKey messageKey) {
@@ -222,33 +175,15 @@ public class AnalysisContentController {
 		}
 		
 		asyncProcessor.runAsync(
-				monitor -> timeRangeService.calculateStartAndEndDate(monitor, newValue, extractSelectedAssetIds()),
+				monitor -> timeRangeService.calculateStartAndEndDate(
+						monitor,
+						newValue,
+						selectedAssetIdsExtractor.extractSelectedAssetIds(selectedAssetsTreeView)),
+				
 				result -> {
 					startDatePicker.setValue(result.getLeft());
 					endDatePicker.setValue(result.getRight());
 				}
 		);
-	}
-	
-	private Multimap<AssetType, Long> extractSelectedAssetIds() {
-		CheckBoxTreeItem<DtoAssetSelection> root = (CheckBoxTreeItem<DtoAssetSelection>)selectedAssetsTreeView.getRoot();
-		
-		Multimap<AssetType, Long> result = ArrayListMultimap.create();
-		populateSelectedAssets(result, root);
-		return result;
-	}
-	
-	private void populateSelectedAssets(Multimap<AssetType, Long> result, CheckBoxTreeItem<DtoAssetSelection> node) {
-		if (node == null) {
-			return;
-		}
-		
-		if (node.getValue().getId() != null && node.isSelected()) {
-			result.put(node.getValue().getAssetType(), node.getValue().getId());
-		}
-		
-		for (TreeItem<DtoAssetSelection> child : node.getChildren()) {
-			populateSelectedAssets(result, (CheckBoxTreeItem<DtoAssetSelection>)child);
-		}
 	}
 }

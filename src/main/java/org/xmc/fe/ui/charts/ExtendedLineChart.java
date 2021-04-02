@@ -20,7 +20,8 @@ public class ExtendedLineChart<X, Y> extends AnchorPane {
 	private final LineChart<X, Y> chart;
 	private final Label mouseHoverLabel;
 	
-	private boolean showHoverLabel;
+	private boolean showHoverLabel = true;
+	private boolean showSymbols = true;
 	
 	public ExtendedLineChart(Axis<X> xAxis, Axis<Y> yAxis) {
 		this.chart = new LineChart<>(xAxis, yAxis);
@@ -42,7 +43,7 @@ public class ExtendedLineChart<X, Y> extends AnchorPane {
 	public void applyData(List<DtoChartSeries<X, Y>> series) {
 		chart.getData().clear();
 		
-		List<XYChart.Series<X, Y>> mappedSeries = new XYChartSeriesMapper().mapAll(chart, series);
+		List<XYChart.Series<X, Y>> mappedSeries = new XYChartSeriesMapper().mapAll(this, series);
 		chart.getData().addAll(mappedSeries);
 		
 		applyChartLineColors(series, mappedSeries);
@@ -74,8 +75,8 @@ public class ExtendedLineChart<X, Y> extends AnchorPane {
 					}
 				}
 				
-				if (data.getNode() instanceof HoveredThresholdNode) {
-					((HoveredThresholdNode) data.getNode()).getLabel().setStyle(symbolStyle + " " + lineStyle);
+				if (data.getNode() instanceof ChartSymbolHoverNode) {
+					((ChartSymbolHoverNode) data.getNode()).getTooltip().setStyle(symbolStyle + " " + lineStyle);
 				}
 			}
 		}
@@ -152,5 +153,13 @@ public class ExtendedLineChart<X, Y> extends AnchorPane {
 	
 	public void setShowHoverLabel(boolean showHoverLabel) {
 		this.showHoverLabel = showHoverLabel;
+	}
+	
+	public boolean isShowSymbols() {
+		return showSymbols;
+	}
+	
+	public void setShowSymbols(boolean showSymbols) {
+		this.showSymbols = showSymbols;
 	}
 }

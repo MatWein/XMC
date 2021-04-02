@@ -64,7 +64,7 @@ public class DepotDeliveryLoadingController {
 		
 		List<DepotDelivery> deliveries = depotDeliveryJpaRepository.findByDepotAndDeletionDateIsNull(depot);
 		
-		for (LocalDate currentDate = startDate; currentDate.isBefore(endDate); currentDate = currentDate.plusDays(1)) {
+		for (LocalDate currentDate = startDate; currentDate.isBefore(endDate) || currentDate.isEqual(endDate); currentDate = currentDate.plusDays(1)) {
 			LocalDateTime date = currentDate.atTime(CommonConstants.END_OF_DAY);
 			Optional<DepotDelivery> delivery = findLastDeliveryBeforeOrOnDate(date, deliveries);
 			double valueAtDate = delivery.map(DepotDelivery::getSaldo).orElse(BigDecimal.ZERO).doubleValue();

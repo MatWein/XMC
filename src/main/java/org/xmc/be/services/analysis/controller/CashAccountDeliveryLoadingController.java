@@ -63,7 +63,7 @@ public class CashAccountDeliveryLoadingController {
 		
 		List<CashAccountTransaction> transactions = cashAccountTransactionJpaRepository.findByCashAccountAndDeletionDateIsNull(cashAccount);
 		
-		for (LocalDate currentDate = startDate; currentDate.isBefore(endDate); currentDate = currentDate.plusDays(1)) {
+		for (LocalDate currentDate = startDate; currentDate.isBefore(endDate) || currentDate.isEqual(endDate); currentDate = currentDate.plusDays(1)) {
 			long date = LocalDateUtil.toMillis(currentDate.atTime(CommonConstants.END_OF_DAY));
 			Optional<CashAccountTransaction> transaction = findLastTransactionBeforeOrOnDate(currentDate, transactions);
 			double valueAtDate = transaction.map(CashAccountTransaction::getSaldoAfter).orElse(BigDecimal.ZERO).doubleValue();

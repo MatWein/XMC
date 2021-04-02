@@ -189,8 +189,7 @@ public class AnalysisController {
 				
 				ExtendedLineChart<Number, Number> lineChart = new ExtendedLineChart<>(xAxis, yAxis);
 				lineChart.setTitle(MessageAdapter.getByKey(MessageKey.ANALYSIS_TYPE, analysisType));
-				lineChart.setCreateSymbols(false);
-				lineChart.setTooltipOnClick(true);
+				lineChart.setShowHoverLabel(true);
 				
 				List<DtoChartSeries<Number, Number>> series = (List<DtoChartSeries<Number, Number>>)result;
 				lineChart.applyData(series);

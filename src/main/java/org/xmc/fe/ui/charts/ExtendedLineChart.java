@@ -6,7 +6,8 @@ import javafx.scene.chart.Axis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import org.xmc.common.stubs.analysis.charts.DtoChartSeries;
 import org.xmc.common.utils.StringColorConverter;
 import org.xmc.fe.ui.MessageAdapter;
@@ -15,29 +16,45 @@ import org.xmc.fe.ui.charts.mapper.XYChartSeriesMapper;
 
 import java.util.List;
 
-public class ExtendedLineChart<X, Y> extends LineChart<X, Y> {
-	private boolean tooltipOnClick;
+public class ExtendedLineChart<X, Y> extends AnchorPane {
+	private final LineChart<X, Y> chart;
+	private final Label mouseHoverLabel;
+	
+	private boolean showHoverLabel;
 	
 	public ExtendedLineChart(Axis<X> xAxis, Axis<Y> yAxis) {
-		super(xAxis, yAxis);
+		this.chart = new LineChart<>(xAxis, yAxis);
+		this.chart.setCreateSymbols(false);
+		
+		this.mouseHoverLabel = new Label();
+		
+		this.getChildren().add(chart);
+		AnchorPane.setBottomAnchor(chart, 0.0);
+		AnchorPane.setLeftAnchor(chart, 0.0);
+		AnchorPane.setRightAnchor(chart, 0.0);
+		AnchorPane.setTopAnchor(chart, 0.0);
+		
+		this.getChildren().add(mouseHoverLabel);
+		AnchorPane.setRightAnchor(mouseHoverLabel, 15.0);
+		AnchorPane.setTopAnchor(mouseHoverLabel, 4.0);
 	}
 	
 	public void applyData(List<DtoChartSeries<X, Y>> series) {
-		this.getData().clear();
+		chart.getData().clear();
 		
-		List<XYChart.Series<X, Y>> mappedSeries = new XYChartSeriesMapper().mapAll(series);
-		this.getData().addAll(mappedSeries);
+		List<XYChart.Series<X, Y>> mappedSeries = new XYChartSeriesMapper().mapAll(chart, series);
+		chart.getData().addAll(mappedSeries);
 		
 		applyChartLineColors(series, mappedSeries);
 		applyTooltipClickListener();
 	}
 	
-	private void applyChartLineColors(List<DtoChartSeries<X, Y>> series, List<Series<X, Y>> mappedSeries) {
+	private void applyChartLineColors(List<DtoChartSeries<X, Y>> series, List<XYChart.Series<X, Y>> mappedSeries) {
 		String[] symbolStyles = new String[series.size()];
 		
 		for (int i = 0; i < series.size(); i++) {
 			DtoChartSeries<X, Y> serie = series.get(i);
-			Series<X, Y> mappedSerie = mappedSeries.get(i);
+			XYChart.Series<X, Y> mappedSerie = mappedSeries.get(i);
 			
 			String color = StringColorConverter.convertColorToString(serie.getColor());
 			
@@ -48,9 +65,17 @@ public class ExtendedLineChart<X, Y> extends LineChart<X, Y> {
 			String symbolStyle = String.format("-fx-background-color: %s, whitesmoke;", color);
 			symbolStyles[i] = symbolStyle;
 			
-			for (Data<X, Y> data : mappedSerie.getData()) {
-				if (getCreateSymbols()) {
-					data.getNode().lookup(".chart-line-symbol").setStyle(symbolStyle);
+			for (XYChart.Data<X, Y> data: mappedSerie.getData()) {
+				Node symbolNode = data.getNode();
+				if (symbolNode != null) {
+					Node chartLineSymbol = symbolNode.lookup(".chart-line-symbol");
+					if (chartLineSymbol != null) {
+						chartLineSymbol.setStyle(symbolStyle);
+					}
+				}
+				
+				if (data.getNode() instanceof HoveredThresholdNode) {
+					((HoveredThresholdNode) data.getNode()).getLabel().setStyle(symbolStyle + " " + lineStyle);
 				}
 			}
 		}
@@ -69,37 +94,32 @@ public class ExtendedLineChart<X, Y> extends LineChart<X, Y> {
 	}
 	
 	private void applyTooltipClickListener() {
-		Axis<X> xAxis = this.getXAxis();
-		Axis<Y> yAxis = this.getYAxis();
-		
 		Node chartBackground = this.lookup(".chart-plot-background");
-		for (Node n : chartBackground.getParent().getChildrenUnmodifiable()) {
-			if (n != chartBackground && n != xAxis && n != yAxis) {
-				n.setMouseTransparent(true);
-			}
-		}
 		
-		Tooltip tooltip = new Tooltip();
-		
-		chartBackground.setOnMouseClicked(mouseEvent -> {
-			if (!tooltipOnClick) {
+		chartBackground.setOnMouseMoved(mouseEvent -> {
+			if (!showHoverLabel) {
 				return;
 			}
 			
-			X xValue = xAxis.getValueForDisplay(mouseEvent.getX());
-			String x = calculateValue(xAxis, xValue);
-			
-			Y yValue = yAxis.getValueForDisplay(mouseEvent.getY());
-			String y = calculateValue(yAxis, yValue);
-			
+			String x = calculateXValue(mouseEvent.getX());
+			String y = calculateYValue(mouseEvent.getY());
 			String message = MessageAdapter.getByKey(MessageKey.ANALYSIS_CHART_POINT_XY_HOVER, x, y);
 			
-			tooltip.setText(message);
-			tooltip.show(getScene().getWindow(), mouseEvent.getSceneX() + 20, mouseEvent.getSceneY() + 20);
+			mouseHoverLabel.setText(message);
 		});
 	}
 	
-	private String calculateValue(Axis axis, Object value) {
+	private String calculateYValue(double mouseY) {
+		Y yValue = chart.getYAxis().getValueForDisplay(mouseY);
+		return calculateValue(chart.getYAxis(), yValue);
+	}
+	
+	private String calculateXValue(double mouseX) {
+		X xValue = chart.getXAxis().getValueForDisplay(mouseX);
+		return calculateValue(chart.getXAxis(), xValue);
+	}
+	
+	public static String calculateValue(Axis axis, Object value) {
 		if (axis instanceof NumberAxis) {
 			NumberAxis numberAxis = (NumberAxis) axis;
 			if (numberAxis.getTickLabelFormatter() != null) {
@@ -110,11 +130,27 @@ public class ExtendedLineChart<X, Y> extends LineChart<X, Y> {
 		return value.toString();
 	}
 	
-	public boolean isTooltipOnClick() {
-		return tooltipOnClick;
+	public void setTitle(String title) {
+		chart.setTitle(title);
 	}
 	
-	public void setTooltipOnClick(boolean tooltipOnClick) {
-		this.tooltipOnClick = tooltipOnClick;
+	public String getTitle() {
+		return chart.getTitle();
+	}
+	
+	public LineChart<X, Y> getChart() {
+		return chart;
+	}
+	
+	public Label getMouseHoverLabel() {
+		return mouseHoverLabel;
+	}
+	
+	public boolean isShowHoverLabel() {
+		return showHoverLabel;
+	}
+	
+	public void setShowHoverLabel(boolean showHoverLabel) {
+		this.showHoverLabel = showHoverLabel;
 	}
 }

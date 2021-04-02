@@ -37,7 +37,7 @@ public class CashAccountRepository {
 
         return queryUtil.createPagedQuery(pagingParams, CashAccountOverviewFields.NAME, Order.ASC)
                 .select(Projections.constructor(DtoCashAccountOverview.class,
-                        cashAccount.id, cashAccount.iban, cashAccount.number, cashAccount.name, cashAccount.currency,
+                        cashAccount.id, cashAccount.iban, cashAccount.number, cashAccount.name, cashAccount.currency, cashAccount.color,
                         cashAccount.creationDate, cashAccount.lastSaldo, cashAccount.lastSaldoDate,
                         bank.id, bank.name, bank.bic, bank.blz,
                         binaryData.rawData))

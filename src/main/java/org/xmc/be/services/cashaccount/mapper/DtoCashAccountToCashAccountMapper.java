@@ -9,7 +9,9 @@ import org.xmc.common.stubs.cashaccount.DtoCashAccount;
 public class DtoCashAccountToCashAccountMapper {
     public CashAccount map(Bank bank, DtoCashAccount dtoCashAccount) {
         CashAccount cashAccount = new CashAccount();
+        
         update(cashAccount, bank, dtoCashAccount);
+        
         return cashAccount;
     }
 
@@ -19,5 +21,6 @@ public class DtoCashAccountToCashAccountMapper {
         cashAccount.setIban(dtoCashAccount.getIban());
         cashAccount.setName(dtoCashAccount.getName());
         cashAccount.setNumber(dtoCashAccount.getNumber());
+	    cashAccount.setColor(dtoCashAccount.getColor());
     }
 }

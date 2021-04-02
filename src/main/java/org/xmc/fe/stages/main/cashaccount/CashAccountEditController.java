@@ -10,6 +10,7 @@ import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.converter.CurrencyConverter;
 import org.xmc.fe.ui.converter.DtoBankConverter;
 import org.xmc.fe.ui.converter.GenericItemToStringConverter;
+import org.xmc.fe.ui.validation.components.ValidationColorPicker;
 import org.xmc.fe.ui.validation.components.ValidationComboBox;
 import org.xmc.fe.ui.validation.components.ValidationTextField;
 import org.xmc.fe.ui.validation.components.autocomplete.ValidationAutoComplete;
@@ -21,14 +22,15 @@ import java.util.List;
 public class CashAccountEditController implements IDialogWithAsyncData<List<DtoBank>> {
     private final CurrencyConverter currencyConverter;
     private final DtoBankConverter dtoBankConverter;
-
-    private Long cashAccountId;
+	
+	private Long cashAccountId;
 
     @FXML private ValidationComboBox<DtoBank> bankComboBox;
     @FXML private ValidationTextField nameTextfield;
     @FXML private ValidationTextField ibanTextfield;
     @FXML private ValidationTextField numberTextfield;
     @FXML private ValidationAutoComplete<Currency> currencyAutoComplete;
+	@FXML private ValidationColorPicker colorPicker;
 
     @Autowired
     public CashAccountEditController(
@@ -80,4 +82,8 @@ public class CashAccountEditController implements IDialogWithAsyncData<List<DtoB
     public void setCashAccountId(Long cashAccountId) {
         this.cashAccountId = cashAccountId;
     }
+	
+	public ValidationColorPicker getColorPicker() {
+		return colorPicker;
+	}
 }

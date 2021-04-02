@@ -15,13 +15,14 @@ public class DtoCashAccount implements Serializable {
     private String number;
     private String name;
     private Currency currency;
+    private String color;
 
     public DtoCashAccount() {
     }
 
     @QueryProjection
     public DtoCashAccount(
-            Long id, String iban, String number, String name, String currency,
+            Long id, String iban, String number, String name, String currency, String color,
             Long bankId, String bankName, String bic, String blz, byte[] logo) {
 
         this.id = id;
@@ -30,6 +31,7 @@ public class DtoCashAccount implements Serializable {
         this.number = number;
         this.name = name;
         this.currency = Currency.getInstance(currency);
+        this.color = color;
     }
 
     public Long getId() {
@@ -79,8 +81,16 @@ public class DtoCashAccount implements Serializable {
     public void setCurrency(Currency currency) {
         this.currency = currency;
     }
-
-    @Override
+	
+	public String getColor() {
+		return color;
+	}
+	
+	public void setColor(String color) {
+		this.color = color;
+	}
+	
+	@Override
     public String toString() {
         return new ToStringBuilder(this)
                 .append("id", id)
@@ -89,6 +99,7 @@ public class DtoCashAccount implements Serializable {
                 .append("number", number)
                 .append("name", name)
                 .append("currency", currency)
+                .append("color", color)
                 .toString();
     }
 }

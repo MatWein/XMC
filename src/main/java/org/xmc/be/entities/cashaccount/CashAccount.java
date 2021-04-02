@@ -27,6 +27,8 @@ public class CashAccount extends DeletablePersistentObject {
     private String name;
     @Column(name = "CURRENCY", nullable = false, length = 5)
     private String currency;
+	@Column(name = "COLOR", nullable = true, length = 7)
+	private String color;
 
     @Column(name = "LAST_SALDO", nullable = true)
     private BigDecimal lastSaldo;
@@ -99,4 +101,12 @@ public class CashAccount extends DeletablePersistentObject {
     public void setTransactions(Set<CashAccountTransaction> transactions) {
         this.transactions = transactions;
     }
+	
+	public String getColor() {
+		return color;
+	}
+	
+	public void setColor(String color) {
+		this.color = color;
+	}
 }

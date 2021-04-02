@@ -12,19 +12,21 @@ public class DtoDepot implements Serializable {
 	
 	private String number;
 	private String name;
+	private String color;
 	
 	public DtoDepot() {
 	}
 	
 	@QueryProjection
 	public DtoDepot(
-			Long id, String number, String name,
+			Long id, String number, String name, String color,
 			Long bankId, String bankName, String bic, String blz, byte[] logo) {
 		
 		this.id = id;
 		this.bank = new DtoBank(bankId, bankName, bic, blz, logo);
 		this.number = number;
 		this.name = name;
+		this.color = color;
 	}
 	
 	public Long getId() {
@@ -59,6 +61,14 @@ public class DtoDepot implements Serializable {
 		this.number = number;
 	}
 	
+	public String getColor() {
+		return color;
+	}
+	
+	public void setColor(String color) {
+		this.color = color;
+	}
+	
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this)
@@ -66,6 +76,7 @@ public class DtoDepot implements Serializable {
 				.append("bank", bank)
 				.append("number", number)
 				.append("name", name)
+				.append("color", color)
 				.toString();
 	}
 }

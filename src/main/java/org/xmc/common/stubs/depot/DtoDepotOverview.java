@@ -16,11 +16,11 @@ public class DtoDepotOverview extends DtoDepot {
 	
 	@QueryProjection
 	public DtoDepotOverview(
-			Long id, String number, String name,
+			Long id, String number, String name, String color,
 			LocalDateTime creationDate, BigDecimal lastSaldo, LocalDateTime lastSaldoDate,
 			Long bankId, String bankName, String bic, String blz, byte[] logo) {
 		
-		super(id, number, name, bankId, bankName, bic, blz, logo);
+		super(id, number, name, color, bankId, bankName, bic, blz, logo);
 		
 		this.creationDate = creationDate;
 		this.lastSaldo = new Money(lastSaldo, "EUR");

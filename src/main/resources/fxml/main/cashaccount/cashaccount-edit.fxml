@@ -3,27 +3,29 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
 <?import org.xmc.fe.ui.validation.components.autocomplete.ValidationAutoComplete?>
-<?import org.xmc.fe.ui.validation.components.ValidationComboBox?>
-<?import org.xmc.fe.ui.validation.components.ValidationTextField?>
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="341.0"
-      prefWidth="519.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.cashaccount.CashAccountEditController">
+<?import org.xmc.fe.ui.validation.components.*?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+	  prefWidth="519.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
+	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.cashaccount.CashAccountEditController">
 
     <Label text="%cashaccount.edit.bank" styleClass="form-label-first" />
     <ValidationComboBox fx:id="bankComboBox" required="true" visibleRowCount="5" initialFocus="true" />
 
-    <Label styleClass="form-label" text="%cashaccount.edit.name"/>
-    <ValidationTextField fx:id="nameTextfield" required="true"/>
+    <Label styleClass="form-label" text="%cashaccount.edit.name" />
+    <ValidationTextField fx:id="nameTextfield" required="true" />
 
-    <Label styleClass="form-label" text="%cashaccount.edit.iban"/>
-    <ValidationTextField fx:id="ibanTextfield" maxLength="50" required="false" customValidator="org.xmc.fe.ui.validation.IbanFieldValidator"/>
+    <Label styleClass="form-label" text="%cashaccount.edit.iban" />
+    <ValidationTextField fx:id="ibanTextfield" maxLength="50" required="false" customValidator="org.xmc.fe.ui.validation.IbanFieldValidator" />
 
-    <Label styleClass="form-label" text="%cashaccount.edit.number"/>
-    <ValidationTextField fx:id="numberTextfield" required="false"/>
+    <Label styleClass="form-label" text="%cashaccount.edit.number" />
+    <ValidationTextField fx:id="numberTextfield" required="false" />
 
-    <Label styleClass="form-label" text="%cashaccount.edit.currency"/>
+    <Label styleClass="form-label" text="%cashaccount.edit.currency" />
     <ValidationAutoComplete fx:id="currencyAutoComplete"
                             autoCompleteController="org.xmc.fe.ui.autocomplete.CurrencyAutoCompleteController"
                             customValidator="org.xmc.fe.ui.validation.CurrencyFieldValidator"
-                            required="true" visibleRowCount="5" maxLength="5"/>
+                            required="true" visibleRowCount="5" maxLength="5" />
+
+	<Label styleClass="form-label" text="%cashaccount.edit.color" />
+	<ValidationColorPicker fx:id="colorPicker" />
 </VBox>

@@ -24,6 +24,7 @@ public class CashAccountEditDialogMapper implements IDialogMapper<CashAccountEdi
         controller.getNameTextfield().setText(dtoCashAccount.getName());
         controller.getNumberTextfield().setText(dtoCashAccount.getNumber());
         controller.setCashAccountId(dtoCashAccount.getId());
+	    controller.getColorPicker().setValueHex(dtoCashAccount.getColor());
     }
 
     @Override
@@ -38,6 +39,7 @@ public class CashAccountEditDialogMapper implements IDialogMapper<CashAccountEdi
         dtoCashAccount.setId(controller.getCashAccountId());
         dtoCashAccount.setName(controller.getNameTextfield().getTextOrNull());
         dtoCashAccount.setNumber(controller.getNumberTextfield().getTextOrNull());
+	    dtoCashAccount.setColor(controller.getColorPicker().getValueHex());
         
 	    String currencyCode = controller.getCurrencyAutoComplete().getTextOrNull();
 	    if (currencyCode != null) {

@@ -20,6 +20,8 @@ public class Depot extends DeletablePersistentObject {
 	private String number;
 	@Column(name = "NAME", nullable = false)
 	private String name;
+	@Column(name = "COLOR", nullable = true, length = 7)
+	private String color;
 	
 	@ManyToOne(optional = true)
 	@JoinColumn(name = "LAST_DELIVERY_ID")
@@ -77,5 +79,13 @@ public class Depot extends DeletablePersistentObject {
 	
 	public void setTransactions(Set<DepotTransaction> transactions) {
 		this.transactions = transactions;
+	}
+	
+	public String getColor() {
+		return color;
+	}
+	
+	public void setColor(String color) {
+		this.color = color;
 	}
 }

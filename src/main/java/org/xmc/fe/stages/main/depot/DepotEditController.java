@@ -9,6 +9,7 @@ import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.converter.DtoBankConverter;
 import org.xmc.fe.ui.converter.GenericItemToStringConverter;
+import org.xmc.fe.ui.validation.components.ValidationColorPicker;
 import org.xmc.fe.ui.validation.components.ValidationComboBox;
 import org.xmc.fe.ui.validation.components.ValidationTextField;
 
@@ -23,6 +24,7 @@ public class DepotEditController implements IDialogWithAsyncData<List<DtoBank>> 
 	@FXML private ValidationComboBox<DtoBank> bankComboBox;
 	@FXML private ValidationTextField depotNameTextfield;
 	@FXML private ValidationTextField depotNumberTextfield;
+	@FXML private ValidationColorPicker colorPicker;
 	
 	@Autowired
 	public DepotEditController(DtoBankConverter dtoBankConverter) {
@@ -58,5 +60,9 @@ public class DepotEditController implements IDialogWithAsyncData<List<DtoBank>> 
 	
 	public void setDepotId(Long depotId) {
 		this.depotId = depotId;
+	}
+	
+	public ValidationColorPicker getColorPicker() {
+		return colorPicker;
 	}
 }

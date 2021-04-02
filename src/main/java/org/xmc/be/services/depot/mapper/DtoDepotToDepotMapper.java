@@ -17,5 +17,6 @@ public class DtoDepotToDepotMapper {
 		depot.setBank(bank);
 		depot.setName(dtoDepot.getName());
 		depot.setNumber(dtoDepot.getNumber());
+		depot.setColor(dtoDepot.getColor());
 	}
 }

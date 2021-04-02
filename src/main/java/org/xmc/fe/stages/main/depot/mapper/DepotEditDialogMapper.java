@@ -18,6 +18,7 @@ public class DepotEditDialogMapper implements IDialogMapper<DepotEditController,
 		controller.getDepotNameTextfield().setText(dtoDepot.getName());
 		controller.getDepotNumberTextfield().setText(dtoDepot.getNumber());
 		controller.setDepotId(dtoDepot.getId());
+		controller.getColorPicker().setValueHex(dtoDepot.getColor());
 	}
 	
 	@Override
@@ -32,6 +33,7 @@ public class DepotEditDialogMapper implements IDialogMapper<DepotEditController,
 		dtoDepot.setId(controller.getDepotId());
 		dtoDepot.setName(controller.getDepotNameTextfield().getTextOrNull());
 		dtoDepot.setNumber(controller.getDepotNumberTextfield().getTextOrNull());
+		dtoDepot.setColor(controller.getColorPicker().getValueHex());
 		
 		return dtoDepot;
 	}

@@ -16,33 +16,33 @@ import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 @Component
-public class AssetDeliveriesLoadingController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(AssetDeliveriesLoadingController.class);
+public class AssetTransactionsLoadingController {
+	private static final Logger LOGGER = LoggerFactory.getLogger(AssetTransactionsLoadingController.class);
 	
-	private final CashAccountDeliveryLoadingController cashAccountDeliveryLoadingController;
-	private final DepotDeliveryLoadingController depotDeliveryLoadingController;
+	private final CashAccountTransactionLoadingController cashAccountTransactionLoadingController;
+	private final DepotTransactionLoadingController depotTransactionLoadingController;
 	
 	@Autowired
-	public AssetDeliveriesLoadingController(
-			CashAccountDeliveryLoadingController cashAccountDeliveryLoadingController,
-			DepotDeliveryLoadingController depotDeliveryLoadingController) {
+	public AssetTransactionsLoadingController(
+			CashAccountTransactionLoadingController cashAccountTransactionLoadingController,
+			DepotTransactionLoadingController depotTransactionLoadingController) {
 		
-		this.cashAccountDeliveryLoadingController = cashAccountDeliveryLoadingController;
-		this.depotDeliveryLoadingController = depotDeliveryLoadingController;
+		this.cashAccountTransactionLoadingController = cashAccountTransactionLoadingController;
+		this.depotTransactionLoadingController = depotTransactionLoadingController;
 	}
 	
 	public List<DtoAssetPoints> loadAssetDeliveries(Multimap<AssetType, Long> assetIds, LocalDate startDate, LocalDate endDate) {
 		List<DtoAssetPoints> deliveries = Lists.newArrayList();
 		
 		for (Entry<AssetType, Collection<Long>> entry : assetIds.asMap().entrySet()) {
-			List<DtoAssetPoints> deliveriesForAssetType = loadDeliveriesForAssetType(entry.getKey(), entry.getValue(), startDate, endDate);
-			deliveries.addAll(deliveriesForAssetType);
+			List<DtoAssetPoints> transactionsForAssetType = loadTransactionsForAssetType(entry.getKey(), entry.getValue(), startDate, endDate);
+			deliveries.addAll(transactionsForAssetType);
 		}
 		
 		return deliveries;
 	}
 	
-	private List<DtoAssetPoints> loadDeliveriesForAssetType(
+	private List<DtoAssetPoints> loadTransactionsForAssetType(
 			AssetType assetType,
 			Collection<Long> assetIds,
 			LocalDate startDate,
@@ -51,9 +51,9 @@ public class AssetDeliveriesLoadingController {
 		List<Long> sortedAssetIds = assetIds.stream().sorted().collect(Collectors.toList());
 		
 		if (assetType == AssetType.CASHACCOUNT) {
-			return cashAccountDeliveryLoadingController.loadDeliveriesForCashAccounts(sortedAssetIds, startDate, endDate);
+			return cashAccountTransactionLoadingController.loadTransactionsForCashAccounts(sortedAssetIds, startDate, endDate);
 		} else if (assetType == AssetType.DEPOT) {
-			return depotDeliveryLoadingController.loadDeliveriesForDepots(sortedAssetIds, startDate, endDate);
+			return depotTransactionLoadingController.loadTransactionsForDepots(sortedAssetIds, startDate, endDate);
 		} else {
 			String message = String.format("Could not load deliveries for asset of unknown type '%s'.", assetType);
 			LOGGER.error(message);

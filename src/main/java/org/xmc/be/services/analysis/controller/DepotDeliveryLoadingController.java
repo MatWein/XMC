@@ -11,7 +11,7 @@ import org.xmc.be.repositories.depot.DepotDeliveryJpaRepository;
 import org.xmc.be.repositories.depot.DepotJpaRepository;
 import org.xmc.common.CommonConstants;
 import org.xmc.common.stubs.analysis.AssetType;
-import org.xmc.common.stubs.analysis.DtoAssetDeliveries;
+import org.xmc.common.stubs.analysis.DtoAssetPoints;
 import org.xmc.common.utils.LocalDateUtil;
 
 import java.math.BigDecimal;
@@ -37,14 +37,14 @@ public class DepotDeliveryLoadingController {
 		this.depotDeliveryJpaRepository = depotDeliveryJpaRepository;
 	}
 	
-	public List<DtoAssetDeliveries> loadDeliveriesForDepots(List<Long> depotIds, LocalDate startDate, LocalDate endDate) {
+	public List<DtoAssetPoints> loadDeliveriesForDepots(List<Long> depotIds, LocalDate startDate, LocalDate endDate) {
 		return depotIds.stream()
 				.map(cashAccountId -> loadDeliveriesForDepot(cashAccountId, startDate, endDate))
 				.collect(Collectors.toList());
 	}
 	
-	private DtoAssetDeliveries loadDeliveriesForDepot(long depotId, LocalDate startDate, LocalDate endDate) {
-		DtoAssetDeliveries result = new DtoAssetDeliveries();
+	private DtoAssetPoints loadDeliveriesForDepot(long depotId, LocalDate startDate, LocalDate endDate) {
+		DtoAssetPoints result = new DtoAssetPoints();
 		
 		result.setAssetId(depotId);
 		result.setAssetType(AssetType.DEPOT);
@@ -53,7 +53,7 @@ public class DepotDeliveryLoadingController {
 		result.setAssetName(depot.getName());
 		result.setAssetColor(depot.getColor());
 		
-		result.setDeliveries(loadDeliveryPoints(depot, startDate, endDate));
+		result.setPoints(loadDeliveryPoints(depot, startDate, endDate));
 		
 		return result;
 	}

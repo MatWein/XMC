@@ -9,8 +9,9 @@ public class ChartSymbolHoverNode extends StackPane {
 	
 	private final Tooltip tooltip;
 
-	public ChartSymbolHoverNode(String message) {
+	public ChartSymbolHoverNode(String message, String color) {
 		setPrefSize(POINT_RADIUS, POINT_RADIUS);
+		setStyle("-fx-bar-fill: " + color);
 		
 		tooltip = new Tooltip(message);
 		tooltip.setShowDuration(Duration.INDEFINITE);

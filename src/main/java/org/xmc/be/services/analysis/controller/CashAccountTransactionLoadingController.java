@@ -1,6 +1,5 @@
 package org.xmc.be.services.analysis.controller;
 
-import com.google.common.collect.Lists;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,21 +13,18 @@ import org.xmc.common.stubs.analysis.AssetType;
 import org.xmc.common.stubs.analysis.DtoAssetPoints;
 import org.xmc.common.utils.LocalDateUtil;
 
-import java.math.BigDecimal;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
-public class CashAccountDeliveryLoadingController {
+public class CashAccountTransactionLoadingController {
 	private final CashAccountJpaRepository cashAccountJpaRepository;
 	private final CashAccountTransactionJpaRepository cashAccountTransactionJpaRepository;
 	
 	@Autowired
-	public CashAccountDeliveryLoadingController(
+	public CashAccountTransactionLoadingController(
 			CashAccountJpaRepository cashAccountJpaRepository,
 			CashAccountTransactionJpaRepository cashAccountTransactionJpaRepository) {
 		
@@ -36,7 +32,7 @@ public class CashAccountDeliveryLoadingController {
 		this.cashAccountTransactionJpaRepository = cashAccountTransactionJpaRepository;
 	}
 	
-	public List<DtoAssetPoints> loadDeliveriesForCashAccounts(List<Long> cashAccountIds, LocalDate startDate, LocalDate endDate) {
+	public List<DtoAssetPoints> loadTransactionsForCashAccounts(List<Long> cashAccountIds, LocalDate startDate, LocalDate endDate) {
 		return cashAccountIds.stream()
 				.map(cashAccountId -> loadDeliveriesForCashAccount(cashAccountId, startDate, endDate))
 				.collect(Collectors.toList());
@@ -52,33 +48,30 @@ public class CashAccountDeliveryLoadingController {
 		result.setAssetName(cashAccount.getName());
 		result.setAssetColor(cashAccount.getColor());
 		
-		result.setPoints(loadDeliveryPoints(cashAccount, startDate, endDate));
+		result.setPoints(loadTransactionPoints(cashAccount, startDate, endDate));
 		
 		return result;
 	}
 	
-	private List<Pair<Number, Number>> loadDeliveryPoints(CashAccount cashAccount, LocalDate startDate, LocalDate endDate) {
-		long days = Duration.between(startDate.atStartOfDay(), endDate.atStartOfDay()).toDays();
-		List<Pair<Number, Number>> result = Lists.newArrayListWithExpectedSize((int)days);
-		
+	private List<Pair<Number, Number>> loadTransactionPoints(CashAccount cashAccount, LocalDate startDate, LocalDate endDate) {
 		List<CashAccountTransaction> transactions = cashAccountTransactionJpaRepository.findByCashAccountAndDeletionDateIsNull(cashAccount);
 		
-		for (LocalDate currentDate = startDate; currentDate.isBefore(endDate) || currentDate.isEqual(endDate); currentDate = currentDate.plusDays(1)) {
-			long date = LocalDateUtil.toMillis(currentDate.atTime(CommonConstants.END_OF_DAY));
-			Optional<CashAccountTransaction> transaction = findLastTransactionBeforeOrOnDate(currentDate, transactions);
-			double valueAtDate = transaction.map(CashAccountTransaction::getSaldoAfter).orElse(BigDecimal.ZERO).doubleValue();
-			
-			result.add(ImmutablePair.of(date, valueAtDate));
-		}
+		List<CashAccountTransaction> transactionsInRange = transactions.stream()
+				.filter(transaction -> transaction.getValutaDate().compareTo(startDate) >= 0)
+				.filter(transaction -> transaction.getValutaDate().compareTo(endDate) <= 0)
+				.sorted(Comparator.comparing(CashAccountTransaction::getValutaDate)
+						.thenComparing(CashAccountTransaction::getCreationDate)
+						.thenComparing(CashAccountTransaction::getId))
+				.collect(Collectors.toList());
 		
-		return result;
+		return map(transactionsInRange);
 	}
 	
-	private Optional<CashAccountTransaction> findLastTransactionBeforeOrOnDate(LocalDate date, List<CashAccountTransaction> transactions) {
-		return transactions.stream()
-				.filter(transaction -> transaction.getValutaDate().isBefore(date) || transaction.getValutaDate().isEqual(date))
-				.max(Comparator.comparing(CashAccountTransaction::getValutaDate)
-						.thenComparing(CashAccountTransaction::getCreationDate)
-						.thenComparing(CashAccountTransaction::getId));
+	private List<Pair<Number, Number>> map(List<CashAccountTransaction> transactions) {
+		return (List)transactions.stream()
+				.map(transaction -> ImmutablePair.of(
+						LocalDateUtil.toMillis(transaction.getValutaDate().atTime(CommonConstants.END_OF_DAY)),
+						transaction.getValue().doubleValue()))
+				.collect(Collectors.toList());
 	}
 }

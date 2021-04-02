@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.xmc.be.services.analysis.controller.TimeRangeCalculator;
+import org.xmc.be.services.analysis.calculation.TimeRangeCalculator;
 import org.xmc.common.stubs.analysis.AssetType;
 import org.xmc.common.stubs.analysis.TimeRange;
 import org.xmc.fe.async.AsyncMonitor;

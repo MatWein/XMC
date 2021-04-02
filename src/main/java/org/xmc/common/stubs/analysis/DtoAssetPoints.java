@@ -6,13 +6,13 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.io.Serializable;
 import java.util.List;
 
-public class DtoAssetDeliveries implements Serializable {
+public class DtoAssetPoints implements Serializable {
 	private long assetId;
 	private AssetType assetType;
 	private String assetName;
 	private String assetColor;
 	
-	private List<Pair<Number, Number>> deliveries = Lists.newArrayList();
+	private List<Pair<Number, Number>> points = Lists.newArrayList();
 	
 	public long getAssetId() {
 		return assetId;
@@ -30,12 +30,12 @@ public class DtoAssetDeliveries implements Serializable {
 		this.assetName = assetName;
 	}
 	
-	public List<Pair<Number, Number>> getDeliveries() {
-		return deliveries;
+	public List<Pair<Number, Number>> getPoints() {
+		return points;
 	}
 	
-	public void setDeliveries(List<Pair<Number, Number>> deliveries) {
-		this.deliveries = deliveries;
+	public void setPoints(List<Pair<Number, Number>> points) {
+		this.points = points;
 	}
 	
 	public AssetType getAssetType() {

@@ -39,6 +39,7 @@
 						<AnalysisType fx:value="ABSOLUTE_ASSET_VALUE"/>
 						<AnalysisType fx:value="AGGREGATED_ASSET_VALUE"/>
 						<AnalysisType fx:value="ABSOLUTE_AND_AGGREGATED_ASSET_VALUE"/>
+						<AnalysisType fx:value="TRANSACTIONS"/>
 					</FXCollections>
 				</items>
 			</ValidationComboBox>

@@ -2,7 +2,6 @@ package org.xmc.fe.stages.main.analysis;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.CheckBoxTreeItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TreeView;
@@ -125,7 +124,7 @@ public class AnalysisContentController {
 		asyncProcessor.runAsync(
 				analysisAssetService::loadAssets,
 				result -> {
-					CheckBoxTreeItem<DtoAssetSelection> rootNode = dtoAssetSelectionTreeItemMapper.map(result, () -> onTimeRangeSelected(timeRangeComboBox.getValue()));
+					var rootNode = dtoAssetSelectionTreeItemMapper.map(result, () -> onTimeRangeSelected(timeRangeComboBox.getValue()));
 					selectedAssetsTreeView.setRoot(rootNode);
 				}
 		);

@@ -31,29 +31,35 @@ public class ChartDataForSelectedTypeLoadingController {
 			LocalDate startDate,
 			LocalDate endDate) {
 		
-		if (analysisType == null) {
+		if (analysisType == null || selectedAssetIds.isEmpty() || startDate == null || endDate == null) {
 			return Optional.empty();
 		}
 		
 		switch (analysisType) {
 			case ABSOLUTE_ASSET_VALUE:
-				return (Optional<T>)analysisChartCalculationService.calculateAbsoluteAssetValueLineChart(
+				return (Optional)Optional.of(analysisChartCalculationService.calculateAbsoluteAssetValueLineChart(
 						monitor,
 						selectedAssetIds,
 						startDate,
-						endDate);
+						endDate));
 			case AGGREGATED_ASSET_VALUE:
-				return (Optional<T>)analysisChartCalculationService.calculateAggregatedAssetValueLineChart(
+				return (Optional)Optional.of(analysisChartCalculationService.calculateAggregatedAssetValueLineChart(
 						monitor,
 						selectedAssetIds,
 						startDate,
-						endDate);
+						endDate));
 			case ABSOLUTE_AND_AGGREGATED_ASSET_VALUE:
-				return (Optional<T>)analysisChartCalculationService.calculateAbsoluteAndAggregatedAssetValueLineChart(
+				return (Optional)Optional.of(analysisChartCalculationService.calculateAbsoluteAndAggregatedAssetValueLineChart(
 						monitor,
 						selectedAssetIds,
 						startDate,
-						endDate);
+						endDate));
+			case TRANSACTIONS:
+				return (Optional)Optional.of(analysisChartCalculationService.calculateTransactionsBarChart(
+						monitor,
+						selectedAssetIds,
+						startDate,
+						endDate));
 			default:
 				String message = String.format("Could not calculate chart for unknown analysis type '%s'.", analysisType);
 				LOGGER.error(message);

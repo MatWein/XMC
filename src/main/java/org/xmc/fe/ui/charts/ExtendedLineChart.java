@@ -9,14 +9,14 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import org.xmc.common.stubs.analysis.charts.DtoChartSeries;
-import org.xmc.common.utils.StringColorConverter;
+import org.xmc.common.utils.StringColorUtil;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.charts.mapper.XYChartSeriesMapper;
 
 import java.util.List;
 
-public class ExtendedLineChart<X, Y> extends AnchorPane {
+public class ExtendedLineChart<X, Y> extends AnchorPane implements IChartBase<X, Y> {
 	private final LineChart<X, Y> chart;
 	private final Label mouseHoverLabel;
 	
@@ -47,7 +47,7 @@ public class ExtendedLineChart<X, Y> extends AnchorPane {
 		chart.getData().addAll(mappedSeries);
 		
 		applyChartLineColors(series, mappedSeries);
-		applyTooltipClickListener();
+		applyMouseMoveListener();
 	}
 	
 	private void applyChartLineColors(List<DtoChartSeries<X, Y>> series, List<XYChart.Series<X, Y>> mappedSeries) {
@@ -57,7 +57,7 @@ public class ExtendedLineChart<X, Y> extends AnchorPane {
 			DtoChartSeries<X, Y> serie = series.get(i);
 			XYChart.Series<X, Y> mappedSerie = mappedSeries.get(i);
 			
-			String color = StringColorConverter.convertColorToString(serie.getColor());
+			String color = StringColorUtil.convertColorToString(serie.getColor());
 			
 			Node line = mappedSerie.getNode().lookup(".chart-series-line");
 			String lineStyle = "-fx-stroke: " + color + ";";
@@ -94,7 +94,7 @@ public class ExtendedLineChart<X, Y> extends AnchorPane {
 		});
 	}
 	
-	private void applyTooltipClickListener() {
+	private void applyMouseMoveListener() {
 		Node chartBackground = this.lookup(".chart-plot-background");
 		
 		chartBackground.setOnMouseMoved(mouseEvent -> {
@@ -147,6 +147,7 @@ public class ExtendedLineChart<X, Y> extends AnchorPane {
 		return mouseHoverLabel;
 	}
 	
+	@Override
 	public boolean isShowHoverLabel() {
 		return showHoverLabel;
 	}
@@ -161,5 +162,15 @@ public class ExtendedLineChart<X, Y> extends AnchorPane {
 	
 	public void setShowSymbols(boolean showSymbols) {
 		this.showSymbols = showSymbols;
+	}
+	
+	@Override
+	public Axis<X> getXAxis() {
+		return chart.getXAxis();
+	}
+	
+	@Override
+	public Axis<Y> getYAxis() {
+		return chart.getYAxis();
 	}
 }

@@ -1,4 +1,4 @@
-package org.xmc.be.services.analysis.controller;
+package org.xmc.be.services.analysis.calculation;
 
 import com.google.common.collect.Multimap;
 import org.apache.commons.lang3.tuple.ImmutablePair;

@@ -4,34 +4,36 @@ import javafx.scene.chart.XYChart;
 import org.springframework.stereotype.Component;
 import org.xmc.common.stubs.analysis.charts.DtoChartPoint;
 import org.xmc.common.stubs.analysis.charts.DtoChartSeries;
+import org.xmc.common.utils.StringColorUtil;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.charts.ChartSymbolHoverNode;
 import org.xmc.fe.ui.charts.ExtendedLineChart;
+import org.xmc.fe.ui.charts.IChartBase;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
 public class XYChartSeriesMapper {
-	private static final int MAX_NODE_AMOUNT = 30;
+	private static final int MAX_NODE_AMOUNT = 50;
 	
-	public <X, Y> List<XYChart.Series<X, Y>> mapAll(ExtendedLineChart lineChart, List<DtoChartSeries<X, Y>> series) {
+	public <X, Y> List<XYChart.Series<X, Y>> mapAll(IChartBase<X, Y> chart, List<DtoChartSeries<X, Y>> series) {
 		return series.stream()
-				.map(serie -> map(lineChart, serie))
+				.map(serie -> map(chart, serie))
 				.collect(Collectors.toList());
 	}
 	
-	private <X, Y> XYChart.Series<X, Y> map(ExtendedLineChart lineChart, DtoChartSeries<X, Y> series) {
+	private <X, Y> XYChart.Series<X, Y> map(IChartBase<X, Y> chart, DtoChartSeries<X, Y> series) {
 		XYChart.Series<X, Y> mappedSeries = new XYChart.Series<>();
 		
 		mappedSeries.setName(series.getName());
-		mappedSeries.getData().addAll(mapPoints(lineChart, series));
+		mappedSeries.getData().addAll(mapPoints(chart, series));
 		
 		return mappedSeries;
 	}
 	
-	private <X, Y> List<XYChart.Data<X, Y>> mapPoints(ExtendedLineChart lineChart, DtoChartSeries<X, Y> series) {
+	private <X, Y> List<XYChart.Data<X, Y>> mapPoints(IChartBase<X, Y> chart, DtoChartSeries<X, Y> series) {
 		List<XYChart.Data<X, Y>> points = series.getPoints().stream()
 				.map(this::mapPoint)
 				.collect(Collectors.toList());
@@ -41,20 +43,20 @@ public class XYChartSeriesMapper {
 			
 			if (points.size() <= MAX_NODE_AMOUNT || i == 0 || i == points.size() - 1 || i % steps == 0) {
 				XYChart.Data<X, Y> xyData = points.get(i);
-				addHoverNodeToPoint(lineChart, xyData, series.getName());
+				addHoverNodeToPoint(chart, xyData, series);
 			}
 		}
 		
 		return points;
 	}
 	
-	private <X, Y> void addHoverNodeToPoint(ExtendedLineChart lineChart, XYChart.Data<X, Y> xyData, String name) {
-		String x = ExtendedLineChart.calculateValue(lineChart.getChart().getXAxis(), xyData.getXValue());
-		String y = ExtendedLineChart.calculateValue(lineChart.getChart().getYAxis(), xyData.getYValue());
-		String message = name + System.lineSeparator() + MessageAdapter.getByKey(MessageKey.ANALYSIS_CHART_POINT_XY_HOVER, x, y);
+	private <X, Y> void addHoverNodeToPoint(IChartBase<X, Y> chart, XYChart.Data<X, Y> xyData, DtoChartSeries<X, Y> series) {
+		String x = ExtendedLineChart.calculateValue(chart.getXAxis(), xyData.getXValue());
+		String y = ExtendedLineChart.calculateValue(chart.getYAxis(), xyData.getYValue());
+		String message = series.getName() + System.lineSeparator() + MessageAdapter.getByKey(MessageKey.ANALYSIS_CHART_POINT_XY_HOVER, x, y);
 		
-		if (lineChart.isShowSymbols()) {
-			xyData.setNode(new ChartSymbolHoverNode(message));
+		if (chart.isShowHoverLabel()) {
+			xyData.setNode(new ChartSymbolHoverNode(message, StringColorUtil.convertColorToString(series.getColor())));
 		}
 	}
 	

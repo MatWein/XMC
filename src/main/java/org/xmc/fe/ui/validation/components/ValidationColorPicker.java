@@ -1,7 +1,7 @@
 package org.xmc.fe.ui.validation.components;
 
 import javafx.scene.control.ColorPicker;
-import org.xmc.common.utils.StringColorConverter;
+import org.xmc.common.utils.StringColorUtil;
 
 public class ValidationColorPicker extends ColorPicker {
 	private static final double HEIGHT = 30.0;
@@ -19,10 +19,10 @@ public class ValidationColorPicker extends ColorPicker {
 			return null;
 		}
 		
-		return StringColorConverter.convertColorToString(getValue());
+		return StringColorUtil.convertColorToString(getValue());
 	}
 	
 	public void setValueHex(String color) {
-		setValue(StringColorConverter.convertStringToColor(color));
+		setValue(StringColorUtil.convertStringToColor(color));
 	}
 }

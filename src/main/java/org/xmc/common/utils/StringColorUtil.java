@@ -4,7 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.awt.*;
 
-public class StringColorConverter {
+public class StringColorUtil {
 	public static Color convertStringToAwtColor(String color) {
 		if (color == null) {
 			return null;

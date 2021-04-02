@@ -1,5 +1,7 @@
 package org.xmc.common.utils;
 
+import org.xmc.common.CommonConstants;
+
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,15 +12,8 @@ public class LocalDateUtil {
 		return localDateTime.toInstant(ZoneOffset.UTC).toEpochMilli();
 	}
 	
-	public static long toMillis(LocalDate localDate) {
-		return localDate.atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli();
-	}
-	
-	public static LocalDateTime toLocalDateTime(Number value) {
-		return Instant
-				.ofEpochMilli(value.longValue())
-				.atZone(ZoneOffset.UTC)
-				.toLocalDateTime();
+	public static long toMillisAtEndOfDay(LocalDate localDate) {
+		return localDate.atTime(CommonConstants.END_OF_DAY).toInstant(ZoneOffset.UTC).toEpochMilli();
 	}
 	
 	public static LocalDate toLocalDate(Number value) {

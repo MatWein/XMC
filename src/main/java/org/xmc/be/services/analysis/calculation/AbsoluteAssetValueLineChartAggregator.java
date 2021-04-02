@@ -77,7 +77,7 @@ public class AbsoluteAssetValueLineChartAggregator {
 	
 	private Optional<DtoChartPoint<Number, Number>> findAssetPointOnCurrentDateOrBefore(DtoChartSeries<Number, Number> asset, LocalDate maxDate) {
 		return asset.getPoints().stream()
-				.filter((o) -> o.getX().longValue() <= LocalDateUtil.toMillis(maxDate))
+				.filter((o) -> o.getX().longValue() <= LocalDateUtil.toMillisAtEndOfDay(maxDate))
 				.max(Comparator.comparing(point -> point.getX().longValue()));
 	}
 }

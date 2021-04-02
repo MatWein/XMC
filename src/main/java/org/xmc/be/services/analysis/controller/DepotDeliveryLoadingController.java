@@ -51,6 +51,7 @@ public class DepotDeliveryLoadingController {
 		
 		Depot depot = depotJpaRepository.getOne(depotId);
 		result.setAssetName(depot.getName());
+		result.setAssetColor(depot.getColor());
 		
 		result.setDeliveries(loadDeliveryPoints(depot, startDate, endDate));
 		

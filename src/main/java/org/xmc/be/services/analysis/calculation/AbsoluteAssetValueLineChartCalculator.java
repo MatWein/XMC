@@ -46,7 +46,12 @@ public class AbsoluteAssetValueLineChartCalculator {
 		DtoChartSeries<Number, Number> calculatedSerie = new DtoChartSeries<>();
 		
 		calculatedSerie.setName(dtoAssetDeliveries.getAssetName());
-		calculatedSerie.setColor(StringColorConverter.convertTextToColor(String.valueOf(dtoAssetDeliveries.getAssetId())));
+		
+		if (dtoAssetDeliveries.getAssetColor() == null) {
+			calculatedSerie.setColor(StringColorConverter.convertTextToColor(String.valueOf(dtoAssetDeliveries.getAssetId())));
+		} else {
+			calculatedSerie.setColor(StringColorConverter.convertStringToAwtColor(dtoAssetDeliveries.getAssetColor()));
+		}
 		
 		List<DtoChartPoint<Number, Number>> points = calculatePoints(dtoAssetDeliveries);
 		points = duplicatedChartPointsReducer.reduce(points);

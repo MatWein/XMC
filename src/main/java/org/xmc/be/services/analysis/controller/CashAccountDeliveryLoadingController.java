@@ -50,6 +50,7 @@ public class CashAccountDeliveryLoadingController {
 		
 		CashAccount cashAccount = cashAccountJpaRepository.getOne(cashAccountId);
 		result.setAssetName(cashAccount.getName());
+		result.setAssetColor(cashAccount.getColor());
 		
 		result.setDeliveries(loadDeliveryPoints(cashAccount, startDate, endDate));
 		

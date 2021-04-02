@@ -10,6 +10,7 @@ public class DtoAssetDeliveries implements Serializable {
 	private long assetId;
 	private AssetType assetType;
 	private String assetName;
+	private String assetColor;
 	
 	private List<Pair<Number, Number>> deliveries = Lists.newArrayList();
 	
@@ -43,5 +44,13 @@ public class DtoAssetDeliveries implements Serializable {
 	
 	public void setAssetType(AssetType assetType) {
 		this.assetType = assetType;
+	}
+	
+	public String getAssetColor() {
+		return assetColor;
+	}
+	
+	public void setAssetColor(String assetColor) {
+		this.assetColor = assetColor;
 	}
 }

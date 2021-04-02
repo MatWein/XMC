@@ -5,6 +5,14 @@ import org.apache.commons.lang3.StringUtils;
 import java.awt.*;
 
 public class StringColorConverter {
+	public static Color convertStringToAwtColor(String color) {
+		if (color == null) {
+			return null;
+		}
+		
+		return Color.decode(color);
+	}
+	
 	public static javafx.scene.paint.Color convertStringToColor(String color) {
 		if (color == null) {
 			return null;

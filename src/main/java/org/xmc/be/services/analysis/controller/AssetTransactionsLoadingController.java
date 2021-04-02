@@ -31,7 +31,7 @@ public class AssetTransactionsLoadingController {
 		this.depotTransactionLoadingController = depotTransactionLoadingController;
 	}
 	
-	public List<DtoAssetPoints> loadAssetDeliveries(Multimap<AssetType, Long> assetIds, LocalDate startDate, LocalDate endDate) {
+	public List<DtoAssetPoints> loadAssetTransactions(Multimap<AssetType, Long> assetIds, LocalDate startDate, LocalDate endDate) {
 		List<DtoAssetPoints> deliveries = Lists.newArrayList();
 		
 		for (Entry<AssetType, Collection<Long>> entry : assetIds.asMap().entrySet()) {

@@ -1,7 +1,5 @@
 package org.xmc.be.services.analysis.mapper;
 
-import com.google.common.collect.Lists;
-import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.xmc.be.services.analysis.calculation.DuplicatedChartPointsReducer;
@@ -40,30 +38,11 @@ public class DtoAssetPointsToDtoChartSeriesMapper {
 			calculatedSerie.setColor(StringColorUtil.convertStringToAwtColor(dtoAssetPoints.getAssetColor()));
 		}
 		
-		List<DtoChartPoint<Number, Number>> points = calculatePoints(dtoAssetPoints);
+		List<DtoChartPoint<Number, Number>> points = dtoAssetPoints.getPoints();
 		points = duplicatedChartPointsReducer.reduce(points);
 		
 		calculatedSerie.setPoints(points);
 		
 		return calculatedSerie;
-	}
-	
-	private List<DtoChartPoint<Number, Number>> calculatePoints(DtoAssetPoints dtoAssetPoints) {
-		if (dtoAssetPoints.getPoints().isEmpty()) {
-			return Lists.newArrayList();
-		}
-		
-		return dtoAssetPoints.getPoints().stream()
-				.map(this::mapToPoint)
-				.collect(Collectors.toList());
-	}
-	
-	private DtoChartPoint<Number, Number> mapToPoint(Pair<Number, Number> delivery) {
-		DtoChartPoint<Number, Number> point = new DtoChartPoint<>();
-		
-		point.setX(delivery.getLeft());
-		point.setY(delivery.getRight());
-		
-		return point;
 	}
 }

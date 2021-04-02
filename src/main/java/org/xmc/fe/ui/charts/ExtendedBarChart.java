@@ -1,19 +1,32 @@
 package org.xmc.fe.ui.charts;
 
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.scene.Node;
 import javafx.scene.chart.Axis;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.AnchorPane;
+import org.xmc.common.stubs.analysis.charts.DtoChartPoint;
 import org.xmc.common.stubs.analysis.charts.DtoChartSeries;
 import org.xmc.common.utils.StringColorUtil;
+import org.xmc.fe.ui.MessageAdapter;
+import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.charts.mapper.XYChartSeriesMapper;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class ExtendedBarChart<X, Y> extends AnchorPane implements IChartBase<X, Y> {
 	private final BarChart<X, Y> chart;
 	
 	private boolean showHoverLabel = true;
+	private int maxHoverNodes = 1000;
 	
 	public ExtendedBarChart(Axis<X> xAxis, Axis<Y> yAxis) {
 		this.chart = new BarChart<>(xAxis, yAxis);
@@ -31,41 +44,45 @@ public class ExtendedBarChart<X, Y> extends AnchorPane implements IChartBase<X, 
 		List<XYChart.Series<X, Y>> mappedSeries = new XYChartSeriesMapper().mapAll(this, series);
 		chart.getData().addAll(mappedSeries);
 		
-		applyChartLineColors(series, mappedSeries);
+		CategoryAxis xAxis = (CategoryAxis) getXAxis();
+		
+		String dateTimeFormat = MessageAdapter.getByKey(MessageKey.APP_DATETIME_FORMAT);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateTimeFormat);
+		
+		List<String> categories = series.stream()
+				.flatMap(serie -> serie.getPoints().stream())
+				.map(DtoChartPoint::getX)
+				.map(Objects::toString)
+				.sorted(Comparator.comparing(value -> LocalDateTime.parse(value, formatter)))
+				.collect(Collectors.toList());
+		
+		xAxis.setCategories(FXCollections.observableArrayList(categories));
+		xAxis.setAutoRanging(true);
+		
+		applyChartLineColors(series);
 	}
 	
-	private void applyChartLineColors(List<DtoChartSeries<X, Y>> series, List<XYChart.Series<X, Y>> mappedSeries) {
-		String[] symbolStyles = new String[series.size()];
-		
-		for (int i = 0; i < series.size(); i++) {
-			DtoChartSeries<X, Y> serie = series.get(i);
-			XYChart.Series<X, Y> mappedSerie = mappedSeries.get(i);
-			
-			String color = StringColorUtil.convertColorToString(serie.getColor());
-			
-			String lineStyle = "-fx-stroke: " + color + ";";
-
-			String symbolStyle = String.format("-fx-background-color: %s, whitesmoke;", color);
-			symbolStyles[i] = symbolStyle;
-
-			for (XYChart.Data<X, Y> data: mappedSerie.getData()) {
-				if (data.getNode() instanceof ChartSymbolHoverNode) {
-					((ChartSymbolHoverNode) data.getNode()).getTooltip().setStyle(symbolStyle + " " + lineStyle);
+	private void applyChartLineColors(List<DtoChartSeries<X, Y>> series) {
+		Platform.runLater(() -> {
+			for (int i = 0; i < series.size(); i++) {
+				DtoChartSeries<X, Y> serie = series.get(i);
+				
+				String color = StringColorUtil.convertColorToString(serie.getColor());
+				
+				StringBuilder styles = new StringBuilder();
+				styles.append("-fx-bar-fill: ")
+						.append(color)
+						.append(";");
+				
+				for (Node node : chart.lookupAll(".default-color" + i + " .chart-bar")) {
+					node.setStyle(styles.toString());
+				}
+				
+				for (Node node : chart.lookupAll(".series" + i)) {
+					node.setStyle(styles.toString());
 				}
 			}
-		}
-		
-//		Platform.runLater(() -> {
-//			for (Node node : this.lookupAll(".chart-legend-item-symbol")) {
-//				for (String styleClass : node.getStyleClass()) {
-//					if (styleClass.startsWith("series")) {
-//						int i = Integer.parseInt(styleClass.substring(6));
-//						node.setStyle(symbolStyles[i]);
-//						break;
-//					}
-//				}
-//			}
-//		});
+		});
 	}
 	
 	public void setTitle(String title) {
@@ -97,5 +114,14 @@ public class ExtendedBarChart<X, Y> extends AnchorPane implements IChartBase<X, 
 	
 	public void setShowHoverLabel(boolean showHoverLabel) {
 		this.showHoverLabel = showHoverLabel;
+	}
+	
+	@Override
+	public int getMaxHoverNodes() {
+		return maxHoverNodes;
+	}
+	
+	public void setMaxHoverNodes(int maxHoverNodes) {
+		this.maxHoverNodes = maxHoverNodes;
 	}
 }

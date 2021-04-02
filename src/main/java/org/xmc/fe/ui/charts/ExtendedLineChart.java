@@ -22,6 +22,7 @@ public class ExtendedLineChart<X, Y> extends AnchorPane implements IChartBase<X,
 	
 	private boolean showHoverLabel = true;
 	private boolean showSymbols = true;
+	private int maxHoverNodes = 30;
 	
 	public ExtendedLineChart(Axis<X> xAxis, Axis<Y> yAxis) {
 		this.chart = new LineChart<>(xAxis, yAxis);
@@ -46,49 +47,30 @@ public class ExtendedLineChart<X, Y> extends AnchorPane implements IChartBase<X,
 		List<XYChart.Series<X, Y>> mappedSeries = new XYChartSeriesMapper().mapAll(this, series);
 		chart.getData().addAll(mappedSeries);
 		
-		applyChartLineColors(series, mappedSeries);
+		applyChartLineColors(series);
 		applyMouseMoveListener();
 	}
 	
-	private void applyChartLineColors(List<DtoChartSeries<X, Y>> series, List<XYChart.Series<X, Y>> mappedSeries) {
-		String[] symbolStyles = new String[series.size()];
-		
-		for (int i = 0; i < series.size(); i++) {
-			DtoChartSeries<X, Y> serie = series.get(i);
-			XYChart.Series<X, Y> mappedSerie = mappedSeries.get(i);
-			
-			String color = StringColorUtil.convertColorToString(serie.getColor());
-			
-			Node line = mappedSerie.getNode().lookup(".chart-series-line");
-			String lineStyle = "-fx-stroke: " + color + ";";
-			line.setStyle(lineStyle);
-			
-			String symbolStyle = String.format("-fx-background-color: %s, whitesmoke;", color);
-			symbolStyles[i] = symbolStyle;
-			
-			for (XYChart.Data<X, Y> data: mappedSerie.getData()) {
-				Node symbolNode = data.getNode();
-				if (symbolNode != null) {
-					Node chartLineSymbol = symbolNode.lookup(".chart-line-symbol");
-					if (chartLineSymbol != null) {
-						chartLineSymbol.setStyle(symbolStyle);
-					}
+	private void applyChartLineColors(List<DtoChartSeries<X, Y>> series) {
+		Platform.runLater(() -> {
+			for (int i = 0; i < series.size(); i++) {
+				DtoChartSeries<X, Y> serie = series.get(i);
+				
+				String color = StringColorUtil.convertColorToString(serie.getColor());
+				
+				StringBuilder styles = new StringBuilder();
+				styles.append("-fx-stroke: ")
+						.append(color)
+						.append("; -fx-background-color: ")
+						.append(color)
+						.append(", whitesmoke;");
+				
+				for (Node node : chart.lookupAll(".default-color" + i)) {
+					node.setStyle(styles.toString());
 				}
 				
-				if (data.getNode() instanceof ChartSymbolHoverNode) {
-					((ChartSymbolHoverNode) data.getNode()).getTooltip().setStyle(symbolStyle + " " + lineStyle);
-				}
-			}
-		}
-		
-		Platform.runLater(() -> {
-			for (Node node : this.lookupAll(".chart-legend-item-symbol")) {
-				for (String styleClass : node.getStyleClass()) {
-					if (styleClass.startsWith("series")) {
-						int i = Integer.parseInt(styleClass.substring(6));
-						node.setStyle(symbolStyles[i]);
-						break;
-					}
+				for (Node node : chart.lookupAll(".series" + i)) {
+					node.setStyle(styles.toString());
 				}
 			}
 		});
@@ -172,5 +154,14 @@ public class ExtendedLineChart<X, Y> extends AnchorPane implements IChartBase<X,
 	@Override
 	public Axis<Y> getYAxis() {
 		return chart.getYAxis();
+	}
+	
+	@Override
+	public int getMaxHoverNodes() {
+		return maxHoverNodes;
+	}
+	
+	public void setMaxHoverNodes(int maxHoverNodes) {
+		this.maxHoverNodes = maxHoverNodes;
 	}
 }

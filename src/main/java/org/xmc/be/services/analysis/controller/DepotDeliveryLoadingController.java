@@ -1,8 +1,6 @@
 package org.xmc.be.services.analysis.controller;
 
 import com.google.common.collect.Lists;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.xmc.be.entities.depot.Depot;
@@ -12,6 +10,7 @@ import org.xmc.be.repositories.depot.DepotJpaRepository;
 import org.xmc.common.CommonConstants;
 import org.xmc.common.stubs.analysis.AssetType;
 import org.xmc.common.stubs.analysis.DtoAssetPoints;
+import org.xmc.common.stubs.analysis.charts.DtoChartPoint;
 import org.xmc.common.utils.LocalDateUtil;
 
 import java.math.BigDecimal;
@@ -58,9 +57,9 @@ public class DepotDeliveryLoadingController {
 		return result;
 	}
 	
-	private List<Pair<Number, Number>> loadDeliveryPoints(Depot depot, LocalDate startDate, LocalDate endDate) {
+	private List<DtoChartPoint<Number, Number>> loadDeliveryPoints(Depot depot, LocalDate startDate, LocalDate endDate) {
 		long days = Duration.between(startDate.atStartOfDay(), endDate.atStartOfDay()).toDays();
-		List<Pair<Number, Number>> result = Lists.newArrayListWithExpectedSize((int)days);
+		List<DtoChartPoint<Number, Number>> result = Lists.newArrayListWithExpectedSize((int)days);
 		
 		List<DepotDelivery> deliveries = depotDeliveryJpaRepository.findByDepotAndDeletionDateIsNull(depot);
 		
@@ -69,7 +68,7 @@ public class DepotDeliveryLoadingController {
 			Optional<DepotDelivery> delivery = findLastDeliveryBeforeOrOnDate(date, deliveries);
 			double valueAtDate = delivery.map(DepotDelivery::getSaldo).orElse(BigDecimal.ZERO).doubleValue();
 			
-			result.add(ImmutablePair.of(LocalDateUtil.toMillis(date), valueAtDate));
+			result.add(new DtoChartPoint(LocalDateUtil.toMillis(date), valueAtDate));
 		}
 		
 		return result;

@@ -4,7 +4,6 @@ import javafx.scene.chart.XYChart;
 import org.springframework.stereotype.Component;
 import org.xmc.common.stubs.analysis.charts.DtoChartPoint;
 import org.xmc.common.stubs.analysis.charts.DtoChartSeries;
-import org.xmc.common.utils.StringColorUtil;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.charts.ChartSymbolHoverNode;
@@ -16,8 +15,6 @@ import java.util.stream.Collectors;
 
 @Component
 public class XYChartSeriesMapper {
-	private static final int MAX_NODE_AMOUNT = 50;
-	
 	public <X, Y> List<XYChart.Series<X, Y>> mapAll(IChartBase<X, Y> chart, List<DtoChartSeries<X, Y>> series) {
 		return series.stream()
 				.map(serie -> map(chart, serie))
@@ -39,24 +36,39 @@ public class XYChartSeriesMapper {
 				.collect(Collectors.toList());
 		
 		for (int i = 0; i < points.size(); i++) {
-			int steps = points.size() / MAX_NODE_AMOUNT;
+			int steps = points.size() / chart.getMaxHoverNodes();
 			
-			if (points.size() <= MAX_NODE_AMOUNT || i == 0 || i == points.size() - 1 || i % steps == 0) {
+			if (points.size() <= chart.getMaxHoverNodes() || i == 0 || i == points.size() - 1 || i % steps == 0) {
 				XYChart.Data<X, Y> xyData = points.get(i);
-				addHoverNodeToPoint(chart, xyData, series);
+				DtoChartPoint<X, Y> dtoChartPoint = series.getPoints().get(i);
+				addHoverNodeToPoint(chart, xyData, dtoChartPoint, series);
 			}
 		}
 		
 		return points;
 	}
 	
-	private <X, Y> void addHoverNodeToPoint(IChartBase<X, Y> chart, XYChart.Data<X, Y> xyData, DtoChartSeries<X, Y> series) {
+	private <X, Y> void addHoverNodeToPoint(
+			IChartBase<X, Y> chart,
+			XYChart.Data<X, Y> xyData,
+			DtoChartPoint<X, Y> dtoChartPoint,
+			DtoChartSeries<X, Y> series) {
+		
 		String x = ExtendedLineChart.calculateValue(chart.getXAxis(), xyData.getXValue());
 		String y = ExtendedLineChart.calculateValue(chart.getYAxis(), xyData.getYValue());
-		String message = series.getName() + System.lineSeparator() + MessageAdapter.getByKey(MessageKey.ANALYSIS_CHART_POINT_XY_HOVER, x, y);
+		
+		StringBuilder message = new StringBuilder();
+		
+		message.append(series.getName())
+				.append(System.lineSeparator())
+				.append(MessageAdapter.getByKey(MessageKey.ANALYSIS_CHART_POINT_XY_HOVER, x, y));
+		
+		if (dtoChartPoint.getDescription() != null) {
+			message.append(System.lineSeparator()).append(dtoChartPoint.getDescription());
+		}
 		
 		if (chart.isShowHoverLabel()) {
-			xyData.setNode(new ChartSymbolHoverNode(message, StringColorUtil.convertColorToString(series.getColor())));
+			xyData.setNode(new ChartSymbolHoverNode(message.toString()));
 		}
 	}
 	

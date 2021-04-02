@@ -7,4 +7,5 @@ public interface IChartBase<X, Y> {
 	Axis<Y> getYAxis();
 	
 	boolean isShowHoverLabel();
+	int getMaxHoverNodes();
 }

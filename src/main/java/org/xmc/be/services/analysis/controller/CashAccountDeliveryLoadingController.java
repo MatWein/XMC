@@ -1,8 +1,6 @@
 package org.xmc.be.services.analysis.controller;
 
 import com.google.common.collect.Lists;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.xmc.be.entities.cashaccount.CashAccount;
@@ -12,6 +10,7 @@ import org.xmc.be.repositories.cashaccount.CashAccountTransactionJpaRepository;
 import org.xmc.common.CommonConstants;
 import org.xmc.common.stubs.analysis.AssetType;
 import org.xmc.common.stubs.analysis.DtoAssetPoints;
+import org.xmc.common.stubs.analysis.charts.DtoChartPoint;
 import org.xmc.common.utils.LocalDateUtil;
 
 import java.math.BigDecimal;
@@ -57,9 +56,9 @@ public class CashAccountDeliveryLoadingController {
 		return result;
 	}
 	
-	private List<Pair<Number, Number>> loadDeliveryPoints(CashAccount cashAccount, LocalDate startDate, LocalDate endDate) {
+	private List<DtoChartPoint<Number, Number>> loadDeliveryPoints(CashAccount cashAccount, LocalDate startDate, LocalDate endDate) {
 		long days = Duration.between(startDate.atStartOfDay(), endDate.atStartOfDay()).toDays();
-		List<Pair<Number, Number>> result = Lists.newArrayListWithExpectedSize((int)days);
+		List<DtoChartPoint<Number, Number>> result = Lists.newArrayListWithExpectedSize((int)days);
 		
 		List<CashAccountTransaction> transactions = cashAccountTransactionJpaRepository.findByCashAccountAndDeletionDateIsNull(cashAccount);
 		
@@ -68,7 +67,7 @@ public class CashAccountDeliveryLoadingController {
 			Optional<CashAccountTransaction> transaction = findLastTransactionBeforeOrOnDate(currentDate, transactions);
 			double valueAtDate = transaction.map(CashAccountTransaction::getSaldoAfter).orElse(BigDecimal.ZERO).doubleValue();
 			
-			result.add(ImmutablePair.of(date, valueAtDate));
+			result.add(new DtoChartPoint(date, valueAtDate));
 		}
 		
 		return result;

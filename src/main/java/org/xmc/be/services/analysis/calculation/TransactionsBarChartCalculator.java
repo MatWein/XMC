@@ -31,28 +31,33 @@ public class TransactionsBarChartCalculator {
 	}
 	
 	public List<DtoChartSeries<String, Number>> calculate(Multimap<AssetType, Long> assetIds, LocalDate startDate, LocalDate endDate) {
-		List<DtoAssetPoints> assetTransactions = assetTransactionsLoadingController.loadAssetDeliveries(assetIds, startDate, endDate);
+		List<DtoAssetPoints> assetTransactions = assetTransactionsLoadingController.loadAssetTransactions(assetIds, startDate, endDate);
 		List<DtoChartSeries<Number, Number>> dtoChartSeries = dtoAssetPointsToDtoChartSeriesMapper.mapAll(assetTransactions);
 		
 		return dtoChartSeries.stream()
-				.map(dto -> {
-					DtoChartSeries<String, Number> result = new DtoChartSeries<>();
-					
-					result.setColor(dto.getColor());
-					result.setName(dto.getName());
-					result.setPoints(dto.getPoints().stream()
-							.map(point -> {
-								DtoChartPoint<String, Number> rp = new DtoChartPoint<>();
-								
-								rp.setX(MessageAdapter.formatDate(LocalDateUtil.toLocalDate(point.getX())));
-								rp.setY(point.getY());
-								
-								return rp;
-							})
-							.collect(Collectors.toList()));
-					
-					return result;
-				})
+				.map(this::mapChartSeries)
 				.collect(Collectors.toList());
+	}
+	
+	private DtoChartSeries<String, Number> mapChartSeries(DtoChartSeries<Number, Number> dto) {
+		DtoChartSeries<String, Number> result = new DtoChartSeries<>();
+		
+		result.setColor(dto.getColor());
+		result.setName(dto.getName());
+		result.setPoints(dto.getPoints().stream()
+				.map(this::mapChartPoint)
+				.collect(Collectors.toList()));
+		
+		return result;
+	}
+	
+	private DtoChartPoint<String, Number> mapChartPoint(DtoChartPoint<Number, Number> point) {
+		DtoChartPoint<String, Number> rp = new DtoChartPoint<>();
+		
+		rp.setX(MessageAdapter.formatDateTime(LocalDateUtil.toLocalDateTime(point.getX())));
+		rp.setY(point.getY());
+		rp.setDescription(point.getDescription());
+		
+		return rp;
 	}
 }

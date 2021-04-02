@@ -1,7 +1,7 @@
 package org.xmc.common.stubs.analysis;
 
 import com.google.common.collect.Lists;
-import org.apache.commons.lang3.tuple.Pair;
+import org.xmc.common.stubs.analysis.charts.DtoChartPoint;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,7 +12,7 @@ public class DtoAssetPoints implements Serializable {
 	private String assetName;
 	private String assetColor;
 	
-	private List<Pair<Number, Number>> points = Lists.newArrayList();
+	private List<DtoChartPoint<Number, Number>> points = Lists.newArrayList();
 	
 	public long getAssetId() {
 		return assetId;
@@ -30,11 +30,11 @@ public class DtoAssetPoints implements Serializable {
 		this.assetName = assetName;
 	}
 	
-	public List<Pair<Number, Number>> getPoints() {
+	public List<DtoChartPoint<Number, Number>> getPoints() {
 		return points;
 	}
 	
-	public void setPoints(List<Pair<Number, Number>> points) {
+	public void setPoints(List<DtoChartPoint<Number, Number>> points) {
 		this.points = points;
 	}
 	

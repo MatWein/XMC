@@ -16,4 +16,11 @@ public class LocalDateUtil {
 				.atZone(ZoneOffset.UTC)
 				.toLocalDate();
 	}
+	
+	public static LocalDateTime toLocalDateTime(Number value) {
+		return Instant
+				.ofEpochMilli(value.longValue())
+				.atZone(ZoneOffset.UTC)
+				.toLocalDateTime();
+	}
 }

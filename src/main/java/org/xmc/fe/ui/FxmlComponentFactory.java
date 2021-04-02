@@ -87,7 +87,8 @@ public class FxmlComponentFactory {
 		DEPOT_TRANSACTION_IMPORT_DIALOG_STEP3("/fxml/main/depot/importing/transactions/depot-transaction-import-step3.fxml"),
 		DEPOT_TRANSACTION_IMPORT_DIALOG_STEP4("/fxml/main/depot/importing/transactions/depot-transaction-import-step4.fxml"),
 		FRAGMENT_SPINNER_PANE("/fxml/fragments/spinner-pane.fxml"),
-		FRAGMENT_MESSAGE_PANE("/fxml/fragments/message-pane.fxml")
+		FRAGMENT_MESSAGE_PANE("/fxml/fragments/message-pane.fxml"),
+		ANALYSIS_CONTENT("/fxml/main/analysis/analysis-content.fxml")
         ;
 
         private final String fxmlPath;

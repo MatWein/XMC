@@ -1,83 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.collections.FXCollections?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import org.xmc.common.stubs.analysis.*?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.VBox?>
 <?import org.xmc.fe.ui.components.ButtonImageView?>
-<?import org.xmc.fe.ui.validation.components.*?>
-<VBox stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
-	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.analysis.AnalysisController"
-	  prefHeight="700.0" prefWidth="900.0">
+<VBox prefHeight="700.0" prefWidth="900.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css"
+	  xmlns="http://javafx.com/javafx/11.0.0"
+	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.analysis.AnalysisController">
 
-	<ToolBar>
-		<Button text="%main.analysis.clear" onAction="#clearInput">
+	<TabPane tabClosingPolicy="ALL_TABS" VBox.vgrow="ALWAYS" fx:id="tabPane">
+		<Tab closable="false" text="%main.tabs.analysis" fx:id="startTab">
+			<fx:include source="analysis-content.fxml" />
+		</Tab>
+		<Tab closable="false" onSelectionChanged="#onTabSelectionChanged" fx:id="plusTab">
 			<graphic>
-				<ButtonImageView url="@/images/feather/file.png" />
+				<ButtonImageView url="@/images/feather/plus.png" />
 			</graphic>
-		</Button>
-		<Button text="%main.analysis.saveAsFavourite" onAction="#saveAsFavourite">
-			<graphic>
-				<ButtonImageView url="@/images/feather/save.png" />
-			</graphic>
-		</Button>
-		<Pane HBox.hgrow="ALWAYS" />
-		<MenuButton fx:id="favouriteMenuButton" disable="true">
-			<graphic>
-				<ButtonImageView url="@/images/feather/star.png" />
-			</graphic>
-		</MenuButton>
-	</ToolBar>
-
-	<SplitPane VBox.vgrow="ALWAYS">
-		<VBox maxWidth="350" minWidth="350" styleClass="panel-bg1, padding-15" fx:id="analysisInputVBox">
-			<Label styleClass="form-label-first" text="%main.analysis.analysisType"/>
-			<ValidationComboBox required="false" fx:id="analysisTypeComboBox">
-				<items>
-					<FXCollections fx:factory="observableArrayList">
-						<AnalysisType fx:value="ABSOLUTE_ASSET_VALUE"/>
-						<AnalysisType fx:value="AGGREGATED_ASSET_VALUE"/>
-						<AnalysisType fx:value="ABSOLUTE_AND_AGGREGATED_ASSET_VALUE"/>
-					</FXCollections>
-				</items>
-			</ValidationComboBox>
-
-			<Label styleClass="form-label" text="%main.analysis.selectAssets"/>
-			<TreeView prefHeight="250" fx:id="selectedAssetsTreeView" />
-
-			<Label styleClass="form-label" text="%main.analysis.timeRange"/>
-			<ValidationComboBox required="false" fx:id="timeRangeComboBox">
-				<items>
-					<FXCollections fx:factory="observableArrayList">
-						<TimeRange fx:value="USER_DEFINED"/>
-						<TimeRange fx:value="LAST_MONTH"/>
-						<TimeRange fx:value="LAST_QUARTER"/>
-						<TimeRange fx:value="LAST_HALF_YEAR"/>
-						<TimeRange fx:value="LAST_YEAR"/>
-						<TimeRange fx:value="MAXIMUM"/>
-					</FXCollections>
-				</items>
-				<value>
-					<TimeRange fx:value="USER_DEFINED" />
-				</value>
-			</ValidationComboBox>
-
-			<Label styleClass="form-label" text="%main.analysis.timeRange.start"/>
-			<ValidationDatePicker required="false" fx:id="startDatePicker" />
-
-			<Label styleClass="form-label" text="%main.analysis.timeRange.end"/>
-			<ValidationDatePicker required="false" fx:id="endDatePicker" />
-
-			<ValidatedButton text="%main.analysis.calculate" onAction="#onCalculate" defaultButton="true" maxWidth="Infinity">
-				<VBox.margin>
-					<Insets top="20.0"/>
-				</VBox.margin>
-			</ValidatedButton>
-		</VBox>
-		<VBox fx:id="analysisContentVBox" maxHeight="Infinity">
-
-		</VBox>
-	</SplitPane>
+		</Tab>
+	</TabPane>
 
 </VBox>

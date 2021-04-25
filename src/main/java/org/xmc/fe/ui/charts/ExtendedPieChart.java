@@ -23,7 +23,8 @@ public class ExtendedPieChart extends PieChart {
 			DtoChartSeries<Object, Number> serie = series.get(i);
 			DtoChartPoint<Object, Number> point = serie.getPoints().get(0);
 			
-			Tooltip.install(data.getNode(), new Tooltip(point.getDescription()));
+			Node node = data.getNode();
+			Tooltip.install(node, new Tooltip(point.getDescription()));
 		}
 		
 		widthProperty().addListener((obs, b, b1) -> applyChartLineColors(series));

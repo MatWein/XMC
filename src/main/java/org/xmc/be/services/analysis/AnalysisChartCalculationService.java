@@ -7,10 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.xmc.be.services.analysis.calculation.AbsoluteAssetValueLineChartAggregator;
-import org.xmc.be.services.analysis.calculation.AbsoluteAssetValueLineChartCalculator;
-import org.xmc.be.services.analysis.calculation.IncomeOutgoingPieChartCalculator;
-import org.xmc.be.services.analysis.calculation.TransactionsBarChartCalculator;
+import org.xmc.be.entities.cashaccount.CashAccountTransaction;
+import org.xmc.be.services.analysis.calculation.*;
 import org.xmc.common.stubs.analysis.AssetType;
 import org.xmc.common.stubs.analysis.charts.DtoChartSeries;
 import org.xmc.fe.async.AsyncMonitor;
@@ -19,28 +17,35 @@ import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Predicate;
 
 @Service
 @Transactional
 public class AnalysisChartCalculationService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AnalysisChartCalculationService.class);
 	
+	private static final Predicate<CashAccountTransaction> INCOME_FILTER = transaction -> transaction.getValue().doubleValue() > 0.0;
+	private static final Predicate<CashAccountTransaction> OUTGOING_FILTER = transaction -> transaction.getValue().doubleValue() < 0.0;
+	
 	private final AbsoluteAssetValueLineChartCalculator absoluteAssetValueLineChartCalculator;
 	private final AbsoluteAssetValueLineChartAggregator absoluteAssetValueLineChartAggregator;
 	private final TransactionsBarChartCalculator transactionsBarChartCalculator;
 	private final IncomeOutgoingPieChartCalculator incomeOutgoingPieChartCalculator;
+	private final IncomeOutgoingForCategoryPieChartCalculator incomeOutgoingForCategoryPieChartCalculator;
 	
 	@Autowired
 	public AnalysisChartCalculationService(
 			AbsoluteAssetValueLineChartCalculator absoluteAssetValueLineChartCalculator,
 			AbsoluteAssetValueLineChartAggregator absoluteAssetValueLineChartAggregator,
 			TransactionsBarChartCalculator transactionsBarChartCalculator,
-			IncomeOutgoingPieChartCalculator incomeOutgoingPieChartCalculator) {
+			IncomeOutgoingPieChartCalculator incomeOutgoingPieChartCalculator,
+			IncomeOutgoingForCategoryPieChartCalculator incomeOutgoingForCategoryPieChartCalculator) {
 		
 		this.absoluteAssetValueLineChartCalculator = absoluteAssetValueLineChartCalculator;
 		this.absoluteAssetValueLineChartAggregator = absoluteAssetValueLineChartAggregator;
 		this.transactionsBarChartCalculator = transactionsBarChartCalculator;
 		this.incomeOutgoingPieChartCalculator = incomeOutgoingPieChartCalculator;
+		this.incomeOutgoingForCategoryPieChartCalculator = incomeOutgoingForCategoryPieChartCalculator;
 	}
 	
 	public List<DtoChartSeries<Number, Number>> calculateAbsoluteAssetValueLineChart(
@@ -110,7 +115,7 @@ public class AnalysisChartCalculationService {
 		LOGGER.info("Calculating income pie chart for cashaccounts {}. Start date: {}. End date: {}", cashAccountIds, startDate, endDate);
 		monitor.setStatusText(MessageKey.ASYNC_TASK_CALCULATING_CHART);
 		
-		return incomeOutgoingPieChartCalculator.calculate(cashAccountIds, startDate, endDate, transaction -> transaction.getValue().doubleValue() > 0.0);
+		return incomeOutgoingPieChartCalculator.calculate(cashAccountIds, startDate, endDate, INCOME_FILTER);
 	}
 	
 	public List<DtoChartSeries<Object, Number>> calculateOutgoing(
@@ -122,6 +127,34 @@ public class AnalysisChartCalculationService {
 		LOGGER.info("Calculating outgoing pie chart for cashaccounts {}. Start date: {}. End date: {}", cashAccountIds, startDate, endDate);
 		monitor.setStatusText(MessageKey.ASYNC_TASK_CALCULATING_CHART);
 		
-		return incomeOutgoingPieChartCalculator.calculate(cashAccountIds, startDate, endDate, transaction -> transaction.getValue().doubleValue() < 0.0);
+		return incomeOutgoingPieChartCalculator.calculate(cashAccountIds, startDate, endDate, OUTGOING_FILTER);
+	}
+	
+	public List<DtoChartSeries<Object, Number>> calculateIncomeForCategory(
+			AsyncMonitor monitor,
+			Collection<Long> cashAccountIds,
+			Long categoryId,
+			LocalDate startDate,
+			LocalDate endDate) {
+		
+		LOGGER.info("Calculating income pie chart for cashaccounts {} and category {}. Start date: {}. End date: {}",
+				cashAccountIds, categoryId, startDate, endDate);
+		monitor.setStatusText(MessageKey.ASYNC_TASK_CALCULATING_CHART);
+		
+		return incomeOutgoingForCategoryPieChartCalculator.calculate(cashAccountIds, categoryId, startDate, endDate, INCOME_FILTER);
+	}
+	
+	public List<DtoChartSeries<Object, Number>> calculateOutgoingForCategory(
+			AsyncMonitor monitor,
+			Collection<Long> cashAccountIds,
+			Long categoryId,
+			LocalDate startDate,
+			LocalDate endDate) {
+		
+		LOGGER.info("Calculating outgoing pie chart for cashaccounts {} and category {}. Start date: {}. End date: {}",
+				cashAccountIds, categoryId, startDate, endDate);
+		monitor.setStatusText(MessageKey.ASYNC_TASK_CALCULATING_CHART);
+		
+		return incomeOutgoingForCategoryPieChartCalculator.calculate(cashAccountIds, categoryId, startDate, endDate, OUTGOING_FILTER);
 	}
 }

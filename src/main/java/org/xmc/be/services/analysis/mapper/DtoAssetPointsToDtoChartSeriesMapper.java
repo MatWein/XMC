@@ -20,14 +20,14 @@ public class DtoAssetPointsToDtoChartSeriesMapper {
 		this.duplicatedChartPointsReducer = duplicatedChartPointsReducer;
 	}
 	
-	public List<DtoChartSeries<Number, Number>> mapAll(List<DtoAssetPoints> assetDeliveries) {
+	public List<DtoChartSeries<Number, Number>> mapAll(List<DtoAssetPoints> assetDeliveries, boolean filterDuplicatePoints) {
 		return assetDeliveries.stream()
-				.map(this::calculateSerieFromDeliveries)
+				.map(point -> calculateSerieFromDeliveries(point, filterDuplicatePoints))
 				.filter(serie -> !serie.getPoints().isEmpty())
 				.collect(Collectors.toList());
 	}
 	
-	private DtoChartSeries<Number, Number> calculateSerieFromDeliveries(DtoAssetPoints dtoAssetPoints) {
+	private DtoChartSeries<Number, Number> calculateSerieFromDeliveries(DtoAssetPoints dtoAssetPoints, boolean filterDuplicatePoints) {
 		DtoChartSeries<Number, Number> calculatedSerie = new DtoChartSeries<>();
 		
 		calculatedSerie.setName(dtoAssetPoints.getAssetName());
@@ -39,7 +39,10 @@ public class DtoAssetPointsToDtoChartSeriesMapper {
 		}
 		
 		List<DtoChartPoint<Number, Number>> points = dtoAssetPoints.getPoints();
-		points = duplicatedChartPointsReducer.reduce(points);
+		
+		if (filterDuplicatePoints) {
+			points = duplicatedChartPointsReducer.reduce(points);
+		}
 		
 		calculatedSerie.setPoints(points);
 		

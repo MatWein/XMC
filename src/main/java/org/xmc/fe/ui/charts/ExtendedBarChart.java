@@ -59,30 +59,32 @@ public class ExtendedBarChart<X, Y> extends AnchorPane implements IChartBase<X, 
 		xAxis.setCategories(FXCollections.observableArrayList(categories));
 		xAxis.setAutoRanging(true);
 		
+		chart.widthProperty().addListener((obs, b, b1) -> Platform.runLater(() -> {
+			applyChartLineColors(series);
+		}));
+		
 		applyChartLineColors(series);
 	}
 	
 	private void applyChartLineColors(List<DtoChartSeries<X, Y>> series) {
-		Platform.runLater(() -> {
-			for (int i = 0; i < series.size(); i++) {
-				DtoChartSeries<X, Y> serie = series.get(i);
-				
-				String color = StringColorUtil.convertColorToString(serie.getColor());
-				
-				StringBuilder styles = new StringBuilder();
-				styles.append("-fx-bar-fill: ")
-						.append(color)
-						.append(";");
-				
-				for (Node node : chart.lookupAll(".default-color" + i + " .chart-bar")) {
-					node.setStyle(styles.toString());
-				}
-				
-				for (Node node : chart.lookupAll(".series" + i)) {
-					node.setStyle(styles.toString());
-				}
+		for (int i = 0; i < series.size(); i++) {
+			DtoChartSeries<X, Y> serie = series.get(i);
+			
+			String color = StringColorUtil.convertColorToString(serie.getColor());
+			
+			StringBuilder styles = new StringBuilder();
+			styles.append("-fx-bar-fill: ")
+					.append(color)
+					.append(";");
+			
+			for (Node node : chart.lookupAll(".default-color" + i + " .chart-bar")) {
+				node.setStyle(styles.toString());
 			}
-		});
+			
+			for (Node node : chart.lookupAll(".series" + i)) {
+				node.setStyle(styles.toString());
+			}
+		}
 	}
 	
 	public void setTitle(String title) {

@@ -28,6 +28,6 @@ public class AbsoluteAssetValueLineChartCalculator {
 	
 	public List<DtoChartSeries<Number, Number>> calculate(Multimap<AssetType, Long> assetIds, LocalDate startDate, LocalDate endDate) {
 		List<DtoAssetPoints> assetDeliveries = assetDeliveriesLoadingController.loadAssetDeliveries(assetIds, startDate, endDate);
-		return dtoAssetPointsToDtoChartSeriesMapper.mapAll(assetDeliveries);
+		return dtoAssetPointsToDtoChartSeriesMapper.mapAll(assetDeliveries, true);
 	}
 }

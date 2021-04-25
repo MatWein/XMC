@@ -32,7 +32,7 @@ public class TransactionsBarChartCalculator {
 	
 	public List<DtoChartSeries<String, Number>> calculate(Multimap<AssetType, Long> assetIds, LocalDate startDate, LocalDate endDate) {
 		List<DtoAssetPoints> assetTransactions = assetTransactionsLoadingController.loadAssetTransactions(assetIds, startDate, endDate);
-		List<DtoChartSeries<Number, Number>> dtoChartSeries = dtoAssetPointsToDtoChartSeriesMapper.mapAll(assetTransactions);
+		List<DtoChartSeries<Number, Number>> dtoChartSeries = dtoAssetPointsToDtoChartSeriesMapper.mapAll(assetTransactions, false);
 		
 		return dtoChartSeries.stream()
 				.map(this::mapChartSeries)

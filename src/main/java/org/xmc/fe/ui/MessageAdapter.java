@@ -328,7 +328,9 @@ public class MessageAdapter {
 	    ANALYSIS_OTHER("analysis.other"),
 	    ANALYSIS_SUM_IN_EUR("analysis.sumInEuro"),
 	    ANALYSIS_PERCENTAGE("analysis.percentage"),
-	    ANALYSIS_DESCRIPTION("analysis.description")
+	    ANALYSIS_DESCRIPTION("analysis.description"),
+	    ANALYSIS_DATE("analysis.date"),
+	    ANALYSIS_TRANSACTIONS_AGGREGATE_DESCRIPTION("analysis.transactions.aggregateDescription")
         ;
 
         private final String key;

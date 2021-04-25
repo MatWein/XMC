@@ -30,22 +30,27 @@ import java.util.stream.Collectors;
 
 @Component
 public class IncomeOutgoingForCategoryPieChartCalculator {
+	private static final double BORDER_TO_AGGREGATE_SMALL_TRANSACTIONS = 1.0;
+	
 	private final CashAccountJpaRepository cashAccountJpaRepository;
 	private final CashAccountTransactionJpaRepository cashAccountTransactionJpaRepository;
 	private final CurrencyConversionFactorLoadingController currencyConversionFactorLoadingController;
 	private final AssetEuroValueCalculator assetEuroValueCalculator;
+	private final UebertragTransactionFilter uebertragTransactionFilter;
 	
 	@Autowired
 	public IncomeOutgoingForCategoryPieChartCalculator(
 			CashAccountJpaRepository cashAccountJpaRepository,
 			CashAccountTransactionJpaRepository cashAccountTransactionJpaRepository,
 			CurrencyConversionFactorLoadingController currencyConversionFactorLoadingController,
-			AssetEuroValueCalculator assetEuroValueCalculator) {
+			AssetEuroValueCalculator assetEuroValueCalculator,
+			UebertragTransactionFilter uebertragTransactionFilter) {
 		
 		this.cashAccountJpaRepository = cashAccountJpaRepository;
 		this.cashAccountTransactionJpaRepository = cashAccountTransactionJpaRepository;
 		this.currencyConversionFactorLoadingController = currencyConversionFactorLoadingController;
 		this.assetEuroValueCalculator = assetEuroValueCalculator;
+		this.uebertragTransactionFilter = uebertragTransactionFilter;
 	}
 	
 	public List<DtoChartSeries<Object, Number>> calculate(
@@ -63,19 +68,17 @@ public class IncomeOutgoingForCategoryPieChartCalculator {
 				.collect(Collectors.toSet());
 		Multimap<String, CurrencyConversionFactor> currencyConversionFactors = currencyConversionFactorLoadingController.load(currencies);
 		
-		List<CashAccountTransaction> transactions = cashAccounts
+		List<CashAccountTransaction> allTransactions = cashAccounts
 				.stream()
 				.flatMap(cashAccount -> cashAccountTransactionJpaRepository.findByCashAccountAndDeletionDateIsNull(cashAccount).stream())
 				.filter(transaction -> transaction.getValutaDate().compareTo(startDate) >= 0)
 				.filter(transaction -> transaction.getValutaDate().compareTo(endDate) <= 0)
-				.filter(transaction -> {
-					if (transaction.getCategory() == null) {
-						return categoryId == null;
-					} else {
-						return transaction.getCategory().getId().equals(categoryId);
-					}
-				})
+				.collect(Collectors.toList());
+		
+		List<CashAccountTransaction> transactions = allTransactions.stream()
+				.filter(transaction -> uebertragTransactionFilter.createNonUebertragPredicate(allTransactions).test(transaction))
 				.filter(transactionPredicate)
+				.filter(transaction -> transaction.getCategory() == null ? (categoryId == null) : transaction.getCategory().getId().equals(categoryId))
 				.collect(Collectors.toList());
 		
 		BigDecimal sumOfAllTransactions = SCalcBuilder.bigDecimalInstance()
@@ -84,9 +87,11 @@ public class IncomeOutgoingForCategoryPieChartCalculator {
 				.paramsAsCollection(transaction -> calculateTransactionValueInEuro(currencyConversionFactors, transaction), transactions)
 				.calc();
 		
-		return transactions.stream()
+		List<DtoChartSeries<Object, Number>> result = transactions.stream()
 				.map(transaction -> mapEntry(currencyConversionFactors, transaction, sumOfAllTransactions))
 				.collect(Collectors.toList());
+		
+		return aggregateSmallTransactions(sumOfAllTransactions, result);
 	}
 	
 	private DtoChartSeries<Object, Number> mapEntry(
@@ -102,27 +107,36 @@ public class IncomeOutgoingForCategoryPieChartCalculator {
 		result.setColor(StringColorUtil.convertTextToColor(name));
 		
 		BigDecimal value = calculateTransactionValueInEuro(currencyConversionFactors, transaction);
+		BigDecimal percentage = calculatePercentage(sumOfAllTransactions, value);
 		
-		BigDecimal percentage = SCalcBuilder.bigDecimalInstance()
-				.expression("value * 100 / sumOfAllTransactions")
-				.build()
-				.parameter("value", value)
-				.parameter("sumOfAllTransactions", sumOfAllTransactions)
-				.calc();
+		String description = buildDescription(transaction.getUsage(), transaction.getValutaDate(), value, percentage);
 		
-		String description = String.format(
-				"%s: %s\n%s: %s %%\n%s: %s",
+		result.setPoints(Lists.newArrayList(new DtoChartPoint(name, value, description)));
+		
+		return result;
+	}
+	
+	private String buildDescription(String description, LocalDate date, BigDecimal value, BigDecimal percentage) {
+		return String.format(
+				"%s: %s\n%s: %s %%\n%s: %s\n%s: %s",
 				MessageAdapter.getByKey(MessageKey.ANALYSIS_SUM_IN_EUR),
 				MessageAdapter.formatNumber(value),
 				MessageAdapter.getByKey(MessageKey.ANALYSIS_PERCENTAGE),
 				MessageAdapter.formatNumber(percentage),
 				MessageAdapter.getByKey(MessageKey.ANALYSIS_DESCRIPTION),
-				transaction.getUsage()
+				description,
+				MessageAdapter.getByKey(MessageKey.ANALYSIS_DATE),
+				StringUtils.defaultIfBlank(MessageAdapter.formatDate(date), "-")
 		);
-		
-		result.setPoints(Lists.newArrayList(new DtoChartPoint(name, value, description)));
-		
-		return result;
+	}
+	
+	private BigDecimal calculatePercentage(BigDecimal sumOfAllTransactions, Number value) {
+		return SCalcBuilder.bigDecimalInstance()
+				.expression("value * 100 / sumOfAllTransactions")
+				.build()
+				.parameter("value", value)
+				.parameter("sumOfAllTransactions", sumOfAllTransactions)
+				.calc();
 	}
 	
 	private BigDecimal calculateTransactionValueInEuro(
@@ -140,5 +154,56 @@ public class IncomeOutgoingForCategoryPieChartCalculator {
 				.build()
 				.parameter("value", value)
 				.calc();
+	}
+	
+	private List<DtoChartSeries<Object, Number>> aggregateSmallTransactions(
+			BigDecimal sumOfAllTransactions,
+			List<DtoChartSeries<Object, Number>> inputTransactions) {
+		
+		List<DtoChartSeries<Object, Number>> transactionsToKeep = Lists.newArrayListWithExpectedSize(inputTransactions.size());
+		List<DtoChartSeries<Object, Number>> transactionsToAggregate = Lists.newArrayListWithExpectedSize(inputTransactions.size());
+		
+		for (DtoChartSeries<Object, Number> transaction : inputTransactions) {
+			BigDecimal percentage = calculatePercentage(sumOfAllTransactions, transaction.getPoints().get(0).getY());
+			
+			if (percentage.doubleValue() < BORDER_TO_AGGREGATE_SMALL_TRANSACTIONS) {
+				transactionsToAggregate.add(transaction);
+			} else {
+				transactionsToKeep.add(transaction);
+			}
+		}
+		
+		List<DtoChartSeries<Object, Number>> result = Lists.newArrayListWithExpectedSize(inputTransactions.size());
+		result.addAll(transactionsToKeep);
+		
+		if (transactionsToAggregate.size() > 0) {
+			DtoChartSeries<Object, Number> aggregatedSerie = new DtoChartSeries<>();
+			
+			String name = MessageAdapter.getByKey(MessageKey.ANALYSIS_OTHER);
+			
+			aggregatedSerie.setName(name);
+			aggregatedSerie.setColor(StringColorUtil.convertTextToColor(name));
+			
+			BigDecimal sum = SCalcBuilder.bigDecimalInstance()
+					.sumExpression()
+					.build()
+					.paramsAsCollection(transaction -> transaction.getPoints().get(0).getY(), transactionsToAggregate)
+					.calc();
+			
+			BigDecimal percentage = calculatePercentage(sumOfAllTransactions, sum);
+			
+			String hint = MessageAdapter.getByKey(
+					MessageKey.ANALYSIS_TRANSACTIONS_AGGREGATE_DESCRIPTION,
+					MessageAdapter.formatNumber(BORDER_TO_AGGREGATE_SMALL_TRANSACTIONS)
+			);
+			
+			String description = buildDescription(hint, null, sum, percentage);
+			
+			aggregatedSerie.setPoints(Lists.newArrayList(new DtoChartPoint(name, sum, description)));
+			
+			result.add(aggregatedSerie);
+		}
+		
+		return result;
 	}
 }

@@ -40,18 +40,21 @@ public class IncomeOutgoingPieChartCalculator {
 	private final CashAccountTransactionJpaRepository cashAccountTransactionJpaRepository;
 	private final CurrencyConversionFactorLoadingController currencyConversionFactorLoadingController;
 	private final AssetEuroValueCalculator assetEuroValueCalculator;
+	private final UebertragTransactionFilter uebertragTransactionFilter;
 	
 	@Autowired
 	public IncomeOutgoingPieChartCalculator(
 			CashAccountJpaRepository cashAccountJpaRepository,
 			CashAccountTransactionJpaRepository cashAccountTransactionJpaRepository,
 			CurrencyConversionFactorLoadingController currencyConversionFactorLoadingController,
-			AssetEuroValueCalculator assetEuroValueCalculator) {
+			AssetEuroValueCalculator assetEuroValueCalculator,
+			UebertragTransactionFilter uebertragTransactionFilter) {
 		
 		this.cashAccountJpaRepository = cashAccountJpaRepository;
 		this.cashAccountTransactionJpaRepository = cashAccountTransactionJpaRepository;
 		this.currencyConversionFactorLoadingController = currencyConversionFactorLoadingController;
 		this.assetEuroValueCalculator = assetEuroValueCalculator;
+		this.uebertragTransactionFilter = uebertragTransactionFilter;
 	}
 	
 	public List<DtoChartSeries<Object, Number>> calculate(
@@ -68,11 +71,16 @@ public class IncomeOutgoingPieChartCalculator {
 				.collect(Collectors.toSet());
 		Multimap<String, CurrencyConversionFactor> currencyConversionFactors = currencyConversionFactorLoadingController.load(currencies);
 		
-		List<CashAccountTransaction> transactions = cashAccounts
+		List<CashAccountTransaction> allTransactions = cashAccounts
 				.stream()
 				.flatMap(cashAccount -> cashAccountTransactionJpaRepository.findByCashAccountAndDeletionDateIsNull(cashAccount).stream())
 				.filter(transaction -> transaction.getValutaDate().compareTo(startDate) >= 0)
 				.filter(transaction -> transaction.getValutaDate().compareTo(endDate) <= 0)
+				.collect(Collectors.toList());
+		
+		List<CashAccountTransaction> transactions = allTransactions
+				.stream()
+				.filter(transaction -> uebertragTransactionFilter.createNonUebertragPredicate(allTransactions).test(transaction))
 				.filter(transactionPredicate)
 				.collect(Collectors.toList());
 		

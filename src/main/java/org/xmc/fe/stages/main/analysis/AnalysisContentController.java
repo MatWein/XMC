@@ -29,6 +29,7 @@ import org.xmc.fe.ui.validation.components.ValidationComboBox;
 import org.xmc.fe.ui.validation.components.ValidationDatePicker;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.Optional;
 
 @FxmlController
@@ -143,7 +144,7 @@ public class AnalysisContentController {
 	}
 	
 	private <T> void showResultChart(Optional<T> result) {
-		if (result.isEmpty()) {
+		if (result.isEmpty() || (result.get() instanceof Collection && ((Collection<?>) result.get()).isEmpty())) {
 			showMessagePane(MessageKey.ANALYSIS_NO_CALCULATION_RESULT);
 			return;
 		}

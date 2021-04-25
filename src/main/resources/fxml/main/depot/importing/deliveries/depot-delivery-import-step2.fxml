@@ -4,6 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
 <?import org.xmc.common.stubs.importing.CsvSeparator?>
+<?import org.xmc.fe.ui.EnumUtil?>
 <?import org.xmc.fe.ui.validation.components.ValidationComboBox?>
 <?import org.xmc.fe.ui.validation.components.ValidationFileChooserField?>
 <?import java.lang.String?>
@@ -31,11 +32,7 @@
 	<Label styleClass="form-label" text="%depot.delivery.import.dialog.step2.csvSeparator"/>
 	<ValidationComboBox required="true" fx:id="csvSeparatorComboBox">
 		<items>
-			<FXCollections fx:factory="observableArrayList">
-				<CsvSeparator fx:value="SEMICOLON"/>
-				<CsvSeparator fx:value="COMMA"/>
-				<CsvSeparator fx:value="TAB"/>
-			</FXCollections>
+			<FXCollections fx:factory="observableArrayList" EnumUtil.enumClass="org.xmc.common.stubs.importing.CsvSeparator" />
 		</items>
 		<value>
 			<CsvSeparator fx:value="SEMICOLON" />

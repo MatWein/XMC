@@ -12,6 +12,7 @@ import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 import org.xmc.fe.ui.charts.ExtendedBarChart;
 import org.xmc.fe.ui.charts.ExtendedLineChart;
+import org.xmc.fe.ui.charts.ExtendedPieChart;
 import org.xmc.fe.ui.charts.LocalDateTimeAxis;
 import org.xmc.fe.ui.converter.GenericItemToStringConverter;
 
@@ -29,6 +30,9 @@ public class ChartNodeFactory {
 				return createAssetValueLineChart((List<DtoChartSeries<Number, Number>>) result, analysisType);
 			case TRANSACTIONS:
 				return createTransactionsBarChart((List<DtoChartSeries<String, Number>>) result, analysisType);
+			case INCOME:
+			case OUTGOING:
+				return createPieChart((List<DtoChartSeries<Object, Number>>) result, analysisType);
 			default:
 				String message = String.format("Could not show chart for unknown analysis type '%s'.", analysisType);
 				LOGGER.error(message);
@@ -68,5 +72,14 @@ public class ChartNodeFactory {
 		lineChart.applyData(series);
 		
 		return lineChart;
+	}
+	
+	private ExtendedPieChart createPieChart(List<DtoChartSeries<Object, Number>> result, AnalysisType analysisType) {
+		ExtendedPieChart pieChart = new ExtendedPieChart();
+		
+		pieChart.setTitle(MessageAdapter.getByKey(MessageKey.ANALYSIS_TYPE, analysisType));
+		pieChart.applyData(result);
+		
+		return pieChart;
 	}
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.xmc.be.services.analysis.calculation.AbsoluteAssetValueLineChartAggregator;
 import org.xmc.be.services.analysis.calculation.AbsoluteAssetValueLineChartCalculator;
+import org.xmc.be.services.analysis.calculation.IncomeOutgoingPieChartCalculator;
 import org.xmc.be.services.analysis.calculation.TransactionsBarChartCalculator;
 import org.xmc.common.stubs.analysis.AssetType;
 import org.xmc.common.stubs.analysis.charts.DtoChartSeries;
@@ -16,6 +17,7 @@ import org.xmc.fe.async.AsyncMonitor;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -26,16 +28,19 @@ public class AnalysisChartCalculationService {
 	private final AbsoluteAssetValueLineChartCalculator absoluteAssetValueLineChartCalculator;
 	private final AbsoluteAssetValueLineChartAggregator absoluteAssetValueLineChartAggregator;
 	private final TransactionsBarChartCalculator transactionsBarChartCalculator;
+	private final IncomeOutgoingPieChartCalculator incomeOutgoingPieChartCalculator;
 	
 	@Autowired
 	public AnalysisChartCalculationService(
 			AbsoluteAssetValueLineChartCalculator absoluteAssetValueLineChartCalculator,
 			AbsoluteAssetValueLineChartAggregator absoluteAssetValueLineChartAggregator,
-			TransactionsBarChartCalculator transactionsBarChartCalculator) {
+			TransactionsBarChartCalculator transactionsBarChartCalculator,
+			IncomeOutgoingPieChartCalculator incomeOutgoingPieChartCalculator) {
 		
 		this.absoluteAssetValueLineChartCalculator = absoluteAssetValueLineChartCalculator;
 		this.absoluteAssetValueLineChartAggregator = absoluteAssetValueLineChartAggregator;
 		this.transactionsBarChartCalculator = transactionsBarChartCalculator;
+		this.incomeOutgoingPieChartCalculator = incomeOutgoingPieChartCalculator;
 	}
 	
 	public List<DtoChartSeries<Number, Number>> calculateAbsoluteAssetValueLineChart(
@@ -94,5 +99,29 @@ public class AnalysisChartCalculationService {
 		monitor.setStatusText(MessageKey.ASYNC_TASK_CALCULATING_CHART);
 		
 		return transactionsBarChartCalculator.calculate(assetIds, startDate, endDate);
+	}
+	
+	public List<DtoChartSeries<Object, Number>> calculateIncome(
+			AsyncMonitor monitor,
+			Collection<Long> cashAccountIds,
+			LocalDate startDate,
+			LocalDate endDate) {
+		
+		LOGGER.info("Calculating income pie chart for cashaccounts {}. Start date: {}. End date: {}", cashAccountIds, startDate, endDate);
+		monitor.setStatusText(MessageKey.ASYNC_TASK_CALCULATING_CHART);
+		
+		return incomeOutgoingPieChartCalculator.calculate(cashAccountIds, startDate, endDate, transaction -> transaction.getValue().doubleValue() > 0.0);
+	}
+	
+	public List<DtoChartSeries<Object, Number>> calculateOutgoing(
+			AsyncMonitor monitor,
+			Collection<Long> cashAccountIds,
+			LocalDate startDate,
+			LocalDate endDate) {
+		
+		LOGGER.info("Calculating outgoing pie chart for cashaccounts {}. Start date: {}. End date: {}", cashAccountIds, startDate, endDate);
+		monitor.setStatusText(MessageKey.ASYNC_TASK_CALCULATING_CHART);
+		
+		return incomeOutgoingPieChartCalculator.calculate(cashAccountIds, startDate, endDate, transaction -> transaction.getValue().doubleValue() < 0.0);
 	}
 }

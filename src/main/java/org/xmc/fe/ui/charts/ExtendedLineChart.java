@@ -47,6 +47,8 @@ public class ExtendedLineChart<X, Y> extends AnchorPane implements IChartBase<X,
 		List<XYChart.Series<X, Y>> mappedSeries = new XYChartSeriesMapper().mapAll(this, series);
 		chart.getData().addAll(mappedSeries);
 		
+		chart.widthProperty().addListener((obs, b, b1) -> applyChartLineColors(series));
+		
 		applyChartLineColors(series);
 		applyMouseMoveListener();
 	}

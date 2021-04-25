@@ -324,7 +324,10 @@ public class MessageAdapter {
 	    ANALYSIS_AXIS_VALUE_IN_EUR("analysis.axis.valueInEur"),
 	    ANALYSIS_CHART_POINT_XY_HOVER("analysis.chartPointXY.hover"),
 	    ANALYSIS_CHART_AGGREGATED_SERIES_NAME("analysis.chartPointXY.aggregatedSeriesName"),
-	    ANALYSIS_COUNTER("main.tabs.analysis.counter")
+	    ANALYSIS_COUNTER("main.tabs.analysis.counter"),
+	    ANALYSIS_OTHER("analysis.other"),
+	    ANALYSIS_SUM_IN_EUR("analysis.sumInEuro"),
+	    ANALYSIS_PERCENTAGE("analysis.percentage")
         ;
 
         private final String key;

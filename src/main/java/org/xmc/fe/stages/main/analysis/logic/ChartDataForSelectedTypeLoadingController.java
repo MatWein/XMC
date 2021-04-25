@@ -60,6 +60,18 @@ public class ChartDataForSelectedTypeLoadingController {
 						selectedAssetIds,
 						startDate,
 						endDate));
+			case INCOME:
+				return (Optional)Optional.of(analysisChartCalculationService.calculateIncome(
+						monitor,
+						selectedAssetIds.get(AssetType.CASHACCOUNT),
+						startDate,
+						endDate));
+			case OUTGOING:
+				return (Optional)Optional.of(analysisChartCalculationService.calculateOutgoing(
+						monitor,
+						selectedAssetIds.get(AssetType.CASHACCOUNT),
+						startDate,
+						endDate));
 			default:
 				String message = String.format("Could not calculate chart for unknown analysis type '%s'.", analysisType);
 				LOGGER.error(message);

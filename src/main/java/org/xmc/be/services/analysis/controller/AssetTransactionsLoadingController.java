@@ -42,7 +42,7 @@ public class AssetTransactionsLoadingController {
 		return deliveries;
 	}
 	
-	private List<DtoAssetPoints> loadTransactionsForAssetType(
+	public List<DtoAssetPoints> loadTransactionsForAssetType(
 			AssetType assetType,
 			Collection<Long> assetIds,
 			LocalDate startDate,

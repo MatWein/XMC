@@ -4,8 +4,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import org.xmc.common.stubs.analysis.*?>
+<?import org.xmc.common.stubs.analysis.TimeRange?>
 <?import org.xmc.fe.ui.components.ButtonImageView?>
+<?import org.xmc.fe.ui.EnumUtil?>
 <?import org.xmc.fe.ui.validation.components.*?>
 <VBox stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
 	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.analysis.AnalysisContentController"
@@ -35,12 +36,7 @@
 			<Label styleClass="form-label-first" text="%main.analysis.analysisType"/>
 			<ValidationComboBox required="false" fx:id="analysisTypeComboBox">
 				<items>
-					<FXCollections fx:factory="observableArrayList">
-						<AnalysisType fx:value="ABSOLUTE_ASSET_VALUE"/>
-						<AnalysisType fx:value="AGGREGATED_ASSET_VALUE"/>
-						<AnalysisType fx:value="ABSOLUTE_AND_AGGREGATED_ASSET_VALUE"/>
-						<AnalysisType fx:value="TRANSACTIONS"/>
-					</FXCollections>
+					<FXCollections fx:factory="observableArrayList" EnumUtil.enumClass="org.xmc.common.stubs.analysis.AnalysisType" />
 				</items>
 			</ValidationComboBox>
 
@@ -50,14 +46,7 @@
 			<Label styleClass="form-label" text="%main.analysis.timeRange"/>
 			<ValidationComboBox required="false" fx:id="timeRangeComboBox">
 				<items>
-					<FXCollections fx:factory="observableArrayList">
-						<TimeRange fx:value="USER_DEFINED"/>
-						<TimeRange fx:value="LAST_MONTH"/>
-						<TimeRange fx:value="LAST_QUARTER"/>
-						<TimeRange fx:value="LAST_HALF_YEAR"/>
-						<TimeRange fx:value="LAST_YEAR"/>
-						<TimeRange fx:value="MAXIMUM"/>
-					</FXCollections>
+					<FXCollections fx:factory="observableArrayList" EnumUtil.enumClass="org.xmc.common.stubs.analysis.TimeRange" />
 				</items>
 				<value>
 					<TimeRange fx:value="USER_DEFINED" />

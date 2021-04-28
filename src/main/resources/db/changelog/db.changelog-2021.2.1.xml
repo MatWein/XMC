@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog logicalFilePath="db.changelog-master.xml" xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+	<changeSet id="2021-04-28-add_analysis_favourite_tables" author="matthias.weinert">
+		<createTable tableName="ANALYSIS_FAVOURITES">
+			<column name="ID" autoIncrement="true" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="TYPE" type="varchar(255)">
+				<constraints nullable="false "/>
+			</column>
+			<column name="NAME" type="varchar(255)">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="START_DATE" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="END_DATE" type="date">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<createTable tableName="ANALYSIS_FAVOURITES_CASHACCOUNTS">
+			<column name="ANALYSIS_FAVOURITE_ID" type="bigint">
+				<constraints nullable="false" foreignKeyName="FK_ANALYSIS_FAVOURITES_CASHACCOUNTS_ANALYSIS_FAVOURITE_ID" references="ANALYSIS_FAVOURITES(ID)" />
+			</column>
+			<column name="CASHACCOUNT_ID" type="bigint">
+				<constraints nullable="false" foreignKeyName="FK_ANALYSIS_FAVOURITES_CASHACCOUNTS_CASHACCOUNT_ID" references="CASH_ACCOUNTS(ID)" />
+			</column>
+		</createTable>
+
+		<createTable tableName="ANALYSIS_FAVOURITES_DEPOTS">
+			<column name="ANALYSIS_FAVOURITE_ID" type="bigint">
+				<constraints nullable="false" foreignKeyName="FK_ANALYSIS_FAVOURITES_DEPOTS_ANALYSIS_FAVOURITE_ID" references="ANALYSIS_FAVOURITES(ID)" />
+			</column>
+			<column name="DEPOT_ID" type="bigint">
+				<constraints nullable="false" foreignKeyName="FK_ANALYSIS_FAVOURITES_DEPOTS_DEPOT_ID" references="DEPOTS(ID)" />
+			</column>
+		</createTable>
+	</changeSet>
+
+</databaseChangeLog>

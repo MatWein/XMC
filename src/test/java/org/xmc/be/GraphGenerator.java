@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Component;
 import org.xmc.be.entities.Bank;
 import org.xmc.be.entities.BinaryData;
+import org.xmc.be.entities.analysis.AnalysisFavourite;
 import org.xmc.be.entities.cashaccount.CashAccount;
 import org.xmc.be.entities.cashaccount.CashAccountTransaction;
 import org.xmc.be.entities.cashaccount.Category;
@@ -16,6 +17,7 @@ import org.xmc.be.entities.settings.Setting;
 import org.xmc.be.entities.settings.SettingType;
 import org.xmc.be.entities.user.ServiceCallLog;
 import org.xmc.be.entities.user.User;
+import org.xmc.common.stubs.analysis.AnalysisType;
 import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
 import org.xmc.common.stubs.importing.CsvSeparator;
 import org.xmc.common.stubs.importing.ImportType;
@@ -382,5 +384,22 @@ public class GraphGenerator {
 	    session().persist(currencyConversionFactor);
 	    
 	    return currencyConversionFactor;
+    }
+    
+    public AnalysisFavourite createAnalysisFavourite() {
+    	return createAnalysisFavourite(UUID.randomUUID().toString(), AnalysisType.ABSOLUTE_AND_AGGREGATED_ASSET_VALUE);
+    }
+    
+    public AnalysisFavourite createAnalysisFavourite(String name, AnalysisType type) {
+	    var analysisFavourite = new AnalysisFavourite();
+	
+	    analysisFavourite.setType(type);
+	    analysisFavourite.setName(name);
+	    analysisFavourite.setStartDate(LocalDate.now());
+	    analysisFavourite.setEndDate(LocalDate.now());
+	    
+	    session().persist(analysisFavourite);
+	    
+	    return analysisFavourite;
     }
 }

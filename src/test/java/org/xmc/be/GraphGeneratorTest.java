@@ -6,6 +6,7 @@ import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.xmc.be.entities.analysis.AnalysisFavourite;
 
 import javax.persistence.Entity;
 import java.lang.reflect.Method;
@@ -43,5 +44,26 @@ class GraphGeneratorTest extends IntegrationTest {
 				Assertions.fail(String.format("Graph generator has no method named '%s'.", methodName));
 			}
 		}
+	}
+	
+	@Test
+	void testCreateAnalysisFavourite() {
+		AnalysisFavourite analysisFavourite = graphGenerator.createAnalysisFavourite();
+		
+		analysisFavourite.getDepots().add(graphGenerator.createDepot());
+		analysisFavourite.getDepots().add(graphGenerator.createDepot());
+		analysisFavourite.getCashAccounts().add(graphGenerator.createCashAccount());
+		analysisFavourite.getCashAccounts().add(graphGenerator.createCashAccount());
+		analysisFavourite.getCashAccounts().add(graphGenerator.createCashAccount());
+		
+		session().saveOrUpdate(analysisFavourite);
+		
+		session().flush();
+		session().clear();
+		
+		analysisFavourite = session().load(AnalysisFavourite.class, analysisFavourite.getId());
+		
+		Assertions.assertEquals(3, analysisFavourite.getCashAccounts().size());
+		Assertions.assertEquals(2, analysisFavourite.getDepots().size());
 	}
 }

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.xmc.be.entities.cashaccount.CashAccountTransaction;
 import org.xmc.be.services.analysis.calculation.*;
 import org.xmc.common.stubs.analysis.AssetType;
+import org.xmc.common.stubs.analysis.DtoMostRecentTransaction;
 import org.xmc.common.stubs.analysis.charts.DtoChartSeries;
 import org.xmc.fe.async.AsyncMonitor;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
@@ -32,6 +33,7 @@ public class AnalysisChartCalculationService {
 	private final TransactionsBarChartCalculator transactionsBarChartCalculator;
 	private final IncomeOutgoingPieChartCalculator incomeOutgoingPieChartCalculator;
 	private final IncomeOutgoingForCategoryPieChartCalculator incomeOutgoingForCategoryPieChartCalculator;
+	private final MostRecentTransactionsCalculator mostRecentTransactionsCalculator;
 	
 	@Autowired
 	public AnalysisChartCalculationService(
@@ -39,13 +41,15 @@ public class AnalysisChartCalculationService {
 			AbsoluteAssetValueLineChartAggregator absoluteAssetValueLineChartAggregator,
 			TransactionsBarChartCalculator transactionsBarChartCalculator,
 			IncomeOutgoingPieChartCalculator incomeOutgoingPieChartCalculator,
-			IncomeOutgoingForCategoryPieChartCalculator incomeOutgoingForCategoryPieChartCalculator) {
+			IncomeOutgoingForCategoryPieChartCalculator incomeOutgoingForCategoryPieChartCalculator,
+			MostRecentTransactionsCalculator mostRecentTransactionsCalculator) {
 		
 		this.absoluteAssetValueLineChartCalculator = absoluteAssetValueLineChartCalculator;
 		this.absoluteAssetValueLineChartAggregator = absoluteAssetValueLineChartAggregator;
 		this.transactionsBarChartCalculator = transactionsBarChartCalculator;
 		this.incomeOutgoingPieChartCalculator = incomeOutgoingPieChartCalculator;
 		this.incomeOutgoingForCategoryPieChartCalculator = incomeOutgoingForCategoryPieChartCalculator;
+		this.mostRecentTransactionsCalculator = mostRecentTransactionsCalculator;
 	}
 	
 	public List<DtoChartSeries<Number, Number>> calculateAbsoluteAssetValueLineChart(
@@ -156,5 +160,15 @@ public class AnalysisChartCalculationService {
 		monitor.setStatusText(MessageKey.ASYNC_TASK_CALCULATING_CHART);
 		
 		return incomeOutgoingForCategoryPieChartCalculator.calculate(cashAccountIds, categoryId, startDate, endDate, OUTGOING_FILTER);
+	}
+	
+	public List<DtoMostRecentTransaction> calculateMostRecentTransactions(
+			AsyncMonitor monitor,
+			Multimap<AssetType, Long> assetIds) {
+		
+		LOGGER.info("Calculating most recent transactions for {}.", assetIds);
+		monitor.setStatusText(MessageKey.ASYNC_TASK_CALCULATING_CHART);
+		
+		return mostRecentTransactionsCalculator.calculate(assetIds);
 	}
 }

@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.xmc.common.stubs.analysis.AnalysisType;
+import org.xmc.common.stubs.analysis.DtoMostRecentTransaction;
 import org.xmc.common.stubs.analysis.charts.DtoChartSeries;
 
 import java.util.List;
@@ -17,16 +18,19 @@ public class ChartNodeFactory {
 	private final IncomeOutgoingPieChartFactory incomeOutgoingPieChartFactory;
 	private final TransactionsBarChartFactory transactionsBarChartFactory;
 	private final AssetValueLineChartFactory assetValueLineChartFactory;
+	private final MostRecentTransactionNodeFactory mostRecentTransactionNodeFactory;
 	
 	@Autowired
 	public ChartNodeFactory(
 			IncomeOutgoingPieChartFactory incomeOutgoingPieChartFactory,
 			TransactionsBarChartFactory transactionsBarChartFactory,
-			AssetValueLineChartFactory assetValueLineChartFactory) {
+			AssetValueLineChartFactory assetValueLineChartFactory,
+			MostRecentTransactionNodeFactory mostRecentTransactionNodeFactory) {
 		
 		this.incomeOutgoingPieChartFactory = incomeOutgoingPieChartFactory;
 		this.transactionsBarChartFactory = transactionsBarChartFactory;
 		this.assetValueLineChartFactory = assetValueLineChartFactory;
+		this.mostRecentTransactionNodeFactory = mostRecentTransactionNodeFactory;
 	}
 	
 	public <T> Node createChart(T result, AnalysisType analysisType) {
@@ -40,6 +44,8 @@ public class ChartNodeFactory {
 			case INCOME:
 			case OUTGOING:
 				return incomeOutgoingPieChartFactory.createIncomeOutgoingPieChart((List<DtoChartSeries<Object, Number>>) result, analysisType);
+			case MOST_RECENT_TRANSACTIONS:
+				return mostRecentTransactionNodeFactory.createNode((List<DtoMostRecentTransaction>)result);
 			default:
 				String message = String.format("Could not show chart for unknown analysis type '%s'.", analysisType);
 				LOGGER.error(message);

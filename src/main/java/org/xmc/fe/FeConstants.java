@@ -26,6 +26,7 @@ public interface FeConstants {
     Image IMAGE_MINUS_SQUARE = ImageUtil.readFromClasspath$("/images/feather/minus-square.png");
 
     String BASE_CSS_PATH = "/css/xmc-base.css";
+    String DASHBOARD_CSS_PATH = "/css/main/dashboard/dashboard.css";
 
     Duration DEFAULT_DELAY = Duration.millis(500);
 }

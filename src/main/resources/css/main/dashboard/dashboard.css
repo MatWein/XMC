@@ -1,0 +1,18 @@
+
+.transaction-view-pane .transaction-view {
+	-fx-pref-height: 80.0;
+	-fx-border-width: 0 0 2 0;
+	-fx-border-color: xmc-border-color-1;
+}
+
+.transaction-view-pane .positive-value {
+	-fx-text-fill: green;
+	-fx-font-size: 16;
+	-fx-font-weight: bold;
+}
+
+.transaction-view-pane .negative-value {
+	-fx-text-fill: red;
+	-fx-font-size: 16;
+	-fx-font-weight: bold;
+}

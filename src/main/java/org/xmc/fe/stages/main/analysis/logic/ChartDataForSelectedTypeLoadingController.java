@@ -60,6 +60,10 @@ public class ChartDataForSelectedTypeLoadingController {
 						selectedAssetIds,
 						startDate,
 						endDate));
+			case MOST_RECENT_TRANSACTIONS:
+				return (Optional)Optional.of(analysisChartCalculationService.calculateMostRecentTransactions(
+						monitor,
+						selectedAssetIds));
 			case INCOME:
 				return (Optional)Optional.of(analysisChartCalculationService.calculateIncome(
 						monitor,

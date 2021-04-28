@@ -33,11 +33,11 @@ public class CashAccountTransactionLoadingController {
 	
 	public List<DtoAssetPoints> loadTransactionsForCashAccounts(List<Long> cashAccountIds, LocalDate startDate, LocalDate endDate) {
 		return cashAccountIds.stream()
-				.map(cashAccountId -> loadDeliveriesForCashAccount(cashAccountId, startDate, endDate))
+				.map(cashAccountId -> loadTransactionsForCashAccount(cashAccountId, startDate, endDate))
 				.collect(Collectors.toList());
 	}
 	
-	private DtoAssetPoints loadDeliveriesForCashAccount(long cashAccountId, LocalDate startDate, LocalDate endDate) {
+	private DtoAssetPoints loadTransactionsForCashAccount(long cashAccountId, LocalDate startDate, LocalDate endDate) {
 		DtoAssetPoints result = new DtoAssetPoints();
 		
 		result.setAssetId(cashAccountId);

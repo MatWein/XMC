@@ -60,11 +60,17 @@ public interface CashAccountTransactionJpaRepository extends JpaRepository<CashA
 	
 	@Query("SELECT cat FROM CashAccountTransaction cat " +
 			"WHERE cat.deletionDate IS NULL AND cat.cashAccount.id in (:cashAccountIds) " +
+			"ORDER BY cat.valutaDate DESC, cat.creationDate DESC, cat.id DESC"
+	)
+    List<CashAccountTransaction> findMostRecentTransactions(Collection<Long> cashAccountIds, Pageable pageable);
+	
+	@Query("SELECT cat FROM CashAccountTransaction cat " +
+			"WHERE cat.deletionDate IS NULL AND cat.cashAccount.id in (:cashAccountIds) " +
 			"ORDER BY cat.valutaDate ASC, cat.creationDate ASC, cat.id ASC"
 	)
-    List<CashAccountTransaction> findAllTransaction(Collection<Long> cashAccountIds, Pageable pageable);
+    List<CashAccountTransaction> findAllTransactions(Collection<Long> cashAccountIds, Pageable pageable);
 	
 	default Optional<CashAccountTransaction> findFirstTransaction(Collection<Long> cashAccountIds) {
-		return findAllTransaction(cashAccountIds, PageRequest.of(0, 1)).stream().findFirst();
+		return findAllTransactions(cashAccountIds, PageRequest.of(0, 1)).stream().findFirst();
 	}
 }

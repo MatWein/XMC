@@ -19,7 +19,7 @@ public class DepotTransactionFinder {
 				.filter(transaction -> transaction.getIsin().equalsIgnoreCase(row.getIsin()))
 				.filter(transaction -> transaction.getValutaDate().equals(row.getValutaDate()))
 				.filter(transaction -> transaction.getAmount().setScale(2, RoundingMode.HALF_UP).equals(row.getAmount().setScale(2, RoundingMode.HALF_UP)))
-				.filter(transaction -> transaction.getCurrency().equalsIgnoreCase(row.getCurrency().getCurrencyCode()))
+				.filter(transaction -> transaction.getCurrency().equals(row.getCurrency()))
 				.collect(Collectors.toList());
 		
 		if (matches.size() == 1) {

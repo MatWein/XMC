@@ -18,6 +18,11 @@ public class SettingsController {
 	}
 	
 	@FXML
+	public void onAnalyseFavourites() {
+		switchContent(FxmlKey.SETTINGS_ANALYSE_FAVOURITES);
+	}
+	
+	@FXML
 	public void onExtras() {
 		switchContent(FxmlKey.SETTINGS_EXTRAS);
 	}

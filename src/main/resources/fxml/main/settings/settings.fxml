@@ -9,6 +9,7 @@
 	  fx:controller="org.xmc.fe.stages.main.settings.SettingsController">
 
 	<VBox layoutX="202.0" layoutY="150.0" prefHeight="546.0" prefWidth="230.0" spacing="5">
+		<Button maxWidth="Infinity" text="%settings.menu.analyseFavourites" onAction="#onAnalyseFavourites" />
 		<Button maxWidth="Infinity" text="%settings.menu.importTemplates" onAction="#onImportTemplates" />
 		<Button maxWidth="Infinity" text="%settings.menu.extras" onAction="#onExtras" />
 	</VBox>

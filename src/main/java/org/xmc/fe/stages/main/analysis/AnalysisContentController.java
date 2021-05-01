@@ -18,11 +18,7 @@ import org.xmc.common.stubs.analysis.DtoAnalysisFavourite;
 import org.xmc.common.stubs.analysis.DtoAssetSelection;
 import org.xmc.common.stubs.analysis.TimeRange;
 import org.xmc.fe.async.AsyncProcessor;
-import org.xmc.fe.stages.main.MainController;
-import org.xmc.fe.stages.main.analysis.logic.ChartDataForSelectedTypeLoadingController;
-import org.xmc.fe.stages.main.analysis.logic.ChartNodeFactory;
-import org.xmc.fe.stages.main.analysis.logic.SelectedAssetIdsExtractor;
-import org.xmc.fe.stages.main.analysis.logic.SelectedAssetIdsSelector;
+import org.xmc.fe.stages.main.analysis.logic.*;
 import org.xmc.fe.stages.main.analysis.mapper.DtoAssetSelectionTreeItemMapper;
 import org.xmc.fe.ui.DialogHelper;
 import org.xmc.fe.ui.FxmlComponentFactory;
@@ -35,8 +31,9 @@ import org.xmc.fe.ui.validation.components.ValidationComboBox;
 import org.xmc.fe.ui.validation.components.ValidationDatePicker;
 
 import java.time.LocalDate;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 @FxmlController
 public class AnalysisContentController {
@@ -49,6 +46,7 @@ public class AnalysisContentController {
 	private final SelectedAssetIdsExtractor selectedAssetIdsExtractor;
 	private final AnalysisFavouriteService analysisFavouriteService;
 	private final SelectedAssetIdsSelector selectedAssetIdsSelector;
+	private final AnalysisAllFavouritesRefreshController analysisAllFavouritesRefreshController;
 	
 	@FXML private MenuButton favouriteMenuButton;
 	@FXML private ValidationComboBox<AnalysisType> analysisTypeComboBox;
@@ -69,7 +67,8 @@ public class AnalysisContentController {
 			ChartDataForSelectedTypeLoadingController chartDataForSelectedTypeLoadingController,
 			SelectedAssetIdsExtractor selectedAssetIdsExtractor,
 			AnalysisFavouriteService analysisFavouriteService,
-			SelectedAssetIdsSelector selectedAssetIdsSelector) {
+			SelectedAssetIdsSelector selectedAssetIdsSelector,
+			AnalysisAllFavouritesRefreshController analysisAllFavouritesRefreshController) {
 		
 		this.timeRangeService = timeRangeService;
 		this.asyncProcessor = asyncProcessor;
@@ -80,6 +79,7 @@ public class AnalysisContentController {
 		this.selectedAssetIdsExtractor = selectedAssetIdsExtractor;
 		this.analysisFavouriteService = analysisFavouriteService;
 		this.selectedAssetIdsSelector = selectedAssetIdsSelector;
+		this.analysisAllFavouritesRefreshController = analysisAllFavouritesRefreshController;
 	}
 	
 	@FXML
@@ -108,7 +108,7 @@ public class AnalysisContentController {
 	
 	@FXML
 	public void clearInput() {
-		analysisTypeComboBox.setValue(null);
+		analysisTypeComboBox.setValue(AnalysisType.ABSOLUTE_AND_AGGREGATED_ASSET_VALUE);
 		
 		refreshAssetTree();
 		
@@ -134,7 +134,7 @@ public class AnalysisContentController {
 			asyncProcessor.runAsyncVoid(
 					() -> {},
 					monitor -> analysisFavouriteService.saveOrUpdateAnalysisFavourite(monitor, analysisToSave),
-					this::refreshAllFavourites
+					analysisAllFavouritesRefreshController::refreshAllFavourites
 			);
 		}
 	}
@@ -175,28 +175,6 @@ public class AnalysisContentController {
 		onCalculate();
 	}
 	
-	private void refreshAllFavourites() {
-		Set<AnalysisContentController> analysisContentControllers = findAllAnalysisController();
-		
-		asyncProcessor.runAsync(
-				analysisFavouriteService::loadAnalyseFavourites,
-				result -> {
-					for (AnalysisContentController controller : analysisContentControllers) {
-						controller.updateFavouriteMenuButton(result);
-					}
-				}
-		);
-	}
-	
-	private Set<AnalysisContentController> findAllAnalysisController() {
-		Set<Node> buttons = MainController.mainWindow.getScene().getRoot().lookupAll("#favouriteMenuButton");
-		
-		return buttons.stream()
-				.map(button -> (AnalysisContentController)button.getUserData())
-				.filter(Objects::nonNull)
-				.collect(Collectors.toSet());
-	}
-	
 	private void refreshFavourites() {
 		asyncProcessor.runAsync(
 				analysisFavouriteService::loadAnalyseFavourites,
@@ -204,7 +182,7 @@ public class AnalysisContentController {
 		);
 	}
 	
-	private void updateFavouriteMenuButton(List<DtoAnalysisFavourite> result) {
+	public void updateFavouriteMenuButton(List<DtoAnalysisFavourite> result) {
 		favouriteMenuButton.getItems().clear();
 		
 		for (DtoAnalysisFavourite favourite : result) {

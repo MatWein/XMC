@@ -9,6 +9,7 @@ import org.xmc.be.entities.importing.ImportTemplate;
 import org.xmc.be.entities.importing.ImportTemplateType;
 import org.xmc.be.repositories.importing.ImportTemplateJpaRepository;
 import org.xmc.be.services.importing.controller.ImportTemplateDeleteController;
+import org.xmc.be.services.importing.controller.ImportTemplateRenameController;
 import org.xmc.be.services.importing.mapper.ImportTemplateToDtoImportTemplateMapper;
 import org.xmc.be.services.importing.mapper.ImportTemplateToDtoImportTemplateOverviewMapper;
 import org.xmc.common.stubs.importing.DtoImportTemplate;
@@ -17,7 +18,6 @@ import org.xmc.fe.async.AsyncMonitor;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -28,18 +28,21 @@ public class ImportTemplateService {
 	private final ImportTemplateToDtoImportTemplateMapper importTemplateToDtoImportTemplateMapper;
 	private final ImportTemplateToDtoImportTemplateOverviewMapper importTemplateToDtoImportTemplateOverviewMapper;
 	private final ImportTemplateDeleteController importTemplateDeleteController;
+	private final ImportTemplateRenameController importTemplateRenameController;
 	
 	@Autowired
 	public ImportTemplateService(
 			ImportTemplateJpaRepository importTemplateJpaRepository,
 			ImportTemplateToDtoImportTemplateMapper importTemplateToDtoImportTemplateMapper,
 			ImportTemplateToDtoImportTemplateOverviewMapper importTemplateToDtoImportTemplateOverviewMapper,
-			ImportTemplateDeleteController importTemplateDeleteController) {
+			ImportTemplateDeleteController importTemplateDeleteController,
+			ImportTemplateRenameController importTemplateRenameController) {
 		
 		this.importTemplateJpaRepository = importTemplateJpaRepository;
 		this.importTemplateToDtoImportTemplateMapper = importTemplateToDtoImportTemplateMapper;
 		this.importTemplateToDtoImportTemplateOverviewMapper = importTemplateToDtoImportTemplateOverviewMapper;
 		this.importTemplateDeleteController = importTemplateDeleteController;
+		this.importTemplateRenameController = importTemplateRenameController;
 	}
 	
 	public <T extends Enum<T>> List<DtoImportTemplate<T>> loadImportTemplates(
@@ -62,15 +65,11 @@ public class ImportTemplateService {
 		return importTemplateToDtoImportTemplateOverviewMapper.mapAll(templates);
 	}
 	
-	public void rename(AsyncMonitor monitor, long templateId, String newName) {
+	public boolean rename(AsyncMonitor monitor, long templateId, String newName) {
 		LOGGER.info("Deleting importing template with id '{}'.", templateId);
 		monitor.setStatusText(MessageKey.ASYNC_TASK_RENAME_IMPORT_TEMPLATE);
 		
-		Optional<ImportTemplate> importTemplate = importTemplateJpaRepository.findById(templateId);
-		if (importTemplate.isPresent()) {
-			importTemplate.get().setName(newName);
-			importTemplateJpaRepository.save(importTemplate.get());
-		}
+		return importTemplateRenameController.rename(templateId, newName);
 	}
 	
 	public void delete(AsyncMonitor monitor, long templateId) {

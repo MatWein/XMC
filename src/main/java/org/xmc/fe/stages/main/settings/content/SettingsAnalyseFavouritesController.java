@@ -8,8 +8,8 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TablePosition;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.xmc.be.services.importing.ImportTemplateService;
-import org.xmc.common.stubs.importing.DtoImportTemplateOverview;
+import org.xmc.be.services.analysis.AnalysisFavouriteService;
+import org.xmc.common.stubs.analysis.DtoImportAnalyseFavouriteOverview;
 import org.xmc.fe.async.AsyncMonitor;
 import org.xmc.fe.async.AsyncProcessor;
 import org.xmc.fe.stages.main.analysis.logic.AnalysisAllFavouritesRefreshController;
@@ -19,69 +19,69 @@ import org.xmc.fe.ui.components.table.BaseTable;
 import java.util.List;
 
 @FxmlController
-public class SettingsImportTemplatesController {
+public class SettingsAnalyseFavouritesController {
 	private final AsyncProcessor asyncProcessor;
-	private final ImportTemplateService importTemplateService;
+	private final AnalysisFavouriteService analysisFavouriteService;
 	private final AnalysisAllFavouritesRefreshController analysisAllFavouritesRefreshController;
 	
 	@FXML private Button renameButton;
 	@FXML private Button deleteButton;
-	@FXML private BaseTable<DtoImportTemplateOverview> importTemplatesTable;
-	@FXML private VBox importTemplatesRoot;
+	@FXML private BaseTable<DtoImportAnalyseFavouriteOverview> analyseFavouritesTable;
+	@FXML private VBox analyseFavouritesRoot;
 	
 	@Autowired
-	public SettingsImportTemplatesController(
+	public SettingsAnalyseFavouritesController(
 			AsyncProcessor asyncProcessor,
-			ImportTemplateService importTemplateService,
+			AnalysisFavouriteService analysisFavouriteService,
 			AnalysisAllFavouritesRefreshController analysisAllFavouritesRefreshController) {
 		
 		this.asyncProcessor = asyncProcessor;
-		this.importTemplateService = importTemplateService;
+		this.analysisFavouriteService = analysisFavouriteService;
 		this.analysisAllFavouritesRefreshController = analysisAllFavouritesRefreshController;
 	}
 	
 	@FXML
 	public void initialize() {
-		BooleanBinding noTableItemSelected = importTemplatesTable.getSelectionModel().selectedItemProperty().isNull();
+		BooleanBinding noTableItemSelected = analyseFavouritesTable.getSelectionModel().selectedItemProperty().isNull();
 		renameButton.disableProperty().bind(noTableItemSelected);
 		deleteButton.disableProperty().bind(noTableItemSelected);
 		
 		asyncProcessor.runAsync(
-				() -> importTemplatesRoot.setDisable(true),
+				() -> analyseFavouritesRoot.setDisable(true),
 				this::loadSettings,
 				this::applySettings,
-				() -> importTemplatesRoot.setDisable(false)
+				() -> analyseFavouritesRoot.setDisable(false)
 		);
 	}
 	
-	private List<DtoImportTemplateOverview> loadSettings(AsyncMonitor monitor) {
-		return importTemplateService.loadImportTemplatesOverview(monitor);
+	private List<DtoImportAnalyseFavouriteOverview> loadSettings(AsyncMonitor monitor) {
+		return analysisFavouriteService.loadAnalyseFavouritesOverview(monitor);
 	}
 	
-	private void applySettings(List<DtoImportTemplateOverview> templates) {
-		importTemplatesTable.getItems().clear();
-		importTemplatesTable.getItems().addAll(templates);
+	private void applySettings(List<DtoImportAnalyseFavouriteOverview> items) {
+		analyseFavouritesTable.getItems().clear();
+		analyseFavouritesTable.getItems().addAll(items);
 	}
 	
 	@FXML
 	public void onRename() {
-		TablePosition selectedCell = importTemplatesTable.getSelectionModel().getSelectedCells().get(0);
+		TablePosition selectedCell = analyseFavouritesTable.getSelectionModel().getSelectedCells().get(0);
 		int row = selectedCell.getRow();
 		TableColumn column = selectedCell.getTableColumn();
 		
-		importTemplatesTable.edit(row, column);
+		analyseFavouritesTable.edit(row, column);
 	}
 	
 	@FXML
 	public void onDelete() {
-		DtoImportTemplateOverview selectedItem = importTemplatesTable.getSelectionModel().getSelectedItem();
-		long selectedTemplateId = selectedItem.getId();
+		DtoImportAnalyseFavouriteOverview selectedItem = analyseFavouritesTable.getSelectionModel().getSelectedItem();
+		long selectedAnalysisId = selectedItem.getId();
 		
 		asyncProcessor.runAsyncVoid(
 				() -> {},
-				monitor -> importTemplateService.delete(monitor, selectedTemplateId),
+				monitor -> analysisFavouriteService.delete(monitor, selectedAnalysisId),
 				() -> {
-					importTemplatesTable.getItems().remove(selectedItem);
+					analyseFavouritesTable.getItems().remove(selectedItem);
 					analysisAllFavouritesRefreshController.refreshAllFavourites();
 				}
 		);
@@ -94,15 +94,15 @@ public class SettingsImportTemplatesController {
 		
 		boolean valueChanged = !oldValue.equals(newValue);
 		if (valueChanged) {
-			long selectedTemplateId = importTemplatesTable.getSelectionModel().getSelectedItem().getId();
+			long selectedAnalysisId = analyseFavouritesTable.getSelectionModel().getSelectedItem().getId();
 			
 			asyncProcessor.runAsync(
-					monitor -> importTemplateService.rename(monitor, selectedTemplateId, newValue),
+					monitor -> analysisFavouriteService.rename(monitor, selectedAnalysisId, newValue),
 					renmingSuccessful -> {
 						if (renmingSuccessful) {
 							analysisAllFavouritesRefreshController.refreshAllFavourites();
 						} else {
-							importTemplatesTable.edit(event.getTablePosition().getRow(), (TableColumn)event.getTableColumn());
+							analyseFavouritesTable.edit(event.getTablePosition().getRow(), (TableColumn)event.getTableColumn());
 						}
 					}
 			);

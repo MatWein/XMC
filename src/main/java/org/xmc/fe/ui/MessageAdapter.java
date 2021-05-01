@@ -184,6 +184,8 @@ public class MessageAdapter {
 	    ASYNC_TASK_CALCULATING_CHART("async.task.calculatingChart"),
 	    ASYNC_TASK_SAVE_ANALYSIS_FAVOURITE("async.task.saveAnalysisFavourite"),
 	    ASYNC_TASK_LOAD_ANALYSIS_FAVOURITES("async.task.loadAnalysisFavourites"),
+	    ASYNC_TASK_DELETE_ANALYSIS_FAVOURITE("async.task.deleteAnalysisFavourite"),
+	    ASYNC_TASK_RENAME_ANALYSIS_FAVOURITE("async.task.renameAnalysisFavourite"),
 
         LOGIN_TITLE("login.title"),
 

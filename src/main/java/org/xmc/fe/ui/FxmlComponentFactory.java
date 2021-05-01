@@ -62,6 +62,7 @@ public class FxmlComponentFactory {
         CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP3("/fxml/main/cashaccount/importing/cashaccount-transaction-import-step3.fxml"),
         CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4("/fxml/main/cashaccount/importing/cashaccount-transaction-import-step4.fxml"),
         SETTINGS("/fxml/main/settings/settings.fxml"),
+        SETTINGS_ANALYSE_FAVOURITES("/fxml/main/settings/content/settings-analysefavourites.fxml"),
         SETTINGS_IMPORT_TEMPLATES("/fxml/main/settings/content/settings-importtemplates.fxml"),
         SETTINGS_EXTRAS("/fxml/main/settings/content/settings-extras.fxml"),
 	    STOCK_EDIT("/fxml/main/administration/stock-edit.fxml"),

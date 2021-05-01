@@ -19,7 +19,6 @@ import org.xmc.fe.async.AsyncMonitor;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -57,13 +56,10 @@ public class StockService {
 	}
 	
 	public void deleteStock(AsyncMonitor monitor, long stockId) {
+		LOGGER.info("Deleting stock with id '{}'.", stockId);
 		monitor.setStatusText(MessageKey.ASYNC_TASK_DELETE_STOCK);
 		
-		Optional<Stock> existingStock = stockJpaRepository.findById(stockId);
-		if (existingStock.isPresent()) {
-			LOGGER.info("Deleting stock '{}'.", existingStock.get());
-			stockJpaRepository.delete(existingStock.get());
-		}
+		stockJpaRepository.deleteById(stockId);
 	}
 	
 	public List<String> loadAllStockIsins() {

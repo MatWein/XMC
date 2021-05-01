@@ -44,4 +44,12 @@
 		</createTable>
 	</changeSet>
 
+	<changeSet id="2021-05-01-add_time_range_to_analysis_favourite" author="matthias.weinert">
+		<addColumn tableName="ANALYSIS_FAVOURITES">
+			<column name="TIME_RANGE" type="varchar(255)" defaultValue="USER_DEFINED">
+				<constraints nullable="false" />
+			</column>
+		</addColumn>
+	</changeSet>
+
 </databaseChangeLog>

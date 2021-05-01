@@ -2,10 +2,8 @@ package org.xmc.fe.ui;
 
 import com.google.common.collect.Lists;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.DialogPane;
 import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -35,6 +33,20 @@ public class DialogHelper {
                 .map(buttonType -> buttonType == ButtonType.OK)
                 .orElse(false);
     }
+	
+	public static Optional<String> showTextInputDialog(MessageKey messageKey, Object... args) {
+		TextInputDialog dialog = new TextInputDialog();
+		dialog.setHeaderText(null);
+		dialog.setContentText(MessageAdapter.getByKey(messageKey, args));
+		
+		DialogPane dialogPane = dialog.getDialogPane();
+		dialogPane.getStylesheets().add(FeConstants.BASE_CSS_PATH);
+		dialogPane.setMinWidth(350.0);
+		
+		prepareDefaultAlert(dialog);
+		
+		return dialog.showAndWait();
+	}
 
     public static Optional<File> showOpenFileDialog(Window ownerWindow, ExtensionFilterType extensionFilter) {
         FileChooser fileChooser = createFileChooser(extensionFilter);
@@ -69,7 +81,7 @@ public class DialogHelper {
         }
     }
 
-    private static void prepareDefaultAlert(Alert alert) {
+    private static void prepareDefaultAlert(Dialog<?> alert) {
         alert.setTitle(MessageAdapter.getByKey(MessageKey.APP_NAME));
 
         Scene scene = SceneBuilder.getInstance().build(alert.getDialogPane().getScene());

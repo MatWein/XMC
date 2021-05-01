@@ -5,6 +5,7 @@ import org.xmc.be.entities.PersistentObject;
 import org.xmc.be.entities.cashaccount.CashAccount;
 import org.xmc.be.entities.depot.Depot;
 import org.xmc.common.stubs.analysis.AnalysisType;
+import org.xmc.common.stubs.analysis.TimeRange;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -18,6 +19,10 @@ public class AnalysisFavourite extends PersistentObject {
 	@Column(name = "TYPE", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private AnalysisType type;
+	
+	@Column(name = "TIME_RANGE", nullable = false)
+	@Enumerated(EnumType.STRING)
+	private TimeRange timeRange;
 	
 	@Column(name = "NAME", nullable = false, unique = true)
 	private String name;
@@ -86,5 +91,13 @@ public class AnalysisFavourite extends PersistentObject {
 	
 	public void setDepots(Set<Depot> depots) {
 		this.depots = depots;
+	}
+	
+	public TimeRange getTimeRange() {
+		return timeRange;
+	}
+	
+	public void setTimeRange(TimeRange timeRange) {
+		this.timeRange = timeRange;
 	}
 }

@@ -182,6 +182,8 @@ public class MessageAdapter {
 	    ASYNC_TASK_IMPORTING_DEPOT_TRANSACTIONS("async.task.importingDepotTransactions"),
 	    ASYNC_TASK_LOAD_SELECTABLE_ASSETS_FOR_ANALYSIS("async.task.loadSelectableAssetsForAnalysis"),
 	    ASYNC_TASK_CALCULATING_CHART("async.task.calculatingChart"),
+	    ASYNC_TASK_SAVE_ANALYSIS_FAVOURITE("async.task.saveAnalysisFavourite"),
+	    ASYNC_TASK_LOAD_ANALYSIS_FAVOURITES("async.task.loadAnalysisFavourites"),
 
         LOGIN_TITLE("login.title"),
 
@@ -330,7 +332,8 @@ public class MessageAdapter {
 	    ANALYSIS_PERCENTAGE("analysis.percentage"),
 	    ANALYSIS_DESCRIPTION("analysis.description"),
 	    ANALYSIS_DATE("analysis.date"),
-	    ANALYSIS_TRANSACTIONS_AGGREGATE_DESCRIPTION("analysis.transactions.aggregateDescription")
+	    ANALYSIS_TRANSACTIONS_AGGREGATE_DESCRIPTION("analysis.transactions.aggregateDescription"),
+	    ANALYSIS_SAVE_FAVOURITE_NAME("analysis.save.favouriteName")
         ;
 
         private final String key;

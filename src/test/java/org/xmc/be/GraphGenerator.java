@@ -18,6 +18,7 @@ import org.xmc.be.entities.settings.SettingType;
 import org.xmc.be.entities.user.ServiceCallLog;
 import org.xmc.be.entities.user.User;
 import org.xmc.common.stubs.analysis.AnalysisType;
+import org.xmc.common.stubs.analysis.TimeRange;
 import org.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
 import org.xmc.common.stubs.importing.CsvSeparator;
 import org.xmc.common.stubs.importing.ImportType;
@@ -394,6 +395,7 @@ public class GraphGenerator {
 	    var analysisFavourite = new AnalysisFavourite();
 	
 	    analysisFavourite.setType(type);
+	    analysisFavourite.setTimeRange(TimeRange.USER_DEFINED);
 	    analysisFavourite.setName(name);
 	    analysisFavourite.setStartDate(LocalDate.now());
 	    analysisFavourite.setEndDate(LocalDate.now());

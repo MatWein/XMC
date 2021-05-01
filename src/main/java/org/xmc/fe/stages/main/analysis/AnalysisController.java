@@ -31,7 +31,7 @@ public class AnalysisController {
 		if (tabPane.getSelectionModel().getSelectedItem() == plusTab) {
 			int index = tabPane.getSelectionModel().getSelectedIndex();
 			
-			Pair<Parent, Object> analysisContent = FxmlComponentFactory.load(FxmlKey.ANALYSIS_CONTENT);
+			Pair<Parent, AnalysisContentController> analysisContent = FxmlComponentFactory.load(FxmlKey.ANALYSIS_CONTENT);
 			String title = getAndIncrementTabTitle();
 			
 			Tab newTab = new Tab(title, analysisContent.getLeft());

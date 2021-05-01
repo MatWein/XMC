@@ -3,6 +3,7 @@ package org.xmc.fe.ui.dashboard.tiles;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import org.apache.commons.lang3.StringUtils;
 import org.xmc.common.stubs.analysis.DtoMostRecentTransaction;
 import org.xmc.common.utils.StringColorUtil;
 import org.xmc.fe.FeConstants;
@@ -47,7 +48,7 @@ public class TransactionView extends AnchorPane {
 		
 		String description = String.format(
 				"%s\n%s",
-				transaction.getDescription(),
+				StringUtils.defaultString(transaction.getDescription()),
 				transaction.getAssetName()
 		);
 		

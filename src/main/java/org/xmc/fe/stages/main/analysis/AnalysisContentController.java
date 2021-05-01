@@ -4,21 +4,27 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.CheckBoxTreeCell;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.services.analysis.AnalysisAssetService;
+import org.xmc.be.services.analysis.AnalysisFavouriteService;
 import org.xmc.be.services.analysis.TimeRangeService;
 import org.xmc.common.stubs.analysis.AnalysisType;
+import org.xmc.common.stubs.analysis.DtoAnalysisFavourite;
 import org.xmc.common.stubs.analysis.DtoAssetSelection;
 import org.xmc.common.stubs.analysis.TimeRange;
 import org.xmc.fe.async.AsyncProcessor;
+import org.xmc.fe.stages.main.MainController;
 import org.xmc.fe.stages.main.analysis.logic.ChartDataForSelectedTypeLoadingController;
 import org.xmc.fe.stages.main.analysis.logic.ChartNodeFactory;
 import org.xmc.fe.stages.main.analysis.logic.SelectedAssetIdsExtractor;
+import org.xmc.fe.stages.main.analysis.logic.SelectedAssetIdsSelector;
 import org.xmc.fe.stages.main.analysis.mapper.DtoAssetSelectionTreeItemMapper;
+import org.xmc.fe.ui.DialogHelper;
 import org.xmc.fe.ui.FxmlComponentFactory;
 import org.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import org.xmc.fe.ui.FxmlController;
@@ -29,8 +35,8 @@ import org.xmc.fe.ui.validation.components.ValidationComboBox;
 import org.xmc.fe.ui.validation.components.ValidationDatePicker;
 
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @FxmlController
 public class AnalysisContentController {
@@ -41,6 +47,8 @@ public class AnalysisContentController {
 	private final ChartNodeFactory chartNodeFactory;
 	private final ChartDataForSelectedTypeLoadingController chartDataForSelectedTypeLoadingController;
 	private final SelectedAssetIdsExtractor selectedAssetIdsExtractor;
+	private final AnalysisFavouriteService analysisFavouriteService;
+	private final SelectedAssetIdsSelector selectedAssetIdsSelector;
 	
 	@FXML private MenuButton favouriteMenuButton;
 	@FXML private ValidationComboBox<AnalysisType> analysisTypeComboBox;
@@ -59,7 +67,9 @@ public class AnalysisContentController {
 			DtoAssetSelectionTreeItemMapper dtoAssetSelectionTreeItemMapper,
 			ChartNodeFactory chartNodeFactory,
 			ChartDataForSelectedTypeLoadingController chartDataForSelectedTypeLoadingController,
-			SelectedAssetIdsExtractor selectedAssetIdsExtractor) {
+			SelectedAssetIdsExtractor selectedAssetIdsExtractor,
+			AnalysisFavouriteService analysisFavouriteService,
+			SelectedAssetIdsSelector selectedAssetIdsSelector) {
 		
 		this.timeRangeService = timeRangeService;
 		this.asyncProcessor = asyncProcessor;
@@ -68,10 +78,14 @@ public class AnalysisContentController {
 		this.chartNodeFactory = chartNodeFactory;
 		this.chartDataForSelectedTypeLoadingController = chartDataForSelectedTypeLoadingController;
 		this.selectedAssetIdsExtractor = selectedAssetIdsExtractor;
+		this.analysisFavouriteService = analysisFavouriteService;
+		this.selectedAssetIdsSelector = selectedAssetIdsSelector;
 	}
 	
 	@FXML
 	public void initialize() {
+		favouriteMenuButton.setUserData(this);
+		
 		analysisTypeComboBox.setConverter(GenericItemToStringConverter.getInstance(t -> MessageAdapter.getByKey(MessageKey.ANALYSIS_TYPE, t)));
 		analysisTypeComboBox.setValue(AnalysisType.ABSOLUTE_AND_AGGREGATED_ASSET_VALUE);
 		
@@ -89,6 +103,7 @@ public class AnalysisContentController {
 		timeRangeComboBox.setValue(TimeRange.LAST_YEAR);
 		
 		refreshAssetTree();
+		refreshFavourites();
 	}
 	
 	@FXML
@@ -104,6 +119,24 @@ public class AnalysisContentController {
 	
 	@FXML
 	public void saveAsFavourite() {
+		Optional<String> favouriteName = DialogHelper.showTextInputDialog(MessageKey.ANALYSIS_SAVE_FAVOURITE_NAME);
+		
+		if (favouriteName.isPresent()) {
+			var analysisToSave = new DtoAnalysisFavourite();
+			
+			analysisToSave.setName(favouriteName.get());
+			analysisToSave.setAnalysisType(analysisTypeComboBox.getValue());
+			analysisToSave.setTimeRange(timeRangeComboBox.getValue());
+			analysisToSave.setAssetIds(selectedAssetIdsExtractor.extractSelectedAssetIds(selectedAssetsTreeView));
+			analysisToSave.setStartDate(startDatePicker.getValueOrNull());
+			analysisToSave.setEndDate(endDatePicker.getValueOrNull());
+			
+			asyncProcessor.runAsyncVoid(
+					() -> {},
+					monitor -> analysisFavouriteService.saveOrUpdateAnalysisFavourite(monitor, analysisToSave),
+					this::refreshAllFavourites
+			);
+		}
 	}
 	
 	@FXML
@@ -129,6 +162,58 @@ public class AnalysisContentController {
 					selectedAssetsTreeView.setRoot(rootNode);
 				}
 		);
+	}
+	
+	private void onShowSavedFavourite(DtoAnalysisFavourite favourite) {
+		analysisTypeComboBox.setValue(favourite.getAnalysisType());
+		timeRangeComboBox.setValue(favourite.getTimeRange());
+		startDatePicker.setValue(favourite.getStartDate());
+		endDatePicker.setValue(favourite.getEndDate());
+		
+		selectedAssetIdsSelector.selectAssetsById(selectedAssetsTreeView, favourite.getAssetIds());
+		
+		onCalculate();
+	}
+	
+	private void refreshAllFavourites() {
+		Set<AnalysisContentController> analysisContentControllers = findAllAnalysisController();
+		
+		asyncProcessor.runAsync(
+				analysisFavouriteService::loadAnalyseFavourites,
+				result -> {
+					for (AnalysisContentController controller : analysisContentControllers) {
+						controller.updateFavouriteMenuButton(result);
+					}
+				}
+		);
+	}
+	
+	private Set<AnalysisContentController> findAllAnalysisController() {
+		Set<Node> buttons = MainController.mainWindow.getScene().getRoot().lookupAll("#favouriteMenuButton");
+		
+		return buttons.stream()
+				.map(button -> (AnalysisContentController)button.getUserData())
+				.filter(Objects::nonNull)
+				.collect(Collectors.toSet());
+	}
+	
+	private void refreshFavourites() {
+		asyncProcessor.runAsync(
+				analysisFavouriteService::loadAnalyseFavourites,
+				this::updateFavouriteMenuButton
+		);
+	}
+	
+	private void updateFavouriteMenuButton(List<DtoAnalysisFavourite> result) {
+		favouriteMenuButton.getItems().clear();
+		
+		for (DtoAnalysisFavourite favourite : result) {
+			MenuItem menuItem = new MenuItem(favourite.getName());
+			menuItem.setOnAction(event -> onShowSavedFavourite(favourite));
+			favouriteMenuButton.getItems().add(menuItem);
+		}
+		
+		favouriteMenuButton.setDisable(favouriteMenuButton.getItems().size() == 0);
 	}
 	
 	private void beforeCalculation() {

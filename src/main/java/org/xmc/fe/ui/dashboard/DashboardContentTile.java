@@ -111,6 +111,8 @@ public class DashboardContentTile extends VBox {
 	
 	public void setContentNode(Node contentNode) {
 		getChildren().remove(this.contentNode);
+		
+		VBox.setVgrow(contentNode, Priority.ALWAYS);
 		getChildren().add(contentNode);
 		
 		this.contentNode = contentNode;

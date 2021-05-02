@@ -4,8 +4,8 @@ XMC is a small local application to get an overview of your personal finances. T
 ## Screenshots
 - ![Alt text](/screenshots/dashboard.png?raw=true "Dashboard")
 - ![Alt text](/screenshots/konto-tx.png?raw=true "Cash account")
-- ![Alt text](/screenshots/analyse-1.png.png?raw=true "Analysis 1")
-- ![Alt text](/screenshots/analyse-2.png.png?raw=true "Analysis 2")
+- ![Alt text](/screenshots/analyse-1.png?raw=true "Analysis 1")
+- ![Alt text](/screenshots/analyse-2.png?raw=true "Analysis 2")
 
 ## Application params
 | Parameter            | Description                                                                                                                                                   | Possible Values                                     | Example                                                                    |

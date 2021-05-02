@@ -23,7 +23,7 @@ public class AnalysisFavouriteToDtoAnalysisFavouriteMapper {
 				.collect(Collectors.toList());
 	}
 	
-	private DtoAnalysisFavourite map(AnalysisFavourite analysisFavourite) {
+	public DtoAnalysisFavourite map(AnalysisFavourite analysisFavourite) {
 		var dtoAnalysisFavourite = new DtoAnalysisFavourite();
 		
 		dtoAnalysisFavourite.setName(analysisFavourite.getName());

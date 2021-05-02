@@ -85,21 +85,23 @@ public class DashboardPane extends ScrollPane {
 						
 						DtoDashboardTile dtoDashboardTile = tilesData[oldX][oldY];
 						
-						boolean[][] tileSpace = TileSpaceCalculator.calculateTileSpace(tilesData);
-						TileSpaceCalculator.freeTileSpace(tileSpace, dtoDashboardTile);
-						
-						dtoDashboardTile.setColumnIndex(newX);
-						dtoDashboardTile.setRowIndex(newY);
-						
-						if (TileSpaceCalculator.calculateIsEnoughSpace(dtoDashboardTile, tileSpace)) {
-							gridPane.getChildren().remove(dragAndDropTile);
-							gridPane.add(dragAndDropTile, newX, newY);
+						if (dtoDashboardTile != null) {
+							boolean[][] tileSpace = TileSpaceCalculator.calculateTileSpace(tilesData);
+							TileSpaceCalculator.freeTileSpace(tileSpace, dtoDashboardTile);
 							
-							tilesData[newX][newY] = dtoDashboardTile;
-							tilesData[oldX][oldY] = null;
-						} else {
-							dtoDashboardTile.setColumnIndex(oldX);
-							dtoDashboardTile.setRowIndex(oldY);
+							dtoDashboardTile.setColumnIndex(newX);
+							dtoDashboardTile.setRowIndex(newY);
+							
+							if (TileSpaceCalculator.calculateIsEnoughSpace(dtoDashboardTile, tileSpace)) {
+								gridPane.getChildren().remove(dragAndDropTile);
+								gridPane.add(dragAndDropTile, newX, newY);
+								
+								tilesData[newX][newY] = dtoDashboardTile;
+								tilesData[oldX][oldY] = null;
+							} else {
+								dtoDashboardTile.setColumnIndex(oldX);
+								dtoDashboardTile.setRowIndex(oldY);
+							}
 						}
 					}
 					
@@ -158,13 +160,15 @@ public class DashboardPane extends ScrollPane {
 			return;
 		}
 		
-		Main.applicationContext.getBean(AsyncProcessor.class).runAsyncVoid(monitor -> {
-			Pair<Parent, IDashboardTileController> fxmlComponent = FxmlComponentFactory.load(tile.getFxmlKey());
-			
-			fxmlComponent.getRight().loadAndApplyData(monitor, tile);
-			
-			contentTile.setContentNode(fxmlComponent.getLeft());
-		});
+		Main.applicationContext.getBean(AsyncProcessor.class).runAsync(
+				monitor -> {
+					Pair<Parent, IDashboardTileController> fxmlComponent = FxmlComponentFactory.load(tile.getFxmlKey());
+					
+					fxmlComponent.getRight().loadAndApplyData(monitor, tile, contentTile);
+					return fxmlComponent.getLeft();
+				},
+				contentTile::setContentNode
+		);
 	}
 	
 	public void removeTile(DtoDashboardTile tile) {

@@ -16,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
+import org.apache.commons.lang3.StringUtils;
 import org.xmc.common.utils.ImageUtil;
 import org.xmc.fe.FeConstants;
 import org.xmc.fe.ui.FxmlComponentFactory;
@@ -32,6 +33,7 @@ public class DashboardContentTile extends VBox {
 	
 	private final DtoDashboardTile tile;
 	private Node contentNode;
+	private final Label titleLabel;
 	
 	public DashboardContentTile(DashboardPane dashboardPane, DtoDashboardTile tile) {
 		this.tile = tile;
@@ -50,7 +52,7 @@ public class DashboardContentTile extends VBox {
 		HBox.setMargin(moveIconView, new Insets(0, 0, 0, 5));
 		titleBar.getChildren().add(moveIconView);
 		
-		Label titleLabel = new Label(tile.getTitle());
+		titleLabel = new Label(StringUtils.defaultString(tile.getTitle()));
 		titleLabel.setTextAlignment(TextAlignment.LEFT);
 		titleLabel.setAlignment(Pos.CENTER_LEFT);
 		titleLabel.getStyleClass().add(CSS_CLASS_BOLD);
@@ -116,5 +118,9 @@ public class DashboardContentTile extends VBox {
 	
 	public DtoDashboardTile getTile() {
 		return tile;
+	}
+	
+	public void setTitle(String title) {
+		titleLabel.setText(title);
 	}
 }

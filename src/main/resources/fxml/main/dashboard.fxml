@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -12,11 +11,17 @@
 	  prefHeight="700.0" prefWidth="900.0">
 
     <ToolBar fx:id="toolbar">
-        <Button text="%main.dashboard.configView">
+        <ToggleButton text="%main.dashboard.configView" fx:id="configViewToggleButton">
             <graphic>
                 <ButtonImageView url="@/images/feather/layout.png" />
             </graphic>
-        </Button>
+        </ToggleButton>
+		<Separator orientation="VERTICAL" fx:id="toolbarConfigSeparator" />
+		<Button text="%main.dashboard.addAnalysisTile" onAction="#onAddAnalysisTile" fx:id="addAnalysisTileButton">
+			<graphic>
+				<ButtonImageView url="@/images/feather/pie-chart.png" />
+			</graphic>
+		</Button>
         <Pane HBox.hgrow="ALWAYS"/>
         <Button text="%main.dashboard.logout" onAction="#onLogout">
             <graphic>
@@ -30,6 +35,6 @@
         </Button>
     </ToolBar>
 
-	<DashboardPane VBox.vgrow="ALWAYS" />
+	<DashboardPane VBox.vgrow="ALWAYS" fx:id="dashboardPane" />
 
 </VBox>

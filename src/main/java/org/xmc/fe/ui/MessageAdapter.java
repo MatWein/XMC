@@ -335,7 +335,10 @@ public class MessageAdapter {
 	    ANALYSIS_DESCRIPTION("analysis.description"),
 	    ANALYSIS_DATE("analysis.date"),
 	    ANALYSIS_TRANSACTIONS_AGGREGATE_DESCRIPTION("analysis.transactions.aggregateDescription"),
-	    ANALYSIS_SAVE_FAVOURITE_NAME("analysis.save.favouriteName")
+	    ANALYSIS_SAVE_FAVOURITE_NAME("analysis.save.favouriteName"),
+	    ANALYSIS_DASHBOARD_DIALOG_TITLE("analysis.dashboard.dialog.title"),
+	    ANALYSIS_DASHBOARD_DIALOG_CANCEL("analysis.dashboard.dialog.cancel"),
+	    ANALYSIS_DASHBOARD_DIALOG_ADD("analysis.dashboard.dialog.add")
         ;
 
         private final String key;

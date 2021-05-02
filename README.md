@@ -8,6 +8,7 @@ XMC is a small local application to get an overview of your personal finances. T
 | -Dxmc.home.path      | Can be used in combination with -Dhome.type=custom to specify a custom path.                                                                                  | path                                                | -Dhome.path="/home/user/mypath"<br/>-Dxmc.home.path="C:\\MyData\\XMC"      |
 | -Dxmc.language       | Parameter to specify the application language. Default is system language.                                                                                    | language code (see java.util.Locale.forLanguageTag) | -Dxmc.language=de                                                          |
 | -Dxmc.style          | Changes the general appearance of the application to dark or light mode.                                                                                      | dark, light                                         | -Dxmc.style=dark                                                           |
+| -Djdk.gtk.version    | Use this on linux systems if you have problems with drag&drop.                                                                                                 | 2, 3                                                | -Djdk.gtk.version=2                                                        |
 
 ## Development (IntelliJ IDEA)
 ### Run configuration

@@ -1,6 +1,7 @@
 package org.xmc.fe.ui.charts;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.scene.Node;
 import javafx.scene.chart.Axis;
@@ -27,6 +28,7 @@ public class ExtendedBarChart<X, Y> extends AnchorPane implements IChartBase<X, 
 	
 	private boolean showHoverLabel = true;
 	private int maxHoverNodes = 1000;
+	private ChangeListener<Number> widthChangeListener;
 	
 	public ExtendedBarChart(Axis<X> xAxis, Axis<Y> yAxis) {
 		this.chart = new BarChart<>(xAxis, yAxis);
@@ -59,7 +61,11 @@ public class ExtendedBarChart<X, Y> extends AnchorPane implements IChartBase<X, 
 		xAxis.setCategories(FXCollections.observableArrayList(categories));
 		xAxis.setAutoRanging(true);
 		
-		chart.widthProperty().addListener((obs, b, b1) -> applyChartLineColors(series));
+		if (widthChangeListener != null) {
+			widthProperty().removeListener(widthChangeListener);
+		}
+		widthChangeListener = (obs, b, b1) -> applyChartLineColors(series);
+		chart.widthProperty().addListener(widthChangeListener);
 		
 		applyChartLineColors(series);
 	}
@@ -80,6 +86,10 @@ public class ExtendedBarChart<X, Y> extends AnchorPane implements IChartBase<X, 
 				}
 			}
 		});
+	}
+	
+	public void setLegendVisible(boolean legendVisible) {
+		chart.setLegendVisible(legendVisible);
 	}
 	
 	public void setTitle(String title) {

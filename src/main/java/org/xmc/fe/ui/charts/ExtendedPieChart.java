@@ -1,6 +1,7 @@
 package org.xmc.fe.ui.charts;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
 import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Tooltip;
@@ -12,6 +13,8 @@ import org.xmc.fe.ui.charts.mapper.PieChartSeriesMapper;
 import java.util.List;
 
 public class ExtendedPieChart extends PieChart {
+	private ChangeListener<Number> widthChangeListener;
+	
 	public void applyData(List<DtoChartSeries<Object, Number>> series) {
 		getData().clear();
 		
@@ -27,7 +30,11 @@ public class ExtendedPieChart extends PieChart {
 			Tooltip.install(node, new Tooltip(point.getDescription()));
 		}
 		
-		widthProperty().addListener((obs, b, b1) -> applyChartLineColors(series));
+		if (widthChangeListener != null) {
+			widthProperty().removeListener(widthChangeListener);
+		}
+		widthChangeListener = (obs, b, b1) -> applyChartLineColors(series);
+		widthProperty().addListener(widthChangeListener);
 
 		applyChartLineColors(series);
 	}

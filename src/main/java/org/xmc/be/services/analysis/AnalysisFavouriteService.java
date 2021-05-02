@@ -59,6 +59,14 @@ public class AnalysisFavouriteService {
 		return analysisFavouriteToDtoAnalysisFavouriteMapper.mapAll(analysisFavourites);
 	}
 	
+	public DtoAnalysisFavourite loadAnalyseFavourite(AsyncMonitor monitor, long analysisFavouriteId) {
+		LOGGER.info("Loading analysis favourite with id '{}'.", analysisFavouriteId);
+		monitor.setStatusText(MessageKey.ASYNC_TASK_LOAD_ANALYSIS_FAVOURITES);
+		
+		AnalysisFavourite analysisFavourites = analysisFavouriteJpaRepository.getOne(analysisFavouriteId);
+		return analysisFavouriteToDtoAnalysisFavouriteMapper.map(analysisFavourites);
+	}
+	
 	public List<DtoImportAnalyseFavouriteOverview> loadAnalyseFavouritesOverview(AsyncMonitor monitor) {
 		LOGGER.info("Loading analysis favourites overview.");
 		monitor.setStatusText(MessageKey.ASYNC_TASK_LOAD_ANALYSIS_FAVOURITES);

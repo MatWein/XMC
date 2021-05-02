@@ -1,6 +1,7 @@
 package org.xmc.fe.ui.charts;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
 import javafx.scene.Node;
 import javafx.scene.chart.Axis;
 import javafx.scene.chart.LineChart;
@@ -23,10 +24,12 @@ public class ExtendedLineChart<X, Y> extends AnchorPane implements IChartBase<X,
 	private boolean showHoverLabel = true;
 	private boolean showSymbols = true;
 	private int maxHoverNodes = 30;
+	private ChangeListener<Number> widthChangeListener;
 	
 	public ExtendedLineChart(Axis<X> xAxis, Axis<Y> yAxis) {
 		this.chart = new LineChart<>(xAxis, yAxis);
 		this.chart.setCreateSymbols(false);
+		this.chart.getXAxis().setTickLabelRotation(90.0);
 		
 		this.mouseHoverLabel = new Label();
 		
@@ -47,7 +50,11 @@ public class ExtendedLineChart<X, Y> extends AnchorPane implements IChartBase<X,
 		List<XYChart.Series<X, Y>> mappedSeries = new XYChartSeriesMapper().mapAll(this, series);
 		chart.getData().addAll(mappedSeries);
 		
-		chart.widthProperty().addListener((obs, b, b1) -> applyChartLineColors(series));
+		if (widthChangeListener != null) {
+			widthProperty().removeListener(widthChangeListener);
+		}
+		widthChangeListener = (obs, b, b1) -> applyChartLineColors(series);
+		chart.widthProperty().addListener(widthChangeListener);
 		
 		applyChartLineColors(series);
 		applyMouseMoveListener();
@@ -113,6 +120,10 @@ public class ExtendedLineChart<X, Y> extends AnchorPane implements IChartBase<X,
 		}
 		
 		return value.toString();
+	}
+	
+	public void setLegendVisible(boolean legendVisible) {
+		chart.setLegendVisible(legendVisible);
 	}
 	
 	public void setTitle(String title) {

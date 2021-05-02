@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import org.xmc.fe.ui.validation.components.ValidationComboBox?>
+<?import org.xmc.fe.ui.validation.components.ValidationNumberField?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+	  prefWidth="400.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
+	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.analysis.AnalysisDashboardDialogController">
+
+    <Label text="%analysis.dashboard.dialog.analysisFavourite" styleClass="form-label-first" />
+    <ValidationComboBox fx:id="analysisFavouriteComboBox" required="true" visibleRowCount="5" initialFocus="true" />
+
+    <Label styleClass="form-label" text="%analysis.dashboard.dialog.tileWidth" />
+    <ValidationNumberField fx:id="tileWidthNumberField" required="true" min="1" max="8" fractionDigits="0" />
+
+	<Label styleClass="form-label" text="%analysis.dashboard.dialog.tileHeight" />
+	<ValidationNumberField fx:id="tileHeightNumberField" required="true" min="1" max="8" fractionDigits="0" />
+</VBox>

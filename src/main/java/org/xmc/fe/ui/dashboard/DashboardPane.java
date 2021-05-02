@@ -14,6 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import org.apache.commons.lang3.tuple.Pair;
 import org.xmc.Main;
+import org.xmc.common.utils.SleepUtil;
 import org.xmc.fe.async.AsyncProcessor;
 import org.xmc.fe.ui.FxmlComponentFactory;
 
@@ -162,6 +163,7 @@ public class DashboardPane extends ScrollPane {
 		
 		Main.applicationContext.getBean(AsyncProcessor.class).runAsync(
 				monitor -> {
+					SleepUtil.sleep(2000);
 					Pair<Parent, IDashboardTileController> fxmlComponent = FxmlComponentFactory.load(tile.getFxmlKey());
 					
 					boolean dataLoadingSuccessful = fxmlComponent.getRight().loadAndApplyData(monitor, tile, contentTile);

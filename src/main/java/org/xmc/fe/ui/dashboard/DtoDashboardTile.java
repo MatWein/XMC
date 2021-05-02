@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class DtoDashboardTile implements Serializable {
 	private String title;
 	private FxmlKey fxmlKey;
-	private Serializable data;
+	private Long data;
 	
 	private int columnIndex;
 	private int rowIndex;
@@ -22,11 +22,11 @@ public class DtoDashboardTile implements Serializable {
 		this.title = title;
 	}
 	
-	public Serializable getData() {
+	public Long getData() {
 		return data;
 	}
 	
-	public void setData(Serializable data) {
+	public void setData(Long data) {
 		this.data = data;
 	}
 	

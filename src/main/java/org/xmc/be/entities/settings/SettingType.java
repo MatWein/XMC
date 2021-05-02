@@ -3,7 +3,8 @@ package org.xmc.be.entities.settings;
 import java.io.Serializable;
 
 public enum SettingType {
-	EXTRAS_SHOW_SNOW (Boolean.class, true)
+	EXTRAS_SHOW_SNOW (Boolean.class, true),
+	DASHBOARD_CONFIG (String.class, null)
 	;
 	
 	private final Class<?> valueType;

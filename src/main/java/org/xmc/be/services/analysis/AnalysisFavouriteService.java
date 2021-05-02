@@ -17,6 +17,7 @@ import org.xmc.fe.async.AsyncMonitor;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -59,12 +60,12 @@ public class AnalysisFavouriteService {
 		return analysisFavouriteToDtoAnalysisFavouriteMapper.mapAll(analysisFavourites);
 	}
 	
-	public DtoAnalysisFavourite loadAnalyseFavourite(AsyncMonitor monitor, long analysisFavouriteId) {
+	public Optional<DtoAnalysisFavourite> loadAnalyseFavourite(AsyncMonitor monitor, long analysisFavouriteId) {
 		LOGGER.info("Loading analysis favourite with id '{}'.", analysisFavouriteId);
 		monitor.setStatusText(MessageKey.ASYNC_TASK_LOAD_ANALYSIS_FAVOURITES);
 		
-		AnalysisFavourite analysisFavourites = analysisFavouriteJpaRepository.getOne(analysisFavouriteId);
-		return analysisFavouriteToDtoAnalysisFavouriteMapper.map(analysisFavourites);
+		return analysisFavouriteJpaRepository.findById(analysisFavouriteId)
+				.map(analysisFavouriteToDtoAnalysisFavouriteMapper::map);
 	}
 	
 	public List<DtoImportAnalyseFavouriteOverview> loadAnalyseFavouritesOverview(AsyncMonitor monitor) {

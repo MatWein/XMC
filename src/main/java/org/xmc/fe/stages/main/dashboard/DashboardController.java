@@ -11,8 +11,11 @@ import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.Main;
+import org.xmc.be.entities.settings.SettingType;
 import org.xmc.be.services.analysis.AnalysisFavouriteService;
+import org.xmc.be.services.settings.SettingsService;
 import org.xmc.common.stubs.analysis.DtoAnalysisDashboardTileData;
+import org.xmc.fe.async.AsyncProcessor;
 import org.xmc.fe.stages.login.LoginController;
 import org.xmc.fe.stages.main.analysis.mapper.AnalysisDashboardTileDataMapper;
 import org.xmc.fe.ui.CustomDialogBuilder;
@@ -29,20 +32,27 @@ import java.util.Optional;
 public class DashboardController {
 	private final AnalysisFavouriteService analysisFavouriteService;
 	private final AnalysisDashboardTileDataMapper analysisDashboardTileDataMapper;
+	private final AsyncProcessor asyncProcessor;
+	private final SettingsService settingsService;
 	
 	@FXML private ToolBar toolbar;
 	@FXML private ToggleButton configViewToggleButton;
 	@FXML private DashboardPane dashboardPane;
 	@FXML private Separator toolbarConfigSeparator;
 	@FXML private Button addAnalysisTileButton;
+	@FXML private Button saveButton;
 	
 	@Autowired
 	public DashboardController(
 			AnalysisFavouriteService analysisFavouriteService,
-			AnalysisDashboardTileDataMapper analysisDashboardTileDataMapper) {
+			AnalysisDashboardTileDataMapper analysisDashboardTileDataMapper,
+			AsyncProcessor asyncProcessor,
+			SettingsService settingsService) {
 		
 		this.analysisFavouriteService = analysisFavouriteService;
 		this.analysisDashboardTileDataMapper = analysisDashboardTileDataMapper;
+		this.asyncProcessor = asyncProcessor;
+		this.settingsService = settingsService;
 	}
 	
 	@FXML
@@ -50,6 +60,9 @@ public class DashboardController {
 		dashboardPane.editableProperty().bind(configViewToggleButton.selectedProperty());
 		toolbarConfigSeparator.visibleProperty().bind(configViewToggleButton.selectedProperty());
 		addAnalysisTileButton.visibleProperty().bind(configViewToggleButton.selectedProperty());
+		saveButton.visibleProperty().bind(configViewToggleButton.selectedProperty());
+		
+		onRefresh();
 	}
 
     @FXML
@@ -66,7 +79,7 @@ public class DashboardController {
         ((Stage)toolbar.getScene().getWindow()).close();
     }
 	
-    @FXML
+	@FXML
 	public void onAddAnalysisTile() {
 	    Optional<DtoAnalysisDashboardTileData> dtoAnalysisDashboardTileData = CustomDialogBuilder.getInstance()
 			    .titleKey(MessageKey.ANALYSIS_DASHBOARD_DIALOG_TITLE)
@@ -88,5 +101,19 @@ public class DashboardController {
 		    
 		    dashboardPane.addTileAtNextFreePosition(tile);
 	    }
+	}
+	
+	@FXML
+	public void onSave() {
+		String json = dashboardPane.saveTilesData();
+		asyncProcessor.runAsyncVoid(monitor -> settingsService.saveSetting(monitor, SettingType.DASHBOARD_CONFIG, json));
+	}
+	
+	@FXML
+	public void onRefresh() {
+		asyncProcessor.runAsync(
+				monitor -> settingsService.loadSetting(monitor, SettingType.DASHBOARD_CONFIG),
+				json -> dashboardPane.applyTilesData((String)json)
+		);
 	}
 }

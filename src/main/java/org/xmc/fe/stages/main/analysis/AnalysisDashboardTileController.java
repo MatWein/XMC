@@ -45,29 +45,34 @@ public class AnalysisDashboardTileController implements IDashboardTileController
 	}
 	
 	@Override
-	public void loadAndApplyData(AsyncMonitor monitor, DtoDashboardTile tile, DashboardContentTile contentTile) {
+	public boolean loadAndApplyData(AsyncMonitor monitor, DtoDashboardTile tile, DashboardContentTile contentTile) {
 		long analysisFavouriteId = (Long)tile.getData();
 		
-		DtoAnalysisFavourite dtoAnalysisFavourite = analysisFavouriteService.loadAnalyseFavourite(monitor, analysisFavouriteId);
+		Optional<DtoAnalysisFavourite> dtoAnalysisFavourite = analysisFavouriteService.loadAnalyseFavourite(monitor, analysisFavouriteId);
+		if (dtoAnalysisFavourite.isEmpty()) {
+			return false;
+		}
 		
 		Optional<Object> data = chartDataForSelectedTypeLoadingController.calculateChartForSelectedType(
 				monitor,
-				dtoAnalysisFavourite.getAnalysisType(),
-				dtoAnalysisFavourite.getAssetIds(),
-				dtoAnalysisFavourite.getStartDate(),
-				dtoAnalysisFavourite.getEndDate());
+				dtoAnalysisFavourite.get().getAnalysisType(),
+				dtoAnalysisFavourite.get().getAssetIds(),
+				dtoAnalysisFavourite.get().getStartDate(),
+				dtoAnalysisFavourite.get().getEndDate());
 		
 		Platform.runLater(() -> {
-			Node node = createNode(dtoAnalysisFavourite, data);
+			Node node = createNode(dtoAnalysisFavourite.get(), data);
 			
 			AnchorPane.setBottomAnchor(node, 0.0);
 			AnchorPane.setLeftAnchor(node, 0.0);
 			AnchorPane.setRightAnchor(node, 0.0);
 			AnchorPane.setTopAnchor(node, 0.0);
 			
-			contentTile.setTitle(MessageAdapter.getByKey(MessageKey.ANALYSIS_TYPE, dtoAnalysisFavourite.getAnalysisType()));
+			contentTile.setTitle(MessageAdapter.getByKey(MessageKey.ANALYSIS_TYPE, dtoAnalysisFavourite.get().getAnalysisType()));
 			analysisDashboardTileAnchorPane.getChildren().add(node);
 		});
+		
+		return true;
 	}
 	
 	private Node createNode(DtoAnalysisFavourite dtoAnalysisFavourite, Optional<Object> data) {

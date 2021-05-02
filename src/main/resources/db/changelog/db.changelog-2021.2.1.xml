@@ -52,4 +52,23 @@
 		</addColumn>
 	</changeSet>
 
+	<changeSet id="2021-05-02-change_setting_value" author="matthias.weinert">
+		<dropTable tableName="SETTINGS" />
+
+		<createTable tableName="SETTINGS">
+			<column name="ID" autoIncrement="true" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="CREATION_DATE" type="timestamp">
+				<constraints nullable="false" />
+			</column>
+			<column name="TYPE" type="varchar(255)">
+				<constraints nullable="false" unique="true"/>
+			</column>
+			<column name="VALUE" type="CLOB">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
 </databaseChangeLog>

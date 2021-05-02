@@ -154,20 +154,30 @@ public class DashboardPane extends ScrollPane {
 				&& Integer.valueOf(tile.getColumnIndex()).equals(GridPane.getColumnIndex(node))
 				&& !(node instanceof EmptyDashboardTile));
 		
-		gridPane.add(contentTile, tile.getColumnIndex(), tile.getRowIndex(), tile.getColumnSpan(), tile.getRowSpan());
-		
 		if (tile.getFxmlKey() == null) {
 			return;
 		}
+		
+		gridPane.add(contentTile, tile.getColumnIndex(), tile.getRowIndex(), tile.getColumnSpan(), tile.getRowSpan());
 		
 		Main.applicationContext.getBean(AsyncProcessor.class).runAsync(
 				monitor -> {
 					Pair<Parent, IDashboardTileController> fxmlComponent = FxmlComponentFactory.load(tile.getFxmlKey());
 					
-					fxmlComponent.getRight().loadAndApplyData(monitor, tile, contentTile);
-					return fxmlComponent.getLeft();
+					boolean dataLoadingSuccessful = fxmlComponent.getRight().loadAndApplyData(monitor, tile, contentTile);
+					if (dataLoadingSuccessful) {
+						return fxmlComponent.getLeft();
+					} else {
+						return null;
+					}
 				},
-				contentTile::setContentNode
+				resultNode -> {
+					if (resultNode == null) {
+						removeTile(tile);
+					} else {
+						contentTile.setContentNode(resultNode);
+					}
+				}
 		);
 	}
 	
@@ -178,6 +188,10 @@ public class DashboardPane extends ScrollPane {
 	
 	public void applyTilesData(String tilesData) {
 		gridPane.getChildren().removeIf(node -> node instanceof DashboardContentTile);
+		
+		if (tilesData == null) {
+			return;
+		}
 		
 		this.tilesData = new Gson().fromJson(tilesData, DtoDashboardTile[][].class);
 		

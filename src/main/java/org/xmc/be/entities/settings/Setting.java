@@ -13,6 +13,7 @@ public class Setting extends PersistentObject {
 	@Column(nullable = false, name = "TYPE", unique = true)
 	private SettingType type;
 	
+	@Lob
 	@Column(nullable = false, name = "VALUE")
 	private String value;
 	

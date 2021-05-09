@@ -9,13 +9,15 @@ import org.xmc.common.stubs.analysis.AssetType;
 import org.xmc.common.stubs.analysis.DtoAssetSelection;
 
 @Component
-public class SelectedAssetIdsSelector {
+public class AssetIdsSelector {
 	public void selectAssetsById(TreeView<DtoAssetSelection> selectedAssetsTreeView, Multimap<AssetType, Long> assetIds) {
 		CheckBoxTreeItem<DtoAssetSelection> root = (CheckBoxTreeItem<DtoAssetSelection>)selectedAssetsTreeView.getRoot();
 		populateSelectedAssets(assetIds, root);
 	}
 	
 	private void populateSelectedAssets(Multimap<AssetType, Long> result, CheckBoxTreeItem<DtoAssetSelection> node) {
+		node.setSelected(false);
+		
 		if (result.get(node.getValue().getAssetType()).contains(node.getValue().getId())) {
 			node.setSelected(true);
 		}

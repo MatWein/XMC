@@ -45,7 +45,7 @@ public class AnalysisContentController {
 	private final ChartDataForSelectedTypeLoadingController chartDataForSelectedTypeLoadingController;
 	private final SelectedAssetIdsExtractor selectedAssetIdsExtractor;
 	private final AnalysisFavouriteService analysisFavouriteService;
-	private final SelectedAssetIdsSelector selectedAssetIdsSelector;
+	private final AssetIdsSelector assetIdsSelector;
 	private final AnalysisAllFavouritesRefreshController analysisAllFavouritesRefreshController;
 	
 	@FXML private MenuButton favouriteMenuButton;
@@ -67,7 +67,7 @@ public class AnalysisContentController {
 			ChartDataForSelectedTypeLoadingController chartDataForSelectedTypeLoadingController,
 			SelectedAssetIdsExtractor selectedAssetIdsExtractor,
 			AnalysisFavouriteService analysisFavouriteService,
-			SelectedAssetIdsSelector selectedAssetIdsSelector,
+			AssetIdsSelector assetIdsSelector,
 			AnalysisAllFavouritesRefreshController analysisAllFavouritesRefreshController) {
 		
 		this.timeRangeService = timeRangeService;
@@ -78,7 +78,7 @@ public class AnalysisContentController {
 		this.chartDataForSelectedTypeLoadingController = chartDataForSelectedTypeLoadingController;
 		this.selectedAssetIdsExtractor = selectedAssetIdsExtractor;
 		this.analysisFavouriteService = analysisFavouriteService;
-		this.selectedAssetIdsSelector = selectedAssetIdsSelector;
+		this.assetIdsSelector = assetIdsSelector;
 		this.analysisAllFavouritesRefreshController = analysisAllFavouritesRefreshController;
 	}
 	
@@ -170,7 +170,7 @@ public class AnalysisContentController {
 		startDatePicker.setValue(favourite.getStartDate());
 		endDatePicker.setValue(favourite.getEndDate());
 		
-		selectedAssetIdsSelector.selectAssetsById(selectedAssetsTreeView, favourite.getAssetIds());
+		assetIdsSelector.selectAssetsById(selectedAssetsTreeView, favourite.getAssetIds());
 		
 		onCalculate();
 	}

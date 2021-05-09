@@ -1,14 +1,13 @@
 package io.github.matwein.xmc.be.services.login;
 
+import io.github.matwein.xmc.be.entities.user.User;
+import io.github.matwein.xmc.be.repositories.user.UserJpaRepository;
+import io.github.matwein.xmc.common.stubs.login.DtoBootstrapFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import io.github.matwein.xmc.be.entities.user.User;
-import io.github.matwein.xmc.be.repositories.user.UserJpaRepository;
-import io.github.matwein.xmc.be.services.login.controller.BootstrapFileController;
-import io.github.matwein.xmc.common.stubs.login.DtoBootstrapFile;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -21,15 +20,10 @@ public class UserLoginService {
     public static final String SYSTEM_PROPERTY_DISPLAYNAME = "user.displayName";
 
     private final UserJpaRepository userJpaRepository;
-    private final BootstrapFileController bootstrapFileController;
 
     @Autowired
-    public UserLoginService(
-            UserJpaRepository userJpaRepository,
-            BootstrapFileController bootstrapFileController) {
-
+    public UserLoginService(UserJpaRepository userJpaRepository) {
         this.userJpaRepository = userJpaRepository;
-        this.bootstrapFileController = bootstrapFileController;
     }
 
     public void login(DtoBootstrapFile dtoBootstrapFile) {
@@ -48,7 +42,5 @@ public class UserLoginService {
         System.clearProperty("user.password");
         System.clearProperty("user.database.dir");
         System.setProperty(SYSTEM_PROPERTY_DISPLAYNAME, user.get().getDisplayName());
-
-        bootstrapFileController.writeBootstrapFile(dtoBootstrapFile);
     }
 }

@@ -1,4 +1,4 @@
-package io.github.matwein.xmc.common.utils;
+package io.github.matwein.xmc.fe.common;
 
 public class HomeDirectoryPathCalculatorCleanupController {
     public static void clearSystemProperties() {

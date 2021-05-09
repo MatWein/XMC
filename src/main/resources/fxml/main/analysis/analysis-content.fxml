@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.matwein.xmc.common.stubs.analysis.TimeRange?>
+<?import io.github.matwein.xmc.fe.common.EnumUtil?>
+<?import io.github.matwein.xmc.fe.ui.components.ButtonImageView?>
+<?import io.github.matwein.xmc.fe.ui.validation.components.*?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import io.github.matwein.xmc.common.stubs.analysis.TimeRange?>
-<?import io.github.matwein.xmc.fe.ui.components.ButtonImageView?>
-<?import io.github.matwein.xmc.fe.ui.EnumUtil?>
-<?import io.github.matwein.xmc.fe.ui.validation.components.*?>
 <VBox stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
 	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.matwein.xmc.fe.stages.main.analysis.AnalysisContentController"
 	  prefHeight="700.0" prefWidth="900.0">

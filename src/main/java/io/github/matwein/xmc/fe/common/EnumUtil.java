@@ -1,4 +1,4 @@
-package io.github.matwein.xmc.fe.ui;
+package io.github.matwein.xmc.fe.common;
 
 import javafx.collections.ObservableList;
 

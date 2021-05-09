@@ -1,6 +1,11 @@
 package io.github.matwein.xmc.fe.ui.dashboard;
 
 import com.google.gson.Gson;
+import io.github.matwein.xmc.Main;
+import io.github.matwein.xmc.common.utils.SleepUtil;
+import io.github.matwein.xmc.fe.FeConstants;
+import io.github.matwein.xmc.fe.async.AsyncProcessor;
+import io.github.matwein.xmc.fe.ui.FxmlComponentFactory;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -13,10 +18,6 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import org.apache.commons.lang3.tuple.Pair;
-import io.github.matwein.xmc.Main;
-import io.github.matwein.xmc.common.utils.SleepUtil;
-import io.github.matwein.xmc.fe.async.AsyncProcessor;
-import io.github.matwein.xmc.fe.ui.FxmlComponentFactory;
 
 public class DashboardPane extends ScrollPane {
 	public static final String CSS_CLASS_DASHBOARD_GRID_PANE = "dashboard-grid-pane";
@@ -35,6 +36,7 @@ public class DashboardPane extends ScrollPane {
 	
 	public DashboardPane() {
 		this.setFitToWidth(true);
+		this.getStylesheets().add(FeConstants.DASHBOARD_CSS_PATH);
 		
 		gridPane.setHgap(10);
 		gridPane.setVgap(10);

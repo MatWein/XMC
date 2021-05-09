@@ -1,5 +1,19 @@
 package io.github.matwein.xmc.fe.stages.login;
 
+import io.github.matwein.xmc.Main;
+import io.github.matwein.xmc.be.services.login.UserLoginService;
+import io.github.matwein.xmc.common.stubs.login.DtoBootstrapFile;
+import io.github.matwein.xmc.common.utils.SleepUtil;
+import io.github.matwein.xmc.config.BeanConfig;
+import io.github.matwein.xmc.fe.common.HomeDirectoryPathCalculator;
+import io.github.matwein.xmc.fe.stages.login.logic.BootstrapFileController;
+import io.github.matwein.xmc.fe.stages.main.MainController;
+import io.github.matwein.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
+import io.github.matwein.xmc.fe.ui.FxmlController;
+import io.github.matwein.xmc.fe.ui.MessageAdapter;
+import io.github.matwein.xmc.fe.ui.MessageAdapter.MessageKey;
+import io.github.matwein.xmc.fe.ui.SceneUtil;
+import io.github.matwein.xmc.fe.ui.StageBuilder;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -13,19 +27,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration;
 import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import io.github.matwein.xmc.Main;
-import io.github.matwein.xmc.be.services.login.UserLoginService;
-import io.github.matwein.xmc.common.stubs.login.DtoBootstrapFile;
-import io.github.matwein.xmc.common.utils.HomeDirectoryPathCalculator;
-import io.github.matwein.xmc.common.utils.SleepUtil;
-import io.github.matwein.xmc.config.BeanConfig;
-import io.github.matwein.xmc.fe.stages.main.MainController;
-import io.github.matwein.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
-import io.github.matwein.xmc.fe.ui.FxmlController;
-import io.github.matwein.xmc.fe.ui.MessageAdapter;
-import io.github.matwein.xmc.fe.ui.MessageAdapter.MessageKey;
-import io.github.matwein.xmc.fe.ui.SceneUtil;
-import io.github.matwein.xmc.fe.ui.StageBuilder;
 
 import static io.github.matwein.xmc.common.SystemProperties.*;
 
@@ -110,6 +111,8 @@ public class BootstrapController {
 
         UserLoginService userLoginService = Main.applicationContext.getBean(UserLoginService.class);
         userLoginService.login(dtoBootstrapFile);
+	
+	    BootstrapFileController.writeBootstrapFile(dtoBootstrapFile);
 
         Platform.runLater(() -> {
             progressbar.setVisible(false);

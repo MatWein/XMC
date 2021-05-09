@@ -1,30 +1,27 @@
 package io.github.matwein.xmc.be.services.login;
 
+import io.github.matwein.xmc.JUnitTestBase;
+import io.github.matwein.xmc.be.entities.user.User;
+import io.github.matwein.xmc.be.repositories.user.UserJpaRepository;
+import io.github.matwein.xmc.common.stubs.login.DtoBootstrapFile;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import io.github.matwein.xmc.JUnitTestBase;
-import io.github.matwein.xmc.be.entities.user.User;
-import io.github.matwein.xmc.be.repositories.user.UserJpaRepository;
-import io.github.matwein.xmc.be.services.login.controller.BootstrapFileController;
-import io.github.matwein.xmc.common.stubs.login.DtoBootstrapFile;
 
 import java.util.Optional;
 
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 class UserLoginServiceTest extends JUnitTestBase {
     private UserLoginService service;
 
     @Mock private UserJpaRepository userJpaRepository;
-    @Mock private BootstrapFileController bootstrapFileController;
 
     @BeforeEach
     void setUp() {
-        service = new UserLoginService(userJpaRepository, bootstrapFileController);
+        service = new UserLoginService(userJpaRepository);
     }
 
     @AfterEach
@@ -48,8 +45,6 @@ class UserLoginServiceTest extends JUnitTestBase {
         when(userJpaRepository.save(user.get())).thenReturn(null);
 
         service.login(dtoBootstrapFile);
-
-        verify(bootstrapFileController).writeBootstrapFile(dtoBootstrapFile);
     }
 
     @Test

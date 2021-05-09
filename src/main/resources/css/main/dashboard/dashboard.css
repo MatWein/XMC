@@ -16,3 +16,31 @@
 	-fx-font-size: 16;
 	-fx-font-weight: bold;
 }
+
+.dashboard-content-tile, .spinner-pane {
+	-fx-background-color: xmc-background-color-2;
+}
+
+.dashboard-grid-pane Line {
+	-fx-stroke: gray;
+}
+
+.dashboard-tile-hover {
+	-fx-border-width: 1 1 1 1;
+	-fx-border-color: xmc-border-color-1;
+}
+
+.dashboard-content-tile {
+	-fx-border-width: 2 2 2 2;
+	-fx-border-color: xmc-akzent-1;
+	-fx-background-color: white;
+}
+
+.dashboard-content-tile .title-label {
+	-fx-background-color: xmc-akzent-1;
+	-fx-text-fill: white;
+}
+
+.dashboard-content-tile .title-bar {
+	-fx-background-color: xmc-akzent-1;
+}

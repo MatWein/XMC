@@ -1,9 +1,9 @@
 package io.github.matwein.xmc.common.utils;
 
+import io.github.matwein.xmc.JUnitTestBase;
 import javafx.util.Callback;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import io.github.matwein.xmc.JUnitTestBase;
 
 class ReflectionUtilTest extends JUnitTestBase {
     @Test
@@ -16,7 +16,7 @@ class ReflectionUtilTest extends JUnitTestBase {
 
     @Test
     void testCreateNewInstance() {
-        CrypterTest result = ReflectionUtil.createNewInstance(CrypterTest.class);
+	    ReflectionUtilTest result = ReflectionUtil.createNewInstance(ReflectionUtilTest.class);
         Assertions.assertNotNull(result);
     }
 

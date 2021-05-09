@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.matwein.xmc.common.stubs.importing.CsvSeparator?>
+<?import io.github.matwein.xmc.fe.common.EnumUtil?>
+<?import io.github.matwein.xmc.fe.ui.validation.components.ValidationComboBox?>
+<?import io.github.matwein.xmc.fe.ui.validation.components.ValidationFileChooserField?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
-<?import io.github.matwein.xmc.common.stubs.importing.CsvSeparator?>
-<?import io.github.matwein.xmc.fe.ui.EnumUtil?>
-<?import io.github.matwein.xmc.fe.ui.validation.components.ValidationComboBox?>
-<?import io.github.matwein.xmc.fe.ui.validation.components.ValidationFileChooserField?>
 <?import java.lang.String?>
 <VBox stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
 	  xmlns:fx="http://javafx.com/fxml/1" styleClass="padding-15"

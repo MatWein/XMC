@@ -1,4 +1,4 @@
-package io.github.matwein.xmc.common.utils;
+package io.github.matwein.xmc.fe.common;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.LoggerFactory;

@@ -1,5 +1,15 @@
 package io.github.matwein.xmc;
 
+import io.github.matwein.xmc.common.SystemProperties;
+import io.github.matwein.xmc.common.stubs.login.DtoBootstrapFile;
+import io.github.matwein.xmc.config.properties.XmcProperties;
+import io.github.matwein.xmc.fe.common.HomeDirectoryPathCalculator;
+import io.github.matwein.xmc.fe.stages.login.BootstrapController;
+import io.github.matwein.xmc.fe.stages.login.logic.BootstrapFileController;
+import io.github.matwein.xmc.fe.ui.FxmlComponentFactory;
+import io.github.matwein.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
+import io.github.matwein.xmc.fe.ui.MessageAdapter.MessageKey;
+import io.github.matwein.xmc.fe.ui.StageBuilder;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.scene.Parent;
@@ -14,16 +24,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import io.github.matwein.xmc.be.services.login.controller.BootstrapFileController;
-import io.github.matwein.xmc.common.SystemProperties;
-import io.github.matwein.xmc.common.stubs.login.DtoBootstrapFile;
-import io.github.matwein.xmc.common.utils.HomeDirectoryPathCalculator;
-import io.github.matwein.xmc.config.properties.XmcProperties;
-import io.github.matwein.xmc.fe.stages.login.BootstrapController;
-import io.github.matwein.xmc.fe.ui.FxmlComponentFactory;
-import io.github.matwein.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
-import io.github.matwein.xmc.fe.ui.MessageAdapter.MessageKey;
-import io.github.matwein.xmc.fe.ui.StageBuilder;
 
 import java.io.File;
 import java.util.Locale;

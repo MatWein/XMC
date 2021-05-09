@@ -1,11 +1,11 @@
 package io.github.matwein.xmc.fe.stages.login.validation;
 
-import javafx.scene.control.TextField;
-import org.apache.commons.lang3.StringUtils;
-import io.github.matwein.xmc.common.utils.HomeDirectoryPathCalculator;
+import io.github.matwein.xmc.fe.common.HomeDirectoryPathCalculator;
 import io.github.matwein.xmc.fe.ui.MessageAdapter;
 import io.github.matwein.xmc.fe.ui.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.fe.ui.validation.ICustomFieldValidator;
+import javafx.scene.control.TextField;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.util.ArrayList;

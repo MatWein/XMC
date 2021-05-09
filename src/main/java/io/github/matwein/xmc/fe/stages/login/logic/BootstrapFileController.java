@@ -1,13 +1,12 @@
-package io.github.matwein.xmc.be.services.login.controller;
+package io.github.matwein.xmc.fe.stages.login.logic;
 
+import io.github.matwein.xmc.common.stubs.login.DtoBootstrapFile;
+import io.github.matwein.xmc.fe.common.HomeDirectoryPathCalculator;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.SerializationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import io.github.matwein.xmc.common.stubs.login.DtoBootstrapFile;
-import io.github.matwein.xmc.common.utils.Crypter;
-import io.github.matwein.xmc.common.utils.HomeDirectoryPathCalculator;
 
 import java.io.File;
 import java.util.Optional;
@@ -16,7 +15,7 @@ import java.util.Optional;
 public class BootstrapFileController {
     private static final Logger LOGGER = LoggerFactory.getLogger(BootstrapFileController.class);
 
-    public void writeBootstrapFile(DtoBootstrapFile dtoBootstrapFile) {
+    public static void writeBootstrapFile(DtoBootstrapFile dtoBootstrapFile) {
         try {
             File credentialFile = new File(HomeDirectoryPathCalculator.calculateCredentialFilePath());
             if (dtoBootstrapFile.isSaveCredentials()) {

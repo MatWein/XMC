@@ -1,11 +1,11 @@
-package io.github.matwein.xmc.common.utils;
+package io.github.matwein.xmc.fe.common;
 
+import io.github.matwein.xmc.JUnitTestBase;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import io.github.matwein.xmc.JUnitTestBase;
 
 import java.io.File;
 

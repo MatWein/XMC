@@ -1,5 +1,10 @@
 package io.github.matwein.xmc.fe.stages.login;
 
+import io.github.matwein.xmc.common.stubs.login.DtoBootstrapFile;
+import io.github.matwein.xmc.fe.stages.login.logic.BootstrapFileController;
+import io.github.matwein.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
+import io.github.matwein.xmc.fe.ui.FxmlController;
+import io.github.matwein.xmc.fe.ui.SceneUtil;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.CheckBox;
@@ -7,11 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.apache.commons.lang3.tuple.Pair;
-import io.github.matwein.xmc.be.services.login.controller.BootstrapFileController;
-import io.github.matwein.xmc.common.stubs.login.DtoBootstrapFile;
-import io.github.matwein.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
-import io.github.matwein.xmc.fe.ui.FxmlController;
-import io.github.matwein.xmc.fe.ui.SceneUtil;
 
 import java.util.Optional;
 

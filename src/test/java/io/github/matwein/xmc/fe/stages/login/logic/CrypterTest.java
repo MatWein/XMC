@@ -1,11 +1,11 @@
-package io.github.matwein.xmc.common.utils;
+package io.github.matwein.xmc.fe.stages.login.logic;
 
+import io.github.matwein.xmc.JUnitTestBase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import io.github.matwein.xmc.JUnitTestBase;
 
-class CrypterTest extends JUnitTestBase {
+public class CrypterTest extends JUnitTestBase {
 	private Crypter crypter;
 
 	@BeforeEach

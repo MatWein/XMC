@@ -2,34 +2,36 @@ package org.xmc.fe.stages.main.analysis;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.TextAlignment;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.xmc.be.services.analysis.AnalysisFavouriteService;
+import org.xmc.be.services.analysis.TimeRangeService;
 import org.xmc.common.stubs.analysis.DtoAnalysisFavourite;
+import org.xmc.common.stubs.analysis.TimeRange;
 import org.xmc.fe.async.AsyncMonitor;
+import org.xmc.fe.stages.main.analysis.logic.AnalysisDashboardNodeFactory;
 import org.xmc.fe.stages.main.analysis.logic.ChartDataForSelectedTypeLoadingController;
-import org.xmc.fe.stages.main.analysis.logic.ChartNodeFactory;
 import org.xmc.fe.ui.FxmlController;
 import org.xmc.fe.ui.MessageAdapter;
 import org.xmc.fe.ui.MessageAdapter.MessageKey;
-import org.xmc.fe.ui.charts.ExtendedBarChart;
-import org.xmc.fe.ui.charts.ExtendedLineChart;
-import org.xmc.fe.ui.charts.ExtendedPieChart;
 import org.xmc.fe.ui.dashboard.DashboardContentTile;
 import org.xmc.fe.ui.dashboard.DtoDashboardTile;
 import org.xmc.fe.ui.dashboard.IDashboardTileController;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @FxmlController
 public class AnalysisDashboardTileController implements IDashboardTileController {
+	private static final int STEP_COUNT = 3;
+	
 	private final AnalysisFavouriteService analysisFavouriteService;
 	private final ChartDataForSelectedTypeLoadingController chartDataForSelectedTypeLoadingController;
-	private final ChartNodeFactory chartNodeFactory;
+	private final TimeRangeService timeRangeService;
+	private final AnalysisDashboardNodeFactory analysisDashboardNodeFactory;
 	
 	@FXML private AnchorPane analysisDashboardTileAnchorPane;
 	
@@ -37,31 +39,43 @@ public class AnalysisDashboardTileController implements IDashboardTileController
 	public AnalysisDashboardTileController(
 			AnalysisFavouriteService analysisFavouriteService,
 			ChartDataForSelectedTypeLoadingController chartDataForSelectedTypeLoadingController,
-			ChartNodeFactory chartNodeFactory) {
+			TimeRangeService timeRangeService,
+			AnalysisDashboardNodeFactory analysisDashboardNodeFactory) {
 		
 		this.analysisFavouriteService = analysisFavouriteService;
 		this.chartDataForSelectedTypeLoadingController = chartDataForSelectedTypeLoadingController;
-		this.chartNodeFactory = chartNodeFactory;
+		this.timeRangeService = timeRangeService;
+		this.analysisDashboardNodeFactory = analysisDashboardNodeFactory;
 	}
 	
 	@Override
 	public boolean loadAndApplyData(AsyncMonitor monitor, DtoDashboardTile tile, DashboardContentTile contentTile) {
-		long analysisFavouriteId = (Long)tile.getData();
+		long analysisFavouriteId = tile.getData();
+		
+		monitor.setProgressByItemCount(0, STEP_COUNT);
 		
 		Optional<DtoAnalysisFavourite> dtoAnalysisFavourite = analysisFavouriteService.loadAnalyseFavourite(monitor, analysisFavouriteId);
 		if (dtoAnalysisFavourite.isEmpty()) {
 			return false;
 		}
 		
+		monitor.setProgressByItemCount(1, STEP_COUNT);
+		
+		Pair<LocalDate, LocalDate> recalculatedStartAndEndDate = recalculateStartAndEndDate(monitor, dtoAnalysisFavourite.get());
+		
+		monitor.setProgressByItemCount(2, STEP_COUNT);
+		
 		Optional<Object> data = chartDataForSelectedTypeLoadingController.calculateChartForSelectedType(
 				monitor,
 				dtoAnalysisFavourite.get().getAnalysisType(),
 				dtoAnalysisFavourite.get().getAssetIds(),
-				dtoAnalysisFavourite.get().getStartDate(),
-				dtoAnalysisFavourite.get().getEndDate());
+				recalculatedStartAndEndDate.getLeft(),
+				recalculatedStartAndEndDate.getRight());
+		
+		monitor.setProgressByItemCount(3, STEP_COUNT);
 		
 		Platform.runLater(() -> {
-			Node node = createNode(dtoAnalysisFavourite.get(), data);
+			Node node = analysisDashboardNodeFactory.createNode(dtoAnalysisFavourite.get(), data);
 			
 			AnchorPane.setBottomAnchor(node, 0.0);
 			AnchorPane.setLeftAnchor(node, 0.0);
@@ -75,42 +89,14 @@ public class AnalysisDashboardTileController implements IDashboardTileController
 		return true;
 	}
 	
-	private Node createNode(DtoAnalysisFavourite dtoAnalysisFavourite, Optional<Object> data) {
-		if (data.isPresent()) {
-			Node chart = chartNodeFactory.createChart(data.get(), dtoAnalysisFavourite.getAnalysisType());
-			
-			if (chart instanceof ExtendedLineChart) {
-				ExtendedLineChart chartNode = (ExtendedLineChart) chart;
-				chartNode.setTitle(null);
-				chartNode.setLegendVisible(false);
-				chartNode.setMinHeight(0.0);
-				chartNode.setMinWidth(0.0);
-				chartNode.setShowHoverLabel(false);
-			}
-			
-			if (chart instanceof ExtendedPieChart) {
-				ExtendedPieChart chartNode = (ExtendedPieChart) chart;
-				chartNode.setTitle(null);
-				chartNode.setLegendVisible(false);
-				chartNode.setMinHeight(0.0);
-				chartNode.setMinWidth(0.0);
-			}
-			
-			if (chart instanceof ExtendedBarChart) {
-				ExtendedBarChart chartNode = (ExtendedBarChart) chart;
-				chartNode.setTitle(null);
-				chartNode.setLegendVisible(false);
-				chartNode.setMinHeight(0.0);
-				chartNode.setMinWidth(0.0);
-			}
-			
-			return chart;
+	private Pair<LocalDate, LocalDate> recalculateStartAndEndDate(AsyncMonitor monitor, DtoAnalysisFavourite dtoAnalysisFavourite) {
+		if (dtoAnalysisFavourite.getTimeRange() == TimeRange.USER_DEFINED) {
+			return ImmutablePair.of(dtoAnalysisFavourite.getStartDate(), dtoAnalysisFavourite.getEndDate());
 		} else {
-			Label label = new Label(MessageAdapter.getByKey(MessageKey.ANALYSIS_NO_CALCULATION_RESULT));
-			label.setTextAlignment(TextAlignment.CENTER);
-			label.setAlignment(Pos.CENTER);
-			
-			return label;
+			return timeRangeService.calculateStartAndEndDate(
+					monitor,
+					dtoAnalysisFavourite.getTimeRange(),
+					dtoAnalysisFavourite.getAssetIds());
 		}
 	}
 }

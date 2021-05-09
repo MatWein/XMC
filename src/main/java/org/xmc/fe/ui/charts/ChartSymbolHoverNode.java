@@ -2,7 +2,7 @@ package org.xmc.fe.ui.charts;
 
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.StackPane;
-import javafx.util.Duration;
+import org.xmc.fe.ui.TooltipBuilder;
 
 public class ChartSymbolHoverNode extends StackPane {
 	private static final int POINT_RADIUS = 10;
@@ -12,10 +12,7 @@ public class ChartSymbolHoverNode extends StackPane {
 	public ChartSymbolHoverNode(String message) {
 		setPrefSize(POINT_RADIUS, POINT_RADIUS);
 		
-		tooltip = new Tooltip(message);
-		tooltip.setShowDuration(Duration.INDEFINITE);
-		tooltip.setShowDelay(Duration.millis(200.0));
-		
+		tooltip = TooltipBuilder.build(message);
 		Tooltip.install(this, tooltip);
 	}
 	

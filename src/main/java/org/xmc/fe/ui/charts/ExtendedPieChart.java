@@ -8,6 +8,7 @@ import javafx.scene.control.Tooltip;
 import org.xmc.common.stubs.analysis.charts.DtoChartPoint;
 import org.xmc.common.stubs.analysis.charts.DtoChartSeries;
 import org.xmc.common.utils.StringColorUtil;
+import org.xmc.fe.ui.TooltipBuilder;
 import org.xmc.fe.ui.charts.mapper.PieChartSeriesMapper;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public class ExtendedPieChart extends PieChart {
 			DtoChartPoint<Object, Number> point = serie.getPoints().get(0);
 			
 			Node node = data.getNode();
-			Tooltip.install(node, new Tooltip(point.getDescription()));
+			Tooltip.install(node, TooltipBuilder.build(point.getDescription()));
 		}
 		
 		if (widthChangeListener != null) {

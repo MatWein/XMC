@@ -3,14 +3,13 @@ package io.github.matwein.xmc.common.stubs.analysis.charts;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-import java.awt.*;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
 public class DtoChartSeries<X, Y> implements Serializable {
 	private String name;
-	private Color color;
+	private String color;
 	
 	private List<DtoChartPoint<X, Y>> points = Lists.newArrayList();
 	private Map<String, Object> params = Maps.newHashMap();
@@ -31,11 +30,11 @@ public class DtoChartSeries<X, Y> implements Serializable {
 		this.points = points;
 	}
 	
-	public Color getColor() {
+	public String getColor() {
 		return color;
 	}
 	
-	public void setColor(Color color) {
+	public void setColor(String color) {
 		this.color = color;
 	}
 	

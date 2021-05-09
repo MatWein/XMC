@@ -1,14 +1,13 @@
 package io.github.matwein.xmc.be.services.analysis.calculation;
 
-import org.springframework.stereotype.Component;
 import io.github.matwein.xmc.common.CommonConstants;
 import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartPoint;
 import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartSeries;
 import io.github.matwein.xmc.common.utils.LocalDateUtil;
 import io.github.matwein.xmc.fe.ui.MessageAdapter;
 import io.github.matwein.xmc.fe.ui.MessageAdapter.MessageKey;
+import org.springframework.stereotype.Component;
 
-import java.awt.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -25,7 +24,7 @@ public class AbsoluteAssetValueLineChartAggregator {
 		DtoChartSeries<Number, Number> series = new DtoChartSeries<>();
 		
 		series.setName(MessageAdapter.getByKey(MessageKey.ANALYSIS_CHART_AGGREGATED_SERIES_NAME));
-		series.setColor(Color.BLACK);
+		series.setColor("#000000");
 		series.setPoints(calculateAggregatedPoints(assetLines, startDate, endDate));
 		
 		return series;

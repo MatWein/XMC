@@ -1,13 +1,12 @@
 package io.github.matwein.xmc.fe.ui.dashboard.tiles;
 
+import io.github.matwein.xmc.common.stubs.analysis.DtoMostRecentTransaction;
+import io.github.matwein.xmc.fe.FeConstants;
+import io.github.matwein.xmc.fe.ui.MessageAdapter;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import org.apache.commons.lang3.StringUtils;
-import io.github.matwein.xmc.common.stubs.analysis.DtoMostRecentTransaction;
-import io.github.matwein.xmc.common.utils.StringColorUtil;
-import io.github.matwein.xmc.fe.FeConstants;
-import io.github.matwein.xmc.fe.ui.MessageAdapter;
 
 public class TransactionView extends AnchorPane {
 	public TransactionView(DtoMostRecentTransaction transaction) {
@@ -16,7 +15,7 @@ public class TransactionView extends AnchorPane {
 		
 		Pane colorPane = new Pane();
 		colorPane.setPrefWidth(5.0);
-		colorPane.setStyle("-fx-background-color: " + StringColorUtil.convertColorToString(transaction.getAssetColor()));
+		colorPane.setStyle("-fx-background-color: " + transaction.getAssetColor());
 		
 		AnchorPane.setTopAnchor(colorPane, 0.0);
 		AnchorPane.setBottomAnchor(colorPane, 0.0);

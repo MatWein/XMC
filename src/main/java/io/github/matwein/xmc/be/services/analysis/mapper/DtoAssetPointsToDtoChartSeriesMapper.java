@@ -1,12 +1,12 @@
 package io.github.matwein.xmc.be.services.analysis.mapper;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import io.github.matwein.xmc.be.services.analysis.calculation.DuplicatedChartPointsReducer;
 import io.github.matwein.xmc.common.stubs.analysis.DtoAssetPoints;
 import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartPoint;
 import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartSeries;
 import io.github.matwein.xmc.common.utils.StringColorUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,7 +35,7 @@ public class DtoAssetPointsToDtoChartSeriesMapper {
 		if (dtoAssetPoints.getAssetColor() == null) {
 			calculatedSerie.setColor(StringColorUtil.convertTextToColor(String.valueOf(dtoAssetPoints.getAssetId())));
 		} else {
-			calculatedSerie.setColor(StringColorUtil.convertStringToAwtColor(dtoAssetPoints.getAssetColor()));
+			calculatedSerie.setColor(dtoAssetPoints.getAssetColor());
 		}
 		
 		List<DtoChartPoint<Number, Number>> points = dtoAssetPoints.getPoints();

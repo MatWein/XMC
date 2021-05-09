@@ -1,37 +1,15 @@
 package io.github.matwein.xmc.common.utils;
 
+import javafx.scene.paint.Color;
 import org.apache.commons.lang3.StringUtils;
 
-import java.awt.*;
-
 public class StringColorUtil {
-	public static Color convertStringToAwtColor(String color) {
+	public static Color convertStringToColor(String color) {
 		if (color == null) {
 			return null;
 		}
 		
-		return Color.decode(color);
-	}
-	
-	public static javafx.scene.paint.Color convertStringToColor(String color) {
-		if (color == null) {
-			return null;
-		}
-		
-		return javafx.scene.paint.Color.valueOf(color);
-	}
-	
-	public static String convertColorToString(javafx.scene.paint.Color color) {
-		if (color == null) {
-			return null;
-		}
-		
-		return "#" + (format(color.getRed()) + format(color.getGreen()) + format(color.getBlue())).toUpperCase();
-	}
-	
-	private static String format(double val) {
-		String in = Integer.toHexString((int) Math.round(val * 255));
-		return in.length() == 1 ? "0" + in : in;
+		return Color.valueOf(color);
 	}
 	
 	public static String convertColorToString(Color color) {
@@ -39,20 +17,20 @@ public class StringColorUtil {
 			return null;
 		}
 		
-		return convertColorToString(color.getRed(), color.getGreen(), color.getBlue());
+		return "#" + (format(color.getRed()) + format(color.getGreen()) + format(color.getBlue())).toUpperCase();
 	}
 	
-	private static String convertColorToString(int r, int g, int b) {
-		return String.format("#%02x%02x%02x", r, g, b);
-	}
-	
-	public static Color convertTextToColor(String text) {
+	public static String convertTextToColor(String text) {
 		if (text == null) {
 			return null;
 		}
 		
-		String hex = convertTextToColorHex(text);
-		return Color.decode(hex);
+		return convertTextToColorHex(text);
+	}
+	
+	private static String format(double val) {
+		String in = Integer.toHexString((int) Math.round(val * 255));
+		return in.length() == 1 ? "0" + in : in;
 	}
 	
 	private static String convertTextToColorHex(String text) {

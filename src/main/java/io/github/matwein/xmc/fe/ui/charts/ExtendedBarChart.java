@@ -1,5 +1,10 @@
 package io.github.matwein.xmc.fe.ui.charts;
 
+import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartPoint;
+import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartSeries;
+import io.github.matwein.xmc.fe.ui.MessageAdapter;
+import io.github.matwein.xmc.fe.ui.MessageAdapter.MessageKey;
+import io.github.matwein.xmc.fe.ui.charts.mapper.XYChartSeriesMapper;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
@@ -9,12 +14,6 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.AnchorPane;
-import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartPoint;
-import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartSeries;
-import io.github.matwein.xmc.common.utils.StringColorUtil;
-import io.github.matwein.xmc.fe.ui.MessageAdapter;
-import io.github.matwein.xmc.fe.ui.MessageAdapter.MessageKey;
-import io.github.matwein.xmc.fe.ui.charts.mapper.XYChartSeriesMapper;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -75,7 +74,7 @@ public class ExtendedBarChart<X, Y> extends AnchorPane implements IChartBase<X, 
 			for (int i = 0; i < series.size(); i++) {
 				DtoChartSeries<X, Y> serie = series.get(i);
 				
-				String colorStyle = "-fx-bar-fill: " + StringColorUtil.convertColorToString(serie.getColor()) + ";";
+				String colorStyle = "-fx-bar-fill: " + serie.getColor() + ";";
 				
 				for (Node node : chart.lookupAll(".default-color" + i + " .chart-bar")) {
 					node.setStyle(colorStyle);

@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.common.stubs.analysis;
 
-import java.awt.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,7 +14,7 @@ public class DtoMostRecentTransaction implements Serializable {
 	private String description;
 	
 	private String assetName;
-	private Color assetColor;
+	private String assetColor;
 	
 	public BigDecimal getValue() {
 		return value;
@@ -65,11 +64,11 @@ public class DtoMostRecentTransaction implements Serializable {
 		this.assetName = assetName;
 	}
 	
-	public Color getAssetColor() {
+	public String getAssetColor() {
 		return assetColor;
 	}
 	
-	public void setAssetColor(Color assetColor) {
+	public void setAssetColor(String assetColor) {
 		this.assetColor = assetColor;
 	}
 }

@@ -1,5 +1,9 @@
 package io.github.matwein.xmc.fe.ui.charts;
 
+import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartSeries;
+import io.github.matwein.xmc.fe.ui.MessageAdapter;
+import io.github.matwein.xmc.fe.ui.MessageAdapter.MessageKey;
+import io.github.matwein.xmc.fe.ui.charts.mapper.XYChartSeriesMapper;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.Node;
@@ -9,11 +13,6 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartSeries;
-import io.github.matwein.xmc.common.utils.StringColorUtil;
-import io.github.matwein.xmc.fe.ui.MessageAdapter;
-import io.github.matwein.xmc.fe.ui.MessageAdapter.MessageKey;
-import io.github.matwein.xmc.fe.ui.charts.mapper.XYChartSeriesMapper;
 
 import java.util.List;
 
@@ -65,7 +64,7 @@ public class ExtendedLineChart<X, Y> extends AnchorPane implements IChartBase<X,
 			for (int i = 0; i < series.size(); i++) {
 				DtoChartSeries<X, Y> serie = series.get(i);
 				
-				String color = StringColorUtil.convertColorToString(serie.getColor());
+				String color = serie.getColor();
 				
 				StringBuilder styles = new StringBuilder();
 				styles.append("-fx-stroke: ")

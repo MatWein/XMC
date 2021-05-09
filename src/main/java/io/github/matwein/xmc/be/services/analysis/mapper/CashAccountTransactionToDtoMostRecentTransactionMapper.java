@@ -1,10 +1,9 @@
 package io.github.matwein.xmc.be.services.analysis.mapper;
 
-import org.springframework.stereotype.Component;
 import io.github.matwein.xmc.be.entities.cashaccount.CashAccount;
 import io.github.matwein.xmc.be.entities.cashaccount.CashAccountTransaction;
 import io.github.matwein.xmc.common.stubs.analysis.DtoMostRecentTransaction;
-import io.github.matwein.xmc.common.utils.StringColorUtil;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,7 +20,7 @@ public class CashAccountTransactionToDtoMostRecentTransactionMapper {
 		var mostRecentTransaction = new DtoMostRecentTransaction();
 		
 		CashAccount cashAccount = transaction.getCashAccount();
-		mostRecentTransaction.setAssetColor(StringColorUtil.convertStringToAwtColor(cashAccount.getColor()));
+		mostRecentTransaction.setAssetColor(cashAccount.getColor());
 		mostRecentTransaction.setAssetName(cashAccount.getName());
 		mostRecentTransaction.setCurrency(cashAccount.getCurrency());
 		

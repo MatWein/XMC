@@ -1,15 +1,14 @@
 package io.github.matwein.xmc.fe.ui.charts;
 
+import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartPoint;
+import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartSeries;
+import io.github.matwein.xmc.fe.ui.TooltipBuilder;
+import io.github.matwein.xmc.fe.ui.charts.mapper.PieChartSeriesMapper;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Tooltip;
-import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartPoint;
-import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartSeries;
-import io.github.matwein.xmc.common.utils.StringColorUtil;
-import io.github.matwein.xmc.fe.ui.TooltipBuilder;
-import io.github.matwein.xmc.fe.ui.charts.mapper.PieChartSeriesMapper;
 
 import java.util.List;
 
@@ -46,7 +45,7 @@ public class ExtendedPieChart extends PieChart {
 				Data data = getData().get(i);
 				DtoChartSeries<Object, Number> serie = series.get(i);
 				
-				String colorStyle = "-fx-pie-color: " + StringColorUtil.convertColorToString(serie.getColor()) + ";";
+				String colorStyle = "-fx-pie-color: " + serie.getColor() + ";";
 				data.getNode().setStyle(colorStyle);
 				
 				for (Node node : lookupAll(".default-color" + i)) {

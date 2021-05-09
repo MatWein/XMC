@@ -94,6 +94,11 @@ public class DashboardContentTile extends VBox {
 			}
 		});
 		
+		this.setOnDragDone(event -> {
+			this.setMouseTransparent(false);
+			dashboardPane.setDragAndDropTile(null);
+		});
+		
 		dashboardPane.editableProperty().addListener((observable, oldValue, newValue) -> setCursor(newValue));
 	}
 	

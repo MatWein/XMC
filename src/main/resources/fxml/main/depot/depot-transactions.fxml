@@ -2,11 +2,11 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
-<?import org.xmc.fe.ui.components.ButtonImageView?>
-<?import org.xmc.fe.ui.components.table.*?>
+<?import io.github.matwein.xmc.fe.ui.components.ButtonImageView?>
+<?import io.github.matwein.xmc.fe.ui.components.table.*?>
 <VBox prefHeight="700.0" prefWidth="900.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css"
 	  xmlns="http://javafx.com/javafx/11.0.0" fx:id="depotContentContainer" VBox.vgrow="ALWAYS"
-	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.depot.DepotTransactionsController">
+	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.matwein.xmc.fe.stages.main.depot.DepotTransactionsController">
 
 	<ToolBar>
 		<Button text="%main.depots.transactions.create" onAction="#onNewTransaction">
@@ -33,7 +33,7 @@
 	</ToolBar>
 
 	<ExtendedTable VBox.vgrow="ALWAYS" fx:id="depotTransactionsTableView"
-				   fieldEnumType="org.xmc.common.stubs.depot.transactions.DepotTransactionOverviewFields"
+				   fieldEnumType="io.github.matwein.xmc.common.stubs.depot.transactions.DepotTransactionOverviewFields"
 				   selectionMode="MULTIPLE">
 		<columns>
 			<ExtendedTableColumn editable="false" text="%main.depots.transactions.overview.table.column.valutaDate"

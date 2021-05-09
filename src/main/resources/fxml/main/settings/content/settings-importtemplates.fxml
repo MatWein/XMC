@@ -5,13 +5,13 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.VBox?>
-<?import org.xmc.fe.ui.components.ButtonImageView?>
-<?import org.xmc.fe.ui.components.table.BaseTable?>
-<?import org.xmc.fe.ui.components.table.EditableTableColumn?>
-<?import org.xmc.fe.ui.components.table.NestedPropertyValueFactory?>
+<?import io.github.matwein.xmc.fe.ui.components.ButtonImageView?>
+<?import io.github.matwein.xmc.fe.ui.components.table.BaseTable?>
+<?import io.github.matwein.xmc.fe.ui.components.table.EditableTableColumn?>
+<?import io.github.matwein.xmc.fe.ui.components.table.NestedPropertyValueFactory?>
 <VBox stylesheets="@/css/xmc-base.css,@/css/main/settings/settings.css"
 	  xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-	  fx:controller="org.xmc.fe.stages.main.settings.content.SettingsImportTemplatesController"
+	  fx:controller="io.github.matwein.xmc.fe.stages.main.settings.content.SettingsImportTemplatesController"
 	  fx:id="importTemplatesRoot">
 
 	<ToolBar styleClass="tool-bar-border">

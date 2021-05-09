@@ -3,11 +3,11 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
-<?import org.xmc.fe.ui.components.ImageSelectionButton?>
-<?import org.xmc.fe.ui.validation.components.autocomplete.ValidationAutoComplete?>
+<?import io.github.matwein.xmc.fe.ui.components.ImageSelectionButton?>
+<?import io.github.matwein.xmc.fe.ui.validation.components.autocomplete.ValidationAutoComplete?>
 <VBox prefHeight="250.0"
 	  prefWidth="500.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
-	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.administration.banks.BankEditController">
+	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.matwein.xmc.fe.stages.main.administration.banks.BankEditController">
 
     <HBox VBox.vgrow="ALWAYS">
         <ImageSelectionButton fx:id="logoButton" fitHeight="24.0" fitWidth="24.0" messageKey="CASHACCOUNT_EDIT_BANK_LOGO">
@@ -20,16 +20,16 @@
             <Label text="%cashaccount.edit.bank.name" styleClass="form-label-first" />
             <ValidationAutoComplete fx:id="bankNameAutoComplete" visibleRowCount="5"
                                     autoCompleteLimit="100" initialFocus="true"
-                                    autoCompleteController="org.xmc.fe.stages.main.administration.banks.autocomplete.BankNameAutoCompleteController"/>
+                                    autoCompleteController="io.github.matwein.xmc.fe.stages.main.administration.banks.autocomplete.BankNameAutoCompleteController"/>
 
             <Label styleClass="form-label" text="%cashaccount.edit.bank.bic"/>
             <ValidationAutoComplete fx:id="bankBicAutoComplete"
-                                    autoCompleteController="org.xmc.fe.stages.main.administration.banks.autocomplete.BicAutoCompleteController"
+                                    autoCompleteController="io.github.matwein.xmc.fe.stages.main.administration.banks.autocomplete.BicAutoCompleteController"
                                     visibleRowCount="5" autoCompleteLimit="100"/>
 
             <Label styleClass="form-label" text="%cashaccount.edit.bank.blz"/>
             <ValidationAutoComplete fx:id="bankBlzAutoComplete"
-                                    autoCompleteController="org.xmc.fe.stages.main.administration.banks.autocomplete.BlzAutoCompleteController"
+                                    autoCompleteController="io.github.matwein.xmc.fe.stages.main.administration.banks.autocomplete.BlzAutoCompleteController"
                                     visibleRowCount="5" autoCompleteLimit="100"/>
         </VBox>
     </HBox>

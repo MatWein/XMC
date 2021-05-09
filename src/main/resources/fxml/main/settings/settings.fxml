@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="482.0" prefWidth="838.0"
 	  stylesheets="@/css/xmc-base.css,@/css/main/settings/settings.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-	  fx:controller="org.xmc.fe.stages.main.settings.SettingsController">
+	  fx:controller="io.github.matwein.xmc.fe.stages.main.settings.SettingsController">
 
 	<VBox layoutX="202.0" layoutY="150.0" prefHeight="546.0" prefWidth="230.0" spacing="5">
 		<Button maxWidth="Infinity" text="%settings.menu.analyseFavourites" onAction="#onAnalyseFavourites" />

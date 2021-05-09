@@ -3,14 +3,14 @@
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
-<?import org.xmc.common.stubs.importing.CsvSeparator?>
-<?import org.xmc.fe.ui.EnumUtil?>
-<?import org.xmc.fe.ui.validation.components.ValidationComboBox?>
-<?import org.xmc.fe.ui.validation.components.ValidationFileChooserField?>
+<?import io.github.matwein.xmc.common.stubs.importing.CsvSeparator?>
+<?import io.github.matwein.xmc.fe.ui.EnumUtil?>
+<?import io.github.matwein.xmc.fe.ui.validation.components.ValidationComboBox?>
+<?import io.github.matwein.xmc.fe.ui.validation.components.ValidationFileChooserField?>
 <?import java.lang.String?>
 <VBox stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
 	  xmlns:fx="http://javafx.com/fxml/1" styleClass="padding-15"
-	  fx:controller="org.xmc.fe.stages.main.depot.importing.deliveries.DepotDeliveryImportStep2Controller">
+	  fx:controller="io.github.matwein.xmc.fe.stages.main.depot.importing.deliveries.DepotDeliveryImportStep2Controller">
 
 	<Label styleClass="form-label-first" text="%depot.delivery.import.dialog.step2.chooseFile"/>
 	<ValidationFileChooserField required="true" fx:id="fileChooserField" filterType="CSV_OR_EXCEL" />
@@ -32,7 +32,7 @@
 	<Label styleClass="form-label" text="%depot.delivery.import.dialog.step2.csvSeparator"/>
 	<ValidationComboBox required="true" fx:id="csvSeparatorComboBox">
 		<items>
-			<FXCollections fx:factory="observableArrayList" EnumUtil.enumClass="org.xmc.common.stubs.importing.CsvSeparator" />
+			<FXCollections fx:factory="observableArrayList" EnumUtil.enumClass="io.github.matwein.xmc.common.stubs.importing.CsvSeparator" />
 		</items>
 		<value>
 			<CsvSeparator fx:value="SEMICOLON" />
@@ -40,7 +40,7 @@
 	</ValidationComboBox>
 
 	<Label styleClass="form-label" text="%depot.delivery.import.dialog.step2.encoding"/>
-	<ValidationComboBox required="true" fx:id="encodingComboBox" editable="true" customValidator="org.xmc.fe.ui.validation.EncodingFieldValidator">
+	<ValidationComboBox required="true" fx:id="encodingComboBox" editable="true" customValidator="io.github.matwein.xmc.fe.ui.validation.EncodingFieldValidator">
 		<items>
 			<FXCollections fx:factory="observableArrayList">
 				<String fx:value="ISO-8859-1"/>

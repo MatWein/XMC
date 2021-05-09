@@ -11,14 +11,14 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.xmc</groupId>
+    <groupId>io.github.matwein</groupId>
     <artifactId>xmc</artifactId>
     <version>2021.2.2</version>
     <packaging>jar</packaging>
 
     <properties>
         <java.version>11</java.version>
-        <start-class>org.xmc.Main</start-class>
+        <start-class>io.github.matwein.xmc.Main</start-class>
 		<javafx.platform>current</javafx.platform>
 
         <openjfx.version>16</openjfx.version>

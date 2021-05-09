@@ -3,10 +3,10 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.VBox?>
-<?import org.xmc.fe.ui.components.ButtonImageView?>
+<?import io.github.matwein.xmc.fe.ui.components.ButtonImageView?>
 <VBox prefHeight="700.0" prefWidth="900.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css"
 	  xmlns="http://javafx.com/javafx/11.0.0"
-	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.analysis.AnalysisController">
+	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.matwein.xmc.fe.stages.main.analysis.AnalysisController">
 
 	<TabPane tabClosingPolicy="ALL_TABS" VBox.vgrow="ALWAYS" fx:id="tabPane">
 		<Tab closable="false" text="%main.tabs.analysis" fx:id="startTab">

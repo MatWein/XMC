@@ -2,12 +2,12 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
-<?import org.xmc.fe.ui.validation.components.ValidationTextField?>
+<?import io.github.matwein.xmc.fe.ui.validation.components.ValidationTextField?>
 <VBox prefHeight="250.0"
 	  prefWidth="500.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
-	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.administration.categories.StockCategoryEditController">
+	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.matwein.xmc.fe.stages.main.administration.categories.StockCategoryEditController">
 
 	<Label text="%stockCategory.edit.name" styleClass="form-label" />
 	<ValidationTextField fx:id="nameTextfield" required="true" initialFocus="true"
-						 customValidator="org.xmc.fe.stages.main.administration.categories.validator.StockCategoryUniqueValidator" />
+						 customValidator="io.github.matwein.xmc.fe.stages.main.administration.categories.validator.StockCategoryUniqueValidator" />
 </VBox>

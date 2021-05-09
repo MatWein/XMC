@@ -5,13 +5,13 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import org.xmc.fe.ui.validation.components.ValidatedButton?>
-<?import org.xmc.fe.ui.validation.components.ValidationPasswordField?>
-<?import org.xmc.fe.ui.validation.components.ValidationTextField?>
+<?import io.github.matwein.xmc.fe.ui.validation.components.ValidatedButton?>
+<?import io.github.matwein.xmc.fe.ui.validation.components.ValidationPasswordField?>
+<?import io.github.matwein.xmc.fe.ui.validation.components.ValidationTextField?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="464.0"
             prefWidth="768.0" styleClass="background" stylesheets="@/css/xmc-base.css, @/css/login/login.css"
             xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.xmc.fe.stages.login.LoginController">
+            fx:controller="io.github.matwein.xmc.fe.stages.login.LoginController">
 
     <VBox alignment="TOP_CENTER" prefWidth="286.0" styleClass="background-akzent-1" AnchorPane.bottomAnchor="0.0"
           AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -31,7 +31,7 @@
           AnchorPane.topAnchor="30.0">
         <Label text="%login.username" styleClass="form-label-first" />
         <ValidationTextField fx:id="usernameTextfield"
-                             customValidator="org.xmc.fe.stages.login.validation.UserNotExistingFieldValidator"
+                             customValidator="io.github.matwein.xmc.fe.stages.login.validation.UserNotExistingFieldValidator"
                              onAction="#onLogin" required="true"/>
 
         <Label text="%login.password" styleClass="form-label" />

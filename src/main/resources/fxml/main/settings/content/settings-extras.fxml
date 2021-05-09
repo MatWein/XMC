@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.VBox?>
 <VBox stylesheets="@/css/xmc-base.css,@/css/main/settings/settings.css"
 	  xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-	  fx:controller="org.xmc.fe.stages.main.settings.content.SettingsExtrasController"
+	  fx:controller="io.github.matwein.xmc.fe.stages.main.settings.content.SettingsExtrasController"
 	  fx:id="extrasRoot">
 
 	<CheckBox fx:id="showSnowCheckbox" text="%settings.content.extras.showSnow" />

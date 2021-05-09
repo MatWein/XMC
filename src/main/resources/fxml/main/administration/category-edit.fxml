@@ -3,12 +3,12 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
-<?import org.xmc.fe.ui.components.ImageSelectionButton?>
-<?import org.xmc.fe.ui.validation.components.ValidationComboBox?>
-<?import org.xmc.fe.ui.validation.components.ValidationTextField?>
+<?import io.github.matwein.xmc.fe.ui.components.ImageSelectionButton?>
+<?import io.github.matwein.xmc.fe.ui.validation.components.ValidationComboBox?>
+<?import io.github.matwein.xmc.fe.ui.validation.components.ValidationTextField?>
 <VBox prefHeight="250.0"
 	  prefWidth="500.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
-	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.administration.categories.CategoryEditController">
+	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.matwein.xmc.fe.stages.main.administration.categories.CategoryEditController">
 
     <HBox VBox.vgrow="ALWAYS">
         <ImageSelectionButton fx:id="iconButton" fitHeight="24.0" fitWidth="24.0" messageKey="CATEGORY_EDIT_ICON">

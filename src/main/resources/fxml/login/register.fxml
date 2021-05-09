@@ -2,11 +2,11 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import org.xmc.fe.ui.validation.components.*?>
+<?import io.github.matwein.xmc.fe.ui.validation.components.*?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="464.0"
             prefWidth="768.0" styleClass="background" stylesheets="@/css/xmc-base.css"
             xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.xmc.fe.stages.login.RegisterController">
+            fx:controller="io.github.matwein.xmc.fe.stages.login.RegisterController">
 
     <VBox layoutX="100.0" layoutY="45.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="70.0"
           AnchorPane.leftAnchor="286.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
@@ -16,7 +16,7 @@
 
         <Label text="%register.username" styleClass="form-label" />
         <ValidationTextField fx:id="usernameTextfield" required="true" minLength="5"
-                             customValidator="org.xmc.fe.stages.login.validation.UserAlreadyExistsFieldValidator"
+                             customValidator="io.github.matwein.xmc.fe.stages.login.validation.UserAlreadyExistsFieldValidator"
                             />
         <Label text="%register.password1" styleClass="form-label" />
         <ValidationPasswordField fx:id="passwordField" required="true" minLength="7"/>

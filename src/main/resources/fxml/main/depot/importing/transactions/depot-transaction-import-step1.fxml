@@ -2,8 +2,8 @@
 
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
-<?import org.xmc.fe.ui.components.BaseTextFlow?>
-<?import org.xmc.fe.ui.components.LineBreak?>
+<?import io.github.matwein.xmc.fe.ui.components.BaseTextFlow?>
+<?import io.github.matwein.xmc.fe.ui.components.LineBreak?>
 <VBox stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
 	  xmlns:fx="http://javafx.com/fxml/1" styleClass="padding-15">
 

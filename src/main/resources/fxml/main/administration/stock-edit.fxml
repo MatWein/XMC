@@ -2,16 +2,16 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
-<?import org.xmc.fe.ui.validation.components.ValidationComboBox?>
-<?import org.xmc.fe.ui.validation.components.ValidationTextField?>
+<?import io.github.matwein.xmc.fe.ui.validation.components.ValidationComboBox?>
+<?import io.github.matwein.xmc.fe.ui.validation.components.ValidationTextField?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="341.0"
 	  prefWidth="519.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
-	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.administration.stocks.StockEditController">
+	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.matwein.xmc.fe.stages.main.administration.stocks.StockEditController">
 
     <Label text="%stock.edit.isin" styleClass="form-label-first" />
     <ValidationTextField fx:id="isinTextfield" required="true" initialFocus="true"
 						 maxLength="15" minLength="12"
-						 customValidator="org.xmc.fe.stages.main.administration.stocks.validator.StockIsinUniqueValidator" />
+						 customValidator="io.github.matwein.xmc.fe.stages.main.administration.stocks.validator.StockIsinUniqueValidator" />
 
 	<Label styleClass="form-label" text="%stock.edit.wkn" />
 	<ValidationTextField fx:id="wknTextfield" required="false" maxLength="10" minLength="6" />

@@ -5,7 +5,7 @@
 		</encoder>
 	</appender>
 
-	<appender name="UIOUT" class="org.xmc.fe.stages.main.logging.LogsAppender">
+	<appender name="UIOUT" class="io.github.matwein.xmc.fe.stages.main.logging.LogsAppender">
 		<encoder>
 			<pattern>%d{HH:mm:ss.SSS}[%thread] %-5level - %logger{36} - %msg%n</pattern>
 		</encoder>
@@ -35,7 +35,7 @@
     	<appender-ref ref="FILE" />
     </appender>
 
-	<logger name="org.xmc" level="DEBUG" />
+	<logger name="io.github.matwein.xmc" level="DEBUG" />
 	<logger name="org.hibernate.engine.jdbc.spi.SqlExceptionHelper" level="ERROR" />
 	<logger name="org.hibernate.orm.deprecation" level="ERROR" />
 	<logger name="org.springframework.boot.autoconfigure.orm.jpa.DatabaseLookup" level="ERROR" />

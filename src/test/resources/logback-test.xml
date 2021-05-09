@@ -5,7 +5,7 @@
 		</encoder>
 	</appender>
 
-	<logger name="org.xmc" level="DEBUG" />
+	<logger name="io.github.matwein.xmc" level="DEBUG" />
 
 	<root level="INFO">
 		<appender-ref ref="STDOUT" />

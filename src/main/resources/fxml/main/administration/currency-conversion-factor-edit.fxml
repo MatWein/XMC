@@ -3,14 +3,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import org.xmc.fe.ui.validation.components.autocomplete.ValidationAutoComplete?>
-<?import org.xmc.fe.ui.validation.components.ValidationDatePicker?>
-<?import org.xmc.fe.ui.validation.components.ValidationNumberField?>
-<?import org.xmc.fe.ui.validation.components.ValidationTextField?>
-<?import org.xmc.fe.ui.validation.components.ValidationTimePicker?>
+<?import io.github.matwein.xmc.fe.ui.validation.components.autocomplete.ValidationAutoComplete?>
+<?import io.github.matwein.xmc.fe.ui.validation.components.ValidationDatePicker?>
+<?import io.github.matwein.xmc.fe.ui.validation.components.ValidationNumberField?>
+<?import io.github.matwein.xmc.fe.ui.validation.components.ValidationTextField?>
+<?import io.github.matwein.xmc.fe.ui.validation.components.ValidationTimePicker?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="341.0"
 	  prefWidth="519.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
-	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.xmc.fe.stages.main.administration.ccf.CurrencyConversionFactorEditController">
+	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.matwein.xmc.fe.stages.main.administration.ccf.CurrencyConversionFactorEditController">
 
 	<HBox>
 		<VBox>
@@ -26,8 +26,8 @@
 
 	<Label styleClass="form-label" text="%currencyConversionFactor.edit.sourceCurrency" />
 	<ValidationAutoComplete fx:id="sourceCurrencyAutoComplete"
-							autoCompleteController="org.xmc.fe.ui.autocomplete.CurrencyAutoCompleteController"
-							customValidator="org.xmc.fe.ui.validation.CurrencyFieldValidator"
+							autoCompleteController="io.github.matwein.xmc.fe.ui.autocomplete.CurrencyAutoCompleteController"
+							customValidator="io.github.matwein.xmc.fe.ui.validation.CurrencyFieldValidator"
 							required="true" visibleRowCount="5" maxLength="5"/>
 
 	<Label styleClass="form-label" text="%currencyConversionFactor.edit.targetCurrency" />

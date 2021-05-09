@@ -2,37 +2,37 @@ package org.xmc.fe.stages.main.analysis.logic;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.xmc.be.services.analysis.AnalysisFavouriteService;
+import org.xmc.be.services.analysis.AnalysisAssetService;
 import org.xmc.fe.async.AsyncProcessor;
 import org.xmc.fe.stages.main.analysis.AnalysisContentController;
 
 import java.util.Set;
 
 @Component
-public class AnalysisAllFavouritesRefreshController {
+public class AnalysisAllAssetsRefreshController {
 	private final AsyncProcessor asyncProcessor;
-	private final AnalysisFavouriteService analysisFavouriteService;
+	private final AnalysisAssetService analysisAssetService;
 	private final AnalysisControllerFinder analysisControllerFinder;
 	
 	@Autowired
-	public AnalysisAllFavouritesRefreshController(
+	public AnalysisAllAssetsRefreshController(
 			AsyncProcessor asyncProcessor,
-			AnalysisFavouriteService analysisFavouriteService,
+			AnalysisAssetService analysisAssetService,
 			AnalysisControllerFinder analysisControllerFinder) {
 		
 		this.asyncProcessor = asyncProcessor;
-		this.analysisFavouriteService = analysisFavouriteService;
+		this.analysisAssetService = analysisAssetService;
 		this.analysisControllerFinder = analysisControllerFinder;
 	}
 	
-	public void refreshAllFavourites() {
+	public void refreshAllAssets() {
 		Set<AnalysisContentController> analysisContentControllers = analysisControllerFinder.findAllAnalysisController();
 		
 		asyncProcessor.runAsync(
-				analysisFavouriteService::loadAnalyseFavourites,
+				analysisAssetService::loadAssets,
 				result -> {
 					for (AnalysisContentController controller : analysisContentControllers) {
-						controller.updateFavouriteMenuButton(result);
+						controller.updateAssetTree(result);
 					}
 				}
 		);

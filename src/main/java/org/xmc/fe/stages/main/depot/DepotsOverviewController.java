@@ -11,6 +11,7 @@ import org.xmc.common.stubs.depot.DepotOverviewFields;
 import org.xmc.common.stubs.depot.DtoDepot;
 import org.xmc.common.stubs.depot.DtoDepotOverview;
 import org.xmc.fe.async.AsyncProcessor;
+import org.xmc.fe.stages.main.analysis.logic.AnalysisAllAssetsRefreshController;
 import org.xmc.fe.stages.main.depot.mapper.DepotEditDialogMapper;
 import org.xmc.fe.ui.CustomDialogBuilder;
 import org.xmc.fe.ui.DialogHelper;
@@ -28,6 +29,7 @@ public class DepotsOverviewController implements IAfterInit<DepotController> {
 	private final BankService bankService;
 	private final AsyncProcessor asyncProcessor;
 	private final DepotEditDialogMapper depotEditDialogMapper;
+	private final AnalysisAllAssetsRefreshController analysisAllAssetsRefreshController;
 	
 	@FXML private Button editButton;
 	@FXML private Button deleteButton;
@@ -42,12 +44,14 @@ public class DepotsOverviewController implements IAfterInit<DepotController> {
 			DepotService depotService,
 			BankService bankService,
 			AsyncProcessor asyncProcessor,
-			DepotEditDialogMapper depotEditDialogMapper) {
+			DepotEditDialogMapper depotEditDialogMapper,
+			AnalysisAllAssetsRefreshController analysisAllAssetsRefreshController) {
 		
 		this.depotService = depotService;
 		this.bankService = bankService;
 		this.asyncProcessor = asyncProcessor;
 		this.depotEditDialogMapper = depotEditDialogMapper;
+		this.analysisAllAssetsRefreshController = analysisAllAssetsRefreshController;
 	}
 	
 	@FXML
@@ -86,7 +90,7 @@ public class DepotsOverviewController implements IAfterInit<DepotController> {
 			asyncProcessor.runAsyncVoid(
 					() -> {},
 					monitor -> depotService.markAsDeleted(monitor, selectedDepot.getId()),
-					() -> tableView.reload()
+					this::refreshRelatedViews
 			);
 		}
 	}
@@ -119,8 +123,13 @@ public class DepotsOverviewController implements IAfterInit<DepotController> {
 			asyncProcessor.runAsyncVoid(
 					() -> {},
 					monitor -> depotService.saveOrUpdate(monitor, dtodtoDepot.get()),
-					() -> tableView.reload()
+					this::refreshRelatedViews
 			);
 		}
+	}
+	
+	private void refreshRelatedViews() {
+		tableView.reload();
+		analysisAllAssetsRefreshController.refreshAllAssets();
 	}
 }

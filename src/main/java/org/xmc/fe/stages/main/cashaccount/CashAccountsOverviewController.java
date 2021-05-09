@@ -11,6 +11,7 @@ import org.xmc.common.stubs.cashaccount.CashAccountOverviewFields;
 import org.xmc.common.stubs.cashaccount.DtoCashAccount;
 import org.xmc.common.stubs.cashaccount.DtoCashAccountOverview;
 import org.xmc.fe.async.AsyncProcessor;
+import org.xmc.fe.stages.main.analysis.logic.AnalysisAllAssetsRefreshController;
 import org.xmc.fe.stages.main.cashaccount.mapper.CashAccountEditDialogMapper;
 import org.xmc.fe.ui.CustomDialogBuilder;
 import org.xmc.fe.ui.DialogHelper;
@@ -28,8 +29,9 @@ public class CashAccountsOverviewController implements IAfterInit<CashAccountCon
     private final CashAccountEditDialogMapper cashAccountEditDialogMapper;
     private final AsyncProcessor asyncProcessor;
     private final BankService bankService;
-
-    @FXML private Button editButton;
+	private final AnalysisAllAssetsRefreshController analysisAllAssetsRefreshController;
+	
+	@FXML private Button editButton;
     @FXML private Button deleteButton;
     @FXML private Button navigateTransactionsButton;
     @FXML private ExtendedTable<DtoCashAccountOverview, CashAccountOverviewFields> tableView;
@@ -38,15 +40,17 @@ public class CashAccountsOverviewController implements IAfterInit<CashAccountCon
 
     @Autowired
     public CashAccountsOverviewController(
-            CashAccountService cashAccountService,
-            CashAccountEditDialogMapper cashAccountEditDialogMapper,
-            AsyncProcessor asyncProcessor,
-            BankService bankService) {
+		    CashAccountService cashAccountService,
+		    CashAccountEditDialogMapper cashAccountEditDialogMapper,
+		    AsyncProcessor asyncProcessor,
+		    BankService bankService,
+		    AnalysisAllAssetsRefreshController analysisAllAssetsRefreshController) {
 
         this.cashAccountService = cashAccountService;
         this.cashAccountEditDialogMapper = cashAccountEditDialogMapper;
         this.asyncProcessor = asyncProcessor;
         this.bankService = bankService;
+	    this.analysisAllAssetsRefreshController = analysisAllAssetsRefreshController;
     }
 
     @FXML
@@ -84,7 +88,7 @@ public class CashAccountsOverviewController implements IAfterInit<CashAccountCon
             asyncProcessor.runAsyncVoid(
                     () -> {},
                     monitor -> cashAccountService.markAsDeleted(monitor, selectedCashAccount.getId()),
-                    () -> tableView.reload()
+		            this::refreshRelatedViews
             );
         }
     }
@@ -111,8 +115,13 @@ public class CashAccountsOverviewController implements IAfterInit<CashAccountCon
             asyncProcessor.runAsyncVoid(
                     () -> {},
                     monitor -> cashAccountService.saveOrUpdate(monitor, dtoCashAccount.get()),
-                    () -> tableView.reload()
+		            this::refreshRelatedViews
             );
         }
     }
+	
+	private void refreshRelatedViews() {
+		tableView.reload();
+		analysisAllAssetsRefreshController.refreshAllAssets();
+	}
 }

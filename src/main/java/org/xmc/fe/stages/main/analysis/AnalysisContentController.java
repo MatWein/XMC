@@ -157,11 +157,13 @@ public class AnalysisContentController {
 	private void refreshAssetTree() {
 		asyncProcessor.runAsync(
 				analysisAssetService::loadAssets,
-				result -> {
-					var rootNode = dtoAssetSelectionTreeItemMapper.map(result, () -> onTimeRangeSelected(timeRangeComboBox.getValue()));
-					selectedAssetsTreeView.setRoot(rootNode);
-				}
+				this::updateAssetTree
 		);
+	}
+	
+	public void updateAssetTree(DtoAssetSelection result) {
+		var rootNode = dtoAssetSelectionTreeItemMapper.map(result, () -> onTimeRangeSelected(timeRangeComboBox.getValue()));
+		selectedAssetsTreeView.setRoot(rootNode);
 	}
 	
 	private void onShowSavedFavourite(DtoAnalysisFavourite favourite) {

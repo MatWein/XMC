@@ -49,7 +49,78 @@ class BankRepositoryTest extends IntegrationTest {
         Assertions.assertEquals(bank2.getId(), result.getResults().get(1).getId());
         Assertions.assertEquals(bank4.getId(), result.getResults().get(2).getId());
     }
-
+	
+	@Test
+	void testLoadOverview_CheckFields() {
+		PagingParams<BankOverviewFields> pagingParams = new PagingParams<>(0, 3, BankOverviewFields.BANK_NAME, Order.ASC, "bic");
+		
+		Bank bank1 = graphGenerator.createBank();
+		bank1.setBlz("blz");
+		bank1.setBic("bic");
+		bank1.setName("name");
+		byte[] logoBytes = "logo".getBytes();
+		bank1.setLogo(graphGenerator.createBinaryData(logoBytes));
+		session().saveOrUpdate(bank1);
+		
+		flushAndClear();
+		
+		QueryResults<DtoBankOverview> result = repository.loadOverview(pagingParams);
+		
+		Assertions.assertEquals(1, result.getTotal());
+		Assertions.assertEquals(1, result.getResults().size());
+		
+		var dtoBankOverview = result.getResults().get(0);
+		Assertions.assertEquals(bank1.getId(), dtoBankOverview.getId());
+		Assertions.assertEquals(bank1.getBic(), dtoBankOverview.getBic());
+		Assertions.assertEquals(bank1.getBlz(), dtoBankOverview.getBlz());
+		Assertions.assertEquals(bank1.getCreationDate(), dtoBankOverview.getCreationDate());
+		Assertions.assertArrayEquals(logoBytes, dtoBankOverview.getLogo());
+		Assertions.assertEquals(bank1.getName(), dtoBankOverview.getName());
+	}
+	
+	@Test
+	void testLoadOverview_NoLogo() {
+		PagingParams<BankOverviewFields> pagingParams = new PagingParams<>(0, 3, BankOverviewFields.BANK_NAME, Order.ASC, "bic");
+		
+		Bank bank1 = graphGenerator.createBank();
+		bank1.setBlz("blz");
+		bank1.setBic("bic");
+		bank1.setName("name");
+		bank1.setLogo(null);
+		session().saveOrUpdate(bank1);
+		
+		flushAndClear();
+		
+		QueryResults<DtoBankOverview> result = repository.loadOverview(pagingParams);
+		
+		Assertions.assertEquals(1, result.getTotal());
+		Assertions.assertEquals(1, result.getResults().size());
+		
+		var dtoBankOverview = result.getResults().get(0);
+		Assertions.assertEquals(bank1.getId(), dtoBankOverview.getId());
+		Assertions.assertEquals(bank1.getBic(), dtoBankOverview.getBic());
+		Assertions.assertEquals(bank1.getBlz(), dtoBankOverview.getBlz());
+		Assertions.assertEquals(bank1.getCreationDate(), dtoBankOverview.getCreationDate());
+		Assertions.assertNull(dtoBankOverview.getLogo());
+		Assertions.assertEquals(bank1.getName(), dtoBankOverview.getName());
+	}
+	
+	@Test
+	void testLoadOverview_CheckAllSortFields() {
+		graphGenerator.createBank();
+		graphGenerator.createBank();
+		graphGenerator.createBank();
+		
+		flushAndClear();
+		
+		for (BankOverviewFields fields : BankOverviewFields.values()) {
+			QueryResults<DtoBankOverview> result = repository.loadOverview(new PagingParams<>(0, 3, fields, Order.ASC, null));
+			
+			Assertions.assertEquals(3, result.getTotal());
+			Assertions.assertEquals(3, result.getResults().size());
+		}
+	}
+	
     @Test
     void testLoadOverview_Filter() {
         PagingParams<BankOverviewFields> pagingParams = new PagingParams<>(0, 3, BankOverviewFields.BANK_BIC, Order.DESC, "BIC Bank A");

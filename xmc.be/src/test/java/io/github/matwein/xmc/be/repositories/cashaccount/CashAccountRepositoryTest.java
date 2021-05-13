@@ -14,7 +14,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 
 @Transactional
 class CashAccountRepositoryTest extends IntegrationTest {
@@ -55,6 +58,69 @@ class CashAccountRepositoryTest extends IntegrationTest {
         Assertions.assertEquals(cashAccount1.getId(), result.getResults().get(1).getId());
         Assertions.assertEquals(cashAccount3.getId(), result.getResults().get(2).getId());
     }
+	
+	@Test
+	void testLoadOverview_CheckFields() {
+		PagingParams<CashAccountOverviewFields> pagingParams = new PagingParams<>(0, 3, CashAccountOverviewFields.LAST_SALDO_DATE, Order.DESC, "name");
+		
+		byte[] logoBytes = "logo".getBytes();
+		
+		Bank bank = graphGenerator.createBank();
+		bank.setBic("bic");
+		bank.setBlz("blz");
+		bank.setName("name");
+		bank.setLogo(graphGenerator.createBinaryData(logoBytes));
+		
+		CashAccount cashAccount1 = graphGenerator.createCashAccount();
+		cashAccount1.setIban("iban");
+		cashAccount1.setNumber("number");
+		cashAccount1.setName("name");
+		cashAccount1.setCurrency("USD");
+		cashAccount1.setColor("#001122");
+		cashAccount1.setLastSaldo(BigDecimal.valueOf(12.12));
+		cashAccount1.setLastSaldoDate(LocalDate.of(2021, Month.JANUARY, 12));
+		cashAccount1.setBank(bank);
+		session().saveOrUpdate(cashAccount1);
+		
+		flushAndClear();
+		
+		QueryResults<DtoCashAccountOverview> result = repository.loadOverview(pagingParams);
+		
+		Assertions.assertEquals(1, result.getTotal());
+		Assertions.assertEquals(1, result.getResults().size());
+		
+		var dtoCashAccountOverview = result.getResults().get(0);
+		Assertions.assertEquals(cashAccount1.getId(), dtoCashAccountOverview.getId());
+		Assertions.assertEquals(cashAccount1.getIban(), dtoCashAccountOverview.getIban());
+		Assertions.assertEquals(cashAccount1.getNumber(), dtoCashAccountOverview.getNumber());
+		Assertions.assertEquals(cashAccount1.getName(), dtoCashAccountOverview.getName());
+		Assertions.assertEquals(cashAccount1.getCurrency(), dtoCashAccountOverview.getCurrency());
+		Assertions.assertEquals(cashAccount1.getColor(), dtoCashAccountOverview.getColor());
+		Assertions.assertEquals(cashAccount1.getLastSaldo(), dtoCashAccountOverview.getLastSaldo());
+		Assertions.assertEquals(cashAccount1.getLastSaldoDate(), dtoCashAccountOverview.getLastSaldoDate());
+		Assertions.assertEquals(cashAccount1.getCreationDate(), dtoCashAccountOverview.getCreationDate());
+		Assertions.assertEquals(bank.getBic(), dtoCashAccountOverview.getBank().getBic());
+		Assertions.assertEquals(bank.getBlz(), dtoCashAccountOverview.getBank().getBlz());
+		Assertions.assertEquals(bank.getId(), dtoCashAccountOverview.getBank().getId());
+		Assertions.assertArrayEquals(logoBytes, dtoCashAccountOverview.getBank().getLogo());
+		Assertions.assertEquals(bank.getName(), dtoCashAccountOverview.getBank().getName());
+	}
+	
+	@Test
+	void testLoadOverview_CheckAllSortFields() {
+		graphGenerator.createCashAccount();
+		graphGenerator.createCashAccount();
+		graphGenerator.createCashAccount();
+		
+		flushAndClear();
+		
+		for (CashAccountOverviewFields fields : CashAccountOverviewFields.values()) {
+			QueryResults<DtoCashAccountOverview> result = repository.loadOverview(new PagingParams<>(0, 3, fields, Order.ASC, null));
+			
+			Assertions.assertEquals(3, result.getTotal());
+			Assertions.assertEquals(3, result.getResults().size());
+		}
+	}
 
     @Test
     void testLoadOverview_Filter() {

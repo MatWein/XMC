@@ -1,8 +1,8 @@
 package io.github.matwein.xmc.common.services.category;
 
-import com.querydsl.core.QueryResults;
 import io.github.matwein.xmc.common.stubs.IAsyncMonitor;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.category.DtoStockCategory;
 import io.github.matwein.xmc.common.stubs.category.DtoStockCategoryOverview;
 import io.github.matwein.xmc.common.stubs.category.StockCategoryOverviewFields;

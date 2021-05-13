@@ -36,7 +36,7 @@ public class DepotRepository {
 				.or(bank.name.likeIgnoreCase(filter));
 		
 		return queryUtil.createPagedQuery(pagingParams, DepotOverviewFields.NAME, Order.ASC)
-				.select(Projections.constructor(DtoDepotOverview.class,
+				.select(Projections.bean(DtoDepotOverview.class,
 						depot.id, depot.number, depot.name, depot.color,
 						depot.creationDate, depotDelivery.saldo, depotDelivery.deliveryDate,
 						bank.id, bank.name, bank.bic, bank.blz,

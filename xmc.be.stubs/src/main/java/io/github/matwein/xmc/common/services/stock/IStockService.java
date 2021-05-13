@@ -1,8 +1,8 @@
 package io.github.matwein.xmc.common.services.stock;
 
-import com.querydsl.core.QueryResults;
 import io.github.matwein.xmc.common.stubs.IAsyncMonitor;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.stocks.DtoMinimalStock;
 import io.github.matwein.xmc.common.stubs.stocks.DtoStock;
 import io.github.matwein.xmc.common.stubs.stocks.DtoStockOverview;

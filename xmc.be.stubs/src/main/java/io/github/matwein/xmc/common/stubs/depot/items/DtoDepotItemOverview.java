@@ -1,8 +1,5 @@
 package io.github.matwein.xmc.common.stubs.depot.items;
 
-import com.querydsl.core.annotations.QueryProjection;
-
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class DtoDepotItemOverview extends DtoDepotItem {
@@ -10,22 +7,6 @@ public class DtoDepotItemOverview extends DtoDepotItem {
 	
 	private String wkn;
 	private String name;
-	
-	public DtoDepotItemOverview() {
-	}
-	
-	@QueryProjection
-	public DtoDepotItemOverview(
-			Long id, String isin, BigDecimal amount, BigDecimal course,
-			BigDecimal value, String currency, LocalDateTime creationDate,
-			String wkn, String name) {
-		
-		super(id, isin, amount, course, value, currency);
-		
-		this.creationDate = creationDate;
-		this.wkn = wkn;
-		this.name = name;
-	}
 	
 	public LocalDateTime getCreationDate() {
 		return creationDate;

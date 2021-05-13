@@ -1,9 +1,9 @@
 package io.github.matwein.xmc.be.repositories.bank;
 
 import com.querydsl.core.QueryResults;
-import com.querydsl.core.types.Order;
 import io.github.matwein.xmc.be.IntegrationTest;
 import io.github.matwein.xmc.be.entities.Bank;
+import io.github.matwein.xmc.common.stubs.Order;
 import io.github.matwein.xmc.common.stubs.PagingParams;
 import io.github.matwein.xmc.common.stubs.bank.BankOverviewFields;
 import io.github.matwein.xmc.common.stubs.bank.DtoBankOverview;

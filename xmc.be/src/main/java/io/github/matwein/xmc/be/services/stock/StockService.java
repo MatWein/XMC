@@ -1,8 +1,8 @@
 package io.github.matwein.xmc.be.services.stock;
 
-import com.querydsl.core.QueryResults;
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
+import io.github.matwein.xmc.be.common.mapper.QueryResultsMapper;
 import io.github.matwein.xmc.be.entities.depot.Stock;
 import io.github.matwein.xmc.be.repositories.stock.StockJpaRepository;
 import io.github.matwein.xmc.be.repositories.stock.StockRepository;
@@ -10,6 +10,7 @@ import io.github.matwein.xmc.be.services.stock.controller.StockSaveController;
 import io.github.matwein.xmc.common.services.stock.IStockService;
 import io.github.matwein.xmc.common.stubs.IAsyncMonitor;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.stocks.DtoMinimalStock;
 import io.github.matwein.xmc.common.stubs.stocks.DtoStock;
 import io.github.matwein.xmc.common.stubs.stocks.DtoStockOverview;
@@ -31,16 +32,19 @@ public class StockService implements IStockService {
 	private final StockJpaRepository stockJpaRepository;
 	private final StockRepository stockRepository;
 	private final StockSaveController stockSaveController;
+	private final QueryResultsMapper queryResultsMapper;
 	
 	@Autowired
 	public StockService(
 			StockJpaRepository stockJpaRepository,
 			StockRepository stockRepository,
-			StockSaveController stockSaveController) {
+			StockSaveController stockSaveController,
+			QueryResultsMapper queryResultsMapper) {
 		
 		this.stockJpaRepository = stockJpaRepository;
 		this.stockRepository = stockRepository;
 		this.stockSaveController = stockSaveController;
+		this.queryResultsMapper = queryResultsMapper;
 	}
 	
 	@Override
@@ -48,7 +52,8 @@ public class StockService implements IStockService {
 		LOGGER.info("Loading stock overview: {}", pagingParams);
 		monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_LOAD_STOCK_OVERVIEW));
 		
-		return stockRepository.loadOverview(pagingParams);
+		var results = stockRepository.loadOverview(pagingParams);
+		return queryResultsMapper.map(results);
 	}
 	
 	@Override

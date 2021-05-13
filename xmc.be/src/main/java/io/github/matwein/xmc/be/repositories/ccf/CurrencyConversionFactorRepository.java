@@ -28,7 +28,7 @@ public class CurrencyConversionFactorRepository {
 		BooleanExpression predicate = currencyConversionFactor.currency.likeIgnoreCase(filter);
 		
 		return queryUtil.createPagedQuery(pagingParams, CurrencyConversionFactorOverviewFields.INPUT_DATE, Order.DESC)
-				.select(Projections.constructor(DtoCurrencyConversionFactor.class,
+				.select(Projections.bean(DtoCurrencyConversionFactor.class,
 						currencyConversionFactor.id,
 						currencyConversionFactor.inputDate,
 						currencyConversionFactor.currency,

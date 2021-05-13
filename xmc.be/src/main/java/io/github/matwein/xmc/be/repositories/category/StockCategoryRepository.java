@@ -29,7 +29,7 @@ public class StockCategoryRepository {
         BooleanExpression predicate = stockCategory.name.likeIgnoreCase(filter);
 
         return queryUtil.createPagedQuery(pagingParams, StockCategoryOverviewFields.NAME, Order.ASC)
-                .select(Projections.constructor(DtoStockCategoryOverview.class,
+                .select(Projections.bean(DtoStockCategoryOverview.class,
 		                stockCategory.id, stockCategory.name, stockCategory.creationDate))
                 .from(stockCategory)
                 .where(ExpressionUtils.allOf(predicate, stockCategory.deletionDate.isNull()))

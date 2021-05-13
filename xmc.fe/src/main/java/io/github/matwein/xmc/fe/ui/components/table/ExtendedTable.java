@@ -1,9 +1,9 @@
 package io.github.matwein.xmc.fe.ui.components.table;
 
 import com.google.common.collect.Iterables;
-import com.querydsl.core.QueryResults;
 import io.github.matwein.xmc.common.stubs.IPagingField;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.fe.FeConstants;
 import io.github.matwein.xmc.fe.async.AsyncMonitor;
 import io.github.matwein.xmc.fe.async.AsyncProcessor;
@@ -35,10 +35,11 @@ import javafx.scene.text.TextAlignment;
 import org.apache.commons.lang3.StringUtils;
 import scalc.SCalcBuilder;
 
+import java.io.Serializable;
 import java.math.RoundingMode;
 import java.util.function.Consumer;
 
-public class ExtendedTable<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> & IPagingField> extends VBox {
+public class ExtendedTable<ITEM_TYPE extends Serializable, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> & IPagingField> extends VBox {
     public static final double MAX_AUTORESIZE_COLUMN_WIDTH = 400.0;
 
     private final BaseTable<ITEM_TYPE> table;

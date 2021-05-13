@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.common.stubs.ccf;
 
-import com.querydsl.core.annotations.QueryProjection;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
@@ -14,17 +13,6 @@ public class DtoCurrencyConversionFactor implements Serializable {
 	private LocalDateTime inputDate;
 	private Currency currency;
 	private BigDecimal factorToEur;
-	
-	public DtoCurrencyConversionFactor() {
-	}
-	
-	@QueryProjection
-	public DtoCurrencyConversionFactor(Long id, LocalDateTime inputDate, String currency, BigDecimal factorToEur) {
-		this.id = id;
-		this.inputDate = inputDate;
-		this.currency = Currency.getInstance(currency);
-		this.factorToEur = factorToEur;
-	}
 	
 	public Long getId() {
 		return id;

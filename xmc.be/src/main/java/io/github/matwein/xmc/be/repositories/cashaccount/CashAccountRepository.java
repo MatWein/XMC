@@ -7,6 +7,7 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import io.github.matwein.xmc.be.common.QueryUtil;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.bank.DtoBank;
 import io.github.matwein.xmc.common.stubs.cashaccount.CashAccountOverviewFields;
 import io.github.matwein.xmc.common.stubs.cashaccount.DtoCashAccountOverview;
 import org.apache.commons.lang3.StringUtils;
@@ -36,11 +37,10 @@ public class CashAccountRepository {
                         .or(bank.name.likeIgnoreCase(filter));
 
         return queryUtil.createPagedQuery(pagingParams, CashAccountOverviewFields.NAME, Order.ASC)
-                .select(Projections.constructor(DtoCashAccountOverview.class,
+                .select(Projections.bean(DtoCashAccountOverview.class,
                         cashAccount.id, cashAccount.iban, cashAccount.number, cashAccount.name, cashAccount.currency, cashAccount.color,
                         cashAccount.creationDate, cashAccount.lastSaldo, cashAccount.lastSaldoDate,
-                        bank.id, bank.name, bank.bic, bank.blz,
-                        binaryData.rawData))
+		                Projections.bean(DtoBank.class, bank.id, bank.name, bank.bic, bank.blz, binaryData.rawData.as("logo")).as("bank")))
                 .from(cashAccount)
                 .innerJoin(cashAccount.bank(), bank)
                 .leftJoin(bank.logo(), binaryData)

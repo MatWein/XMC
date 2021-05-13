@@ -29,7 +29,6 @@ import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Currency;
 import java.util.UUID;
 
 @SuppressWarnings({"UnusedReturnValue", "unused"})
@@ -104,7 +103,7 @@ public class GraphGenerator {
         var cashAccount = new CashAccount();
 
         cashAccount.setBank(bank);
-        cashAccount.setCurrency(Currency.getInstance("EUR"));
+        cashAccount.setCurrency("EUR");
         cashAccount.setIban("iban");
         cashAccount.setName("name");
         cashAccount.setNumber("number");

@@ -1,6 +1,6 @@
 package io.github.matwein.xmc.fe.ui.components.table;
 
-import com.querydsl.core.types.Order;
+import io.github.matwein.xmc.common.stubs.Order;
 import javafx.scene.control.TableColumn.SortType;
 import org.springframework.stereotype.Component;
 

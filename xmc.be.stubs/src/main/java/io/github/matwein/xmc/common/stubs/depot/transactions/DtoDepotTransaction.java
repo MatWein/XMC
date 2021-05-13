@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.common.stubs.depot.transactions;
 
-import com.querydsl.core.annotations.QueryProjection;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
@@ -18,24 +17,6 @@ public class DtoDepotTransaction implements Serializable {
 	private BigDecimal value;
 	private String description;
 	private Currency currency;
-	
-	public DtoDepotTransaction() {
-	}
-	
-	@QueryProjection
-	public DtoDepotTransaction(
-			Long id, String isin, LocalDate valutaDate, BigDecimal amount, BigDecimal course,
-			BigDecimal value, String description, String currency) {
-		
-		this.id = id;
-		this.isin = isin;
-		this.valutaDate = valutaDate;
-		this.amount = amount;
-		this.course = course;
-		this.value = value;
-		this.description = description;
-		this.currency = Currency.getInstance(currency);
-	}
 	
 	public Long getId() {
 		return id;

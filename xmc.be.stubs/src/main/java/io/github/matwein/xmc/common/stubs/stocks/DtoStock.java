@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.common.stubs.stocks;
 
-import com.querydsl.core.annotations.QueryProjection;
 import io.github.matwein.xmc.common.stubs.category.DtoStockCategory;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -12,21 +11,6 @@ public class DtoStock implements Serializable {
 	private String name;
 	private String wkn;
 	private DtoStockCategory stockCategory;
-	
-	public DtoStock() {
-	}
-	
-	@QueryProjection
-	public DtoStock(Long id, String isin, String name, String wkn, Long categoryId, String categoryName) {
-		this.id = id;
-		this.isin = isin;
-		this.name = name;
-		this.wkn = wkn;
-		
-		if (categoryId != null) {
-			this.stockCategory = new DtoStockCategory(categoryId, categoryName);
-		}
-	}
 	
 	public Long getId() {
 		return id;

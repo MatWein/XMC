@@ -1,8 +1,8 @@
 package io.github.matwein.xmc.be.services.depot;
 
-import com.querydsl.core.QueryResults;
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
+import io.github.matwein.xmc.be.common.mapper.QueryResultsMapper;
 import io.github.matwein.xmc.be.entities.depot.Depot;
 import io.github.matwein.xmc.be.repositories.depot.DepotJpaRepository;
 import io.github.matwein.xmc.be.repositories.depot.DepotRepository;
@@ -10,6 +10,7 @@ import io.github.matwein.xmc.be.services.depot.controller.DepotSaveController;
 import io.github.matwein.xmc.common.services.depot.IDepotService;
 import io.github.matwein.xmc.common.stubs.IAsyncMonitor;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.depot.DepotOverviewFields;
 import io.github.matwein.xmc.common.stubs.depot.DtoDepot;
 import io.github.matwein.xmc.common.stubs.depot.DtoDepotOverview;
@@ -29,16 +30,19 @@ public class DepotService implements IDepotService {
 	private final DepotRepository depotRepository;
 	private final DepotJpaRepository depotJpaRepository;
 	private final DepotSaveController depotSaveController;
+	private final QueryResultsMapper queryResultsMapper;
 	
 	@Autowired
 	public DepotService(
 			DepotRepository depotRepository,
 			DepotJpaRepository depotJpaRepository,
-			DepotSaveController depotSaveController) {
+			DepotSaveController depotSaveController,
+			QueryResultsMapper queryResultsMapper) {
 		
 		this.depotRepository = depotRepository;
 		this.depotJpaRepository = depotJpaRepository;
 		this.depotSaveController = depotSaveController;
+		this.queryResultsMapper = queryResultsMapper;
 	}
 	
 	@Override
@@ -46,7 +50,8 @@ public class DepotService implements IDepotService {
 		LOGGER.info("Loading depot overview: {}", pagingParams);
 		monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_LOAD_DEPOT_OVERVIEW));
 		
-		return depotRepository.loadOverview(pagingParams);
+		var results = depotRepository.loadOverview(pagingParams);
+		return queryResultsMapper.map(results);
 	}
 	
 	@Override

@@ -7,9 +7,11 @@ import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
 import io.github.matwein.xmc.be.common.QueryUtil;
 import io.github.matwein.xmc.be.entities.cashaccount.CashAccount;
+import io.github.matwein.xmc.common.stubs.Money;
 import io.github.matwein.xmc.common.stubs.PagingParams;
 import io.github.matwein.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionOverviewFields;
 import io.github.matwein.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransactionOverview;
+import io.github.matwein.xmc.common.stubs.category.DtoCategory;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -32,15 +34,17 @@ public class CashAccountTransactionRepository {
         Predicate predicate = calculatePredicate(cashAccountEntity, pagingParams);
 
         return queryUtil.createPagedQuery(pagingParams, CashAccountTransactionOverviewFields.VALUTA_DATE, Order.DESC)
-                .select(Projections.constructor(DtoCashAccountTransactionOverview.class,
-                        cashAccountTransaction.id, category.id, category.name, binaryData.rawData,
+                .select(Projections.bean(DtoCashAccountTransactionOverview.class,
+                        cashAccountTransaction.id,
+		                Projections.bean(DtoCategory.class, category.id, category.name, binaryData.rawData.as("icon")).as("category"),
+		                Projections.bean(Money.class, cashAccountTransaction.value, cashAccount.currency).as("valueWithCurrency"),
+		                Projections.bean(Money.class, cashAccountTransaction.saldoBefore.as("value"), cashAccount.currency).as("saldoBefore"),
+		                Projections.bean(Money.class, cashAccountTransaction.saldoAfter.as("value"), cashAccount.currency).as("saldoAfter"),
                         cashAccountTransaction.usage, cashAccountTransaction.description,
                         cashAccountTransaction.valutaDate, cashAccountTransaction.value,
                         cashAccountTransaction.reference, cashAccountTransaction.referenceIban,
                         cashAccountTransaction.referenceBank, cashAccountTransaction.creditorIdentifier,
-                        cashAccountTransaction.mandate, cashAccountTransaction.creationDate,
-                        cashAccountTransaction.saldoBefore, cashAccountTransaction.saldoAfter,
-                        cashAccount.currency))
+                        cashAccountTransaction.mandate, cashAccountTransaction.creationDate))
                 .from(cashAccountTransaction)
                 .innerJoin(cashAccountTransaction.cashAccount(), cashAccount)
                 .leftJoin(cashAccountTransaction.category(), category)

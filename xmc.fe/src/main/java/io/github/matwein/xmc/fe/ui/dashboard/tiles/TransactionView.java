@@ -70,7 +70,7 @@ public class TransactionView extends AnchorPane {
 		
 		valueWithCurrency.append(MessageAdapter.formatNumber(transaction.getValue()));
 		valueWithCurrency.append(" ");
-		valueWithCurrency.append(transaction.getCurrency().getCurrencyCode());
+		valueWithCurrency.append(transaction.getCurrency());
 		
 		return valueWithCurrency.toString();
 	}

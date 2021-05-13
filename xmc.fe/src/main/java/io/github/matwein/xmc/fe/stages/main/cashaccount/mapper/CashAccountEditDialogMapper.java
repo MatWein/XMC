@@ -8,8 +8,6 @@ import nl.garvelink.iban.IBAN;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
-import java.util.Currency;
-
 @Component
 public class CashAccountEditDialogMapper implements IDialogMapper<CashAccountEditController, DtoCashAccount> {
     @Override
@@ -19,7 +17,7 @@ public class CashAccountEditDialogMapper implements IDialogMapper<CashAccountEdi
         }
 
         controller.getBankComboBox().getSelectionModel().select(dtoCashAccount.getBank());
-        controller.getCurrencyAutoComplete().setText(dtoCashAccount.getCurrency().getCurrencyCode());
+        controller.getCurrencyAutoComplete().setText(dtoCashAccount.getCurrency());
         controller.getIbanTextfield().setText(dtoCashAccount.getIban());
         controller.getNameTextfield().setText(dtoCashAccount.getName());
         controller.getNumberTextfield().setText(dtoCashAccount.getNumber());
@@ -43,7 +41,7 @@ public class CashAccountEditDialogMapper implements IDialogMapper<CashAccountEdi
         
 	    String currencyCode = controller.getCurrencyAutoComplete().getTextOrNull();
 	    if (currencyCode != null) {
-		    dtoCashAccount.setCurrency(Currency.getInstance(currencyCode));
+		    dtoCashAccount.setCurrency(currencyCode);
 	    }
 
         String iban = controller.getIbanTextfield().getTextOrNull();

@@ -1,8 +1,8 @@
 package io.github.matwein.xmc.common.services.ccf;
 
-import com.querydsl.core.QueryResults;
 import io.github.matwein.xmc.common.stubs.IAsyncMonitor;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.ccf.CurrencyConversionFactorOverviewFields;
 import io.github.matwein.xmc.common.stubs.ccf.DtoCurrencyConversionFactor;
 

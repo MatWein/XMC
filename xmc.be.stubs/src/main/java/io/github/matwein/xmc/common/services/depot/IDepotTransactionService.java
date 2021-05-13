@@ -1,8 +1,8 @@
 package io.github.matwein.xmc.common.services.depot;
 
-import com.querydsl.core.QueryResults;
 import io.github.matwein.xmc.common.stubs.IAsyncMonitor;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.depot.transactions.DepotTransactionOverviewFields;
 import io.github.matwein.xmc.common.stubs.depot.transactions.DtoDepotTransaction;
 import io.github.matwein.xmc.common.stubs.depot.transactions.DtoDepotTransactionOverview;

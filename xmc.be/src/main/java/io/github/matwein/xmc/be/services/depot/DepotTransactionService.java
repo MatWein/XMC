@@ -1,8 +1,8 @@
 package io.github.matwein.xmc.be.services.depot;
 
-import com.querydsl.core.QueryResults;
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
+import io.github.matwein.xmc.be.common.mapper.QueryResultsMapper;
 import io.github.matwein.xmc.be.entities.depot.Depot;
 import io.github.matwein.xmc.be.entities.depot.DepotTransaction;
 import io.github.matwein.xmc.be.repositories.depot.DepotJpaRepository;
@@ -12,6 +12,7 @@ import io.github.matwein.xmc.be.services.depot.controller.DepotTransactionSaveCo
 import io.github.matwein.xmc.common.services.depot.IDepotTransactionService;
 import io.github.matwein.xmc.common.stubs.IAsyncMonitor;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.depot.transactions.DepotTransactionOverviewFields;
 import io.github.matwein.xmc.common.stubs.depot.transactions.DtoDepotTransaction;
 import io.github.matwein.xmc.common.stubs.depot.transactions.DtoDepotTransactionOverview;
@@ -34,18 +35,21 @@ public class DepotTransactionService implements IDepotTransactionService {
 	private final DepotJpaRepository depotJpaRepository;
 	private final DepotTransactionRepository depotTransactionRepository;
 	private final DepotTransactionSaveController depotTransactionSaveController;
+	private final QueryResultsMapper queryResultsMapper;
 	
 	@Autowired
 	public DepotTransactionService(
 			DepotTransactionJpaRepository depotTransactionJpaRepository,
 			DepotJpaRepository depotJpaRepository,
 			DepotTransactionRepository depotTransactionRepository,
-			DepotTransactionSaveController depotTransactionSaveController) {
+			DepotTransactionSaveController depotTransactionSaveController,
+			QueryResultsMapper queryResultsMapper) {
 		
 		this.depotTransactionJpaRepository = depotTransactionJpaRepository;
 		this.depotJpaRepository = depotJpaRepository;
 		this.depotTransactionRepository = depotTransactionRepository;
 		this.depotTransactionSaveController = depotTransactionSaveController;
+		this.queryResultsMapper = queryResultsMapper;
 	}
 	
 	@Override
@@ -58,7 +62,8 @@ public class DepotTransactionService implements IDepotTransactionService {
 		monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_LOAD_DEPOT_TRANSACTION_OVERVIEW));
 		
 		Depot depot = depotJpaRepository.getOne(depotId);
-		return depotTransactionRepository.loadOverview(depot, pagingParams);
+		var results = depotTransactionRepository.loadOverview(depot, pagingParams);
+		return queryResultsMapper.map(results);
 	}
 	
 	@Override

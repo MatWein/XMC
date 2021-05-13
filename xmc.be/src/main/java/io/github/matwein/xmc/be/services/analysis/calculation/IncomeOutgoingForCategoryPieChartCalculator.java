@@ -22,7 +22,6 @@ import scalc.SCalcBuilder;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.Currency;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -64,7 +63,6 @@ public class IncomeOutgoingForCategoryPieChartCalculator {
 		
 		Set<String> currencies = cashAccounts.stream()
 				.map(CashAccount::getCurrency)
-				.map(Currency::getCurrencyCode)
 				.collect(Collectors.toSet());
 		Multimap<String, CurrencyConversionFactor> currencyConversionFactors = currencyConversionFactorLoadingController.load(currencies);
 		

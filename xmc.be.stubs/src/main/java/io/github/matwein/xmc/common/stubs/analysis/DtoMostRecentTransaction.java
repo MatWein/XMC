@@ -3,14 +3,13 @@ package io.github.matwein.xmc.common.stubs.analysis;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Currency;
 
 public class DtoMostRecentTransaction implements Serializable {
 	private BigDecimal value;
 	private boolean positive;
 	
 	private LocalDate date;
-	private Currency currency;
+	private String currency;
 	private String description;
 	
 	private String assetName;
@@ -40,11 +39,11 @@ public class DtoMostRecentTransaction implements Serializable {
 		this.date = date;
 	}
 	
-	public Currency getCurrency() {
+	public String getCurrency() {
 		return currency;
 	}
 	
-	public void setCurrency(Currency currency) {
+	public void setCurrency(String currency) {
 		this.currency = currency;
 	}
 	

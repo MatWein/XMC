@@ -1,11 +1,9 @@
 package io.github.matwein.xmc.common.stubs.protocol;
 
-import com.querydsl.core.annotations.QueryProjection;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class DtoServiceCallLogOvderview implements Serializable {
+public class DtoServiceCallLogOverview implements Serializable {
 	private LocalDateTime creationDate;
 	private String serviceClass;
 	private String serviceMethod;
@@ -13,28 +11,6 @@ public class DtoServiceCallLogOvderview implements Serializable {
 	private String parameterValues;
 	private String error;
 	private long callDuration;
-	
-	public DtoServiceCallLogOvderview() {
-	}
-
-	@QueryProjection
-	public DtoServiceCallLogOvderview(
-			LocalDateTime creationDate,
-			String serviceClass,
-			String serviceMethod,
-			String returnValue,
-			String parameterValues,
-			String error,
-			long callDuration) {
-		
-		this.creationDate = creationDate;
-		this.serviceClass = serviceClass;
-		this.serviceMethod = serviceMethod;
-		this.returnValue = returnValue;
-		this.parameterValues = parameterValues;
-		this.error = error;
-		this.callDuration = callDuration;
-	}
 	
 	public LocalDateTime getCreationDate() {
 		return creationDate;

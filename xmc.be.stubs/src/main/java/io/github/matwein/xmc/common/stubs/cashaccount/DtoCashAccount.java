@@ -1,11 +1,9 @@
 package io.github.matwein.xmc.common.stubs.cashaccount;
 
-import com.querydsl.core.annotations.QueryProjection;
 import io.github.matwein.xmc.common.stubs.bank.DtoBank;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
-import java.util.Currency;
 
 public class DtoCashAccount implements Serializable {
     private Long id;
@@ -14,25 +12,8 @@ public class DtoCashAccount implements Serializable {
     private String iban;
     private String number;
     private String name;
-    private Currency currency;
+    private String currency;
     private String color;
-
-    public DtoCashAccount() {
-    }
-
-    @QueryProjection
-    public DtoCashAccount(
-            Long id, String iban, String number, String name, String currency, String color,
-            Long bankId, String bankName, String bic, String blz, byte[] logo) {
-
-        this.id = id;
-        this.bank = new DtoBank(bankId, bankName, bic, blz, logo);
-        this.iban = iban;
-        this.number = number;
-        this.name = name;
-        this.currency = Currency.getInstance(currency);
-        this.color = color;
-    }
 
     public Long getId() {
         return id;
@@ -74,11 +55,11 @@ public class DtoCashAccount implements Serializable {
         this.name = name;
     }
 
-    public Currency getCurrency() {
+    public String getCurrency() {
         return currency;
     }
 
-    public void setCurrency(Currency currency) {
+    public void setCurrency(String currency) {
         this.currency = currency;
     }
 	

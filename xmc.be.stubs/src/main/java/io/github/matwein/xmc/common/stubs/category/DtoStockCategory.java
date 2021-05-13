@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.common.stubs.category;
 
-import com.querydsl.core.annotations.QueryProjection;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
@@ -13,12 +12,6 @@ public class DtoStockCategory implements Serializable {
     }
 
     public DtoStockCategory(String name) {
-        this.name = name;
-    }
-
-    @QueryProjection
-    public DtoStockCategory(Long id, String name) {
-        this.id = id;
         this.name = name;
     }
 

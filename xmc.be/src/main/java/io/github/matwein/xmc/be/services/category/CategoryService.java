@@ -1,8 +1,8 @@
 package io.github.matwein.xmc.be.services.category;
 
-import com.querydsl.core.QueryResults;
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
+import io.github.matwein.xmc.be.common.mapper.QueryResultsMapper;
 import io.github.matwein.xmc.be.entities.cashaccount.Category;
 import io.github.matwein.xmc.be.repositories.category.CategoryJpaRepository;
 import io.github.matwein.xmc.be.repositories.category.CategoryRepository;
@@ -11,6 +11,7 @@ import io.github.matwein.xmc.be.services.category.mapper.CategoryToDtoCategoryMa
 import io.github.matwein.xmc.common.services.category.ICategoryService;
 import io.github.matwein.xmc.common.stubs.IAsyncMonitor;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.category.CategoryOverviewFields;
 import io.github.matwein.xmc.common.stubs.category.DtoCategory;
 import io.github.matwein.xmc.common.stubs.category.DtoCategoryOverview;
@@ -33,19 +34,22 @@ public class CategoryService implements ICategoryService {
     private final CategorySaveController categorySaveController;
     private final CategoryRepository categoryRepository;
     private final CategoryToDtoCategoryMapper categoryToDtoCategoryMapper;
-
-    @Autowired
+	private final QueryResultsMapper queryResultsMapper;
+	
+	@Autowired
     public CategoryService(
-            CategoryJpaRepository categoryJpaRepository,
-            CategorySaveController categorySaveController,
-            CategoryRepository categoryRepository,
-            CategoryToDtoCategoryMapper categoryToDtoCategoryMapper) {
+		    CategoryJpaRepository categoryJpaRepository,
+		    CategorySaveController categorySaveController,
+		    CategoryRepository categoryRepository,
+		    CategoryToDtoCategoryMapper categoryToDtoCategoryMapper,
+		    QueryResultsMapper queryResultsMapper) {
 
         this.categoryJpaRepository = categoryJpaRepository;
         this.categorySaveController = categorySaveController;
         this.categoryRepository = categoryRepository;
         this.categoryToDtoCategoryMapper = categoryToDtoCategoryMapper;
-    }
+		this.queryResultsMapper = queryResultsMapper;
+	}
 
     @Override
     public List<DtoCategory> loadAllCategories(IAsyncMonitor monitor) {
@@ -69,9 +73,10 @@ public class CategoryService implements ICategoryService {
     public QueryResults<DtoCategoryOverview> loadOverview(IAsyncMonitor monitor, PagingParams<CategoryOverviewFields> pagingParams) {
         LOGGER.info("Loading category overview: {}", pagingParams);
         monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_LOAD_CATEGORY_OVERVIEW));
-
-        return categoryRepository.loadOverview(pagingParams);
-    }
+		
+		var results = categoryRepository.loadOverview(pagingParams);
+		return queryResultsMapper.map(results);
+	}
 	
 	@Override
     public void markAsDeleted(IAsyncMonitor monitor, Long categoryId) {

@@ -33,7 +33,7 @@ public class DepotDeliveryRepository {
 				.and(depotDelivery.depot().eq(depotEntity));
 		
 		return queryUtil.createPagedQuery(pagingParams, DepotDeliveryOverviewFields.DELIVERY_DATE, Order.DESC)
-				.select(Projections.constructor(DtoDepotDeliveryOverview.class,
+				.select(Projections.bean(DtoDepotDeliveryOverview.class,
 						depotDelivery.id, depotDelivery.deliveryDate, depotDelivery.saldo,
 						depotDelivery.creationDate))
 				.from(depotDelivery)

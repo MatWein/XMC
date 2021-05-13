@@ -1,8 +1,8 @@
 package io.github.matwein.xmc.be.services.category;
 
-import com.querydsl.core.QueryResults;
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
+import io.github.matwein.xmc.be.common.mapper.QueryResultsMapper;
 import io.github.matwein.xmc.be.entities.depot.StockCategory;
 import io.github.matwein.xmc.be.repositories.category.StockCategoryJpaRepository;
 import io.github.matwein.xmc.be.repositories.category.StockCategoryRepository;
@@ -11,6 +11,7 @@ import io.github.matwein.xmc.be.services.category.mapper.StockCateogoryToDtoStoc
 import io.github.matwein.xmc.common.services.category.IStockCategoryService;
 import io.github.matwein.xmc.common.stubs.IAsyncMonitor;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.category.DtoStockCategory;
 import io.github.matwein.xmc.common.stubs.category.DtoStockCategoryOverview;
 import io.github.matwein.xmc.common.stubs.category.StockCategoryOverviewFields;
@@ -33,18 +34,21 @@ public class StockCategoryService implements IStockCategoryService {
 	private final StockCategoryRepository stockCategoryRepository;
 	private final StockCategorySaveController stockCategorySaveController;
 	private final StockCateogoryToDtoStockCategoryMapper stockCateogoryToDtoStockCategoryMapper;
+	private final QueryResultsMapper queryResultsMapper;
 	
 	@Autowired
 	public StockCategoryService(
 			StockCategoryJpaRepository stockCategoryJpaRepository,
 			StockCategoryRepository stockCategoryRepository,
 			StockCategorySaveController stockCategorySaveController,
-			StockCateogoryToDtoStockCategoryMapper stockCateogoryToDtoStockCategoryMapper) {
+			StockCateogoryToDtoStockCategoryMapper stockCateogoryToDtoStockCategoryMapper,
+			QueryResultsMapper queryResultsMapper) {
 		
 		this.stockCategoryJpaRepository = stockCategoryJpaRepository;
 		this.stockCategoryRepository = stockCategoryRepository;
 		this.stockCategorySaveController = stockCategorySaveController;
 		this.stockCateogoryToDtoStockCategoryMapper = stockCateogoryToDtoStockCategoryMapper;
+		this.queryResultsMapper = queryResultsMapper;
 	}
 	
 	@Override
@@ -59,8 +63,9 @@ public class StockCategoryService implements IStockCategoryService {
     public QueryResults<DtoStockCategoryOverview> loadOverview(IAsyncMonitor monitor, PagingParams<StockCategoryOverviewFields> pagingParams) {
         LOGGER.info("Loading stock category overview: {}", pagingParams);
         monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_LOAD_CATEGORY_OVERVIEW));
-
-        return stockCategoryRepository.loadOverview(pagingParams);
+		
+		var results = stockCategoryRepository.loadOverview(pagingParams);
+		return queryResultsMapper.map(results);
     }
 	
 	@Override

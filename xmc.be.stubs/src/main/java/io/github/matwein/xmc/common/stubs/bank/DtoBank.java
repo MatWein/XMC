@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.common.stubs.bank;
 
-import com.querydsl.core.annotations.QueryProjection;
 import io.github.matwein.xmc.common.annotations.JsonIgnore;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -15,18 +14,6 @@ public class DtoBank implements Serializable {
 
     @JsonIgnore
     private byte[] logo;
-
-    public DtoBank() {
-    }
-
-    @QueryProjection
-    public DtoBank(Long id, String name, String bic, String blz, byte[] logo) {
-        this.id = id;
-        this.name = name;
-        this.bic = bic;
-        this.blz = blz;
-        this.logo = logo;
-    }
 
     public Long getId() {
         return id;

@@ -32,9 +32,9 @@ public class BankRepository {
                 .or(bank.name.likeIgnoreCase(filter));
 
         return queryUtil.createPagedQuery(pagingParams, BankOverviewFields.BANK_NAME, Order.ASC)
-                .select(Projections.constructor(DtoBankOverview.class,
+                .select(Projections.bean(DtoBankOverview.class,
                         bank.id, bank.name, bank.bic, bank.blz,
-                        binaryData.rawData, bank.creationDate))
+                        binaryData.rawData.as("logo"), bank.creationDate))
                 .from(bank)
                 .leftJoin(bank.logo(), binaryData)
                 .where(ExpressionUtils.allOf(predicate, bank.deletionDate.isNull()))

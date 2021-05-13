@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.common.stubs.depot;
 
-import com.querydsl.core.annotations.QueryProjection;
 import io.github.matwein.xmc.common.stubs.bank.DtoBank;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -13,21 +12,6 @@ public class DtoDepot implements Serializable {
 	private String number;
 	private String name;
 	private String color;
-	
-	public DtoDepot() {
-	}
-	
-	@QueryProjection
-	public DtoDepot(
-			Long id, String number, String name, String color,
-			Long bankId, String bankName, String bic, String blz, byte[] logo) {
-		
-		this.id = id;
-		this.bank = new DtoBank(bankId, bankName, bic, blz, logo);
-		this.number = number;
-		this.name = name;
-		this.color = color;
-	}
 	
 	public Long getId() {
 		return id;

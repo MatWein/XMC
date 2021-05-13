@@ -1,8 +1,8 @@
 package io.github.matwein.xmc.be.services.cashaccount;
 
-import com.querydsl.core.QueryResults;
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
+import io.github.matwein.xmc.be.common.mapper.QueryResultsMapper;
 import io.github.matwein.xmc.be.entities.cashaccount.CashAccount;
 import io.github.matwein.xmc.be.entities.cashaccount.CashAccountTransaction;
 import io.github.matwein.xmc.be.repositories.cashaccount.CashAccountJpaRepository;
@@ -14,6 +14,7 @@ import io.github.matwein.xmc.be.services.cashaccount.controller.CategoryDetectio
 import io.github.matwein.xmc.common.services.cashaccount.ICashAccountTransactionService;
 import io.github.matwein.xmc.common.stubs.IAsyncMonitor;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionOverviewFields;
 import io.github.matwein.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransaction;
 import io.github.matwein.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransactionOverview;
@@ -43,15 +44,17 @@ public class CashAccountTransactionService implements ICashAccountTransactionSer
     private final CashAccountJpaRepository cashAccountJpaRepository;
     private final CashAccountTransactionSaldoUpdater cashAccountTransactionSaldoUpdater;
     private final CategoryDetectionController categoryDetectionController;
-
-    @Autowired
+	private final QueryResultsMapper queryResultsMapper;
+	
+	@Autowired
     public CashAccountTransactionService(
-            CashAccountTransactionJpaRepository cashAccountTransactionJpaRepository,
-            CashAccountTransactionRepository cashAccountTransactionRepository,
-            CashAccountTransactionSaveController cashAccountTransactionSaveController,
-            CashAccountJpaRepository cashAccountJpaRepository,
-            CashAccountTransactionSaldoUpdater cashAccountTransactionSaldoUpdater,
-            CategoryDetectionController categoryDetectionController) {
+		    CashAccountTransactionJpaRepository cashAccountTransactionJpaRepository,
+		    CashAccountTransactionRepository cashAccountTransactionRepository,
+		    CashAccountTransactionSaveController cashAccountTransactionSaveController,
+		    CashAccountJpaRepository cashAccountJpaRepository,
+		    CashAccountTransactionSaldoUpdater cashAccountTransactionSaldoUpdater,
+		    CategoryDetectionController categoryDetectionController,
+		    QueryResultsMapper queryResultsMapper) {
 
         this.cashAccountTransactionJpaRepository = cashAccountTransactionJpaRepository;
         this.cashAccountTransactionRepository = cashAccountTransactionRepository;
@@ -59,7 +62,8 @@ public class CashAccountTransactionService implements ICashAccountTransactionSer
         this.cashAccountJpaRepository = cashAccountJpaRepository;
         this.cashAccountTransactionSaldoUpdater = cashAccountTransactionSaldoUpdater;
         this.categoryDetectionController = categoryDetectionController;
-    }
+		this.queryResultsMapper = queryResultsMapper;
+	}
 
     @Override
     public QueryResults<DtoCashAccountTransactionOverview> loadOverview(
@@ -71,7 +75,8 @@ public class CashAccountTransactionService implements ICashAccountTransactionSer
         monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_LOAD_CASHACCOUNT_TRANSACTION_OVERVIEW));
 
         CashAccount cashAccount = cashAccountJpaRepository.getOne(cashAccountId);
-        return cashAccountTransactionRepository.loadOverview(cashAccount, pagingParams);
+	    var results = cashAccountTransactionRepository.loadOverview(cashAccount, pagingParams);
+	    return queryResultsMapper.map(results);
     }
 	
 	@Override

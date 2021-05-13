@@ -37,7 +37,7 @@ public class StockRepository {
 				.or(stockCategory.name.likeIgnoreCase(filter));
 		
 		return queryUtil.createPagedQuery(pagingParams, StockOverviewFields.NAME, Order.ASC)
-				.select(Projections.constructor(DtoStockOverview.class,
+				.select(Projections.bean(DtoStockOverview.class,
 						stock.id, stock.isin, stock.name, stock.wkn, stockCategory.id,
 						stockCategory.name, stock.creationDate))
 				.from(stock)
@@ -53,7 +53,7 @@ public class StockRepository {
 				.or(stock.wkn.likeIgnoreCase(filter));
 		
 		return queryUtil.createQuery()
-				.select(Projections.constructor(DtoMinimalStock.class, stock.isin, stock.wkn, stock.name))
+				.select(Projections.bean(DtoMinimalStock.class, stock.isin, stock.wkn, stock.name))
 				.from(stock)
 				.where(predicate)
 				.orderBy(new OrderSpecifier(Order.ASC, stock.isin, NullsLast))

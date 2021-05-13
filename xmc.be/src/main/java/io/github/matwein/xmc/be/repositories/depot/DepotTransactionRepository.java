@@ -30,7 +30,7 @@ public class DepotTransactionRepository {
 		Predicate predicate = calculatePredicate(depotEntity, pagingParams);
 		
 		return queryUtil.createPagedQuery(pagingParams, DepotTransactionOverviewFields.VALUTA_DATE, Order.DESC)
-				.select(Projections.constructor(DtoDepotTransactionOverview.class,
+				.select(Projections.bean(DtoDepotTransactionOverview.class,
 						depotTransaction.id, depotTransaction.isin, depotTransaction.valutaDate,
 						depotTransaction.amount, depotTransaction.course, depotTransaction.value,
 						depotTransaction.description, depotTransaction.currency,

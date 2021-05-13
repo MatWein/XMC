@@ -1,8 +1,8 @@
 package io.github.matwein.xmc.be.services.bank;
 
-import com.querydsl.core.QueryResults;
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
+import io.github.matwein.xmc.be.common.mapper.QueryResultsMapper;
 import io.github.matwein.xmc.be.entities.Bank;
 import io.github.matwein.xmc.be.repositories.bank.BankJpaRepository;
 import io.github.matwein.xmc.be.repositories.bank.BankRepository;
@@ -11,6 +11,7 @@ import io.github.matwein.xmc.be.services.bank.mapper.BankToDtoBankMapper;
 import io.github.matwein.xmc.common.services.bank.IBankService;
 import io.github.matwein.xmc.common.stubs.IAsyncMonitor;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.bank.BankOverviewFields;
 import io.github.matwein.xmc.common.stubs.bank.DtoBank;
 import io.github.matwein.xmc.common.stubs.bank.DtoBankOverview;
@@ -33,19 +34,22 @@ public class BankService implements IBankService {
     private final BankToDtoBankMapper bankToDtoBankMapper;
     private final BankRepository bankRepository;
     private final BankSaveController bankSaveController;
-
-    @Autowired
+	private final QueryResultsMapper queryResultsMapper;
+	
+	@Autowired
     public BankService(
-            BankJpaRepository bankJpaRepository,
-            BankToDtoBankMapper bankToDtoBankMapper,
-            BankRepository bankRepository,
-            BankSaveController bankSaveController) {
+		    BankJpaRepository bankJpaRepository,
+		    BankToDtoBankMapper bankToDtoBankMapper,
+		    BankRepository bankRepository,
+		    BankSaveController bankSaveController,
+		    QueryResultsMapper queryResultsMapper) {
 
         this.bankJpaRepository = bankJpaRepository;
         this.bankToDtoBankMapper = bankToDtoBankMapper;
         this.bankRepository = bankRepository;
         this.bankSaveController = bankSaveController;
-    }
+		this.queryResultsMapper = queryResultsMapper;
+	}
 
     @Override
     public List<DtoBank> loadAllBanks(IAsyncMonitor monitor) {
@@ -69,8 +73,9 @@ public class BankService implements IBankService {
     public QueryResults<DtoBankOverview> loadOverview(IAsyncMonitor monitor, PagingParams<BankOverviewFields> pagingParams) {
         LOGGER.info("Loading bank overview: {}", pagingParams);
         monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_LOAD_BANK_OVERVIEW));
-
-        return bankRepository.loadOverview(pagingParams);
+		
+		var results = bankRepository.loadOverview(pagingParams);
+		return queryResultsMapper.map(results);
     }
 	
 	@Override

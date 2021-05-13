@@ -5,7 +5,6 @@ import io.github.matwein.xmc.be.entities.depot.DepotTransaction;
 import io.github.matwein.xmc.common.stubs.analysis.DtoMostRecentTransaction;
 import org.springframework.stereotype.Component;
 
-import java.util.Currency;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,7 +23,7 @@ public class DepotTransactionToDtoMostRecentTransactionMapper {
 		mostRecentTransaction.setAssetColor(depot.getColor());
 		mostRecentTransaction.setAssetName(depot.getName());
 		
-		mostRecentTransaction.setCurrency(Currency.getInstance(transaction.getCurrency()));
+		mostRecentTransaction.setCurrency(transaction.getCurrency());
 		mostRecentTransaction.setDate(transaction.getValutaDate());
 		mostRecentTransaction.setDescription(transaction.getDescription());
 		mostRecentTransaction.setValue(transaction.getValue());

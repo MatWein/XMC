@@ -1,8 +1,8 @@
 package io.github.matwein.xmc.be.services.depot;
 
-import com.querydsl.core.QueryResults;
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
+import io.github.matwein.xmc.be.common.mapper.QueryResultsMapper;
 import io.github.matwein.xmc.be.entities.depot.Depot;
 import io.github.matwein.xmc.be.entities.depot.DepotDelivery;
 import io.github.matwein.xmc.be.repositories.depot.DepotDeliveryJpaRepository;
@@ -13,6 +13,7 @@ import io.github.matwein.xmc.be.services.depot.controller.LastDeliveryUpdatingCo
 import io.github.matwein.xmc.common.services.depot.IDepotDeliveryService;
 import io.github.matwein.xmc.common.stubs.IAsyncMonitor;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.depot.deliveries.DepotDeliveryOverviewFields;
 import io.github.matwein.xmc.common.stubs.depot.deliveries.DtoDepotDelivery;
 import io.github.matwein.xmc.common.stubs.depot.deliveries.DtoDepotDeliveryOverview;
@@ -34,6 +35,7 @@ public class DepotDeliveryService implements IDepotDeliveryService {
 	private final DepotDeliveryRepository depotDeliveryRepository;
 	private final DepotDeliverySaveController depotDeliverySaveController;
 	private final LastDeliveryUpdatingController lastDeliveryUpdatingController;
+	private final QueryResultsMapper queryResultsMapper;
 	
 	@Autowired
 	public DepotDeliveryService(
@@ -41,13 +43,15 @@ public class DepotDeliveryService implements IDepotDeliveryService {
 			DepotDeliveryJpaRepository depotDeliveryJpaRepository,
 			DepotDeliveryRepository depotDeliveryRepository,
 			DepotDeliverySaveController depotDeliverySaveController,
-			LastDeliveryUpdatingController lastDeliveryUpdatingController) {
+			LastDeliveryUpdatingController lastDeliveryUpdatingController,
+			QueryResultsMapper queryResultsMapper) {
 		
 		this.depotJpaRepository = depotJpaRepository;
 		this.depotDeliveryJpaRepository = depotDeliveryJpaRepository;
 		this.depotDeliveryRepository = depotDeliveryRepository;
 		this.depotDeliverySaveController = depotDeliverySaveController;
 		this.lastDeliveryUpdatingController = lastDeliveryUpdatingController;
+		this.queryResultsMapper = queryResultsMapper;
 	}
 	
 	@Override
@@ -60,7 +64,8 @@ public class DepotDeliveryService implements IDepotDeliveryService {
 		monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_LOAD_DEPOT_DELIVERY_OVERVIEW));
 		
 		Depot depot = depotJpaRepository.getOne(depotId);
-		return depotDeliveryRepository.loadOverview(depot, pagingParams);
+		var results = depotDeliveryRepository.loadOverview(depot, pagingParams);
+		return queryResultsMapper.map(results);
 	}
 	
 	@Override

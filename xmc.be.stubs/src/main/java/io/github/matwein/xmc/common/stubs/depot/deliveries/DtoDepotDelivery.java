@@ -1,7 +1,5 @@
 package io.github.matwein.xmc.common.stubs.depot.deliveries;
 
-import com.querydsl.core.annotations.QueryProjection;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -14,12 +12,6 @@ public class DtoDepotDelivery implements Serializable {
 	}
 	
 	public DtoDepotDelivery(LocalDateTime deliveryDate) {
-		this.deliveryDate = deliveryDate;
-	}
-	
-	@QueryProjection
-	public DtoDepotDelivery(Long id, LocalDateTime deliveryDate) {
-		this.id = id;
 		this.deliveryDate = deliveryDate;
 	}
 	

@@ -40,9 +40,9 @@ public class CategoryRepository {
         BooleanExpression predicate = category.name.likeIgnoreCase(filter);
 
         return queryUtil.createPagedQuery(pagingParams, CategoryOverviewFields.NAME, Order.ASC)
-                .select(Projections.constructor(DtoCategoryOverview.class,
+                .select(Projections.bean(DtoCategoryOverview.class,
                         category.id, category.name,
-                        binaryData.rawData, category.creationDate))
+                        binaryData.rawData.as("icon"), category.creationDate))
                 .from(category)
                 .leftJoin(category.icon(), binaryData)
                 .where(ExpressionUtils.allOf(predicate, category.deletionDate.isNull()))

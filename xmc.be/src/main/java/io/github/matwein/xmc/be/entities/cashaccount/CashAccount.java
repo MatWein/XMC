@@ -7,7 +7,6 @@ import io.github.matwein.xmc.be.entities.DeletablePersistentObject;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Currency;
 import java.util.Set;
 
 @Entity
@@ -69,16 +68,16 @@ public class CashAccount extends DeletablePersistentObject {
     public void setName(String name) {
         this.name = name;
     }
-
-    public Currency getCurrency() {
-        return currency == null ? null : Currency.getInstance(currency);
-    }
-
-    public void setCurrency(Currency currency) {
-        this.currency = currency.getCurrencyCode();
-    }
-
-    public BigDecimal getLastSaldo() {
+	
+	public String getCurrency() {
+		return currency;
+	}
+	
+	public void setCurrency(String currency) {
+		this.currency = currency;
+	}
+	
+	public BigDecimal getLastSaldo() {
         return lastSaldo;
     }
 

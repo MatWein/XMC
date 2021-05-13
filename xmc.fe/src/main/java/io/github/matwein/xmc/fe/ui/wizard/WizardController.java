@@ -1,11 +1,11 @@
 package io.github.matwein.xmc.fe.ui.wizard;
 
 import com.google.common.collect.Iterables;
+import io.github.matwein.xmc.fe.common.MessageAdapter;
 import io.github.matwein.xmc.fe.ui.FxmlController;
 import io.github.matwein.xmc.fe.ui.IAfterInit;
 import io.github.matwein.xmc.fe.ui.SceneUtil;
 import io.github.matwein.xmc.fe.ui.components.LineBreak;
-import io.github.matwein.xmc.utils.MessageAdapter;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;

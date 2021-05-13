@@ -2,9 +2,9 @@ package io.github.matwein.xmc.fe.ui;
 
 import com.google.common.collect.Lists;
 import io.github.matwein.xmc.fe.FeConstants;
+import io.github.matwein.xmc.fe.common.MessageAdapter;
+import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.fe.stages.main.MainController;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;

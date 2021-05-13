@@ -1,11 +1,11 @@
 package io.github.matwein.xmc.be.services.analysis.calculation;
 
 import io.github.matwein.xmc.be.common.LocalDateUtil;
+import io.github.matwein.xmc.be.common.MessageAdapter;
+import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.common.CommonConstants;
 import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartPoint;
 import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartSeries;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;

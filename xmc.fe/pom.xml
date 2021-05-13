@@ -20,10 +20,6 @@
 		</dependency>
 		<dependency>
 			<groupId>io.github.matwein</groupId>
-			<artifactId>xmc.shared</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.github.matwein</groupId>
 			<artifactId>xmc.test</artifactId>
 		</dependency>
 
@@ -89,6 +85,10 @@
 		<dependency>
 			<groupId>nl.garvelink.oss</groupId>
 			<artifactId>iban</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.coobird</groupId>
+			<artifactId>thumbnailator</artifactId>
 		</dependency>
 
 		<!-- Test / Development -->

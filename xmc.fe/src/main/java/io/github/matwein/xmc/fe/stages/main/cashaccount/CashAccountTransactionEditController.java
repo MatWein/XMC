@@ -4,14 +4,14 @@ import io.github.matwein.xmc.common.services.cashaccount.ICashAccountTransaction
 import io.github.matwein.xmc.common.stubs.category.DtoCategory;
 import io.github.matwein.xmc.fe.async.AsyncProcessor;
 import io.github.matwein.xmc.fe.common.ImageUtilFrontend;
+import io.github.matwein.xmc.fe.common.MessageAdapter;
+import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.fe.ui.FxmlController;
 import io.github.matwein.xmc.fe.ui.IDialogWithAsyncData;
 import io.github.matwein.xmc.fe.ui.components.ComboBoxIconCellFactory;
 import io.github.matwein.xmc.fe.ui.components.FocusLostListener;
 import io.github.matwein.xmc.fe.ui.converter.GenericItemToStringConverter;
 import io.github.matwein.xmc.fe.ui.validation.components.*;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import org.apache.commons.lang3.tuple.Pair;

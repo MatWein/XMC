@@ -1,7 +1,7 @@
 package io.github.matwein.xmc.fe.ui;
 
 import io.github.matwein.xmc.fe.JavaFxTestBase;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
+import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.Dialog;
 import org.junit.jupiter.api.Assertions;

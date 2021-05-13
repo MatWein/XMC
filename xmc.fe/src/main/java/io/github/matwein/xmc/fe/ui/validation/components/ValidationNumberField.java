@@ -1,11 +1,11 @@
 package io.github.matwein.xmc.fe.ui.validation.components;
 
+import io.github.matwein.xmc.fe.common.MessageAdapter;
+import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.fe.common.NumberUtils;
 import io.github.matwein.xmc.fe.ui.components.FocusLostListener;
 import io.github.matwein.xmc.fe.ui.components.IInitialFocus;
 import io.github.matwein.xmc.fe.ui.validation.*;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;

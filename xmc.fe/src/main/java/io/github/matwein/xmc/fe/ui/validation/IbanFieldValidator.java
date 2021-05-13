@@ -1,8 +1,8 @@
 package io.github.matwein.xmc.fe.ui.validation;
 
 import com.google.common.collect.Lists;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
+import io.github.matwein.xmc.fe.common.MessageAdapter;
+import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import javafx.scene.control.TextField;
 import nl.garvelink.iban.IBAN;
 import org.apache.commons.lang3.StringUtils;

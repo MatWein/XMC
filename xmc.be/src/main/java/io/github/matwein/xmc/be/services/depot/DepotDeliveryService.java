@@ -1,6 +1,8 @@
 package io.github.matwein.xmc.be.services.depot;
 
 import com.querydsl.core.QueryResults;
+import io.github.matwein.xmc.be.common.MessageAdapter;
+import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.be.entities.depot.Depot;
 import io.github.matwein.xmc.be.entities.depot.DepotDelivery;
 import io.github.matwein.xmc.be.repositories.depot.DepotDeliveryJpaRepository;
@@ -14,8 +16,6 @@ import io.github.matwein.xmc.common.stubs.PagingParams;
 import io.github.matwein.xmc.common.stubs.depot.deliveries.DepotDeliveryOverviewFields;
 import io.github.matwein.xmc.common.stubs.depot.deliveries.DtoDepotDelivery;
 import io.github.matwein.xmc.common.stubs.depot.deliveries.DtoDepotDeliveryOverview;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

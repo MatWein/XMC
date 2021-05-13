@@ -1,11 +1,11 @@
 package io.github.matwein.xmc.be.services.analysis;
 
+import io.github.matwein.xmc.be.common.MessageAdapter;
+import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.be.services.analysis.controller.AssetSelectionLoadingController;
 import io.github.matwein.xmc.common.services.analysis.IAnalysisAssetService;
 import io.github.matwein.xmc.common.stubs.IAsyncMonitor;
 import io.github.matwein.xmc.common.stubs.analysis.DtoAssetSelection;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

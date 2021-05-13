@@ -1,6 +1,8 @@
 package io.github.matwein.xmc.be.services.importing.controller;
 
 import com.google.common.collect.Sets;
+import io.github.matwein.xmc.be.common.MessageAdapter;
+import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.be.services.importing.mapper.DtoImportFileValidationResultMapper;
 import io.github.matwein.xmc.common.FileMimeType;
 import io.github.matwein.xmc.common.stubs.IAsyncMonitor;
@@ -8,8 +10,6 @@ import io.github.matwein.xmc.common.stubs.importing.DtoImportData;
 import io.github.matwein.xmc.common.stubs.importing.DtoImportFileValidationResult;
 import io.github.matwein.xmc.common.stubs.importing.DtoImportFileValidationResultError;
 import io.github.matwein.xmc.common.stubs.importing.exceptions.ImportFileTypeException;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

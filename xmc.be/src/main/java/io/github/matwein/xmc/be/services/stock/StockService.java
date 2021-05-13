@@ -1,6 +1,8 @@
 package io.github.matwein.xmc.be.services.stock;
 
 import com.querydsl.core.QueryResults;
+import io.github.matwein.xmc.be.common.MessageAdapter;
+import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.be.entities.depot.Stock;
 import io.github.matwein.xmc.be.repositories.stock.StockJpaRepository;
 import io.github.matwein.xmc.be.repositories.stock.StockRepository;
@@ -12,8 +14,6 @@ import io.github.matwein.xmc.common.stubs.stocks.DtoMinimalStock;
 import io.github.matwein.xmc.common.stubs.stocks.DtoStock;
 import io.github.matwein.xmc.common.stubs.stocks.DtoStockOverview;
 import io.github.matwein.xmc.common.stubs.stocks.StockOverviewFields;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

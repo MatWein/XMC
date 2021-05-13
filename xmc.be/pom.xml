@@ -20,10 +20,6 @@
 		</dependency>
 		<dependency>
 			<groupId>io.github.matwein</groupId>
-			<artifactId>xmc.shared</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.github.matwein</groupId>
 			<artifactId>xmc.test</artifactId>
 		</dependency>
 

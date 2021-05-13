@@ -1,6 +1,6 @@
 package io.github.matwein.xmc.fe.ui.wizard;
 
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
+import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import javafx.scene.Parent;
 
 public class WizardStep<INPUT_TYPE> {

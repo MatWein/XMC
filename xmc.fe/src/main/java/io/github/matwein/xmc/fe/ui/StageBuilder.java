@@ -1,9 +1,9 @@
 package io.github.matwein.xmc.fe.ui;
 
 import io.github.matwein.xmc.fe.FeConstants;
+import io.github.matwein.xmc.fe.common.MessageAdapter;
+import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

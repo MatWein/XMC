@@ -2,11 +2,11 @@ package io.github.matwein.xmc.fe.ui.charts.mapper;
 
 import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartPoint;
 import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartSeries;
+import io.github.matwein.xmc.fe.common.MessageAdapter;
+import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.fe.ui.charts.ChartSymbolHoverNode;
 import io.github.matwein.xmc.fe.ui.charts.ExtendedLineChart;
 import io.github.matwein.xmc.fe.ui.charts.IChartBase;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import javafx.scene.chart.XYChart;
 import org.springframework.stereotype.Component;
 

@@ -4,6 +4,7 @@ import io.github.matwein.xmc.common.services.ccf.ICurrencyConversionFactorServic
 import io.github.matwein.xmc.common.stubs.ccf.CurrencyConversionFactorOverviewFields;
 import io.github.matwein.xmc.common.stubs.ccf.DtoCurrencyConversionFactor;
 import io.github.matwein.xmc.fe.async.AsyncProcessor;
+import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.fe.stages.main.MainController;
 import io.github.matwein.xmc.fe.stages.main.administration.ccf.mapper.CurrencyConversionFactorEditDialogMapper;
 import io.github.matwein.xmc.fe.ui.CustomDialogBuilder;
@@ -11,7 +12,6 @@ import io.github.matwein.xmc.fe.ui.DialogHelper;
 import io.github.matwein.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import io.github.matwein.xmc.fe.ui.FxmlController;
 import io.github.matwein.xmc.fe.ui.components.table.ExtendedTable;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import javafx.beans.binding.BooleanBinding;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

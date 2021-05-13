@@ -1,14 +1,14 @@
 package io.github.matwein.xmc.fe.stages.main.cashaccount;
 
 import io.github.matwein.xmc.common.stubs.cashaccount.DtoCashAccountOverview;
+import io.github.matwein.xmc.fe.common.MessageAdapter;
+import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.fe.ui.FxmlComponentFactory;
 import io.github.matwein.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import io.github.matwein.xmc.fe.ui.FxmlController;
 import io.github.matwein.xmc.fe.ui.IAfterInit;
 import io.github.matwein.xmc.fe.ui.components.BreadcrumbBar;
 import io.github.matwein.xmc.fe.ui.components.BreadcrumbBar.BreadcrumbPathElement;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;

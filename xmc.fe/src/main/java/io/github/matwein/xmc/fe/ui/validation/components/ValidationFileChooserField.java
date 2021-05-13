@@ -1,5 +1,7 @@
 package io.github.matwein.xmc.fe.ui.validation.components;
 
+import io.github.matwein.xmc.fe.common.MessageAdapter;
+import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.fe.ui.DialogHelper;
 import io.github.matwein.xmc.fe.ui.ExtensionFilterType;
 import io.github.matwein.xmc.fe.ui.SceneUtil;
@@ -8,8 +10,6 @@ import io.github.matwein.xmc.fe.ui.validation.ICustomValidator;
 import io.github.matwein.xmc.fe.ui.validation.IEqualTo;
 import io.github.matwein.xmc.fe.ui.validation.IRequired;
 import io.github.matwein.xmc.fe.ui.validation.IValidationComponent;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

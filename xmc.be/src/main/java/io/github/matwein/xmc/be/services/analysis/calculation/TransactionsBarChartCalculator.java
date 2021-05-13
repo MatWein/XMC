@@ -2,13 +2,13 @@ package io.github.matwein.xmc.be.services.analysis.calculation;
 
 import com.google.common.collect.Multimap;
 import io.github.matwein.xmc.be.common.LocalDateUtil;
+import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.services.analysis.controller.AssetTransactionsLoadingController;
 import io.github.matwein.xmc.be.services.analysis.mapper.DtoAssetPointsToDtoChartSeriesMapper;
 import io.github.matwein.xmc.common.stubs.analysis.AssetType;
 import io.github.matwein.xmc.common.stubs.analysis.DtoAssetPoints;
 import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartPoint;
 import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartSeries;
-import io.github.matwein.xmc.utils.MessageAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

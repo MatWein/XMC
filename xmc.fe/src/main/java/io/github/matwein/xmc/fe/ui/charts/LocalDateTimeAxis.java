@@ -1,7 +1,7 @@
 package io.github.matwein.xmc.fe.ui.charts;
 
+import io.github.matwein.xmc.fe.common.MessageAdapter;
 import io.github.matwein.xmc.fe.ui.converter.GenericItemToStringConverter;
-import io.github.matwein.xmc.utils.MessageAdapter;
 import javafx.scene.chart.NumberAxis;
 
 import java.time.Instant;

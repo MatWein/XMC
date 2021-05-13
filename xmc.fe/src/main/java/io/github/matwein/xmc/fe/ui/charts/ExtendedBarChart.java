@@ -2,9 +2,9 @@ package io.github.matwein.xmc.fe.ui.charts;
 
 import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartPoint;
 import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartSeries;
+import io.github.matwein.xmc.fe.common.MessageAdapter;
+import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.fe.ui.charts.mapper.XYChartSeriesMapper;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;

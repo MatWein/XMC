@@ -2,6 +2,8 @@ package io.github.matwein.xmc.be.services.depot.controller.importing;
 
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
+import io.github.matwein.xmc.be.common.MessageAdapter;
+import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.be.entities.depot.Depot;
 import io.github.matwein.xmc.be.entities.depot.DepotDelivery;
 import io.github.matwein.xmc.be.repositories.depot.DepotDeliveryJpaRepository;
@@ -21,8 +23,6 @@ import io.github.matwein.xmc.common.stubs.importing.DtoImportData;
 import io.github.matwein.xmc.common.stubs.importing.DtoImportFileValidationResult;
 import io.github.matwein.xmc.common.stubs.importing.ImportTemplateType;
 import io.github.matwein.xmc.common.stubs.importing.ImportType;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

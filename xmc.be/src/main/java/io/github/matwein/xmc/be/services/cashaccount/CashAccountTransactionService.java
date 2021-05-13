@@ -1,6 +1,8 @@
 package io.github.matwein.xmc.be.services.cashaccount;
 
 import com.querydsl.core.QueryResults;
+import io.github.matwein.xmc.be.common.MessageAdapter;
+import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.be.entities.cashaccount.CashAccount;
 import io.github.matwein.xmc.be.entities.cashaccount.CashAccountTransaction;
 import io.github.matwein.xmc.be.repositories.cashaccount.CashAccountJpaRepository;
@@ -15,8 +17,6 @@ import io.github.matwein.xmc.common.stubs.PagingParams;
 import io.github.matwein.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionOverviewFields;
 import io.github.matwein.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransaction;
 import io.github.matwein.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransactionOverview;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;

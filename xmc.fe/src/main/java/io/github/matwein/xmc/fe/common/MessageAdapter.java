@@ -1,7 +1,6 @@
-package io.github.matwein.xmc.utils;
+package io.github.matwein.xmc.fe.common;
 
 import io.github.matwein.xmc.common.stubs.analysis.AnalysisType;
-import io.github.matwein.xmc.common.stubs.analysis.AssetType;
 import io.github.matwein.xmc.common.stubs.analysis.TimeRange;
 import io.github.matwein.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
 import io.github.matwein.xmc.common.stubs.depot.deliveries.DepotDeliveryImportColmn;
@@ -27,7 +26,7 @@ public class MessageAdapter {
     public static ResourceBundle RESOURCE_BUNDLE = initBundle();
 
     public static ResourceBundle initBundle() {
-        return RESOURCE_BUNDLE = ResourceBundle.getBundle("messages.messages", Locale.getDefault());
+        return RESOURCE_BUNDLE = ResourceBundle.getBundle("messages.messages_frontend", Locale.getDefault());
     }
 
     public static String getByKey(MessageKey key, Object... args) {
@@ -119,7 +118,6 @@ public class MessageAdapter {
 	    VALIDATION_INVALID_ENCODING("validation.invalidEncoding"),
 	    VALIDATION_STOCK_CATEGORY_ALREADY_EXISTS("validation.stockCategoryAlreadyExists"),
 	    VALIDATION_STOCK_ISIN_ALREADY_EXISTS("validation.stockIsinAlreadyExists"),
-	    VALIDATION_IMPORT_FIELD_ERROR("validation.import.field.error"),
 
 	    STATUS_READY("main.status.ready"),
 	    STATUS_ERROR("main.status.error"),
@@ -130,62 +128,6 @@ public class MessageAdapter {
         PAGING_LAST_PAGE("paging.lastPage"),
         PAGING_COUNT("paging.count"),
         PAGING_FILTER_PROMPT("paging.filterPrompt"),
-
-        ASYNC_TASK_LOAD_CASHACCOUNT_OVERVIEW("async.task.loadCashAccountOverview"),
-        ASYNC_TASK_SAVE_CASHACCOUNT("async.task.saveCashAccount"),
-        ASYNC_TASK_LOAD_BANK_OVERVIEW("async.task.loadBankOverview"),
-        ASYNC_TASK_SAVE_BANK("async.task.saveBank"),
-        ASYNC_TASK_LOAD_ALL_BANKS("async.task.loadAllBanks"),
-        ASYNC_TASK_DELETE_BANK("async.task.deleteBank"),
-        ASYNC_TASK_DELETE_CASHACCOUNT("async.task.deleteCashAccount"),
-        ASYNC_TASK_SAVE_CATEGORY("async.task.saveCategory"),
-        ASYNC_TASK_LOAD_CATEGORY_OVERVIEW("async.task.loadCategoryOverview"),
-        ASYNC_TASK_DELETE_CATEGORY("async.task.deleteCategory"),
-        ASYNC_TASK_LOAD_ALL_CATEGORIES("async.task.loadAllCategories"),
-        ASYNC_TASK_DELETE_CASHACCOUNT_TRANSACTIONS("async.task.deleteCashAccountTransactions"),
-        ASYNC_TASK_LOAD_CASHACCOUNT_TRANSACTION_OVERVIEW("async.task.loadCashAccountTransactionOverview"),
-        ASYNC_TASK_SAVE_CASHACCOUNT_TRANSACTION("async.task.saveCashAccountTransaction"),
-        ASYNC_TASK_DETECT_CASHACCOUNT_TRANSACTION_CATEGORY("async.task.detectCashAccountTransactionCategory"),
-        ASYNC_TASK_VALIDATE_IMPORT_FILE("async.task.validateImportFile"),
-	    ASYNC_TASK_READ_IMPORT_FILE("async.task.readImportFile"),
-	    ASYNC_TASK_MAP_IMPORT_FILE("async.task.mapImportFile"),
-	    ASYNC_TASK_SAVE_IMPORT_TEMPLATE("async.task.saveImportTemplate"),
-	    ASYNC_TASK_IMPORTING_TRANSACTIONS("async.task.importingTransactions"),
-	    ASYNC_TASK_LOAD_IMPORT_TEMPLATES("async.task.loadImportTemplates"),
-	    ASYNC_TASK_RENAME_IMPORT_TEMPLATE("async.task.renameImportTemplate"),
-	    ASYNC_TASK_DELETE_IMPORT_TEMPLATE("async.task.deleteImportTemplate"),
-	    ASYNC_TASK_LOAD_SETTING("async.task.loadSetting"),
-	    ASYNC_TASK_SAVE_SETTING("async.task.saveSetting"),
-	    ASYNC_TASK_LOAD_ALL_STOCK_CATEGORIES("async.task.loadAllStockCategories"),
-	    ASYNC_TASK_DELETE_STOCK("async.task.deleteStock"),
-	    ASYNC_TASK_LOAD_STOCK_OVERVIEW("async.task.loadStockOverview"),
-	    ASYNC_TASK_SAVE_STOCK("async.task.saveStock"),
-	    ASYNC_TASK_DELETE_CURRENCY_CONVERSION_FACTOR("async.task.deleteCurrencyConversionFactor"),
-	    ASYNC_TASK_SAVE_CURRENCY_CONVERSION_FACTOR("async.task.saveCurrencyConversionFactor"),
-	    ASYNC_TASK_LOAD_CURRENCY_CONVERSION_FACTOR_OVERVIEW("async.task.loadCurrencyConversionFactorOverview"),
-	    ASYNC_TASK_LOAD_DEPOT_OVERVIEW("async.task.loadDepotOverview"),
-	    ASYNC_TASK_SAVE_DEPOT("async.task.saveDepot"),
-	    ASYNC_TASK_DELETE_DEPOT("async.task.deleteDepot"),
-	    ASYNC_TASK_DELETE_DEPOT_TRANSACTIONS("async.task.deleteDepotTransactions"),
-	    ASYNC_TASK_LOAD_DEPOT_TRANSACTION_OVERVIEW("async.task.loadDepotTransactionOverview"),
-	    ASYNC_TASK_SAVE_DEPOT_TRANSACTION("async.task.saveDepotTransaction"),
-	    ASYNC_TASK_LOAD_DEPOT_DELIVERY_OVERVIEW("async.task.loadDepotDeliveryOverview"),
-	    ASYNC_TASK_DELETE_DEPOT_DELIVERY("async.task.deleteDepotDelivery"),
-	    ASYNC_TASK_SAVE_DEPOT_DELIVERY("async.task.saveDepotDelivery"),
-	    ASYNC_TASK_LOAD_DEPOT_ITEM_OVERVIEW("async.task.loadDepotItemOverview"),
-	    ASYNC_TASK_SAVE_DEPOT_ITEM("async.task.saveDepotItem"),
-	    ASYNC_TASK_DELETE_DEPOT_ITEMS("async.task.deleteDepotItems"),
-	    ASYNC_TASK_IMPORTING_DEPOT_DELIVERIES("async.task.importingDepotDeliveries"),
-	    ASYNC_TASK_IMPORTING_DEPOT_ITEMS("async.task.importingDepotItems"),
-	    ASYNC_TASK_LOAD_SERVICECALLLOGS("async.task.loadingServiceCallLogs"),
-	    ASYNC_TASK_CALCULATE_STARTEND_DATE("async.task.calculateStartEndDate"),
-	    ASYNC_TASK_IMPORTING_DEPOT_TRANSACTIONS("async.task.importingDepotTransactions"),
-	    ASYNC_TASK_LOAD_SELECTABLE_ASSETS_FOR_ANALYSIS("async.task.loadSelectableAssetsForAnalysis"),
-	    ASYNC_TASK_CALCULATING_CHART("async.task.calculatingChart"),
-	    ASYNC_TASK_SAVE_ANALYSIS_FAVOURITE("async.task.saveAnalysisFavourite"),
-	    ASYNC_TASK_LOAD_ANALYSIS_FAVOURITES("async.task.loadAnalysisFavourites"),
-	    ASYNC_TASK_DELETE_ANALYSIS_FAVOURITE("async.task.deleteAnalysisFavourite"),
-	    ASYNC_TASK_RENAME_ANALYSIS_FAVOURITE("async.task.renameAnalysisFavourite"),
 
         LOGIN_TITLE("login.title"),
 
@@ -230,8 +172,6 @@ public class MessageAdapter {
         CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP3_TITLE("cashaccount.transaction.import.dialog.step3.title"),
         CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_TITLE("cashaccount.transaction.import.dialog.step4.title"),
         CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_COLUMN_PREFIX("cashaccount.transaction.import.dialog.step4.columns", CashAccountTransactionImportColmn.class),
-        CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_COMMON_ERROR("cashaccount.transaction.import.dialog.step4.commonError"),
-	    CASHACCOUNT_TRANSACTION_IMPORT_DIALOG_STEP4_FILETYPE_ERROR("cashaccount.transaction.import.dialog.step4.fileTypeError"),
 
 	    IMPORTING_CSV_SEPARATOR("importing.csvSeparator", CsvSeparator.class),
 	    IMPORTING_TEMPLATE_TYPE("importing.templateType", ImportTemplateType.class),
@@ -318,8 +258,6 @@ public class MessageAdapter {
 	    DASHBOARD_REMOVE_TILE("dashboard.removeTile"),
 	    
 	    ANALYSIS_TYPE("analysis.type", AnalysisType.class),
-	    ASSET_TYPE("asset.type", AssetType.class),
-	    ASSET_TYPE_ALL("asset.type.all"),
 	    TIME_RANGE_TYPE("timerange.type",TimeRange .class),
 	    
 	    ANALYSIS_NO_CALCULATION_RESULT("analysis.noCalculationResult"),
@@ -327,14 +265,7 @@ public class MessageAdapter {
 	    ANALYSIS_AXIS_DATE("analysis.axis.date"),
 	    ANALYSIS_AXIS_VALUE_IN_EUR("analysis.axis.valueInEur"),
 	    ANALYSIS_CHART_POINT_XY_HOVER("analysis.chartPointXY.hover"),
-	    ANALYSIS_CHART_AGGREGATED_SERIES_NAME("analysis.chartPointXY.aggregatedSeriesName"),
 	    ANALYSIS_COUNTER("main.tabs.analysis.counter"),
-	    ANALYSIS_OTHER("analysis.other"),
-	    ANALYSIS_SUM_IN_EUR("analysis.sumInEuro"),
-	    ANALYSIS_PERCENTAGE("analysis.percentage"),
-	    ANALYSIS_DESCRIPTION("analysis.description"),
-	    ANALYSIS_DATE("analysis.date"),
-	    ANALYSIS_TRANSACTIONS_AGGREGATE_DESCRIPTION("analysis.transactions.aggregateDescription"),
 	    ANALYSIS_SAVE_FAVOURITE_NAME("analysis.save.favouriteName"),
 	    ANALYSIS_DASHBOARD_DIALOG_TITLE("analysis.dashboard.dialog.title"),
 	    ANALYSIS_DASHBOARD_DIALOG_CANCEL("analysis.dashboard.dialog.cancel"),

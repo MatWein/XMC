@@ -1,7 +1,7 @@
 package io.github.matwein.xmc.fe.stages.login.logic;
 
+import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.fe.ui.StageBuilder;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.Pair;

@@ -1,10 +1,10 @@
 package io.github.matwein.xmc.fe.ui.components;
 
 import io.github.matwein.xmc.fe.common.ImageUtilFrontend;
+import io.github.matwein.xmc.fe.common.MessageAdapter;
+import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.fe.ui.DialogHelper;
 import io.github.matwein.xmc.fe.ui.ExtensionFilterType;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

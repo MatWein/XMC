@@ -2,6 +2,8 @@ package io.github.matwein.xmc.be.services.analysis;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
+import io.github.matwein.xmc.be.common.MessageAdapter;
+import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.be.entities.cashaccount.CashAccountTransaction;
 import io.github.matwein.xmc.be.services.analysis.calculation.*;
 import io.github.matwein.xmc.common.services.analysis.IAnalysisChartCalculationService;
@@ -9,8 +11,6 @@ import io.github.matwein.xmc.common.stubs.IAsyncMonitor;
 import io.github.matwein.xmc.common.stubs.analysis.AssetType;
 import io.github.matwein.xmc.common.stubs.analysis.DtoMostRecentTransaction;
 import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartSeries;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

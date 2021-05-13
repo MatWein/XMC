@@ -2,6 +2,8 @@ package io.github.matwein.xmc.be.services.analysis.calculation;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
+import io.github.matwein.xmc.be.common.MessageAdapter;
+import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.be.common.TextToColorConverter;
 import io.github.matwein.xmc.be.entities.cashaccount.CashAccount;
 import io.github.matwein.xmc.be.entities.cashaccount.CashAccountTransaction;
@@ -12,8 +14,6 @@ import io.github.matwein.xmc.be.services.ccf.controller.AssetEuroValueCalculator
 import io.github.matwein.xmc.be.services.ccf.controller.CurrencyConversionFactorLoadingController;
 import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartPoint;
 import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartSeries;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

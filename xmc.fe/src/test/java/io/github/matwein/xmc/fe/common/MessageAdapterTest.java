@@ -1,7 +1,7 @@
-package io.github.matwein.xmc.utils;
+package io.github.matwein.xmc.fe.common;
 
 import io.github.matwein.xmc.JUnitTestBase;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
+import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

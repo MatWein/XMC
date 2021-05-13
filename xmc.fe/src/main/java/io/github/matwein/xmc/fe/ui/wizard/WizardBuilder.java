@@ -1,11 +1,11 @@
 package io.github.matwein.xmc.fe.ui.wizard;
 
 import com.google.common.collect.Lists;
+import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.fe.stages.main.MainController;
 import io.github.matwein.xmc.fe.ui.FxmlComponentFactory;
 import io.github.matwein.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import io.github.matwein.xmc.fe.ui.StageBuilder;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import javafx.scene.Parent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;

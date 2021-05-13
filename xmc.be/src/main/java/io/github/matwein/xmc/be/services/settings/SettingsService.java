@@ -1,13 +1,13 @@
 package io.github.matwein.xmc.be.services.settings;
 
+import io.github.matwein.xmc.be.common.MessageAdapter;
+import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.be.entities.settings.Setting;
 import io.github.matwein.xmc.be.repositories.settings.SettingsJpaRepository;
 import io.github.matwein.xmc.be.services.settings.controller.SettingValueCaster;
 import io.github.matwein.xmc.common.services.settings.ISettingsService;
 import io.github.matwein.xmc.common.stubs.IAsyncMonitor;
 import io.github.matwein.xmc.common.stubs.settings.SettingType;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

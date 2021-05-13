@@ -1,9 +1,9 @@
 package io.github.matwein.xmc.fe.stages.main.administration.stocks.validator;
 
 import io.github.matwein.xmc.common.services.stock.IStockService;
+import io.github.matwein.xmc.fe.common.MessageAdapter;
+import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.fe.ui.validation.ICustomFieldValidator;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import javafx.scene.control.TextField;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package io.github.matwein.xmc.fe.ui;
 
-import io.github.matwein.xmc.utils.MessageAdapter;
+import io.github.matwein.xmc.fe.common.MessageAdapter;
 import javafx.stage.FileChooser.ExtensionFilter;
 
 public enum ExtensionFilterType {

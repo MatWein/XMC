@@ -17,12 +17,11 @@
 	<packaging>pom</packaging>
 
 	<modules>
+		<module>xmc.app</module>
+		<module>xmc.fe</module>
 		<module>xmc.be</module>
 		<module>xmc.be.stubs</module>
-		<module>xmc.fe</module>
-		<module>xmc.app</module>
 		<module>xmc.test</module>
-		<module>xmc.shared</module>
 	</modules>
 
     <properties>
@@ -53,11 +52,6 @@
 			<dependency>
 				<groupId>io.github.matwein</groupId>
 				<artifactId>xmc.be.stubs</artifactId>
-				<version>${revision}</version>
-			</dependency>
-			<dependency>
-				<groupId>io.github.matwein</groupId>
-				<artifactId>xmc.shared</artifactId>
 				<version>${revision}</version>
 			</dependency>
 			<dependency>

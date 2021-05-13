@@ -1,13 +1,13 @@
 package io.github.matwein.xmc.fe.ui.validation.components;
 
 import io.github.matwein.xmc.fe.FeConstants;
+import io.github.matwein.xmc.fe.common.MessageAdapter;
+import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.fe.common.NumberUtils;
 import io.github.matwein.xmc.fe.common.ReflectionUtil;
 import io.github.matwein.xmc.fe.common.XmcFrontendContext;
 import io.github.matwein.xmc.fe.ui.SceneUtil;
 import io.github.matwein.xmc.fe.ui.validation.*;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import javafx.animation.PauseTransition;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

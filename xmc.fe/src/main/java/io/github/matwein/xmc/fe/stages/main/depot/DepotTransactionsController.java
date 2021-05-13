@@ -8,6 +8,7 @@ import io.github.matwein.xmc.common.stubs.depot.transactions.DtoDepotTransaction
 import io.github.matwein.xmc.common.stubs.depot.transactions.DtoDepotTransactionOverview;
 import io.github.matwein.xmc.common.stubs.importing.DtoImportData;
 import io.github.matwein.xmc.fe.async.AsyncProcessor;
+import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.fe.stages.main.depot.importing.transactions.populator.DepotTransactionImportStep2Populator;
 import io.github.matwein.xmc.fe.stages.main.depot.importing.transactions.populator.DepotTransactionImportStep3Populator;
 import io.github.matwein.xmc.fe.stages.main.depot.importing.transactions.populator.DepotTransactionImportStep4Populator;
@@ -19,7 +20,6 @@ import io.github.matwein.xmc.fe.ui.FxmlController;
 import io.github.matwein.xmc.fe.ui.IAfterInit;
 import io.github.matwein.xmc.fe.ui.components.table.ExtendedTable;
 import io.github.matwein.xmc.fe.ui.wizard.WizardBuilder;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ListChangeListener;

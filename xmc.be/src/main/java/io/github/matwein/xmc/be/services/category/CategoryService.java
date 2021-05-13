@@ -1,6 +1,8 @@
 package io.github.matwein.xmc.be.services.category;
 
 import com.querydsl.core.QueryResults;
+import io.github.matwein.xmc.be.common.MessageAdapter;
+import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.be.entities.cashaccount.Category;
 import io.github.matwein.xmc.be.repositories.category.CategoryJpaRepository;
 import io.github.matwein.xmc.be.repositories.category.CategoryRepository;
@@ -12,8 +14,6 @@ import io.github.matwein.xmc.common.stubs.PagingParams;
 import io.github.matwein.xmc.common.stubs.category.CategoryOverviewFields;
 import io.github.matwein.xmc.common.stubs.category.DtoCategory;
 import io.github.matwein.xmc.common.stubs.category.DtoCategoryOverview;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

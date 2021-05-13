@@ -1,12 +1,12 @@
 package io.github.matwein.xmc.be.services.cashaccount.controller.importing;
 
 import com.google.common.collect.Lists;
+import io.github.matwein.xmc.be.common.MessageAdapter;
+import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.be.services.importing.controller.IImportRowValidator;
 import io.github.matwein.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
 import io.github.matwein.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransaction;
 import io.github.matwein.xmc.common.stubs.importing.DtoImportFileValidationResultError;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

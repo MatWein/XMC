@@ -1,8 +1,8 @@
 package io.github.matwein.xmc.fe.ui.components;
 
+import io.github.matwein.xmc.fe.common.MessageAdapter;
+import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.fe.common.SleepUtil;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import javafx.application.Platform;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Tooltip;

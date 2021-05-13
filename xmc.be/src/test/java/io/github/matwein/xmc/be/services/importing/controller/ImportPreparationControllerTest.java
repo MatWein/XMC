@@ -2,6 +2,7 @@ package io.github.matwein.xmc.be.services.importing.controller;
 
 import com.google.common.collect.Lists;
 import io.github.matwein.xmc.be.IntegrationTest;
+import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.services.cashaccount.controller.importing.CashAccountTransactionImportLineMapper;
 import io.github.matwein.xmc.be.services.cashaccount.controller.importing.CashAccountTransactionImportLineValidator;
 import io.github.matwein.xmc.common.stubs.IAsyncMonitor;
@@ -11,7 +12,6 @@ import io.github.matwein.xmc.common.stubs.importing.CsvSeparator;
 import io.github.matwein.xmc.common.stubs.importing.DtoColumnMapping;
 import io.github.matwein.xmc.common.stubs.importing.DtoImportData;
 import io.github.matwein.xmc.common.stubs.importing.DtoImportFileValidationResult;
-import io.github.matwein.xmc.utils.MessageAdapter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

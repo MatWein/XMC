@@ -2,7 +2,7 @@ package io.github.matwein.xmc.fe.ui.dashboard.tiles;
 
 import io.github.matwein.xmc.common.stubs.analysis.DtoMostRecentTransaction;
 import io.github.matwein.xmc.fe.FeConstants;
-import io.github.matwein.xmc.utils.MessageAdapter;
+import io.github.matwein.xmc.fe.common.MessageAdapter;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;

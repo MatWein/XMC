@@ -1,12 +1,12 @@
 package io.github.matwein.xmc.fe.ui.validation.components;
 
+import io.github.matwein.xmc.fe.common.MessageAdapter;
+import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.fe.ui.SceneUtil;
 import io.github.matwein.xmc.fe.ui.components.IInitialFocus;
 import io.github.matwein.xmc.fe.ui.validation.ICustomValidator;
 import io.github.matwein.xmc.fe.ui.validation.ILength;
 import io.github.matwein.xmc.fe.ui.validation.IValidationComponent;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 

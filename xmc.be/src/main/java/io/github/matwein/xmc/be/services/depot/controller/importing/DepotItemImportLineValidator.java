@@ -1,12 +1,12 @@
 package io.github.matwein.xmc.be.services.depot.controller.importing;
 
 import com.google.common.collect.Lists;
+import io.github.matwein.xmc.be.common.MessageAdapter;
+import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.be.services.importing.controller.IImportRowValidator;
 import io.github.matwein.xmc.common.stubs.depot.items.DepotItemImportColmn;
 import io.github.matwein.xmc.common.stubs.depot.items.DtoDepotItemImportRow;
 import io.github.matwein.xmc.common.stubs.importing.DtoImportFileValidationResultError;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 

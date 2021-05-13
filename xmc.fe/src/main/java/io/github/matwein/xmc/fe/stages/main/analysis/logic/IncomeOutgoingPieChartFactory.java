@@ -4,9 +4,9 @@ import io.github.matwein.xmc.common.services.analysis.IAnalysisChartCalculationS
 import io.github.matwein.xmc.common.stubs.analysis.AnalysisType;
 import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartSeries;
 import io.github.matwein.xmc.fe.async.AsyncProcessor;
+import io.github.matwein.xmc.fe.common.MessageAdapter;
+import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.fe.ui.charts.ExtendedPieChart;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import javafx.scene.chart.PieChart;
 import javafx.scene.input.MouseButton;
 import org.springframework.beans.factory.annotation.Autowired;

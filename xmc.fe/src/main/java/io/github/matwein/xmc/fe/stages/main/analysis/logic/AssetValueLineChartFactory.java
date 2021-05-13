@@ -2,11 +2,11 @@ package io.github.matwein.xmc.fe.stages.main.analysis.logic;
 
 import io.github.matwein.xmc.common.stubs.analysis.AnalysisType;
 import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartSeries;
+import io.github.matwein.xmc.fe.common.MessageAdapter;
+import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.fe.ui.charts.ExtendedLineChart;
 import io.github.matwein.xmc.fe.ui.charts.LocalDateTimeAxis;
 import io.github.matwein.xmc.fe.ui.converter.GenericItemToStringConverter;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import javafx.scene.chart.NumberAxis;
 import org.springframework.stereotype.Component;
 

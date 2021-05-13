@@ -1,11 +1,11 @@
 package io.github.matwein.xmc.fe.stages.main.analysis.logic;
 
 import io.github.matwein.xmc.common.stubs.analysis.DtoAnalysisFavourite;
+import io.github.matwein.xmc.fe.common.MessageAdapter;
+import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.fe.ui.charts.ExtendedBarChart;
 import io.github.matwein.xmc.fe.ui.charts.ExtendedLineChart;
 import io.github.matwein.xmc.fe.ui.charts.ExtendedPieChart;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;

@@ -4,14 +4,14 @@ import com.google.common.collect.Lists;
 import io.github.matwein.xmc.common.stubs.category.DtoCategory;
 import io.github.matwein.xmc.fe.FeConstants;
 import io.github.matwein.xmc.fe.common.ImageUtilFrontend;
+import io.github.matwein.xmc.fe.common.MessageAdapter;
+import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.fe.ui.FxmlController;
 import io.github.matwein.xmc.fe.ui.components.ComboBoxIconCellFactory;
 import io.github.matwein.xmc.fe.ui.components.ImageSelectionButton;
 import io.github.matwein.xmc.fe.ui.converter.GenericItemToStringConverter;
 import io.github.matwein.xmc.fe.ui.validation.components.ValidationComboBox;
 import io.github.matwein.xmc.fe.ui.validation.components.ValidationTextField;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import javafx.fxml.FXML;
 
 import java.util.List;

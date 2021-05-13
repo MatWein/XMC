@@ -1,7 +1,7 @@
 package io.github.matwein.xmc.fe.ui;
 
+import io.github.matwein.xmc.fe.common.MessageAdapter;
 import io.github.matwein.xmc.fe.common.XmcFrontendContext;
-import io.github.matwein.xmc.utils.MessageAdapter;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import org.apache.commons.lang3.tuple.ImmutablePair;

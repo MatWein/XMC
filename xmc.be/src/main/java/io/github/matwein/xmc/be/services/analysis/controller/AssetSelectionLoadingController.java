@@ -1,5 +1,7 @@
 package io.github.matwein.xmc.be.services.analysis.controller;
 
+import io.github.matwein.xmc.be.common.MessageAdapter;
+import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.be.entities.cashaccount.CashAccount;
 import io.github.matwein.xmc.be.entities.depot.Depot;
 import io.github.matwein.xmc.be.repositories.cashaccount.CashAccountJpaRepository;
@@ -7,8 +9,6 @@ import io.github.matwein.xmc.be.repositories.depot.DepotJpaRepository;
 import io.github.matwein.xmc.be.services.analysis.mapper.DtoAssetSelectionMapper;
 import io.github.matwein.xmc.common.stubs.analysis.AssetType;
 import io.github.matwein.xmc.common.stubs.analysis.DtoAssetSelection;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

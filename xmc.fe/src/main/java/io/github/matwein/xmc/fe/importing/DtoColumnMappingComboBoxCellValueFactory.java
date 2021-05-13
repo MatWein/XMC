@@ -1,9 +1,9 @@
 package io.github.matwein.xmc.fe.importing;
 
 import io.github.matwein.xmc.common.stubs.importing.DtoColumnMapping;
+import io.github.matwein.xmc.fe.common.MessageAdapter;
+import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.fe.ui.converter.GenericItemToStringConverter;
-import io.github.matwein.xmc.utils.MessageAdapter;
-import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ComboBox;

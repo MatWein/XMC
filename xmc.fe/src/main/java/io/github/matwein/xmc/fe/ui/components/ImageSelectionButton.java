@@ -3,7 +3,6 @@ package io.github.matwein.xmc.fe.ui.components;
 import io.github.matwein.xmc.fe.common.ImageUtilFrontend;
 import io.github.matwein.xmc.fe.ui.DialogHelper;
 import io.github.matwein.xmc.fe.ui.ExtensionFilterType;
-import io.github.matwein.xmc.utils.ImageUtil;
 import io.github.matwein.xmc.utils.MessageAdapter;
 import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import javafx.scene.control.Button;
@@ -74,7 +73,7 @@ public class ImageSelectionButton extends Button {
     private ImageView createLogoImageView(Image image) {
         Image imageToShow;
         if (fitWidth != null && fitHeight != null) {
-            imageToShow = ImageUtilFrontend.readFromByteArray$(ImageUtil.resize$(
+            imageToShow = ImageUtilFrontend.readFromByteArray$(ImageUtilFrontend.resize$(
             		ImageUtilFrontend.imageToByteArray$(image),
 		            fitWidth.intValue(),
 		            fitHeight.intValue()));

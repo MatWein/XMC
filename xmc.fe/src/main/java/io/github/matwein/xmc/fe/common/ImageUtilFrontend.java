@@ -1,12 +1,13 @@
 package io.github.matwein.xmc.fe.common;
 
-import io.github.matwein.xmc.utils.ImageUtil;
+import io.github.matwein.xmc.common.FileMimeType;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
+import net.coobird.thumbnailator.Thumbnails;
 import org.apache.commons.io.FileUtils;
 
 import javax.imageio.ImageIO;
@@ -22,7 +23,7 @@ public class ImageUtilFrontend {
 	}
 	
 	public static Image readFromClasspath(String path) throws IOException {
-		try (InputStream inputStream = ImageUtil.class.getResourceAsStream(path)) {
+		try (InputStream inputStream = ImageUtilFrontend.class.getResourceAsStream(path)) {
 			if (inputStream == null) {
 				throw new IOException(String.format("Could not find class path file '%s'.", path));
 			}
@@ -110,5 +111,29 @@ public class ImageUtilFrontend {
 		}
 		
 		return result;
+	}
+	
+	public static byte[] resize$(byte[] image, int width, int height) {
+		try {
+			return resize(image, width, height);
+		} catch (IOException e) {
+			throw new RuntimeException("Error on resizing byte array image.", e);
+		}
+	}
+	
+	public static byte[] resize(byte[] image, int width, int height) throws IOException {
+		if (image == null) {
+			return null;
+		}
+		
+		try (var inputStream = new ByteArrayInputStream(image); var outputStream = new ByteArrayOutputStream()) {
+			Thumbnails
+					.of(inputStream)
+					.size(width, height)
+					.outputFormat(FileMimeType.PNG.getFileExtension())
+					.toOutputStream(outputStream);
+			
+			return outputStream.toByteArray();
+		}
 	}
 }

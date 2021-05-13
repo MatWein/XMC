@@ -1,9 +1,9 @@
 package io.github.matwein.xmc.be.services.category.mapper;
 
+import io.github.matwein.xmc.be.common.ImageUtilBackend;
 import io.github.matwein.xmc.be.common.factories.BinaryDataFactory;
 import io.github.matwein.xmc.be.entities.cashaccount.Category;
 import io.github.matwein.xmc.common.stubs.category.DtoCategory;
-import io.github.matwein.xmc.utils.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +29,7 @@ public class DtoCategoryToCategoryMapper {
         category.setName(dtoCategory.getName());
 
         if (dtoCategory.getIcon() != null) {
-            byte[] resizedLogo = ImageUtil.resize$(dtoCategory.getIcon(), IMAGE_SIZE, IMAGE_SIZE);
+            byte[] resizedLogo = ImageUtilBackend.resize$(dtoCategory.getIcon(), IMAGE_SIZE, IMAGE_SIZE);
             category.setIcon(binaryDataFactory.create(resizedLogo, DESCRIPTION));
         }
     }

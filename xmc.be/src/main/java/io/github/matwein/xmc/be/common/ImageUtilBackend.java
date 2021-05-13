@@ -1,4 +1,4 @@
-package io.github.matwein.xmc.utils;
+package io.github.matwein.xmc.be.common;
 
 import io.github.matwein.xmc.common.FileMimeType;
 import net.coobird.thumbnailator.Thumbnails;
@@ -7,7 +7,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-public class ImageUtil {
+public class ImageUtilBackend {
 	public static byte[] resize$(byte[] image, int width, int height) {
 		try {
 			return resize(image, width, height);

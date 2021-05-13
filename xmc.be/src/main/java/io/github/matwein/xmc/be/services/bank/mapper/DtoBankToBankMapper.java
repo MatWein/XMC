@@ -1,9 +1,9 @@
 package io.github.matwein.xmc.be.services.bank.mapper;
 
+import io.github.matwein.xmc.be.common.ImageUtilBackend;
 import io.github.matwein.xmc.be.common.factories.BinaryDataFactory;
 import io.github.matwein.xmc.be.entities.Bank;
 import io.github.matwein.xmc.common.stubs.bank.DtoBank;
-import io.github.matwein.xmc.utils.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -31,7 +31,7 @@ public class DtoBankToBankMapper {
         bank.setName(dtoBank.getName());
 
         if (dtoBank.getLogo() != null) {
-            byte[] resizedLogo = ImageUtil.resize$(dtoBank.getLogo(), IMAGE_SIZE, IMAGE_SIZE);
+            byte[] resizedLogo = ImageUtilBackend.resize$(dtoBank.getLogo(), IMAGE_SIZE, IMAGE_SIZE);
             bank.setLogo(binaryDataFactory.create(resizedLogo, DESCRIPTION));
         }
     }

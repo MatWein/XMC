@@ -1,4 +1,4 @@
-package io.github.matwein.xmc.config.properties;
+package io.github.matwein.xmc.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

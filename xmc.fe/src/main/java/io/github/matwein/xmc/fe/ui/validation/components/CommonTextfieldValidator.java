@@ -3,7 +3,7 @@ package io.github.matwein.xmc.fe.ui.validation.components;
 import io.github.matwein.xmc.fe.FeConstants;
 import io.github.matwein.xmc.fe.common.NumberUtils;
 import io.github.matwein.xmc.fe.common.ReflectionUtil;
-import io.github.matwein.xmc.fe.common.XmcContext;
+import io.github.matwein.xmc.fe.common.XmcFrontendContext;
 import io.github.matwein.xmc.fe.ui.SceneUtil;
 import io.github.matwein.xmc.fe.ui.validation.*;
 import io.github.matwein.xmc.utils.MessageAdapter;
@@ -138,7 +138,7 @@ public class CommonTextfieldValidator {
             String customValidator = fieldWrapper.getCustomValidator();
 
             if (customValidator != null) {
-                ICustomFieldValidator<COMPONENT_TYPE> validator = (ICustomFieldValidator<COMPONENT_TYPE>) XmcContext
+                ICustomFieldValidator<COMPONENT_TYPE> validator = (ICustomFieldValidator<COMPONENT_TYPE>) XmcFrontendContext
                         .createNewInstanceFactory()
                         .call(ReflectionUtil.forName(customValidator));
 

@@ -1,8 +1,8 @@
 package io.github.matwein.xmc.be.services.analysis.controller;
 
-import io.github.matwein.xmc.CommonConstants;
 import io.github.matwein.xmc.be.entities.analysis.AnalysisFavourite;
 import io.github.matwein.xmc.be.repositories.analysis.AnalysisFavouriteJpaRepository;
+import io.github.matwein.xmc.common.CommonConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

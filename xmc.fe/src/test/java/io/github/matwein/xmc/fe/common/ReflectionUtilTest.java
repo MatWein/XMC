@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 class ReflectionUtilTest extends JUnitTestBase {
     @Test
     void testCreateNewInstanceFactory() {
-        Callback<Class<?>, Object> newInstanceFactory = XmcContext.createNewInstanceFactory();
+        Callback<Class<?>, Object> newInstanceFactory = XmcFrontendContext.createNewInstanceFactory();
 
         Object result = newInstanceFactory.call(ReflectionUtilTest.class);
         Assertions.assertNotNull(result);

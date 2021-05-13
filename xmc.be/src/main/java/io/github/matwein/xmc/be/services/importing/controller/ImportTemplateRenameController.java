@@ -1,8 +1,8 @@
 package io.github.matwein.xmc.be.services.importing.controller;
 
-import io.github.matwein.xmc.CommonConstants;
 import io.github.matwein.xmc.be.entities.importing.ImportTemplate;
 import io.github.matwein.xmc.be.repositories.importing.ImportTemplateJpaRepository;
+import io.github.matwein.xmc.common.CommonConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -13,7 +13,7 @@ public class DesktopUtils {
 	
 	public static void openInBrowser(String uri) {
 		try {
-			XmcContext.hostServices.showDocument(uri);
+			XmcFrontendContext.hostServices.showDocument(uri);
 		} catch (Throwable e) {
 			LOGGER.error("Error on opening browser for URI '{}'.", uri, e);
 		}

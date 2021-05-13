@@ -1,7 +1,7 @@
 package io.github.matwein.xmc.fe;
 
 import io.github.matwein.xmc.JUnitTestBase;
-import io.github.matwein.xmc.XmcApplication;
+import io.github.matwein.xmc.fe.common.XmcFrontendContext;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -17,11 +17,11 @@ public class IntegrationTest extends JUnitTestBase {
 	
 	@BeforeEach
 	void setUp() {
-		XmcApplication.applicationContext = applicationContext;
+		XmcFrontendContext.applicationContext = () -> applicationContext;
 	}
 	
 	@AfterEach
 	void tearDown() {
-		XmcApplication.applicationContext = null;
+		XmcFrontendContext.applicationContext = null;
 	}
 }

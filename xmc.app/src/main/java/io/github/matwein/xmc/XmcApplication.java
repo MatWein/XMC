@@ -1,6 +1,6 @@
 package io.github.matwein.xmc;
 
-import io.github.matwein.xmc.properties.XmcProperties;
+import io.github.matwein.xmc.be.config.properties.XmcProperties;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

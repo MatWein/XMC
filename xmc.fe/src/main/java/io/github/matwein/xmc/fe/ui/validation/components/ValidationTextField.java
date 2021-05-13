@@ -1,6 +1,6 @@
 package io.github.matwein.xmc.fe.ui.validation.components;
 
-import io.github.matwein.xmc.CommonConstants;
+import io.github.matwein.xmc.common.CommonConstants;
 import io.github.matwein.xmc.fe.ui.components.IInitialFocus;
 import io.github.matwein.xmc.fe.ui.validation.*;
 import javafx.scene.Scene;

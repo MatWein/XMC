@@ -1,8 +1,8 @@
 package io.github.matwein.xmc.be.cron;
 
 import io.github.matwein.xmc.JUnitTestBase;
+import io.github.matwein.xmc.be.config.properties.XmcProperties;
 import io.github.matwein.xmc.be.repositories.user.ServiceCallLogRepository;
-import io.github.matwein.xmc.properties.XmcProperties;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

@@ -1,10 +1,10 @@
 package io.github.matwein.xmc.fe.ui;
 
 import com.google.common.collect.Maps;
-import io.github.matwein.xmc.XmcApplication;
 import io.github.matwein.xmc.fe.FeConstants;
 import io.github.matwein.xmc.fe.async.AsyncProcessor;
 import io.github.matwein.xmc.fe.async.IAsyncCallable;
+import io.github.matwein.xmc.fe.common.XmcFrontendContext;
 import io.github.matwein.xmc.fe.stages.main.MainController;
 import io.github.matwein.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import io.github.matwein.xmc.utils.MessageAdapter;
@@ -125,7 +125,7 @@ public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE, ASYNC_DATA_TYPE> 
         showBackdrop(dialog);
 
         if (asyncCallable != null && controller != null && controller instanceof IDialogWithAsyncData) {
-            XmcApplication.applicationContext.getBean(AsyncProcessor.class).runAsync(
+            XmcFrontendContext.applicationContext.get().getBean(AsyncProcessor.class).runAsync(
                     () -> dialogPane.setDisable(true),
                     asyncCallable,
                     asyncData -> ((IDialogWithAsyncData<ASYNC_DATA_TYPE>)controller).acceptAsyncData(asyncData),

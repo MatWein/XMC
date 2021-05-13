@@ -1,10 +1,10 @@
 package io.github.matwein.xmc.fe.stages.login;
 
-import io.github.matwein.xmc.XmcApplication;
 import io.github.matwein.xmc.common.services.login.IUserLoginService;
 import io.github.matwein.xmc.common.stubs.login.DtoBootstrapFile;
 import io.github.matwein.xmc.fe.common.HomeDirectoryPathCalculator;
 import io.github.matwein.xmc.fe.common.SleepUtil;
+import io.github.matwein.xmc.fe.common.XmcFrontendContext;
 import io.github.matwein.xmc.fe.config.BeanConfig;
 import io.github.matwein.xmc.fe.stages.login.logic.BootstrapFileController;
 import io.github.matwein.xmc.fe.stages.main.MainController;
@@ -78,7 +78,7 @@ public class BootstrapController {
     }
 
     private void runWithoutErrorHandling() {
-	    XmcApplication.destroy();
+	    XmcFrontendContext.applicationContext.destroy();
 
         createApplicationContext();
         runPreprocessing();
@@ -92,7 +92,7 @@ public class BootstrapController {
         System.setProperty(USER_PASSWORD, dtoBootstrapFile.getPassword());
         System.setProperty(USER_DATABASE_DIR, HomeDirectoryPathCalculator.calculateDatabaseDirForUser(dtoBootstrapFile.getUsername()));
 	
-	    XmcApplication.start();
+	    XmcFrontendContext.applicationContext.start();
     }
 	
 	private void runPreprocessing() {
@@ -106,7 +106,7 @@ public class BootstrapController {
     private void doLogin() {
         Platform.runLater(() -> statusLabel.setText(MessageAdapter.getByKey(MessageKey.BOOTSTRAP_STATUS_LOGIN)));
 
-        IUserLoginService userLoginService = XmcApplication.applicationContext.getBean(IUserLoginService.class);
+        IUserLoginService userLoginService = XmcFrontendContext.applicationContext.get().getBean(IUserLoginService.class);
         String displayName = userLoginService.login(dtoBootstrapFile);
 	
 	    System.clearProperty("user.name");

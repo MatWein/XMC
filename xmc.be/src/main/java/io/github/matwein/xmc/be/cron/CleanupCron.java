@@ -1,7 +1,7 @@
 package io.github.matwein.xmc.be.cron;
 
+import io.github.matwein.xmc.be.config.properties.XmcProperties;
 import io.github.matwein.xmc.be.repositories.user.ServiceCallLogRepository;
-import io.github.matwein.xmc.properties.XmcProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

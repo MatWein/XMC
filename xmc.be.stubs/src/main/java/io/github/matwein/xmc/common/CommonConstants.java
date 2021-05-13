@@ -1,4 +1,4 @@
-package io.github.matwein.xmc;
+package io.github.matwein.xmc.common;
 
 import java.time.LocalTime;
 

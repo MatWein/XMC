@@ -3,7 +3,7 @@ package io.github.matwein.xmc.fe.ui.validation.components.autocomplete;
 import com.google.common.collect.Sets;
 import io.github.matwein.xmc.fe.FeConstants;
 import io.github.matwein.xmc.fe.common.ReflectionUtil;
-import io.github.matwein.xmc.fe.common.XmcContext;
+import io.github.matwein.xmc.fe.common.XmcFrontendContext;
 import io.github.matwein.xmc.fe.ui.SceneUtil;
 import io.github.matwein.xmc.fe.ui.components.FocusLostListener;
 import io.github.matwein.xmc.fe.ui.validation.components.ValidationTextField;
@@ -159,7 +159,7 @@ public class ValidationAutoComplete<T> extends ValidationTextField {
 
     private IAutoCompleteController<T> getTypedAutoCompleteController() {
         Class<?> controllerType = ReflectionUtil.forName(autoCompleteController);
-        return (IAutoCompleteController<T>) XmcContext.createNewInstanceFactory().call(controllerType);
+        return (IAutoCompleteController<T>) XmcFrontendContext.createNewInstanceFactory().call(controllerType);
     }
 
     public String getAutoCompleteController() {

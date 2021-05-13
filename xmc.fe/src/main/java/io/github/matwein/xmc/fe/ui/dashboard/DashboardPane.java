@@ -1,10 +1,10 @@
 package io.github.matwein.xmc.fe.ui.dashboard;
 
 import com.google.gson.Gson;
-import io.github.matwein.xmc.XmcApplication;
 import io.github.matwein.xmc.fe.FeConstants;
 import io.github.matwein.xmc.fe.async.AsyncProcessor;
 import io.github.matwein.xmc.fe.common.SleepUtil;
+import io.github.matwein.xmc.fe.common.XmcFrontendContext;
 import io.github.matwein.xmc.fe.ui.FxmlComponentFactory;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
@@ -163,7 +163,7 @@ public class DashboardPane extends ScrollPane {
 		
 		gridPane.add(contentTile, tile.getColumnIndex(), tile.getRowIndex(), tile.getColumnSpan(), tile.getRowSpan());
 		
-		XmcApplication.applicationContext.getBean(AsyncProcessor.class).runAsync(
+		XmcFrontendContext.applicationContext.get().getBean(AsyncProcessor.class).runAsync(
 				monitor -> {
 					SleepUtil.sleep(2000);
 					Pair<Parent, IDashboardTileController> fxmlComponent = FxmlComponentFactory.load(tile.getFxmlKey());

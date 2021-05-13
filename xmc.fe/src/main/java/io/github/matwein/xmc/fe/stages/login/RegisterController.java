@@ -1,8 +1,8 @@
 package io.github.matwein.xmc.fe.stages.login;
 
-import io.github.matwein.xmc.XmcApplication;
 import io.github.matwein.xmc.common.services.login.IUserRegistrationService;
 import io.github.matwein.xmc.common.stubs.login.DtoBootstrapFile;
+import io.github.matwein.xmc.fe.common.XmcFrontendContext;
 import io.github.matwein.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
 import io.github.matwein.xmc.fe.ui.FxmlController;
 import io.github.matwein.xmc.fe.ui.SceneUtil;
@@ -33,7 +33,7 @@ public class RegisterController {
     }
 
     private void registerUser() {
-        IUserRegistrationService userRegistrationService = XmcApplication.applicationContext.getBean(IUserRegistrationService.class);
+        IUserRegistrationService userRegistrationService = XmcFrontendContext.applicationContext.get().getBean(IUserRegistrationService.class);
         userRegistrationService.registerNewUser(usernameTextfield.getText(), displayNameTextfield.getText());
     }
 }

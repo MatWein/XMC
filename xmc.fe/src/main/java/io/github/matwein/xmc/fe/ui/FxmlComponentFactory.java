@@ -1,6 +1,6 @@
 package io.github.matwein.xmc.fe.ui;
 
-import io.github.matwein.xmc.fe.common.XmcContext;
+import io.github.matwein.xmc.fe.common.XmcFrontendContext;
 import io.github.matwein.xmc.utils.MessageAdapter;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -32,7 +32,7 @@ public class FxmlComponentFactory {
 		fxmlLoader.setCharset(CHARSET);
 		fxmlLoader.setResources(MessageAdapter.RESOURCE_BUNDLE);
 		fxmlLoader.setLocation(FxmlComponentFactory.class.getResource(fxmlKey.getFxmlPath()));
-		fxmlLoader.setControllerFactory(XmcContext.createNewInstanceFactory());
+		fxmlLoader.setControllerFactory(XmcFrontendContext.createNewInstanceFactory());
 		
 		COMPONENT_TYPE component = fxmlLoader.load();
 		CONTROLLER_TYPE controller = fxmlLoader.getController();

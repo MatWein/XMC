@@ -2,14 +2,13 @@ package io.github.matwein.xmc.fe.ui.components.table;
 
 import com.google.common.collect.Iterables;
 import com.querydsl.core.QueryResults;
-import io.github.matwein.xmc.XmcApplication;
 import io.github.matwein.xmc.common.stubs.IPagingField;
 import io.github.matwein.xmc.common.stubs.PagingParams;
 import io.github.matwein.xmc.fe.FeConstants;
 import io.github.matwein.xmc.fe.async.AsyncMonitor;
 import io.github.matwein.xmc.fe.async.AsyncProcessor;
 import io.github.matwein.xmc.fe.common.ReflectionUtil;
-import io.github.matwein.xmc.fe.common.XmcContext;
+import io.github.matwein.xmc.fe.common.XmcFrontendContext;
 import io.github.matwein.xmc.utils.MessageAdapter;
 import io.github.matwein.xmc.utils.MessageAdapter.MessageKey;
 import javafx.animation.PauseTransition;
@@ -60,7 +59,7 @@ public class ExtendedTable<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE
     private boolean autoResize = true;
 
     public ExtendedTable() {
-        orderMapper = (TableOrderMapper) XmcContext.createNewInstanceFactory().call(TableOrderMapper.class);
+        orderMapper = (TableOrderMapper) XmcFrontendContext.createNewInstanceFactory().call(TableOrderMapper.class);
 
         table = new BaseTable<>();
         VBox.setVgrow(table, Priority.ALWAYS);
@@ -234,11 +233,11 @@ public class ExtendedTable<ITEM_TYPE, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE
             page.set(0);
         }
 
-        if (XmcApplication.applicationContext == null) {
+        if (XmcFrontendContext.applicationContext.get() == null) {
         	return;
         }
 	
-	    XmcApplication.applicationContext.getBean(AsyncProcessor.class).runAsync(
+	    XmcFrontendContext.applicationContext.get().getBean(AsyncProcessor.class).runAsync(
                 this::loadItemsFromProvider,
                 this::updateItems
         );

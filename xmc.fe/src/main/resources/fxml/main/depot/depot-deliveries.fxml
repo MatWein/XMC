@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.matwein.xmc.fe.ui.components.*?>
+<?import io.github.matwein.xmc.fe.ui.components.table.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<VBox prefHeight="700.0" prefWidth="900.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css"
+      xmlns="http://javafx.com/javafx/11.0.0" fx:id="depotContentContainer" VBox.vgrow="ALWAYS"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.matwein.xmc.fe.stages.main.depot.DepotDeliveriesController">
+
+	<ToolBar>
+		<Button text="%main.depots.deliveries.create" onAction="#onNewDelivery">
+			<graphic>
+				<ButtonImageView url="@/images/feather/plus.png"/>
+			</graphic>
+		</Button>
+		<Button text="%main.depots.deliveries.edit" fx:id="editButton" onAction="#onEditDelivery">
+			<graphic>
+				<ButtonImageView url="@/images/feather/edit.png"/>
+			</graphic>
+		</Button>
+		<Button text="%main.depots.deliveries.delete" fx:id="deleteButton" onAction="#onDeleteDelivery">
+			<graphic>
+				<ButtonImageView url="@/images/feather/delete.png"/>
+			</graphic>
+		</Button>
+		<Separator orientation="VERTICAL" />
+		<Button text="%main.depots.deliveries.navigate.saldi" fx:id="navigateDepotItemsButton" onAction="#onNavigateDepotItems">
+			<graphic>
+				<ButtonImageView url="@/images/feather/package.png"/>
+			</graphic>
+		</Button>
+		<Button text="%main.depots.deliveries.importing" onAction="#onImportDeliveries">
+			<graphic>
+				<ButtonImageView url="@/images/feather/download.png"/>
+			</graphic>
+		</Button>
+	</ToolBar>
+
+	<ExtendedTable VBox.vgrow="ALWAYS" fx:id="depotDeliveriesTableView"
+				   fieldEnumType="io.github.matwein.xmc.common.stubs.depot.deliveries.DepotDeliveryOverviewFields"
+				   filteringDisable="true">
+		<columns>
+			<ExtendedTableColumn editable="false" text="%main.depots.deliveries.overview.table.column.deliveryDate"
+								 sortField="DELIVERY_DATE">
+				<cellValueFactory>
+					<NestedPropertyValueFactory property="deliveryDate"/>
+				</cellValueFactory>
+			</ExtendedTableColumn>
+			<ExtendedTableColumn editable="false" text="%main.depots.deliveries.overview.table.column.saldo"
+								 sortField="SALDO">
+				<cellValueFactory>
+					<NestedPropertyValueFactory property="saldo" />
+				</cellValueFactory>
+			</ExtendedTableColumn>
+			<ExtendedTableColumn editable="false" text="%main.depots.deliveries.overview.table.column.creationDate"
+								 sortField="CREATION_DATE">
+				<cellValueFactory>
+					<NestedPropertyValueFactory property="creationDate"/>
+				</cellValueFactory>
+			</ExtendedTableColumn>
+		</columns>
+	</ExtendedTable>
+
+</VBox>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.matwein.xmc.fe.ui.validation.components.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+      prefWidth="800.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="io.github.matwein.xmc.fe.stages.main.cashaccount.CashAccountTransactionEditController">
+
+    <HBox VBox.vgrow="ALWAYS">
+        <VBox prefWidth="150.0">
+            <Label styleClass="form-label-first" text="%cashaccount.transaction.edit.value"/>
+            <ValidationNumberField required="true" initialFocus="true" fx:id="valueNumberField" zeroAllowed="false" />
+
+            <Label styleClass="form-label" text="%cashaccount.transaction.edit.valutaDate"/>
+            <ValidationDatePicker required="true" fx:id="valutaDatePicker" />
+
+            <Label styleClass="form-label" text="%cashaccount.transaction.edit.saldoBefore"/>
+            <ValidationNumberField required="false" fx:id="saldoBeforeNumberField" editable="false" focusTraversable="false" />
+
+            <Label styleClass="form-label" text="%cashaccount.transaction.edit.saldoAfter"/>
+            <ValidationNumberField required="false" fx:id="saldoAfterNumberField" editable="false" focusTraversable="false" />
+        </VBox>
+
+        <VBox HBox.hgrow="ALWAYS" styleClass="padding-left-15">
+            <Label styleClass="form-label-first" text="%cashaccount.transaction.edit.usage"/>
+            <ValidationTextArea required="true" prefRowCount="3" maxLength="1000" disableTabChar="true" fx:id="usageTextArea" />
+
+            <Label styleClass="form-label" text="%cashaccount.transaction.edit.description"/>
+            <ValidationTextArea required="false" prefRowCount="3" maxLength="1000" disableTabChar="true" fx:id="descriptionTextArea" />
+
+            <Label styleClass="form-label" text="%cashaccount.transaction.edit.category"/>
+            <HBox>
+                <ValidationComboBox required="false" fx:id="categoryComboBox" HBox.hgrow="ALWAYS" />
+                <Button text="%cashaccount.transaction.edit.category.detect" onAction="#autoDetectCategory" fx:id="categoryDetectButton" />
+            </HBox>
+
+            <Label styleClass="form-label" text="%cashaccount.transaction.edit.referenceBank"/>
+            <ValidationTextField required="false" fx:id="referenceBankTextfield" />
+
+            <Label styleClass="form-label" text="%cashaccount.transaction.edit.referenceIban"/>
+            <ValidationTextField maxLength="50" customValidator="io.github.matwein.xmc.fe.ui.validation.IbanFieldValidator" required="false" fx:id="referenceIbanTextfield" />
+
+            <Label styleClass="form-label" text="%cashaccount.transaction.edit.reference"/>
+            <ValidationTextField required="false" fx:id="referenceTextfield" />
+
+            <Label styleClass="form-label" text="%cashaccount.transaction.edit.creditorIdentifier"/>
+            <ValidationTextField required="false" fx:id="creditorIdentifierTextfield" />
+
+            <Label styleClass="form-label" text="%cashaccount.transaction.edit.mandate"/>
+            <ValidationTextField required="false" fx:id="mandateTextfield" />
+        </VBox>
+    </HBox>
+
+</VBox>

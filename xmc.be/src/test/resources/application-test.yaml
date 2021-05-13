@@ -1,0 +1,23 @@
+spring:
+  messages:
+    basename: messages/messages
+    encoding: ISO-8859-1
+  main:
+    banner-mode: 'off'
+  jpa:
+    open-in-view: true
+    show-sql: false
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+        default_schema: XMC
+  liquibase:
+    change-log: /db/changelog/db.changelog-master.xml
+    liquibase-schema: XMC
+    default-schema: XMC
+
+xmc:
+  max-servicecalllog-lifetime-in-days: 365

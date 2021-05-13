@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.matwein.xmc.fe.importing.DtoColumnMappingComboBoxCellValueFactory?>
+<?import io.github.matwein.xmc.fe.ui.components.table.BaseTable?>
+<?import io.github.matwein.xmc.fe.ui.components.table.NestedPropertyValueFactory?>
+<?import io.github.matwein.xmc.fe.ui.validation.components.ValidationNumberField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.layout.VBox?>
+<VBox styleClass="padding-15" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="io.github.matwein.xmc.fe.stages.main.depot.importing.items.DepotItemImportStep3Controller">
+
+	<Label styleClass="form-label-first" text="%depot.item.import.dialog.step3.startWithLine"/>
+	<ValidationNumberField fx:id="startWithLineNumberField" fractionDigits="0" min="1" required="true"/>
+
+	<Label styleClass="form-label" text="%depot.item.import.dialog.step3.columnMapping"/>
+	<BaseTable fx:id="columnMappingTable">
+		<columns>
+			<TableColumn editable="false" reorderable="false" sortable="false"
+						 text="%depot.item.import.dialog.step3.columnMapping.column">
+				<cellValueFactory>
+					<NestedPropertyValueFactory fractionDigits="0" property="column"/>
+				</cellValueFactory>
+			</TableColumn>
+
+			<TableColumn reorderable="false" sortable="false"
+						 text="%depot.item.import.dialog.step3.columnMapping.field">
+				<cellValueFactory>
+					<DtoColumnMappingComboBoxCellValueFactory
+							fieldType="io.github.matwein.xmc.common.stubs.depot.items.DepotItemImportColmn"
+							translationKey="DEPOT_ITEM_IMPORT_DIALOG_STEP4_COLUMN_PREFIX"/>
+				</cellValueFactory>
+			</TableColumn>
+		</columns>
+		<columnResizePolicy>
+			<BaseTable fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+		</columnResizePolicy>
+	</BaseTable>
+
+</VBox>

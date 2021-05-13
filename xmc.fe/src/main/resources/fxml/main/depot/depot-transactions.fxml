@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.matwein.xmc.fe.ui.components.ButtonImageView?>
+<?import io.github.matwein.xmc.fe.ui.components.table.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<VBox prefHeight="700.0" prefWidth="900.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css"
+      xmlns="http://javafx.com/javafx/11.0.0" fx:id="depotContentContainer" VBox.vgrow="ALWAYS"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.matwein.xmc.fe.stages.main.depot.DepotTransactionsController">
+
+	<ToolBar>
+		<Button text="%main.depots.transactions.create" onAction="#onNewTransaction">
+			<graphic>
+				<ButtonImageView url="@/images/feather/plus.png"/>
+			</graphic>
+		</Button>
+		<Button text="%main.depots.transactions.edit" fx:id="editButton" onAction="#onEditTransaction">
+			<graphic>
+				<ButtonImageView url="@/images/feather/edit.png"/>
+			</graphic>
+		</Button>
+		<Button text="%main.depots.transactions.delete" fx:id="deleteButton" onAction="#onDeleteTransaction">
+			<graphic>
+				<ButtonImageView url="@/images/feather/delete.png"/>
+			</graphic>
+		</Button>
+		<Separator orientation="VERTICAL" />
+		<Button text="%main.depots.transactions.importing" onAction="#onImportTransactions">
+			<graphic>
+				<ButtonImageView url="@/images/feather/download.png"/>
+			</graphic>
+		</Button>
+	</ToolBar>
+
+	<ExtendedTable VBox.vgrow="ALWAYS" fx:id="depotTransactionsTableView"
+				   fieldEnumType="io.github.matwein.xmc.common.stubs.depot.transactions.DepotTransactionOverviewFields"
+				   selectionMode="MULTIPLE">
+		<columns>
+			<ExtendedTableColumn editable="false" text="%main.depots.transactions.overview.table.column.valutaDate"
+								 sortField="VALUTA_DATE">
+				<cellValueFactory>
+					<NestedPropertyValueFactory property="valutaDate"/>
+				</cellValueFactory>
+			</ExtendedTableColumn>
+			<ExtendedTableColumn editable="false" text="%main.depots.transactions.overview.table.column.isin"
+								 sortField="ISIN">
+				<cellValueFactory>
+					<NestedPropertyValueFactory property="isin"/>
+				</cellValueFactory>
+			</ExtendedTableColumn>
+			<ExtendedTableColumn editable="false" text="%main.depots.transactions.overview.table.column.wkn"
+								 sortField="WKN">
+				<cellValueFactory>
+					<NestedPropertyValueFactory property="wkn"/>
+				</cellValueFactory>
+			</ExtendedTableColumn>
+			<ExtendedTableColumn editable="false" text="%main.depots.transactions.overview.table.column.name"
+								 sortField="NAME">
+				<cellValueFactory>
+					<NestedPropertyValueFactory property="name"/>
+				</cellValueFactory>
+			</ExtendedTableColumn>
+			<ExtendedTableColumn editable="false" text="%main.depots.transactions.overview.table.column.amount"
+								 sortField="AMOUNT">
+				<cellValueFactory>
+					<NestedPropertyValueFactory property="amount" />
+				</cellValueFactory>
+			</ExtendedTableColumn>
+			<ExtendedTableColumn editable="false" text="%main.depots.transactions.overview.table.column.course"
+								 sortField="COURSE">
+				<cellValueFactory>
+					<NestedPropertyValueFactory property="course" />
+				</cellValueFactory>
+			</ExtendedTableColumn>
+			<ExtendedTableColumn editable="false" text="%main.depots.transactions.overview.table.column.value"
+								 sortField="VALUE">
+				<cellValueFactory>
+					<NestedPropertyValueFactory property="value" />
+				</cellValueFactory>
+			</ExtendedTableColumn>
+			<ExtendedTableColumn editable="false" text="%main.depots.transactions.overview.table.column.description"
+								 sortField="DESCRIPTION">
+				<cellValueFactory>
+					<NestedPropertyValueFactory property="description"/>
+				</cellValueFactory>
+			</ExtendedTableColumn>
+			<ExtendedTableColumn editable="false" text="%main.depots.transactions.overview.table.column.currency"
+								 sortField="CURRENCY">
+				<cellValueFactory>
+					<NestedPropertyValueFactory property="currency"/>
+				</cellValueFactory>
+			</ExtendedTableColumn>
+			<ExtendedTableColumn editable="false" text="%main.depots.transactions.overview.table.column.creationDate"
+								 sortField="CREATION_DATE">
+				<cellValueFactory>
+					<NestedPropertyValueFactory property="creationDate"/>
+				</cellValueFactory>
+			</ExtendedTableColumn>
+		</columns>
+	</ExtendedTable>
+
+</VBox>

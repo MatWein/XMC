@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.matwein.xmc.fe.ui.components.BreadcrumbBar?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.VBox?>
+<VBox prefHeight="700.0" prefWidth="900.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css"
+      xmlns="http://javafx.com/javafx/11.0.0"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.matwein.xmc.fe.stages.main.cashaccount.CashAccountController"
+      styleClass="main-tab" fx:id="rootVbox">
+
+    <ToolBar>
+        <BreadcrumbBar fx:id="breadcrumbBar"/>
+    </ToolBar>
+
+</VBox>

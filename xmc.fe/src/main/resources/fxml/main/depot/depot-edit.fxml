@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.matwein.xmc.fe.ui.validation.components.ValidationColorPicker?>
+<?import io.github.matwein.xmc.fe.ui.validation.components.ValidationComboBox?>
+<?import io.github.matwein.xmc.fe.ui.validation.components.ValidationTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0"
+      prefWidth="519.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.matwein.xmc.fe.stages.main.depot.DepotEditController">
+
+	<Label text="%depot.edit.bank" styleClass="form-label-first" />
+	<ValidationComboBox fx:id="bankComboBox" required="true" visibleRowCount="5" initialFocus="true" />
+
+	<Label styleClass="form-label" text="%depot.edit.name" />
+	<ValidationTextField fx:id="depotNameTextfield" required="true" />
+
+	<Label styleClass="form-label" text="%depot.edit.number" />
+	<ValidationTextField fx:id="depotNumberTextfield" required="false" />
+
+	<Label styleClass="form-label" text="%depot.edit.color" />
+	<ValidationColorPicker fx:id="colorPicker" />
+
+</VBox>

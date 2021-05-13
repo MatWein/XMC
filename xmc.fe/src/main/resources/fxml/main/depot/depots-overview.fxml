@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.matwein.xmc.fe.ui.components.*?>
+<?import io.github.matwein.xmc.fe.ui.components.table.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<VBox prefHeight="700.0" prefWidth="900.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css"
+      xmlns="http://javafx.com/javafx/11.0.0" fx:id="depotContentContainer" VBox.vgrow="ALWAYS"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.matwein.xmc.fe.stages.main.depot.DepotsOverviewController">
+
+	<ToolBar>
+		<Button text="%main.depots.create" onAction="#onNewDepot">
+			<graphic>
+				<ButtonImageView url="@/images/feather/plus.png"/>
+			</graphic>
+		</Button>
+		<Button text="%main.depots.edit" fx:id="editButton" onAction="#onEditDepot">
+			<graphic>
+				<ButtonImageView url="@/images/feather/edit.png"/>
+			</graphic>
+		</Button>
+		<Button text="%main.depots.delete" fx:id="deleteButton" onAction="#onDeleteDepot">
+			<graphic>
+				<ButtonImageView url="@/images/feather/delete.png"/>
+			</graphic>
+		</Button>
+		<Separator orientation="VERTICAL" />
+		<Button text="%main.depots.navigate.deliveries" fx:id="navigateDeliveriesButton" onAction="#onNavigateDeliveries">
+			<graphic>
+				<ButtonImageView url="@/images/feather/package.png"/>
+			</graphic>
+		</Button>
+		<Button text="%main.depots.navigate.transactions" fx:id="navigateTransactionsButton" onAction="#onNavigateTransactions">
+			<graphic>
+				<ButtonImageView url="@/images/feather/book.png"/>
+			</graphic>
+		</Button>
+	</ToolBar>
+
+	<ExtendedTable VBox.vgrow="ALWAYS" fx:id="tableView"
+				   fieldEnumType="io.github.matwein.xmc.common.stubs.depot.DepotOverviewFields">
+		<columns>
+			<ExtendedTableColumn editable="false" prefWidth="50" sortable="false" resizable="false">
+				<cellValueFactory>
+					<NestedPropertyValueFactory property="bank.logo" fitToWidth="24" fitToHeight="24"/>
+				</cellValueFactory>
+			</ExtendedTableColumn>
+			<ExtendedTableColumn editable="false" text="%main.depots.overview.table.column.bankName"
+								 sortField="BANK_NAME">
+				<cellValueFactory>
+					<NestedPropertyValueFactory property="bank.name"/>
+				</cellValueFactory>
+			</ExtendedTableColumn>
+			<ExtendedTableColumn editable="false"
+								 text="%main.depots.overview.table.column.depotName" sortField="NAME">
+				<cellValueFactory>
+					<NestedPropertyValueFactory property="name"/>
+				</cellValueFactory>
+			</ExtendedTableColumn>
+			<ExtendedTableColumn editable="false" text="%main.depots.overview.table.column.number"
+								 sortField="NUMBER">
+				<cellValueFactory>
+					<NestedPropertyValueFactory property="number"/>
+				</cellValueFactory>
+			</ExtendedTableColumn>
+			<ExtendedTableColumn editable="false" text="%main.depots.overview.table.column.bic"
+								 sortField="BANK_BIC">
+				<cellValueFactory>
+					<NestedPropertyValueFactory property="bank.bic"/>
+				</cellValueFactory>
+			</ExtendedTableColumn>
+			<ExtendedTableColumn editable="false" text="%main.depots.overview.table.column.blz"
+								 sortField="BANK_BLZ">
+				<cellValueFactory>
+					<NestedPropertyValueFactory property="bank.blz"/>
+				</cellValueFactory>
+			</ExtendedTableColumn>
+			<ExtendedTableColumn editable="false" text="%main.depots.overview.table.column.creationDate"
+								 sortField="CREATION_DATE">
+				<cellValueFactory>
+					<NestedPropertyValueFactory property="creationDate"/>
+				</cellValueFactory>
+			</ExtendedTableColumn>
+			<ExtendedTableColumn editable="false" text="%main.depots.overview.table.column.lastSaldo"
+								 sortField="LAST_SALDO">
+				<cellValueFactory>
+					<NestedPropertyValueFactory property="lastSaldo" />
+				</cellValueFactory>
+			</ExtendedTableColumn>
+			<ExtendedTableColumn editable="false"
+								 text="%main.depots.overview.table.column.lastSaldoDate" sortField="LAST_SALDO_DATE">
+				<cellValueFactory>
+					<NestedPropertyValueFactory property="lastSaldoDate"/>
+				</cellValueFactory>
+			</ExtendedTableColumn>
+		</columns>
+	</ExtendedTable>
+
+</VBox>

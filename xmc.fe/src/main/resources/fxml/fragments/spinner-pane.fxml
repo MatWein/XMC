@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.VBox?>
+<VBox stylesheets="@/css/xmc-base.css, @/css/main/dashboard/dashboard.css" xmlns="http://javafx.com/javafx/11.0.0"
+      xmlns:fx="http://javafx.com/fxml/1" spacing="10.0" alignment="CENTER"
+      maxWidth="Infinity" maxHeight="Infinity" styleClass="spinner-pane">
+
+	<padding>
+		<Insets right="20.0" left="20.0"/>
+	</padding>
+
+	<Label text="%fragments.loading" />
+
+	<ProgressBar progress="-1.0" maxWidth="Infinity" />
+
+</VBox>

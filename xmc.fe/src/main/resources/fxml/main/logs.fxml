@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.*?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0"
+            stylesheets="@/css/xmc-base.css" fx:controller="io.github.matwein.xmc.fe.stages.main.logging.LogsController"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+
+	<TextArea AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+			  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+			  fx:id="textArea" editable="false" styleClass="mono" />
+
+</AnchorPane>

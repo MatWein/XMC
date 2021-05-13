@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.matwein.xmc.fe.ui.components.ImageSelectionButton?>
+<?import io.github.matwein.xmc.fe.ui.validation.components.autocomplete.ValidationAutoComplete?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<VBox prefHeight="250.0"
+      prefWidth="500.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.matwein.xmc.fe.stages.main.administration.banks.BankEditController">
+
+    <HBox VBox.vgrow="ALWAYS">
+        <ImageSelectionButton fx:id="logoButton" fitHeight="24.0" fitWidth="24.0" messageKey="CASHACCOUNT_EDIT_BANK_LOGO">
+            <HBox.margin>
+                <Insets right="10.0"/>
+            </HBox.margin>
+        </ImageSelectionButton>
+
+        <VBox HBox.hgrow="ALWAYS">
+            <Label text="%cashaccount.edit.bank.name" styleClass="form-label-first" />
+            <ValidationAutoComplete fx:id="bankNameAutoComplete" visibleRowCount="5"
+                                    autoCompleteLimit="100" initialFocus="true"
+                                    autoCompleteController="io.github.matwein.xmc.fe.stages.main.administration.banks.autocomplete.BankNameAutoCompleteController"/>
+
+            <Label styleClass="form-label" text="%cashaccount.edit.bank.bic"/>
+            <ValidationAutoComplete fx:id="bankBicAutoComplete"
+                                    autoCompleteController="io.github.matwein.xmc.fe.stages.main.administration.banks.autocomplete.BicAutoCompleteController"
+                                    visibleRowCount="5" autoCompleteLimit="100"/>
+
+            <Label styleClass="form-label" text="%cashaccount.edit.bank.blz"/>
+            <ValidationAutoComplete fx:id="bankBlzAutoComplete"
+                                    autoCompleteController="io.github.matwein.xmc.fe.stages.main.administration.banks.autocomplete.BlzAutoCompleteController"
+                                    visibleRowCount="5" autoCompleteLimit="100"/>
+        </VBox>
+    </HBox>
+</VBox>

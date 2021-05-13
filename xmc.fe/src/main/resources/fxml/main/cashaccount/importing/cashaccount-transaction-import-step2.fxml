@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.matwein.xmc.common.stubs.importing.CsvSeparator?>
+<?import io.github.matwein.xmc.fe.common.EnumUtil?>
+<?import io.github.matwein.xmc.fe.ui.validation.components.ValidationComboBox?>
+<?import io.github.matwein.xmc.fe.ui.validation.components.ValidationFileChooserField?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<?import java.lang.String?>
+<VBox stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
+      xmlns:fx="http://javafx.com/fxml/1" styleClass="padding-15"
+      fx:controller="io.github.matwein.xmc.fe.stages.main.cashaccount.importing.CashAccountTransactionImportStep2Controller">
+
+    <Label styleClass="form-label-first" text="%cashaccount.transaction.import.dialog.step2.chooseFile"/>
+    <ValidationFileChooserField required="true" fx:id="fileChooserField" filterType="CSV_OR_EXCEL" />
+
+    <Label styleClass="form-label" text="%cashaccount.transaction.import.dialog.step2.chooseFileTemplate"/>
+    <ValidationComboBox required="false" fx:id="fileTemplateComboBox" />
+
+    <Label styleClass="form-label" text="%cashaccount.transaction.import.dialog.step2.importType"/>
+    <fx:define>
+        <ToggleGroup fx:id="importTypeToggleGroup" />
+    </fx:define>
+    <RadioButton selected="true" text="%cashaccount.transaction.import.dialog.step2.importType.addAll"
+                 fx:id="addAllRadioButton" toggleGroup="$importTypeToggleGroup" />
+	<RadioButton text="%cashaccount.transaction.import.dialog.step2.importType.addOnly"
+				 fx:id="addOnlyRadioButton" toggleGroup="$importTypeToggleGroup" />
+	<RadioButton text="%cashaccount.transaction.import.dialog.step2.importType.addAndUpdateExisting"
+                 fx:id="addAndUpdateExistingRadioButton" toggleGroup="$importTypeToggleGroup" />
+
+	<Label styleClass="form-label" text="%cashaccount.transaction.import.dialog.step2.csvSeparator"/>
+	<ValidationComboBox required="true" fx:id="csvSeparatorComboBox">
+		<items>
+			<FXCollections fx:factory="observableArrayList" EnumUtil.enumClass="io.github.matwein.xmc.common.stubs.importing.CsvSeparator" />
+		</items>
+		<value>
+			<CsvSeparator fx:value="SEMICOLON" />
+		</value>
+	</ValidationComboBox>
+
+	<Label styleClass="form-label" text="%cashaccount.transaction.import.dialog.step2.encoding"/>
+	<ValidationComboBox required="true" fx:id="encodingComboBox" editable="true" customValidator="io.github.matwein.xmc.fe.ui.validation.EncodingFieldValidator">
+		<items>
+			<FXCollections fx:factory="observableArrayList">
+				<String fx:value="ISO-8859-1"/>
+				<String fx:value="UTF-8"/>
+			</FXCollections>
+		</items>
+		<value>
+			<String fx:value="ISO-8859-1" />
+		</value>
+	</ValidationComboBox>
+
+</VBox>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.matwein.xmc.fe.ui.validation.components.autocomplete.ValidationAutoComplete?>
+<?import io.github.matwein.xmc.fe.ui.validation.components.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+      prefWidth="800.0" stylesheets="@/css/xmc-base.css" xmlns="http://javafx.com/javafx/11.0.0"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="io.github.matwein.xmc.fe.stages.main.depot.DepotTransactionEditController">
+
+	<HBox VBox.vgrow="ALWAYS">
+		<VBox prefWidth="150.0">
+			<Label styleClass="form-label-first" text="%depot.transaction.edit.amount"/>
+			<ValidationNumberField required="true" initialFocus="true" fx:id="amountNumberField" zeroAllowed="false" />
+
+			<Label styleClass="form-label" text="%depot.transaction.edit.course"/>
+			<ValidationNumberField required="true" fx:id="courseNumberField" zeroAllowed="false" />
+
+			<Label styleClass="form-label" text="%depot.transaction.edit.value"/>
+			<ValidationNumberField required="true" fx:id="valueNumberField" zeroAllowed="false" />
+
+			<Label styleClass="form-label" text="%depot.transaction.edit.valutaDate"/>
+			<ValidationDatePicker required="true" fx:id="valutaDatePicker" />
+		</VBox>
+
+		<VBox HBox.hgrow="ALWAYS" styleClass="padding-left-15">
+			<Label styleClass="form-label-first" text="%depot.transaction.edit.isin"/>
+			<ValidationAutoComplete fx:id="isinAutoComplete"
+									autoCompleteController="io.github.matwein.xmc.fe.ui.autocomplete.IsinAutoCompleteController"
+									required="true" visibleRowCount="5" maxLength="15" minLength="12" />
+
+			<Label styleClass="form-label" text="%depot.transaction.edit.description"/>
+			<ValidationTextArea required="false" prefRowCount="3" maxLength="1000" disableTabChar="true" fx:id="descriptionTextArea" />
+
+			<Label styleClass="form-label" text="%depot.transaction.edit.currency"/>
+			<ValidationAutoComplete fx:id="currencyAutoComplete"
+									autoCompleteController="io.github.matwein.xmc.fe.ui.autocomplete.CurrencyAutoCompleteController"
+									customValidator="io.github.matwein.xmc.fe.ui.validation.CurrencyFieldValidator"
+									required="true" visibleRowCount="5" maxLength="5"/>
+		</VBox>
+	</HBox>
+
+</VBox>

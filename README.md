@@ -2,10 +2,10 @@
 XMC is a small local application to get an overview of your personal finances. The user has to enter account/depot data, transactions, saldi and more. After entering/importing all necessary data, the user can analyse it, for example, via charts.
 
 ## Screenshots
-- ![Alt text](/src/site/screenshots/dashboard.png?raw=true "Dashboard")
-- ![Alt text](/src/site/screenshots/konto-tx.png?raw=true "Cash account")
-- ![Alt text](/src/site/screenshots/analyse-1.png?raw=true "Analysis 1")
-- ![Alt text](/src/site/screenshots/analyse-2.png?raw=true "Analysis 2")
+- ![Alt text](/xmc.app/src/site/screenshots/dashboard.png?raw=true "Dashboard")
+- ![Alt text](/xmc.app/src/site/screenshots/konto-tx.png?raw=true "Cash account")
+- ![Alt text](/xmc.app/src/site/screenshots/analyse-1.png?raw=true "Analysis 1")
+- ![Alt text](/xmc.app/src/site/screenshots/analyse-2.png?raw=true "Analysis 2")
 
 ## Application params
 | Parameter            | Description                                                                                                                                                   | Possible Values                                     | Example                                                                    |

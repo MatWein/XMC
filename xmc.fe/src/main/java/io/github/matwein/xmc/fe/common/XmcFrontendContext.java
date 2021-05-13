@@ -9,7 +9,7 @@ public class XmcFrontendContext {
 	
 	public static Callback<Class<?>, Object> createNewInstanceFactory() {
 		return type -> {
-			if (applicationContext.get() == null) {
+			if (applicationContext == null || applicationContext.get() == null) {
 				return ReflectionUtil.createNewInstance(type);
 			} else {
 				return applicationContext.get().getBean(type);

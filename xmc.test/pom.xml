@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>xmc</artifactId>
 		<groupId>io.github.matwein</groupId>
-		<version>2021.2.2</version>
+		<version>${revision}</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>

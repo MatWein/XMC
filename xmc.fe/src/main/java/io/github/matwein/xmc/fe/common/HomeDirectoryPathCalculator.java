@@ -77,13 +77,26 @@ public class HomeDirectoryPathCalculator {
     public static String calculateDatabaseDir() {
         return new File(calculateHomeDir(), "database").getAbsolutePath();
     }
-
+	
     public static String calculateDatabaseDirForUser(String username) {
-        String usernameHash = DigestUtils.md5DigestAsHex(username.getBytes());
+        String usernameHash = createUsernameHash(username);
         return new File(calculateDatabaseDir(), usernameHash).getAbsolutePath();
     }
-
-    public static String calculateCredentialFilePath() {
+	
+	public static String calculateCredentialFilePath() {
         return new File(calculateHomeDir(), ".bootstrap").getAbsolutePath();
     }
+	
+	public static String calculateBackupDir() {
+		return new File(calculateHomeDir(), "backups").getAbsolutePath();
+	}
+	
+	public static String calculateBackupDirForUser(String username) {
+		String usernameHash = createUsernameHash(username);
+		return new File(calculateBackupDir(), usernameHash).getAbsolutePath();
+	}
+	
+	private static String createUsernameHash(String username) {
+		return DigestUtils.md5DigestAsHex(username.getBytes());
+	}
 }

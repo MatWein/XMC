@@ -130,7 +130,8 @@ public class MessageAdapter {
         PAGING_FILTER_PROMPT("paging.filterPrompt"),
 
         LOGIN_TITLE("login.title"),
-
+	
+	    BOOTSTRAP_STATUS_BACKUP_FILES("bootstrap.status.backupFiles"),
         BOOTSTRAP_STATUS_CREATING_CONTEXT("bootstrap.status.creatingContext"),
         BOOTSTRAP_STATUS_PREPROCESSING("bootstrap.status.preprocessing"),
         BOOTSTRAP_STATUS_LOGIN("bootstrap.status.login"),

@@ -74,7 +74,7 @@ class CategoryDetectionControllerTest extends JUnitTestBase {
     void testAutoDetectCategory_ExactMatch() {
         CashAccount cashAccount = new CashAccount();
 
-        when(cashAccountTransactionJpaRepository.findTransactionsAfterDateWithCategory(same(cashAccount), any(LocalDate.class))).thenReturn(TRANSACTIONS);
+        when(cashAccountTransactionJpaRepository.findTransactionsOnOrAfterDateHavingCategory(same(cashAccount), any(LocalDate.class))).thenReturn(TRANSACTIONS);
 
         Optional<Long> result = controller.autoDetectCategory(cashAccount, "miete Musterstraße 6 goerlitz 2. og links / we 06 - MUSTERMANN");
 
@@ -95,7 +95,7 @@ class CategoryDetectionControllerTest extends JUnitTestBase {
 
         CashAccount cashAccount = new CashAccount();
 
-        when(cashAccountTransactionJpaRepository.findTransactionsAfterDateWithCategory(same(cashAccount), any(LocalDate.class))).thenReturn(transactions);
+        when(cashAccountTransactionJpaRepository.findTransactionsOnOrAfterDateHavingCategory(same(cashAccount), any(LocalDate.class))).thenReturn(transactions);
 
         Optional<Long> result = controller.autoDetectCategory(cashAccount, "Vodafone");
 
@@ -116,7 +116,7 @@ class CategoryDetectionControllerTest extends JUnitTestBase {
 
         CashAccount cashAccount = new CashAccount();
 
-        when(cashAccountTransactionJpaRepository.findTransactionsAfterDateWithCategory(same(cashAccount), any(LocalDate.class))).thenReturn(transactions);
+        when(cashAccountTransactionJpaRepository.findTransactionsOnOrAfterDateHavingCategory(same(cashAccount), any(LocalDate.class))).thenReturn(transactions);
 
         Optional<Long> result = controller.autoDetectCategory(cashAccount, "Vodafone");
 
@@ -127,7 +127,7 @@ class CategoryDetectionControllerTest extends JUnitTestBase {
     void testAutoDetectCategory_WordMatch() {
         CashAccount cashAccount = new CashAccount();
 
-        when(cashAccountTransactionJpaRepository.findTransactionsAfterDateWithCategory(same(cashAccount), any(LocalDate.class))).thenReturn(TRANSACTIONS);
+        when(cashAccountTransactionJpaRepository.findTransactionsOnOrAfterDateHavingCategory(same(cashAccount), any(LocalDate.class))).thenReturn(TRANSACTIONS);
 
         Optional<Long> result = controller.autoDetectCategory(cashAccount, "Gehalt Dezember 2020");
 
@@ -138,7 +138,7 @@ class CategoryDetectionControllerTest extends JUnitTestBase {
     void testAutoDetectCategory_WordMatch2() {
         CashAccount cashAccount = new CashAccount();
 
-        when(cashAccountTransactionJpaRepository.findTransactionsAfterDateWithCategory(same(cashAccount), any(LocalDate.class))).thenReturn(TRANSACTIONS);
+        when(cashAccountTransactionJpaRepository.findTransactionsOnOrAfterDateHavingCategory(same(cashAccount), any(LocalDate.class))).thenReturn(TRANSACTIONS);
 
         Optional<Long> result = controller.autoDetectCategory(cashAccount, "miete");
 
@@ -149,7 +149,7 @@ class CategoryDetectionControllerTest extends JUnitTestBase {
     void testAutoDetectCategory_WordMatch3() {
         CashAccount cashAccount = new CashAccount();
 
-        when(cashAccountTransactionJpaRepository.findTransactionsAfterDateWithCategory(same(cashAccount), any(LocalDate.class))).thenReturn(TRANSACTIONS);
+        when(cashAccountTransactionJpaRepository.findTransactionsOnOrAfterDateHavingCategory(same(cashAccount), any(LocalDate.class))).thenReturn(TRANSACTIONS);
 
         Optional<Long> result = controller.autoDetectCategory(cashAccount, "PP.22222.PP . Qian Ni Limited, Ihr Einkauf bei Qian Ni Limited, Artikel -222222");
 

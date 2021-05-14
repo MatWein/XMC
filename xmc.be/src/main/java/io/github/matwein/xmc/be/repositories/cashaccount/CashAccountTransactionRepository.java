@@ -30,7 +30,10 @@ public class CashAccountTransactionRepository {
         this.queryUtil = queryUtil;
     }
 
-    public QueryResults<DtoCashAccountTransactionOverview> loadOverview(CashAccount cashAccountEntity, PagingParams<CashAccountTransactionOverviewFields> pagingParams) {
+    public QueryResults<DtoCashAccountTransactionOverview> loadOverview(
+    		CashAccount cashAccountEntity,
+		    PagingParams<CashAccountTransactionOverviewFields> pagingParams) {
+    	
         Predicate predicate = calculatePredicate(cashAccountEntity, pagingParams);
 
         return queryUtil.createPagedQuery(pagingParams, CashAccountTransactionOverviewFields.VALUTA_DATE, Order.DESC)

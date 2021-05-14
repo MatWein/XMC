@@ -24,14 +24,18 @@ public interface CashAccountTransactionJpaRepository extends JpaRepository<CashA
 			"WHERE cat.valutaDate >= :startDate AND cat.deletionDate IS NULL AND cat.cashAccount = :cashAccount AND cat.category is not null " +
 			"ORDER BY cat.valutaDate, cat.creationDate, cat.id"
 	)
-	List<CashAccountTransaction> findTransactionsAfterDateWithCategory(CashAccount cashAccount, LocalDate startDate);
+	List<CashAccountTransaction> findTransactionsOnOrAfterDateHavingCategory(CashAccount cashAccount, LocalDate startDate);
 
     @Query("SELECT cat FROM CashAccountTransaction cat " +
             "WHERE cat.valutaDate < :valutaDate AND cat.deletionDate IS NULL AND cat.cashAccount = :cashAccount " +
             "ORDER BY cat.valutaDate DESC, cat.creationDate DESC, cat.id DESC"
     )
     List<CashAccountTransaction> findTransactionsBeforeDate(CashAccount cashAccount, LocalDate valutaDate, Pageable pageable);
-
+	
+	default Optional<CashAccountTransaction> findFirstTransactionBeforeDate(CashAccount cashAccount, LocalDate valutaDate) {
+		return findTransactionsBeforeDate(cashAccount, valutaDate, PageRequest.of(0, 1)).stream().findFirst();
+	}
+	
     @Query("SELECT cat FROM CashAccountTransaction cat " +
             "WHERE cat.valutaDate <= :valutaDate AND cat.deletionDate IS NULL AND cat.cashAccount = :cashAccount AND cat.creationDate <= :creationDate AND cat.id < :maxId " +
             "ORDER BY cat.valutaDate DESC, cat.creationDate DESC, cat.id DESC"
@@ -42,10 +46,6 @@ public interface CashAccountTransactionJpaRepository extends JpaRepository<CashA
 		    LocalDateTime creationDate,
 		    long maxId,
 		    Pageable pageable);
-
-    default Optional<CashAccountTransaction> findFirstTransactionBeforeDate(CashAccount cashAccount, LocalDate valutaDate) {
-        return findTransactionsBeforeDate(cashAccount, valutaDate, PageRequest.of(0, 1)).stream().findFirst();
-    }
 
     default Optional<CashAccountTransaction> findFirstTransactionBeforeOrOnDate(
     		CashAccount cashAccount,

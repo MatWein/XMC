@@ -29,7 +29,7 @@ public class CategoryDetectionController {
 
     public Optional<Long> autoDetectCategory(CashAccount cashAccount, String usage) {
         LocalDate startDate = LocalDate.now().minusYears(1);
-        List<CashAccountTransaction> transactions = cashAccountTransactionJpaRepository.findTransactionsAfterDateWithCategory(cashAccount, startDate);
+        List<CashAccountTransaction> transactions = cashAccountTransactionJpaRepository.findTransactionsOnOrAfterDateHavingCategory(cashAccount, startDate);
 
         Optional<Entry<Category, Long>> exactMatchingCategory = transactions.stream()
                 .filter(transaction -> StringUtils.equalsIgnoreCase(transaction.getUsage(), usage))

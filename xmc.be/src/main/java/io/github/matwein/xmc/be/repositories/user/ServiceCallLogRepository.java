@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 
 import static io.github.matwein.xmc.be.entities.user.QServiceCallLog.serviceCallLog;
 
@@ -28,7 +27,7 @@ public class ServiceCallLogRepository {
 
     public long cleanupServiceCallLogs(int maxServicecalllogLifetimeInDays) {
         return queryUtil.createDeleteClause(serviceCallLog)
-                .where(serviceCallLog.creationDate.before(LocalDateTime.now().minus(maxServicecalllogLifetimeInDays, ChronoUnit.DAYS)))
+                .where(serviceCallLog.creationDate.before(LocalDateTime.now().minusDays(maxServicecalllogLifetimeInDays)))
                 .execute();
     }
 	

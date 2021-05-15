@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.fe;
 
-import io.github.matwein.xmc.JUnitTestBase;
 import io.github.matwein.xmc.fe.common.XmcFrontendContext;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +10,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 @Disabled
 @SpringBootTest
-public class IntegrationTest extends JUnitTestBase {
+public class IntegrationTest {
     @Autowired
     protected ConfigurableApplicationContext applicationContext;
 	

@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.fe.common;
 
-import io.github.matwein.xmc.JUnitTestBase;
 import io.github.matwein.xmc.fe.FeConstants;
 import javafx.scene.image.Image;
 import org.apache.commons.io.FileUtils;
@@ -12,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
-class ImageUtilFrontendTest extends JUnitTestBase {
+class ImageUtilFrontendTest {
 	private static final String VALID_IMAGE = FeConstants.APP_ICON_PATH;
 	private static final String INVALID_IMAGE = "/logback-test.xml";
 	

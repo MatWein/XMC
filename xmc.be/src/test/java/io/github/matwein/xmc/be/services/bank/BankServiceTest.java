@@ -2,7 +2,6 @@ package io.github.matwein.xmc.be.services.bank;
 
 import com.google.common.collect.Lists;
 import com.querydsl.core.QueryResults;
-import io.github.matwein.xmc.JUnitTestBase;
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.be.common.mapper.QueryResultsMapper;
@@ -21,13 +20,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 import java.util.List;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-class BankServiceTest extends JUnitTestBase {
+class BankServiceTest {
     private BankService service;
 
     @Mock private BankJpaRepository bankJpaRepository;
@@ -38,6 +38,8 @@ class BankServiceTest extends JUnitTestBase {
 	
 	@BeforeEach
     void setUp() {
+		MockitoAnnotations.openMocks(this);
+		
         service = new BankService(
         		bankJpaRepository,
 		        bankToDtoBankMapper,

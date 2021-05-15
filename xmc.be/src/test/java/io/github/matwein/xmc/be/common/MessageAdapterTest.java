@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.be.common;
 
-import io.github.matwein.xmc.JUnitTestBase;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -10,7 +9,7 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-class MessageAdapterTest extends JUnitTestBase {
+class MessageAdapterTest {
     @Test
     void testGetByKey() {
 	    Locale.setDefault(Locale.GERMANY);

@@ -1,12 +1,11 @@
 package io.github.matwein.xmc.be.common.factories;
 
-import io.github.matwein.xmc.JUnitTestBase;
 import io.github.matwein.xmc.be.entities.BinaryData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class BinaryDataFactoryTest extends JUnitTestBase {
+class BinaryDataFactoryTest {
     private BinaryDataFactory factory;
 
     @BeforeEach

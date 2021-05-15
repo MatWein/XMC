@@ -1,15 +1,15 @@
 package io.github.matwein.xmc.be.cron;
 
-import io.github.matwein.xmc.JUnitTestBase;
 import io.github.matwein.xmc.be.config.properties.XmcProperties;
 import io.github.matwein.xmc.be.repositories.user.ServiceCallLogRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import static org.mockito.Mockito.*;
 
-class CleanupCronTest extends JUnitTestBase {
+class CleanupCronTest {
     private CleanupCron cron;
 
     @Mock private XmcProperties xmcProperties;
@@ -17,9 +17,11 @@ class CleanupCronTest extends JUnitTestBase {
 
     @BeforeEach
     void setUp() {
+	    MockitoAnnotations.openMocks(this);
+	    
         cron = new CleanupCron(xmcProperties, serviceCallLogRepository);
     }
-
+	
     @Test
     void testInvalidateTokens() {
         int maxServicecalllogLifetimeInDays = 12;

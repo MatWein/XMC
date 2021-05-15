@@ -1,16 +1,16 @@
 package io.github.matwein.xmc.be.services.login;
 
-import io.github.matwein.xmc.JUnitTestBase;
 import io.github.matwein.xmc.be.entities.user.User;
 import io.github.matwein.xmc.be.repositories.user.UserJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-class UserRegistrationServiceTest extends JUnitTestBase {
+class UserRegistrationServiceTest {
     private UserRegistrationService service;
 
     @Mock
@@ -18,6 +18,8 @@ class UserRegistrationServiceTest extends JUnitTestBase {
 
     @BeforeEach
     void setUp() {
+	    MockitoAnnotations.openMocks(this);
+	    
         service = new UserRegistrationService(userJpaRepository);
     }
 

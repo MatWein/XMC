@@ -1,13 +1,13 @@
 package io.github.matwein.xmc.be.services.bank.mapper;
 
-import io.github.matwein.xmc.JUnitTestBase;
+import io.github.benas.randombeans.EnhancedRandomBuilder;
 import io.github.matwein.xmc.be.entities.Bank;
 import io.github.matwein.xmc.common.stubs.bank.DtoBank;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class BankToDtoBankMapperTest extends JUnitTestBase {
+class BankToDtoBankMapperTest {
     private BankToDtoBankMapper mapper;
 
     @BeforeEach
@@ -17,7 +17,7 @@ class BankToDtoBankMapperTest extends JUnitTestBase {
 
     @Test
     void testApply() {
-        Bank bank = testObjectFactory.createRandom(Bank.class);
+        Bank bank = EnhancedRandomBuilder.aNewEnhancedRandom().nextObject(Bank.class);
 
         DtoBank result = mapper.apply(bank);
 
@@ -30,7 +30,7 @@ class BankToDtoBankMapperTest extends JUnitTestBase {
 
     @Test
     void testApply_LogoNull() {
-        Bank bank = testObjectFactory.createRandom(Bank.class);
+        Bank bank = EnhancedRandomBuilder.aNewEnhancedRandom().nextObject(Bank.class);
         bank.setLogo(null);
 
         DtoBank result = mapper.apply(bank);

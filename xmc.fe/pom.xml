@@ -18,10 +18,6 @@
 			<groupId>io.github.matwein</groupId>
 			<artifactId>xmc.be.stubs</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>io.github.matwein</groupId>
-			<artifactId>xmc.test</artifactId>
-		</dependency>
 
 		<!-- Spring -->
 		<dependency>

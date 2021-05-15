@@ -1,11 +1,10 @@
 package io.github.matwein.xmc.fe.common;
 
-import io.github.matwein.xmc.JUnitTestBase;
 import javafx.util.Callback;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class ReflectionUtilTest extends JUnitTestBase {
+class ReflectionUtilTest {
     @Test
     void testCreateNewInstanceFactory() {
         Callback<Class<?>, Object> newInstanceFactory = XmcFrontendContext.createNewInstanceFactory();

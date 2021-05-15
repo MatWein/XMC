@@ -21,7 +21,6 @@
 		<module>xmc.fe</module>
 		<module>xmc.be</module>
 		<module>xmc.be.stubs</module>
-		<module>xmc.test</module>
 	</modules>
 
     <properties>
@@ -53,12 +52,6 @@
 				<groupId>io.github.matwein</groupId>
 				<artifactId>xmc.be.stubs</artifactId>
 				<version>${revision}</version>
-			</dependency>
-			<dependency>
-				<groupId>io.github.matwein</groupId>
-				<artifactId>xmc.test</artifactId>
-				<version>${revision}</version>
-				<scope>test</scope>
 			</dependency>
 
 			<!-- FE / JavaFX -->

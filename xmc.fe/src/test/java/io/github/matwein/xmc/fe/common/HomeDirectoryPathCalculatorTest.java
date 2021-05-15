@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.fe.common;
 
-import io.github.matwein.xmc.JUnitTestBase;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -9,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-class HomeDirectoryPathCalculatorTest extends JUnitTestBase {
+class HomeDirectoryPathCalculatorTest {
     @BeforeEach
     void setUp() {
         HomeDirectoryPathCalculatorCleanupController.clearSystemProperties();

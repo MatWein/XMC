@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.be;
 
-import io.github.matwein.xmc.JUnitTestBase;
 import org.apache.commons.io.FileUtils;
 import org.hibernate.Session;
 import org.junit.jupiter.api.Disabled;
@@ -23,7 +22,7 @@ import java.io.File;
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.DERBY)
 @Transactional
 @Import({ IntegrationTestConfig.class })
-public class IntegrationTest extends JUnitTestBase {
+public class IntegrationTest {
     @PersistenceContext
     private EntityManager entityManager;
 

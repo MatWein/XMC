@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
@@ -36,6 +37,8 @@ class ImportPreparationControllerTest extends IntegrationTest {
 	
 	@BeforeEach
 	void setUp() {
+		MockitoAnnotations.openMocks(this);
+		
 		Locale.setDefault(Locale.GERMANY);
 		MessageAdapter.initBundle();
 	}

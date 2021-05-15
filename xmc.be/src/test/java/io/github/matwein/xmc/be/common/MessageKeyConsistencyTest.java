@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.be.common;
 
-import io.github.matwein.xmc.JUnitTestBase;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +10,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-class MessageKeyConsistencyTest extends JUnitTestBase {
+class MessageKeyConsistencyTest {
 	private static final String MESSAGE_FILE_EXTENSION = ".properties";
 	private static final String COMMON_MESSAGES_FILENAME = "messages_backend" + MESSAGE_FILE_EXTENSION;
 	private static final String MESSAGES_FOLDER = "src/main/resources/messages/";

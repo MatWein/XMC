@@ -1,6 +1,6 @@
 package io.github.matwein.xmc.fe.stages.login.logic;
 
-import io.github.matwein.xmc.JUnitTestBase;
+import io.github.benas.randombeans.EnhancedRandomBuilder;
 import io.github.matwein.xmc.common.stubs.login.DtoBootstrapFile;
 import io.github.matwein.xmc.fe.common.HomeDirectoryPathCalculator;
 import io.github.matwein.xmc.fe.common.HomeDirectoryPathCalculatorCleanupController;
@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.util.Optional;
 
-class BootstrapFileControllerTest extends JUnitTestBase {
+class BootstrapFileControllerTest {
     @BeforeEach
     void setUp() {
         HomeDirectoryPathCalculatorCleanupController.clearSystemProperties();
@@ -34,9 +34,9 @@ class BootstrapFileControllerTest extends JUnitTestBase {
         Optional<DtoBootstrapFile> firstReadResult = BootstrapFileController.readBootstrapFile();
         Assertions.assertEquals(Optional.empty(), firstReadResult);
 
-        DtoBootstrapFile dto = testObjectFactory.createRandom(DtoBootstrapFile.class);
+        DtoBootstrapFile dto = EnhancedRandomBuilder.aNewEnhancedRandom().nextObject(DtoBootstrapFile.class);
         dto.setSaveCredentials(true);
-        new BootstrapFileController().writeBootstrapFile(dto);
+        BootstrapFileController.writeBootstrapFile(dto);
 
         try {
             Optional<DtoBootstrapFile> secondReadResult = BootstrapFileController.readBootstrapFile();
@@ -56,9 +56,9 @@ class BootstrapFileControllerTest extends JUnitTestBase {
         Optional<DtoBootstrapFile> firstReadResult = BootstrapFileController.readBootstrapFile();
         Assertions.assertEquals(Optional.empty(), firstReadResult);
 
-        DtoBootstrapFile dto = testObjectFactory.createRandom(DtoBootstrapFile.class);
+        DtoBootstrapFile dto = EnhancedRandomBuilder.aNewEnhancedRandom().nextObject(DtoBootstrapFile.class);
         dto.setSaveCredentials(false);
-        new BootstrapFileController().writeBootstrapFile(dto);
+        BootstrapFileController.writeBootstrapFile(dto);
 
         Optional<DtoBootstrapFile> secondReadResult = BootstrapFileController.readBootstrapFile();
         Assertions.assertEquals(Optional.empty(), secondReadResult);

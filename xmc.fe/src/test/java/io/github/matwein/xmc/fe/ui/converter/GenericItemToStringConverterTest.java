@@ -1,11 +1,10 @@
 package io.github.matwein.xmc.fe.ui.converter;
 
-import io.github.matwein.xmc.JUnitTestBase;
 import io.github.matwein.xmc.common.stubs.bank.DtoBank;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class GenericItemToStringConverterTest extends JUnitTestBase {
+class GenericItemToStringConverterTest {
     @Test
     void testToStringAndFromString() {
         var converter = GenericItemToStringConverter.getInstance(DtoBank::getName);

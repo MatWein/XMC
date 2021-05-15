@@ -1,13 +1,12 @@
 package io.github.matwein.xmc.fe.common;
 
-import io.github.matwein.xmc.JUnitTestBase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 import java.util.Locale;
 
-class NumberUtilsTest extends JUnitTestBase {
+class NumberUtilsTest {
     @Test
     void testParseDoubleValue() throws ParseException {
         Locale.setDefault(Locale.GERMANY);

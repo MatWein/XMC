@@ -7,9 +7,9 @@ import io.github.matwein.xmc.be.entities.depot.StockCategory;
 import io.github.matwein.xmc.be.repositories.category.StockCategoryJpaRepository;
 import io.github.matwein.xmc.be.repositories.category.StockCategoryRepository;
 import io.github.matwein.xmc.be.services.category.controller.StockCategorySaveController;
-import io.github.matwein.xmc.be.services.category.mapper.StockCateogoryToDtoStockCategoryMapper;
 import io.github.matwein.xmc.common.services.category.IStockCategoryService;
 import io.github.matwein.xmc.common.stubs.IAsyncMonitor;
+import io.github.matwein.xmc.common.stubs.Order;
 import io.github.matwein.xmc.common.stubs.PagingParams;
 import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.category.DtoStockCategory;
@@ -28,12 +28,13 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class StockCategoryService implements IStockCategoryService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(StockCategoryService.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(StockCategoryService.class);
 	
-    private final StockCategoryJpaRepository stockCategoryJpaRepository;
+	private static final PagingParams<StockCategoryOverviewFields> PAGING_PARAMS_ALL_CATEGORIES = new PagingParams<>(0, Integer.MAX_VALUE, StockCategoryOverviewFields.NAME, Order.ASC, null);
+	
+	private final StockCategoryJpaRepository stockCategoryJpaRepository;
 	private final StockCategoryRepository stockCategoryRepository;
 	private final StockCategorySaveController stockCategorySaveController;
-	private final StockCateogoryToDtoStockCategoryMapper stockCateogoryToDtoStockCategoryMapper;
 	private final QueryResultsMapper queryResultsMapper;
 	
 	@Autowired
@@ -41,13 +42,11 @@ public class StockCategoryService implements IStockCategoryService {
 			StockCategoryJpaRepository stockCategoryJpaRepository,
 			StockCategoryRepository stockCategoryRepository,
 			StockCategorySaveController stockCategorySaveController,
-			StockCateogoryToDtoStockCategoryMapper stockCateogoryToDtoStockCategoryMapper,
 			QueryResultsMapper queryResultsMapper) {
 		
 		this.stockCategoryJpaRepository = stockCategoryJpaRepository;
 		this.stockCategoryRepository = stockCategoryRepository;
 		this.stockCategorySaveController = stockCategorySaveController;
-		this.stockCateogoryToDtoStockCategoryMapper = stockCateogoryToDtoStockCategoryMapper;
 		this.queryResultsMapper = queryResultsMapper;
 	}
 	
@@ -79,18 +78,17 @@ public class StockCategoryService implements IStockCategoryService {
     }
 	
 	@Override
-	public List<DtoStockCategory> loadAllStockCategories(IAsyncMonitor monitor) {
+	public List<DtoStockCategoryOverview> loadAllStockCategories(IAsyncMonitor monitor) {
 		LOGGER.info("Loading all stock categories.");
 		monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_LOAD_ALL_STOCK_CATEGORIES));
 		
-		List<StockCategory> stockCategories = stockCategoryJpaRepository.findByDeletionDateIsNull();
-		return stockCateogoryToDtoStockCategoryMapper.mapAll(stockCategories);
+		return stockCategoryRepository.loadOverview(PAGING_PARAMS_ALL_CATEGORIES).getResults();
 	}
 	
 	@Override
 	public List<String> loadAllStockCategoryNames() {
-		return stockCategoryJpaRepository.findByDeletionDateIsNull().stream()
-				.map(StockCategory::getName)
+		return stockCategoryRepository.loadOverview(PAGING_PARAMS_ALL_CATEGORIES).getResults().stream()
+				.map(DtoStockCategoryOverview::getName)
 				.collect(Collectors.toList());
 	}
 }

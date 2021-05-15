@@ -27,9 +27,11 @@ import java.util.List;
 @Service
 @Transactional
 public class CategoryService implements ICategoryService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(CategoryService.class);
-
-    private final CategoryJpaRepository categoryJpaRepository;
+	private static final Logger LOGGER = LoggerFactory.getLogger(CategoryService.class);
+	
+	private static final PagingParams<CategoryOverviewFields> PAGING_PARAMS_ALL_CATEGORIES = new PagingParams<>(0, Integer.MAX_VALUE, CategoryOverviewFields.NAME, Order.ASC, null);
+	
+	private final CategoryJpaRepository categoryJpaRepository;
     private final CategorySaveController categorySaveController;
     private final CategoryRepository categoryRepository;
 	private final QueryResultsMapper queryResultsMapper;
@@ -52,9 +54,7 @@ public class CategoryService implements ICategoryService {
         LOGGER.info("Loading all available categories.");
         monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_LOAD_ALL_CATEGORIES));
 	
-	    return categoryRepository.loadOverview(
-	    		new PagingParams<>(0, Integer.MAX_VALUE, CategoryOverviewFields.NAME, Order.ASC, null)
-	    ).getResults();
+	    return categoryRepository.loadOverview(PAGING_PARAMS_ALL_CATEGORIES).getResults();
     }
 	
 	@Override

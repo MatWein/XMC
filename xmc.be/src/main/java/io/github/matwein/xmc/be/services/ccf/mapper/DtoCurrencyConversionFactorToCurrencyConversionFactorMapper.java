@@ -15,7 +15,7 @@ public class DtoCurrencyConversionFactorToCurrencyConversionFactorMapper {
 	}
 	
 	public void update(CurrencyConversionFactor conversionFactor, DtoCurrencyConversionFactor dtoCurrencyConversionFactor) {
-		conversionFactor.setCurrency(dtoCurrencyConversionFactor.getCurrency().getCurrencyCode());
+		conversionFactor.setCurrency(dtoCurrencyConversionFactor.getCurrency());
 		conversionFactor.setFactorToEur(dtoCurrencyConversionFactor.getFactorToEur());
 		conversionFactor.setInputDate(dtoCurrencyConversionFactor.getInputDate());
 	}

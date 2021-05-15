@@ -3,7 +3,6 @@ package io.github.matwein.xmc.be.repositories.ccf;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.dsl.BooleanExpression;
 import io.github.matwein.xmc.be.common.QueryUtil;
 import io.github.matwein.xmc.common.stubs.PagingParams;
 import io.github.matwein.xmc.common.stubs.ccf.CurrencyConversionFactorOverviewFields;
@@ -25,7 +24,6 @@ public class CurrencyConversionFactorRepository {
 	
 	public QueryResults<DtoCurrencyConversionFactor> loadOverview(PagingParams<CurrencyConversionFactorOverviewFields> pagingParams) {
 		String filter = "%" + StringUtils.defaultString(pagingParams.getFilter()) + "%";
-		BooleanExpression predicate = currencyConversionFactor.currency.likeIgnoreCase(filter);
 		
 		return queryUtil.createPagedQuery(pagingParams, CurrencyConversionFactorOverviewFields.INPUT_DATE, Order.DESC)
 				.select(Projections.bean(DtoCurrencyConversionFactor.class,
@@ -34,7 +32,7 @@ public class CurrencyConversionFactorRepository {
 						currencyConversionFactor.currency,
 						currencyConversionFactor.factorToEur))
 				.from(currencyConversionFactor)
-				.where(predicate)
+				.where(currencyConversionFactor.currency.likeIgnoreCase(filter))
 				.fetchResults();
 	}
 }

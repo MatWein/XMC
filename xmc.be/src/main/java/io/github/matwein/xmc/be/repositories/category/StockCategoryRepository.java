@@ -1,10 +1,8 @@
 package io.github.matwein.xmc.be.repositories.category;
 
 import com.querydsl.core.QueryResults;
-import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.dsl.BooleanExpression;
 import io.github.matwein.xmc.be.common.QueryUtil;
 import io.github.matwein.xmc.common.stubs.PagingParams;
 import io.github.matwein.xmc.common.stubs.category.DtoStockCategoryOverview;
@@ -26,13 +24,13 @@ public class StockCategoryRepository {
 
     public QueryResults<DtoStockCategoryOverview> loadOverview(PagingParams<StockCategoryOverviewFields> pagingParams) {
         String filter = "%" + StringUtils.defaultString(pagingParams.getFilter()) + "%";
-        BooleanExpression predicate = stockCategory.name.likeIgnoreCase(filter);
 
         return queryUtil.createPagedQuery(pagingParams, StockCategoryOverviewFields.NAME, Order.ASC)
                 .select(Projections.bean(DtoStockCategoryOverview.class,
 		                stockCategory.id, stockCategory.name, stockCategory.creationDate))
                 .from(stockCategory)
-                .where(ExpressionUtils.allOf(predicate, stockCategory.deletionDate.isNull()))
+                .where(stockCategory.deletionDate.isNull())
+                .where(stockCategory.name.likeIgnoreCase(filter))
                 .fetchResults();
     }
 }

@@ -5,13 +5,12 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Currency;
 
 public class DtoCurrencyConversionFactor implements Serializable {
 	private Long id;
 	
 	private LocalDateTime inputDate;
-	private Currency currency;
+	private String currency;
 	private BigDecimal factorToEur;
 	
 	public Long getId() {
@@ -30,11 +29,11 @@ public class DtoCurrencyConversionFactor implements Serializable {
 		this.inputDate = inputDate;
 	}
 	
-	public Currency getCurrency() {
+	public String getCurrency() {
 		return currency;
 	}
 	
-	public void setCurrency(Currency currency) {
+	public void setCurrency(String currency) {
 		this.currency = currency;
 	}
 	

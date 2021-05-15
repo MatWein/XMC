@@ -16,7 +16,7 @@ public interface IStockCategoryService {
 	
 	void markAsDeleted(IAsyncMonitor monitor, Long categoryId);
 	
-	List<DtoStockCategory> loadAllStockCategories(IAsyncMonitor monitor);
+	List<DtoStockCategoryOverview> loadAllStockCategories(IAsyncMonitor monitor);
 	
 	List<String> loadAllStockCategoryNames();
 }

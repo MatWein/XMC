@@ -19,7 +19,7 @@ public class CurrencyConversionFactorEditDialogMapper implements IDialogMapper<C
 		controller.getConversionFactorNumberField().setValue(dto.getFactorToEur());
 		controller.getInputDatePicker().setValue(dto.getInputDate().toLocalDate());
 		controller.getInputTimePicker().setValue(dto.getInputDate().toLocalTime());
-		controller.getSourceCurrencyAutoComplete().selectItem(dto.getCurrency());
+		controller.getSourceCurrencyAutoComplete().selectItem(Currency.getInstance(dto.getCurrency()));
 		controller.setCurrencyConversionFactorId(dto.getId());
 	}
 	
@@ -31,7 +31,7 @@ public class CurrencyConversionFactorEditDialogMapper implements IDialogMapper<C
 		
 		var dto = new DtoCurrencyConversionFactor();
 		
-		dto.setCurrency(Currency.getInstance(controller.getSourceCurrencyAutoComplete().getTextOrNull()));
+		dto.setCurrency(controller.getSourceCurrencyAutoComplete().getTextOrNull());
 		dto.setFactorToEur(controller.getConversionFactorNumberField().getValueAsBigDecimal());
 		dto.setId(controller.getCurrencyConversionFactorId());
 		dto.setInputDate(controller.getInputDatePicker().getValueOrNull().atTime(controller.getInputTimePicker().getValue()));

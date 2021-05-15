@@ -2,9 +2,13 @@ package io.github.matwein.xmc.fe.stages.login;
 
 import io.github.matwein.xmc.common.services.login.IUserLoginService;
 import io.github.matwein.xmc.common.stubs.login.DtoBootstrapFile;
-import io.github.matwein.xmc.fe.common.*;
+import io.github.matwein.xmc.fe.common.HomeDirectoryPathCalculator;
+import io.github.matwein.xmc.fe.common.MessageAdapter;
 import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
+import io.github.matwein.xmc.fe.common.SleepUtil;
+import io.github.matwein.xmc.fe.common.XmcFrontendContext;
 import io.github.matwein.xmc.fe.config.BeanConfig;
+import io.github.matwein.xmc.fe.stages.login.logic.BackupController;
 import io.github.matwein.xmc.fe.stages.login.logic.BootstrapFileController;
 import io.github.matwein.xmc.fe.stages.main.MainController;
 import io.github.matwein.xmc.fe.ui.FxmlComponentFactory.FxmlKey;
@@ -24,17 +28,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration;
 import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
 
-import java.io.File;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import static io.github.matwein.xmc.fe.SystemProperties.*;
 
 @FxmlController
 public class BootstrapController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(BootstrapController.class);
-	
-	private static final int BACKUPS_TO_KEEP = 5;
 	
 	@FXML private VBox vbox;
     @FXML private Label statusLabel;
@@ -83,9 +81,9 @@ public class BootstrapController {
     private void runWithoutErrorHandling() {
 	    XmcFrontendContext.applicationContext.destroy();
 
-	    backupFiles();
-	    
         createApplicationContext();
+        
+	    backupFiles();
         
         runPreprocessing();
         
@@ -94,24 +92,7 @@ public class BootstrapController {
 	
 	private void backupFiles() {
 		Platform.runLater(() -> statusLabel.setText(MessageAdapter.getByKey(MessageKey.BOOTSTRAP_STATUS_BACKUP_FILES)));
-		
-		String databaseDirToBackup = HomeDirectoryPathCalculator.calculateDatabaseDirForUser(dtoBootstrapFile.getUsername());
-		File backupDir = new File(HomeDirectoryPathCalculator.calculateBackupDirForUser(dtoBootstrapFile.getUsername()));
-		
-		String backupFileName = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss")) + ".zip";
-		String backupOutputFile = new File(backupDir, backupFileName).getAbsolutePath();
-		
-		if (backupDir.isDirectory() || backupDir.mkdirs()) {
-			try {
-				CompressionUtil.zipDirectory(databaseDirToBackup, backupOutputFile);
-			} catch (Throwable e) {
-				LOGGER.warn("Error on zipping database dir '{}'.", databaseDirToBackup, e);
-			}
-		} else {
-			LOGGER.warn("Cannot create directory '{}'.", backupDir);
-		}
-		
-		DirectoryFileLimitUtil.deleteOldestFiles(backupDir, BACKUPS_TO_KEEP);
+		BackupController.backupFiles(dtoBootstrapFile);
 	}
 	
 	private void createApplicationContext() {

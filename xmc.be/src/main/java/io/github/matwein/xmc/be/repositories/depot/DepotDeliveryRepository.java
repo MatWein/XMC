@@ -3,11 +3,11 @@ package io.github.matwein.xmc.be.repositories.depot;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
-import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
 import io.github.matwein.xmc.be.common.QueryUtil;
 import io.github.matwein.xmc.be.entities.depot.Depot;
 import io.github.matwein.xmc.be.entities.depot.DepotDelivery;
+import io.github.matwein.xmc.common.stubs.Money;
 import io.github.matwein.xmc.common.stubs.PagingParams;
 import io.github.matwein.xmc.common.stubs.depot.deliveries.DepotDeliveryOverviewFields;
 import io.github.matwein.xmc.common.stubs.depot.deliveries.DtoDepotDeliveryOverview;
@@ -29,15 +29,14 @@ public class DepotDeliveryRepository {
 	}
 	
 	public QueryResults<DtoDepotDeliveryOverview> loadOverview(Depot depotEntity, PagingParams<DepotDeliveryOverviewFields> pagingParams) {
-		Predicate predicate = depotDelivery.deletionDate.isNull()
-				.and(depotDelivery.depot().eq(depotEntity));
-		
 		return queryUtil.createPagedQuery(pagingParams, DepotDeliveryOverviewFields.DELIVERY_DATE, Order.DESC)
 				.select(Projections.bean(DtoDepotDeliveryOverview.class,
-						depotDelivery.id, depotDelivery.deliveryDate, depotDelivery.saldo,
+						depotDelivery.id, depotDelivery.deliveryDate,
+						Projections.bean(Money.class, depotDelivery.saldo.as("value")).as("saldo"),
 						depotDelivery.creationDate))
 				.from(depotDelivery)
-				.where(predicate)
+				.where(depotDelivery.deletionDate.isNull())
+				.where(depotDelivery.depot().eq(depotEntity))
 				.fetchResults();
 	}
 	

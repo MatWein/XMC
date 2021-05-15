@@ -10,7 +10,7 @@ import io.github.matwein.xmc.common.stubs.category.DtoCategoryOverview;
 import java.util.List;
 
 public interface ICategoryService {
-	List<DtoCategory> loadAllCategories(IAsyncMonitor monitor);
+	List<DtoCategoryOverview> loadAllCategories(IAsyncMonitor monitor);
 	
 	void saveOrUpdate(IAsyncMonitor monitor, DtoCategory dtoCategory);
 	

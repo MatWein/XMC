@@ -1,12 +1,18 @@
 package io.github.matwein.xmc.be.services.cashaccount.controller.importing;
 
+import com.google.common.collect.Maps;
+import com.querydsl.core.QueryResults;
 import io.github.matwein.xmc.be.repositories.category.CategoryRepository;
 import io.github.matwein.xmc.be.services.importing.controller.IImportRowMapper;
 import io.github.matwein.xmc.be.services.importing.parser.BigDecimalParser;
 import io.github.matwein.xmc.be.services.importing.parser.LocalDateParser;
+import io.github.matwein.xmc.common.stubs.Order;
+import io.github.matwein.xmc.common.stubs.PagingParams;
 import io.github.matwein.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
 import io.github.matwein.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransaction;
+import io.github.matwein.xmc.common.stubs.category.CategoryOverviewFields;
 import io.github.matwein.xmc.common.stubs.category.DtoCategory;
+import io.github.matwein.xmc.common.stubs.category.DtoCategoryOverview;
 import io.github.matwein.xmc.common.stubs.importing.DtoColumnMapping;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -42,12 +48,13 @@ public class CashAccountTransactionImportLineMapper implements IImportRowMapper<
 	public DtoCashAccountTransaction apply(List<String> line, List<DtoColumnMapping<CashAccountTransactionImportColmn>> columnMappings) {
 		var result = new DtoCashAccountTransaction();
 		
-		Map<String, DtoCategory> categories = categoryRepository.loadAllCategories();
+		QueryResults<DtoCategoryOverview> categories = categoryRepository.loadOverview(new PagingParams<>(0, Integer.MAX_VALUE, CategoryOverviewFields.NAME, Order.ASC, null));
+		Map<String, DtoCategoryOverview> categoriesByName = Maps.uniqueIndex(categories.getResults(), DtoCategoryOverview::getName);
 		
 		for (DtoColumnMapping<CashAccountTransactionImportColmn> columnMapping : columnMappings) {
 			try {
 				String columnValue = line.get(columnMapping.getColumn() - 1);
-				populateValue(result, columnValue, columnMapping.getField(), categories);
+				populateValue(result, columnValue, columnMapping.getField(), categoriesByName);
 			} catch (IndexOutOfBoundsException e) {
 				LOGGER.trace("Could not find column value for mapped index {} ({}).", columnMapping.getColumn(), columnMapping.getField());
 			}
@@ -60,7 +67,7 @@ public class CashAccountTransactionImportLineMapper implements IImportRowMapper<
 			DtoCashAccountTransaction result,
 			String columnValue,
 			CashAccountTransactionImportColmn field,
-			Map<String, DtoCategory> categories) {
+			Map<String, DtoCategoryOverview> categoriesByName) {
 		
 		if (field == null) {
 			return;
@@ -68,7 +75,7 @@ public class CashAccountTransactionImportLineMapper implements IImportRowMapper<
 		
 		switch (field) {
 			case CATEGORY:
-				DtoCategory category = categories.get(columnValue);
+				DtoCategory category = categoriesByName.get(columnValue);
 				result.setCategory(category);
 				break;
 			case USAGE:

@@ -7,9 +7,9 @@ import io.github.matwein.xmc.be.entities.cashaccount.Category;
 import io.github.matwein.xmc.be.repositories.category.CategoryJpaRepository;
 import io.github.matwein.xmc.be.repositories.category.CategoryRepository;
 import io.github.matwein.xmc.be.services.category.controller.CategorySaveController;
-import io.github.matwein.xmc.be.services.category.mapper.CategoryToDtoCategoryMapper;
 import io.github.matwein.xmc.common.services.category.ICategoryService;
 import io.github.matwein.xmc.common.stubs.IAsyncMonitor;
+import io.github.matwein.xmc.common.stubs.Order;
 import io.github.matwein.xmc.common.stubs.PagingParams;
 import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.category.CategoryOverviewFields;
@@ -23,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -33,7 +32,6 @@ public class CategoryService implements ICategoryService {
     private final CategoryJpaRepository categoryJpaRepository;
     private final CategorySaveController categorySaveController;
     private final CategoryRepository categoryRepository;
-    private final CategoryToDtoCategoryMapper categoryToDtoCategoryMapper;
 	private final QueryResultsMapper queryResultsMapper;
 	
 	@Autowired
@@ -41,24 +39,22 @@ public class CategoryService implements ICategoryService {
 		    CategoryJpaRepository categoryJpaRepository,
 		    CategorySaveController categorySaveController,
 		    CategoryRepository categoryRepository,
-		    CategoryToDtoCategoryMapper categoryToDtoCategoryMapper,
 		    QueryResultsMapper queryResultsMapper) {
 
         this.categoryJpaRepository = categoryJpaRepository;
         this.categorySaveController = categorySaveController;
         this.categoryRepository = categoryRepository;
-        this.categoryToDtoCategoryMapper = categoryToDtoCategoryMapper;
 		this.queryResultsMapper = queryResultsMapper;
 	}
 
     @Override
-    public List<DtoCategory> loadAllCategories(IAsyncMonitor monitor) {
+    public List<DtoCategoryOverview> loadAllCategories(IAsyncMonitor monitor) {
         LOGGER.info("Loading all available categories.");
         monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_LOAD_ALL_CATEGORIES));
-
-        return categoryJpaRepository.findByDeletionDateIsNull().stream()
-                .map(categoryToDtoCategoryMapper)
-                .collect(Collectors.toList());
+	
+	    return categoryRepository.loadOverview(
+	    		new PagingParams<>(0, Integer.MAX_VALUE, CategoryOverviewFields.NAME, Order.ASC, null)
+	    ).getResults();
     }
 	
 	@Override

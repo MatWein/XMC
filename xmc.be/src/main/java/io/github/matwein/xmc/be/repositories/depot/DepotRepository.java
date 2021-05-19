@@ -6,7 +6,9 @@ import com.querydsl.core.types.Order;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import io.github.matwein.xmc.be.common.QueryUtil;
+import io.github.matwein.xmc.common.stubs.Money;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.bank.DtoBank;
 import io.github.matwein.xmc.common.stubs.depot.DepotOverviewFields;
 import io.github.matwein.xmc.common.stubs.depot.DtoDepotOverview;
 import org.apache.commons.lang3.StringUtils;
@@ -38,9 +40,10 @@ public class DepotRepository {
 		return queryUtil.createPagedQuery(pagingParams, DepotOverviewFields.NAME, Order.ASC)
 				.select(Projections.bean(DtoDepotOverview.class,
 						depot.id, depot.number, depot.name, depot.color,
-						depot.creationDate, depotDelivery.saldo, depotDelivery.deliveryDate,
-						bank.id, bank.name, bank.bic, bank.blz,
-						binaryData.rawData))
+						depot.creationDate,
+						Projections.bean(Money.class, depotDelivery.saldo.as("value")).as("lastSaldo"),
+						depotDelivery.deliveryDate.as("lastSaldoDate"),
+						Projections.bean(DtoBank.class, bank.id, bank.name, bank.bic, bank.blz, binaryData.rawData.as("logo")).as("bank")))
 				.from(depot)
 				.innerJoin(depot.bank(), bank)
 				.leftJoin(depot.lastDelivery(), depotDelivery)

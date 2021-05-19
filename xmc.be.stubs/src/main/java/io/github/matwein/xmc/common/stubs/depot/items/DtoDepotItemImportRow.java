@@ -2,14 +2,13 @@ package io.github.matwein.xmc.common.stubs.depot.items;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Currency;
 
 public class DtoDepotItemImportRow implements Serializable {
 	private String isin;
 	private BigDecimal amount;
 	private BigDecimal course;
 	private BigDecimal value;
-	private Currency currency;
+	private String currency;
 	
 	public String getIsin() {
 		return isin;
@@ -43,11 +42,11 @@ public class DtoDepotItemImportRow implements Serializable {
 		this.value = value;
 	}
 	
-	public Currency getCurrency() {
+	public String getCurrency() {
 		return currency;
 	}
 	
-	public void setCurrency(Currency currency) {
+	public void setCurrency(String currency) {
 		this.currency = currency;
 	}
 }

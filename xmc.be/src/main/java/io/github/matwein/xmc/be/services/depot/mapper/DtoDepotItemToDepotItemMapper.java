@@ -22,6 +22,6 @@ public class DtoDepotItemToDepotItemMapper {
 		depotItem.setCourse(dtoDepotItem.getCourse());
 		depotItem.setValue(dtoDepotItem.getValue());
 		depotItem.setIsin(dtoDepotItem.getIsin());
-		depotItem.setCurrency(dtoDepotItem.getCurrency().getCurrencyCode());
+		depotItem.setCurrency(dtoDepotItem.getCurrency());
 	}
 }

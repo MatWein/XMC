@@ -15,7 +15,7 @@ public class DepotItemFinder {
 		List<DepotItem> matches = existingDepotItems.stream()
 				.filter(depotItem -> depotItem.getIsin().equalsIgnoreCase(row.getIsin()))
 				.filter(depotItem -> depotItem.getAmount().setScale(2, RoundingMode.HALF_UP).equals(row.getAmount().setScale(2, RoundingMode.HALF_UP)))
-				.filter(depotItem -> depotItem.getCurrency().equalsIgnoreCase(row.getCurrency().getCurrencyCode()))
+				.filter(depotItem -> depotItem.getCurrency().equalsIgnoreCase(row.getCurrency()))
 				.collect(Collectors.toList());
 		
 		if (matches.size() == 1) {

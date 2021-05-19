@@ -3,7 +3,6 @@ package io.github.matwein.xmc.common.stubs.depot.deliveries;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Currency;
 
 public class DtoDepotDeliveryImportRow implements Serializable {
 	private LocalDateTime deliveryDate;
@@ -11,7 +10,7 @@ public class DtoDepotDeliveryImportRow implements Serializable {
 	private BigDecimal amount;
 	private BigDecimal course;
 	private BigDecimal value;
-	private Currency currency;
+	private String currency;
 	
 	public LocalDateTime getDeliveryDate() {
 		return deliveryDate;
@@ -53,11 +52,11 @@ public class DtoDepotDeliveryImportRow implements Serializable {
 		this.value = value;
 	}
 	
-	public Currency getCurrency() {
+	public String getCurrency() {
 		return currency;
 	}
 	
-	public void setCurrency(Currency currency) {
+	public void setCurrency(String currency) {
 		this.currency = currency;
 	}
 }

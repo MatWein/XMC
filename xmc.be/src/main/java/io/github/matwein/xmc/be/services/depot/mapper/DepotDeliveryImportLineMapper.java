@@ -79,7 +79,9 @@ public class DepotDeliveryImportLineMapper implements IImportRowMapper<DtoDepotD
 				break;
 			case CURRENCY:
 				Currency currency = currencyParser.parseCurrencyNullOnError(columnValue);
-				result.setCurrency(currency);
+				if (currency != null) {
+					result.setCurrency(currency.getCurrencyCode());
+				}
 				break;
 			default:
 				String message = String.format("Could not populate unknown field '%s' with value '%s'.", field, columnValue);

@@ -11,7 +11,7 @@ import java.util.Currency;
 public class CurrencyParser {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CurrencyParser.class);
 	
-	public Currency parseCurrencyNullOnError(String value) {
+	public String parseCurrencyNullOnError(String value) {
 		try {
 			return parseCurrency(value);
 		} catch (Throwable e) {
@@ -20,13 +20,13 @@ public class CurrencyParser {
 		}
 	}
 	
-	public Currency parseCurrency(String value) {
+	public String parseCurrency(String value) {
 		if (StringUtils.isBlank(value)) {
 			return null;
 		}
 		
 		value = value.trim();
 		
-		return Currency.getInstance(value);
+		return Currency.getInstance(value).getCurrencyCode();
 	}
 }

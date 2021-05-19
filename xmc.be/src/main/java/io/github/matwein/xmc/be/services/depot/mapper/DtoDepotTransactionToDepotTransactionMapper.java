@@ -20,7 +20,7 @@ public class DtoDepotTransactionToDepotTransactionMapper {
 	public void update(DepotTransaction depotTransaction, DtoDepotTransaction dtoTransaction) {
 		depotTransaction.setAmount(dtoTransaction.getAmount());
 		depotTransaction.setCourse(dtoTransaction.getCourse());
-		depotTransaction.setCurrency(dtoTransaction.getCurrency().getCurrencyCode());
+		depotTransaction.setCurrency(dtoTransaction.getCurrency());
 		depotTransaction.setDescription(dtoTransaction.getDescription());
 		depotTransaction.setIsin(dtoTransaction.getIsin());
 		depotTransaction.setValue(dtoTransaction.getValue());

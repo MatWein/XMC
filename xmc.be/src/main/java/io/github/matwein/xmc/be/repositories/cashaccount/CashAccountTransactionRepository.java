@@ -39,7 +39,7 @@ public class CashAccountTransactionRepository {
         return queryUtil.createPagedQuery(pagingParams, CashAccountTransactionOverviewFields.VALUTA_DATE, Order.DESC)
                 .select(Projections.bean(DtoCashAccountTransactionOverview.class,
                         cashAccountTransaction.id,
-		                Projections.bean(DtoCategory.class, category.id, category.name, binaryData.rawData.as("icon")).as("category"),
+		                ExpressionUtils.as(Projections.bean(DtoCategory.class, category.id, category.name, binaryData.rawData.as("icon")).skipNulls(), "category"),
 		                Projections.bean(Money.class, cashAccountTransaction.value, cashAccount.currency).as("valueWithCurrency"),
 		                Projections.bean(Money.class, cashAccountTransaction.saldoBefore.as("value"), cashAccount.currency).as("saldoBefore"),
 		                Projections.bean(Money.class, cashAccountTransaction.saldoAfter.as("value"), cashAccount.currency).as("saldoAfter"),

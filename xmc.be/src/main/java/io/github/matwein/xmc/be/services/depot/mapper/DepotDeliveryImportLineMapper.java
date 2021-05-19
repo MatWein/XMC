@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Currency;
 import java.util.List;
 
 @Component
@@ -78,10 +77,8 @@ public class DepotDeliveryImportLineMapper implements IImportRowMapper<DtoDepotD
 				result.setValue(value);
 				break;
 			case CURRENCY:
-				Currency currency = currencyParser.parseCurrencyNullOnError(columnValue);
-				if (currency != null) {
-					result.setCurrency(currency.getCurrencyCode());
-				}
+				String currency = currencyParser.parseCurrencyNullOnError(columnValue);
+				result.setCurrency(currency);
 				break;
 			default:
 				String message = String.format("Could not populate unknown field '%s' with value '%s'.", field, columnValue);

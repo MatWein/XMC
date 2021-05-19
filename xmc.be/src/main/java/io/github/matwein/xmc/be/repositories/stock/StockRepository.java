@@ -1,12 +1,14 @@
 package io.github.matwein.xmc.be.repositories.stock;
 
 import com.querydsl.core.QueryResults;
+import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import io.github.matwein.xmc.be.common.QueryUtil;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.category.DtoStockCategory;
 import io.github.matwein.xmc.common.stubs.stocks.DtoMinimalStock;
 import io.github.matwein.xmc.common.stubs.stocks.DtoStockOverview;
 import io.github.matwein.xmc.common.stubs.stocks.StockOverviewFields;
@@ -38,8 +40,8 @@ public class StockRepository {
 		
 		return queryUtil.createPagedQuery(pagingParams, StockOverviewFields.NAME, Order.ASC)
 				.select(Projections.bean(DtoStockOverview.class,
-						stock.id, stock.isin, stock.name, stock.wkn, stockCategory.id,
-						stockCategory.name, stock.creationDate))
+						stock.id, stock.isin, stock.name, stock.wkn, stock.creationDate,
+						ExpressionUtils.as(Projections.bean(DtoStockCategory.class, stockCategory.id, stockCategory.name).skipNulls(), "stockCategory")))
 				.from(stock)
 				.leftJoin(stock.stockCategory(), stockCategory)
 				.where(predicate)

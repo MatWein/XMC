@@ -5,7 +5,6 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Currency;
 
 public class DtoDepotTransaction implements Serializable {
 	private Long id;
@@ -16,7 +15,7 @@ public class DtoDepotTransaction implements Serializable {
 	private BigDecimal course;
 	private BigDecimal value;
 	private String description;
-	private Currency currency;
+	private String currency;
 	
 	public Long getId() {
 		return id;
@@ -74,11 +73,11 @@ public class DtoDepotTransaction implements Serializable {
 		this.description = description;
 	}
 	
-	public Currency getCurrency() {
+	public String getCurrency() {
 		return currency;
 	}
 	
-	public void setCurrency(Currency currency) {
+	public void setCurrency(String currency) {
 		this.currency = currency;
 	}
 	

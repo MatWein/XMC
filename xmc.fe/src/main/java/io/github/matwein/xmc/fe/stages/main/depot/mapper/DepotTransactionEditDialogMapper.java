@@ -6,8 +6,6 @@ import io.github.matwein.xmc.fe.ui.IDialogMapper;
 import javafx.scene.control.ButtonBar.ButtonData;
 import org.springframework.stereotype.Component;
 
-import java.util.Currency;
-
 @Component
 public class DepotTransactionEditDialogMapper implements IDialogMapper<DepotTransactionEditController, DtoDepotTransaction> {
 	@Override
@@ -19,7 +17,7 @@ public class DepotTransactionEditDialogMapper implements IDialogMapper<DepotTran
 		controller.setTransactionId(dtoDepotTransaction.getId());
 		controller.getAmountNumberField().setValue(dtoDepotTransaction.getAmount());
 		controller.getCourseNumberField().setValue(dtoDepotTransaction.getCourse());
-		controller.getCurrencyAutoComplete().setText(dtoDepotTransaction.getCurrency().getCurrencyCode());
+		controller.getCurrencyAutoComplete().setText(dtoDepotTransaction.getCurrency());
 		controller.getDescriptionTextArea().setText(dtoDepotTransaction.getDescription());
 		controller.getIsinAutoComplete().setText(dtoDepotTransaction.getIsin());
 		controller.getValueNumberField().setValue(dtoDepotTransaction.getValue());
@@ -44,7 +42,7 @@ public class DepotTransactionEditDialogMapper implements IDialogMapper<DepotTran
 		
 		String currencyCode = controller.getCurrencyAutoComplete().getTextOrNull();
 		if (currencyCode != null) {
-			dto.setCurrency(Currency.getInstance(currencyCode));
+			dto.setCurrency(currencyCode);
 		}
 		
 		return dto;

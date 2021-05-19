@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Currency;
 import java.util.List;
 
 @Component
@@ -85,7 +84,7 @@ public class DepotTransactionImportLineMapper implements IImportRowMapper<DtoDep
 				result.setDescription(columnValue);
 				break;
 			case CURRENCY:
-				Currency currency = currencyParser.parseCurrencyNullOnError(columnValue);
+				String currency = currencyParser.parseCurrencyNullOnError(columnValue);
 				result.setCurrency(currency);
 				break;
 			default:

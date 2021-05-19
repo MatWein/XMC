@@ -143,4 +143,53 @@ class CashAccountTransactionRepositoryTest extends IntegrationTest {
 		Assertions.assertEquals(cashAccountTransaction1.getValue(), dtoCashAccountTransactionOverview.getValueWithCurrency().getValue());
 		Assertions.assertEquals(cashAccountTransaction1.getValutaDate(), dtoCashAccountTransactionOverview.getValutaDate());
 	}
+	
+	@Test
+	void testLoadOverview_CheckFields_NoCategory() {
+		CashAccount cashAccount = graphGenerator.createCashAccount();
+		cashAccount.setCurrency("AUD");
+		session().saveOrUpdate(cashAccount);
+		
+		var cashAccountTransaction1 = graphGenerator.createCashAccountTransaction(cashAccount);
+		cashAccountTransaction1.setValutaDate(LocalDate.of(2020, Month.AUGUST, 1));
+		cashAccountTransaction1.setCategory(null);
+		cashAccountTransaction1.setCreditorIdentifier("CreditorIdentifier");
+		cashAccountTransaction1.setDescription("Description");
+		cashAccountTransaction1.setMandate("Mandate");
+		cashAccountTransaction1.setReference("Reference");
+		cashAccountTransaction1.setReferenceBank("ReferenceBank");
+		cashAccountTransaction1.setReferenceIban("ReferenceIban");
+		cashAccountTransaction1.setSaldoAfter(BigDecimal.valueOf(100.0));
+		cashAccountTransaction1.setSaldoBefore(BigDecimal.valueOf(50.0));
+		cashAccountTransaction1.setUsage("Usage");
+		cashAccountTransaction1.setValue(BigDecimal.valueOf(50.0));
+		session().saveOrUpdate(cashAccountTransaction1);
+		
+		flushAndClear();
+		
+		QueryResults<DtoCashAccountTransactionOverview> result = repository.loadOverview(cashAccount, new PagingParams<>());
+		
+		Assertions.assertEquals(1, result.getTotal());
+		Assertions.assertEquals(1, result.getResults().size());
+		
+		var dtoCashAccountTransactionOverview = result.getResults().get(0);
+		Assertions.assertEquals(cashAccountTransaction1.getId(), dtoCashAccountTransactionOverview.getId());
+		Assertions.assertNull(dtoCashAccountTransactionOverview.getCategory());
+		Assertions.assertEquals(cashAccountTransaction1.getCreationDate(), dtoCashAccountTransactionOverview.getCreationDate());
+		Assertions.assertEquals(cashAccountTransaction1.getCreditorIdentifier(), dtoCashAccountTransactionOverview.getCreditorIdentifier());
+		Assertions.assertEquals(cashAccountTransaction1.getDescription(), dtoCashAccountTransactionOverview.getDescription());
+		Assertions.assertEquals(cashAccountTransaction1.getMandate(), dtoCashAccountTransactionOverview.getMandate());
+		Assertions.assertEquals(cashAccountTransaction1.getReference(), dtoCashAccountTransactionOverview.getReference());
+		Assertions.assertEquals(cashAccountTransaction1.getReferenceBank(), dtoCashAccountTransactionOverview.getReferenceBank());
+		Assertions.assertEquals(cashAccountTransaction1.getReferenceIban(), dtoCashAccountTransactionOverview.getReferenceIban());
+		Assertions.assertEquals(cashAccount.getCurrency(), dtoCashAccountTransactionOverview.getSaldoAfter().getCurrency());
+		Assertions.assertEquals(cashAccountTransaction1.getSaldoAfter(), dtoCashAccountTransactionOverview.getSaldoAfter().getValue());
+		Assertions.assertEquals(cashAccount.getCurrency(), dtoCashAccountTransactionOverview.getSaldoBefore().getCurrency());
+		Assertions.assertEquals(cashAccountTransaction1.getSaldoBefore(), dtoCashAccountTransactionOverview.getSaldoBefore().getValue());
+		Assertions.assertEquals(cashAccountTransaction1.getUsage(), dtoCashAccountTransactionOverview.getUsage());
+		Assertions.assertEquals(cashAccountTransaction1.getValue(), dtoCashAccountTransactionOverview.getValue());
+		Assertions.assertEquals(cashAccount.getCurrency(), dtoCashAccountTransactionOverview.getValueWithCurrency().getCurrency());
+		Assertions.assertEquals(cashAccountTransaction1.getValue(), dtoCashAccountTransactionOverview.getValueWithCurrency().getValue());
+		Assertions.assertEquals(cashAccountTransaction1.getValutaDate(), dtoCashAccountTransactionOverview.getValutaDate());
+	}
 }

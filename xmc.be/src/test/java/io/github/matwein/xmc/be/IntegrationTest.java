@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.be;
 
-import org.apache.commons.io.FileUtils;
 import org.hibernate.Session;
 import org.junit.jupiter.api.Disabled;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.io.File;
 
 @Disabled
 @SpringBootTest
 @ActiveProfiles("test")
-@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.DERBY)
+@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.HSQLDB)
 @Transactional
 @Import({ IntegrationTestConfig.class })
 public class IntegrationTest {
@@ -31,11 +29,6 @@ public class IntegrationTest {
 
     @Autowired
     protected ConfigurableApplicationContext applicationContext;
-
-    public IntegrationTest() {
-        String derbyLogFilePath = new File(FileUtils.getTempDirectory(), "derby.log").getAbsolutePath();
-        System.setProperty("derby.stream.error.file", derbyLogFilePath);
-    }
 
     protected Session session() {
         return entityManager.unwrap(Session.class);

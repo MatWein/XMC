@@ -23,10 +23,19 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.apache.commons.codec.binary.Hex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration;
 import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
+
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
+import java.security.spec.KeySpec;
+import java.util.Arrays;
 
 import static io.github.matwein.xmc.fe.SystemProperties.*;
 
@@ -100,7 +109,19 @@ public class BootstrapController {
 
         System.setProperty(USER_NAME, dtoBootstrapFile.getUsername());
         System.setProperty(USER_PASSWORD, dtoBootstrapFile.getPassword());
-        System.setProperty(USER_DATABASE_DIR, HomeDirectoryPathCalculator.calculateDatabaseDirForUser(dtoBootstrapFile.getUsername()));
+		
+        try {
+	        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+	        KeySpec spec = new PBEKeySpec(dtoBootstrapFile.getPassword().toCharArray(), dtoBootstrapFile.getPassword().getBytes(StandardCharsets.UTF_8), 65536, 256);
+	        SecretKey tmp = factory.generateSecret(spec);
+	        SecretKey secret = new SecretKeySpec(tmp.getEncoded(), "AES");
+            System.setProperty(USER_CRYPT_KEY, Hex.encodeHexString(secret.getEncoded()));
+            System.setProperty(USER_CRYPT_IV, Hex.encodeHexString(Arrays.copyOf(dtoBootstrapFile.getPassword().getBytes(StandardCharsets.UTF_8), 16)));
+        } catch (Throwable e) {
+        	e.printStackTrace();
+        }
+        
+        System.setProperty(USER_DATABASE_DIR, HomeDirectoryPathCalculator.calculateDatabasePathForUser(dtoBootstrapFile.getUsername()));
 	
 	    XmcFrontendContext.applicationContext.start();
     }
@@ -119,9 +140,11 @@ public class BootstrapController {
         IUserLoginService userLoginService = XmcFrontendContext.applicationContext.get().getBean(IUserLoginService.class);
         String displayName = userLoginService.login(dtoBootstrapFile);
 	
-	    System.clearProperty("user.name");
-	    System.clearProperty("user.password");
-	    System.clearProperty("user.database.dir");
+	    System.clearProperty(USER_NAME);
+	    System.clearProperty(USER_PASSWORD);
+	    System.clearProperty(USER_DATABASE_DIR);
+	    System.clearProperty(USER_CRYPT_KEY);
+	    System.clearProperty(USER_CRYPT_IV);
 	    System.setProperty(USER_DISPLAYNAME, displayName);
 	
 	    BootstrapFileController.writeBootstrapFile(dtoBootstrapFile);

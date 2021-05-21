@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -96,7 +97,7 @@ class CashAccountRepositoryTest extends IntegrationTest {
 		Assertions.assertEquals(cashAccount1.getName(), dtoCashAccountOverview.getName());
 		Assertions.assertEquals(cashAccount1.getCurrency(), dtoCashAccountOverview.getCurrency());
 		Assertions.assertEquals(cashAccount1.getColor(), dtoCashAccountOverview.getColor());
-		Assertions.assertEquals(cashAccount1.getLastSaldo(), dtoCashAccountOverview.getLastSaldo());
+		Assertions.assertEquals(cashAccount1.getLastSaldo(), dtoCashAccountOverview.getLastSaldo().setScale(2, RoundingMode.HALF_UP));
 		Assertions.assertEquals(cashAccount1.getLastSaldoDate(), dtoCashAccountOverview.getLastSaldoDate());
 		Assertions.assertEquals(cashAccount1.getCreationDate(), dtoCashAccountOverview.getCreationDate());
 		Assertions.assertEquals(bank.getBic(), dtoCashAccountOverview.getBank().getBic());

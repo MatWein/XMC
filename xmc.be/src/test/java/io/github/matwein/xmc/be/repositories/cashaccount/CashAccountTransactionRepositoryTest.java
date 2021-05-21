@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -55,7 +56,7 @@ class CashAccountTransactionRepositoryTest extends IntegrationTest {
 
         graphGenerator.createCashAccountTransaction();
 
-        flush();
+        flushAndClear();
 
         QueryResults<DtoCashAccountTransactionOverview> result = repository.loadOverview(cashAccount, pagingParams);
 
@@ -134,13 +135,13 @@ class CashAccountTransactionRepositoryTest extends IntegrationTest {
 		Assertions.assertEquals(cashAccountTransaction1.getReferenceBank(), dtoCashAccountTransactionOverview.getReferenceBank());
 		Assertions.assertEquals(cashAccountTransaction1.getReferenceIban(), dtoCashAccountTransactionOverview.getReferenceIban());
 		Assertions.assertEquals(cashAccount.getCurrency(), dtoCashAccountTransactionOverview.getSaldoAfter().getCurrency());
-		Assertions.assertEquals(cashAccountTransaction1.getSaldoAfter(), dtoCashAccountTransactionOverview.getSaldoAfter().getValue());
+		Assertions.assertEquals(cashAccountTransaction1.getSaldoAfter(), dtoCashAccountTransactionOverview.getSaldoAfter().getValue().setScale(1, RoundingMode.HALF_UP));
 		Assertions.assertEquals(cashAccount.getCurrency(), dtoCashAccountTransactionOverview.getSaldoBefore().getCurrency());
-		Assertions.assertEquals(cashAccountTransaction1.getSaldoBefore(), dtoCashAccountTransactionOverview.getSaldoBefore().getValue());
+		Assertions.assertEquals(cashAccountTransaction1.getSaldoBefore(), dtoCashAccountTransactionOverview.getSaldoBefore().getValue().setScale(1, RoundingMode.HALF_UP));
 		Assertions.assertEquals(cashAccountTransaction1.getUsage(), dtoCashAccountTransactionOverview.getUsage());
-		Assertions.assertEquals(cashAccountTransaction1.getValue(), dtoCashAccountTransactionOverview.getValue());
+		Assertions.assertEquals(cashAccountTransaction1.getValue(), dtoCashAccountTransactionOverview.getValue().setScale(1, RoundingMode.HALF_UP));
 		Assertions.assertEquals(cashAccount.getCurrency(), dtoCashAccountTransactionOverview.getValueWithCurrency().getCurrency());
-		Assertions.assertEquals(cashAccountTransaction1.getValue(), dtoCashAccountTransactionOverview.getValueWithCurrency().getValue());
+		Assertions.assertEquals(cashAccountTransaction1.getValue(), dtoCashAccountTransactionOverview.getValueWithCurrency().getValue().setScale(1, RoundingMode.HALF_UP));
 		Assertions.assertEquals(cashAccountTransaction1.getValutaDate(), dtoCashAccountTransactionOverview.getValutaDate());
 	}
 	
@@ -183,13 +184,13 @@ class CashAccountTransactionRepositoryTest extends IntegrationTest {
 		Assertions.assertEquals(cashAccountTransaction1.getReferenceBank(), dtoCashAccountTransactionOverview.getReferenceBank());
 		Assertions.assertEquals(cashAccountTransaction1.getReferenceIban(), dtoCashAccountTransactionOverview.getReferenceIban());
 		Assertions.assertEquals(cashAccount.getCurrency(), dtoCashAccountTransactionOverview.getSaldoAfter().getCurrency());
-		Assertions.assertEquals(cashAccountTransaction1.getSaldoAfter(), dtoCashAccountTransactionOverview.getSaldoAfter().getValue());
+		Assertions.assertEquals(cashAccountTransaction1.getSaldoAfter(), dtoCashAccountTransactionOverview.getSaldoAfter().getValue().setScale(1, RoundingMode.HALF_UP));
 		Assertions.assertEquals(cashAccount.getCurrency(), dtoCashAccountTransactionOverview.getSaldoBefore().getCurrency());
-		Assertions.assertEquals(cashAccountTransaction1.getSaldoBefore(), dtoCashAccountTransactionOverview.getSaldoBefore().getValue());
+		Assertions.assertEquals(cashAccountTransaction1.getSaldoBefore(), dtoCashAccountTransactionOverview.getSaldoBefore().getValue().setScale(1, RoundingMode.HALF_UP));
 		Assertions.assertEquals(cashAccountTransaction1.getUsage(), dtoCashAccountTransactionOverview.getUsage());
-		Assertions.assertEquals(cashAccountTransaction1.getValue(), dtoCashAccountTransactionOverview.getValue());
+		Assertions.assertEquals(cashAccountTransaction1.getValue(), dtoCashAccountTransactionOverview.getValue().setScale(1, RoundingMode.HALF_UP));
 		Assertions.assertEquals(cashAccount.getCurrency(), dtoCashAccountTransactionOverview.getValueWithCurrency().getCurrency());
-		Assertions.assertEquals(cashAccountTransaction1.getValue(), dtoCashAccountTransactionOverview.getValueWithCurrency().getValue());
+		Assertions.assertEquals(cashAccountTransaction1.getValue(), dtoCashAccountTransactionOverview.getValueWithCurrency().getValue().setScale(1, RoundingMode.HALF_UP));
 		Assertions.assertEquals(cashAccountTransaction1.getValutaDate(), dtoCashAccountTransactionOverview.getValutaDate());
 	}
 }

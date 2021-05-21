@@ -24,9 +24,6 @@ public class HomeDirectoryPathCalculator {
         String logDir = calculateLogDir();
         System.setProperty(SYSTEM_HOME_LOG_DIR, logDir);
 
-        String derbyLogFilePath = calculateDerbyLogFilePath();
-        System.setProperty(DERBY_STREAM_ERROR_FILE, derbyLogFilePath);
-
         LoggerFactory.getLogger(HomeDirectoryPathCalculator.class).info("Using home directory '{}'.", homeDir);
     }
 
@@ -70,10 +67,6 @@ public class HomeDirectoryPathCalculator {
         return new File(calculateHomeDir(), "logs").getAbsolutePath();
     }
 
-    public static String calculateDerbyLogFilePath() {
-        return new File(calculateLogDir(), "derby.log").getAbsolutePath();
-    }
-
     public static String calculateDatabaseDir() {
         return new File(calculateHomeDir(), "database").getAbsolutePath();
     }
@@ -82,6 +75,11 @@ public class HomeDirectoryPathCalculator {
         String usernameHash = createUsernameHash(username);
         return new File(calculateDatabaseDir(), usernameHash).getAbsolutePath();
     }
+	
+	public static String calculateDatabasePathForUser(String username) {
+		String usernameHash = createUsernameHash(username);
+		return new File(calculateDatabaseDirForUser(username), usernameHash).getAbsolutePath();
+	}
 	
 	public static String calculateCredentialFilePath() {
         return new File(calculateHomeDir(), ".bootstrap").getAbsolutePath();

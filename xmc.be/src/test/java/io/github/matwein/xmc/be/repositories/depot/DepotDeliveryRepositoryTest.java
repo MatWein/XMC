@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Optional;
@@ -107,7 +108,7 @@ class DepotDeliveryRepositoryTest extends IntegrationTest {
 		var dtoDepotDeliveryOverview = result.getResults().get(0);
 		Assertions.assertEquals(depotDelivery.getCreationDate(), dtoDepotDeliveryOverview.getCreationDate());
 		Assertions.assertEquals(depotDelivery.getDeliveryDate(), dtoDepotDeliveryOverview.getDeliveryDate());
-		Assertions.assertEquals(depotDelivery.getSaldo(), dtoDepotDeliveryOverview.getSaldo().getValue());
+		Assertions.assertEquals(depotDelivery.getSaldo(), dtoDepotDeliveryOverview.getSaldo().getValue().setScale(1, RoundingMode.HALF_UP));
 		Assertions.assertEquals("EUR", dtoDepotDeliveryOverview.getSaldo().getCurrency());
 	}
 	

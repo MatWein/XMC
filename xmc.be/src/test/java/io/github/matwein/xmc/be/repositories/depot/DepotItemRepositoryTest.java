@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 
 class DepotItemRepositoryTest extends IntegrationTest {
@@ -126,13 +127,13 @@ class DepotItemRepositoryTest extends IntegrationTest {
 		Assertions.assertEquals(1, result.getResults().size());
 		
 		var dtoDepotItemOverview = result.getResults().get(0);
-		Assertions.assertEquals(depotItem.getAmount(), dtoDepotItemOverview.getAmount());
-		Assertions.assertEquals(depotItem.getCourse(), dtoDepotItemOverview.getCourse());
+		Assertions.assertEquals(depotItem.getAmount(), dtoDepotItemOverview.getAmount().setScale(1, RoundingMode.HALF_UP));
+		Assertions.assertEquals(depotItem.getCourse(), dtoDepotItemOverview.getCourse().setScale(1, RoundingMode.HALF_UP));
 		Assertions.assertEquals(depotItem.getCreationDate(), dtoDepotItemOverview.getCreationDate());
 		Assertions.assertEquals(depotItem.getCurrency(), dtoDepotItemOverview.getCurrency());
 		Assertions.assertEquals(depotItem.getId(), dtoDepotItemOverview.getId());
 		Assertions.assertEquals(depotItem.getIsin(), dtoDepotItemOverview.getIsin());
-		Assertions.assertEquals(depotItem.getValue(), dtoDepotItemOverview.getValue());
+		Assertions.assertEquals(depotItem.getValue(), dtoDepotItemOverview.getValue().setScale(1, RoundingMode.HALF_UP));
 		Assertions.assertEquals(stock.getName(), dtoDepotItemOverview.getName());
 		Assertions.assertEquals(stock.getWkn(), dtoDepotItemOverview.getWkn());
 	}
@@ -162,13 +163,13 @@ class DepotItemRepositoryTest extends IntegrationTest {
 		Assertions.assertEquals(1, result.getResults().size());
 		
 		var dtoDepotItemOverview = result.getResults().get(0);
-		Assertions.assertEquals(depotItem.getAmount(), dtoDepotItemOverview.getAmount());
-		Assertions.assertEquals(depotItem.getCourse(), dtoDepotItemOverview.getCourse());
+		Assertions.assertEquals(depotItem.getAmount(), dtoDepotItemOverview.getAmount().setScale(1, RoundingMode.HALF_UP));
+		Assertions.assertEquals(depotItem.getCourse(), dtoDepotItemOverview.getCourse().setScale(1, RoundingMode.HALF_UP));
 		Assertions.assertEquals(depotItem.getCreationDate(), dtoDepotItemOverview.getCreationDate());
 		Assertions.assertEquals(depotItem.getCurrency(), dtoDepotItemOverview.getCurrency());
 		Assertions.assertEquals(depotItem.getId(), dtoDepotItemOverview.getId());
 		Assertions.assertEquals(depotItem.getIsin(), dtoDepotItemOverview.getIsin());
-		Assertions.assertEquals(depotItem.getValue(), dtoDepotItemOverview.getValue());
+		Assertions.assertEquals(depotItem.getValue(), dtoDepotItemOverview.getValue().setScale(1, RoundingMode.HALF_UP));
 		Assertions.assertNull(dtoDepotItemOverview.getName());
 		Assertions.assertNull(dtoDepotItemOverview.getWkn());
 	}

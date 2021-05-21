@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.Month;
 
@@ -135,7 +136,7 @@ class DepotRepositoryTest extends IntegrationTest {
 		Assertions.assertEquals(bank.getName(), dtoDepotOverview.getBank().getName());
 		Assertions.assertEquals(depot.getColor(), dtoDepotOverview.getColor());
 		Assertions.assertEquals(depot.getCreationDate(), dtoDepotOverview.getCreationDate());
-		Assertions.assertEquals(depotDelivery.getSaldo(), dtoDepotOverview.getLastSaldo().getValue());
+		Assertions.assertEquals(depotDelivery.getSaldo(), dtoDepotOverview.getLastSaldo().getValue().setScale(1, RoundingMode.HALF_UP));
 		Assertions.assertEquals("EUR", dtoDepotOverview.getLastSaldo().getCurrency());
 		Assertions.assertEquals(depotDelivery.getDeliveryDate(), dtoDepotOverview.getLastSaldoDate());
 		Assertions.assertEquals(depot.getName(), dtoDepotOverview.getName());

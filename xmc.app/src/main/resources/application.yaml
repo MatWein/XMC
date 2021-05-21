@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:derby:${user.database.dir};create=true;dataEncryption=true;bootPassword=${user.password}
+    url: jdbc:hsqldb:file:${user.database.dir};create=true;dataEncryption=true;crypt_key=${user.cryptKey};crypt_iv=${user.cryptIv};crypt_type=AES/CBC/PKCS5Padding
     username: "\"${user.name}\""
     password: ${user.password}
     hikari:
@@ -12,7 +12,7 @@ spring:
     banner-mode: 'off'
   jpa:
     open-in-view: true
-    database-platform: org.hibernate.dialect.DerbyTenSevenDialect
+    database-platform: org.hibernate.dialect.HSQLDialect
     show-sql: false
     generate-ddl: false
     hibernate:
@@ -20,11 +20,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
-        default_schema: XMC
   liquibase:
     change-log: /db/changelog/db.changelog-master.xml
-    liquibase-schema: XMC
-    default-schema: XMC
 
 xmc:
   max-servicecalllog-lifetime-in-days: 365

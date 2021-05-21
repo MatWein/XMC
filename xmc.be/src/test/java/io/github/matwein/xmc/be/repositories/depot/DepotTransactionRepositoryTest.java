@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -126,14 +127,14 @@ class DepotTransactionRepositoryTest extends IntegrationTest {
 		
 		var dtoDepotTransactionOverview = result.getResults().get(0);
 		Assertions.assertEquals(depotTransaction.getId(), dtoDepotTransactionOverview.getId());
-		Assertions.assertEquals(depotTransaction.getAmount(), dtoDepotTransactionOverview.getAmount());
-		Assertions.assertEquals(depotTransaction.getCourse(), dtoDepotTransactionOverview.getCourse());
+		Assertions.assertEquals(depotTransaction.getAmount(), dtoDepotTransactionOverview.getAmount().setScale(1, RoundingMode.HALF_UP));
+		Assertions.assertEquals(depotTransaction.getCourse(), dtoDepotTransactionOverview.getCourse().setScale(1, RoundingMode.HALF_UP));
 		Assertions.assertEquals(depotTransaction.getCreationDate(), dtoDepotTransactionOverview.getCreationDate());
 		Assertions.assertEquals(depotTransaction.getCurrency(), dtoDepotTransactionOverview.getCurrency());
 		Assertions.assertEquals(depotTransaction.getDescription(), dtoDepotTransactionOverview.getDescription());
 		Assertions.assertEquals(depotTransaction.getIsin(), dtoDepotTransactionOverview.getIsin());
 		Assertions.assertEquals(stock.getName(), dtoDepotTransactionOverview.getName());
-		Assertions.assertEquals(depotTransaction.getValue(), dtoDepotTransactionOverview.getValue());
+		Assertions.assertEquals(depotTransaction.getValue(), dtoDepotTransactionOverview.getValue().setScale(1, RoundingMode.HALF_UP));
 		Assertions.assertEquals(depotTransaction.getValutaDate(), dtoDepotTransactionOverview.getValutaDate());
 		Assertions.assertEquals(stock.getWkn(), dtoDepotTransactionOverview.getWkn());
 	}

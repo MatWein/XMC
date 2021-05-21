@@ -16,11 +16,11 @@ public interface SystemProperties {
 	String SYSTEM_HOME_DIR = "system.home.dir";
 	String SYSTEM_HOME_LOG_DIR = "system.home.log.dir";
 	
-	String DERBY_STREAM_ERROR_FILE = "derby.stream.error.file";
-	
 	String USER_HOME = "user.home";
 	String USER_DIR = "user.dir";
 	String USER_NAME = "user.name";
+	String USER_CRYPT_KEY = "user.cryptKey";
+	String USER_CRYPT_IV = "user.cryptIv";
 	String USER_PASSWORD = "user.password";
 	String USER_DATABASE_DIR = "user.database.dir";
 	String USER_DISPLAYNAME = "user.displayName";

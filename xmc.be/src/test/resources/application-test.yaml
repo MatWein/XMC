@@ -13,11 +13,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
-        default_schema: XMC
   liquibase:
     change-log: /db/changelog/db.changelog-master.xml
-    liquibase-schema: XMC
-    default-schema: XMC
 
 xmc:
   max-servicecalllog-lifetime-in-days: 365

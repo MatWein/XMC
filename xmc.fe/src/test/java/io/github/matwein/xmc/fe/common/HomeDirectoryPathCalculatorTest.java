@@ -31,7 +31,6 @@ class HomeDirectoryPathCalculatorTest {
         Assertions.assertEquals(new File(dir, ".xmc/database"), new File(HomeDirectoryPathCalculator.calculateDatabaseDir()));
         Assertions.assertEquals(new File(dir, ".xmc/database/24c9e15e52afc47c225b757e7bee1f9d"), new File(HomeDirectoryPathCalculator.calculateDatabaseDirForUser("user1")));
         Assertions.assertEquals(new File(dir, ".xmc/logs"), new File(HomeDirectoryPathCalculator.calculateLogDir()));
-        Assertions.assertEquals(new File(dir, ".xmc/logs/derby.log"), new File(HomeDirectoryPathCalculator.calculateDerbyLogFilePath()));
     }
 
     @Test
@@ -46,7 +45,6 @@ class HomeDirectoryPathCalculatorTest {
         Assertions.assertEquals(new File(dir, "database"), new File(HomeDirectoryPathCalculator.calculateDatabaseDir()));
         Assertions.assertEquals(new File(dir, "database/24c9e15e52afc47c225b757e7bee1f9d"), new File(HomeDirectoryPathCalculator.calculateDatabaseDirForUser("user1")));
         Assertions.assertEquals(new File(dir, "logs"), new File(HomeDirectoryPathCalculator.calculateLogDir()));
-        Assertions.assertEquals(new File(dir, "logs/derby.log"), new File(HomeDirectoryPathCalculator.calculateDerbyLogFilePath()));
     }
 
     @Test
@@ -63,6 +61,5 @@ class HomeDirectoryPathCalculatorTest {
         Assertions.assertEquals(new File(tempDirectory, "database"), new File(HomeDirectoryPathCalculator.calculateDatabaseDir()));
         Assertions.assertEquals(new File(tempDirectory, "database/24c9e15e52afc47c225b757e7bee1f9d"), new File(HomeDirectoryPathCalculator.calculateDatabaseDirForUser("user1")));
         Assertions.assertEquals(new File(tempDirectory, "logs"), new File(HomeDirectoryPathCalculator.calculateLogDir()));
-        Assertions.assertEquals(new File(tempDirectory, "logs/derby.log"), new File(HomeDirectoryPathCalculator.calculateDerbyLogFilePath()));
     }
 }

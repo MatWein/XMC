@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.Month;
 
@@ -125,7 +126,7 @@ class CurrencyConversionFactorRepositoryTest extends IntegrationTest {
 		var dtoCurrencyConversionFactor = result.getResults().get(0);
 		Assertions.assertEquals(ccf4.getId(), dtoCurrencyConversionFactor.getId());
 		Assertions.assertEquals(ccf4.getCurrency(), dtoCurrencyConversionFactor.getCurrency());
-		Assertions.assertEquals(ccf4.getFactorToEur(), dtoCurrencyConversionFactor.getFactorToEur());
+		Assertions.assertEquals(ccf4.getFactorToEur(), dtoCurrencyConversionFactor.getFactorToEur().setScale(2, RoundingMode.HALF_UP));
 		Assertions.assertEquals(ccf4.getInputDate(), dtoCurrencyConversionFactor.getInputDate());
 	}
 }

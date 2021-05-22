@@ -3,7 +3,6 @@ package io.github.matwein.xmc;
 import io.github.matwein.xmc.common.stubs.login.DtoBootstrapFile;
 import io.github.matwein.xmc.fe.SystemProperties;
 import io.github.matwein.xmc.fe.common.HomeDirectoryPathCalculator;
-import io.github.matwein.xmc.fe.common.IApplicationContext;
 import io.github.matwein.xmc.fe.common.XmcFrontendContext;
 import io.github.matwein.xmc.fe.stages.login.BootstrapController;
 import io.github.matwein.xmc.fe.stages.login.logic.BootstrapFileController;
@@ -17,7 +16,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ConfigurableApplicationContext;
 
 import java.io.File;
 import java.util.Locale;
@@ -41,27 +39,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 	    XmcFrontendContext.hostServices = getHostServices();
-	    XmcFrontendContext.applicationContext = new IApplicationContext() {
-		    @Override
-		    public ConfigurableApplicationContext get() {
-			    return XmcApplication.applicationContext;
-		    }
-		
-		    @Override
-		    public String[] getArgs() {
-			    return XmcApplication.args;
-		    }
-		
-		    @Override
-		    public void start() {
-			    XmcApplication.start();
-		    }
-		
-		    @Override
-		    public void destroy() {
-			    XmcApplication.destroy();
-		    }
-	    };
+	    XmcFrontendContext.applicationContext = new ApplicationContextWrapper();
 
         Logger logger = LoggerFactory.getLogger(Main.class);
         logger.info("Opening login window.");

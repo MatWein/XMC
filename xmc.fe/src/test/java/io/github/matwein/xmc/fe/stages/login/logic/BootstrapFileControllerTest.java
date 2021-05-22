@@ -2,6 +2,7 @@ package io.github.matwein.xmc.fe.stages.login.logic;
 
 import io.github.benas.randombeans.EnhancedRandomBuilder;
 import io.github.matwein.xmc.common.stubs.login.DtoBootstrapFile;
+import io.github.matwein.xmc.fe.SystemProperties;
 import io.github.matwein.xmc.fe.common.HomeDirectoryPathCalculator;
 import io.github.matwein.xmc.fe.common.HomeDirectoryPathCalculatorCleanupController;
 import org.apache.commons.io.FileUtils;
@@ -20,8 +21,8 @@ class BootstrapFileControllerTest {
 
         File tempDirectory = FileUtils.getTempDirectory();
 
-        System.setProperty("xmc.home.type", "custom");
-        System.setProperty("xmc.home.path", tempDirectory.getAbsolutePath());
+        System.setProperty(SystemProperties.XMC_HOME_TYPE, SystemProperties.HOME_CUSTOM);
+        System.setProperty(SystemProperties.XMC_HOME_PATH, tempDirectory.getAbsolutePath());
     }
 
     @AfterEach

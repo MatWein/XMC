@@ -1,5 +1,6 @@
 package io.github.matwein.xmc.fe.common;
 
+import io.github.matwein.xmc.fe.SystemProperties;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -21,11 +22,11 @@ class HomeDirectoryPathCalculatorTest {
 
     @Test
     void testInitializeSystemProperties() {
-        System.setProperty("xmc.home.type", "home");
+        System.setProperty(SystemProperties.XMC_HOME_TYPE, SystemProperties.HOME_HOME);
 
         HomeDirectoryPathCalculator.initializeSystemProperties();
 
-        String dir = System.getProperty("user.home");
+        String dir = System.getProperty(SystemProperties.USER_HOME);
         Assertions.assertEquals(new File(dir, ".xmc"), new File(HomeDirectoryPathCalculator.calculateHomeDir()));
         Assertions.assertEquals(new File(dir, ".xmc/.bootstrap"), new File(HomeDirectoryPathCalculator.calculateCredentialFilePath()));
         Assertions.assertEquals(new File(dir, ".xmc/database"), new File(HomeDirectoryPathCalculator.calculateDatabaseDir()));
@@ -36,11 +37,11 @@ class HomeDirectoryPathCalculatorTest {
 
     @Test
     void testInitializeSystemProperties_workingDir() {
-        System.setProperty("xmc.home.type", "workingdir");
+        System.setProperty(SystemProperties.XMC_HOME_TYPE, SystemProperties.HOME_WORKINGDIR);
 
         HomeDirectoryPathCalculator.initializeSystemProperties();
 
-        String dir = System.getProperty("user.dir");
+        String dir = System.getProperty(SystemProperties.USER_DIR);
         Assertions.assertEquals(new File(dir), new File(HomeDirectoryPathCalculator.calculateHomeDir()));
         Assertions.assertEquals(new File(dir, ".bootstrap"), new File(HomeDirectoryPathCalculator.calculateCredentialFilePath()));
         Assertions.assertEquals(new File(dir, "database"), new File(HomeDirectoryPathCalculator.calculateDatabaseDir()));
@@ -53,8 +54,8 @@ class HomeDirectoryPathCalculatorTest {
     void testInitializeSystemProperties_custom() {
         File tempDirectory = FileUtils.getTempDirectory();
 
-        System.setProperty("xmc.home.type", "custom");
-        System.setProperty("xmc.home.path", tempDirectory.getAbsolutePath());
+        System.setProperty(SystemProperties.XMC_HOME_TYPE, SystemProperties.HOME_CUSTOM);
+        System.setProperty(SystemProperties.XMC_HOME_PATH, tempDirectory.getAbsolutePath());
 
         HomeDirectoryPathCalculator.initializeSystemProperties();
 

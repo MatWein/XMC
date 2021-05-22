@@ -1,10 +1,7 @@
 package io.github.matwein.xmc.be.repositories.cashaccount;
 
 import com.querydsl.core.QueryResults;
-import com.querydsl.core.types.ExpressionUtils;
-import com.querydsl.core.types.Order;
-import com.querydsl.core.types.Predicate;
-import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.*;
 import io.github.matwein.xmc.be.common.QueryUtil;
 import io.github.matwein.xmc.be.entities.cashaccount.CashAccount;
 import io.github.matwein.xmc.common.stubs.Money;
@@ -16,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import static com.querydsl.core.types.OrderSpecifier.NullHandling.NullsLast;
 import static io.github.matwein.xmc.be.entities.QBinaryData.binaryData;
 import static io.github.matwein.xmc.be.entities.cashaccount.QCashAccount.cashAccount;
 import static io.github.matwein.xmc.be.entities.cashaccount.QCashAccountTransaction.cashAccountTransaction;
@@ -53,6 +51,8 @@ public class CashAccountTransactionRepository {
                 .leftJoin(cashAccountTransaction.category(), category)
                 .leftJoin(category.icon(), binaryData)
                 .where(predicate)
+		        .orderBy(new OrderSpecifier(Order.DESC, cashAccountTransaction.creationDate, NullsLast))
+		        .orderBy(new OrderSpecifier(Order.DESC, cashAccountTransaction.id, NullsLast))
                 .fetchResults();
     }
 

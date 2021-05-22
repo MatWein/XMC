@@ -119,9 +119,9 @@ public class BootstrapController {
         IUserLoginService userLoginService = XmcFrontendContext.applicationContext.get().getBean(IUserLoginService.class);
         String displayName = userLoginService.login(dtoBootstrapFile);
 	
-	    System.clearProperty("user.name");
-	    System.clearProperty("user.password");
-	    System.clearProperty("user.database.dir");
+	    System.clearProperty(USER_NAME);
+	    System.clearProperty(USER_PASSWORD);
+	    System.clearProperty(USER_DATABASE_DIR);
 	    System.setProperty(USER_DISPLAYNAME, displayName);
 	
 	    BootstrapFileController.writeBootstrapFile(dtoBootstrapFile);

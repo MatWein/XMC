@@ -3,7 +3,7 @@ package io.github.matwein.xmc.fe.stages.main.cashaccount;
 import io.github.matwein.xmc.common.services.cashaccount.ICashAccountTransactionService;
 import io.github.matwein.xmc.common.stubs.category.DtoCategory;
 import io.github.matwein.xmc.fe.async.AsyncProcessor;
-import io.github.matwein.xmc.fe.common.ImageUtilFrontend;
+import io.github.matwein.xmc.fe.common.ImageUtil;
 import io.github.matwein.xmc.fe.common.MessageAdapter;
 import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.fe.ui.FxmlController;
@@ -55,7 +55,7 @@ public class CashAccountTransactionEditController implements IDialogWithAsyncDat
     @FXML
     public void initialize() {
         categoryComboBox.setCellFactory(new ComboBoxIconCellFactory<>(
-                item -> ImageUtilFrontend.readFromByteArray$(item.getIcon()),
+                item -> ImageUtil.readFromByteArray$(item.getIcon()),
                 DtoCategory::getName));
 
         categoryComboBox.setConverter(GenericItemToStringConverter.getInstance(DtoCategory::getName));

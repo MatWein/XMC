@@ -3,7 +3,7 @@ package io.github.matwein.xmc.fe.stages.main.administration.categories;
 import com.google.common.collect.Lists;
 import io.github.matwein.xmc.common.stubs.category.DtoCategory;
 import io.github.matwein.xmc.fe.FeConstants;
-import io.github.matwein.xmc.fe.common.ImageUtilFrontend;
+import io.github.matwein.xmc.fe.common.ImageUtil;
 import io.github.matwein.xmc.fe.common.MessageAdapter;
 import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.fe.ui.FxmlController;
@@ -19,14 +19,14 @@ import java.util.List;
 @FxmlController
 public class CategoryEditController {
     private static final List<DtoCategory> PRESET_ITEMS = Lists.newArrayList(
-            new DtoCategory(MessageAdapter.getByKey(MessageKey.CATEGORY_WORK), ImageUtilFrontend.imageToByteArray$(FeConstants.CATEGORY_BRIEFCASE)),
-            new DtoCategory(MessageAdapter.getByKey(MessageKey.CATEGORY_CAR), ImageUtilFrontend.imageToByteArray$(FeConstants.CATEGORY_CAR_LEFT)),
-            new DtoCategory(MessageAdapter.getByKey(MessageKey.CATEGORY_CREDIT), ImageUtilFrontend.imageToByteArray$(FeConstants.CATEGORY_CREDIT_CARD)),
-            new DtoCategory(MessageAdapter.getByKey(MessageKey.CATEGORY_BUSINESS), ImageUtilFrontend.imageToByteArray$(FeConstants.CATEGORY_DOLLAR_SIGN)),
-            new DtoCategory(MessageAdapter.getByKey(MessageKey.CATEGORY_HOME), ImageUtilFrontend.imageToByteArray$(FeConstants.CATEGORY_HOME)),
-            new DtoCategory(MessageAdapter.getByKey(MessageKey.CATEGORY_MEDIA), ImageUtilFrontend.imageToByteArray$(FeConstants.CATEGORY_PHONE)),
-            new DtoCategory(MessageAdapter.getByKey(MessageKey.CATEGORY_SHOPPING), ImageUtilFrontend.imageToByteArray$(FeConstants.CATEGORY_SHOPPING_CART)),
-            new DtoCategory(MessageAdapter.getByKey(MessageKey.CATEGORY_DEPOT), ImageUtilFrontend.imageToByteArray$(FeConstants.CATEGORY_TRENDING_UP))
+            new DtoCategory(MessageAdapter.getByKey(MessageKey.CATEGORY_WORK), ImageUtil.imageToByteArray$(FeConstants.CATEGORY_BRIEFCASE)),
+            new DtoCategory(MessageAdapter.getByKey(MessageKey.CATEGORY_CAR), ImageUtil.imageToByteArray$(FeConstants.CATEGORY_CAR_LEFT)),
+            new DtoCategory(MessageAdapter.getByKey(MessageKey.CATEGORY_CREDIT), ImageUtil.imageToByteArray$(FeConstants.CATEGORY_CREDIT_CARD)),
+            new DtoCategory(MessageAdapter.getByKey(MessageKey.CATEGORY_BUSINESS), ImageUtil.imageToByteArray$(FeConstants.CATEGORY_DOLLAR_SIGN)),
+            new DtoCategory(MessageAdapter.getByKey(MessageKey.CATEGORY_HOME), ImageUtil.imageToByteArray$(FeConstants.CATEGORY_HOME)),
+            new DtoCategory(MessageAdapter.getByKey(MessageKey.CATEGORY_MEDIA), ImageUtil.imageToByteArray$(FeConstants.CATEGORY_PHONE)),
+            new DtoCategory(MessageAdapter.getByKey(MessageKey.CATEGORY_SHOPPING), ImageUtil.imageToByteArray$(FeConstants.CATEGORY_SHOPPING_CART)),
+            new DtoCategory(MessageAdapter.getByKey(MessageKey.CATEGORY_DEPOT), ImageUtil.imageToByteArray$(FeConstants.CATEGORY_TRENDING_UP))
     );
 
     private Long categoryId;
@@ -42,7 +42,7 @@ public class CategoryEditController {
         presetComboBox.setConverter(GenericItemToStringConverter.getInstance(DtoCategory::getName));
 
         presetComboBox.setCellFactory(new ComboBoxIconCellFactory<>(
-                item -> ImageUtilFrontend.readFromByteArray$(item.getIcon()),
+                item -> ImageUtil.readFromByteArray$(item.getIcon()),
                 DtoCategory::getName));
 
         presetComboBox.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {

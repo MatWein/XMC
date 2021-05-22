@@ -1,7 +1,7 @@
 package io.github.matwein.xmc.fe.ui.extras;
 
 import com.google.common.collect.Lists;
-import io.github.matwein.xmc.fe.common.ImageUtilFrontend;
+import io.github.matwein.xmc.fe.common.ImageUtil;
 import javafx.animation.TranslateTransition;
 import javafx.scene.CacheHint;
 import javafx.scene.effect.DropShadow;
@@ -15,9 +15,9 @@ import java.util.List;
 import java.util.Random;
 
 public class SnowAnimationController {
-	private static final Image FLAKE_1 = ImageUtilFrontend.readFromClasspath$("/images/snow/flake1.png");
-	private static final Image FLAKE_2 = ImageUtilFrontend.readFromClasspath$("/images/snow/flake2.png");
-	private static final Image FLAKE_3 = ImageUtilFrontend.readFromClasspath$("/images/snow/flake3.png");
+	private static final Image FLAKE_1 = ImageUtil.readFromClasspath$("/images/snow/flake1.png");
+	private static final Image FLAKE_2 = ImageUtil.readFromClasspath$("/images/snow/flake2.png");
+	private static final Image FLAKE_3 = ImageUtil.readFromClasspath$("/images/snow/flake3.png");
 	
 	private static final int FLAKE_COUNT = 150;
 	private static final int MIN_FLAKE_SIZE = 5;

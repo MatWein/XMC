@@ -14,10 +14,15 @@ import java.util.stream.Collectors;
 @Component
 public class DtoAssetPointsToDtoChartSeriesMapper {
 	private final DuplicatedChartPointsReducer duplicatedChartPointsReducer;
+	private final TextToColorConverter textToColorConverter;
 	
 	@Autowired
-	public DtoAssetPointsToDtoChartSeriesMapper(DuplicatedChartPointsReducer duplicatedChartPointsReducer) {
+	public DtoAssetPointsToDtoChartSeriesMapper(
+			DuplicatedChartPointsReducer duplicatedChartPointsReducer,
+			TextToColorConverter textToColorConverter) {
+		
 		this.duplicatedChartPointsReducer = duplicatedChartPointsReducer;
+		this.textToColorConverter = textToColorConverter;
 	}
 	
 	public List<DtoChartSeries<Number, Number>> mapAll(List<DtoAssetPoints> assetDeliveries, boolean filterDuplicatePoints) {
@@ -33,7 +38,7 @@ public class DtoAssetPointsToDtoChartSeriesMapper {
 		calculatedSerie.setName(dtoAssetPoints.getAssetName());
 		
 		if (dtoAssetPoints.getAssetColor() == null) {
-			calculatedSerie.setColor(TextToColorConverter.convertTextToColor(String.valueOf(dtoAssetPoints.getAssetId())));
+			calculatedSerie.setColor(textToColorConverter.convertTextToColor(String.valueOf(dtoAssetPoints.getAssetId())));
 		} else {
 			calculatedSerie.setColor(dtoAssetPoints.getAssetColor());
 		}

@@ -1,7 +1,7 @@
 package io.github.matwein.xmc.fe.ui.dashboard;
 
 import io.github.matwein.xmc.fe.FeConstants;
-import io.github.matwein.xmc.fe.common.ImageUtilFrontend;
+import io.github.matwein.xmc.fe.common.ImageUtil;
 import io.github.matwein.xmc.fe.common.MessageAdapter;
 import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.fe.ui.FxmlComponentFactory;
@@ -46,7 +46,7 @@ public class DashboardContentTile extends VBox {
 		titleBar.setAlignment(Pos.CENTER_LEFT);
 		titleBar.getStyleClass().add(CSS_CLASS_TITLE_BAR);
 		
-		ImageView moveIconView = new ImageView(ImageUtilFrontend.invertColors(FeConstants.IMAGE_MOVE));
+		ImageView moveIconView = new ImageView(ImageUtil.invertColors(FeConstants.IMAGE_MOVE));
 		moveIconView.visibleProperty().bind(dashboardPane.editableProperty());
 		moveIconView.managedProperty().bind(moveIconView.visibleProperty());
 		HBox.setMargin(moveIconView, new Insets(0, 0, 0, 5));

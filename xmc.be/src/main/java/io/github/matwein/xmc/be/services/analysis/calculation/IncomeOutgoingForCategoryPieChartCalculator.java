@@ -36,6 +36,7 @@ public class IncomeOutgoingForCategoryPieChartCalculator {
 	private final CurrencyConversionFactorLoadingController currencyConversionFactorLoadingController;
 	private final AssetEuroValueCalculator assetEuroValueCalculator;
 	private final UebertragTransactionFilter uebertragTransactionFilter;
+	private final TextToColorConverter textToColorConverter;
 	
 	@Autowired
 	public IncomeOutgoingForCategoryPieChartCalculator(
@@ -43,13 +44,15 @@ public class IncomeOutgoingForCategoryPieChartCalculator {
 			CashAccountTransactionJpaRepository cashAccountTransactionJpaRepository,
 			CurrencyConversionFactorLoadingController currencyConversionFactorLoadingController,
 			AssetEuroValueCalculator assetEuroValueCalculator,
-			UebertragTransactionFilter uebertragTransactionFilter) {
+			UebertragTransactionFilter uebertragTransactionFilter,
+			TextToColorConverter textToColorConverter) {
 		
 		this.cashAccountJpaRepository = cashAccountJpaRepository;
 		this.cashAccountTransactionJpaRepository = cashAccountTransactionJpaRepository;
 		this.currencyConversionFactorLoadingController = currencyConversionFactorLoadingController;
 		this.assetEuroValueCalculator = assetEuroValueCalculator;
 		this.uebertragTransactionFilter = uebertragTransactionFilter;
+		this.textToColorConverter = textToColorConverter;
 	}
 	
 	public List<DtoChartSeries<Object, Number>> calculate(
@@ -102,7 +105,7 @@ public class IncomeOutgoingForCategoryPieChartCalculator {
 		String name = StringUtils.abbreviate(transaction.getUsage(), 15);
 		
 		result.setName(name);
-		result.setColor(TextToColorConverter.convertTextToColor(name));
+		result.setColor(textToColorConverter.convertTextToColor(name));
 		
 		BigDecimal value = calculateTransactionValueInEuro(currencyConversionFactors, transaction);
 		BigDecimal percentage = calculatePercentage(sumOfAllTransactions, value);
@@ -180,7 +183,7 @@ public class IncomeOutgoingForCategoryPieChartCalculator {
 			String name = MessageAdapter.getByKey(MessageKey.ANALYSIS_OTHER);
 			
 			aggregatedSerie.setName(name);
-			aggregatedSerie.setColor(TextToColorConverter.convertTextToColor(name));
+			aggregatedSerie.setColor(textToColorConverter.convertTextToColor(name));
 			
 			BigDecimal sum = SCalcBuilder.bigDecimalInstance()
 					.sumExpression()

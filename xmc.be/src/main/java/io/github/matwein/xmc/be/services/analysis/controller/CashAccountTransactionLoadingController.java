@@ -21,14 +21,17 @@ import java.util.stream.Collectors;
 public class CashAccountTransactionLoadingController {
 	private final CashAccountJpaRepository cashAccountJpaRepository;
 	private final CashAccountTransactionJpaRepository cashAccountTransactionJpaRepository;
+	private final LocalDateUtil localDateUtil;
 	
 	@Autowired
 	public CashAccountTransactionLoadingController(
 			CashAccountJpaRepository cashAccountJpaRepository,
-			CashAccountTransactionJpaRepository cashAccountTransactionJpaRepository) {
+			CashAccountTransactionJpaRepository cashAccountTransactionJpaRepository,
+			LocalDateUtil localDateUtil) {
 		
 		this.cashAccountJpaRepository = cashAccountJpaRepository;
 		this.cashAccountTransactionJpaRepository = cashAccountTransactionJpaRepository;
+		this.localDateUtil = localDateUtil;
 	}
 	
 	public List<DtoAssetPoints> loadTransactionsForCashAccounts(List<Long> cashAccountIds, LocalDate startDate, LocalDate endDate) {
@@ -61,7 +64,7 @@ public class CashAccountTransactionLoadingController {
 				.filter(transaction -> transaction.getValutaDate().compareTo(startDate) >= 0)
 				.filter(transaction -> transaction.getValutaDate().compareTo(endDate) <= 0)
 				.map(transaction -> new DtoChartPoint<Number, Number>(
-						LocalDateUtil.toMillis(transaction.getValutaDate().atTime(transaction.getCreationDate().toLocalTime()).plusSeconds(counter.getAndIncrement())),
+						localDateUtil.toMillis(transaction.getValutaDate().atTime(transaction.getCreationDate().toLocalTime()).plusSeconds(counter.getAndIncrement())),
 						transaction.getValue().doubleValue(),
 						transaction.getUsage()))
 				.sorted(Comparator.comparing(point -> point.getX().doubleValue()))

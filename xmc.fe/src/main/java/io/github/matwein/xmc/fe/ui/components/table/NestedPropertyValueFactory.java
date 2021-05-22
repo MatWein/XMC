@@ -2,7 +2,7 @@ package io.github.matwein.xmc.fe.ui.components.table;
 
 import io.github.matwein.xmc.common.stubs.Money;
 import io.github.matwein.xmc.common.stubs.Percentage;
-import io.github.matwein.xmc.fe.common.ImageUtilFrontend;
+import io.github.matwein.xmc.fe.common.ImageUtil;
 import io.github.matwein.xmc.fe.common.MessageAdapter;
 import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -121,7 +121,7 @@ public class NestedPropertyValueFactory implements Callback<CellDataFeatures, Ob
     }
 
     private ImageView createImageView(byte[] value) {
-        ImageView imageView = new ImageView(ImageUtilFrontend.readFromByteArray$(value));
+        ImageView imageView = new ImageView(ImageUtil.readFromByteArray$(value));
 
         if (fitToWidth != null) {
             imageView.setFitWidth(fitToWidth);

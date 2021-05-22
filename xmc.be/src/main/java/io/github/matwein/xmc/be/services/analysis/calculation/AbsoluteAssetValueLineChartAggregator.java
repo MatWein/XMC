@@ -6,6 +6,7 @@ import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.common.CommonConstants;
 import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartPoint;
 import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartSeries;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -16,6 +17,13 @@ import java.util.Optional;
 
 @Component
 public class AbsoluteAssetValueLineChartAggregator {
+	private final LocalDateUtil localDateUtil;
+	
+	@Autowired
+	public AbsoluteAssetValueLineChartAggregator(LocalDateUtil localDateUtil) {
+		this.localDateUtil = localDateUtil;
+	}
+	
 	public DtoChartSeries<Number, Number> aggregate(
 			List<DtoChartSeries<Number, Number>> assetLines,
 			LocalDate startDate,
@@ -55,7 +63,7 @@ public class AbsoluteAssetValueLineChartAggregator {
 	private DtoChartPoint<Number, Number> createPoint(LocalDate currentDate, double sum) {
 		DtoChartPoint<Number, Number> point = new DtoChartPoint<>();
 		
-		point.setX(LocalDateUtil.toMillis(currentDate.atTime(CommonConstants.END_OF_DAY)));
+		point.setX(localDateUtil.toMillis(currentDate.atTime(CommonConstants.END_OF_DAY)));
 		point.setY(sum);
 		
 		return point;
@@ -76,7 +84,7 @@ public class AbsoluteAssetValueLineChartAggregator {
 	
 	private Optional<DtoChartPoint<Number, Number>> findAssetPointOnCurrentDateOrBefore(DtoChartSeries<Number, Number> asset, LocalDate maxDate) {
 		return asset.getPoints().stream()
-				.filter((o) -> o.getX().longValue() <= LocalDateUtil.toMillis(maxDate.atTime(CommonConstants.END_OF_DAY)))
+				.filter((o) -> o.getX().longValue() <= localDateUtil.toMillis(maxDate.atTime(CommonConstants.END_OF_DAY)))
 				.max(Comparator.comparing(point -> point.getX().longValue()));
 	}
 }

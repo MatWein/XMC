@@ -20,14 +20,17 @@ import java.util.stream.Collectors;
 public class TransactionsBarChartCalculator {
 	private final DtoAssetPointsToDtoChartSeriesMapper dtoAssetPointsToDtoChartSeriesMapper;
 	private final AssetTransactionsLoadingController assetTransactionsLoadingController;
+	private final LocalDateUtil localDateUtil;
 	
 	@Autowired
 	public TransactionsBarChartCalculator(
 			DtoAssetPointsToDtoChartSeriesMapper dtoAssetPointsToDtoChartSeriesMapper,
-			AssetTransactionsLoadingController assetTransactionsLoadingController) {
+			AssetTransactionsLoadingController assetTransactionsLoadingController,
+			LocalDateUtil localDateUtil) {
 		
 		this.dtoAssetPointsToDtoChartSeriesMapper = dtoAssetPointsToDtoChartSeriesMapper;
 		this.assetTransactionsLoadingController = assetTransactionsLoadingController;
+		this.localDateUtil = localDateUtil;
 	}
 	
 	public List<DtoChartSeries<String, Number>> calculate(Multimap<AssetType, Long> assetIds, LocalDate startDate, LocalDate endDate) {
@@ -54,7 +57,7 @@ public class TransactionsBarChartCalculator {
 	private DtoChartPoint<String, Number> mapChartPoint(DtoChartPoint<Number, Number> point) {
 		DtoChartPoint<String, Number> rp = new DtoChartPoint<>();
 		
-		rp.setX(MessageAdapter.formatDateTime(LocalDateUtil.toLocalDateTime(point.getX())));
+		rp.setX(MessageAdapter.formatDateTime(localDateUtil.toLocalDateTime(point.getX())));
 		rp.setY(point.getY());
 		rp.setDescription(point.getDescription());
 		

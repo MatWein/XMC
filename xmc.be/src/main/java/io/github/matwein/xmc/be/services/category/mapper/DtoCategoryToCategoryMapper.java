@@ -1,6 +1,6 @@
 package io.github.matwein.xmc.be.services.category.mapper;
 
-import io.github.matwein.xmc.be.common.ImageUtilBackend;
+import io.github.matwein.xmc.be.common.ImageUtil;
 import io.github.matwein.xmc.be.common.factories.BinaryDataFactory;
 import io.github.matwein.xmc.be.entities.cashaccount.Category;
 import io.github.matwein.xmc.common.stubs.category.DtoCategory;
@@ -13,11 +13,16 @@ public class DtoCategoryToCategoryMapper {
     private static final int IMAGE_SIZE = 24;
 
     private final BinaryDataFactory binaryDataFactory;
-
-    @Autowired
-    public DtoCategoryToCategoryMapper(BinaryDataFactory binaryDataFactory) {
+	private final ImageUtil imageUtil;
+	
+	@Autowired
+    public DtoCategoryToCategoryMapper(
+    		BinaryDataFactory binaryDataFactory,
+		    ImageUtil imageUtil) {
+		
         this.binaryDataFactory = binaryDataFactory;
-    }
+		this.imageUtil = imageUtil;
+	}
 
     public Category map(DtoCategory dtoCategory) {
         Category category = new Category();
@@ -29,7 +34,7 @@ public class DtoCategoryToCategoryMapper {
         category.setName(dtoCategory.getName());
 
         if (dtoCategory.getIcon() != null) {
-            byte[] resizedLogo = ImageUtilBackend.resize$(dtoCategory.getIcon(), IMAGE_SIZE, IMAGE_SIZE);
+            byte[] resizedLogo = imageUtil.resize$(dtoCategory.getIcon(), IMAGE_SIZE, IMAGE_SIZE);
             category.setIcon(binaryDataFactory.create(resizedLogo, DESCRIPTION));
         }
     }

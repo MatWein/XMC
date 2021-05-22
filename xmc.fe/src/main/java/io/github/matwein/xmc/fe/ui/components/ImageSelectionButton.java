@@ -1,6 +1,6 @@
 package io.github.matwein.xmc.fe.ui.components;
 
-import io.github.matwein.xmc.fe.common.ImageUtilFrontend;
+import io.github.matwein.xmc.fe.common.ImageUtil;
 import io.github.matwein.xmc.fe.common.MessageAdapter;
 import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.fe.ui.DialogHelper;
@@ -23,7 +23,7 @@ public class ImageSelectionButton extends Button {
         this.setOnAction(event -> {
             Optional<File> selectedFile = DialogHelper.showOpenFileDialog(getScene().getWindow(), ExtensionFilterType.IMAGES);
             if (selectedFile.isPresent()) {
-                showImage(ImageUtilFrontend.readFromFile$(selectedFile.get()));
+                showImage(ImageUtil.readFromFile$(selectedFile.get()));
             }
         });
     }
@@ -39,7 +39,7 @@ public class ImageSelectionButton extends Button {
         if (image == null) {
             setImage((Image)null);
         } else {
-            setImage(ImageUtilFrontend.readFromByteArray$(image));
+            setImage(ImageUtil.readFromByteArray$(image));
         }
     }
 
@@ -56,7 +56,7 @@ public class ImageSelectionButton extends Button {
         if (image == null) {
             return null;
         } else {
-            return ImageUtilFrontend.imageToByteArray$(image);
+            return ImageUtil.imageToByteArray$(image);
         }
     }
 
@@ -73,8 +73,8 @@ public class ImageSelectionButton extends Button {
     private ImageView createLogoImageView(Image image) {
         Image imageToShow;
         if (fitWidth != null && fitHeight != null) {
-            imageToShow = ImageUtilFrontend.readFromByteArray$(ImageUtilFrontend.resize$(
-            		ImageUtilFrontend.imageToByteArray$(image),
+            imageToShow = ImageUtil.readFromByteArray$(ImageUtil.resize$(
+            		ImageUtil.imageToByteArray$(image),
 		            fitWidth.intValue(),
 		            fitHeight.intValue()));
         } else {

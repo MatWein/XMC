@@ -1,6 +1,6 @@
 package io.github.matwein.xmc.fe.ui.components;
 
-import io.github.matwein.xmc.fe.common.ImageUtilFrontend;
+import io.github.matwein.xmc.fe.common.ImageUtil;
 import io.github.matwein.xmc.fe.ui.SceneBuilder;
 import javafx.beans.NamedArg;
 import javafx.scene.image.Image;
@@ -15,7 +15,7 @@ public class ButtonImageView extends ImageView {
 	public ButtonImageView(Image image) {
 		boolean useDarkTheme = SceneBuilder.getStyle() == Style.DARK;
 		if (useDarkTheme) {
-			image = ImageUtilFrontend.invertColors(image);
+			image = ImageUtil.invertColors(image);
 		}
 		
 		setImage(image);

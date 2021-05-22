@@ -1,6 +1,6 @@
 package io.github.matwein.xmc.be.services.bank.mapper;
 
-import io.github.matwein.xmc.be.common.ImageUtilBackend;
+import io.github.matwein.xmc.be.common.ImageUtil;
 import io.github.matwein.xmc.be.common.factories.BinaryDataFactory;
 import io.github.matwein.xmc.be.entities.Bank;
 import io.github.matwein.xmc.common.stubs.bank.DtoBank;
@@ -13,11 +13,16 @@ public class DtoBankToBankMapper {
     private static final int IMAGE_SIZE = 24;
 
     private final BinaryDataFactory binaryDataFactory;
-
-    @Autowired
-    public DtoBankToBankMapper(BinaryDataFactory binaryDataFactory) {
+	private final ImageUtil imageUtil;
+	
+	@Autowired
+    public DtoBankToBankMapper(
+    		BinaryDataFactory binaryDataFactory,
+		    ImageUtil imageUtil) {
+		
         this.binaryDataFactory = binaryDataFactory;
-    }
+		this.imageUtil = imageUtil;
+	}
 
     public Bank map(DtoBank dtoBank) {
         Bank bank = new Bank();
@@ -31,7 +36,7 @@ public class DtoBankToBankMapper {
         bank.setName(dtoBank.getName());
 
         if (dtoBank.getLogo() != null) {
-            byte[] resizedLogo = ImageUtilBackend.resize$(dtoBank.getLogo(), IMAGE_SIZE, IMAGE_SIZE);
+            byte[] resizedLogo = imageUtil.resize$(dtoBank.getLogo(), IMAGE_SIZE, IMAGE_SIZE);
             bank.setLogo(binaryDataFactory.create(resizedLogo, DESCRIPTION));
         }
     }

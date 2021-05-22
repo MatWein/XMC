@@ -13,7 +13,7 @@ import org.apache.commons.io.FileUtils;
 import javax.imageio.ImageIO;
 import java.io.*;
 
-public class ImageUtilFrontend {
+public class ImageUtil {
 	public static Image readFromClasspath$(String path) {
 		try {
 			return readFromClasspath(path);
@@ -22,8 +22,8 @@ public class ImageUtilFrontend {
 		}
 	}
 	
-	public static Image readFromClasspath(String path) throws IOException {
-		try (InputStream inputStream = ImageUtilFrontend.class.getResourceAsStream(path)) {
+	static Image readFromClasspath(String path) throws IOException {
+		try (InputStream inputStream = ImageUtil.class.getResourceAsStream(path)) {
 			if (inputStream == null) {
 				throw new IOException(String.format("Could not find class path file '%s'.", path));
 			}
@@ -40,7 +40,7 @@ public class ImageUtilFrontend {
 		}
 	}
 	
-	public static Image readFromFile(File file) throws IOException {
+	static Image readFromFile(File file) throws IOException {
 		try (var inputStream = FileUtils.openInputStream(file)) {
 			return createImageFromInputStream(inputStream, file.getAbsolutePath());
 		}
@@ -54,7 +54,7 @@ public class ImageUtilFrontend {
 		}
 	}
 	
-	public static Image readFromByteArray(byte[] image) throws IOException {
+	static Image readFromByteArray(byte[] image) throws IOException {
 		if (image == null) {
 			return null;
 		}
@@ -80,7 +80,7 @@ public class ImageUtilFrontend {
 		}
 	}
 	
-	public static byte[] imageToByteArray(Image image) throws Exception {
+	private static byte[] imageToByteArray(Image image) throws Exception {
 		if (image == null) {
 			return null;
 		}
@@ -121,7 +121,7 @@ public class ImageUtilFrontend {
 		}
 	}
 	
-	public static byte[] resize(byte[] image, int width, int height) throws IOException {
+	private static byte[] resize(byte[] image, int width, int height) throws IOException {
 		if (image == null) {
 			return null;
 		}

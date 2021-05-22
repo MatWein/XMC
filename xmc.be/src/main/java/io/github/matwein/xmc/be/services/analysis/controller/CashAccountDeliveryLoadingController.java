@@ -25,14 +25,17 @@ import java.util.stream.Collectors;
 public class CashAccountDeliveryLoadingController {
 	private final CashAccountJpaRepository cashAccountJpaRepository;
 	private final CashAccountTransactionJpaRepository cashAccountTransactionJpaRepository;
+	private final LocalDateUtil localDateUtil;
 	
 	@Autowired
 	public CashAccountDeliveryLoadingController(
 			CashAccountJpaRepository cashAccountJpaRepository,
-			CashAccountTransactionJpaRepository cashAccountTransactionJpaRepository) {
+			CashAccountTransactionJpaRepository cashAccountTransactionJpaRepository,
+			LocalDateUtil localDateUtil) {
 		
 		this.cashAccountJpaRepository = cashAccountJpaRepository;
 		this.cashAccountTransactionJpaRepository = cashAccountTransactionJpaRepository;
+		this.localDateUtil = localDateUtil;
 	}
 	
 	public List<DtoAssetPoints> loadDeliveriesForCashAccounts(List<Long> cashAccountIds, LocalDate startDate, LocalDate endDate) {
@@ -63,7 +66,7 @@ public class CashAccountDeliveryLoadingController {
 		List<CashAccountTransaction> transactions = cashAccountTransactionJpaRepository.findByCashAccountAndDeletionDateIsNull(cashAccount);
 		
 		for (LocalDate currentDate = startDate; currentDate.isBefore(endDate) || currentDate.isEqual(endDate); currentDate = currentDate.plusDays(1)) {
-			long date = LocalDateUtil.toMillis(currentDate.atTime(CommonConstants.END_OF_DAY));
+			long date = localDateUtil.toMillis(currentDate.atTime(CommonConstants.END_OF_DAY));
 			Optional<CashAccountTransaction> transaction = findLastTransactionBeforeOrOnDate(currentDate, transactions);
 			double valueAtDate = transaction.map(CashAccountTransaction::getSaldoAfter).orElse(BigDecimal.ZERO).doubleValue();
 			

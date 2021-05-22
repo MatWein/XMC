@@ -26,14 +26,17 @@ import java.util.stream.Collectors;
 public class DepotDeliveryLoadingController {
 	private final DepotJpaRepository depotJpaRepository;
 	private final DepotDeliveryJpaRepository depotDeliveryJpaRepository;
+	private final LocalDateUtil localDateUtil;
 	
 	@Autowired
 	public DepotDeliveryLoadingController(
 			DepotJpaRepository depotJpaRepository,
-			DepotDeliveryJpaRepository depotDeliveryJpaRepository) {
+			DepotDeliveryJpaRepository depotDeliveryJpaRepository,
+			LocalDateUtil localDateUtil) {
 		
 		this.depotJpaRepository = depotJpaRepository;
 		this.depotDeliveryJpaRepository = depotDeliveryJpaRepository;
+		this.localDateUtil = localDateUtil;
 	}
 	
 	public List<DtoAssetPoints> loadDeliveriesForDepots(List<Long> depotIds, LocalDate startDate, LocalDate endDate) {
@@ -68,7 +71,7 @@ public class DepotDeliveryLoadingController {
 			Optional<DepotDelivery> delivery = findLastDeliveryBeforeOrOnDate(date, deliveries);
 			double valueAtDate = delivery.map(DepotDelivery::getSaldo).orElse(BigDecimal.ZERO).doubleValue();
 			
-			result.add(new DtoChartPoint(LocalDateUtil.toMillis(date), valueAtDate));
+			result.add(new DtoChartPoint(localDateUtil.toMillis(date), valueAtDate));
 		}
 		
 		return result;

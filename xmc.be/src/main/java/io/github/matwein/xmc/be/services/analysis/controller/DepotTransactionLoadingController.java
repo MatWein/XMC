@@ -21,14 +21,17 @@ import java.util.stream.Collectors;
 public class DepotTransactionLoadingController {
 	private final DepotJpaRepository depotJpaRepository;
 	private final DepotTransactionJpaRepository depotTransactionJpaRepository;
+	private final LocalDateUtil localDateUtil;
 	
 	@Autowired
 	public DepotTransactionLoadingController(
 			DepotJpaRepository depotJpaRepository,
-			DepotTransactionJpaRepository depotTransactionJpaRepository) {
+			DepotTransactionJpaRepository depotTransactionJpaRepository,
+			LocalDateUtil localDateUtil) {
 		
 		this.depotJpaRepository = depotJpaRepository;
 		this.depotTransactionJpaRepository = depotTransactionJpaRepository;
+		this.localDateUtil = localDateUtil;
 	}
 	
 	public List<DtoAssetPoints> loadTransactionsForDepots(List<Long> sortedAssetIds, LocalDate startDate, LocalDate endDate) {
@@ -61,7 +64,7 @@ public class DepotTransactionLoadingController {
 				.filter(transaction -> transaction.getValutaDate().compareTo(startDate) >= 0)
 				.filter(transaction -> transaction.getValutaDate().compareTo(endDate) <= 0)
 				.map(transaction -> new DtoChartPoint<Number, Number>(
-						LocalDateUtil.toMillis(transaction.getValutaDate().atTime(transaction.getCreationDate().toLocalTime()).plusSeconds(counter.getAndIncrement())),
+						localDateUtil.toMillis(transaction.getValutaDate().atTime(transaction.getCreationDate().toLocalTime()).plusSeconds(counter.getAndIncrement())),
 						transaction.getValue().doubleValue(),
 						transaction.getDescription()))
 				.sorted(Comparator.comparing(point -> point.getX().doubleValue()))

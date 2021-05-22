@@ -40,6 +40,7 @@ public class IncomeOutgoingPieChartCalculator {
 	private final CurrencyConversionFactorLoadingController currencyConversionFactorLoadingController;
 	private final AssetEuroValueCalculator assetEuroValueCalculator;
 	private final UebertragTransactionFilter uebertragTransactionFilter;
+	private final TextToColorConverter textToColorConverter;
 	
 	@Autowired
 	public IncomeOutgoingPieChartCalculator(
@@ -47,13 +48,15 @@ public class IncomeOutgoingPieChartCalculator {
 			CashAccountTransactionJpaRepository cashAccountTransactionJpaRepository,
 			CurrencyConversionFactorLoadingController currencyConversionFactorLoadingController,
 			AssetEuroValueCalculator assetEuroValueCalculator,
-			UebertragTransactionFilter uebertragTransactionFilter) {
+			UebertragTransactionFilter uebertragTransactionFilter,
+			TextToColorConverter textToColorConverter) {
 		
 		this.cashAccountJpaRepository = cashAccountJpaRepository;
 		this.cashAccountTransactionJpaRepository = cashAccountTransactionJpaRepository;
 		this.currencyConversionFactorLoadingController = currencyConversionFactorLoadingController;
 		this.assetEuroValueCalculator = assetEuroValueCalculator;
 		this.uebertragTransactionFilter = uebertragTransactionFilter;
+		this.textToColorConverter = textToColorConverter;
 	}
 	
 	public List<DtoChartSeries<Object, Number>> calculate(
@@ -123,7 +126,7 @@ public class IncomeOutgoingPieChartCalculator {
 		result.getParams().put(IAnalysisChartCalculationService.START_DATE, startDate);
 		result.getParams().put(IAnalysisChartCalculationService.END_DATE, endDate);
 		
-		result.setColor(TextToColorConverter.convertTextToColor(categoryName));
+		result.setColor(textToColorConverter.convertTextToColor(categoryName));
 		
 		BigDecimal sum = SCalcBuilder.bigDecimalInstance()
 				.expression(ABS_SUM)

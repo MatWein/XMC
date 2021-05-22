@@ -2,13 +2,15 @@ package io.github.matwein.xmc.be.common;
 
 import io.github.matwein.xmc.common.FileMimeType;
 import net.coobird.thumbnailator.Thumbnails;
+import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-public class ImageUtilBackend {
-	public static byte[] resize$(byte[] image, int width, int height) {
+@Component
+public class ImageUtil {
+	public byte[] resize$(byte[] image, int width, int height) {
 		try {
 			return resize(image, width, height);
 		} catch (IOException e) {
@@ -16,7 +18,7 @@ public class ImageUtilBackend {
 		}
 	}
 	
-	public static byte[] resize(byte[] image, int width, int height) throws IOException {
+	private byte[] resize(byte[] image, int width, int height) throws IOException {
 		if (image == null) {
 			return null;
 		}

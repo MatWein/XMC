@@ -5,10 +5,14 @@ import com.google.common.collect.Multimap;
 import io.github.matwein.xmc.be.entities.analysis.AnalysisFavourite;
 import io.github.matwein.xmc.be.entities.cashaccount.CashAccount;
 import io.github.matwein.xmc.be.entities.depot.Depot;
+import io.github.matwein.xmc.be.services.analysis.calculation.TimeRangeCalculator;
 import io.github.matwein.xmc.common.stubs.analysis.AssetType;
 import io.github.matwein.xmc.common.stubs.analysis.DtoAnalysisFavourite;
+import org.apache.commons.lang3.tuple.Pair;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
@@ -16,9 +20,21 @@ import java.util.stream.Collectors;
 
 @Component
 public class AnalysisFavouriteToDtoAnalysisFavouriteMapper {
+	private final TimeRangeCalculator timeRangeCalculator;
+	
+	@Autowired
+	public AnalysisFavouriteToDtoAnalysisFavouriteMapper(TimeRangeCalculator timeRangeCalculator) {
+		this.timeRangeCalculator = timeRangeCalculator;
+	}
+	
 	public List<DtoAnalysisFavourite> mapAll(List<AnalysisFavourite> analysisFavourites) {
 		return analysisFavourites.stream()
 				.map(this::map)
+				.peek(favourite -> {
+					Pair<LocalDate, LocalDate> timeRangeDates = timeRangeCalculator.calculateStartAndEndDate(favourite.getTimeRange(), favourite.getAssetIds());
+					favourite.setStartDate(timeRangeDates.getLeft());
+					favourite.setEndDate(timeRangeDates.getRight());
+				})
 				.sorted(Comparator.comparing(DtoAnalysisFavourite::getName))
 				.collect(Collectors.toList());
 	}

@@ -32,7 +32,7 @@
 
         <openjfx.version>16</openjfx.version>
         <querydsl.version>5.0.0</querydsl.version>
-        <apache.poi.version>5.0.0</apache.poi.version>
+        <apache.poi.version>4.1.2</apache.poi.version>
     </properties>
 
 	<dependencyManagement>

@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.6</version>
+        <version>2.5.4</version>
         <relativePath/>
     </parent>
 
@@ -24,15 +24,15 @@
 	</modules>
 
     <properties>
-		<revision>2021.3.2</revision>
+		<revision>2021.3.3</revision>
 
         <java.version>11</java.version>
         <start-class>io.github.matwein.xmc.Main</start-class>
 		<javafx.platform>current</javafx.platform>
 
         <openjfx.version>16</openjfx.version>
-        <querydsl.version>4.4.0</querydsl.version>
-        <apache.poi.version>4.1.2</apache.poi.version>
+        <querydsl.version>5.0.0</querydsl.version>
+        <apache.poi.version>5.0.0</apache.poi.version>
     </properties>
 
 	<dependencyManagement>
@@ -78,7 +78,7 @@
 			<dependency>
 				<groupId>org.jfxtras</groupId>
 				<artifactId>jmetro</artifactId>
-				<version>11.6.14</version>
+				<version>11.6.15</version>
 				<exclusions>
 					<exclusion>
 						<artifactId>*</artifactId>
@@ -108,17 +108,17 @@
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-lang3</artifactId>
-				<version>3.10</version>
+				<version>3.12.0</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-io</groupId>
 				<artifactId>commons-io</artifactId>
-				<version>2.7</version>
+				<version>2.11.0</version>
 			</dependency>
 			<dependency>
 				<groupId>com.opencsv</groupId>
 				<artifactId>opencsv</artifactId>
-				<version>5.2</version>
+				<version>5.5.1</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.poi</groupId>
@@ -133,7 +133,7 @@
 			<dependency>
 				<groupId>nl.garvelink.oss</groupId>
 				<artifactId>iban</artifactId>
-				<version>1.6.1</version>
+				<version>1.10.1</version>
 			</dependency>
 			<dependency>
 				<groupId>io.github.matwein</groupId>
@@ -143,7 +143,7 @@
 			<dependency>
 				<groupId>net.coobird</groupId>
 				<artifactId>thumbnailator</artifactId>
-				<version>0.4.11</version>
+				<version>0.4.14</version>
 			</dependency>
 
 			<!-- Test / Development -->

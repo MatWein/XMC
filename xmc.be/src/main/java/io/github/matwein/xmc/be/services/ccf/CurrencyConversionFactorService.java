@@ -68,7 +68,7 @@ public class CurrencyConversionFactorService implements ICurrencyConversionFacto
 	public void delete(IAsyncMonitor monitor, long currencyConversionFactorId) {
 		monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_DELETE_CURRENCY_CONVERSION_FACTOR));
 		
-		CurrencyConversionFactor existingConversionFactor = currencyConversionFactorJpaRepository.getOne(currencyConversionFactorId);
+		CurrencyConversionFactor existingConversionFactor = currencyConversionFactorJpaRepository.getById(currencyConversionFactorId);
 		LOGGER.info("Deleting currency conversion factor '{}'.", existingConversionFactor);
 	
 		currencyConversionFactorJpaRepository.delete(existingConversionFactor);

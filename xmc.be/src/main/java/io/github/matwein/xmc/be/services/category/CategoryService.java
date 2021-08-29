@@ -79,7 +79,7 @@ public class CategoryService implements ICategoryService {
         LOGGER.info("Marking category '{}' as deleted.", categoryId);
         monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_DELETE_CATEGORY));
 
-        Category category = categoryJpaRepository.getOne(categoryId);
+        Category category = categoryJpaRepository.getById(categoryId);
         category.setDeletionDate(LocalDateTime.now());
         categoryJpaRepository.save(category);
     }

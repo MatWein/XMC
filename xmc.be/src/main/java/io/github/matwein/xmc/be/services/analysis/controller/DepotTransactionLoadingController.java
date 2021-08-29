@@ -46,7 +46,7 @@ public class DepotTransactionLoadingController {
 		result.setAssetId(depotId);
 		result.setAssetType(AssetType.DEPOT);
 		
-		Depot depot = depotJpaRepository.getOne(depotId);
+		Depot depot = depotJpaRepository.getById(depotId);
 		result.setAssetName(depot.getName());
 		result.setAssetColor(depot.getColor());
 		

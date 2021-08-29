@@ -65,7 +65,7 @@ public class DepotItemService implements IDepotItemService {
 		LOGGER.info("Loading depot item overview for delivery '{}': {}", depotDeliveryId, pagingParams);
 		monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_LOAD_DEPOT_ITEM_OVERVIEW));
 		
-		DepotDelivery depotDelivery = depotDeliveryJpaRepository.getOne(depotDeliveryId);
+		DepotDelivery depotDelivery = depotDeliveryJpaRepository.getById(depotDeliveryId);
 		var results = depotItemRepository.loadOverview(depotDelivery, pagingParams);
 		return queryResultsMapper.map(results);
 	}
@@ -75,7 +75,7 @@ public class DepotItemService implements IDepotItemService {
 		LOGGER.info("Saving depot item: {}", dtoDepotItem);
 		monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_SAVE_DEPOT_ITEM));
 		
-		DepotDelivery depotDelivery = depotDeliveryJpaRepository.getOne(depotDeliveryId);
+		DepotDelivery depotDelivery = depotDeliveryJpaRepository.getById(depotDeliveryId);
 		depotItemSaveController.saveOrUpdate(depotDelivery, dtoDepotItem);
 		
 		deliverySaldoUpdatingController.updateDeliverySaldo(depotDelivery);
@@ -93,7 +93,7 @@ public class DepotItemService implements IDepotItemService {
 			depotItemJpaRepository.save(item);
 		}
 		
-		DepotDelivery depotDelivery = depotDeliveryJpaRepository.getOne(depotDeliveryId);
+		DepotDelivery depotDelivery = depotDeliveryJpaRepository.getById(depotDeliveryId);
 		deliverySaldoUpdatingController.updateDeliverySaldo(depotDelivery);
 	}
 }

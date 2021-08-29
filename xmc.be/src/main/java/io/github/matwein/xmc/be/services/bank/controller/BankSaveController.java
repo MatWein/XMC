@@ -38,7 +38,7 @@ public class BankSaveController {
         if (dtoBank.getId() == null) {
             return dtoBankToBankMapper.map(dtoBank);
         } else {
-            Bank bank = bankJpaRepository.getOne(dtoBank.getId());
+            Bank bank = bankJpaRepository.getById(dtoBank.getId());
             dtoBankToBankMapper.update(bank, dtoBank);
             return bank;
         }

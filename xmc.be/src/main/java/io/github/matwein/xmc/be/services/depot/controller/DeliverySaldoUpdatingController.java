@@ -52,7 +52,7 @@ public class DeliverySaldoUpdatingController {
 	public void updateDeliverySaldo(DepotDelivery depotDelivery) {
 		depotDeliveryJpaRepository.flush();
 		
-		depotDelivery = depotDeliveryJpaRepository.getOne(depotDelivery.getId());
+		depotDelivery = depotDeliveryJpaRepository.getById(depotDelivery.getId());
 		
 		Set<String> currencies = depotDelivery.getDepotItems().stream()
 				.filter(depotItem -> depotItem.getDeletionDate() == null)

@@ -64,7 +64,7 @@ public class DepotDeliveryImportService implements IDepotDeliveryImportService {
 			DtoImportData<DepotDeliveryImportColmn> importData) {
 		
 		LOGGER.info("Importing depot delivery import file: {}", importData);
-		Depot depot = depotJpaRepository.getOne(depotId);
+		Depot depot = depotJpaRepository.getById(depotId);
 		
 		depotDeliveryImportController.importDeliveries(monitor, depot, importData);
 	}

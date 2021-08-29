@@ -67,7 +67,7 @@ public class CashAccountService implements ICashAccountService {
         LOGGER.info("Marking cash account '{}' as deleted.", cashAccountId);
         monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_DELETE_CASHACCOUNT));
 
-        CashAccount cashAccount = cashAccountJpaRepository.getOne(cashAccountId);
+        CashAccount cashAccount = cashAccountJpaRepository.getById(cashAccountId);
         cashAccount.setDeletionDate(LocalDateTime.now());
         cashAccountJpaRepository.save(cashAccount);
     }

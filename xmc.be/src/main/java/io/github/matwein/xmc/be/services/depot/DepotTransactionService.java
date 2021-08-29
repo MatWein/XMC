@@ -61,7 +61,7 @@ public class DepotTransactionService implements IDepotTransactionService {
 		LOGGER.info("Loading depot transaction overview: {}", pagingParams);
 		monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_LOAD_DEPOT_TRANSACTION_OVERVIEW));
 		
-		Depot depot = depotJpaRepository.getOne(depotId);
+		Depot depot = depotJpaRepository.getById(depotId);
 		var results = depotTransactionRepository.loadOverview(depot, pagingParams);
 		return queryResultsMapper.map(results);
 	}
@@ -71,7 +71,7 @@ public class DepotTransactionService implements IDepotTransactionService {
 		LOGGER.info("Saving depot transaction: {}", dtoDepotTransaction);
 		monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_SAVE_DEPOT_TRANSACTION));
 		
-		Depot depot = depotJpaRepository.getOne(depotId);
+		Depot depot = depotJpaRepository.getById(depotId);
 		depotTransactionSaveController.saveOrUpdate(depot, dtoDepotTransaction);
 	}
 	

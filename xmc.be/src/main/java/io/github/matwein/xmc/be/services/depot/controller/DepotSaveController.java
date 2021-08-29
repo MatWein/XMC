@@ -27,7 +27,7 @@ public class DepotSaveController {
 	}
 	
 	public void saveOrUpdate(DtoDepot dtoDepot) {
-		Bank bank = bankJpaRepository.getOne(dtoDepot.getBank().getId());
+		Bank bank = bankJpaRepository.getById(dtoDepot.getBank().getId());
 		
 		Depot depot = createOrUpdateDepot(dtoDepot, bank);
 		depotJpaRepository.save(depot);
@@ -37,7 +37,7 @@ public class DepotSaveController {
 		if (dtoDepot.getId() == null) {
 			return dtoDepotToDepotMapper.map(bank, dtoDepot);
 		} else {
-			Depot depot = depotJpaRepository.getOne(dtoDepot.getId());
+			Depot depot = depotJpaRepository.getById(dtoDepot.getId());
 			dtoDepotToDepotMapper.update(depot, bank, dtoDepot);
 			return depot;
 		}

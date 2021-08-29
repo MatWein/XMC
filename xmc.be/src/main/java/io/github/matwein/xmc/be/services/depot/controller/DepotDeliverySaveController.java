@@ -31,7 +31,7 @@ public class DepotDeliverySaveController {
 		if (dtoDepotDelivery.getId() == null) {
 			return dtoDepotDeliveryToDepotDeliveryMapper.map(depot, dtoDepotDelivery);
 		} else {
-			DepotDelivery depotDelivery = depotDeliveryJpaRepository.getOne(dtoDepotDelivery.getId());
+			DepotDelivery depotDelivery = depotDeliveryJpaRepository.getById(dtoDepotDelivery.getId());
 			dtoDepotDeliveryToDepotDeliveryMapper.update(depotDelivery, dtoDepotDelivery);
 			return depotDelivery;
 		}

@@ -31,7 +31,7 @@ public class DepotTransactionSaveController {
 		if (dtoTransaction.getId() == null) {
 			return dtoDepotTransactionToDepotTransactionMapper.map(depot, dtoTransaction);
 		} else {
-			DepotTransaction depotTransaction = depotTransactionJpaRepository.getOne(dtoTransaction.getId());
+			DepotTransaction depotTransaction = depotTransactionJpaRepository.getById(dtoTransaction.getId());
 			dtoDepotTransactionToDepotTransactionMapper.update(depotTransaction, dtoTransaction);
 			return depotTransaction;
 		}

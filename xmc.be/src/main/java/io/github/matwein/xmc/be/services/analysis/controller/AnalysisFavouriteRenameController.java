@@ -36,7 +36,7 @@ public class AnalysisFavouriteRenameController {
 			return false;
 		}
 		
-		AnalysisFavourite analysisFavourite = analysisFavouriteJpaRepository.getOne(analysisId);
+		AnalysisFavourite analysisFavourite = analysisFavouriteJpaRepository.getById(analysisId);
 		analysisFavourite.setName(newName);
 		analysisFavouriteJpaRepository.save(analysisFavourite);
 		

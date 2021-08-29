@@ -60,7 +60,7 @@ public class DepotTransactionImportService implements IDepotTransactionImportSer
 	@Override
 	public void importTransactions(IAsyncMonitor monitor, long depotId, DtoImportData<DepotTransactionImportColmn> importData) {
 		LOGGER.info("Importing depot transaction import file: {}", importData);
-		Depot depot = depotJpaRepository.getOne(depotId);
+		Depot depot = depotJpaRepository.getById(depotId);
 		
 		depotTransactionImportController.importDepotTransactions(monitor, depot, importData);
 	}

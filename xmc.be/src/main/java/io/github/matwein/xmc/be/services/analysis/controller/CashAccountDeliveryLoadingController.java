@@ -50,7 +50,7 @@ public class CashAccountDeliveryLoadingController {
 		result.setAssetId(cashAccountId);
 		result.setAssetType(AssetType.CASHACCOUNT);
 		
-		CashAccount cashAccount = cashAccountJpaRepository.getOne(cashAccountId);
+		CashAccount cashAccount = cashAccountJpaRepository.getById(cashAccountId);
 		result.setAssetName(cashAccount.getName());
 		result.setAssetColor(cashAccount.getColor());
 		

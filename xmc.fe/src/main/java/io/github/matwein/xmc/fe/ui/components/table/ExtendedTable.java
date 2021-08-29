@@ -41,9 +41,12 @@ import java.util.function.Consumer;
 
 public class ExtendedTable<ITEM_TYPE extends Serializable, SORT_ENUM_TYPE extends Enum<SORT_ENUM_TYPE> & IPagingField> extends VBox {
     public static final double MAX_AUTORESIZE_COLUMN_WIDTH = 400.0;
+    
+    private static final String FOOTER_PATTERN = "%s / %s (%s: %s)";
+    private static final String FOOTER_PATTERN_EXTENDED = FOOTER_PATTERN + " - ∑[%s]";
 
     private final BaseTable<ITEM_TYPE> table;
-    private final Label placeholder;
+    private final Label footerLabel;
     private final TextField filterTextfield;
 
     private final SimpleIntegerProperty pageSize = new SimpleIntegerProperty(50);
@@ -58,8 +61,11 @@ public class ExtendedTable<ITEM_TYPE extends Serializable, SORT_ENUM_TYPE extend
     private SortType sortType;
     private SORT_ENUM_TYPE sortBy;
     private boolean autoResize = true;
-
-    public ExtendedTable() {
+	private int currentPage;
+	private int pageCount;
+	private long totalItems;
+	
+	public ExtendedTable() {
         orderMapper = (TableOrderMapper) XmcFrontendContext.createNewInstanceFactory().call(TableOrderMapper.class);
 
         table = new BaseTable<>();
@@ -72,7 +78,9 @@ public class ExtendedTable<ITEM_TYPE extends Serializable, SORT_ENUM_TYPE extend
                 column.setVisible(newValue.intValue() > 0);
             }
         });
-
+		
+		table.getSelectionModel().getSelectedItems().addListener((ListChangeListener<ITEM_TYPE>) change -> updateFooterLabel());
+        
         table.setRowFactory(tv -> {
             TableRow<ITEM_TYPE> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -124,13 +132,14 @@ public class ExtendedTable<ITEM_TYPE extends Serializable, SORT_ENUM_TYPE extend
         lastPageButton.disableProperty().bind(page.isEqualTo(lastPage).or(currentItemCount.isEqualTo(0)));
         toolBar.getItems().add(lastPageButton);
 
-        placeholder = new Label();
-        placeholder.setMaxWidth(Double.MAX_VALUE);
-        placeholder.setAlignment(Pos.CENTER);
-        placeholder.setTextAlignment(TextAlignment.CENTER);
-        placeholder.disableProperty().bind(currentItemCount.isEqualTo(0));
-        HBox.setHgrow(placeholder, Priority.ALWAYS);
-        toolBar.getItems().add(placeholder);
+        footerLabel = new Label();
+        footerLabel.setMaxWidth(Double.MAX_VALUE);
+        footerLabel.setMaxHeight(Double.MAX_VALUE);
+        footerLabel.setAlignment(Pos.CENTER);
+        footerLabel.setTextAlignment(TextAlignment.CENTER);
+        footerLabel.disableProperty().bind(currentItemCount.isEqualTo(0));
+        HBox.setHgrow(footerLabel, Priority.ALWAYS);
+        toolBar.getItems().add(footerLabel);
 
         toolBar.getItems().add(createTextButton(String.valueOf(10), event -> {
             pageSize.set(10);
@@ -264,9 +273,8 @@ public class ExtendedTable<ITEM_TYPE extends Serializable, SORT_ENUM_TYPE extend
 	    }
     	
         table.getItems().setAll(items.getResults());
-
-        int currentPage, pageCount;
-        if (items.isEmpty()) {
+	
+	    if (items.isEmpty()) {
             currentPage = 0;
             pageCount = 0;
             lastPage.set(0);
@@ -281,12 +289,21 @@ public class ExtendedTable<ITEM_TYPE extends Serializable, SORT_ENUM_TYPE extend
                     .calc();
             lastPage.set(pageCount - 1);
         }
-
-        placeholder.setText(String.format("%s / %s (%s: %s)", currentPage, pageCount, MessageAdapter.getByKey(MessageKey.PAGING_COUNT), items.getTotal()));
-        Platform.runLater(this::autoAdjustColumnSize);
+	
+	    totalItems = items.getTotal();
+	    
+	    updateFooterLabel();
+	    Platform.runLater(this::autoAdjustColumnSize);
     }
-
-    public int getPageSize() {
+	
+	private void updateFooterLabel() {
+		String columnSums = ColumnsSumsCalculator.calculateColumnsSums(this);
+		String pattern = StringUtils.isBlank(columnSums) ? FOOTER_PATTERN : FOOTER_PATTERN_EXTENDED;
+		
+		footerLabel.setText(String.format(pattern, currentPage, pageCount, MessageAdapter.getByKey(MessageKey.PAGING_COUNT), totalItems, columnSums));
+	}
+	
+	public int getPageSize() {
         return pageSize.get();
     }
 
@@ -312,6 +329,10 @@ public class ExtendedTable<ITEM_TYPE extends Serializable, SORT_ENUM_TYPE extend
     public ObservableList<ExtendedTableColumn<ITEM_TYPE, ?>> getColumns() {
         return (ObservableList) table.getColumns();
     }
+	
+	public ObservableList<ITEM_TYPE> getItems() {
+		return table.getItems();
+	}
 
     public TableViewSelectionModel<ITEM_TYPE> getSelectionModel() {
         return table.getSelectionModel();

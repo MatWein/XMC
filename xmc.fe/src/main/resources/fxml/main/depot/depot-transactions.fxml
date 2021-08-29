@@ -5,8 +5,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
 <VBox prefHeight="700.0" prefWidth="900.0" stylesheets="@/css/xmc-base.css,@/css/main/main.css"
-      xmlns="http://javafx.com/javafx/11.0.0" fx:id="depotContentContainer" VBox.vgrow="ALWAYS"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.matwein.xmc.fe.stages.main.depot.DepotTransactionsController">
+	  xmlns="http://javafx.com/javafx/11.0.0" fx:id="depotContentContainer" VBox.vgrow="ALWAYS"
+	  xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.matwein.xmc.fe.stages.main.depot.DepotTransactionsController">
 
 	<ToolBar>
 		<Button text="%main.depots.transactions.create" onAction="#onNewTransaction">
@@ -73,7 +73,7 @@
 				</cellValueFactory>
 			</ExtendedTableColumn>
 			<ExtendedTableColumn editable="false" text="%main.depots.transactions.overview.table.column.value"
-								 sortField="VALUE">
+								 sortField="VALUE" showSum="true">
 				<cellValueFactory>
 					<NestedPropertyValueFactory property="value" />
 				</cellValueFactory>

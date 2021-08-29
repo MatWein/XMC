@@ -1,6 +1,7 @@
 package io.github.matwein.xmc;
 
 import io.github.matwein.xmc.common.stubs.login.DtoBootstrapFile;
+import io.github.matwein.xmc.config.SCalcConfig;
 import io.github.matwein.xmc.fe.SystemProperties;
 import io.github.matwein.xmc.fe.common.HomeDirectoryPathCalculator;
 import io.github.matwein.xmc.fe.common.XmcFrontendContext;
@@ -43,7 +44,9 @@ public class Main extends Application {
 
         Logger logger = LoggerFactory.getLogger(Main.class);
         logger.info("Opening login window.");
-
+	
+	    SCalcConfig.init();
+        
         Thread.setDefaultUncaughtExceptionHandler((t, e) -> logger.error("Unexpected error on thread '{}'.", t.getName(), e));
 
         Optional<DtoBootstrapFile> dtoBootstrapFile = BootstrapFileController.readBootstrapFile();

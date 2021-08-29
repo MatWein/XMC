@@ -81,35 +81,41 @@ public class NestedPropertyValueFactory implements Callback<CellDataFeatures, Ob
 	    }
         
         if (value instanceof String) {
-            return createText((String) value);
+            return createText((String) value, value);
         } else if (value instanceof byte[]) {
             return createImageView((byte[]) value);
         } else if (value instanceof Currency) {
-            return createText(((Currency) value).getCurrencyCode());
+            return createText(((Currency) value).getCurrencyCode(), value);
         } else if (value instanceof LocalDateTime) {
 	        LocalDateTime localDateTime = (LocalDateTime) value;
-	        return createText(MessageAdapter.formatDateTime(localDateTime));
+	        return createText(MessageAdapter.formatDateTime(localDateTime), value);
         } else if (value instanceof LocalDate) {
 	        LocalDate localDate = (LocalDate) value;
-	        return createText(MessageAdapter.formatDate(localDate));
+	        return createText(MessageAdapter.formatDate(localDate), value);
         } else if (value instanceof Number) {
-            return createText(createNumberInstance().format(value));
+            return createText(createNumberInstance().format(value), value);
         } else if (value instanceof Money) {
             Money money = (Money) value;
-            return createText(createNumberInstance().format(money.getValue()) + " " + money.getCurrency());
+            return createText(createNumberInstance().format(money.getValue()) + " " + money.getCurrency(), value);
         } else if (value instanceof Percentage) {
             Percentage percentage = (Percentage) value;
-            return createText(createNumberInstance().format(percentage.getValue()) + " %");
+            return createText(createNumberInstance().format(percentage.getValue()) + " %", value);
         }
 
-        return new Text(value.toString());
+        return createText(value.toString(), value);
     }
+	
+	private Text createText(String textToShow, Object userData) {
+		Text text = createText(textToShow);
+		text.setUserData(userData);
+		return text;
+	}
     
-    private Text createText(String value) {
+    private Text createText(String textToShow) {
     	if (abbreviate) {
-		    return new Text(StringUtils.abbreviate(value, 255));
+		    return new Text(StringUtils.abbreviate(textToShow, 255));
 	    } else {
-		    return new Text(value);
+		    return new Text(textToShow);
 	    }
     }
 

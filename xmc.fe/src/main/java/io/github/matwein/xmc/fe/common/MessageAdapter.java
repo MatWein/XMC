@@ -91,6 +91,7 @@ public class MessageAdapter {
 	    
         PASSWORD("password"),
         TABLE_NO_CONTENT("table.noContent"),
+        TABLE_SELECTED("table.selected"),
         DIALOG_OK("dialog.ok"),
         DIALOG_CLOSE("dialog.close"),
 	    

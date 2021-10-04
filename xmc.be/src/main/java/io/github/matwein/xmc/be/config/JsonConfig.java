@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.Base64Utils;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -33,6 +34,7 @@ public class JsonConfig {
         JsonSerializer<LocalDateTime> localDateTimeAdapter = (date, type, context) -> new JsonPrimitive(date.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
         JsonSerializer<byte[]> byteArrayAdapter = (bytes, type, context) -> new JsonPrimitive(Base64Utils.encodeToString(bytes));
 	    JsonSerializer<Optional> optionalAdapter = (optional, type, context) -> new JsonPrimitive(applicationContext.getBean(Gson.class).toJson(optional.orElse(null)));
+	    JsonSerializer<File> fileAdapter = (file, type, context) -> new JsonPrimitive(file.getAbsolutePath());
 
         return new GsonBuilder()
                 .setPrettyPrinting()
@@ -43,6 +45,7 @@ public class JsonConfig {
                 .registerTypeAdapter(byte[].class, byteArrayAdapter)
                 .registerTypeAdapter(Class.class, classAdapter)
                 .registerTypeAdapter(Optional.class, optionalAdapter)
+                .registerTypeAdapter(File.class, fileAdapter)
                 .create();
     }
 }

@@ -14,13 +14,13 @@ public class ColumnsSumsCalculator {
 	public static String calculateColumnsSums(ExtendedTable<?, ?> extendedTable) {
 		List<String> sums = new ArrayList<>();
 		
-		populateSumForAlLRows(extendedTable, sums);
+		populateSumForAllRows(extendedTable, sums);
 		populateSumForSelectedRows(extendedTable, sums);
 		
 		return String.join(" | ", sums);
 	}
 	
-	private static void populateSumForAlLRows(ExtendedTable<?, ?> extendedTable, List<String> sums) {
+	private static void populateSumForAllRows(ExtendedTable<?, ?> extendedTable, List<String> sums) {
 		populateSumForRows(extendedTable, sums, false, "%s: %s");
 	}
 	

@@ -1,7 +1,8 @@
-package io.github.matwein.xmc.config;
+package io.github.matwein.xmc.be.config;
 
 import com.google.gson.*;
 import io.github.matwein.xmc.common.annotations.JsonIgnore;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.Base64Utils;
@@ -9,6 +10,7 @@ import org.springframework.util.Base64Utils;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 @Configuration
 public class JsonConfig {
@@ -25,11 +27,12 @@ public class JsonConfig {
     };
 
     @Bean
-    public Gson gson() {
+    public Gson gson(ApplicationContext applicationContext) {
         JsonSerializer<LocalDate> localDateAdapter = (date, type, context) -> new JsonPrimitive(date.format(DateTimeFormatter.ISO_LOCAL_DATE));
         JsonSerializer<Class> classAdapter = (clazz, type, context) -> new JsonPrimitive(clazz.getName());
         JsonSerializer<LocalDateTime> localDateTimeAdapter = (date, type, context) -> new JsonPrimitive(date.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
         JsonSerializer<byte[]> byteArrayAdapter = (bytes, type, context) -> new JsonPrimitive(Base64Utils.encodeToString(bytes));
+	    JsonSerializer<Optional> optionalAdapter = (optional, type, context) -> new JsonPrimitive(applicationContext.getBean(Gson.class).toJson(optional.orElse(null)));
 
         return new GsonBuilder()
                 .setPrettyPrinting()
@@ -39,6 +42,7 @@ public class JsonConfig {
                 .registerTypeAdapter(LocalDateTime.class, localDateTimeAdapter)
                 .registerTypeAdapter(byte[].class, byteArrayAdapter)
                 .registerTypeAdapter(Class.class, classAdapter)
+                .registerTypeAdapter(Optional.class, optionalAdapter)
                 .create();
     }
 }

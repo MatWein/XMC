@@ -9,11 +9,11 @@ import java.math.BigDecimal;
 
 public class SCalcConfig {
 	public static void init() {
-		SCalcBuilder.registerGlobalConverter(Money.class, new MoneyConverver());
-		SCalcBuilder.registerGlobalConverter(Percentage.class, new PercentageConverver());
+		SCalcBuilder.registerGlobalConverter(Money.class, new MoneyConverter());
+		SCalcBuilder.registerGlobalConverter(Percentage.class, new PercentageConverter());
 	}
 	
-	private static class MoneyConverver implements INumberConverter<Money> {
+	private static class MoneyConverter implements INumberConverter<Money> {
 		@Override
 		public BigDecimal toBigDecimal(Money money) {
 			return money.getValue();
@@ -27,7 +27,7 @@ public class SCalcConfig {
 		}
 	}
 	
-	private static class PercentageConverver implements INumberConverter<Percentage> {
+	private static class PercentageConverter implements INumberConverter<Percentage> {
 		@Override
 		public BigDecimal toBigDecimal(Percentage percentage) {
 			return percentage.getValue();

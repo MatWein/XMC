@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.4</version>
+        <version>2.5.5</version>
         <relativePath/>
     </parent>
 
@@ -24,13 +24,13 @@
 	</modules>
 
     <properties>
-		<revision>2021.3.3</revision>
+		<revision>2021.4.0</revision>
 
-        <java.version>11</java.version>
+        <java.version>17</java.version>
         <start-class>io.github.matwein.xmc.Main</start-class>
 		<javafx.platform>current</javafx.platform>
 
-        <openjfx.version>16</openjfx.version>
+        <openjfx.version>17</openjfx.version>
         <querydsl.version>5.0.0</querydsl.version>
         <apache.poi.version>4.1.2</apache.poi.version>
     </properties>

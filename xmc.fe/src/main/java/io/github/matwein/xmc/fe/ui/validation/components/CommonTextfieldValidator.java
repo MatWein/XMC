@@ -48,9 +48,8 @@ public class CommonTextfieldValidator {
             LinkedHashSet<String> errorMessages,
             TextInputControl textfield) {
 
-        if (component instanceof IRequired) {
-            IRequired fieldWrapper = (IRequired) component;
-            boolean required = fieldWrapper.isRequired();
+        if (component instanceof IRequired fieldWrapper) {
+	        boolean required = fieldWrapper.isRequired();
 
             if (required && StringUtils.isBlank(textfield.getText())) {
                 errorMessages.add(MessageAdapter.getByKey(MessageKey.VALIDATION_REQUIRED));
@@ -63,8 +62,7 @@ public class CommonTextfieldValidator {
             LinkedHashSet<String> errorMessages,
             TextInputControl textfield) {
 	
-	    if (component instanceof IRequired) {
-		    IRequired fieldWrapper = (IRequired) component;
+	    if (component instanceof IRequired fieldWrapper) {
 		    boolean required = fieldWrapper.isRequired();
 		    
 		    if (!required && StringUtils.isBlank(textfield.getText())) {
@@ -72,9 +70,8 @@ public class CommonTextfieldValidator {
 		    }
 	    }
 	    
-        if (component instanceof ILength) {
-            ILength fieldWrapper = (ILength)component;
-            Integer minLength = fieldWrapper.getMinLength();
+        if (component instanceof ILength fieldWrapper) {
+	        Integer minLength = fieldWrapper.getMinLength();
             Integer maxLength = fieldWrapper.getMaxLength();
 
             if (minLength != null && StringUtils.defaultString(textfield.getText()).length() < minLength) {
@@ -91,9 +88,8 @@ public class CommonTextfieldValidator {
             LinkedHashSet<String> errorMessages,
             TextInputControl textfield) {
 
-        if (component instanceof IMinMax) {
-            IMinMax fieldWrapper = (IMinMax)component;
-            Double min = fieldWrapper.getMin();
+        if (component instanceof IMinMax fieldWrapper) {
+	        Double min = fieldWrapper.getMin();
             Double max = fieldWrapper.getMax();
 
             try {
@@ -116,9 +112,8 @@ public class CommonTextfieldValidator {
             LinkedHashSet<String> errorMessages,
             TextInputControl textfield) {
 
-        if (component instanceof IEqualTo) {
-            IEqualTo fieldWrapper = (IEqualTo)component;
-            String equalTo = fieldWrapper.getEqualTo();
+        if (component instanceof IEqualTo fieldWrapper) {
+	        String equalTo = fieldWrapper.getEqualTo();
 
             if (equalTo != null) {
                 Optional<TextField> otherTextfield = SceneUtil.getAllChildren(textfield.getScene().getRoot()).stream()
@@ -133,9 +128,8 @@ public class CommonTextfieldValidator {
     }
 
     public static <COMPONENT_TYPE extends Parent> void validateCustom(COMPONENT_TYPE component, LinkedHashSet<String> errorMessages) {
-        if (component instanceof ICustomValidator) {
-            ICustomValidator fieldWrapper = (ICustomValidator) component;
-            String customValidator = fieldWrapper.getCustomValidator();
+        if (component instanceof ICustomValidator fieldWrapper) {
+	        String customValidator = fieldWrapper.getCustomValidator();
 
             if (customValidator != null) {
                 ICustomFieldValidator<COMPONENT_TYPE> validator = (ICustomFieldValidator<COMPONENT_TYPE>) XmcFrontendContext

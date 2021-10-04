@@ -43,8 +43,7 @@ public class AnalysisDashboardNodeFactory {
 	private Node createAndManipulateNode(DtoAnalysisFavourite dtoAnalysisFavourite, Object data) {
 		Node chart = chartNodeFactory.createChart(data, dtoAnalysisFavourite.getAnalysisType());
 		
-		if (chart instanceof ExtendedLineChart) {
-			ExtendedLineChart chartNode = (ExtendedLineChart) chart;
+		if (chart instanceof ExtendedLineChart chartNode) {
 			chartNode.setTitle(null);
 			chartNode.setLegendVisible(false);
 			chartNode.setMinHeight(0.0);
@@ -52,16 +51,14 @@ public class AnalysisDashboardNodeFactory {
 			chartNode.setShowHoverLabel(false);
 		}
 		
-		if (chart instanceof ExtendedPieChart) {
-			ExtendedPieChart chartNode = (ExtendedPieChart) chart;
+		if (chart instanceof ExtendedPieChart chartNode) {
 			chartNode.setTitle(null);
 			chartNode.setLegendVisible(false);
 			chartNode.setMinHeight(0.0);
 			chartNode.setMinWidth(0.0);
 		}
 		
-		if (chart instanceof ExtendedBarChart) {
-			ExtendedBarChart chartNode = (ExtendedBarChart) chart;
+		if (chart instanceof ExtendedBarChart chartNode) {
 			chartNode.setTitle(null);
 			chartNode.setLegendVisible(false);
 			chartNode.setMinHeight(0.0);

@@ -17,9 +17,12 @@ public interface DepotDeliveryJpaRepository extends JpaRepository<DepotDelivery,
 	
 	List<DepotDelivery> findByDepotAndDeletionDateIsNull(Depot depot);
 	
-	@Query("SELECT del FROM DepotDelivery del " +
-			"WHERE del.deletionDate IS NULL AND del.depot.id in (:depotIds) " +
-			"ORDER BY del.deliveryDate ASC, del.creationDate ASC, del.id ASC"
+	@Query(
+		"""
+		SELECT del FROM DepotDelivery del
+		WHERE del.deletionDate IS NULL AND del.depot.id in (:depotIds)
+		ORDER BY del.deliveryDate ASC, del.creationDate ASC, del.id ASC
+		"""
 	)
 	List<DepotDelivery> findAllDeliveries(Collection<Long> depotIds, Pageable pageable);
 	

@@ -111,8 +111,7 @@ public class ExtendedLineChart<X, Y> extends AnchorPane implements IChartBase<X,
 	}
 	
 	public static String calculateValue(Axis axis, Object value) {
-		if (axis instanceof NumberAxis) {
-			NumberAxis numberAxis = (NumberAxis) axis;
+		if (axis instanceof NumberAxis numberAxis) {
 			if (numberAxis.getTickLabelFormatter() != null) {
 				return numberAxis.getTickLabelFormatter().toString((Number)value);
 			}

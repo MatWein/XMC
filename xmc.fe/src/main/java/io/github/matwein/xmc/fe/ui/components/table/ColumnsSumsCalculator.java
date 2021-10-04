@@ -73,8 +73,8 @@ public class ColumnsSumsCalculator {
 			
 			if (isNumber(rowValue)) {
 				values.add(rowValue);
-			} else if (rowValue instanceof Text) {
-				Object userData = ((Text) rowValue).getUserData();
+			} else if (rowValue instanceof Text text) {
+				Object userData = text.getUserData();
 				if (isNumber(userData)) {
 					values.add(userData);
 				}

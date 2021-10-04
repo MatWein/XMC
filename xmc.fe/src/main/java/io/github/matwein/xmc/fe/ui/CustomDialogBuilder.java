@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE, ASYNC_DATA_TYPE> {
     public static CustomDialogBuilder getInstance() { return new CustomDialogBuilder(); }
@@ -109,8 +110,8 @@ public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE, ASYNC_DATA_TYPE> 
         dialogPane.getButtonTypes().addAll(buttons);
         dialog.setDialogPane(dialogPane);
 
-        if (controller instanceof IAfterInit) {
-            ((IAfterInit) controller).afterInitialize(dialog);
+        if (controller instanceof IAfterInit castedController) {
+            castedController.afterInitialize(dialog);
         }
         if (mapper != null) {
             dialog.setResultConverter(param -> mapper.apply(param == null ? null : param.getButtonData(), controller));
@@ -124,11 +125,11 @@ public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE, ASYNC_DATA_TYPE> 
 
         showBackdrop(dialog);
 
-        if (asyncCallable != null && controller != null && controller instanceof IDialogWithAsyncData) {
+        if (asyncCallable != null && controller != null && controller instanceof IDialogWithAsyncData castedController) {
             XmcFrontendContext.applicationContext.get().getBean(AsyncProcessor.class).runAsync(
                     () -> dialogPane.setDisable(true),
                     asyncCallable,
-                    asyncData -> ((IDialogWithAsyncData<ASYNC_DATA_TYPE>)controller).acceptAsyncData(asyncData),
+		            (Consumer<ASYNC_DATA_TYPE>) castedController::acceptAsyncData,
                     () -> dialogPane.setDisable(false)
             );
         }

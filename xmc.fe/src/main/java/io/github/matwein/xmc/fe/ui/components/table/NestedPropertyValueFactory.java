@@ -45,9 +45,7 @@ public class NestedPropertyValueFactory implements Callback<CellDataFeatures, Ob
             Object value = PropertyUtils.getNestedProperty(rowData, property);
 	        
             Node nodeForValue = mapValue(value);
-            if (nodeForValue instanceof Text && useTextArea) {
-	            Text textNode = (Text) nodeForValue;
-	            
+            if (nodeForValue instanceof Text textNode && useTextArea) {
 	            TextArea textArea = new TextArea(textNode.getText());
 	            textArea.setPrefHeight(textNode.getLayoutBounds().getHeight() + 50.0);
 	            textArea.setPrefWidth(textNode.getLayoutBounds().getWidth() + 50.0);
@@ -74,9 +72,9 @@ public class NestedPropertyValueFactory implements Callback<CellDataFeatures, Ob
             return null;
         }
 	
-	    if (value instanceof Enum && StringUtils.isNotBlank(translationKey)) {
+	    if (value instanceof Enum enumValue && StringUtils.isNotBlank(translationKey)) {
 		    MessageKey messageKey = MessageKey.valueOf(translationKey);
-		    String text = MessageAdapter.getByKey(messageKey, (Enum) value);
+		    String text = MessageAdapter.getByKey(messageKey, enumValue);
 		    return createText(text);
 	    }
         
@@ -86,20 +84,16 @@ public class NestedPropertyValueFactory implements Callback<CellDataFeatures, Ob
             return createImageView((byte[]) value);
         } else if (value instanceof Currency) {
             return createText(((Currency) value).getCurrencyCode(), value);
-        } else if (value instanceof LocalDateTime) {
-	        LocalDateTime localDateTime = (LocalDateTime) value;
+        } else if (value instanceof LocalDateTime localDateTime) {
 	        return createText(MessageAdapter.formatDateTime(localDateTime), value);
-        } else if (value instanceof LocalDate) {
-	        LocalDate localDate = (LocalDate) value;
+        } else if (value instanceof LocalDate localDate) {
 	        return createText(MessageAdapter.formatDate(localDate), value);
         } else if (value instanceof Number) {
             return createText(createNumberInstance().format(value), value);
-        } else if (value instanceof Money) {
-            Money money = (Money) value;
-            return createText(createNumberInstance().format(money.getValue()) + " " + money.getCurrency(), value);
-        } else if (value instanceof Percentage) {
-            Percentage percentage = (Percentage) value;
-            return createText(createNumberInstance().format(percentage.getValue()) + " %", value);
+        } else if (value instanceof Money money) {
+	        return createText(createNumberInstance().format(money.getValue()) + " " + money.getCurrency(), value);
+        } else if (value instanceof Percentage percentage) {
+	        return createText(createNumberInstance().format(percentage.getValue()) + " %", value);
         }
 
         return createText(value.toString(), value);

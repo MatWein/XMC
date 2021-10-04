@@ -23,8 +23,8 @@ public class SceneUtil {
     }
 
     public static ValidationSceneState getOrCreateValidationSceneState(Scene scene) {
-        if (scene.getUserData() instanceof ValidationSceneState) {
-            return (ValidationSceneState)scene.getUserData();
+        if (scene.getUserData() instanceof ValidationSceneState userData) {
+            return userData;
         } else {
             return createValidationSceneState(scene);
         }
@@ -45,11 +45,11 @@ public class SceneUtil {
     private static void addAllChildrenRecursive(Parent parent, List<Node> nodes) {
         for (Node node : parent.getChildrenUnmodifiable()) {
             nodes.add(node);
-            if (node instanceof Parent) {
-                addAllChildrenRecursive((Parent) node, nodes);
+            if (node instanceof Parent parentNode) {
+                addAllChildrenRecursive(parentNode, nodes);
             }
-            if (node instanceof TitledPane) {
-                addAllChildrenRecursive((Parent) ((TitledPane)node).getContent(), nodes);
+            if (node instanceof TitledPane titledPaneNode) {
+                addAllChildrenRecursive((Parent) titledPaneNode.getContent(), nodes);
             }
         }
     }

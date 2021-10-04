@@ -59,11 +59,6 @@ public class StageBuilder {
         return withSceneComponent(component.getLeft());
     }
 
-    public StageBuilder withScene(Scene scene) {
-        this.scene = scene;
-        return this;
-    }
-
     public StageBuilder resizable(boolean resizable) {
         this.resizable = resizable;
         return this;
@@ -99,12 +94,12 @@ public class StageBuilder {
             existingStage.setMinHeight(minSize.getHeight());
         }
 
-        if (input != null && controller instanceof IAfterInit) {
-            ((IAfterInit)controller).afterInitialize(input);
+        if (input != null && controller instanceof IAfterInit castedController) {
+	        castedController.afterInitialize(input);
         }
         
-        if (controller instanceof IAfterStageShown) {
-        	existingStage.setOnShown(windowEvent -> ((IAfterStageShown)controller).afterStageShown(input));
+        if (controller instanceof IAfterStageShown castedController) {
+        	existingStage.setOnShown(windowEvent -> castedController.afterStageShown(input));
         }
 
         return existingStage;

@@ -74,42 +74,25 @@ public class CashAccountTransactionImportLineMapper implements IImportRowMapper<
 		}
 		
 		switch (field) {
-			case CATEGORY:
+			case CATEGORY -> {
 				DtoCategory category = categoriesByName.get(columnValue);
 				result.setCategory(category);
-				break;
-			case USAGE:
-				result.setUsage(StringUtils.defaultIfBlank(columnValue, "-"));
-				break;
-			case DESCRIPTION:
-				result.setDescription(columnValue);
-				break;
-			case VALUTA_DATE:
+			}
+			case USAGE -> result.setUsage(StringUtils.defaultIfBlank(columnValue, "-"));
+			case DESCRIPTION -> result.setDescription(columnValue);
+			case VALUTA_DATE -> {
 				LocalDate valutaDate = localDateParser.parseDateNullOnError(columnValue);
 				result.setValutaDate(valutaDate);
-				break;
-			case VALUE:
+			}
+			case VALUE -> {
 				BigDecimal value = bigDecimalParser.parseBigDecimalNullOnError(columnValue);
 				result.setValue(value);
-				break;
-			case REFERENCE_BANK:
-				result.setReferenceBank(columnValue);
-				break;
-			case REFERENCE_IBAN:
-				result.setReferenceIban(columnValue);
-				break;
-			case REFERENCE:
-				result.setReference(columnValue);
-				break;
-			case CREDITOR_IDENTIFIER:
-				result.setCreditorIdentifier(columnValue);
-				break;
-			case MANDATE:
-				result.setMandate(columnValue);
-				break;
-			default:
-				String message = String.format("Could not populate unknown field '%s' with value '%s'.", field, columnValue);
-				throw new IllegalArgumentException(message);
+			}
+			case REFERENCE_BANK -> result.setReferenceBank(columnValue);
+			case REFERENCE_IBAN -> result.setReferenceIban(columnValue);
+			case REFERENCE -> result.setReference(columnValue);
+			case CREDITOR_IDENTIFIER -> result.setCreditorIdentifier(columnValue);
+			case MANDATE -> result.setMandate(columnValue);
 		}
 	}
 }

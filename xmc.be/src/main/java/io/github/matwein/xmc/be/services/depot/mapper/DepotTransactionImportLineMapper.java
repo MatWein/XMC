@@ -61,35 +61,28 @@ public class DepotTransactionImportLineMapper implements IImportRowMapper<DtoDep
 		}
 		
 		switch (field) {
-			case VALUTA_DATE:
+			case VALUTA_DATE -> {
 				LocalDate valutaDate = localDateParser.parseDateNullOnError(columnValue);
 				result.setValutaDate(valutaDate);
-				break;
-			case ISIN:
-				result.setIsin(columnValue);
-				break;
-			case AMOUNT:
+			}
+			case ISIN -> result.setIsin(columnValue);
+			case AMOUNT -> {
 				BigDecimal amount = bigDecimalParser.parseBigDecimalNullOnError(columnValue);
 				result.setAmount(amount);
-				break;
-			case COURSE:
+			}
+			case COURSE -> {
 				BigDecimal course = bigDecimalParser.parseBigDecimalNullOnError(columnValue);
 				result.setCourse(course);
-				break;
-			case VALUE:
+			}
+			case VALUE -> {
 				BigDecimal value = bigDecimalParser.parseBigDecimalNullOnError(columnValue);
 				result.setValue(value);
-				break;
-			case DESCRIPTION:
-				result.setDescription(columnValue);
-				break;
-			case CURRENCY:
+			}
+			case DESCRIPTION -> result.setDescription(columnValue);
+			case CURRENCY -> {
 				String currency = currencyParser.parseCurrencyNullOnError(columnValue);
 				result.setCurrency(currency);
-				break;
-			default:
-				String message = String.format("Could not populate unknown field '%s' with value '%s'.", field, columnValue);
-				throw new IllegalArgumentException(message);
+			}
 		}
 	}
 }

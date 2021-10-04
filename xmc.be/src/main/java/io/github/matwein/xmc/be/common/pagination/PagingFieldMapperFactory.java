@@ -1,5 +1,6 @@
 package io.github.matwein.xmc.be.common.pagination;
 
+import io.github.matwein.xmc.be.common.pagination.mapper.*;
 import io.github.matwein.xmc.common.stubs.IPagingField;
 import io.github.matwein.xmc.common.stubs.bank.BankOverviewFields;
 import io.github.matwein.xmc.common.stubs.cashaccount.CashAccountOverviewFields;

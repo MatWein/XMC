@@ -45,15 +45,9 @@ public class DepotItemImportStep2Populator implements IWizardStepPopulator<DtoIm
 		
 		if (importData.getImportType() != null) {
 			switch (importData.getImportType()) {
-				case ADD_ALL:
-					controller.getAddAllRadioButton().setSelected(true);
-					break;
-				case ADD_ONLY:
-					controller.getAddOnlyRadioButton().setSelected(true);
-					break;
-				case ADD_AND_UPDATE_EXISTING:
-					controller.getAddAndUpdateExistingRadioButton().setSelected(true);
-					break;
+				case ADD_ALL -> controller.getAddAllRadioButton().setSelected(true);
+				case ADD_ONLY -> controller.getAddOnlyRadioButton().setSelected(true);
+				case ADD_AND_UPDATE_EXISTING -> controller.getAddAndUpdateExistingRadioButton().setSelected(true);
 			}
 		}
 	}

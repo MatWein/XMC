@@ -13,14 +13,10 @@ public class TableOrderMapper {
         if (sortType == null) {
             return null;
         }
-
-        switch (sortType) {
-            case ASCENDING:
-                return Order.DESC;
-            case DESCENDING:
-                return Order.ASC;
-            default:
-                return null;
-        }
+	
+	    return switch (sortType) {
+		    case ASCENDING -> Order.DESC;
+		    case DESCENDING -> Order.ASC;
+	    };
     }
 }

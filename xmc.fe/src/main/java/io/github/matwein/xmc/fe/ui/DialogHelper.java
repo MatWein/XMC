@@ -14,11 +14,12 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 
 import java.io.File;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
 public class DialogHelper {
+	private static File lastSelectedFile = null;
+	
     public static boolean showConfirmDialog(MessageKey messageKey, Object... args) {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setContentText(MessageAdapter.getByKey(messageKey, args));
@@ -51,12 +52,14 @@ public class DialogHelper {
 
     public static Optional<File> showOpenFileDialog(Window ownerWindow, ExtensionFilterType extensionFilter) {
         FileChooser fileChooser = createFileChooser(extensionFilter);
-        return showBackdrop(() -> Optional.ofNullable(fileChooser.showOpenDialog(ownerWindow)));
-    }
-
-    public static List<File> showOpenMultipleFileDialog(Window ownerWindow, ExtensionFilterType extensionFilter) {
-        FileChooser fileChooser = createFileChooser(extensionFilter);
-        return showBackdrop(() -> fileChooser.showOpenMultipleDialog(ownerWindow));
+        return showBackdrop(() -> {
+	        File selectedFile = fileChooser.showOpenDialog(ownerWindow);
+	        if (selectedFile != null && selectedFile.isFile()) {
+		        lastSelectedFile = selectedFile;
+	        }
+	        
+	        return Optional.ofNullable(selectedFile);
+        });
     }
 
     static FileChooser createFileChooser(ExtensionFilterType extensionFilter) {
@@ -65,6 +68,11 @@ public class DialogHelper {
         fileChooser.setTitle(MessageAdapter.getByKey(MessageKey.FILECHOOSER_TITLE));
         fileChooser.getExtensionFilters().add(extensionFilter.getExtensionFilter());
         fileChooser.setSelectedExtensionFilter(extensionFilter.getExtensionFilter());
+        
+        if (lastSelectedFile != null && lastSelectedFile.getParentFile().isDirectory()) {
+        	fileChooser.setInitialDirectory(lastSelectedFile.getParentFile());
+        }
+        
         return fileChooser;
     }
 

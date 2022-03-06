@@ -1,5 +1,6 @@
 package io.github.matwein.xmc.common.stubs.cashaccount.transactions;
 
+import io.github.matwein.xmc.common.annotations.ExportField;
 import io.github.matwein.xmc.common.stubs.category.DtoCategory;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -9,16 +10,25 @@ import java.time.LocalDate;
 
 public class DtoCashAccountTransaction implements Serializable {
     private Long id;
-
+	private BigDecimal value;
+	
+	@ExportField(index = 60, messageKey = "export.bean.cashaccount.transaction.overview.category")
     private DtoCategory category;
+	@ExportField(index = 70, messageKey = "export.bean.cashaccount.transaction.overview.usage")
     private String usage;
+	@ExportField(index = 80, messageKey = "export.bean.cashaccount.transaction.overview.description")
     private String description;
+	@ExportField(index = 20, messageKey = "export.bean.cashaccount.transaction.overview.valutaDate")
     private LocalDate valutaDate;
-    private BigDecimal value;
+	@ExportField(index = 90, messageKey = "export.bean.cashaccount.transaction.overview.reference")
     private String reference;
+	@ExportField(index = 100, messageKey = "export.bean.cashaccount.transaction.overview.referenceIban")
     private String referenceIban;
+	@ExportField(index = 110, messageKey = "export.bean.cashaccount.transaction.overview.referenceBank")
     private String referenceBank;
+	@ExportField(index = 120, messageKey = "export.bean.cashaccount.transaction.overview.creditorIdentifier")
     private String creditorIdentifier;
+	@ExportField(index = 130, messageKey = "export.bean.cashaccount.transaction.overview.mandate")
     private String mandate;
 
     public Long getId() {

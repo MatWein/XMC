@@ -30,6 +30,15 @@
 				<ButtonImageView url="@/images/feather/download.png"/>
             </graphic>
         </Button>
+		<MenuButton text="%main.cashaccounts.transactions.exporting">
+			<graphic>
+				<ButtonImageView url="@/images/feather/upload.png"/>
+			</graphic>
+			<items>
+				<MenuItem text="%main.cashaccounts.transactions.exporting.visible.csv" onAction="#onExportVisibleAsCsv" />
+				<MenuItem text="%main.cashaccounts.transactions.exporting.all.csv" onAction="#onExportAllAsCsv" />
+			</items>
+		</MenuButton>
     </ToolBar>
 
     <ExtendedTable VBox.vgrow="ALWAYS" fx:id="tableView"

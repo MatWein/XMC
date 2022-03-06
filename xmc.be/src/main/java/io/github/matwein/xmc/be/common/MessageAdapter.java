@@ -72,7 +72,7 @@ public class MessageAdapter {
 		return numberInstance.format(number);
 	}
 
-    private static String getByKey(String key, Object... args) {
+    public static String getByKey(String key, Object... args) {
         try {
             return MessageFormat.format(RESOURCE_BUNDLE.getString(key), args);
         } catch (MissingResourceException e) {
@@ -140,6 +140,7 @@ public class MessageAdapter {
 	    ASYNC_TASK_LOAD_ANALYSIS_FAVOURITES("async.task.loadAnalysisFavourites"),
 	    ASYNC_TASK_DELETE_ANALYSIS_FAVOURITE("async.task.deleteAnalysisFavourite"),
 	    ASYNC_TASK_RENAME_ANALYSIS_FAVOURITE("async.task.renameAnalysisFavourite"),
+	    ASYNC_TASK_EXPORT_ITEMS_TO_FILE("async.task.exportItemsToFile"),
 	
 	    VALIDATION_IMPORT_FIELD_ERROR("validation.import.field.error"),
 	    

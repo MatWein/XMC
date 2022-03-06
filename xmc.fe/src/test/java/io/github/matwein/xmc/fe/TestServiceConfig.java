@@ -13,7 +13,7 @@ import io.github.matwein.xmc.common.services.category.ICategoryService;
 import io.github.matwein.xmc.common.services.category.IStockCategoryService;
 import io.github.matwein.xmc.common.services.ccf.ICurrencyConversionFactorService;
 import io.github.matwein.xmc.common.services.depot.*;
-import io.github.matwein.xmc.common.services.imoprting.IImportTemplateService;
+import io.github.matwein.xmc.common.services.importing.IImportTemplateService;
 import io.github.matwein.xmc.common.services.login.IUserLoginService;
 import io.github.matwein.xmc.common.services.login.IUserRegistrationService;
 import io.github.matwein.xmc.common.services.settings.ISettingsService;

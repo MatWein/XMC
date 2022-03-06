@@ -97,6 +97,7 @@ public class MessageAdapter {
 	    
         FILECHOOSER_IMAGES("filechooser.extensionfilter.images"),
         FILECHOOSER_CSV_EXCEL("filechooser.extensionfilter.csvExcel"),
+	    FILECHOOSER_CSV("filechooser.extensionfilter.csv"),
         FILECHOOSER_ALL("filechooser.extensionfilter.all"),
         FILECHOOSER_TITLE("filechooser.title"),
         FILECHOOSER_SELECT_FILE("filechooser.selectFile"),

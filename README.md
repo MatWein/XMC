@@ -38,5 +38,8 @@ Use one of the following commands to build a platform specific jar:
 ``mvn clean install -Djavafx.platform=mac``  
 If no platform is specified, the current OS will be used.
 
+### Update BLZ (Bankleitzahlen) file (blz-data.csv)
+A current and updated file can be downloaded from: https://www.bundesbank.de/de/aufgaben/unbarer-zahlungsverkehr/serviceangebot/bankleitzahlen/download-bankleitzahlen-602592 as a XLSX file. Then you have to remove the unnecessary columns and save it as CSV file in UTF-8 format with ; as separator.
+
 ## Licence
 XMC is licensed under the [GNU GENERAL PUBLIC LICENSE](https://github.com/MatWein/XMC/blob/master/COPYING)

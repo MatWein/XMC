@@ -8,7 +8,7 @@ import io.github.matwein.xmc.be.services.importing.controller.ImportTemplateDele
 import io.github.matwein.xmc.be.services.importing.controller.ImportTemplateRenameController;
 import io.github.matwein.xmc.be.services.importing.mapper.ImportTemplateToDtoImportTemplateMapper;
 import io.github.matwein.xmc.be.services.importing.mapper.ImportTemplateToDtoImportTemplateOverviewMapper;
-import io.github.matwein.xmc.common.services.imoprting.IImportTemplateService;
+import io.github.matwein.xmc.common.services.importing.IImportTemplateService;
 import io.github.matwein.xmc.common.stubs.IAsyncMonitor;
 import io.github.matwein.xmc.common.stubs.importing.DtoImportTemplate;
 import io.github.matwein.xmc.common.stubs.importing.DtoImportTemplateOverview;

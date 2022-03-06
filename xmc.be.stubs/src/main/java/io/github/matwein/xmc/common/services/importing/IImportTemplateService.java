@@ -1,4 +1,4 @@
-package io.github.matwein.xmc.common.services.imoprting;
+package io.github.matwein.xmc.common.services.importing;
 
 import io.github.matwein.xmc.common.stubs.IAsyncMonitor;
 import io.github.matwein.xmc.common.stubs.importing.DtoImportTemplate;

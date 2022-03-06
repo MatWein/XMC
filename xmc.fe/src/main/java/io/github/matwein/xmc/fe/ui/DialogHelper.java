@@ -61,6 +61,23 @@ public class DialogHelper {
 	        return Optional.ofNullable(selectedFile);
         });
     }
+	
+	public static Optional<File> showSaveFileDialog(Window ownerWindow, ExtensionFilterType extensionFilter) {
+		FileChooser fileChooser = createFileChooser(extensionFilter);
+		
+		if (!extensionFilter.getExtensionFilter().getExtensions().isEmpty()) {
+			fileChooser.setInitialFileName(extensionFilter.getExtensionFilter().getExtensions().get(0));
+		}
+		
+		return showBackdrop(() -> {
+			File selectedFile = fileChooser.showSaveDialog(ownerWindow);
+			if (selectedFile != null && selectedFile.isFile()) {
+				lastSelectedFile = selectedFile;
+			}
+			
+			return Optional.ofNullable(selectedFile);
+		});
+	}
 
     static FileChooser createFileChooser(ExtensionFilterType extensionFilter) {
         FileChooser fileChooser = new FileChooser();

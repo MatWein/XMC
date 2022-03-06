@@ -1,6 +1,6 @@
 package io.github.matwein.xmc.fe.stages.main.depot.importing.deliveries;
 
-import io.github.matwein.xmc.common.services.imoprting.IImportTemplateService;
+import io.github.matwein.xmc.common.services.importing.IImportTemplateService;
 import io.github.matwein.xmc.common.stubs.depot.deliveries.DepotDeliveryImportColmn;
 import io.github.matwein.xmc.common.stubs.importing.CsvSeparator;
 import io.github.matwein.xmc.common.stubs.importing.DtoImportData;

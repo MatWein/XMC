@@ -1,19 +1,24 @@
 package io.github.matwein.xmc.fe.ui;
 
 import io.github.matwein.xmc.fe.common.MessageAdapter;
+import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import javafx.stage.FileChooser.ExtensionFilter;
 
 public enum ExtensionFilterType {
     CSV_OR_EXCEL(new ExtensionFilter(
-            MessageAdapter.getByKey(MessageAdapter.MessageKey.FILECHOOSER_CSV_EXCEL),
+            MessageAdapter.getByKey(MessageKey.FILECHOOSER_CSV_EXCEL),
             "*.csv", "*.xlsx", "*.xls")),
+	
+	CSV(new ExtensionFilter(
+			MessageAdapter.getByKey(MessageKey.FILECHOOSER_CSV),
+			"*.csv")),
 
     IMAGES(new ExtensionFilter(
-            MessageAdapter.getByKey(MessageAdapter.MessageKey.FILECHOOSER_IMAGES),
+            MessageAdapter.getByKey(MessageKey.FILECHOOSER_IMAGES),
             "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif")),
 
     ALL(new ExtensionFilter(
-            MessageAdapter.getByKey(MessageAdapter.MessageKey.FILECHOOSER_ALL),
+            MessageAdapter.getByKey(MessageKey.FILECHOOSER_ALL),
             "*.*"))
     ;
 

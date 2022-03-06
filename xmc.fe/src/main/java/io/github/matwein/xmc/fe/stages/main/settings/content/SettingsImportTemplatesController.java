@@ -1,6 +1,6 @@
 package io.github.matwein.xmc.fe.stages.main.settings.content;
 
-import io.github.matwein.xmc.common.services.imoprting.IImportTemplateService;
+import io.github.matwein.xmc.common.services.importing.IImportTemplateService;
 import io.github.matwein.xmc.common.stubs.importing.DtoImportTemplateOverview;
 import io.github.matwein.xmc.fe.async.AsyncMonitor;
 import io.github.matwein.xmc.fe.async.AsyncProcessor;

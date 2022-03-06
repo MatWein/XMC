@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.5</version>
+        <version>2.6.4</version>
         <relativePath/>
     </parent>
 
@@ -24,13 +24,13 @@
 	</modules>
 
     <properties>
-		<revision>2021.4.0</revision>
+		<revision>2021.4.1</revision>
 
         <java.version>17</java.version>
         <start-class>io.github.matwein.xmc.Main</start-class>
 		<javafx.platform>current</javafx.platform>
 
-        <openjfx.version>17</openjfx.version>
+        <openjfx.version>17.0.2</openjfx.version>
         <querydsl.version>5.0.0</querydsl.version>
         <apache.poi.version>4.1.2</apache.poi.version>
     </properties>
@@ -103,7 +103,7 @@
 			<dependency>
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
-				<version>30.1.1-jre</version>
+				<version>31.1-jre</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.commons</groupId>
@@ -143,7 +143,7 @@
 			<dependency>
 				<groupId>net.coobird</groupId>
 				<artifactId>thumbnailator</artifactId>
-				<version>0.4.14</version>
+				<version>0.4.17</version>
 			</dependency>
 
 			<!-- Test / Development -->

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.matwein.xmc.fe.ui.components.ButtonImageView?>
+<?import io.github.matwein.xmc.fe.ui.components.*?>
 <?import io.github.matwein.xmc.fe.ui.components.table.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
@@ -93,13 +93,13 @@
             <ExtendedTableColumn editable="false" text="%main.cashaccounts.transactions.overview.table.column.referenceBank"
                                  sortField="REFERENCE_BANK">
                 <cellValueFactory>
-                    <NestedPropertyValueFactory property="referenceBank.name"/>
+                    <NestedPropertyValueFactory property="referenceBank"/>
                 </cellValueFactory>
             </ExtendedTableColumn>
             <ExtendedTableColumn editable="false" text="%main.cashaccounts.transactions.overview.table.column.referenceIban"
                                  sortField="REFERENCE_IBAN">
                 <cellValueFactory>
-                    <NestedPropertyValueFactory property="referenceBank.bic"/>
+                    <NestedPropertyValueFactory property="referenceIban"/>
                 </cellValueFactory>
             </ExtendedTableColumn>
 			<ExtendedTableColumn editable="false" text="%main.cashaccounts.transactions.overview.table.column.creationDate"

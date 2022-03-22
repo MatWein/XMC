@@ -8,8 +8,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.*?>
 <VBox stylesheets="@/css/xmc-base.css, @/css/main/importing.css" xmlns="http://javafx.com/javafx/11.0.0"
-      xmlns:fx="http://javafx.com/fxml/1" styleClass="padding-15" fx:id="rootVBox"
-      fx:controller="io.github.matwein.xmc.fe.stages.main.cashaccount.importing.CashAccountTransactionImportStep4Controller">
+	  xmlns:fx="http://javafx.com/fxml/1" styleClass="padding-15" fx:id="rootVBox"
+	  fx:controller="io.github.matwein.xmc.fe.stages.main.cashaccount.importing.CashAccountTransactionImportStep4Controller">
 
     <CheckBox styleClass="form-label-first" text="%cashaccount.transaction.import.dialog.step4.saveTemplate" fx:id="saveTemplateCheckbox" />
     <ValidationTextField fx:id="templateToSaveName" />
@@ -74,13 +74,13 @@
 					<TableColumn editable="false" reorderable="false" sortable="false" prefWidth="150"
 								 text="%main.cashaccounts.transactions.overview.table.column.referenceBank">
 						<cellValueFactory>
-							<NestedPropertyValueFactory property="referenceBank.name"/>
+							<NestedPropertyValueFactory property="referenceBank"/>
 						</cellValueFactory>
 					</TableColumn>
 					<TableColumn editable="false" reorderable="false" sortable="false" prefWidth="150"
 								 text="%main.cashaccounts.transactions.overview.table.column.referenceIban">
 						<cellValueFactory>
-							<NestedPropertyValueFactory property="referenceBank.bic"/>
+							<NestedPropertyValueFactory property="referenceIban"/>
 						</cellValueFactory>
 					</TableColumn>
 					<TableColumn editable="false" reorderable="false" sortable="false" prefWidth="150"

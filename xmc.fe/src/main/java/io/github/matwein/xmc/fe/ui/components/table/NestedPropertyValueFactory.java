@@ -16,6 +16,8 @@ import javafx.util.Callback;
 import org.apache.commons.beanutils.NestedNullException;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.text.NumberFormat;
 import java.time.LocalDate;
@@ -24,6 +26,8 @@ import java.util.Currency;
 import java.util.Locale;
 
 public class NestedPropertyValueFactory implements Callback<CellDataFeatures, ObservableValue> {
+	private static final Logger LOGGER = LoggerFactory.getLogger(NestedPropertyValueFactory.class);
+	
     private String property;
     private Double fitToWidth;
     private Double fitToHeight;
@@ -60,7 +64,10 @@ public class NestedPropertyValueFactory implements Callback<CellDataFeatures, Ob
             }
 	        
             return new ReadOnlyObjectWrapper<>(nodeForValue);
-        } catch (NestedNullException | NoSuchMethodException e) {
+        } catch (NoSuchMethodException e) {
+        	LOGGER.warn("Property '{}' not found. Will return null. This will lead to not showing data in GUI!", property);
+            return null;
+        }  catch (NestedNullException e) {
             return null;
         } catch (Throwable e) {
             throw new RuntimeException(String.format("Could not read property '%s' from: %s", property, rowData), e);

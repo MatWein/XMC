@@ -5,7 +5,7 @@ import io.github.matwein.xmc.common.stubs.Percentage;
 import io.github.matwein.xmc.fe.common.MessageAdapter;
 import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import javafx.scene.text.Text;
-import scalc.SCalcBuilder;
+import scalc.SCalcUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,12 +40,7 @@ public class ColumnsSumsCalculator {
 				List<Object> values = collectColumnValues(extendedTable, column, onlyIncludeSelected);
 				
 				if (!values.isEmpty()) {
-					double sum = SCalcBuilder.doubleInstance()
-							.sumExpression()
-							.build()
-							.paramsAsCollection(values)
-							.calc();
-					
+					double sum = SCalcUtil.summarizeCollection(double.class, values);
 					sums.add(String.format(pattern, column.getText(), MessageAdapter.formatNumber(sum)));
 				}
 			}

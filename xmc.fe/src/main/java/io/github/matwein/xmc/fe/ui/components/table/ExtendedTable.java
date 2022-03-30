@@ -280,7 +280,7 @@ public class ExtendedTable<ITEM_TYPE extends Serializable, SORT_ENUM_TYPE extend
             lastPage.set(0);
         } else {
             currentPage = page.get() + 1;
-            pageCount = SCalcBuilder.instanceFor(Integer.class)
+            pageCount = SCalcBuilder.integerInstance()
                     .expression("total / pageSize")
                     .resultScale(0, RoundingMode.UP)
                     .build()

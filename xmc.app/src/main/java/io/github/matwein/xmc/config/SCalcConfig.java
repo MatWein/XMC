@@ -3,7 +3,7 @@ package io.github.matwein.xmc.config;
 import io.github.matwein.xmc.common.stubs.Money;
 import io.github.matwein.xmc.common.stubs.Percentage;
 import scalc.SCalcBuilder;
-import scalc.internal.converter.INumberConverter;
+import scalc.interfaces.INumberConverter;
 
 import java.math.BigDecimal;
 

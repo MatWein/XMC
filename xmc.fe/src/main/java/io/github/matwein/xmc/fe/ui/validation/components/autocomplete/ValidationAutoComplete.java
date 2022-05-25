@@ -87,6 +87,11 @@ public class ValidationAutoComplete<T> extends ValidationTextField {
 
     private void search() {
         Platform.runLater(() -> {
+	        Scene scene = getScene();
+	        if (scene == null) {
+		        return;
+	        }
+	        
             if (StringUtils.isBlank(getTextOrNull())) {
                 autoCompleteMenu.hide();
                 return;
@@ -105,8 +110,9 @@ public class ValidationAutoComplete<T> extends ValidationTextField {
             vbox.getChildren().setAll(menuItems);
 
             Point2D txtCoords = localToScene(0.0, 0.0);
-            double x = txtCoords.getX() + getScene().getX() + getScene().getWindow().getX();
-            double y = txtCoords.getY() + getScene().getY() + getScene().getWindow().getY() + getHeight();
+	        
+	        double x = txtCoords.getX() + scene.getX() + scene.getWindow().getX();
+            double y = txtCoords.getY() + scene.getY() + scene.getWindow().getY() + getHeight();
 
             double maxWidth = getWidth();
             scrollPane.setPrefWidth(maxWidth);

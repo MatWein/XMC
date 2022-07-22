@@ -7,6 +7,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ public class AssetIdsSelector {
 	private void populateSelectedAssets(Map<AssetType, List<Long>> result, CheckBoxTreeItem<DtoAssetSelection> node) {
 		node.setSelected(false);
 		
-		if (result.get(node.getValue().getAssetType()).contains(node.getValue().getId())) {
+		if (result.getOrDefault(node.getValue().getAssetType(), new ArrayList<>()).contains(node.getValue().getId())) {
 			node.setSelected(true);
 		}
 		

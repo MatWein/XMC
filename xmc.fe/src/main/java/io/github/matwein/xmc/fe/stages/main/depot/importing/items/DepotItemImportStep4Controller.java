@@ -1,7 +1,5 @@
 package io.github.matwein.xmc.fe.stages.main.depot.importing.items;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
 import io.github.matwein.xmc.common.services.depot.IDepotItemImportService;
 import io.github.matwein.xmc.common.stubs.depot.items.DepotItemImportColmn;
 import io.github.matwein.xmc.common.stubs.depot.items.DtoDepotItemImportRow;
@@ -23,6 +21,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+import java.util.Map;
 
 @FxmlController
 public class DepotItemImportStep4Controller implements IAfterInit<DtoImportData<DepotItemImportColmn>>, IValidationController {
@@ -98,13 +99,7 @@ public class DepotItemImportStep4Controller implements IAfterInit<DtoImportData<
 	}
 	
 	@Override
-	public Multimap<IValidationComponent, String> validate() {
-		Multimap<IValidationComponent, String> errors = ArrayListMultimap.create();
-		
-		if (loading.get() || fileErrors.get()) {
-			errors.put(null, "Input file not valid or already loading.");
-		}
-		
-		return errors;
+	public Map<IValidationComponent, List<String>> validate() {
+		return defaultValidate(loading, fileErrors);
 	}
 }

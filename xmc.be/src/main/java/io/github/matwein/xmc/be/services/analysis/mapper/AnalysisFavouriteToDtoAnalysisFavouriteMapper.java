@@ -1,7 +1,5 @@
 package io.github.matwein.xmc.be.services.analysis.mapper;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
 import io.github.matwein.xmc.be.entities.analysis.AnalysisFavourite;
 import io.github.matwein.xmc.be.entities.cashaccount.CashAccount;
 import io.github.matwein.xmc.be.entities.depot.Depot;
@@ -14,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -59,15 +55,19 @@ public class AnalysisFavouriteToDtoAnalysisFavouriteMapper {
 		return dtoAnalysisFavourite;
 	}
 	
-	private Multimap<AssetType, Long> mapAssetIds(Set<CashAccount> cashAccounts, Set<Depot> depots) {
-		Multimap<AssetType, Long> assetIds = ArrayListMultimap.create();
+	private Map<AssetType, List<Long>> mapAssetIds(Set<CashAccount> cashAccounts, Set<Depot> depots) {
+		Map<AssetType, List<Long>> assetIds = new HashMap<>();
 		
 		for (CashAccount cashAccount : cashAccounts) {
-			assetIds.put(AssetType.CASHACCOUNT, cashAccount.getId());
+			List<Long> ids = assetIds.getOrDefault(AssetType.CASHACCOUNT, new ArrayList<>());
+			ids.add(cashAccount.getId());
+			assetIds.put(AssetType.CASHACCOUNT, ids);
 		}
 		
 		for (Depot depot : depots) {
-			assetIds.put(AssetType.DEPOT, depot.getId());
+			List<Long> ids = assetIds.getOrDefault(AssetType.DEPOT, new ArrayList<>());
+			ids.add(depot.getId());
+			assetIds.put(AssetType.DEPOT, ids);
 		}
 		
 		return assetIds;

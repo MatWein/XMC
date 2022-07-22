@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.fe.stages.main.settings.content;
 
-import com.google.common.collect.Maps;
 import io.github.matwein.xmc.common.services.settings.ISettingsService;
 import io.github.matwein.xmc.common.stubs.settings.SettingType;
 import io.github.matwein.xmc.fe.async.AsyncMonitor;
@@ -12,6 +11,7 @@ import javafx.scene.layout.VBox;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
 
 @FxmlController
@@ -49,7 +49,7 @@ public class SettingsExtrasController {
 	}
 	
 	private Map<SettingType, Serializable> loadSettings(AsyncMonitor monitor) {
-		Map<SettingType, Serializable> settings = Maps.newHashMap();
+		Map<SettingType, Serializable> settings = new HashMap<>();
 		
 		settings.put(SettingType.EXTRAS_SHOW_SNOW, settingsService.loadSetting(monitor, SettingType.EXTRAS_SHOW_SNOW));
 		

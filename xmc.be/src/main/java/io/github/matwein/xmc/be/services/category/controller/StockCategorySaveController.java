@@ -30,7 +30,7 @@ public class StockCategorySaveController {
         if (dtoCategory.getId() == null) {
             return dtoStockCategoryToStockCategoryMapper.map(dtoCategory);
         } else {
-	        StockCategory category = stockCategoryJpaRepository.getById(dtoCategory.getId());
+	        StockCategory category = stockCategoryJpaRepository.getReferenceById(dtoCategory.getId());
 	        dtoStockCategoryToStockCategoryMapper.update(category, dtoCategory);
             return category;
         }

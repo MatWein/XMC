@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.0</version>
+        <version>2.7.1</version>
         <relativePath/>
     </parent>
 
@@ -24,15 +24,15 @@
 	</modules>
 
     <properties>
-		<revision>2022.2.0</revision>
+		<revision>2022.2.1</revision>
 
         <java.version>17</java.version>
         <start-class>io.github.matwein.xmc.Main</start-class>
 		<javafx.platform>current</javafx.platform>
 
-        <openjfx.version>17.0.2</openjfx.version>
+        <openjfx.version>18.0.2</openjfx.version>
         <querydsl.version>5.0.0</querydsl.version>
-        <apache.poi.version>4.1.2</apache.poi.version>
+        <apache.poi.version>5.2.2</apache.poi.version>
     </properties>
 
 	<dependencyManagement>
@@ -101,11 +101,6 @@
 
 			<!-- Other -->
 			<dependency>
-				<groupId>com.google.guava</groupId>
-				<artifactId>guava</artifactId>
-				<version>31.1-jre</version>
-			</dependency>
-			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-lang3</artifactId>
 				<version>3.12.0</version>
@@ -118,7 +113,7 @@
 			<dependency>
 				<groupId>com.opencsv</groupId>
 				<artifactId>opencsv</artifactId>
-				<version>5.5.1</version>
+				<version>5.6</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.poi</groupId>
@@ -133,7 +128,7 @@
 			<dependency>
 				<groupId>nl.garvelink.oss</groupId>
 				<artifactId>iban</artifactId>
-				<version>1.10.1</version>
+				<version>1.12.0</version>
 			</dependency>
 			<dependency>
 				<groupId>io.github.matwein</groupId>

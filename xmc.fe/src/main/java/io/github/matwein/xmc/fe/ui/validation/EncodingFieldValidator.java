@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.fe.ui.validation;
 
-import com.google.common.collect.Lists;
 import io.github.matwein.xmc.fe.common.MessageAdapter;
 import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import javafx.scene.control.ComboBox;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Component;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Component
 public class EncodingFieldValidator implements ICustomFieldValidator<ComboBox<String>> {
@@ -25,7 +25,7 @@ public class EncodingFieldValidator implements ICustomFieldValidator<ComboBox<St
 			return new ArrayList<>(0);
 		} catch (Throwable e) {
 			String errorMessage = MessageAdapter.getByKey(MessageKey.VALIDATION_INVALID_ENCODING);
-			return Lists.newArrayList(errorMessage);
+			return List.of(errorMessage);
 		}
 	}
 }

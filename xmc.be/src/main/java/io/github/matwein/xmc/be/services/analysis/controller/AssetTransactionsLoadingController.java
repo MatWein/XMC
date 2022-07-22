@@ -1,7 +1,5 @@
 package io.github.matwein.xmc.be.services.analysis.controller;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Multimap;
 import io.github.matwein.xmc.common.stubs.analysis.AssetType;
 import io.github.matwein.xmc.common.stubs.analysis.DtoAssetPoints;
 import org.slf4j.Logger;
@@ -10,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
@@ -31,10 +31,10 @@ public class AssetTransactionsLoadingController {
 		this.depotTransactionLoadingController = depotTransactionLoadingController;
 	}
 	
-	public List<DtoAssetPoints> loadAssetTransactions(Multimap<AssetType, Long> assetIds, LocalDate startDate, LocalDate endDate) {
-		List<DtoAssetPoints> deliveries = Lists.newArrayList();
+	public List<DtoAssetPoints> loadAssetTransactions(Map<AssetType, List<Long>> assetIds, LocalDate startDate, LocalDate endDate) {
+		List<DtoAssetPoints> deliveries = new ArrayList<>();
 		
-		for (Entry<AssetType, Collection<Long>> entry : assetIds.asMap().entrySet()) {
+		for (Entry<AssetType, List<Long>> entry : assetIds.entrySet()) {
 			List<DtoAssetPoints> transactionsForAssetType = loadTransactionsForAssetType(entry.getKey(), entry.getValue(), startDate, endDate);
 			deliveries.addAll(transactionsForAssetType);
 		}

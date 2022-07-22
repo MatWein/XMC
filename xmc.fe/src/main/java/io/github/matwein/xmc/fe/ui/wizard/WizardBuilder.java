@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.fe.ui.wizard;
 
-import com.google.common.collect.Lists;
 import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.fe.stages.main.MainController;
 import io.github.matwein.xmc.fe.ui.FxmlComponentFactory;
@@ -12,13 +11,15 @@ import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("rawtypes")
 public class WizardBuilder<INPUT_TYPE> {
     public static WizardBuilder getInstance() { return new WizardBuilder(); }
 
+    private final List<WizardStep> steps = new ArrayList<>();
     private MessageKey titleKey;
-    private List<WizardStep> steps = Lists.newArrayList();
     private INPUT_TYPE input;
 
     private WizardBuilder() {
@@ -36,15 +37,6 @@ public class WizardBuilder<INPUT_TYPE> {
     public WizardBuilder addStep(MessageKey textKey, FxmlKey fxmlKey, IWizardStepPopulator<INPUT_TYPE, ?> populator) {
         Pair<Parent, ?> component = FxmlComponentFactory.load(fxmlKey);
         steps.add(new WizardStep(textKey, component.getLeft(), component.getRight(), populator));
-        return this;
-    }
-
-    public WizardBuilder addStep(MessageKey textKey, Parent content) {
-        return addStep(textKey, content, null);
-    }
-
-    public WizardBuilder addStep(MessageKey textKey, Parent content, IWizardStepPopulator<INPUT_TYPE, ?> populator) {
-        steps.add(new WizardStep(textKey, content, null, populator));
         return this;
     }
 

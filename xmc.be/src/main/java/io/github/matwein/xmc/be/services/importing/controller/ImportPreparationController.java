@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.be.services.importing.controller;
 
-import com.google.common.collect.Sets;
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.be.services.importing.mapper.DtoImportFileValidationResultMapper;
@@ -20,24 +19,24 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class ImportPreparationController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ImportPreparationController.class);
 	
-	public static final Set<String> VALID_CSV_EXTENSIONS = Sets.newHashSet(
+	public static final Set<String> VALID_CSV_EXTENSIONS = Set.of(
 			FileMimeType.TEXT.getFileExtension().toUpperCase(),
 			FileMimeType.CSV.getFileExtension().toUpperCase()
 	);
 	
-	public static final Set<String> VALID_EXCEL_EXTENSIONS = Sets.newHashSet(
-			FileMimeType.MS_EXCELO.getFileExtension().toUpperCase(),
+	public static final Set<String> VALID_EXCEL_EXTENSIONS = Set.of(
 			FileMimeType.MS_EXCELX.getFileExtension().toUpperCase(),
-			FileMimeType.MS_EXCEL2.getFileExtension().toUpperCase(),
 			FileMimeType.MS_EXCEL.getFileExtension().toUpperCase()
 	);
 	
-	public static final Set<String> VALID_EXTENSIONS = Sets.union(VALID_CSV_EXTENSIONS, VALID_EXCEL_EXTENSIONS);
+	public static final Set<String> VALID_EXTENSIONS = Stream.concat(VALID_CSV_EXTENSIONS.stream(), VALID_EXCEL_EXTENSIONS.stream()).collect(Collectors.toSet());
 	
 	private final RawImportFileReader rawImportFileReader;
 	private final DtoImportFileValidationResultMapper dtoImportFileValidationResultMapper;

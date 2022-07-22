@@ -1,12 +1,12 @@
 package io.github.matwein.xmc.be.entities.importing;
 
-import com.google.common.collect.Sets;
 import io.github.matwein.xmc.be.entities.PersistentObject;
 import io.github.matwein.xmc.common.stubs.importing.CsvSeparator;
 import io.github.matwein.xmc.common.stubs.importing.ImportTemplateType;
 import io.github.matwein.xmc.common.stubs.importing.ImportType;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -43,7 +43,7 @@ public class ImportTemplate extends PersistentObject {
 	private String encoding;
 	
 	@OneToMany(mappedBy = "importTemplate")
-	private Set<ImportTemplateColumnMapping> columnMappings = Sets.newHashSet();
+	private Set<ImportTemplateColumnMapping> columnMappings = new HashSet<>();
 	
 	public String getName() {
 		return name;

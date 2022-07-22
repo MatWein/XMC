@@ -1,11 +1,11 @@
 package io.github.matwein.xmc.be.services.importing.controller;
 
-import com.google.common.collect.Lists;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -20,7 +20,7 @@ public class RawImportExcelFileReader {
 		Sheet sheet = workbook.getSheetAt(0);
 		DataFormatter formatter = new DataFormatter();
 		
-		List<List<String>> lines = Lists.newArrayListWithExpectedSize(sheet.getLastRowNum() + 1);
+		List<List<String>> lines = new ArrayList<>(sheet.getLastRowNum() + 1);
 		
 		for (int rowIndex = startWithLine - 1; rowIndex <= sheet.getLastRowNum(); rowIndex++) {
 			Row row = sheet.getRow(rowIndex);
@@ -28,7 +28,7 @@ public class RawImportExcelFileReader {
 				continue;
 			}
 			
-			List<String> columValues = Lists.newArrayListWithExpectedSize(row.getLastCellNum() + 1);
+			List<String> columValues = new ArrayList<>(row.getLastCellNum() + 1);
 			
 			short firstCellIndex = row.getFirstCellNum();
 			short lastCellIndex = row.getLastCellNum();

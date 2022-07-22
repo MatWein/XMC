@@ -1,19 +1,15 @@
 package io.github.matwein.xmc.be.services.analysis.calculation;
 
-import com.google.common.collect.Multimap;
 import io.github.matwein.xmc.be.services.analysis.controller.CashAccountMostRecentTransactionLoadingController;
 import io.github.matwein.xmc.be.services.analysis.controller.DepotMostRecentTransactionLoadingController;
 import io.github.matwein.xmc.common.stubs.analysis.AssetType;
 import io.github.matwein.xmc.common.stubs.analysis.DtoMostRecentTransaction;
-import org.apache.commons.compress.utils.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
@@ -35,10 +31,10 @@ public class MostRecentTransactionsCalculator {
 		this.depotMostRecentTransactionLoadingController = depotMostRecentTransactionLoadingController;
 	}
 	
-	public List<DtoMostRecentTransaction> calculate(Multimap<AssetType, Long> assetIds) {
-		List<DtoMostRecentTransaction> transactions = Lists.newArrayList();
+	public List<DtoMostRecentTransaction> calculate(Map<AssetType, List<Long>> assetIds) {
+		List<DtoMostRecentTransaction> transactions = new ArrayList<>();
 		
-		for (Entry<AssetType, Collection<Long>> entry : assetIds.asMap().entrySet()) {
+		for (Entry<AssetType, List<Long>> entry : assetIds.entrySet()) {
 			List<DtoMostRecentTransaction> assetTransactions = loadTransactionsForAssetType(entry.getKey(), entry.getValue());
 			transactions.addAll(assetTransactions);
 		}

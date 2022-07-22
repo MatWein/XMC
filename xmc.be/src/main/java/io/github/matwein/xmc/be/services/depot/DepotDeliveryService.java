@@ -63,7 +63,7 @@ public class DepotDeliveryService implements IDepotDeliveryService {
 		LOGGER.info("Loading depot delivery overview: {}", pagingParams);
 		monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_LOAD_DEPOT_DELIVERY_OVERVIEW));
 		
-		Depot depot = depotJpaRepository.getById(depotId);
+		Depot depot = depotJpaRepository.getReferenceById(depotId);
 		var results = depotDeliveryRepository.loadOverview(depot, pagingParams);
 		return queryResultsMapper.map(results);
 	}
@@ -73,7 +73,7 @@ public class DepotDeliveryService implements IDepotDeliveryService {
 		LOGGER.info("Saving depot delivery: {}", dtoDepotDelivery);
 		monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_SAVE_DEPOT_DELIVERY));
 		
-		Depot depot = depotJpaRepository.getById(depotId);
+		Depot depot = depotJpaRepository.getReferenceById(depotId);
 		depotDeliverySaveController.saveOrUpdate(depot, dtoDepotDelivery);
 		
 		lastDeliveryUpdatingController.updateLastDeliveryOfDepot(depot);
@@ -84,7 +84,7 @@ public class DepotDeliveryService implements IDepotDeliveryService {
 		LOGGER.info("Marking depot delivery '{}' as deleted.", deliveryId);
 		monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_DELETE_DEPOT_DELIVERY));
 		
-		DepotDelivery depotDelivery = depotDeliveryJpaRepository.getById(deliveryId);
+		DepotDelivery depotDelivery = depotDeliveryJpaRepository.getReferenceById(deliveryId);
 		depotDelivery.setDeletionDate(LocalDateTime.now());
 		depotDeliveryJpaRepository.save(depotDelivery);
 		

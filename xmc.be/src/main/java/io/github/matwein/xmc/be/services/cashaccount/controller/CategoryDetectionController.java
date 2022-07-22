@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.be.services.cashaccount.controller;
 
-import com.google.common.collect.Maps;
 import io.github.matwein.xmc.be.entities.PersistentObject;
 import io.github.matwein.xmc.be.entities.cashaccount.CashAccount;
 import io.github.matwein.xmc.be.entities.cashaccount.CashAccountTransaction;
@@ -11,11 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -54,7 +50,7 @@ public class CategoryDetectionController {
     }
 
     private Map<CashAccountTransaction, Integer> calculateWordMatches(String usage, List<CashAccountTransaction> transactions) {
-        Map<CashAccountTransaction, Integer> wordMatches = Maps.newHashMap();
+        Map<CashAccountTransaction, Integer> wordMatches = new HashMap<>();
 
         String[] words = StringUtils.split(usage);
         for (String word : words) {

@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.be.services.importing.controller;
 
-import com.google.common.collect.Lists;
 import io.github.matwein.xmc.be.IntegrationTest;
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.services.cashaccount.controller.importing.CashAccountTransactionImportLineMapper;
@@ -22,9 +21,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.io.File;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+@SuppressWarnings("ConstantConditions")
 class ImportPreparationControllerTest extends IntegrationTest {
 	@Autowired
 	private ImportPreparationController controller;
@@ -60,7 +61,7 @@ class ImportPreparationControllerTest extends IntegrationTest {
 				cashAccountTransactionImportLineMapper,
 				cashAccountTransactionImportLineValidator);
 		
-		Assertions.assertEquals(Lists.newArrayList(), result.getErrors());
+		Assertions.assertEquals(new ArrayList<>(), result.getErrors());
 		Assertions.assertEquals(0, result.getInvalidTransactionCount());
 		Assertions.assertEquals(234, result.getValidTransactionCount());
 		Assertions.assertEquals(234, result.getSuccessfullyReadLines().size());
@@ -100,7 +101,7 @@ class ImportPreparationControllerTest extends IntegrationTest {
 				cashAccountTransactionImportLineMapper,
 				cashAccountTransactionImportLineValidator);
 		
-		Assertions.assertEquals(Lists.newArrayList(), result.getErrors());
+		Assertions.assertEquals(new ArrayList<>(), result.getErrors());
 		Assertions.assertEquals(0, result.getInvalidTransactionCount());
 		Assertions.assertEquals(234, result.getValidTransactionCount());
 		Assertions.assertEquals(234, result.getSuccessfullyReadLines().size());
@@ -179,7 +180,7 @@ class ImportPreparationControllerTest extends IntegrationTest {
 	}
 	
 	private List<DtoColumnMapping<CashAccountTransactionImportColmn>> createColumnMapping() {
-		return Lists.newArrayList(
+		return List.of(
 				new DtoColumnMapping<>(2, CashAccountTransactionImportColmn.VALUTA_DATE),
 				new DtoColumnMapping<>(3, CashAccountTransactionImportColmn.REFERENCE),
 				new DtoColumnMapping<>(4, CashAccountTransactionImportColmn.DESCRIPTION),

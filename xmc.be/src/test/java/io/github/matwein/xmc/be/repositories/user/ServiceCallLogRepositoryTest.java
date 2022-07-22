@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.be.repositories.user;
 
-import com.google.common.collect.Sets;
 import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.hibernate.HibernateQuery;
 import io.github.matwein.xmc.be.IntegrationTest;
@@ -15,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.HashSet;
 import java.util.Set;
 
 import static io.github.matwein.xmc.be.entities.user.QServiceCallLog.serviceCallLog;
@@ -43,12 +43,12 @@ class ServiceCallLogRepositoryTest extends IntegrationTest {
 
         flushAndClear();
 
-        Set<ServiceCallLog> serviceCallLogs = Sets.newHashSet(new HibernateQuery<>(session())
+        Set<ServiceCallLog> serviceCallLogs = new HashSet<>(new HibernateQuery<>(session())
                 .select(serviceCallLog)
                 .from(serviceCallLog)
                 .fetch());
 
-        Assertions.assertEquals(Sets.newHashSet(serviceCallLog1, serviceCallLog3), serviceCallLogs);
+        Assertions.assertEquals(Set.of(serviceCallLog1, serviceCallLog3), serviceCallLogs);
     }
 	
 	@Test

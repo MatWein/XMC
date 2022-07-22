@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.common.services.analysis;
 
-import com.google.common.collect.Multimap;
 import io.github.matwein.xmc.common.stubs.IAsyncMonitor;
 import io.github.matwein.xmc.common.stubs.analysis.AssetType;
 import io.github.matwein.xmc.common.stubs.analysis.DtoMostRecentTransaction;
@@ -9,6 +8,7 @@ import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartSeries;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 public interface IAnalysisChartCalculationService {
 	String CATEGORY_ID = "CATEGORY_ID";
@@ -18,25 +18,25 @@ public interface IAnalysisChartCalculationService {
 	
 	List<DtoChartSeries<Number, Number>> calculateAbsoluteAssetValueLineChart(
 			IAsyncMonitor monitor,
-			Multimap<AssetType, Long> assetIds,
+			Map<AssetType, List<Long>> assetIds,
 			LocalDate startDate,
 			LocalDate endDate);
 	
 	List<DtoChartSeries<Number, Number>> calculateAggregatedAssetValueLineChart(
 			IAsyncMonitor monitor,
-			Multimap<AssetType, Long> assetIds,
+			Map<AssetType, List<Long>> assetIds,
 			LocalDate startDate,
 			LocalDate endDate);
 	
 	List<DtoChartSeries<Number, Number>> calculateAbsoluteAndAggregatedAssetValueLineChart(
 			IAsyncMonitor monitor,
-			Multimap<AssetType, Long> assetIds,
+			Map<AssetType, List<Long>> assetIds,
 			LocalDate startDate,
 			LocalDate endDate);
 	
 	List<DtoChartSeries<String, Number>> calculateTransactionsBarChart(
 			IAsyncMonitor monitor,
-			Multimap<AssetType, Long> assetIds,
+			Map<AssetType, List<Long>> assetIds,
 			LocalDate startDate,
 			LocalDate endDate);
 	
@@ -68,5 +68,5 @@ public interface IAnalysisChartCalculationService {
 	
 	List<DtoMostRecentTransaction> calculateMostRecentTransactions(
 			IAsyncMonitor monitor,
-			Multimap<AssetType, Long> assetIds);
+			Map<AssetType, List<Long>> assetIds);
 }

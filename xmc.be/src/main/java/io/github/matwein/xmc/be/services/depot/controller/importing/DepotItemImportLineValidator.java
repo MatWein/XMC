@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.be.services.depot.controller.importing;
 
-import com.google.common.collect.Lists;
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.be.services.importing.controller.IImportRowValidator;
@@ -10,13 +9,14 @@ import io.github.matwein.xmc.common.stubs.importing.DtoImportFileValidationResul
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class DepotItemImportLineValidator implements IImportRowValidator<DtoDepotItemImportRow> {
 	@Override
 	public List<DtoImportFileValidationResultError> apply(DtoDepotItemImportRow importRow, Integer lineIndex) {
-		List<DtoImportFileValidationResultError> errors = Lists.newArrayList();
+		List<DtoImportFileValidationResultError> errors = new ArrayList<>();
 		
 		if (StringUtils.isBlank(importRow.getIsin())) {
 			errors.add(createValueEmptyError(lineIndex, DepotItemImportColmn.ISIN));

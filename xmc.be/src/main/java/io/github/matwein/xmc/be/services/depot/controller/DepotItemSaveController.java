@@ -31,7 +31,7 @@ public class DepotItemSaveController {
 		if (dtoDepotItem.getId() == null) {
 			return dtoDepotItemToDepotItemMapper.map(depotDelivery, dtoDepotItem);
 		} else {
-			DepotItem depotItem = depotItemJpaRepository.getById(dtoDepotItem.getId());
+			DepotItem depotItem = depotItemJpaRepository.getReferenceById(dtoDepotItem.getId());
 			dtoDepotItemToDepotItemMapper.update(depotItem, dtoDepotItem);
 			return depotItem;
 		}

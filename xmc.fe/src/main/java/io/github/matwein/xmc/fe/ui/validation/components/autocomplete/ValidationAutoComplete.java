@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.fe.ui.validation.components.autocomplete;
 
-import com.google.common.collect.Sets;
 import io.github.matwein.xmc.fe.FeConstants;
 import io.github.matwein.xmc.fe.common.ReflectionUtil;
 import io.github.matwein.xmc.fe.common.XmcFrontendContext;
@@ -30,7 +29,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class ValidationAutoComplete<T> extends ValidationTextField {
-    private static final Set<KeyCode> KEYS_TO_IGNORE = Sets.newHashSet(
+    private static final Set<KeyCode> KEYS_TO_IGNORE = Set.of(
             KeyCode.ESCAPE, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP,
             KeyCode.DOWN, KeyCode.TAB);
 

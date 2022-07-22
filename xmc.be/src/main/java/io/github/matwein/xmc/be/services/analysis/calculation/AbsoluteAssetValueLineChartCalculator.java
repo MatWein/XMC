@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.be.services.analysis.calculation;
 
-import com.google.common.collect.Multimap;
 import io.github.matwein.xmc.be.services.analysis.controller.AssetDeliveriesLoadingController;
 import io.github.matwein.xmc.be.services.analysis.mapper.DtoAssetPointsToDtoChartSeriesMapper;
 import io.github.matwein.xmc.common.stubs.analysis.AssetType;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class AbsoluteAssetValueLineChartCalculator {
@@ -26,7 +26,7 @@ public class AbsoluteAssetValueLineChartCalculator {
 		this.dtoAssetPointsToDtoChartSeriesMapper = dtoAssetPointsToDtoChartSeriesMapper;
 	}
 	
-	public List<DtoChartSeries<Number, Number>> calculate(Multimap<AssetType, Long> assetIds, LocalDate startDate, LocalDate endDate) {
+	public List<DtoChartSeries<Number, Number>> calculate(Map<AssetType, List<Long>> assetIds, LocalDate startDate, LocalDate endDate) {
 		List<DtoAssetPoints> assetDeliveries = assetDeliveriesLoadingController.loadAssetDeliveries(assetIds, startDate, endDate);
 		return dtoAssetPointsToDtoChartSeriesMapper.mapAll(assetDeliveries, true);
 	}

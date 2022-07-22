@@ -1,7 +1,5 @@
 package io.github.matwein.xmc.fe.stages.main.analysis.logic;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
 import io.github.matwein.xmc.common.stubs.analysis.AssetType;
 import io.github.matwein.xmc.common.stubs.analysis.DtoAssetSelection;
 import javafx.scene.control.CheckBoxTreeItem;
@@ -9,23 +7,32 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Component
 public class SelectedAssetIdsExtractor {
-	public Multimap<AssetType, Long> extractSelectedAssetIds(TreeView<DtoAssetSelection> selectedAssetsTreeView) {
+	public Map<AssetType, List<Long>> extractSelectedAssetIds(TreeView<DtoAssetSelection> selectedAssetsTreeView) {
 		CheckBoxTreeItem<DtoAssetSelection> root = (CheckBoxTreeItem<DtoAssetSelection>)selectedAssetsTreeView.getRoot();
 		
-		Multimap<AssetType, Long> result = ArrayListMultimap.create();
+		Map<AssetType, List<Long>> result = new HashMap<>();
 		populateSelectedAssets(result, root);
 		return result;
 	}
 	
-	private void populateSelectedAssets(Multimap<AssetType, Long> result, CheckBoxTreeItem<DtoAssetSelection> node) {
+	private void populateSelectedAssets(Map<AssetType, List<Long>> result, CheckBoxTreeItem<DtoAssetSelection> node) {
 		if (node == null) {
 			return;
 		}
 		
 		if (node.getValue().getId() != null && node.isSelected()) {
-			result.put(node.getValue().getAssetType(), node.getValue().getId());
+			AssetType assetType = node.getValue().getAssetType();
+			
+			List<Long> ids = result.getOrDefault(assetType, new ArrayList<>());
+			ids.add(node.getValue().getId());
+			result.put(assetType, ids);
 		}
 		
 		for (TreeItem<DtoAssetSelection> child : node.getChildren()) {

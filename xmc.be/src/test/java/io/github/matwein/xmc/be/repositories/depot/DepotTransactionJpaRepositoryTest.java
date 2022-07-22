@@ -1,7 +1,5 @@
 package io.github.matwein.xmc.be.repositories.depot;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import io.github.matwein.xmc.be.IntegrationTest;
 import io.github.matwein.xmc.be.entities.depot.Depot;
 import io.github.matwein.xmc.be.entities.depot.DepotTransaction;
@@ -13,7 +11,9 @@ import org.springframework.data.domain.PageRequest;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 class DepotTransactionJpaRepositoryTest extends IntegrationTest {
 	@Autowired
@@ -39,7 +39,7 @@ class DepotTransactionJpaRepositoryTest extends IntegrationTest {
 		
 		List<DepotTransaction> result = repository.findByDepotAndDeletionDateIsNull(depot);
 		
-		Assertions.assertEquals(Sets.newHashSet(depotTransaction1, depotTransaction3), Sets.newHashSet(result));
+		Assertions.assertEquals(Set.of(depotTransaction1, depotTransaction3), new HashSet<>(result));
 	}
 	
 	@Test
@@ -64,8 +64,8 @@ class DepotTransactionJpaRepositoryTest extends IntegrationTest {
 		
 		flushAndClear();
 		
-		List<DepotTransaction> result = repository.findMostRecentTransactions(Sets.newHashSet(depot.getId()), PageRequest.of(0, 1));
+		List<DepotTransaction> result = repository.findMostRecentTransactions(Set.of(depot.getId()), PageRequest.of(0, 1));
 		
-		Assertions.assertEquals(Lists.newArrayList(depotTransaction3), result);
+		Assertions.assertEquals(List.of(depotTransaction3), result);
 	}
 }

@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.fe.ui.extras;
 
-import com.google.common.collect.Lists;
 import io.github.matwein.xmc.fe.common.ImageUtil;
 import javafx.animation.TranslateTransition;
 import javafx.scene.CacheHint;
@@ -11,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -26,7 +26,7 @@ public class SnowAnimationController {
 	
 	private final AnchorPane pane;
 	private final Random random;
-	private final List<TranslateTransition> transitions = Lists.newArrayList();
+	private final List<TranslateTransition> transitions = new ArrayList<>();
 	
 	private boolean started = false;
 	

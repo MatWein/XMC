@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.be.services.analysis.controller;
 
-import com.google.common.collect.Lists;
 import io.github.matwein.xmc.be.common.LocalDateUtil;
 import io.github.matwein.xmc.be.entities.cashaccount.CashAccount;
 import io.github.matwein.xmc.be.entities.cashaccount.CashAccountTransaction;
@@ -16,6 +15,7 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -50,7 +50,7 @@ public class CashAccountDeliveryLoadingController {
 		result.setAssetId(cashAccountId);
 		result.setAssetType(AssetType.CASHACCOUNT);
 		
-		CashAccount cashAccount = cashAccountJpaRepository.getById(cashAccountId);
+		CashAccount cashAccount = cashAccountJpaRepository.getReferenceById(cashAccountId);
 		result.setAssetName(cashAccount.getName());
 		result.setAssetColor(cashAccount.getColor());
 		
@@ -61,7 +61,7 @@ public class CashAccountDeliveryLoadingController {
 	
 	private List<DtoChartPoint<Number, Number>> loadDeliveryPoints(CashAccount cashAccount, LocalDate startDate, LocalDate endDate) {
 		long days = Duration.between(startDate.atStartOfDay(), endDate.atStartOfDay()).toDays();
-		List<DtoChartPoint<Number, Number>> result = Lists.newArrayListWithExpectedSize((int)days);
+		List<DtoChartPoint<Number, Number>> result = new ArrayList<>((int)days);
 		
 		List<CashAccountTransaction> transactions = cashAccountTransactionJpaRepository.findByCashAccountAndDeletionDateIsNull(cashAccount);
 		
@@ -70,7 +70,7 @@ public class CashAccountDeliveryLoadingController {
 			Optional<CashAccountTransaction> transaction = findLastTransactionBeforeOrOnDate(currentDate, transactions);
 			double valueAtDate = transaction.map(CashAccountTransaction::getSaldoAfter).orElse(BigDecimal.ZERO).doubleValue();
 			
-			result.add(new DtoChartPoint(date, valueAtDate));
+			result.add(new DtoChartPoint<>(date, valueAtDate));
 		}
 		
 		return result;

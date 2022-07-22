@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.fe.ui.extras;
 
-import com.google.common.collect.Sets;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -10,7 +9,7 @@ import java.util.Set;
 
 @Component
 public class ExtrasUsageCalculator {
-	private static final Set<Integer> WINTER_MONTHS = Sets.newHashSet(
+	private static final Set<Integer> WINTER_MONTHS = Set.of(
 			Month.DECEMBER.getValue(),
 			Month.JANUARY.getValue(),
 			Month.FEBRUARY.getValue()

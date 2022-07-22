@@ -1,16 +1,13 @@
 package io.github.matwein.xmc.be.services.cashaccount.controller.importing;
 
-import com.google.common.collect.Maps;
 import com.querydsl.core.QueryResults;
 import io.github.matwein.xmc.be.repositories.category.CategoryRepository;
 import io.github.matwein.xmc.be.services.importing.controller.IImportRowMapper;
 import io.github.matwein.xmc.be.services.importing.parser.BigDecimalParser;
 import io.github.matwein.xmc.be.services.importing.parser.LocalDateParser;
-import io.github.matwein.xmc.common.stubs.Order;
 import io.github.matwein.xmc.common.stubs.PagingParams;
 import io.github.matwein.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
 import io.github.matwein.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransaction;
-import io.github.matwein.xmc.common.stubs.category.CategoryOverviewFields;
 import io.github.matwein.xmc.common.stubs.category.DtoCategory;
 import io.github.matwein.xmc.common.stubs.category.DtoCategoryOverview;
 import io.github.matwein.xmc.common.stubs.importing.DtoColumnMapping;
@@ -24,6 +21,12 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import static io.github.matwein.xmc.common.stubs.Order.ASC;
+import static io.github.matwein.xmc.common.stubs.category.CategoryOverviewFields.NAME;
+import static java.lang.Integer.MAX_VALUE;
 
 @Component
 public class CashAccountTransactionImportLineMapper implements IImportRowMapper<DtoCashAccountTransaction, CashAccountTransactionImportColmn> {
@@ -48,8 +51,9 @@ public class CashAccountTransactionImportLineMapper implements IImportRowMapper<
 	public DtoCashAccountTransaction apply(List<String> line, List<DtoColumnMapping<CashAccountTransactionImportColmn>> columnMappings) {
 		var result = new DtoCashAccountTransaction();
 		
-		QueryResults<DtoCategoryOverview> categories = categoryRepository.loadOverview(new PagingParams<>(0, Integer.MAX_VALUE, CategoryOverviewFields.NAME, Order.ASC, null));
-		Map<String, DtoCategoryOverview> categoriesByName = Maps.uniqueIndex(categories.getResults(), DtoCategoryOverview::getName);
+		QueryResults<DtoCategoryOverview> categories = categoryRepository.loadOverview(new PagingParams<>(0, MAX_VALUE, NAME, ASC, null));
+		Map<String, DtoCategoryOverview> categoriesByName = categories.getResults().stream()
+				.collect(Collectors.toMap(DtoCategoryOverview::getName, Function.identity()));
 		
 		for (DtoColumnMapping<CashAccountTransactionImportColmn> columnMapping : columnMappings) {
 			try {

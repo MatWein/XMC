@@ -31,7 +31,7 @@ public class CashAccountTransactionSaveController {
     }
 
     public void saveOrUpdate(CashAccount cashAccount, DtoCashAccountTransaction dtoTransaction) {
-        Category category = dtoTransaction.getCategory() == null ? null : categoryJpaRepository.getById(dtoTransaction.getCategory().getId());
+        Category category = dtoTransaction.getCategory() == null ? null : categoryJpaRepository.getReferenceById(dtoTransaction.getCategory().getId());
 
         CashAccountTransaction cashAccountTransaction = createOrUpdateCashAccountTransaction(dtoTransaction, category, cashAccount);
         cashAccountTransactionJpaRepository.save(cashAccountTransaction);
@@ -43,7 +43,7 @@ public class CashAccountTransactionSaveController {
         if (dtoTransaction.getId() == null) {
             return dtoCashAccountTransactionToCashAccountTransactionMapper.map(cashAccount, category, dtoTransaction);
         } else {
-            CashAccountTransaction cashAccountTransaction = cashAccountTransactionJpaRepository.getById(dtoTransaction.getId());
+            CashAccountTransaction cashAccountTransaction = cashAccountTransactionJpaRepository.getReferenceById(dtoTransaction.getId());
             dtoCashAccountTransactionToCashAccountTransactionMapper.update(cashAccountTransaction, category, dtoTransaction);
             return cashAccountTransaction;
         }

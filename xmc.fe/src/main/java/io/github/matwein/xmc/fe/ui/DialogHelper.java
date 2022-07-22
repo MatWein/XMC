@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.fe.ui;
 
-import com.google.common.collect.Lists;
 import io.github.matwein.xmc.fe.FeConstants;
 import io.github.matwein.xmc.fe.common.MessageAdapter;
 import io.github.matwein.xmc.fe.common.MessageAdapter.MessageKey;
@@ -14,6 +13,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 
 import java.io.File;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
@@ -27,7 +27,7 @@ public class DialogHelper {
         DialogPane dialogPane = alert.getDialogPane();
 	    dialogPane.getStylesheets().add(FeConstants.BASE_CSS_PATH);
 	    dialogPane.setMinHeight(Region.USE_PREF_SIZE);
-        dialogPane.getButtonTypes().setAll(Lists.newArrayList(ButtonType.NO, ButtonType.OK));
+        dialogPane.getButtonTypes().setAll(List.of(ButtonType.NO, ButtonType.OK));
 
         prepareDefaultAlert(alert);
 

@@ -1,7 +1,5 @@
 package io.github.matwein.xmc.be.services.depot.controller.importing;
 
-import com.google.common.collect.Multimap;
-import com.google.common.collect.Multimaps;
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.be.entities.depot.Depot;
@@ -31,8 +29,10 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class DepotDeliveryImportController {
@@ -106,11 +106,12 @@ public class DepotDeliveryImportController {
 		
 		List<DepotDelivery> existingDeliveries = depotDeliveryJpaRepository.findByDepotAndDeletionDateIsNull(depot);
 		
-		Multimap<LocalDateTime, DtoDepotDeliveryImportRow> deliveriesToImport = Multimaps.index(fileValidationResult.getSuccessfullyReadLines(), DtoDepotDeliveryImportRow::getDeliveryDate);
+		Map<LocalDateTime, List<DtoDepotDeliveryImportRow>> deliveriesToImport = fileValidationResult.getSuccessfullyReadLines().stream()
+				.collect(Collectors.groupingBy(DtoDepotDeliveryImportRow::getDeliveryDate));
 		
-		for (Entry<LocalDateTime, Collection<DtoDepotDeliveryImportRow>> deliveryToImport : deliveriesToImport.asMap().entrySet()) {
+		for (Entry<LocalDateTime, List<DtoDepotDeliveryImportRow>> deliveryToImport : deliveriesToImport.entrySet()) {
 			LocalDateTime deliveryDate = deliveryToImport.getKey();
-			Collection<DtoDepotDeliveryImportRow> depotItems = deliveryToImport.getValue();
+			List<DtoDepotDeliveryImportRow> depotItems = deliveryToImport.getValue();
 			
 			Optional<DepotDelivery> existingDelivery = depotDeliveryFinder.findExistingDeliveries(existingDeliveries, deliveryDate);
 			

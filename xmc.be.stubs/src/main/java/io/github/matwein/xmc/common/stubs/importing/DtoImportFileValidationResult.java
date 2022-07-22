@@ -1,13 +1,12 @@
 package io.github.matwein.xmc.common.stubs.importing;
 
-import com.google.common.collect.Lists;
-
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DtoImportFileValidationResult<T extends Serializable> implements Serializable {
-    private List<T> successfullyReadLines = Lists.newArrayList();
-    private List<DtoImportFileValidationResultError> errors = Lists.newArrayList();
+    private List<T> successfullyReadLines = new ArrayList<>();
+    private List<DtoImportFileValidationResultError> errors = new ArrayList<>();
 
     private int validTransactionCount;
     private int invalidTransactionCount;

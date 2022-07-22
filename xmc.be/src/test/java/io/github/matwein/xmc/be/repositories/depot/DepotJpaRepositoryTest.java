@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.be.repositories.depot;
 
-import com.google.common.collect.Sets;
 import io.github.matwein.xmc.be.IntegrationTest;
 import io.github.matwein.xmc.be.entities.depot.Depot;
 import org.junit.jupiter.api.Assertions;
@@ -8,7 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 class DepotJpaRepositoryTest extends IntegrationTest {
 	@Autowired
@@ -28,6 +29,6 @@ class DepotJpaRepositoryTest extends IntegrationTest {
 		
 		List<Depot> result = repository.findByDeletionDateIsNull();
 		
-		Assertions.assertEquals(Sets.newHashSet(depot1, depot3), Sets.newHashSet(result));
+		Assertions.assertEquals(Set.of(depot1, depot3), new HashSet<>(result));
 	}
 }

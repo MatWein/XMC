@@ -30,7 +30,7 @@ public class CurrencyConversionFactorSaveController {
 		if (dtoCurrencyConversionFactor.getId() == null) {
 			return dtoCurrencyConversionFactorToCurrencyConversionFactorMapper.map(dtoCurrencyConversionFactor);
 		} else {
-			CurrencyConversionFactor conversionFactor = currencyConversionFactorJpaRepository.getById(dtoCurrencyConversionFactor.getId());
+			CurrencyConversionFactor conversionFactor = currencyConversionFactorJpaRepository.getReferenceById(dtoCurrencyConversionFactor.getId());
 			dtoCurrencyConversionFactorToCurrencyConversionFactorMapper.update(conversionFactor, dtoCurrencyConversionFactor);
 			return conversionFactor;
 		}

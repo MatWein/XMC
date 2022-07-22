@@ -1,7 +1,5 @@
 package io.github.matwein.xmc.be.services.analysis.calculation;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Multimap;
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.be.common.TextToColorConverter;
@@ -21,9 +19,7 @@ import scalc.SCalcBuilder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -67,7 +63,7 @@ public class IncomeOutgoingForCategoryPieChartCalculator {
 		Set<String> currencies = cashAccounts.stream()
 				.map(CashAccount::getCurrency)
 				.collect(Collectors.toSet());
-		Multimap<String, CurrencyConversionFactor> currencyConversionFactors = currencyConversionFactorLoadingController.load(currencies);
+		Map<String, List<CurrencyConversionFactor>> currencyConversionFactors = currencyConversionFactorLoadingController.load(currencies);
 		
 		List<CashAccountTransaction> allTransactions = cashAccounts
 				.stream()
@@ -96,7 +92,7 @@ public class IncomeOutgoingForCategoryPieChartCalculator {
 	}
 	
 	private DtoChartSeries<Object, Number> mapEntry(
-			Multimap<String, CurrencyConversionFactor> currencyConversionFactors,
+			Map<String, List<CurrencyConversionFactor>> currencyConversionFactors,
 			CashAccountTransaction transaction,
 			BigDecimal sumOfAllTransactions) {
 		
@@ -112,7 +108,7 @@ public class IncomeOutgoingForCategoryPieChartCalculator {
 		
 		String description = buildDescription(transaction.getUsage(), transaction.getValutaDate(), value, percentage);
 		
-		result.setPoints(Lists.newArrayList(new DtoChartPoint(name, value, description)));
+		result.setPoints(List.of(new DtoChartPoint<>(name, value, description)));
 		
 		return result;
 	}
@@ -141,7 +137,7 @@ public class IncomeOutgoingForCategoryPieChartCalculator {
 	}
 	
 	private BigDecimal calculateTransactionValueInEuro(
-			Multimap<String, CurrencyConversionFactor> currencyConversionFactors,
+			Map<String, List<CurrencyConversionFactor>> currencyConversionFactors,
 			CashAccountTransaction transaction) {
 		
 		BigDecimal value = assetEuroValueCalculator.calculateEuroValue(
@@ -161,8 +157,8 @@ public class IncomeOutgoingForCategoryPieChartCalculator {
 			BigDecimal sumOfAllTransactions,
 			List<DtoChartSeries<Object, Number>> inputTransactions) {
 		
-		List<DtoChartSeries<Object, Number>> transactionsToKeep = Lists.newArrayListWithExpectedSize(inputTransactions.size());
-		List<DtoChartSeries<Object, Number>> transactionsToAggregate = Lists.newArrayListWithExpectedSize(inputTransactions.size());
+		List<DtoChartSeries<Object, Number>> transactionsToKeep = new ArrayList<>(inputTransactions.size());
+		List<DtoChartSeries<Object, Number>> transactionsToAggregate = new ArrayList<>(inputTransactions.size());
 		
 		for (DtoChartSeries<Object, Number> transaction : inputTransactions) {
 			BigDecimal percentage = calculatePercentage(sumOfAllTransactions, transaction.getPoints().get(0).getY());
@@ -174,7 +170,7 @@ public class IncomeOutgoingForCategoryPieChartCalculator {
 			}
 		}
 		
-		List<DtoChartSeries<Object, Number>> result = Lists.newArrayListWithExpectedSize(inputTransactions.size());
+		List<DtoChartSeries<Object, Number>> result = new ArrayList<>(inputTransactions.size());
 		result.addAll(transactionsToKeep);
 		
 		if (transactionsToAggregate.size() > 0) {
@@ -200,7 +196,7 @@ public class IncomeOutgoingForCategoryPieChartCalculator {
 			
 			String description = buildDescription(hint, null, sum, percentage);
 			
-			aggregatedSerie.setPoints(Lists.newArrayList(new DtoChartPoint(name, sum, description)));
+			aggregatedSerie.setPoints(List.of(new DtoChartPoint<>(name, sum, description)));
 			
 			result.add(aggregatedSerie);
 		}

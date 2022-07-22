@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.be.services.analysis.calculation;
 
-import com.google.common.collect.Multimap;
 import io.github.matwein.xmc.be.entities.cashaccount.CashAccountTransaction;
 import io.github.matwein.xmc.be.entities.depot.DepotDelivery;
 import io.github.matwein.xmc.be.repositories.cashaccount.CashAccountTransactionJpaRepository;
@@ -17,6 +16,8 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 
@@ -36,7 +37,7 @@ public class TimeRangeCalculator {
 		this.cashAccountTransactionJpaRepository = cashAccountTransactionJpaRepository;
 	}
 	
-	public Pair<LocalDate, LocalDate> calculateStartAndEndDate(TimeRange timeRange, Multimap<AssetType, Long> assetIds) {
+	public Pair<LocalDate, LocalDate> calculateStartAndEndDate(TimeRange timeRange, Map<AssetType, List<Long>> assetIds) {
 		LocalDate startDate;
 		LocalDate endDate = LocalDate.now();
 		
@@ -59,14 +60,14 @@ public class TimeRangeCalculator {
 		return ImmutablePair.of(startDate, endDate);
 	}
 	
-	private Optional<LocalDate> calculateForMaximumTimeRange(Multimap<AssetType, Long> assetIds) {
+	private Optional<LocalDate> calculateForMaximumTimeRange(Map<AssetType, List<Long>> assetIds) {
 		if (assetIds.isEmpty()) {
 			return Optional.empty();
 		}
 		
 		Optional<LocalDate> startDate = Optional.empty();
 		
-		for (Entry<AssetType, Collection<Long>> entry : assetIds.asMap().entrySet()) {
+		for (Entry<AssetType, List<Long>> entry : assetIds.entrySet()) {
 			Optional<LocalDate> minimumDateForAssets = loadMinimumDateForAssets(entry.getKey(), entry.getValue());
 			
 			if (minimumDateForAssets.isPresent() && (startDate.isEmpty() || startDate.get().isAfter(minimumDateForAssets.get()))) {

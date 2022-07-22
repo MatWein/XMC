@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.fe.stages.main.depot.importing.items.populator;
 
-import com.google.common.collect.Lists;
 import io.github.matwein.xmc.common.stubs.depot.items.DepotItemImportColmn;
 import io.github.matwein.xmc.common.stubs.importing.DtoImportData;
 import io.github.matwein.xmc.fe.importing.DtoColumnMappingFactory;
@@ -9,6 +8,8 @@ import io.github.matwein.xmc.fe.ui.wizard.IWizardStepPopulator;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
 
 @Component
 public class DepotItemImportStep3Populator implements IWizardStepPopulator<DtoImportData<DepotItemImportColmn>, DepotItemImportStep3Controller> {
@@ -22,7 +23,7 @@ public class DepotItemImportStep3Populator implements IWizardStepPopulator<DtoIm
 	@Override
 	public void populateState(DtoImportData<DepotItemImportColmn> input, DepotItemImportStep3Controller controller) {
 		input.setStartWithLine((int)controller.getStartWithLineNumberField().getValue());
-		input.setColmuns(Lists.newArrayList(controller.getColumnMappingTable().getItems()));
+		input.setColmuns(new ArrayList<>(controller.getColumnMappingTable().getItems()));
 	}
 	
 	@Override

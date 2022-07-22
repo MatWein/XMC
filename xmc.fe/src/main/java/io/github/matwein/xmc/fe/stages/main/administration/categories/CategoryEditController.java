@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.fe.stages.main.administration.categories;
 
-import com.google.common.collect.Lists;
 import io.github.matwein.xmc.common.stubs.category.DtoCategory;
 import io.github.matwein.xmc.fe.FeConstants;
 import io.github.matwein.xmc.fe.common.ImageUtil;
@@ -18,7 +17,7 @@ import java.util.List;
 
 @FxmlController
 public class CategoryEditController {
-    private static final List<DtoCategory> PRESET_ITEMS = Lists.newArrayList(
+    private static final List<DtoCategory> PRESET_ITEMS = List.of(
             new DtoCategory(MessageAdapter.getByKey(MessageKey.CATEGORY_WORK), ImageUtil.imageToByteArray$(FeConstants.CATEGORY_BRIEFCASE)),
             new DtoCategory(MessageAdapter.getByKey(MessageKey.CATEGORY_CAR), ImageUtil.imageToByteArray$(FeConstants.CATEGORY_CAR_LEFT)),
             new DtoCategory(MessageAdapter.getByKey(MessageKey.CATEGORY_CREDIT), ImageUtil.imageToByteArray$(FeConstants.CATEGORY_CREDIT_CARD)),

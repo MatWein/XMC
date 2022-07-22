@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.be.services.analysis.controller;
 
-import com.google.common.collect.Lists;
 import io.github.matwein.xmc.be.common.LocalDateUtil;
 import io.github.matwein.xmc.be.entities.depot.Depot;
 import io.github.matwein.xmc.be.entities.depot.DepotDelivery;
@@ -17,6 +16,7 @@ import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -51,7 +51,7 @@ public class DepotDeliveryLoadingController {
 		result.setAssetId(depotId);
 		result.setAssetType(AssetType.DEPOT);
 		
-		Depot depot = depotJpaRepository.getById(depotId);
+		Depot depot = depotJpaRepository.getReferenceById(depotId);
 		result.setAssetName(depot.getName());
 		result.setAssetColor(depot.getColor());
 		
@@ -62,7 +62,7 @@ public class DepotDeliveryLoadingController {
 	
 	private List<DtoChartPoint<Number, Number>> loadDeliveryPoints(Depot depot, LocalDate startDate, LocalDate endDate) {
 		long days = Duration.between(startDate.atStartOfDay(), endDate.atStartOfDay()).toDays();
-		List<DtoChartPoint<Number, Number>> result = Lists.newArrayListWithExpectedSize((int)days);
+		List<DtoChartPoint<Number, Number>> result = new ArrayList<>((int)days);
 		
 		List<DepotDelivery> deliveries = depotDeliveryJpaRepository.findByDepotAndDeletionDateIsNull(depot);
 		
@@ -71,7 +71,7 @@ public class DepotDeliveryLoadingController {
 			Optional<DepotDelivery> delivery = findLastDeliveryBeforeOrOnDate(date, deliveries);
 			double valueAtDate = delivery.map(DepotDelivery::getSaldo).orElse(BigDecimal.ZERO).doubleValue();
 			
-			result.add(new DtoChartPoint(localDateUtil.toMillis(date), valueAtDate));
+			result.add(new DtoChartPoint<>(localDateUtil.toMillis(date), valueAtDate));
 		}
 		
 		return result;

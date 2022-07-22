@@ -1,8 +1,5 @@
 package io.github.matwein.xmc.fe.ui.validation;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
-import com.google.common.collect.Sets;
 import io.github.matwein.xmc.fe.ui.SceneUtil;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,7 +15,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class ValidationSceneState {
-    private static final Set<ButtonData> BUTTON_TYPES_TO_DISABLE = Sets.newHashSet(ButtonData.OK_DONE, ButtonData.APPLY, ButtonData.FINISH, ButtonData.YES);
+    private static final Set<ButtonData> BUTTON_TYPES_TO_DISABLE = Set.of(ButtonData.OK_DONE, ButtonData.APPLY, ButtonData.FINISH, ButtonData.YES);
     private static final String PREFIX = "- ";
 
     private final Set<IValidationComponent> validationComponents = new HashSet<>();
@@ -86,18 +83,26 @@ public class ValidationSceneState {
     }
 
     public boolean validate() {
-        Multimap<IValidationComponent, String> validationErrors = ArrayListMultimap.create();
+        Map<IValidationComponent, List<String>> validationErrors = new HashMap<>();
 
         for (IValidationComponent validationComponent : validationComponents) {
             LinkedHashSet<String> fieldErrors = validationComponent.validate();
-            validationErrors.putAll(validationComponent, fieldErrors);
+	
+            List<String> errorsByKey = validationErrors.getOrDefault(validationComponent, new ArrayList<>());
+            errorsByKey.addAll(fieldErrors);
+            validationErrors.put(validationComponent, errorsByKey);
         }
+        
         for (IValidationController validationController : validationControllers) {
-            Multimap<IValidationComponent, String> controllerErrors = validationController.validate();
+            Map<IValidationComponent, List<String>> controllerErrors = validationController.validate();
             validationErrors.putAll(controllerErrors);
         }
 
-        boolean allValid = validationErrors.isEmpty();
+        boolean allValid = validationErrors.values().stream()
+		        .flatMap(Collection::stream)
+		        .collect(Collectors.toSet())
+		        .isEmpty();
+        
         for (IValidationComponent validationComponent : validationComponents) {
             List<String> validationErrorsForField = validationErrors.get(validationComponent).stream()
                     .map(errorMessage -> PREFIX + errorMessage)

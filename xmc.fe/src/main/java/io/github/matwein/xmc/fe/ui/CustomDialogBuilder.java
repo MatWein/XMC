@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.fe.ui;
 
-import com.google.common.collect.Maps;
 import io.github.matwein.xmc.fe.FeConstants;
 import io.github.matwein.xmc.fe.async.AsyncProcessor;
 import io.github.matwein.xmc.fe.async.IAsyncCallable;
@@ -20,16 +19,18 @@ import javafx.stage.Stage;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
+@SuppressWarnings("rawtypes")
 public class CustomDialogBuilder<CONTROLLER_TYPE, RETURN_TYPE, ASYNC_DATA_TYPE> {
     public static CustomDialogBuilder getInstance() { return new CustomDialogBuilder(); }
 
     private final List<ButtonType> buttons = new ArrayList<>();
-    private final Map<ButtonType, BiConsumer<Dialog<RETURN_TYPE>, CONTROLLER_TYPE>> customButtonActions = Maps.newHashMap();
+    private final Map<ButtonType, BiConsumer<Dialog<RETURN_TYPE>, CONTROLLER_TYPE>> customButtonActions = new HashMap<>();
     
     private MessageKey titleKey;
     private MessageKey headerTextKey;

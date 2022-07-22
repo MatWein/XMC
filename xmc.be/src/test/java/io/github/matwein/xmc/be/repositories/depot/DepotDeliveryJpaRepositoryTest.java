@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.be.repositories.depot;
 
-import com.google.common.collect.Sets;
 import io.github.matwein.xmc.be.IntegrationTest;
 import io.github.matwein.xmc.be.entities.depot.Depot;
 import io.github.matwein.xmc.be.entities.depot.DepotDelivery;
@@ -12,8 +11,10 @@ import org.springframework.data.domain.PageRequest;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 class DepotDeliveryJpaRepositoryTest extends IntegrationTest {
 	@Autowired
@@ -50,7 +51,7 @@ class DepotDeliveryJpaRepositoryTest extends IntegrationTest {
 		List<DepotDelivery> result = repository.findByDeliveryDateGreaterThanEqualAndDeletionDateIsNull(
 				LocalDateTime.of(2021, Month.NOVEMBER, 15, 0, 0, 0));
 		
-		Assertions.assertEquals(Sets.newHashSet(depotDelivery2, depotDelivery3), Sets.newHashSet(result));
+		Assertions.assertEquals(Set.of(depotDelivery2, depotDelivery3), new HashSet<>(result));
 	}
 	
 	@Test
@@ -87,7 +88,7 @@ class DepotDeliveryJpaRepositoryTest extends IntegrationTest {
 		
 		List<DepotDelivery> result = repository.findByDepotAndDeletionDateIsNull(depot);
 		
-		Assertions.assertEquals(Sets.newHashSet(depotDelivery1, depotDelivery2, depotDelivery3), Sets.newHashSet(result));
+		Assertions.assertEquals(Set.of(depotDelivery1, depotDelivery2, depotDelivery3), new HashSet<>(result));
 	}
 	
 	@Test
@@ -125,10 +126,10 @@ class DepotDeliveryJpaRepositoryTest extends IntegrationTest {
 		flushAndClear();
 		
 		List<DepotDelivery> result = repository.findAllDeliveries(
-				Sets.newHashSet(depot1.getId(), depot2.getId()),
+				Set.of(depot1.getId(), depot2.getId()),
 				PageRequest.of(0, 2));
 		
-		Assertions.assertEquals(Sets.newHashSet(depotDelivery1, depotDelivery3), Sets.newHashSet(result));
+		Assertions.assertEquals(Set.of(depotDelivery1, depotDelivery3), new HashSet<>(result));
 	}
 	
 	@Test
@@ -165,7 +166,7 @@ class DepotDeliveryJpaRepositoryTest extends IntegrationTest {
 		
 		flushAndClear();
 		
-		Optional<DepotDelivery> result = repository.findFirstDelivery(Sets.newHashSet(depot1.getId(), depot2.getId()));
+		Optional<DepotDelivery> result = repository.findFirstDelivery(Set.of(depot1.getId(), depot2.getId()));
 		
 		Assertions.assertTrue(result.isPresent());
 		Assertions.assertEquals(depotDelivery1, result.get());

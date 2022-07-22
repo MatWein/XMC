@@ -1,17 +1,15 @@
 package io.github.matwein.xmc.common.stubs;
 
-import com.google.common.collect.ImmutableList;
-
 import java.io.Serializable;
 import java.util.List;
 
 public class QueryResults<T extends Serializable> implements Serializable {
 	private static final QueryResults<Serializable> EMPTY = new QueryResults<>(
-			ImmutableList.of(), Long.MAX_VALUE, 0L, 0L);
+			List.of(), Long.MAX_VALUE, 0L, 0L);
 	
 	public static <T extends Serializable> QueryResults<T> emptyResults() {
 		return (QueryResults<T>) EMPTY;
-	};
+	}
 	
 	private final long limit;
 	private final long offset;

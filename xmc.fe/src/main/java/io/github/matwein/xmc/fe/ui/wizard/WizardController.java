@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.fe.ui.wizard;
 
-import com.google.common.collect.Iterables;
 import io.github.matwein.xmc.fe.common.MessageAdapter;
 import io.github.matwein.xmc.fe.ui.FxmlController;
 import io.github.matwein.xmc.fe.ui.IAfterInit;
@@ -13,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.List;
@@ -33,7 +33,7 @@ public class WizardController<INPUT_TYPE> implements IAfterInit<Pair<List<Wizard
         this.steps = param.getLeft();
         this.input = param.getRight();
 
-        for (WizardStep step : steps) {
+        for (WizardStep<INPUT_TYPE> step : steps) {
             Text stepText = new Text(MessageAdapter.getByKey(step.getTextKey()));
             stepText.setUserData(step);
 
@@ -48,7 +48,7 @@ public class WizardController<INPUT_TYPE> implements IAfterInit<Pair<List<Wizard
     public void switchToPreviousStep() {
         populateState();
 
-        WizardStep previousStep = steps.get(steps.indexOf(currentStep) - 1);
+        WizardStep<INPUT_TYPE> previousStep = steps.get(steps.indexOf(currentStep) - 1);
         switchStep(previousStep);
     }
 
@@ -57,17 +57,18 @@ public class WizardController<INPUT_TYPE> implements IAfterInit<Pair<List<Wizard
         populateState();
 	
 	    currentStep.setFinished(true);
-
-        WizardStep lastStep = Iterables.getLast(steps, null);
-        if (currentStep == lastStep) {
+	
+	    WizardStep<INPUT_TYPE> lastStep = getLastStep();
+	
+	    if (currentStep == lastStep) {
             ((Stage)buttonNext.getScene().getWindow()).close();
         } else {
-            WizardStep nextStep = steps.get(steps.indexOf(currentStep) + 1);
+            WizardStep<INPUT_TYPE> nextStep = steps.get(steps.indexOf(currentStep) + 1);
             switchStep(nextStep);
         }
     }
-
-    private void populateState() {
+	
+	private void populateState() {
         IWizardStepPopulator<INPUT_TYPE, Object> populator = currentStep.getPopulator();
 
         if (populator != null) {
@@ -75,7 +76,7 @@ public class WizardController<INPUT_TYPE> implements IAfterInit<Pair<List<Wizard
         }
     }
 
-    private void switchStep(WizardStep wizardStep) {
+    private void switchStep(WizardStep<INPUT_TYPE> wizardStep) {
         currentStep = wizardStep;
         
         if (wizardStep.getPopulator() != null) {
@@ -96,12 +97,12 @@ public class WizardController<INPUT_TYPE> implements IAfterInit<Pair<List<Wizard
         updateButtons();
 
         if (currentStep.getController() instanceof IAfterInit) {
-            ((IAfterInit) currentStep.getController()).afterInitialize(input);
+            ((IAfterInit<INPUT_TYPE>) currentStep.getController()).afterInitialize(input);
         }
     }
 
     private void updateButtons() {
-        WizardStep firstStep = Iterables.getFirst(steps, null);
+        WizardStep<INPUT_TYPE> firstStep = getFirstStep();
         if (currentStep == firstStep) {
             buttonNext.setDisable(false);
             buttonPrevious.setDisable(true);
@@ -110,7 +111,7 @@ public class WizardController<INPUT_TYPE> implements IAfterInit<Pair<List<Wizard
             buttonPrevious.setDisable(false);
         }
 
-        WizardStep lastStep = Iterables.getLast(steps, null);
+        WizardStep<INPUT_TYPE> lastStep = getLastStep();
         if (currentStep == lastStep) {
             buttonNext.setText(MessageAdapter.getByKey(MessageAdapter.MessageKey.WIZARD_FINISH));
         } else {
@@ -119,4 +120,20 @@ public class WizardController<INPUT_TYPE> implements IAfterInit<Pair<List<Wizard
 
         SceneUtil.createValidationSceneState(buttonNext.getScene()).validate();
     }
+	
+	private WizardStep<INPUT_TYPE> getFirstStep() {
+		WizardStep<INPUT_TYPE> lastStep = null;
+		if (CollectionUtils.isNotEmpty(steps)) {
+			lastStep = steps.get(0);
+		}
+		return lastStep;
+	}
+	
+	private WizardStep<INPUT_TYPE> getLastStep() {
+		WizardStep<INPUT_TYPE> lastStep = null;
+		if (CollectionUtils.isNotEmpty(steps)) {
+			lastStep = steps.get(steps.size() - 1);
+		}
+		return lastStep;
+	}
 }

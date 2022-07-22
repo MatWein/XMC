@@ -1,12 +1,12 @@
 package io.github.matwein.xmc.be.entities.cashaccount;
 
-import com.google.common.collect.Sets;
 import io.github.matwein.xmc.be.entities.Bank;
 import io.github.matwein.xmc.be.entities.DeletablePersistentObject;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -35,7 +35,7 @@ public class CashAccount extends DeletablePersistentObject {
     private LocalDate lastSaldoDate;
 
     @OneToMany(mappedBy = "cashAccount")
-    private Set<CashAccountTransaction> transactions = Sets.newHashSet();
+    private Set<CashAccountTransaction> transactions = new HashSet<>();
 
     public Bank getBank() {
         return bank;

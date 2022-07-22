@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.be.entities.analysis;
 
-import com.google.common.collect.Sets;
 import io.github.matwein.xmc.be.entities.PersistentObject;
 import io.github.matwein.xmc.be.entities.cashaccount.CashAccount;
 import io.github.matwein.xmc.be.entities.depot.Depot;
@@ -9,6 +8,7 @@ import io.github.matwein.xmc.common.stubs.analysis.TimeRange;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -37,13 +37,13 @@ public class AnalysisFavourite extends PersistentObject {
 	@JoinTable(name = TABLE_NAME + "_CASHACCOUNTS",
 			joinColumns = { @JoinColumn(name = "ANALYSIS_FAVOURITE_ID") },
 			inverseJoinColumns = { @JoinColumn(name = "CASHACCOUNT_ID") })
-	private Set<CashAccount> cashAccounts = Sets.newHashSet();
+	private Set<CashAccount> cashAccounts = new HashSet<>();
 	
 	@ManyToMany
 	@JoinTable(name = TABLE_NAME + "_DEPOTS",
 			joinColumns = { @JoinColumn(name = "ANALYSIS_FAVOURITE_ID") },
 			inverseJoinColumns = { @JoinColumn(name = "DEPOT_ID") })
-	private Set<Depot> depots = Sets.newHashSet();
+	private Set<Depot> depots = new HashSet<>();
 	
 	public AnalysisType getType() {
 		return type;

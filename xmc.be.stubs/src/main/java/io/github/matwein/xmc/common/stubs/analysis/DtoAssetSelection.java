@@ -1,8 +1,7 @@
 package io.github.matwein.xmc.common.stubs.analysis;
 
-import com.google.common.collect.Lists;
-
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DtoAssetSelection implements Serializable {
@@ -18,7 +17,7 @@ public class DtoAssetSelection implements Serializable {
 		this.name = name;
 	}
 	
-	private List<DtoAssetSelection> children = Lists.newArrayList();
+	private List<DtoAssetSelection> children = new ArrayList<>();
 	
 	public Long getId() {
 		return id;

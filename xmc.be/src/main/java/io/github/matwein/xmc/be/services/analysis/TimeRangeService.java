@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.be.services.analysis;
 
-import com.google.common.collect.Multimap;
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.be.services.analysis.calculation.TimeRangeCalculator;
@@ -16,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -33,7 +34,7 @@ public class TimeRangeService implements ITimeRangeService {
 	public Pair<LocalDate, LocalDate> calculateStartAndEndDate(
 			IAsyncMonitor monitor,
 			TimeRange timeRange,
-			Multimap<AssetType, Long> assetIds) {
+			Map<AssetType, List<Long>> assetIds) {
 		
 		LOGGER.info("Calculating start/end date for time range '{}' for: {}.", timeRange, assetIds);
 		monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_CALCULATE_STARTEND_DATE));

@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.fe.stages.main.analysis.logic;
 
-import com.google.common.collect.Multimap;
 import io.github.matwein.xmc.common.services.analysis.IAnalysisChartCalculationService;
 import io.github.matwein.xmc.common.stubs.analysis.AnalysisType;
 import io.github.matwein.xmc.common.stubs.analysis.AssetType;
@@ -11,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Component
@@ -27,7 +28,7 @@ public class ChartDataForSelectedTypeLoadingController {
 	public <T> Optional<T> calculateChartForSelectedType(
 			AsyncMonitor monitor,
 			AnalysisType analysisType,
-			Multimap<AssetType, Long> selectedAssetIds,
+			Map<AssetType, List<Long>> selectedAssetIds,
 			LocalDate startDate,
 			LocalDate endDate) {
 		
@@ -37,41 +38,41 @@ public class ChartDataForSelectedTypeLoadingController {
 		
 		switch (analysisType) {
 			case ABSOLUTE_ASSET_VALUE:
-				return (Optional)Optional.of(analysisChartCalculationService.calculateAbsoluteAssetValueLineChart(
+				return (Optional<T>)Optional.of(analysisChartCalculationService.calculateAbsoluteAssetValueLineChart(
 						monitor,
 						selectedAssetIds,
 						startDate,
 						endDate));
 			case AGGREGATED_ASSET_VALUE:
-				return (Optional)Optional.of(analysisChartCalculationService.calculateAggregatedAssetValueLineChart(
+				return (Optional<T>)Optional.of(analysisChartCalculationService.calculateAggregatedAssetValueLineChart(
 						monitor,
 						selectedAssetIds,
 						startDate,
 						endDate));
 			case ABSOLUTE_AND_AGGREGATED_ASSET_VALUE:
-				return (Optional)Optional.of(analysisChartCalculationService.calculateAbsoluteAndAggregatedAssetValueLineChart(
+				return (Optional<T>)Optional.of(analysisChartCalculationService.calculateAbsoluteAndAggregatedAssetValueLineChart(
 						monitor,
 						selectedAssetIds,
 						startDate,
 						endDate));
 			case TRANSACTIONS:
-				return (Optional)Optional.of(analysisChartCalculationService.calculateTransactionsBarChart(
+				return (Optional<T>)Optional.of(analysisChartCalculationService.calculateTransactionsBarChart(
 						monitor,
 						selectedAssetIds,
 						startDate,
 						endDate));
 			case MOST_RECENT_TRANSACTIONS:
-				return (Optional)Optional.of(analysisChartCalculationService.calculateMostRecentTransactions(
+				return (Optional<T>)Optional.of(analysisChartCalculationService.calculateMostRecentTransactions(
 						monitor,
 						selectedAssetIds));
 			case INCOME:
-				return (Optional)Optional.of(analysisChartCalculationService.calculateIncome(
+				return (Optional<T>)Optional.of(analysisChartCalculationService.calculateIncome(
 						monitor,
 						selectedAssetIds.get(AssetType.CASHACCOUNT),
 						startDate,
 						endDate));
 			case OUTGOING:
-				return (Optional)Optional.of(analysisChartCalculationService.calculateOutgoing(
+				return (Optional<T>)Optional.of(analysisChartCalculationService.calculateOutgoing(
 						monitor,
 						selectedAssetIds.get(AssetType.CASHACCOUNT),
 						startDate,

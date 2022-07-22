@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.be.repositories.ccf;
 
-import com.google.common.collect.Sets;
 import io.github.matwein.xmc.be.IntegrationTest;
 import io.github.matwein.xmc.be.entities.depot.CurrencyConversionFactor;
 import org.junit.jupiter.api.Assertions;
@@ -9,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 class CurrencyConversionFactorJpaRepositoryTest extends IntegrationTest {
 	@Autowired
@@ -23,8 +24,8 @@ class CurrencyConversionFactorJpaRepositoryTest extends IntegrationTest {
 		
 		flushAndClear();
 		
-		List<CurrencyConversionFactor> result = repository.findByCurrencyIn(Sets.newHashSet("USD", "JPY"));
+		List<CurrencyConversionFactor> result = repository.findByCurrencyIn(Set.of("USD", "JPY"));
 		
-		Assertions.assertEquals(Sets.newHashSet(ccf1, ccf3), Sets.newHashSet(result));
+		Assertions.assertEquals(Set.of(ccf1, ccf3), new HashSet<>(result));
 	}
 }

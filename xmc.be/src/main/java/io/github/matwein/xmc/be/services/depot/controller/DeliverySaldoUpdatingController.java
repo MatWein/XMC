@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.be.services.depot.controller;
 
-import com.google.common.collect.Multimap;
 import io.github.matwein.xmc.be.entities.depot.CurrencyConversionFactor;
 import io.github.matwein.xmc.be.entities.depot.DepotDelivery;
 import io.github.matwein.xmc.be.entities.depot.DepotItem;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -42,7 +42,7 @@ public class DeliverySaldoUpdatingController {
 				.flatMap(delivery -> delivery.getDepotItems().stream())
 				.map(DepotItem::getCurrency)
 				.collect(Collectors.toSet());
-		Multimap<String, CurrencyConversionFactor> currencyConversionFactors = currencyConversionFactorLoadingController.load(currencies);
+		Map<String, List<CurrencyConversionFactor>> currencyConversionFactors = currencyConversionFactorLoadingController.load(currencies);
 		
 		for (DepotDelivery depotDelivery : deliveriesToUpdate) {
 			updateDeliverySaldo(depotDelivery, currencyConversionFactors);
@@ -52,18 +52,18 @@ public class DeliverySaldoUpdatingController {
 	public void updateDeliverySaldo(DepotDelivery depotDelivery) {
 		depotDeliveryJpaRepository.flush();
 		
-		depotDelivery = depotDeliveryJpaRepository.getById(depotDelivery.getId());
+		depotDelivery = depotDeliveryJpaRepository.getReferenceById(depotDelivery.getId());
 		
 		Set<String> currencies = depotDelivery.getDepotItems().stream()
 				.filter(depotItem -> depotItem.getDeletionDate() == null)
 				.map(DepotItem::getCurrency)
 				.collect(Collectors.toSet());
-		Multimap<String, CurrencyConversionFactor> currencyConversionFactors = currencyConversionFactorLoadingController.load(currencies);
+		Map<String, List<CurrencyConversionFactor>> currencyConversionFactors = currencyConversionFactorLoadingController.load(currencies);
 		
 		updateDeliverySaldo(depotDelivery, currencyConversionFactors);
 	}
 	
-	private void updateDeliverySaldo(DepotDelivery depotDelivery, Multimap<String, CurrencyConversionFactor> currencyConversionFactors) {
+	private void updateDeliverySaldo(DepotDelivery depotDelivery, Map<String, List<CurrencyConversionFactor>> currencyConversionFactors) {
 		BigDecimal sum = depotDelivery.getDepotItems().stream()
 				.filter(depotItem -> depotItem.getDeletionDate() == null)
 				.map(depotItem -> assetEuroValueCalculator.calculateEuroValue(

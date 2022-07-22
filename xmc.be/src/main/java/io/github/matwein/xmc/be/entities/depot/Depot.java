@@ -1,10 +1,10 @@
 package io.github.matwein.xmc.be.entities.depot;
 
-import com.google.common.collect.Sets;
 import io.github.matwein.xmc.be.entities.Bank;
 import io.github.matwein.xmc.be.entities.DeletablePersistentObject;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -28,10 +28,10 @@ public class Depot extends DeletablePersistentObject {
 	private DepotDelivery lastDelivery;
 	
 	@OneToMany(mappedBy = "depot")
-	private Set<DepotDelivery> deliveries = Sets.newHashSet();
+	private Set<DepotDelivery> deliveries = new HashSet<>();
 	
 	@OneToMany(mappedBy = "depot")
-	private Set<DepotTransaction> transactions = Sets.newHashSet();
+	private Set<DepotTransaction> transactions = new HashSet<>();
 	
 	public Bank getBank() {
 		return bank;

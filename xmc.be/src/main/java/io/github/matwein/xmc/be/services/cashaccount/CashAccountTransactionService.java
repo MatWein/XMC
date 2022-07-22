@@ -74,7 +74,7 @@ public class CashAccountTransactionService implements ICashAccountTransactionSer
         LOGGER.info("Loading cash account transaction overview: {}", pagingParams);
         monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_LOAD_CASHACCOUNT_TRANSACTION_OVERVIEW));
 
-        CashAccount cashAccount = cashAccountJpaRepository.getById(cashAccountId);
+        CashAccount cashAccount = cashAccountJpaRepository.getReferenceById(cashAccountId);
 	    var results = cashAccountTransactionRepository.loadOverview(cashAccount, pagingParams);
 	    return queryResultsMapper.map(results);
     }
@@ -104,7 +104,7 @@ public class CashAccountTransactionService implements ICashAccountTransactionSer
         LOGGER.info("Saving cash account transaction: {}", dtoCashAccountTransaction);
         monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_SAVE_CASHACCOUNT_TRANSACTION));
 
-        CashAccount cashAccount = cashAccountJpaRepository.getById(cashAccountId);
+        CashAccount cashAccount = cashAccountJpaRepository.getReferenceById(cashAccountId);
         cashAccountTransactionSaveController.saveOrUpdate(cashAccount, dtoCashAccountTransaction);
     }
 	
@@ -117,13 +117,13 @@ public class CashAccountTransactionService implements ICashAccountTransactionSer
         LOGGER.info("Auto detecting cash account transaction category...");
         monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_DETECT_CASHACCOUNT_TRANSACTION_CATEGORY));
 
-        CashAccount cashAccount = cashAccountJpaRepository.getById(cashAccountId);
+        CashAccount cashAccount = cashAccountJpaRepository.getReferenceById(cashAccountId);
         return categoryDetectionController.autoDetectCategory(cashAccount, usage);
     }
 	
 	@Override
     public Pair<BigDecimal, BigDecimal> calculateSaldoPreview(long cashAccountId, Long transactionId, LocalDate valutaDate, BigDecimal value) {
-        CashAccount cashAccount = cashAccountJpaRepository.getById(cashAccountId);
+        CashAccount cashAccount = cashAccountJpaRepository.getReferenceById(cashAccountId);
 
         BigDecimal saldoBefore;
         if (transactionId == null) {
@@ -131,7 +131,7 @@ public class CashAccountTransactionService implements ICashAccountTransactionSer
                     .map(CashAccountTransaction::getSaldoAfter)
                     .orElse(BigDecimal.valueOf(0.0));
         } else {
-            CashAccountTransaction transaction = cashAccountTransactionJpaRepository.getById(transactionId);
+            CashAccountTransaction transaction = cashAccountTransactionJpaRepository.getReferenceById(transactionId);
             saldoBefore = cashAccountTransactionJpaRepository.findFirstTransactionBeforeOrOnDate(cashAccount, valutaDate, transaction.getCreationDate(), transaction.getId())
                     .map(CashAccountTransaction::getSaldoAfter)
                     .orElse(BigDecimal.valueOf(0.0));

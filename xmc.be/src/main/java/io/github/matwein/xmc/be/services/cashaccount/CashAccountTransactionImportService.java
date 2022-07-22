@@ -64,7 +64,7 @@ public class CashAccountTransactionImportService implements ICashAccountTransact
 			DtoImportData<CashAccountTransactionImportColmn> importData) {
 		
 		LOGGER.info("Importing cash account transaction import file: {}", importData);
-		CashAccount cashAccount = cashAccountJpaRepository.getById(cashAccountId);
+		CashAccount cashAccount = cashAccountJpaRepository.getReferenceById(cashAccountId);
 		
 		cashAccountTransactionImportController.importTransactions(monitor, cashAccount, importData);
 	}

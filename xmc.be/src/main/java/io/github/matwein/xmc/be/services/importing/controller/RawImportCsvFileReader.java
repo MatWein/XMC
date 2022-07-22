@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.be.services.importing.controller;
 
-import com.google.common.collect.Lists;
 import com.opencsv.CSVParser;
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReaderBuilder;
@@ -12,6 +11,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -23,7 +23,7 @@ public class RawImportCsvFileReader {
 				.withIgnoreQuotations(true)
 				.build();
 		
-		List<List<String>> lines = Lists.newArrayList();
+		List<List<String>> lines = new ArrayList<>();
 		
 		try (var fileReader = new FileReader(fileToImport, charset)) {
 			try (var csvReader = new CSVReaderBuilder(fileReader)
@@ -33,7 +33,7 @@ public class RawImportCsvFileReader {
 				
 				String[] line;
 				while ((line = csvReader.readNext()) != null) {
-					lines.add(Lists.newArrayList(line));
+					lines.add(List.of(line));
 				}
 			}
 		}

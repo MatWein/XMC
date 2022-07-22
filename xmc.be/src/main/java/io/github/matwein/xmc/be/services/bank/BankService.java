@@ -83,7 +83,7 @@ public class BankService implements IBankService {
         LOGGER.info("Marking bank '{}' as deleted.", bankId);
         monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_DELETE_BANK));
 
-        Bank bank = bankJpaRepository.getById(bankId);
+        Bank bank = bankJpaRepository.getReferenceById(bankId);
         bank.setDeletionDate(LocalDateTime.now());
         bankJpaRepository.save(bank);
     }

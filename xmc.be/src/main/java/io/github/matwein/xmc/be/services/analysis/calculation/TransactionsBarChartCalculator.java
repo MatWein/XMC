@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.be.services.analysis.calculation;
 
-import com.google.common.collect.Multimap;
 import io.github.matwein.xmc.be.common.LocalDateUtil;
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.services.analysis.controller.AssetTransactionsLoadingController;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
@@ -33,7 +33,7 @@ public class TransactionsBarChartCalculator {
 		this.localDateUtil = localDateUtil;
 	}
 	
-	public List<DtoChartSeries<String, Number>> calculate(Multimap<AssetType, Long> assetIds, LocalDate startDate, LocalDate endDate) {
+	public List<DtoChartSeries<String, Number>> calculate(Map<AssetType, List<Long>> assetIds, LocalDate startDate, LocalDate endDate) {
 		List<DtoAssetPoints> assetTransactions = assetTransactionsLoadingController.loadAssetTransactions(assetIds, startDate, endDate);
 		List<DtoChartSeries<Number, Number>> dtoChartSeries = dtoAssetPointsToDtoChartSeriesMapper.mapAll(assetTransactions, false);
 		

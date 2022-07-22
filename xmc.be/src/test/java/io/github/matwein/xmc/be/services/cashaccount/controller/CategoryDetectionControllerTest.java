@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.be.services.cashaccount.controller;
 
-import com.google.common.collect.Lists;
 import io.github.matwein.xmc.be.entities.cashaccount.CashAccount;
 import io.github.matwein.xmc.be.entities.cashaccount.CashAccountTransaction;
 import io.github.matwein.xmc.be.entities.cashaccount.Category;
@@ -19,6 +18,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.when;
 
+@SuppressWarnings("OptionalGetWithoutIsPresent")
 class CategoryDetectionControllerTest {
     /*
         1 - Auto
@@ -28,7 +28,7 @@ class CategoryDetectionControllerTest {
         5 - Medien
         6 - Haushalt
      */
-    public static final List<CashAccountTransaction> TRANSACTIONS = Lists.newArrayList(
+    public static final List<CashAccountTransaction> TRANSACTIONS = List.of(
             createTransaction("Winterraeder", 1L),
             createTransaction("Uebertrag", null),
             createTransaction("Gehalt August 2020", 2L),
@@ -85,7 +85,7 @@ class CategoryDetectionControllerTest {
 
     @Test
     void testAutoDetectCategory_ExactMatch_MultipleCategories() {
-        List<CashAccountTransaction> transactions = Lists.newArrayList(
+        List<CashAccountTransaction> transactions = List.of(
                 createTransaction("Other", 3L),
                 createTransaction("Vodafone", 1L),
                 createTransaction("Vodafone", 2L),
@@ -106,7 +106,7 @@ class CategoryDetectionControllerTest {
 
     @Test
     void testAutoDetectCategory_ExactMatch_MultipleCategories_Reverse() {
-        List<CashAccountTransaction> transactions = Lists.newArrayList(
+        List<CashAccountTransaction> transactions = List.of(
                 createTransaction("Other", 3L),
                 createTransaction("Vodafone", 1L),
                 createTransaction("Vodafone", 2L),

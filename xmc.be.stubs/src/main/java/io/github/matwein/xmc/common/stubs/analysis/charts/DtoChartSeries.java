@@ -1,9 +1,8 @@
 package io.github.matwein.xmc.common.stubs.analysis.charts;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,8 +10,8 @@ public class DtoChartSeries<X, Y> implements Serializable {
 	private String name;
 	private String color;
 	
-	private List<DtoChartPoint<X, Y>> points = Lists.newArrayList();
-	private Map<String, Object> params = Maps.newHashMap();
+	private List<DtoChartPoint<X, Y>> points = new ArrayList<>();
+	private Map<String, Object> params = new HashMap<>();
 	
 	public String getName() {
 		return name;

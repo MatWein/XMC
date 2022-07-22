@@ -1,15 +1,16 @@
 package io.github.matwein.xmc.fe.importing;
 
-import com.google.common.collect.Maps;
 import io.github.matwein.xmc.common.stubs.importing.DtoColumnMapping;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+@SuppressWarnings("rawtypes")
 @Component
 public class DtoColumnMappingFactory {
 	private static final int FIRST = 1;
@@ -23,7 +24,8 @@ public class DtoColumnMappingFactory {
     }
 	
 	public <T extends Enum<T>> List<DtoColumnMapping<T>> generateMissingColumns(List<DtoColumnMapping<T>> existingColumns) {
-		Map<Integer, DtoColumnMapping<T>> index = Maps.uniqueIndex(existingColumns, DtoColumnMapping::getColumn);
+		Map<Integer, DtoColumnMapping<T>> index = existingColumns.stream()
+				.collect(Collectors.toMap(DtoColumnMapping::getColumn, Function.identity()));
 		
 		return (List)IntStream.rangeClosed(FIRST, LAST)
 				.boxed()

@@ -27,7 +27,7 @@ public class StockSaveController {
 	}
 	
 	public void saveOrUpdate(DtoStock dtoStock) {
-		StockCategory stockCategory = dtoStock.getStockCategory() == null ? null : stockCategoryJpaRepository.getById(dtoStock.getStockCategory().getId());
+		StockCategory stockCategory = dtoStock.getStockCategory() == null ? null : stockCategoryJpaRepository.getReferenceById(dtoStock.getStockCategory().getId());
 		
 		Stock stock = createOrUpdateStock(dtoStock, stockCategory);
 		stockJpaRepository.save(stock);
@@ -37,7 +37,7 @@ public class StockSaveController {
 		if (dtoStock.getId() == null) {
 			return dtoStockToStockMapper.map(dtoStock, stockCategory);
 		} else {
-			Stock stock = stockJpaRepository.getById(dtoStock.getId());
+			Stock stock = stockJpaRepository.getReferenceById(dtoStock.getId());
 			dtoStockToStockMapper.update(stock, dtoStock, stockCategory);
 			return stock;
 		}

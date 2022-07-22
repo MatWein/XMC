@@ -1,17 +1,17 @@
 package io.github.matwein.xmc.be.services.analysis.calculation;
 
-import com.google.common.collect.Lists;
 import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartPoint;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Component
 public class DuplicatedChartPointsReducer {
 	public <X, Y> List<DtoChartPoint<X, Y>> reduce(List<DtoChartPoint<X, Y>> input) {
-		List<DtoChartPoint<X, Y>> result = Lists.newArrayList(input);
-		List<DtoChartPoint<X, Y>> pointsToRemove = Lists.newArrayListWithCapacity(input.size());
+		List<DtoChartPoint<X, Y>> result = new ArrayList<>(input);
+		List<DtoChartPoint<X, Y>> pointsToRemove = new ArrayList<>(input.size());
 		
 		for (int i = 0; i < input.size(); i++) {
 			Optional<DtoChartPoint<X, Y>> pointBefore = findPoint(input, i - 1);

@@ -1,17 +1,18 @@
 package io.github.matwein.xmc.common.stubs.analysis;
 
-import com.google.common.collect.Multimap;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 
 public class DtoAnalysisFavourite implements Serializable {
 	private String name;
 	private AnalysisType analysisType;
 	private TimeRange timeRange;
 	
-	private Multimap<AssetType, Long> assetIds;
+	private Map<AssetType, List<Long>> assetIds;
 	private LocalDate startDate;
 	private LocalDate endDate;
 	
@@ -31,11 +32,11 @@ public class DtoAnalysisFavourite implements Serializable {
 		this.analysisType = analysisType;
 	}
 	
-	public Multimap<AssetType, Long> getAssetIds() {
+	public Map<AssetType, List<Long>> getAssetIds() {
 		return assetIds;
 	}
 	
-	public void setAssetIds(Multimap<AssetType, Long> assetIds) {
+	public void setAssetIds(Map<AssetType, List<Long>> assetIds) {
 		this.assetIds = assetIds;
 	}
 	

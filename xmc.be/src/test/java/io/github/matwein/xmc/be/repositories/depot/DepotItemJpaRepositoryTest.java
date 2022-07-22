@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.be.repositories.depot;
 
-import com.google.common.collect.Lists;
 import io.github.matwein.xmc.be.IntegrationTest;
 import io.github.matwein.xmc.be.entities.depot.DepotDelivery;
 import io.github.matwein.xmc.be.entities.depot.DepotItem;
@@ -29,6 +28,6 @@ class DepotItemJpaRepositoryTest extends IntegrationTest {
 		
 		List<DepotItem> result = repository.findByDeliveryAndDeletionDateIsNull(delivery);
 		
-		Assertions.assertEquals(Lists.newArrayList(depotItem1), result);
+		Assertions.assertEquals(List.of(depotItem1), result);
 	}
 }

@@ -67,7 +67,7 @@ public class DepotService implements IDepotService {
 		LOGGER.info("Marking depot '{}' as deleted.", depotId);
 		monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_DELETE_DEPOT));
 		
-		Depot depot = depotJpaRepository.getById(depotId);
+		Depot depot = depotJpaRepository.getReferenceById(depotId);
 		depot.setDeletionDate(LocalDateTime.now());
 		depotJpaRepository.save(depot);
 	}

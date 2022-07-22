@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.be.services.bank;
 
-import com.google.common.collect.Lists;
 import com.querydsl.core.QueryResults;
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
@@ -53,7 +52,7 @@ class BankServiceTest {
         IAsyncMonitor monitor = Mockito.mock(IAsyncMonitor.class);
 
         Bank bank = new Bank();
-        List<Bank> banks = Lists.newArrayList(bank);
+        List<Bank> banks = List.of(bank);
         when(bankJpaRepository.findByDeletionDateIsNull()).thenReturn(banks);
 
         DtoBank dtoBank = new DtoBank();
@@ -64,7 +63,7 @@ class BankServiceTest {
         verify(monitor).setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_LOAD_ALL_BANKS));
         verify(bankToDtoBankMapper).apply(bank);
 
-        Assertions.assertEquals(Lists.newArrayList(dtoBank), result);
+        Assertions.assertEquals(List.of(dtoBank), result);
     }
 
     @Test

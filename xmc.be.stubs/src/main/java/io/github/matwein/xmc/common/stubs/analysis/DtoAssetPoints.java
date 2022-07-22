@@ -1,9 +1,9 @@
 package io.github.matwein.xmc.common.stubs.analysis;
 
-import com.google.common.collect.Lists;
 import io.github.matwein.xmc.common.stubs.analysis.charts.DtoChartPoint;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DtoAssetPoints implements Serializable {
@@ -12,7 +12,7 @@ public class DtoAssetPoints implements Serializable {
 	private String assetName;
 	private String assetColor;
 	
-	private List<DtoChartPoint<Number, Number>> points = Lists.newArrayList();
+	private List<DtoChartPoint<Number, Number>> points = new ArrayList<>();
 	
 	public long getAssetId() {
 		return assetId;

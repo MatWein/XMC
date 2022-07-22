@@ -1,13 +1,12 @@
 package io.github.matwein.xmc.common.stubs.importing;
 
-import com.google.common.collect.Lists;
-
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DtoImportTemplate<T extends Enum<T>> implements Serializable {
 	private int startWithLine;
-	private List<DtoColumnMapping<T>> colmuns = Lists.newArrayList();
+	private List<DtoColumnMapping<T>> colmuns = new ArrayList<>();
 	private String templateToSaveName;
 	private ImportType importType;
 	private CsvSeparator csvSeparator;

@@ -1,7 +1,5 @@
 package io.github.matwein.xmc.be.services.analysis;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Multimap;
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.be.entities.cashaccount.CashAccountTransaction;
@@ -20,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
 @Service
@@ -57,7 +56,7 @@ public class AnalysisChartCalculationService implements IAnalysisChartCalculatio
 	@Override
 	public List<DtoChartSeries<Number, Number>> calculateAbsoluteAssetValueLineChart(
 			IAsyncMonitor monitor,
-			Multimap<AssetType, Long> assetIds,
+			Map<AssetType, List<Long>> assetIds,
 			LocalDate startDate,
 			LocalDate endDate) {
 		
@@ -70,7 +69,7 @@ public class AnalysisChartCalculationService implements IAnalysisChartCalculatio
 	@Override
 	public List<DtoChartSeries<Number, Number>> calculateAggregatedAssetValueLineChart(
 			IAsyncMonitor monitor,
-			Multimap<AssetType, Long> assetIds,
+			Map<AssetType, List<Long>> assetIds,
 			LocalDate startDate,
 			LocalDate endDate) {
 		
@@ -80,13 +79,13 @@ public class AnalysisChartCalculationService implements IAnalysisChartCalculatio
 		List<DtoChartSeries<Number, Number>> assetLines = absoluteAssetValueLineChartCalculator.calculate(assetIds, startDate, endDate);
 		DtoChartSeries<Number, Number> aggregatedLine = absoluteAssetValueLineChartAggregator.aggregate(assetLines, startDate, endDate);
 		
-		return Lists.newArrayList(aggregatedLine);
+		return List.of(aggregatedLine);
 	}
 	
 	@Override
 	public List<DtoChartSeries<Number, Number>> calculateAbsoluteAndAggregatedAssetValueLineChart(
 			IAsyncMonitor monitor,
-			Multimap<AssetType, Long> assetIds,
+			Map<AssetType, List<Long>> assetIds,
 			LocalDate startDate,
 			LocalDate endDate) {
 		
@@ -106,7 +105,7 @@ public class AnalysisChartCalculationService implements IAnalysisChartCalculatio
 	@Override
 	public List<DtoChartSeries<String, Number>> calculateTransactionsBarChart(
 			IAsyncMonitor monitor,
-			Multimap<AssetType, Long> assetIds,
+			Map<AssetType, List<Long>> assetIds,
 			LocalDate startDate,
 			LocalDate endDate) {
 		
@@ -175,7 +174,7 @@ public class AnalysisChartCalculationService implements IAnalysisChartCalculatio
 	@Override
 	public List<DtoMostRecentTransaction> calculateMostRecentTransactions(
 			IAsyncMonitor monitor,
-			Multimap<AssetType, Long> assetIds) {
+			Map<AssetType, List<Long>> assetIds) {
 		
 		LOGGER.info("Calculating most recent transactions for {}.", assetIds);
 		monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_CALCULATING_CHART));

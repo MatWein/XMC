@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.be.services.cashaccount.controller.importing;
 
-import com.google.common.collect.Lists;
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.be.services.importing.controller.IImportRowValidator;
@@ -9,13 +8,14 @@ import io.github.matwein.xmc.common.stubs.cashaccount.transactions.DtoCashAccoun
 import io.github.matwein.xmc.common.stubs.importing.DtoImportFileValidationResultError;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class CashAccountTransactionImportLineValidator implements IImportRowValidator<DtoCashAccountTransaction> {
 	@Override
 	public List<DtoImportFileValidationResultError> apply(DtoCashAccountTransaction transaction, Integer lineIndex) {
-		List<DtoImportFileValidationResultError> errors = Lists.newArrayList();
+		List<DtoImportFileValidationResultError> errors = new ArrayList<>();
 		
 		if (transaction.getValutaDate() == null) {
 			errors.add(createValueEmptyError(lineIndex, CashAccountTransactionImportColmn.VALUTA_DATE));

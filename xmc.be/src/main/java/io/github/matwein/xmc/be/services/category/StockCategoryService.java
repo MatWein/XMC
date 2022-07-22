@@ -72,7 +72,7 @@ public class StockCategoryService implements IStockCategoryService {
         LOGGER.info("Marking stock category '{}' as deleted.", categoryId);
         monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_DELETE_CATEGORY));
 
-        StockCategory category = stockCategoryJpaRepository.getById(categoryId);
+        StockCategory category = stockCategoryJpaRepository.getReferenceById(categoryId);
         category.setDeletionDate(LocalDateTime.now());
 	    stockCategoryJpaRepository.save(category);
     }

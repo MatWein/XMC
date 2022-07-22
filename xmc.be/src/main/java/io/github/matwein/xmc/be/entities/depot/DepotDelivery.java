@@ -1,11 +1,11 @@
 package io.github.matwein.xmc.be.entities.depot;
 
-import com.google.common.collect.Sets;
 import io.github.matwein.xmc.be.entities.DeletablePersistentObject;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -27,7 +27,7 @@ public class DepotDelivery extends DeletablePersistentObject {
 	private BigDecimal saldo;
 	
 	@OneToMany(mappedBy = "delivery")
-	private Set<DepotItem> depotItems = Sets.newHashSet();
+	private Set<DepotItem> depotItems = new HashSet<>();
 	
 	public Depot getDepot() {
 		return depot;

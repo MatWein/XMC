@@ -1,7 +1,5 @@
 package io.github.matwein.xmc.be.services.analysis.calculation;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Multimap;
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
 import io.github.matwein.xmc.be.common.TextToColorConverter;
@@ -70,7 +68,7 @@ public class IncomeOutgoingPieChartCalculator {
 		Set<String> currencies = cashAccounts.stream()
 				.map(CashAccount::getCurrency)
 				.collect(Collectors.toSet());
-		Multimap<String, CurrencyConversionFactor> currencyConversionFactors = currencyConversionFactorLoadingController.load(currencies);
+		Map<String, List<CurrencyConversionFactor>> currencyConversionFactors = currencyConversionFactorLoadingController.load(currencies);
 		
 		List<CashAccountTransaction> allTransactions = cashAccounts
 				.stream()
@@ -111,7 +109,7 @@ public class IncomeOutgoingPieChartCalculator {
 			Collection<Long> cashAccountIds,
 			LocalDate startDate,
 			LocalDate endDate,
-			Multimap<String, CurrencyConversionFactor> currencyConversionFactors,
+			Map<String, List<CurrencyConversionFactor>> currencyConversionFactors,
 			Entry<Pair<Long, String>, List<CashAccountTransaction>> entry,
 			BigDecimal sumOfAllTransactions) {
 		
@@ -149,13 +147,13 @@ public class IncomeOutgoingPieChartCalculator {
 				MessageAdapter.formatNumber(percentage)
 		);
 		
-		result.setPoints(Lists.newArrayList(new DtoChartPoint(categoryName, sum, description)));
+		result.setPoints(List.of(new DtoChartPoint<>(categoryName, sum, description)));
 		
 		return result;
 	}
 	
 	private BigDecimal calculateTransactionValueInEuro(
-			Multimap<String, CurrencyConversionFactor> currencyConversionFactors,
+			Map<String, List<CurrencyConversionFactor>> currencyConversionFactors,
 			CashAccountTransaction transaction) {
 		
 		return assetEuroValueCalculator.calculateEuroValue(

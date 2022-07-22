@@ -1,7 +1,5 @@
 package io.github.matwein.xmc.be.repositories.cashaccount;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import io.github.matwein.xmc.be.IntegrationTest;
 import io.github.matwein.xmc.be.entities.cashaccount.CashAccount;
 import io.github.matwein.xmc.be.entities.cashaccount.CashAccountTransaction;
@@ -14,8 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 class CashAccountTransactionJpaRepositoryTest extends IntegrationTest {
     @Autowired
@@ -56,7 +53,7 @@ class CashAccountTransactionJpaRepositoryTest extends IntegrationTest {
 
         List<CashAccountTransaction> result = repository.findTransactionsAfterDate(cashAccount, LocalDate.of(2020, Month.JANUARY, 1));
 
-        Assertions.assertEquals(Lists.newArrayList(cashAccountTransaction1, cashAccountTransaction2, cashAccountTransaction3), result);
+        Assertions.assertEquals(List.of(cashAccountTransaction1, cashAccountTransaction2, cashAccountTransaction3), result);
     }
 
     @Test
@@ -94,7 +91,7 @@ class CashAccountTransactionJpaRepositoryTest extends IntegrationTest {
 
         List<CashAccountTransaction> result = repository.findTransactionsBeforeDate(cashAccount, LocalDate.of(2020, Month.MARCH, 1), null);
 
-        Assertions.assertEquals(Lists.newArrayList(cashAccountTransaction3, cashAccountTransaction2, cashAccountTransaction1), result);
+        Assertions.assertEquals(List.of(cashAccountTransaction3, cashAccountTransaction2, cashAccountTransaction1), result);
     }
 
     @Test
@@ -148,7 +145,7 @@ class CashAccountTransactionJpaRepositoryTest extends IntegrationTest {
 		
 		List<CashAccountTransaction> result = repository.findByCashAccountAndDeletionDateIsNull(cashAccount);
 		
-		Assertions.assertEquals(Lists.newArrayList(expectedResult), result);
+		Assertions.assertEquals(List.of(expectedResult), result);
 	}
 	
 	@Test
@@ -167,7 +164,7 @@ class CashAccountTransactionJpaRepositoryTest extends IntegrationTest {
 		
 		List<CashAccountTransaction> result = repository.findByCashAccountAndDeletionDateIsNull(cashAccount);
 		
-		Assertions.assertEquals(Lists.newArrayList(), result);
+		Assertions.assertEquals(new ArrayList<>(), result);
 	}
 	
 	@Test
@@ -189,7 +186,7 @@ class CashAccountTransactionJpaRepositoryTest extends IntegrationTest {
 		
 		flushAndClear();
 		
-		Optional<CashAccountTransaction> result = repository.findFirstTransaction(Lists.newArrayList(cashAccount.getId()));
+		Optional<CashAccountTransaction> result = repository.findFirstTransaction(List.of(cashAccount.getId()));
 		
 		Assertions.assertTrue(result.isPresent());
 		Assertions.assertEquals(transaction2, result.get());
@@ -227,7 +224,7 @@ class CashAccountTransactionJpaRepositoryTest extends IntegrationTest {
 				cashAccount,
 				LocalDate.of(2021, Month.MARCH, 3));
 		
-		Assertions.assertEquals(Sets.newHashSet(transaction1, transaction2), Sets.newHashSet(result));
+		Assertions.assertEquals(Set.of(transaction1, transaction2), new HashSet<>(result));
 	}
 	
 	@Test
@@ -264,7 +261,7 @@ class CashAccountTransactionJpaRepositoryTest extends IntegrationTest {
 				Long.MAX_VALUE,
 				PageRequest.of(0, 10));
 		
-		Assertions.assertEquals(Sets.newHashSet(transaction2, transaction3), Sets.newHashSet(result));
+		Assertions.assertEquals(Set.of(transaction2, transaction3), new HashSet<>(result));
 	}
 	
 	@Test
@@ -331,10 +328,10 @@ class CashAccountTransactionJpaRepositoryTest extends IntegrationTest {
 		flushAndClear();
 		
 		List<CashAccountTransaction> result = repository.findMostRecentTransactions(
-				Sets.newHashSet(cashAccount1.getId(), cashAccount2.getId()),
+				Set.of(cashAccount1.getId(), cashAccount2.getId()),
 				PageRequest.of(0, 10));
 		
-		Assertions.assertEquals(Lists.newArrayList(transaction1, transaction2, transaction3), result);
+		Assertions.assertEquals(List.of(transaction1, transaction2, transaction3), result);
 	}
 	
 	@Test
@@ -364,9 +361,9 @@ class CashAccountTransactionJpaRepositoryTest extends IntegrationTest {
 		flushAndClear();
 		
 		List<CashAccountTransaction> result = repository.findAllTransactions(
-				Sets.newHashSet(cashAccount1.getId(), cashAccount2.getId()),
+				Set.of(cashAccount1.getId(), cashAccount2.getId()),
 				PageRequest.of(0, 10));
 		
-		Assertions.assertEquals(Lists.newArrayList(transaction3, transaction2, transaction1), result);
+		Assertions.assertEquals(List.of(transaction3, transaction2, transaction1), result);
 	}
 }

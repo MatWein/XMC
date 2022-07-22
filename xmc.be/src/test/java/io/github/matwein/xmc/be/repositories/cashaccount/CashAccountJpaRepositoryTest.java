@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.be.repositories.cashaccount;
 
-import com.google.common.collect.Sets;
 import io.github.matwein.xmc.be.IntegrationTest;
 import io.github.matwein.xmc.be.entities.cashaccount.CashAccount;
 import org.junit.jupiter.api.Assertions;
@@ -8,8 +7,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 class CashAccountJpaRepositoryTest extends IntegrationTest {
     @Autowired
@@ -43,6 +44,6 @@ class CashAccountJpaRepositoryTest extends IntegrationTest {
   
 		List<CashAccount> result = repository.findByDeletionDateIsNull();
 		
-		Assertions.assertEquals(Sets.newHashSet(cashAccount1, cashAccount3), Sets.newHashSet(result));
+		Assertions.assertEquals(Set.of(cashAccount1, cashAccount3), new HashSet<>(result));
 	}
 }

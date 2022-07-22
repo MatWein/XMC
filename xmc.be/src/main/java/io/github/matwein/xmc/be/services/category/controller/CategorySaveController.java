@@ -38,7 +38,7 @@ public class CategorySaveController {
         if (dtoCategory.getId() == null) {
             return dtoCategoryToCategoryMapper.map(dtoCategory);
         } else {
-            Category category = categoryJpaRepository.getById(dtoCategory.getId());
+            Category category = categoryJpaRepository.getReferenceById(dtoCategory.getId());
             dtoCategoryToCategoryMapper.update(category, dtoCategory);
             return category;
         }

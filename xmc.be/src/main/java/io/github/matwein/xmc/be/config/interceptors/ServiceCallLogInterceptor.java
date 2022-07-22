@@ -1,6 +1,5 @@
 package io.github.matwein.xmc.be.config.interceptors;
 
-import com.google.common.base.Throwables;
 import com.google.gson.Gson;
 import io.github.matwein.xmc.be.annotations.DisableServiceCallLogging;
 import io.github.matwein.xmc.be.entities.user.ServiceCallLog;
@@ -9,6 +8,7 @@ import io.github.matwein.xmc.common.stubs.IAsyncMonitor;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -60,7 +60,7 @@ public class ServiceCallLogInterceptor implements MethodInterceptor {
 			
 			return result;
 		} catch (Throwable e) {
-			serviceCallLog.setError(StringUtils.abbreviate(Throwables.getStackTraceAsString(e), ServiceCallLog.ERROR_LENGTH));
+			serviceCallLog.setError(StringUtils.abbreviate(ExceptionUtils.getStackTrace(e), ServiceCallLog.ERROR_LENGTH));
 			
 			throw e;
 		} finally {

@@ -13,7 +13,7 @@ public class GenericItemToStringConverter<T> extends StringConverter<T> {
         return new GenericItemToStringConverter<>(toStringFunction);
     }
 
-    private Map<String, T> cache = new HashMap<>();
+    private final Map<String, T> cache = new HashMap<>();
 
     private GenericItemToStringConverter(Function<T, String> toStringFunction) {
         this.toStringFunction = toStringFunction;

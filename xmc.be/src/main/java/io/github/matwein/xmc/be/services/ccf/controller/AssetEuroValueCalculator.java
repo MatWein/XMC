@@ -15,15 +15,6 @@ public class AssetEuroValueCalculator {
 	public BigDecimal calculateEuroValue(
 			BigDecimal valueToConvert,
 			LocalDateTime date,
-			Currency sourceCurrency,
-			Map<String, List<CurrencyConversionFactor>> currencyConversionFactors) {
-		
-		return calculateEuroValue(valueToConvert, date, sourceCurrency.getCurrencyCode(), currencyConversionFactors);
-	}
-	
-	public BigDecimal calculateEuroValue(
-			BigDecimal valueToConvert,
-			LocalDateTime date,
 			String sourceCurrency,
 			Map<String, List<CurrencyConversionFactor>> currencyConversionFactors) {
 		

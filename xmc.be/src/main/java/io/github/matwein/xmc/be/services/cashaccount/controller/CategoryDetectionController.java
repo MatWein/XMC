@@ -10,8 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -34,7 +37,7 @@ public class CategoryDetectionController {
                 .entrySet()
                 .stream()
                 .filter(entry -> entry.getValue() > 0)
-                .max(Comparator.comparing(Entry::getValue));
+                .max(Entry.comparingByValue());
 
         if (exactMatchingCategory.isPresent()) {
             return Optional.of(exactMatchingCategory.get().getKey().getId());
@@ -44,7 +47,7 @@ public class CategoryDetectionController {
                 .entrySet()
                 .stream()
                 .filter(entry -> entry.getValue() > 0)
-                .max(Comparator.comparing(Entry::getValue))
+                .max(Entry.comparingByValue())
                 .map(entry -> entry.getKey().getCategory())
                 .map(PersistentObject::getId);
     }

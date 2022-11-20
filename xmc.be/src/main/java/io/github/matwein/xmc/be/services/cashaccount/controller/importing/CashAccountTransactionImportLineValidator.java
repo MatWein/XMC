@@ -25,6 +25,10 @@ public class CashAccountTransactionImportLineValidator implements IImportRowVali
 			errors.add(createValueEmptyError(lineIndex, CashAccountTransactionImportColmn.VALUE));
 		}
 		
+		if (transaction.getUsage() == null) {
+			errors.add(createValueEmptyError(lineIndex, CashAccountTransactionImportColmn.USAGE));
+		}
+		
 		return errors;
 	}
 	

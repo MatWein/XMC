@@ -3,9 +3,8 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <include file="db.changelog-2021.1.0.xml" relativeToChangelogFile="true" />
-    <include file="db.changelog-2021.2.0.xml" relativeToChangelogFile="true" />
-    <include file="db.changelog-2021.2.1.xml" relativeToChangelogFile="true" />
-    <include file="db.changelog-2021.4.0.xml" relativeToChangelogFile="true" />
+	<changeSet id="2022-11-20-drop_not_null" author="matthias.weinert">
+		<dropNotNullConstraint tableName="BANKS" columnName="BIC" />
+	</changeSet>
 
 </databaseChangeLog>

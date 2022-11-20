@@ -51,8 +51,11 @@ public class AnalysisFavouriteSavingController {
 	}
 	
 	private void save(DtoAnalysisFavourite analysisToSave) {
-		List<CashAccount> cashAccounts = cashAccountJpaRepository.findAllById(analysisToSave.getAssetIds().get(AssetType.CASHACCOUNT));
-		List<Depot> depots = depotJpaRepository.findAllById(analysisToSave.getAssetIds().get(AssetType.DEPOT));
+		List<Long> cashAccountIds = analysisToSave.getAssetIds().get(AssetType.CASHACCOUNT);
+		List<CashAccount> cashAccounts = cashAccountIds == null ? List.of() : cashAccountJpaRepository.findAllById(cashAccountIds);
+		
+		List<Long> depotIds = analysisToSave.getAssetIds().get(AssetType.DEPOT);
+		List<Depot> depots = depotIds == null ? List.of() : depotJpaRepository.findAllById(depotIds);
 		
 		AnalysisFavourite analysisFavourite = dtoAnalysisFavouriteToAnalysisFavouriteMapper.map(analysisToSave, cashAccounts, depots);
 		

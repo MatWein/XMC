@@ -26,7 +26,7 @@ public class LoginController {
 
     @FXML
     public void initialize() {
-        versionLabel.setText(BootstrapController.loadVersionWithoutSprintContext());
+        versionLabel.setText(BootstrapController.loadVersionWithoutSpringContext());
         unsafeWarningLabel.visibleProperty().bind(saveCredentialsToggle.selectedProperty());
 
         autoLoginToggle.selectedProperty().addListener((observableValue, oldValue, newValue) -> {

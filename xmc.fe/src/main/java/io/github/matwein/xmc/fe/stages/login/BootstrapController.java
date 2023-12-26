@@ -46,10 +46,10 @@ public class BootstrapController {
 	
 	@FXML
     public void initialize() {
-        versionLabel.setText(loadVersionWithoutSprintContext());
+        versionLabel.setText(loadVersionWithoutSpringContext());
     }
 
-    public static String loadVersionWithoutSprintContext() {
+    public static String loadVersionWithoutSpringContext() {
         try {
             return new ProjectInfoAutoConfiguration(new ProjectInfoProperties()).buildProperties().getVersion();
         } catch (Exception e) {

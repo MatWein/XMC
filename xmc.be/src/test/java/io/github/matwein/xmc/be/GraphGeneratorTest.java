@@ -1,6 +1,7 @@
 package io.github.matwein.xmc.be;
 
 import io.github.matwein.xmc.be.entities.analysis.AnalysisFavourite;
+import jakarta.persistence.Entity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.reflections.Reflections;
@@ -8,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.Entity;
 import java.lang.reflect.Method;
 import java.util.Set;
 

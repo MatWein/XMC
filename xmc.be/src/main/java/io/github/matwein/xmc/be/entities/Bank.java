@@ -1,6 +1,6 @@
 package io.github.matwein.xmc.be.entities;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = Bank.TABLE_NAME)

@@ -4,8 +4,8 @@ import io.github.matwein.xmc.be.entities.PersistentObject;
 import io.github.matwein.xmc.common.stubs.importing.CsvSeparator;
 import io.github.matwein.xmc.common.stubs.importing.ImportTemplateType;
 import io.github.matwein.xmc.common.stubs.importing.ImportType;
+import jakarta.persistence.*;
 
-import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 

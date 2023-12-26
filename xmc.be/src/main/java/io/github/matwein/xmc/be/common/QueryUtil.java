@@ -8,12 +8,11 @@ import io.github.matwein.xmc.be.common.pagination.IPagingFieldMapper;
 import io.github.matwein.xmc.be.common.pagination.PagingFieldMapperFactory;
 import io.github.matwein.xmc.common.stubs.IPagingField;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import static com.querydsl.core.types.OrderSpecifier.NullHandling.NullsLast;
 

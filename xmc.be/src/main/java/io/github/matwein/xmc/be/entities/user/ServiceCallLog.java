@@ -1,9 +1,9 @@
 package io.github.matwein.xmc.be.entities.user;
 
 import io.github.matwein.xmc.be.entities.PersistentObject;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
 
 @Entity(name = ServiceCallLog.TABLE_NAME)
 public class ServiceCallLog extends PersistentObject {

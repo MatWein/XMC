@@ -2,8 +2,8 @@ package io.github.matwein.xmc.be.entities.depot;
 
 import io.github.matwein.xmc.be.entities.Bank;
 import io.github.matwein.xmc.be.entities.DeletablePersistentObject;
+import jakarta.persistence.*;
 
-import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 

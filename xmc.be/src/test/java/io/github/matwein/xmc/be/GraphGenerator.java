@@ -19,12 +19,12 @@ import io.github.matwein.xmc.common.stubs.importing.CsvSeparator;
 import io.github.matwein.xmc.common.stubs.importing.ImportTemplateType;
 import io.github.matwein.xmc.common.stubs.importing.ImportType;
 import io.github.matwein.xmc.common.stubs.settings.SettingType;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Session;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;

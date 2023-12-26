@@ -81,7 +81,7 @@ public class IncomeOutgoingForCategoryPieChartCalculator {
 		BigDecimal sumOfAllTransactions = SCalcBuilder.bigDecimalInstance()
 				.sumExpression()
 				.build()
-				.paramsAsCollection(transaction -> calculateTransactionValueInEuro(currencyConversionFactors, transaction), transactions)
+				.parameter(transaction -> calculateTransactionValueInEuro(currencyConversionFactors, (CashAccountTransaction) transaction), transactions)
 				.calc();
 		
 		List<DtoChartSeries<Object, Number>> result = transactions.stream()
@@ -184,7 +184,7 @@ public class IncomeOutgoingForCategoryPieChartCalculator {
 			BigDecimal sum = SCalcBuilder.bigDecimalInstance()
 					.sumExpression()
 					.build()
-					.paramsAsCollection(transaction -> transaction.getPoints().get(0).getY(), transactionsToAggregate)
+					.parameter(transaction -> ((DtoChartSeries<Object, Number>)transaction).getPoints().get(0).getY(), transactionsToAggregate)
 					.calc();
 			
 			BigDecimal percentage = calculatePercentage(sumOfAllTransactions, sum);

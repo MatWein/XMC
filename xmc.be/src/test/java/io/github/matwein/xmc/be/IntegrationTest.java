@@ -1,5 +1,7 @@
 package io.github.matwein.xmc.be;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.apache.commons.io.FileUtils;
 import org.hibernate.Session;
 import org.junit.jupiter.api.Disabled;
@@ -12,8 +14,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.io.File;
 
 @Disabled

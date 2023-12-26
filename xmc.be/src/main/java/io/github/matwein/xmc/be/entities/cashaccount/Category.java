@@ -2,8 +2,7 @@ package io.github.matwein.xmc.be.entities.cashaccount;
 
 import io.github.matwein.xmc.be.entities.BinaryData;
 import io.github.matwein.xmc.be.entities.DeletablePersistentObject;
-
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = Category.TABLE_NAME)

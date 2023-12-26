@@ -2,8 +2,7 @@ package io.github.matwein.xmc.be.entities.settings;
 
 import io.github.matwein.xmc.be.entities.PersistentObject;
 import io.github.matwein.xmc.common.stubs.settings.SettingType;
-
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = Setting.TABLE_NAME)

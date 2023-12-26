@@ -1,8 +1,7 @@
 package io.github.matwein.xmc.be.entities.importing;
 
 import io.github.matwein.xmc.be.entities.PersistentObject;
-
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = ImportTemplateColumnMapping.TABLE_NAME, uniqueConstraints = @UniqueConstraint(columnNames = {

@@ -5,8 +5,8 @@ import io.github.matwein.xmc.be.entities.cashaccount.CashAccount;
 import io.github.matwein.xmc.be.entities.depot.Depot;
 import io.github.matwein.xmc.common.stubs.analysis.AnalysisType;
 import io.github.matwein.xmc.common.stubs.analysis.TimeRange;
+import jakarta.persistence.*;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;

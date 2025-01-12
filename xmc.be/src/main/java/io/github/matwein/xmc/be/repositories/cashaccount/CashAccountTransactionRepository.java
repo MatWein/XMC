@@ -50,6 +50,10 @@ public interface CashAccountTransactionRepository extends JpaRepository<CashAcco
 		left join c.icon i
 		where cat.deletionDate is null and ca.id = :cashAccountId and (
 			cat.usage ilike '%' || :filter || '%'
+			or cat.reference ilike '%' || :filter || '%'
+			or cat.referenceBank ilike '%' || :filter || '%'
+			or cat.creditorIdentifier ilike '%' || :filter || '%'
+			or cat.mandate ilike '%' || :filter || '%'
 			or cat.description ilike '%' || :filter || '%'
 			or c.name ilike '%' || :filter || '%'
 		)

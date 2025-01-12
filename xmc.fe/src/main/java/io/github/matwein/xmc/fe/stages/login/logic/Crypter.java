@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Base64;
 
@@ -63,7 +64,7 @@ public class Crypter {
 			byte[] utf8Content = source.getBytes(ENCODING);  
             byte[] encryptedSource = encryptionCipher.doFinal(utf8Content);  
               
-            return Base64.getEncoder().encodeToString(encryptedSource);
+            return encodeToUrlSafeString(encryptedSource);
 		} catch (Throwable e) {
 			String message = "Error on encryption of string.";
 			LOGGER.error(message, e);
@@ -91,7 +92,7 @@ public class Crypter {
 		}
 
 		try {
-			byte[] decryptedSource = Base64.getDecoder().decode(source);
+			byte[] decryptedSource = decodeFromUrlSafeString(source);
             byte[] utf8Content = decryptionCipher.doFinal(decryptedSource);  
   
             return new String(utf8Content, ENCODING);  
@@ -113,5 +114,21 @@ public class Crypter {
 		} catch (UnsupportedEncodingException e) {
 			throw new RuntimeException(String.format("Error on generating password. Encoding '%s' unknown.", ENCODING), e);
 		}
+	}
+	
+	public static String encodeToUrlSafeString(byte[] src) {
+		return new String(encodeUrlSafe(src), StandardCharsets.UTF_8);
+	}
+	
+	public static byte[] encodeUrlSafe(byte[] src) {
+		return Base64.getUrlEncoder().withoutPadding().encode(src);
+	}
+	
+	public static byte[] decodeFromUrlSafeString(String src) {
+		return decodeUrlSafe(src.getBytes(StandardCharsets.UTF_8));
+	}
+	
+	public static byte[] decodeUrlSafe(byte[] src) {
+		return Base64.getUrlDecoder().decode(src);
 	}
 }

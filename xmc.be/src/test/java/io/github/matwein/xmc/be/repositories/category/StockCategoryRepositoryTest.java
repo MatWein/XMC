@@ -1,10 +1,10 @@
 package io.github.matwein.xmc.be.repositories.category;
 
-import com.querydsl.core.QueryResults;
 import io.github.matwein.xmc.be.IntegrationTest;
 import io.github.matwein.xmc.be.entities.depot.StockCategory;
 import io.github.matwein.xmc.common.stubs.Order;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.category.DtoStockCategoryOverview;
 import io.github.matwein.xmc.common.stubs.category.StockCategoryOverviewFields;
 import org.junit.jupiter.api.Assertions;

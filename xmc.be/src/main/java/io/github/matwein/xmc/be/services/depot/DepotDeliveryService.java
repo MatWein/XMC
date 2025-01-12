@@ -2,7 +2,6 @@ package io.github.matwein.xmc.be.services.depot;
 
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
-import io.github.matwein.xmc.be.common.mapper.QueryResultsMapper;
 import io.github.matwein.xmc.be.entities.depot.Depot;
 import io.github.matwein.xmc.be.entities.depot.DepotDelivery;
 import io.github.matwein.xmc.be.repositories.depot.DepotDeliveryJpaRepository;
@@ -35,7 +34,6 @@ public class DepotDeliveryService implements IDepotDeliveryService {
 	private final DepotDeliveryRepository depotDeliveryRepository;
 	private final DepotDeliverySaveController depotDeliverySaveController;
 	private final LastDeliveryUpdatingController lastDeliveryUpdatingController;
-	private final QueryResultsMapper queryResultsMapper;
 	
 	@Autowired
 	public DepotDeliveryService(
@@ -43,15 +41,13 @@ public class DepotDeliveryService implements IDepotDeliveryService {
 			DepotDeliveryJpaRepository depotDeliveryJpaRepository,
 			DepotDeliveryRepository depotDeliveryRepository,
 			DepotDeliverySaveController depotDeliverySaveController,
-			LastDeliveryUpdatingController lastDeliveryUpdatingController,
-			QueryResultsMapper queryResultsMapper) {
+			LastDeliveryUpdatingController lastDeliveryUpdatingController) {
 		
 		this.depotJpaRepository = depotJpaRepository;
 		this.depotDeliveryJpaRepository = depotDeliveryJpaRepository;
 		this.depotDeliveryRepository = depotDeliveryRepository;
 		this.depotDeliverySaveController = depotDeliverySaveController;
 		this.lastDeliveryUpdatingController = lastDeliveryUpdatingController;
-		this.queryResultsMapper = queryResultsMapper;
 	}
 	
 	@Override
@@ -64,8 +60,7 @@ public class DepotDeliveryService implements IDepotDeliveryService {
 		monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_LOAD_DEPOT_DELIVERY_OVERVIEW));
 		
 		Depot depot = depotJpaRepository.getReferenceById(depotId);
-		var results = depotDeliveryRepository.loadOverview(depot, pagingParams);
-		return queryResultsMapper.map(results);
+		return depotDeliveryRepository.loadOverview(depot, pagingParams);
 	}
 	
 	@Override

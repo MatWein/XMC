@@ -17,6 +17,20 @@ public class DtoDepotTransaction implements Serializable {
 	private String description;
 	private String currency;
 	
+	public DtoDepotTransaction() {
+	}
+	
+	public DtoDepotTransaction(Long id, String isin, LocalDate valutaDate, BigDecimal amount, BigDecimal course, BigDecimal value, String description, String currency) {
+		this.id = id;
+		this.isin = isin;
+		this.valutaDate = valutaDate;
+		this.amount = amount;
+		this.course = course;
+		this.value = value;
+		this.description = description;
+		this.currency = currency;
+	}
+	
 	public Long getId() {
 		return id;
 	}

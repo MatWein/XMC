@@ -1,12 +1,12 @@
 package io.github.matwein.xmc.be.repositories.cashaccount;
 
-import com.querydsl.core.QueryResults;
 import io.github.matwein.xmc.be.IntegrationTest;
 import io.github.matwein.xmc.be.entities.Bank;
 import io.github.matwein.xmc.be.entities.BinaryData;
 import io.github.matwein.xmc.be.entities.cashaccount.CashAccount;
 import io.github.matwein.xmc.common.stubs.Order;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.cashaccount.CashAccountOverviewFields;
 import io.github.matwein.xmc.common.stubs.cashaccount.DtoCashAccountOverview;
 import org.junit.jupiter.api.Assertions;

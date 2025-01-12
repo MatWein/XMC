@@ -1,5 +1,7 @@
 package io.github.matwein.xmc.common.stubs.depot.transactions;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class DtoDepotTransactionOverview extends DtoDepotTransaction {
@@ -7,6 +9,17 @@ public class DtoDepotTransactionOverview extends DtoDepotTransaction {
 	
 	private String wkn;
 	private String name;
+	
+	public DtoDepotTransactionOverview() {
+	}
+	
+	public DtoDepotTransactionOverview(Long id, String isin, LocalDate valutaDate, BigDecimal amount, BigDecimal course, BigDecimal value, String description, String currency, LocalDateTime creationDate, String wkn, String name) {
+		super(id, isin, valutaDate, amount, course, value, description, currency);
+		
+		this.creationDate = creationDate;
+		this.wkn = wkn;
+		this.name = name;
+	}
 	
 	public LocalDateTime getCreationDate() {
 		return creationDate;

@@ -3,7 +3,6 @@ package io.github.matwein.xmc.be.services;
 import io.github.matwein.xmc.be.annotations.DisableServiceCallLogging;
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
-import io.github.matwein.xmc.be.common.mapper.QueryResultsMapper;
 import io.github.matwein.xmc.be.repositories.user.ServiceCallLogRepository;
 import io.github.matwein.xmc.common.services.IServiceCallLogService;
 import io.github.matwein.xmc.common.stubs.IAsyncMonitor;
@@ -23,15 +22,10 @@ public class ServiceCallLogService implements IServiceCallLogService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ServiceCallLogService.class);
 	
 	private final ServiceCallLogRepository serviceCallLogRepository;
-	private final QueryResultsMapper queryResultsMapper;
 	
 	@Autowired
-	public ServiceCallLogService(
-			ServiceCallLogRepository serviceCallLogRepository,
-			QueryResultsMapper queryResultsMapper) {
-		
+	public ServiceCallLogService(ServiceCallLogRepository serviceCallLogRepository) {
 		this.serviceCallLogRepository = serviceCallLogRepository;
-		this.queryResultsMapper = queryResultsMapper;
 	}
 	
 	@Override
@@ -40,7 +34,6 @@ public class ServiceCallLogService implements IServiceCallLogService {
 		LOGGER.info("Loading service call logs overview with params: {}", pagingParams);
 		monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_LOAD_SERVICECALLLOGS));
 		
-		var results = serviceCallLogRepository.loadOverview(pagingParams);
-		return queryResultsMapper.map(results);
+		return serviceCallLogRepository.loadOverview(pagingParams);
 	}
 }

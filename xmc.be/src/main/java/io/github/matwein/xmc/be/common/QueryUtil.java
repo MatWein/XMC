@@ -1,69 +1,58 @@
 package io.github.matwein.xmc.be.common;
 
-import com.querydsl.core.types.*;
-import com.querydsl.jpa.hibernate.HibernateDeleteClause;
-import com.querydsl.jpa.hibernate.HibernateQuery;
-import io.github.matwein.xmc.be.common.mapper.OrderMapper;
-import io.github.matwein.xmc.be.common.pagination.IPagingFieldMapper;
 import io.github.matwein.xmc.be.common.pagination.PagingFieldMapperFactory;
 import io.github.matwein.xmc.common.stubs.IPagingField;
+import io.github.matwein.xmc.common.stubs.Order;
 import io.github.matwein.xmc.common.stubs.PagingParams;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import org.hibernate.Session;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import io.github.matwein.xmc.common.stubs.QueryResults;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
-import static com.querydsl.core.types.OrderSpecifier.NullHandling.NullsLast;
+import java.io.Serializable;
 
-@Component
 public class QueryUtil {
-    @PersistenceContext
-    private EntityManager entityManager;
-    
-    @Autowired
-    private PagingFieldMapperFactory pagingFieldMapperFactory;
+	public static <T extends Serializable> QueryResults<T> fromPage(Page<T> page) {
+		return new QueryResults<>(
+				page.stream().toList(),
+				page.getPageable().getPageSize(),
+				page.getPageable().getOffset(),
+				page.getTotalElements());
+	}
 	
-	@Autowired
-	private OrderMapper orderMapper;
-
-    public <RESULT_TYPE, FIELD_ENUM_TYPE extends Enum<FIELD_ENUM_TYPE> & IPagingField> HibernateQuery<RESULT_TYPE>
-    createPagedQuery(PagingParams<FIELD_ENUM_TYPE> pagingParams, FIELD_ENUM_TYPE defaultSortBy, Order defaultOrder) {
-        HibernateQuery<RESULT_TYPE> query = (HibernateQuery)createQuery()
-                .limit(pagingParams.getLimit())
-                .offset(pagingParams.getOffset());
+	public static <FIELD_ENUM_TYPE extends Enum<FIELD_ENUM_TYPE> & IPagingField> Pageable toPageable(
+			PagingParams<FIELD_ENUM_TYPE> pagingParams,
+			FIELD_ENUM_TYPE defaultSortBy,
+			Order defaultOrder) {
+		
+		int pageNumber = pagingParams.getOffset() / pagingParams.getLimit();
+		
+		if (pagingParams.getOrder() != null && pagingParams.getSortBy() != null) {
+			var pagingFieldMapper = PagingFieldMapperFactory.create(pagingParams.getSortBy());
+			var sortField = pagingFieldMapper.map(pagingParams.getSortBy());
+			
+			return PageRequest.of(
+					pageNumber,
+					pagingParams.getLimit(),
+					toDirection(pagingParams.getOrder()),
+					sortField);
+		} else {
+			var pagingFieldMapper = PagingFieldMapperFactory.create(defaultSortBy);
+			var sortField = pagingFieldMapper.map(defaultSortBy);
+			
+			return PageRequest.of(
+					pageNumber,
+					pagingParams.getLimit(),
+					toDirection(defaultOrder),
+					sortField);
+		}
+	}
 	
-	    IPagingFieldMapper pagingFieldMapper = pagingFieldMapperFactory.create(defaultSortBy);
-	
-	    if (pagingParams.getOrder() != null && pagingParams.getSortBy() != null) {
-            Expression<?> expression = createOrderByExpression(pagingFieldMapper.map(pagingParams.getSortBy()));
-            query = query.orderBy(new OrderSpecifier(orderMapper.map(pagingParams.getOrder()), expression, NullsLast));
-        } else {
-            Expression<?> expression = createOrderByExpression(pagingFieldMapper.map(defaultSortBy));
-            query = query.orderBy(new OrderSpecifier(defaultOrder, expression, NullsLast));
-        }
-
-        return query;
-    }
-
-    private Expression<?> createOrderByExpression(Expression<?> expression) {
-        boolean isStringExpression = String.class.isAssignableFrom(expression.getType());
-        if (isStringExpression) {
-            return ExpressionUtils.toLower((Expression)expression);
-        } else {
-            return expression;
-        }
-    }
-	
-	public <RESULT_TYPE> HibernateQuery<RESULT_TYPE> createQuery() {
-        return new HibernateQuery<>(getSession());
-    }
-
-    public HibernateDeleteClause createDeleteClause(EntityPath<?> entityToDelete) {
-        return new HibernateDeleteClause(getSession(), entityToDelete);
-    }
-
-    private Session getSession() {
-        return entityManager.unwrap(Session.class);
-    }
+	private static Sort.Direction toDirection(Order order) {
+		return switch (order) {
+			case ASC -> Sort.Direction.ASC;
+			case DESC -> Sort.Direction.DESC;
+		};
+	}
 }

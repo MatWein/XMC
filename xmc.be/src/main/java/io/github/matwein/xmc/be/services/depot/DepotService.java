@@ -2,7 +2,6 @@ package io.github.matwein.xmc.be.services.depot;
 
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
-import io.github.matwein.xmc.be.common.mapper.QueryResultsMapper;
 import io.github.matwein.xmc.be.entities.depot.Depot;
 import io.github.matwein.xmc.be.repositories.depot.DepotJpaRepository;
 import io.github.matwein.xmc.be.repositories.depot.DepotRepository;
@@ -30,19 +29,16 @@ public class DepotService implements IDepotService {
 	private final DepotRepository depotRepository;
 	private final DepotJpaRepository depotJpaRepository;
 	private final DepotSaveController depotSaveController;
-	private final QueryResultsMapper queryResultsMapper;
 	
 	@Autowired
 	public DepotService(
 			DepotRepository depotRepository,
 			DepotJpaRepository depotJpaRepository,
-			DepotSaveController depotSaveController,
-			QueryResultsMapper queryResultsMapper) {
+			DepotSaveController depotSaveController) {
 		
 		this.depotRepository = depotRepository;
 		this.depotJpaRepository = depotJpaRepository;
 		this.depotSaveController = depotSaveController;
-		this.queryResultsMapper = queryResultsMapper;
 	}
 	
 	@Override
@@ -50,8 +46,7 @@ public class DepotService implements IDepotService {
 		LOGGER.info("Loading depot overview: {}", pagingParams);
 		monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_LOAD_DEPOT_OVERVIEW));
 		
-		var results = depotRepository.loadOverview(pagingParams);
-		return queryResultsMapper.map(results);
+		return depotRepository.loadOverview(pagingParams);
 	}
 	
 	@Override

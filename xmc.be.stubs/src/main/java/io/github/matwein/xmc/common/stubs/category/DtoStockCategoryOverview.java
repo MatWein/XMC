@@ -4,8 +4,13 @@ import java.time.LocalDateTime;
 
 public class DtoStockCategoryOverview extends DtoStockCategory {
     private LocalDateTime creationDate;
-
-    public LocalDateTime getCreationDate() {
+	
+	public DtoStockCategoryOverview(Long id, String name, LocalDateTime creationDate) {
+		super(id, name);
+		this.creationDate = creationDate;
+	}
+	
+	public LocalDateTime getCreationDate() {
         return creationDate;
     }
 

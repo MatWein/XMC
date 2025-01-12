@@ -11,7 +11,8 @@ public class DtoStockCategory implements Serializable {
     public DtoStockCategory() {
     }
 
-    public DtoStockCategory(String name) {
+    public DtoStockCategory(Long id, String name) {
+        this.id = id;
         this.name = name;
     }
 

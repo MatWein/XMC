@@ -13,6 +13,20 @@ public class DtoDepot implements Serializable {
 	private String name;
 	private String color;
 	
+	public DtoDepot() {
+	}
+	
+	public DtoDepot(
+			Long id, String number, String name, String color,
+			Long bankId, String bankName, String bic, String blz, byte[] logo) {
+		
+		this.id = id;
+		this.number = number;
+		this.name = name;
+		this.color = color;
+		this.bank = new DtoBank(bankId, bankName, bic, blz, logo);
+	}
+	
 	public Long getId() {
 		return id;
 	}

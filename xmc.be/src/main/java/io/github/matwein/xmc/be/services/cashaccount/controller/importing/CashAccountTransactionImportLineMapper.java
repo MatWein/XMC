@@ -1,11 +1,11 @@
 package io.github.matwein.xmc.be.services.cashaccount.controller.importing;
 
-import com.querydsl.core.QueryResults;
 import io.github.matwein.xmc.be.repositories.category.CategoryRepository;
 import io.github.matwein.xmc.be.services.importing.controller.IImportRowMapper;
 import io.github.matwein.xmc.be.services.importing.parser.BigDecimalParser;
 import io.github.matwein.xmc.be.services.importing.parser.LocalDateParser;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionImportColmn;
 import io.github.matwein.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransaction;
 import io.github.matwein.xmc.common.stubs.category.DtoCategory;

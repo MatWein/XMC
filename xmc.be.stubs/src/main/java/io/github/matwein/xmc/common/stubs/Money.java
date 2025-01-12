@@ -4,12 +4,18 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 public class Money implements Serializable {
-    private BigDecimal value;
+	private static final String DEFAULT_CURRENCY = "EUR";
+	
+	private BigDecimal value;
     private String currency;
 	
 	public Money() {
 		this.value = BigDecimal.ZERO;
-		this.currency = "EUR";
+		this.currency = DEFAULT_CURRENCY;
+	}
+	
+	public Money(BigDecimal value) {
+		this(value, DEFAULT_CURRENCY);
 	}
 	
 	public Money(BigDecimal value, String currency) {

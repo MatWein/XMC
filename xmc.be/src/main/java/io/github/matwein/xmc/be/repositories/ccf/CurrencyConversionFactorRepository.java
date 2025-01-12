@@ -1,38 +1,34 @@
 package io.github.matwein.xmc.be.repositories.ccf;
 
-import com.querydsl.core.QueryResults;
-import com.querydsl.core.types.Order;
-import com.querydsl.core.types.Projections;
-import io.github.matwein.xmc.be.common.QueryUtil;
+import io.github.matwein.xmc.be.entities.depot.CurrencyConversionFactor;
+import io.github.matwein.xmc.common.stubs.Order;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.ccf.CurrencyConversionFactorOverviewFields;
 import io.github.matwein.xmc.common.stubs.ccf.DtoCurrencyConversionFactor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-import static io.github.matwein.xmc.be.entities.depot.QCurrencyConversionFactor.currencyConversionFactor;
+import static io.github.matwein.xmc.be.common.QueryUtil.fromPage;
+import static io.github.matwein.xmc.be.common.QueryUtil.toPageable;
 
-@Repository
-public class CurrencyConversionFactorRepository {
-	private final QueryUtil queryUtil;
-	
-	@Autowired
-	public CurrencyConversionFactorRepository(QueryUtil queryUtil) {
-		this.queryUtil = queryUtil;
+public interface CurrencyConversionFactorRepository extends JpaRepository<CurrencyConversionFactor, Long> {
+	default QueryResults<DtoCurrencyConversionFactor> loadOverview(PagingParams<CurrencyConversionFactorOverviewFields> pagingParams) {
+		return fromPage(loadOverview$(
+				toPageable(pagingParams, CurrencyConversionFactorOverviewFields.INPUT_DATE, Order.DESC),
+				StringUtils.defaultString(pagingParams.getFilter())));
 	}
 	
-	public QueryResults<DtoCurrencyConversionFactor> loadOverview(PagingParams<CurrencyConversionFactorOverviewFields> pagingParams) {
-		String filter = "%" + StringUtils.defaultString(pagingParams.getFilter()) + "%";
-		
-		return queryUtil.createPagedQuery(pagingParams, CurrencyConversionFactorOverviewFields.INPUT_DATE, Order.DESC)
-				.select(Projections.bean(DtoCurrencyConversionFactor.class,
-						currencyConversionFactor.id,
-						currencyConversionFactor.inputDate,
-						currencyConversionFactor.currency,
-						currencyConversionFactor.factorToEur))
-				.from(currencyConversionFactor)
-				.where(currencyConversionFactor.currency.likeIgnoreCase(filter))
-				.fetchResults();
-	}
+	@Query("""
+		select new io.github.matwein.xmc.common.stubs.ccf.DtoCurrencyConversionFactor(
+			ccf.id, ccf.inputDate, ccf.currency, ccf.factorToEur
+		)
+		from CurrencyConversionFactor ccf
+		where ccf.currency ilike '%' || :filter || '%'
+	""")
+	Page<DtoCurrencyConversionFactor> loadOverview$(Pageable pageable, @Param("filter") String filter);
 }

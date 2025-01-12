@@ -12,6 +12,17 @@ public class DtoStock implements Serializable {
 	private String wkn;
 	private DtoStockCategory stockCategory;
 	
+	public DtoStock() {
+	}
+	
+	public DtoStock(Long id, String isin, String name, String wkn, Long categoryId, String categoryName) {
+		this.id = id;
+		this.isin = isin;
+		this.name = name;
+		this.wkn = wkn;
+		this.stockCategory = (categoryId != null ? new DtoStockCategory(categoryId, categoryName) : null);
+	}
+	
 	public Long getId() {
 		return id;
 	}

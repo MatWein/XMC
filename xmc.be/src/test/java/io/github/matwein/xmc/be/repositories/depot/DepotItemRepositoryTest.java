@@ -1,12 +1,12 @@
 package io.github.matwein.xmc.be.repositories.depot;
 
-import com.querydsl.core.QueryResults;
 import io.github.matwein.xmc.be.IntegrationTest;
 import io.github.matwein.xmc.be.entities.depot.DepotDelivery;
 import io.github.matwein.xmc.be.entities.depot.DepotItem;
 import io.github.matwein.xmc.be.entities.depot.Stock;
 import io.github.matwein.xmc.common.stubs.Order;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.depot.items.DepotItemOverviewFields;
 import io.github.matwein.xmc.common.stubs.depot.items.DtoDepotItemOverview;
 import org.junit.jupiter.api.Assertions;
@@ -23,7 +23,7 @@ class DepotItemRepositoryTest extends IntegrationTest {
 	@Test
 	void testLoadOverview() {
 		PagingParams<DepotItemOverviewFields> pagingParams = new PagingParams<>();
-		pagingParams.setOffset(1);
+		pagingParams.setOffset(2);
 		pagingParams.setLimit(2);
 		pagingParams.setSortBy(DepotItemOverviewFields.AMOUNT);
 		pagingParams.setOrder(Order.DESC);
@@ -60,8 +60,8 @@ class DepotItemRepositoryTest extends IntegrationTest {
 		
 		Assertions.assertEquals(4, result.getTotal());
 		Assertions.assertEquals(2, result.getResults().size());
-		Assertions.assertEquals(depotItem3.getId(), result.getResults().get(0).getId());
-		Assertions.assertEquals(depotItem2.getId(), result.getResults().get(1).getId());
+		Assertions.assertEquals(depotItem2.getId(), result.getResults().get(0).getId());
+		Assertions.assertEquals(depotItem1.getId(), result.getResults().get(1).getId());
 	}
 	
 	@Test

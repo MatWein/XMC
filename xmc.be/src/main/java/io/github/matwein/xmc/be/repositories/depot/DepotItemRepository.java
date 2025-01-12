@@ -1,54 +1,44 @@
 package io.github.matwein.xmc.be.repositories.depot;
 
-import com.querydsl.core.QueryResults;
-import com.querydsl.core.types.ExpressionUtils;
-import com.querydsl.core.types.Order;
-import com.querydsl.core.types.Predicate;
-import com.querydsl.core.types.Projections;
-import io.github.matwein.xmc.be.common.QueryUtil;
 import io.github.matwein.xmc.be.entities.depot.DepotDelivery;
+import io.github.matwein.xmc.be.entities.depot.DepotItem;
+import io.github.matwein.xmc.common.stubs.Order;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.depot.items.DepotItemOverviewFields;
 import io.github.matwein.xmc.common.stubs.depot.items.DtoDepotItemOverview;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-import static io.github.matwein.xmc.be.entities.depot.QDepotItem.depotItem;
-import static io.github.matwein.xmc.be.entities.depot.QStock.stock;
+import static io.github.matwein.xmc.be.common.QueryUtil.fromPage;
+import static io.github.matwein.xmc.be.common.QueryUtil.toPageable;
 
-@Repository
-public class DepotItemRepository {
-	private final QueryUtil queryUtil;
-	
-	@Autowired
-	public DepotItemRepository(QueryUtil queryUtil) {
-		this.queryUtil = queryUtil;
+public interface DepotItemRepository extends JpaRepository<DepotItem, Long> {
+	default QueryResults<DtoDepotItemOverview> loadOverview(DepotDelivery depotDeliveryEntity, PagingParams<DepotItemOverviewFields> pagingParams) {
+		return fromPage(loadOverview$(
+				toPageable(pagingParams, DepotItemOverviewFields.ISIN, Order.ASC),
+				StringUtils.defaultString(pagingParams.getFilter()),
+				depotDeliveryEntity.getId()));
 	}
 	
-	public QueryResults<DtoDepotItemOverview> loadOverview(DepotDelivery depotDeliveryEntity, PagingParams<DepotItemOverviewFields> pagingParams) {
-		Predicate predicate = calculatePredicate(depotDeliveryEntity, pagingParams);
-		
-		return queryUtil.createPagedQuery(pagingParams, DepotItemOverviewFields.ISIN, Order.ASC)
-				.select(Projections.bean(DtoDepotItemOverview.class,
-						depotItem.id, depotItem.isin, depotItem.amount, depotItem.course,
-						depotItem.value, depotItem.currency, depotItem.creationDate,
-						stock.wkn, stock.name))
-				.from(depotItem)
-				.leftJoin(stock).on(stock.isin.eq(depotItem.isin))
-				.where(predicate)
-				.fetchResults();
-	}
-	
-	private Predicate calculatePredicate(DepotDelivery depotDeliveryEntity, PagingParams<DepotItemOverviewFields> pagingParams) {
-		String filter = "%" + StringUtils.defaultString(pagingParams.getFilter()) + "%";
-		
-		Predicate predicate = depotItem.isin.likeIgnoreCase(filter)
-				.or(stock.wkn.likeIgnoreCase(filter))
-				.or(stock.name.likeIgnoreCase(filter));
-		
-		return ExpressionUtils.allOf(predicate,
-				depotItem.deletionDate.isNull(),
-				depotItem.delivery().eq(depotDeliveryEntity));
-	}
+	@Query("""
+		select new io.github.matwein.xmc.common.stubs.depot.items.DtoDepotItemOverview(
+			di.id, di.isin, di.amount, di.course, di.value, di.currency, di.creationDate, s.wkn, s.name
+		)
+		from DepotItem di
+		left join Stock s on s.isin = di.isin
+		where di.deletionDate is null and di.delivery.id = :deliveryId and (
+			di.isin ilike '%' || :filter || '%'
+			or s.wkn ilike '%' || :filter || '%'
+			or s.name ilike '%' || :filter || '%'
+		)
+	""")
+	Page<DtoDepotItemOverview> loadOverview$(
+			Pageable pageable,
+			@Param("filter") String filter,
+			@Param("deliveryId") Long deliveryId);
 }

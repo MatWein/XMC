@@ -4,8 +4,17 @@ import java.time.LocalDateTime;
 
 public class DtoBankOverview extends DtoBank {
     private LocalDateTime creationDate;
-
-    public LocalDateTime getCreationDate() {
+	
+	public DtoBankOverview() {
+	}
+	
+	public DtoBankOverview(Long id, String name, String bic, String blz, byte[] logo, LocalDateTime creationDate) {
+		super(id, name, bic, blz, logo);
+		
+		this.creationDate = creationDate;
+	}
+	
+	public LocalDateTime getCreationDate() {
         return creationDate;
     }
 

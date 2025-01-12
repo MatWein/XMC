@@ -15,6 +15,11 @@ public class DtoDepotDelivery implements Serializable {
 		this.deliveryDate = deliveryDate;
 	}
 	
+	public DtoDepotDelivery(Long id, LocalDateTime deliveryDate) {
+		this.id = id;
+		this.deliveryDate = deliveryDate;
+	}
+	
 	public Long getId() {
 		return id;
 	}

@@ -1,11 +1,11 @@
 package io.github.matwein.xmc.be.repositories.stock;
 
-import com.querydsl.core.QueryResults;
 import io.github.matwein.xmc.be.IntegrationTest;
 import io.github.matwein.xmc.be.entities.depot.Stock;
 import io.github.matwein.xmc.be.entities.depot.StockCategory;
 import io.github.matwein.xmc.common.stubs.Order;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.stocks.DtoMinimalStock;
 import io.github.matwein.xmc.common.stubs.stocks.DtoStockOverview;
 import io.github.matwein.xmc.common.stubs.stocks.StockOverviewFields;

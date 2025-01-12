@@ -2,7 +2,6 @@ package io.github.matwein.xmc.be.services.ccf;
 
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
-import io.github.matwein.xmc.be.common.mapper.QueryResultsMapper;
 import io.github.matwein.xmc.be.entities.depot.CurrencyConversionFactor;
 import io.github.matwein.xmc.be.repositories.ccf.CurrencyConversionFactorJpaRepository;
 import io.github.matwein.xmc.be.repositories.ccf.CurrencyConversionFactorRepository;
@@ -29,21 +28,18 @@ public class CurrencyConversionFactorService implements ICurrencyConversionFacto
 	private final CurrencyConversionFactorSaveController currencyConversionFactorSaveController;
 	private final CurrencyConversionFactorRepository currencyConversionFactorRepository;
 	private final DeliverySaldoUpdatingController deliverySaldoUpdatingController;
-	private final QueryResultsMapper queryResultsMapper;
 	
 	@Autowired
 	public CurrencyConversionFactorService(
 			CurrencyConversionFactorJpaRepository currencyConversionFactorJpaRepository,
 			CurrencyConversionFactorSaveController currencyConversionFactorSaveController,
 			CurrencyConversionFactorRepository currencyConversionFactorRepository,
-			DeliverySaldoUpdatingController deliverySaldoUpdatingController,
-			QueryResultsMapper queryResultsMapper) {
+			DeliverySaldoUpdatingController deliverySaldoUpdatingController) {
 		
 		this.currencyConversionFactorJpaRepository = currencyConversionFactorJpaRepository;
 		this.currencyConversionFactorSaveController = currencyConversionFactorSaveController;
 		this.currencyConversionFactorRepository = currencyConversionFactorRepository;
 		this.deliverySaldoUpdatingController = deliverySaldoUpdatingController;
-		this.queryResultsMapper = queryResultsMapper;
 	}
 	
 	@Override
@@ -51,8 +47,7 @@ public class CurrencyConversionFactorService implements ICurrencyConversionFacto
 		LOGGER.info("Loading currency conversion factor overview: {}", pagingParams);
 		monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_LOAD_CURRENCY_CONVERSION_FACTOR_OVERVIEW));
 		
-		var results = currencyConversionFactorRepository.loadOverview(pagingParams);
-		return queryResultsMapper.map(results);
+		return currencyConversionFactorRepository.loadOverview(pagingParams);
 	}
 	
 	@Override

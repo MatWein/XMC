@@ -4,8 +4,17 @@ import java.time.LocalDateTime;
 
 public class DtoCategoryOverview extends DtoCategory {
     private LocalDateTime creationDate;
-
-    public LocalDateTime getCreationDate() {
+	
+	public DtoCategoryOverview() {
+	}
+	
+	public DtoCategoryOverview(Long id, String name, byte[] icon, LocalDateTime creationDate) {
+		super(id, name, icon);
+		
+		this.creationDate = creationDate;
+	}
+	
+	public LocalDateTime getCreationDate() {
         return creationDate;
     }
 

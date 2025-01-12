@@ -1,43 +1,39 @@
 package io.github.matwein.xmc.be.repositories.bank;
 
-import com.querydsl.core.QueryResults;
-import com.querydsl.core.types.ExpressionUtils;
-import com.querydsl.core.types.Order;
-import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.dsl.BooleanExpression;
-import io.github.matwein.xmc.be.common.QueryUtil;
+import io.github.matwein.xmc.be.entities.Bank;
+import io.github.matwein.xmc.common.stubs.Order;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.bank.BankOverviewFields;
 import io.github.matwein.xmc.common.stubs.bank.DtoBankOverview;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-import static io.github.matwein.xmc.be.entities.QBank.bank;
-import static io.github.matwein.xmc.be.entities.QBinaryData.binaryData;
+import static io.github.matwein.xmc.be.common.QueryUtil.fromPage;
+import static io.github.matwein.xmc.be.common.QueryUtil.toPageable;
 
-@Repository
-public class BankRepository {
-    private final QueryUtil queryUtil;
-
-    @Autowired
-    public BankRepository(QueryUtil queryUtil) {
-        this.queryUtil = queryUtil;
+public interface BankRepository extends JpaRepository<Bank, Long> {
+    default QueryResults<DtoBankOverview> loadOverview(PagingParams<BankOverviewFields> pagingParams) {
+	    return fromPage(loadOverview$(
+			    toPageable(pagingParams, BankOverviewFields.BANK_NAME, Order.ASC),
+			    StringUtils.defaultString(pagingParams.getFilter())));
     }
-
-    public QueryResults<DtoBankOverview> loadOverview(PagingParams<BankOverviewFields> pagingParams) {
-        String filter = "%" + StringUtils.defaultString(pagingParams.getFilter()) + "%";
-        BooleanExpression predicate = bank.bic.likeIgnoreCase(filter)
-                .or(bank.blz.likeIgnoreCase(filter))
-                .or(bank.name.likeIgnoreCase(filter));
-
-        return queryUtil.createPagedQuery(pagingParams, BankOverviewFields.BANK_NAME, Order.ASC)
-                .select(Projections.bean(DtoBankOverview.class,
-                        bank.id, bank.name, bank.bic, bank.blz,
-                        binaryData.rawData.as("logo"), bank.creationDate))
-                .from(bank)
-                .leftJoin(bank.logo(), binaryData)
-                .where(ExpressionUtils.allOf(predicate, bank.deletionDate.isNull()))
-                .fetchResults();
-    }
+	
+	@Query("""
+		select new io.github.matwein.xmc.common.stubs.bank.DtoBankOverview(
+			b.id, b.name, b.bic, b.blz, l.rawData, b.creationDate
+		)
+		from Bank b
+		left join b.logo l
+		where b.deletionDate is null and (
+			b.bic ilike '%' || :filter || '%'
+			or b.blz ilike '%' || :filter || '%'
+			or b.name ilike '%' || :filter || '%'
+		)
+	""")
+	Page<DtoBankOverview> loadOverview$(Pageable pageable, @Param("filter") String filter);
 }

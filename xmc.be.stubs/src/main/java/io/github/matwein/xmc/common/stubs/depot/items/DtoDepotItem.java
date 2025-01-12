@@ -14,6 +14,18 @@ public class DtoDepotItem implements Serializable {
 	private BigDecimal value;
 	private String currency;
 	
+	public DtoDepotItem() {
+	}
+	
+	public DtoDepotItem(Long id, String isin, BigDecimal amount, BigDecimal course, BigDecimal value, String currency) {
+		this.id = id;
+		this.isin = isin;
+		this.amount = amount;
+		this.course = course;
+		this.value = value;
+		this.currency = currency;
+	}
+	
 	public Long getId() {
 		return id;
 	}

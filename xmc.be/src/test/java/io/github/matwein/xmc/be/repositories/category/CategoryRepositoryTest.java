@@ -1,11 +1,11 @@
 package io.github.matwein.xmc.be.repositories.category;
 
-import com.querydsl.core.QueryResults;
 import io.github.matwein.xmc.be.IntegrationTest;
 import io.github.matwein.xmc.be.entities.BinaryData;
 import io.github.matwein.xmc.be.entities.cashaccount.Category;
 import io.github.matwein.xmc.common.stubs.Order;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.category.CategoryOverviewFields;
 import io.github.matwein.xmc.common.stubs.category.DtoCategoryOverview;
 import org.junit.jupiter.api.Assertions;

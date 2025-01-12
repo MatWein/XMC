@@ -7,6 +7,15 @@ public class DtoMinimalStock implements Serializable {
 	private String wkn;
 	private String name;
 	
+	public DtoMinimalStock() {
+	}
+	
+	public DtoMinimalStock(String isin, String wkn, String name) {
+		this.isin = isin;
+		this.wkn = wkn;
+		this.name = name;
+	}
+	
 	public String getIsin() {
 		return isin;
 	}

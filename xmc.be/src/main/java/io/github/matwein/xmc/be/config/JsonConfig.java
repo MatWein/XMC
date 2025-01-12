@@ -5,12 +5,12 @@ import io.github.matwein.xmc.common.annotations.JsonIgnore;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.util.Base64Utils;
 
 import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Base64;
 import java.util.Optional;
 
 @Configuration
@@ -32,7 +32,7 @@ public class JsonConfig {
         JsonSerializer<LocalDate> localDateAdapter = (date, type, context) -> new JsonPrimitive(date.format(DateTimeFormatter.ISO_LOCAL_DATE));
         JsonSerializer<Class> classAdapter = (clazz, type, context) -> new JsonPrimitive(clazz.getName());
         JsonSerializer<LocalDateTime> localDateTimeAdapter = (date, type, context) -> new JsonPrimitive(date.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
-        JsonSerializer<byte[]> byteArrayAdapter = (bytes, type, context) -> new JsonPrimitive(Base64Utils.encodeToString(bytes));
+        JsonSerializer<byte[]> byteArrayAdapter = (bytes, type, context) -> new JsonPrimitive(Base64.getEncoder().encodeToString(bytes));
 	    JsonSerializer<Optional> optionalAdapter = (optional, type, context) -> new JsonPrimitive(applicationContext.getBean(Gson.class).toJson(optional.orElse(null)));
 	    JsonSerializer<File> fileAdapter = (file, type, context) -> new JsonPrimitive(file.getAbsolutePath());
 

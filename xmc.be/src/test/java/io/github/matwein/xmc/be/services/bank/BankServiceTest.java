@@ -1,9 +1,7 @@
 package io.github.matwein.xmc.be.services.bank;
 
-import com.querydsl.core.QueryResults;
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
-import io.github.matwein.xmc.be.common.mapper.QueryResultsMapper;
 import io.github.matwein.xmc.be.entities.Bank;
 import io.github.matwein.xmc.be.repositories.bank.BankJpaRepository;
 import io.github.matwein.xmc.be.repositories.bank.BankRepository;
@@ -11,6 +9,7 @@ import io.github.matwein.xmc.be.services.bank.controller.BankSaveController;
 import io.github.matwein.xmc.be.services.bank.mapper.BankToDtoBankMapper;
 import io.github.matwein.xmc.common.stubs.IAsyncMonitor;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.bank.BankOverviewFields;
 import io.github.matwein.xmc.common.stubs.bank.DtoBank;
 import io.github.matwein.xmc.common.stubs.bank.DtoBankOverview;
@@ -33,7 +32,6 @@ class BankServiceTest {
     @Mock private BankToDtoBankMapper bankToDtoBankMapper;
     @Mock private BankRepository bankRepository;
     @Mock private BankSaveController bankSaveController;
-	@Mock private QueryResultsMapper queryResultsMapper;
 	
 	@BeforeEach
     void setUp() {
@@ -43,8 +41,7 @@ class BankServiceTest {
         		bankJpaRepository,
 		        bankToDtoBankMapper,
 		        bankRepository,
-		        bankSaveController,
-		        queryResultsMapper);
+		        bankSaveController);
     }
 
     @Test
@@ -85,14 +82,11 @@ class BankServiceTest {
         QueryResults<DtoBankOverview> results = QueryResults.emptyResults();
         when(bankRepository.loadOverview(pagingParams)).thenReturn(results);
 	
-	    io.github.matwein.xmc.common.stubs.QueryResults<DtoBankOverview> expectedResult = io.github.matwein.xmc.common.stubs.QueryResults.emptyResults();
-	    when(queryResultsMapper.map(results)).thenReturn(expectedResult);
-	
 	    io.github.matwein.xmc.common.stubs.QueryResults<DtoBankOverview> result = service.loadOverview(monitor, pagingParams);
 
         verify(monitor).setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_LOAD_BANK_OVERVIEW));
         verify(bankRepository).loadOverview(pagingParams);
 
-        Assertions.assertSame(expectedResult, result);
+        Assertions.assertSame(results, result);
     }
 }

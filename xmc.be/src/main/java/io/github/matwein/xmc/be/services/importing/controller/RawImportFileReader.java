@@ -2,6 +2,7 @@ package io.github.matwein.xmc.be.services.importing.controller;
 
 import com.opencsv.exceptions.CsvValidationException;
 import io.github.matwein.xmc.common.stubs.importing.DtoImportData;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class RawImportFileReader {
 	
 	private Charset findCharsetOrDefault(String encoding) {
 		try {
-			return Charset.forName(encoding);
+			return Charset.forName(StringUtils.defaultString(encoding, "UTf-8"));
 		} catch (Throwable e) {
 			LOGGER.warn("Got invalid charset. Fall back to UTF-8.", e);
 			return StandardCharsets.UTF_8;

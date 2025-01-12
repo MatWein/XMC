@@ -1,51 +1,54 @@
 package io.github.matwein.xmc.be.repositories.user;
 
-import com.querydsl.core.QueryResults;
-import com.querydsl.core.types.Order;
-import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.dsl.BooleanExpression;
-import io.github.matwein.xmc.be.common.QueryUtil;
+import io.github.matwein.xmc.be.entities.user.ServiceCallLog;
+import io.github.matwein.xmc.common.stubs.Order;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.protocol.DtoServiceCallLogOverview;
 import io.github.matwein.xmc.common.stubs.protocol.ServiceCallLogOverviewFields;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 
-import static io.github.matwein.xmc.be.entities.user.QServiceCallLog.serviceCallLog;
+import static io.github.matwein.xmc.be.common.QueryUtil.fromPage;
+import static io.github.matwein.xmc.be.common.QueryUtil.toPageable;
 
-@Repository
-public class ServiceCallLogRepository {
-    private final QueryUtil queryUtil;
-
-    @Autowired
-    public ServiceCallLogRepository(QueryUtil queryUtil) {
-        this.queryUtil = queryUtil;
-    }
-
-    public long cleanupServiceCallLogs(int maxServicecalllogLifetimeInDays) {
-        return queryUtil.createDeleteClause(serviceCallLog)
-                .where(serviceCallLog.creationDate.before(LocalDateTime.now().minusDays(maxServicecalllogLifetimeInDays)))
-                .execute();
-    }
-	
-	public QueryResults<DtoServiceCallLogOverview> loadOverview(PagingParams<ServiceCallLogOverviewFields> pagingParams) {
-		String filter = "%" + StringUtils.defaultString(pagingParams.getFilter()) + "%";
-		BooleanExpression predicate = serviceCallLog.serviceClass.likeIgnoreCase(filter)
-				.or(serviceCallLog.serviceMethod.likeIgnoreCase(filter))
-				.or(serviceCallLog.parameterValues.likeIgnoreCase(filter))
-				.or(serviceCallLog.returnValue.likeIgnoreCase(filter))
-				.or(serviceCallLog.error.likeIgnoreCase(filter));
-		
-		return queryUtil.createPagedQuery(pagingParams, ServiceCallLogOverviewFields.CREATION_DATE, Order.DESC)
-				.select(Projections.bean(DtoServiceCallLogOverview.class,
-						serviceCallLog.creationDate, serviceCallLog.serviceClass, serviceCallLog.serviceMethod,
-						serviceCallLog.returnValue, serviceCallLog.parameterValues, serviceCallLog.error,
-						serviceCallLog.callDuration))
-				.from(serviceCallLog)
-				.where(predicate)
-				.fetchResults();
+public interface ServiceCallLogRepository extends JpaRepository<ServiceCallLog, Long> {
+	default int cleanupServiceCallLogs(@Param("maxServicecalllogLifetimeInDays") int maxServicecalllogLifetimeInDays) {
+		return cleanupServiceCallLogs(LocalDateTime.now().minusDays(maxServicecalllogLifetimeInDays));
 	}
+	
+    @Modifying
+	@Query("""
+        delete from ServiceCallLog scl
+        where scl.creationDate < :maxCreationDate
+    """)
+    int cleanupServiceCallLogs(@Param("maxCreationDate") LocalDateTime maxCreationDate);
+	
+	default QueryResults<DtoServiceCallLogOverview> loadOverview(PagingParams<ServiceCallLogOverviewFields> pagingParams) {
+		return fromPage(loadOverview$(
+				toPageable(pagingParams, ServiceCallLogOverviewFields.CREATION_DATE, Order.DESC),
+				StringUtils.defaultString(pagingParams.getFilter())));
+	}
+	
+	@Query("""
+		select new io.github.matwein.xmc.common.stubs.protocol.DtoServiceCallLogOverview(
+			scl.creationDate, scl.serviceClass, scl.serviceMethod, scl.returnValue, scl.parameterValues, scl.error, scl.callDuration
+		)
+		from ServiceCallLog scl
+		where (
+			scl.serviceClass ilike '%' || :filter || '%'
+			or scl.serviceMethod ilike '%' || :filter || '%'
+			or scl.parameterValues ilike '%' || :filter || '%'
+			or scl.returnValue ilike '%' || :filter || '%'
+			or scl.error ilike '%' || :filter || '%'
+		)
+	""")
+	Page<DtoServiceCallLogOverview> loadOverview$(Pageable pageable, @Param("filter") String filter);
 }

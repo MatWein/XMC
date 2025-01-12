@@ -2,7 +2,6 @@ package io.github.matwein.xmc.be.services.bank;
 
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
-import io.github.matwein.xmc.be.common.mapper.QueryResultsMapper;
 import io.github.matwein.xmc.be.entities.Bank;
 import io.github.matwein.xmc.be.repositories.bank.BankJpaRepository;
 import io.github.matwein.xmc.be.repositories.bank.BankRepository;
@@ -34,21 +33,18 @@ public class BankService implements IBankService {
     private final BankToDtoBankMapper bankToDtoBankMapper;
     private final BankRepository bankRepository;
     private final BankSaveController bankSaveController;
-	private final QueryResultsMapper queryResultsMapper;
 	
 	@Autowired
     public BankService(
 		    BankJpaRepository bankJpaRepository,
 		    BankToDtoBankMapper bankToDtoBankMapper,
 		    BankRepository bankRepository,
-		    BankSaveController bankSaveController,
-		    QueryResultsMapper queryResultsMapper) {
+		    BankSaveController bankSaveController) {
 
         this.bankJpaRepository = bankJpaRepository;
         this.bankToDtoBankMapper = bankToDtoBankMapper;
         this.bankRepository = bankRepository;
         this.bankSaveController = bankSaveController;
-		this.queryResultsMapper = queryResultsMapper;
 	}
 
     @Override
@@ -74,8 +70,7 @@ public class BankService implements IBankService {
         LOGGER.info("Loading bank overview: {}", pagingParams);
         monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_LOAD_BANK_OVERVIEW));
 		
-		var results = bankRepository.loadOverview(pagingParams);
-		return queryResultsMapper.map(results);
+		return bankRepository.loadOverview(pagingParams);
     }
 	
 	@Override

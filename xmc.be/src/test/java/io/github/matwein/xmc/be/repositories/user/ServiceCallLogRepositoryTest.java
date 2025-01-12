@@ -1,11 +1,10 @@
 package io.github.matwein.xmc.be.repositories.user;
 
-import com.querydsl.core.QueryResults;
-import com.querydsl.jpa.hibernate.HibernateQuery;
 import io.github.matwein.xmc.be.IntegrationTest;
 import io.github.matwein.xmc.be.entities.user.ServiceCallLog;
 import io.github.matwein.xmc.common.stubs.Order;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.protocol.DtoServiceCallLogOverview;
 import io.github.matwein.xmc.common.stubs.protocol.ServiceCallLogOverviewFields;
 import org.junit.jupiter.api.Assertions;
@@ -16,8 +15,6 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
 import java.util.Set;
-
-import static io.github.matwein.xmc.be.entities.user.QServiceCallLog.serviceCallLog;
 
 class ServiceCallLogRepositoryTest extends IntegrationTest {
     @Autowired
@@ -43,10 +40,7 @@ class ServiceCallLogRepositoryTest extends IntegrationTest {
 
         flushAndClear();
 
-        Set<ServiceCallLog> serviceCallLogs = new HashSet<>(new HibernateQuery<>(session())
-                .select(serviceCallLog)
-                .from(serviceCallLog)
-                .fetch());
+        Set<ServiceCallLog> serviceCallLogs = new HashSet<>(repository.findAll());
 
         Assertions.assertEquals(Set.of(serviceCallLog1, serviceCallLog3), serviceCallLogs);
     }

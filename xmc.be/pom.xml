@@ -42,10 +42,6 @@
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-core</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.querydsl</groupId>
-			<artifactId>querydsl-jpa</artifactId>
-		</dependency>
 
 		<!-- Logging -->
 		<dependency>
@@ -107,42 +103,5 @@
 			<artifactId>reflections</artifactId>
 		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<generatedSourcesDirectory>target/generated-sources/java</generatedSourcesDirectory>
-					<compilerArgs>
-						<arg>-Aquerydsl.entityAccessors=true</arg>
-					</compilerArgs>
-					<annotationProcessorPaths>
-						<path>
-							<groupId>com.querydsl</groupId>
-							<artifactId>querydsl-apt</artifactId>
-							<version>${querydsl.version}</version>
-							<classifier>jakarta</classifier>
-						</path>
-						<path>
-							<groupId>jakarta.annotation</groupId>
-							<artifactId>jakarta.annotation-api</artifactId>
-							<version>${jakarta-annotation.version}</version>
-						</path>
-						<path>
-							<groupId>jakarta.persistence</groupId>
-							<artifactId>jakarta.persistence-api</artifactId>
-							<version>${jakarta-persistence.version}</version>
-						</path>
-						<path>
-							<groupId>org.hibernate.orm</groupId>
-							<artifactId>hibernate-core</artifactId>
-							<version>${hibernate.version}</version>
-						</path>
-					</annotationProcessorPaths>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 
 </project>

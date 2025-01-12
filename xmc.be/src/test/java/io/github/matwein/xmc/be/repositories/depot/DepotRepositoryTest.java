@@ -1,12 +1,12 @@
 package io.github.matwein.xmc.be.repositories.depot;
 
-import com.querydsl.core.QueryResults;
 import io.github.matwein.xmc.be.IntegrationTest;
 import io.github.matwein.xmc.be.entities.Bank;
 import io.github.matwein.xmc.be.entities.depot.Depot;
 import io.github.matwein.xmc.be.entities.depot.DepotDelivery;
 import io.github.matwein.xmc.common.stubs.Order;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.depot.DepotOverviewFields;
 import io.github.matwein.xmc.common.stubs.depot.DtoDepotOverview;
 import org.junit.jupiter.api.Assertions;

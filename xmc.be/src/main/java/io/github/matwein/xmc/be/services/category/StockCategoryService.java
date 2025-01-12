@@ -2,7 +2,6 @@ package io.github.matwein.xmc.be.services.category;
 
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
-import io.github.matwein.xmc.be.common.mapper.QueryResultsMapper;
 import io.github.matwein.xmc.be.entities.depot.StockCategory;
 import io.github.matwein.xmc.be.repositories.category.StockCategoryJpaRepository;
 import io.github.matwein.xmc.be.repositories.category.StockCategoryRepository;
@@ -35,19 +34,16 @@ public class StockCategoryService implements IStockCategoryService {
 	private final StockCategoryJpaRepository stockCategoryJpaRepository;
 	private final StockCategoryRepository stockCategoryRepository;
 	private final StockCategorySaveController stockCategorySaveController;
-	private final QueryResultsMapper queryResultsMapper;
 	
 	@Autowired
 	public StockCategoryService(
 			StockCategoryJpaRepository stockCategoryJpaRepository,
 			StockCategoryRepository stockCategoryRepository,
-			StockCategorySaveController stockCategorySaveController,
-			QueryResultsMapper queryResultsMapper) {
+			StockCategorySaveController stockCategorySaveController) {
 		
 		this.stockCategoryJpaRepository = stockCategoryJpaRepository;
 		this.stockCategoryRepository = stockCategoryRepository;
 		this.stockCategorySaveController = stockCategorySaveController;
-		this.queryResultsMapper = queryResultsMapper;
 	}
 	
 	@Override
@@ -63,8 +59,7 @@ public class StockCategoryService implements IStockCategoryService {
         LOGGER.info("Loading stock category overview: {}", pagingParams);
         monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_LOAD_CATEGORY_OVERVIEW));
 		
-		var results = stockCategoryRepository.loadOverview(pagingParams);
-		return queryResultsMapper.map(results);
+		return stockCategoryRepository.loadOverview(pagingParams);
     }
 	
 	@Override

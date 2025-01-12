@@ -2,7 +2,6 @@ package io.github.matwein.xmc.be.services.depot;
 
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
-import io.github.matwein.xmc.be.common.mapper.QueryResultsMapper;
 import io.github.matwein.xmc.be.entities.depot.DepotDelivery;
 import io.github.matwein.xmc.be.entities.depot.DepotItem;
 import io.github.matwein.xmc.be.repositories.depot.DepotDeliveryJpaRepository;
@@ -37,7 +36,6 @@ public class DepotItemService implements IDepotItemService {
 	private final DepotItemSaveController depotItemSaveController;
 	private final DeliverySaldoUpdatingController deliverySaldoUpdatingController;
 	private final DepotItemJpaRepository depotItemJpaRepository;
-	private final QueryResultsMapper queryResultsMapper;
 	
 	@Autowired
 	public DepotItemService(
@@ -45,15 +43,13 @@ public class DepotItemService implements IDepotItemService {
 			DepotItemRepository depotItemRepository,
 			DepotItemSaveController depotItemSaveController,
 			DeliverySaldoUpdatingController deliverySaldoUpdatingController,
-			DepotItemJpaRepository depotItemJpaRepository,
-			QueryResultsMapper queryResultsMapper) {
+			DepotItemJpaRepository depotItemJpaRepository) {
 		
 		this.depotDeliveryJpaRepository = depotDeliveryJpaRepository;
 		this.depotItemRepository = depotItemRepository;
 		this.depotItemSaveController = depotItemSaveController;
 		this.deliverySaldoUpdatingController = deliverySaldoUpdatingController;
 		this.depotItemJpaRepository = depotItemJpaRepository;
-		this.queryResultsMapper = queryResultsMapper;
 	}
 	
 	@Override
@@ -66,8 +62,7 @@ public class DepotItemService implements IDepotItemService {
 		monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_LOAD_DEPOT_ITEM_OVERVIEW));
 		
 		DepotDelivery depotDelivery = depotDeliveryJpaRepository.getReferenceById(depotDeliveryId);
-		var results = depotItemRepository.loadOverview(depotDelivery, pagingParams);
-		return queryResultsMapper.map(results);
+		return depotItemRepository.loadOverview(depotDelivery, pagingParams);
 	}
 	
 	@Override

@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.1</version>
+        <version>3.4.1</version>
         <relativePath/>
     </parent>
 
@@ -24,14 +24,13 @@
 	</modules>
 
     <properties>
-		<revision>2023.4.0</revision>
+		<revision>2025.1.0</revision>
 
         <java.version>21</java.version>
         <start-class>io.github.matwein.xmc.Main</start-class>
 		<javafx.platform>current</javafx.platform>
 
-        <openjfx.version>21.0.1</openjfx.version>
-        <querydsl.version>5.0.0</querydsl.version>
+        <openjfx.version>23.0.1</openjfx.version>
         <apache.poi.version>5.2.3</apache.poi.version>
     </properties>
 
@@ -87,19 +86,6 @@
 				</exclusions>
 			</dependency>
 
-			<!-- Database -->
-			<dependency>
-				<groupId>com.querydsl</groupId>
-				<artifactId>querydsl-jpa</artifactId>
-				<version>${querydsl.version}</version>
-				<classifier>jakarta</classifier>
-			</dependency>
-			<dependency>
-				<groupId>com.querydsl</groupId>
-				<artifactId>querydsl-core</artifactId>
-				<version>${querydsl.version}</version>
-			</dependency>
-
 			<!-- Other -->
 			<dependency>
 				<groupId>org.apache.commons</groupId>
@@ -140,11 +126,6 @@
 				<groupId>net.coobird</groupId>
 				<artifactId>thumbnailator</artifactId>
 				<version>0.4.17</version>
-			</dependency>
-			<dependency>
-				<groupId>com.google.code.gson</groupId>
-				<artifactId>gson</artifactId>
-				<version>2.10</version>
 			</dependency>
 
 			<!-- Test / Development -->

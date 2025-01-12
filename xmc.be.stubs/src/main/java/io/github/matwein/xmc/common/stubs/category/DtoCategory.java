@@ -14,6 +14,12 @@ public class DtoCategory implements Serializable {
         this.name = name;
         this.icon = icon;
     }
+	
+	public DtoCategory(Long id, String name, byte[] icon) {
+		this.id = id;
+		this.name = name;
+		this.icon = icon;
+	}
 
     public Long getId() {
         return id;

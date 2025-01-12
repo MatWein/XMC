@@ -12,6 +12,27 @@ public class DtoServiceCallLogOverview implements Serializable {
 	private String error;
 	private long callDuration;
 	
+	public DtoServiceCallLogOverview() {
+	}
+	
+	public DtoServiceCallLogOverview(
+			LocalDateTime creationDate,
+			String serviceClass,
+			String serviceMethod,
+			String returnValue,
+			String parameterValues,
+			String error,
+			long callDuration) {
+		
+		this.creationDate = creationDate;
+		this.serviceClass = serviceClass;
+		this.serviceMethod = serviceMethod;
+		this.returnValue = returnValue;
+		this.parameterValues = parameterValues;
+		this.error = error;
+		this.callDuration = callDuration;
+	}
+	
 	public LocalDateTime getCreationDate() {
 		return creationDate;
 	}

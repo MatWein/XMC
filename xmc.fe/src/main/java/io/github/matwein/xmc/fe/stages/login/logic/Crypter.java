@@ -4,12 +4,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.util.Base64Utils;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
+import java.util.Base64;
 
 @Component
 public class Crypter {
@@ -63,7 +63,7 @@ public class Crypter {
 			byte[] utf8Content = source.getBytes(ENCODING);  
             byte[] encryptedSource = encryptionCipher.doFinal(utf8Content);  
               
-            return Base64Utils.encodeToUrlSafeString(encryptedSource);
+            return Base64.getEncoder().encodeToString(encryptedSource);
 		} catch (Throwable e) {
 			String message = "Error on encryption of string.";
 			LOGGER.error(message, e);
@@ -91,7 +91,7 @@ public class Crypter {
 		}
 
 		try {
-			byte[] decryptedSource = Base64Utils.decodeFromUrlSafeString(source);
+			byte[] decryptedSource = Base64.getDecoder().decode(source);
             byte[] utf8Content = decryptionCipher.doFinal(decryptedSource);  
   
             return new String(utf8Content, ENCODING);  

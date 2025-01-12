@@ -1,72 +1,66 @@
 package io.github.matwein.xmc.be.repositories.cashaccount;
 
-import com.querydsl.core.QueryResults;
-import com.querydsl.core.types.*;
-import io.github.matwein.xmc.be.common.QueryUtil;
 import io.github.matwein.xmc.be.entities.cashaccount.CashAccount;
-import io.github.matwein.xmc.common.stubs.Money;
+import io.github.matwein.xmc.be.entities.cashaccount.CashAccountTransaction;
+import io.github.matwein.xmc.common.stubs.Order;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.cashaccount.transactions.CashAccountTransactionOverviewFields;
 import io.github.matwein.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransactionOverview;
-import io.github.matwein.xmc.common.stubs.category.DtoCategory;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-import static com.querydsl.core.types.OrderSpecifier.NullHandling.NullsLast;
-import static io.github.matwein.xmc.be.entities.QBinaryData.binaryData;
-import static io.github.matwein.xmc.be.entities.cashaccount.QCashAccount.cashAccount;
-import static io.github.matwein.xmc.be.entities.cashaccount.QCashAccountTransaction.cashAccountTransaction;
-import static io.github.matwein.xmc.be.entities.cashaccount.QCategory.category;
+import java.util.List;
+import java.util.stream.Collectors;
 
-@Repository
-public class CashAccountTransactionRepository {
-    private final QueryUtil queryUtil;
+import static io.github.matwein.xmc.be.common.QueryUtil.fromPage;
+import static io.github.matwein.xmc.be.common.QueryUtil.toPageable;
 
-    @Autowired
-    public CashAccountTransactionRepository(QueryUtil queryUtil) {
-        this.queryUtil = queryUtil;
-    }
-
-    public QueryResults<DtoCashAccountTransactionOverview> loadOverview(
+public interface CashAccountTransactionRepository extends JpaRepository<CashAccountTransaction, Long> {
+    default QueryResults<DtoCashAccountTransactionOverview> loadOverview(
     		CashAccount cashAccountEntity,
 		    PagingParams<CashAccountTransactionOverviewFields> pagingParams) {
-    	
-        Predicate predicate = calculatePredicate(cashAccountEntity, pagingParams);
-
-        return queryUtil.createPagedQuery(pagingParams, CashAccountTransactionOverviewFields.VALUTA_DATE, Order.DESC)
-                .select(Projections.bean(DtoCashAccountTransactionOverview.class,
-                        cashAccountTransaction.id,
-		                ExpressionUtils.as(Projections.bean(DtoCategory.class, category.id, category.name, binaryData.rawData.as("icon")).skipNulls(), "category"),
-		                Projections.bean(Money.class, cashAccountTransaction.value, cashAccount.currency).as("valueWithCurrency"),
-		                Projections.bean(Money.class, cashAccountTransaction.saldoBefore.as("value"), cashAccount.currency).as("saldoBefore"),
-		                Projections.bean(Money.class, cashAccountTransaction.saldoAfter.as("value"), cashAccount.currency).as("saldoAfter"),
-                        cashAccountTransaction.usage, cashAccountTransaction.description,
-                        cashAccountTransaction.valutaDate, cashAccountTransaction.value,
-                        cashAccountTransaction.reference, cashAccountTransaction.referenceIban,
-                        cashAccountTransaction.referenceBank, cashAccountTransaction.creditorIdentifier,
-                        cashAccountTransaction.mandate, cashAccountTransaction.creationDate))
-                .from(cashAccountTransaction)
-                .innerJoin(cashAccountTransaction.cashAccount(), cashAccount)
-                .leftJoin(cashAccountTransaction.category(), category)
-                .leftJoin(category.icon(), binaryData)
-                .where(predicate)
-		        .orderBy(new OrderSpecifier(Order.DESC, cashAccountTransaction.creationDate, NullsLast))
-		        .orderBy(new OrderSpecifier(Order.DESC, cashAccountTransaction.id, NullsLast))
-                .fetchResults();
+	    
+	    Pageable pageable = toPageable(pagingParams, CashAccountTransactionOverviewFields.VALUTA_DATE, Order.DESC);
+	    
+		List<String> sortProperties = pageable.getSort().stream()
+			    .map(Sort.Order::getProperty)
+			    .collect(Collectors.toList());
+	    sortProperties.add("creationDate");
+	    sortProperties.add("id");
+	    
+	    pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.DESC, sortProperties.toArray(new String[] {}));
+		
+	    return fromPage(loadOverview$(
+			    pageable,
+			    StringUtils.defaultString(pagingParams.getFilter()),
+			    cashAccountEntity.getId()));
     }
-
-    private Predicate calculatePredicate(CashAccount cashAccount, PagingParams<CashAccountTransactionOverviewFields> pagingParams) {
-        String filter = "%" + StringUtils.defaultString(pagingParams.getFilter()) + "%";
-
-        Predicate predicate = cashAccountTransaction.usage.likeIgnoreCase(filter)
-                .or(cashAccountTransaction.description.likeIgnoreCase(filter))
-                .or(category.name.likeIgnoreCase(filter));
-
-        predicate = ExpressionUtils.allOf(predicate,
-                cashAccountTransaction.deletionDate.isNull(),
-                cashAccountTransaction.cashAccount().eq(cashAccount));
-
-        return predicate;
-    }
+	
+	@Query("""
+		select new io.github.matwein.xmc.common.stubs.cashaccount.transactions.DtoCashAccountTransactionOverview(
+			cat.id, c.id, c.name, i.rawData, ca.currency, cat.saldoBefore, cat.saldoAfter,
+			cat.usage, cat.description, cat.valutaDate, cat.value, cat.reference, cat.referenceIban,
+			cat.referenceBank, cat.creditorIdentifier, cat.mandate, cat.creationDate
+		)
+		from CashAccountTransaction cat
+		inner join cat.cashAccount ca
+		left join cat.category c
+		left join c.icon i
+		where cat.deletionDate is null and ca.id = :cashAccountId and (
+			cat.usage ilike '%' || :filter || '%'
+			or cat.description ilike '%' || :filter || '%'
+			or c.name ilike '%' || :filter || '%'
+		)
+	""")
+	Page<DtoCashAccountTransactionOverview> loadOverview$(
+			Pageable pageable,
+			@Param("filter") String filter,
+			@Param("cashAccountId") Long cashAccountId);
 }

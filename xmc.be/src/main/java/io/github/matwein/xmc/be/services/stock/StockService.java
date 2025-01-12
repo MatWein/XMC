@@ -2,7 +2,6 @@ package io.github.matwein.xmc.be.services.stock;
 
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
-import io.github.matwein.xmc.be.common.mapper.QueryResultsMapper;
 import io.github.matwein.xmc.be.entities.depot.Stock;
 import io.github.matwein.xmc.be.repositories.stock.StockJpaRepository;
 import io.github.matwein.xmc.be.repositories.stock.StockRepository;
@@ -32,19 +31,16 @@ public class StockService implements IStockService {
 	private final StockJpaRepository stockJpaRepository;
 	private final StockRepository stockRepository;
 	private final StockSaveController stockSaveController;
-	private final QueryResultsMapper queryResultsMapper;
 	
 	@Autowired
 	public StockService(
 			StockJpaRepository stockJpaRepository,
 			StockRepository stockRepository,
-			StockSaveController stockSaveController,
-			QueryResultsMapper queryResultsMapper) {
+			StockSaveController stockSaveController) {
 		
 		this.stockJpaRepository = stockJpaRepository;
 		this.stockRepository = stockRepository;
 		this.stockSaveController = stockSaveController;
-		this.queryResultsMapper = queryResultsMapper;
 	}
 	
 	@Override
@@ -52,8 +48,7 @@ public class StockService implements IStockService {
 		LOGGER.info("Loading stock overview: {}", pagingParams);
 		monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_LOAD_STOCK_OVERVIEW));
 		
-		var results = stockRepository.loadOverview(pagingParams);
-		return queryResultsMapper.map(results);
+		return stockRepository.loadOverview(pagingParams);
 	}
 	
 	@Override

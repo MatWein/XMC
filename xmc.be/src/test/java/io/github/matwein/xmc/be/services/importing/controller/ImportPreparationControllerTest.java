@@ -66,21 +66,23 @@ class ImportPreparationControllerTest extends IntegrationTest {
 		Assertions.assertEquals(234, result.getValidTransactionCount());
 		Assertions.assertEquals(234, result.getSuccessfullyReadLines().size());
 		
-		Assertions.assertEquals("Einnahmen", result.getSuccessfullyReadLines().get(0).getCategory().getName());
-		Assertions.assertNotNull(result.getSuccessfullyReadLines().get(0).getCategory().getId());
-		Assertions.assertEquals("Gutschrift", result.getSuccessfullyReadLines().get(0).getDescription());
-		Assertions.assertEquals("Hans Wurst", result.getSuccessfullyReadLines().get(0).getReference());
-		Assertions.assertEquals("Winterraeder", result.getSuccessfullyReadLines().get(0).getUsage());
-		Assertions.assertEquals(350.0, result.getSuccessfullyReadLines().get(0).getValue().doubleValue(), 0);
-		Assertions.assertEquals(LocalDate.of(2020, Month.AUGUST, 27), result.getSuccessfullyReadLines().get(0).getValutaDate());
+		DtoCashAccountTransaction first = result.getSuccessfullyReadLines().getFirst();
+		Assertions.assertEquals("Einnahmen", first.getCategory().getName());
+		Assertions.assertNotNull(first.getCategory().getId());
+		Assertions.assertEquals("Gutschrift", first.getDescription());
+		Assertions.assertEquals("Hans Wurst", first.getReference());
+		Assertions.assertEquals("Winterraeder", first.getUsage());
+		Assertions.assertEquals(350.0, first.getValue().doubleValue(), 0);
+		Assertions.assertEquals(LocalDate.of(2020, Month.AUGUST, 27), first.getValutaDate());
 		
-		Assertions.assertEquals("Sparen und Anlegen", result.getSuccessfullyReadLines().get(233).getCategory().getName());
-		Assertions.assertNotNull(result.getSuccessfullyReadLines().get(233).getCategory().getId());
-		Assertions.assertEquals("Lastschrift", result.getSuccessfullyReadLines().get(233).getDescription());
-		Assertions.assertEquals("Fränkische BSK Hamburch", result.getSuccessfullyReadLines().get(233).getReference());
-		Assertions.assertEquals("Fränkische BSK Hamburch Bausparvertrag 6452290601 S parrate 100,00 EUR", result.getSuccessfullyReadLines().get(233).getUsage());
-		Assertions.assertEquals(-100.0, result.getSuccessfullyReadLines().get(233).getValue().doubleValue(), 0);
-		Assertions.assertEquals(LocalDate.of(2019, Month.AUGUST, 30), result.getSuccessfullyReadLines().get(233).getValutaDate());
+		DtoCashAccountTransaction next = result.getSuccessfullyReadLines().get(233);
+		Assertions.assertEquals("Sparen und Anlegen", next.getCategory().getName());
+		Assertions.assertNotNull(next.getCategory().getId());
+		Assertions.assertEquals("Lastschrift", next.getDescription());
+		Assertions.assertEquals("Fränkische BSK Hamburch", next.getReference());
+		Assertions.assertEquals("Fränkische BSK Hamburch Bausparvertrag 6452290601 S parrate 100,00 EUR", next.getUsage());
+		Assertions.assertEquals(-100.0, next.getValue().doubleValue(), 0);
+		Assertions.assertEquals(LocalDate.of(2019, Month.AUGUST, 30), next.getValutaDate());
 	}
 	
 	@Test

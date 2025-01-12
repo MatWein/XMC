@@ -1,50 +1,44 @@
 package io.github.matwein.xmc.be.repositories.cashaccount;
 
-import com.querydsl.core.QueryResults;
-import com.querydsl.core.types.ExpressionUtils;
-import com.querydsl.core.types.Order;
-import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.dsl.BooleanExpression;
-import io.github.matwein.xmc.be.common.QueryUtil;
+import io.github.matwein.xmc.be.entities.cashaccount.CashAccount;
+import io.github.matwein.xmc.common.stubs.Order;
 import io.github.matwein.xmc.common.stubs.PagingParams;
-import io.github.matwein.xmc.common.stubs.bank.DtoBank;
+import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.cashaccount.CashAccountOverviewFields;
 import io.github.matwein.xmc.common.stubs.cashaccount.DtoCashAccountOverview;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-import static io.github.matwein.xmc.be.entities.QBank.bank;
-import static io.github.matwein.xmc.be.entities.QBinaryData.binaryData;
-import static io.github.matwein.xmc.be.entities.cashaccount.QCashAccount.cashAccount;
+import static io.github.matwein.xmc.be.common.QueryUtil.fromPage;
+import static io.github.matwein.xmc.be.common.QueryUtil.toPageable;
 
-@Repository
-public class CashAccountRepository {
-    private final QueryUtil queryUtil;
-
-    @Autowired
-    public CashAccountRepository(QueryUtil queryUtil) {
-        this.queryUtil = queryUtil;
+public interface CashAccountRepository extends JpaRepository<CashAccount, Long> {
+    default QueryResults<DtoCashAccountOverview> loadOverview(PagingParams<CashAccountOverviewFields> pagingParams) {
+	    return fromPage(loadOverview$(
+			    toPageable(pagingParams, CashAccountOverviewFields.NAME, Order.ASC),
+			    StringUtils.defaultString(pagingParams.getFilter())));
     }
-
-    public QueryResults<DtoCashAccountOverview> loadOverview(PagingParams<CashAccountOverviewFields> pagingParams) {
-        String filter = "%" + StringUtils.defaultString(pagingParams.getFilter()) + "%";
-        BooleanExpression predicate = cashAccount.name.likeIgnoreCase(filter)
-                        .or(cashAccount.number.likeIgnoreCase(filter))
-                        .or(cashAccount.iban.likeIgnoreCase(filter))
-                        .or(bank.bic.likeIgnoreCase(filter))
-                        .or(bank.blz.likeIgnoreCase(filter))
-                        .or(bank.name.likeIgnoreCase(filter));
-
-        return queryUtil.createPagedQuery(pagingParams, CashAccountOverviewFields.NAME, Order.ASC)
-                .select(Projections.bean(DtoCashAccountOverview.class,
-                        cashAccount.id, cashAccount.iban, cashAccount.number, cashAccount.name, cashAccount.currency, cashAccount.color,
-                        cashAccount.creationDate, cashAccount.lastSaldo, cashAccount.lastSaldoDate,
-		                Projections.bean(DtoBank.class, bank.id, bank.name, bank.bic, bank.blz, binaryData.rawData.as("logo")).as("bank")))
-                .from(cashAccount)
-                .innerJoin(cashAccount.bank(), bank)
-                .leftJoin(bank.logo(), binaryData)
-                .where(ExpressionUtils.allOf(predicate, cashAccount.deletionDate.isNull()))
-                .fetchResults();
-    }
+	
+	@Query("""
+		select new io.github.matwein.xmc.common.stubs.cashaccount.DtoCashAccountOverview(
+			ca.id, ca.iban, ca.number, ca.name, ca.currency, ca.color, ca.creationDate, ca.lastSaldo, ca.lastSaldoDate,
+			b.id, b.name, b.bic, b.blz, l.rawData
+		)
+		from CashAccount ca
+		inner join ca.bank b
+		left join b.logo l
+		where ca.deletionDate is null and (
+			ca.name ilike '%' || :filter || '%'
+			or ca.number ilike '%' || :filter || '%'
+			or ca.iban ilike '%' || :filter || '%'
+			or b.bic ilike '%' || :filter || '%'
+			or b.blz ilike '%' || :filter || '%'
+			or b.name ilike '%' || :filter || '%'
+		)
+	""")
+	Page<DtoCashAccountOverview> loadOverview$(Pageable pageable, @Param("filter") String filter);
 }

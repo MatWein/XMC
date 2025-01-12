@@ -2,7 +2,6 @@ package io.github.matwein.xmc.be.services.category;
 
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
-import io.github.matwein.xmc.be.common.mapper.QueryResultsMapper;
 import io.github.matwein.xmc.be.entities.cashaccount.Category;
 import io.github.matwein.xmc.be.repositories.category.CategoryJpaRepository;
 import io.github.matwein.xmc.be.repositories.category.CategoryRepository;
@@ -34,19 +33,16 @@ public class CategoryService implements ICategoryService {
 	private final CategoryJpaRepository categoryJpaRepository;
     private final CategorySaveController categorySaveController;
     private final CategoryRepository categoryRepository;
-	private final QueryResultsMapper queryResultsMapper;
 	
 	@Autowired
     public CategoryService(
 		    CategoryJpaRepository categoryJpaRepository,
 		    CategorySaveController categorySaveController,
-		    CategoryRepository categoryRepository,
-		    QueryResultsMapper queryResultsMapper) {
+		    CategoryRepository categoryRepository) {
 
         this.categoryJpaRepository = categoryJpaRepository;
         this.categorySaveController = categorySaveController;
         this.categoryRepository = categoryRepository;
-		this.queryResultsMapper = queryResultsMapper;
 	}
 
     @Override
@@ -70,8 +66,7 @@ public class CategoryService implements ICategoryService {
         LOGGER.info("Loading category overview: {}", pagingParams);
         monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_LOAD_CATEGORY_OVERVIEW));
 		
-		var results = categoryRepository.loadOverview(pagingParams);
-		return queryResultsMapper.map(results);
+		return categoryRepository.loadOverview(pagingParams);
 	}
 	
 	@Override

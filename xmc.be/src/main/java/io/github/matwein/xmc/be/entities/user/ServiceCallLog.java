@@ -3,9 +3,10 @@ package io.github.matwein.xmc.be.entities.user;
 import io.github.matwein.xmc.be.entities.PersistentObject;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
-
-@Entity(name = ServiceCallLog.TABLE_NAME)
+@Entity
+@Table(name = ServiceCallLog.TABLE_NAME)
 public class ServiceCallLog extends PersistentObject {
 	public static final String TABLE_NAME = "SERVICE_CALL_LOGS";
 	

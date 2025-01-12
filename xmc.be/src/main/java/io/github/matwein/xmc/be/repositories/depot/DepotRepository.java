@@ -1,54 +1,42 @@
 package io.github.matwein.xmc.be.repositories.depot;
 
-import com.querydsl.core.QueryResults;
-import com.querydsl.core.types.ExpressionUtils;
-import com.querydsl.core.types.Order;
-import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.dsl.BooleanExpression;
-import io.github.matwein.xmc.be.common.QueryUtil;
-import io.github.matwein.xmc.common.stubs.Money;
+import io.github.matwein.xmc.be.entities.depot.Depot;
+import io.github.matwein.xmc.common.stubs.Order;
 import io.github.matwein.xmc.common.stubs.PagingParams;
-import io.github.matwein.xmc.common.stubs.bank.DtoBank;
+import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.depot.DepotOverviewFields;
 import io.github.matwein.xmc.common.stubs.depot.DtoDepotOverview;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-import static io.github.matwein.xmc.be.entities.QBank.bank;
-import static io.github.matwein.xmc.be.entities.QBinaryData.binaryData;
-import static io.github.matwein.xmc.be.entities.depot.QDepot.depot;
-import static io.github.matwein.xmc.be.entities.depot.QDepotDelivery.depotDelivery;
+import static io.github.matwein.xmc.be.common.QueryUtil.fromPage;
+import static io.github.matwein.xmc.be.common.QueryUtil.toPageable;
 
-@Repository
-public class DepotRepository {
-	private final QueryUtil queryUtil;
-	
-	@Autowired
-	public DepotRepository(QueryUtil queryUtil) {
-		this.queryUtil = queryUtil;
+public interface DepotRepository extends JpaRepository<Depot, Long> {
+	default QueryResults<DtoDepotOverview> loadOverview(PagingParams<DepotOverviewFields> pagingParams) {
+		return fromPage(loadOverview$(toPageable(pagingParams, DepotOverviewFields.NAME, Order.ASC), StringUtils.defaultString(pagingParams.getFilter())));
 	}
 	
-	public QueryResults<DtoDepotOverview> loadOverview(PagingParams<DepotOverviewFields> pagingParams) {
-		String filter = "%" + StringUtils.defaultString(pagingParams.getFilter()) + "%";
-		BooleanExpression predicate = depot.name.likeIgnoreCase(filter)
-				.or(depot.number.likeIgnoreCase(filter))
-				.or(bank.bic.likeIgnoreCase(filter))
-				.or(bank.blz.likeIgnoreCase(filter))
-				.or(bank.name.likeIgnoreCase(filter));
-		
-		return queryUtil.createPagedQuery(pagingParams, DepotOverviewFields.NAME, Order.ASC)
-				.select(Projections.bean(DtoDepotOverview.class,
-						depot.id, depot.number, depot.name, depot.color,
-						depot.creationDate,
-						Projections.bean(Money.class, depotDelivery.saldo.as("value")).as("lastSaldo"),
-						depotDelivery.deliveryDate.as("lastSaldoDate"),
-						Projections.bean(DtoBank.class, bank.id, bank.name, bank.bic, bank.blz, binaryData.rawData.as("logo")).as("bank")))
-				.from(depot)
-				.innerJoin(depot.bank(), bank)
-				.leftJoin(depot.lastDelivery(), depotDelivery)
-				.leftJoin(bank.logo(), binaryData)
-				.where(ExpressionUtils.allOf(predicate, depot.deletionDate.isNull()))
-				.fetchResults();
-	}
+	@Query("""
+		select new io.github.matwein.xmc.common.stubs.depot.DtoDepotOverview(
+			d.id, d.number, d.name, d.color, d.creationDate, ld.saldo, ld.deliveryDate,
+			b.id, b.name, b.bic, b.blz, l.rawData
+		)
+		from Depot d
+		inner join d.bank b
+		left join d.lastDelivery ld
+		left join b.logo l
+		where d.deletionDate is null and (
+			d.name ilike '%' || :filter || '%'
+			or d.number ilike '%' || :filter || '%'
+			or b.bic ilike '%' || :filter || '%'
+			or b.blz ilike '%' || :filter || '%'
+			or b.name ilike '%' || :filter || '%'
+		)
+	""")
+	Page<DtoDepotOverview> loadOverview$(Pageable pageable, @Param("filter") String filter);
 }

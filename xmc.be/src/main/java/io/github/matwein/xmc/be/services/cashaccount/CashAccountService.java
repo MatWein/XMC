@@ -2,7 +2,6 @@ package io.github.matwein.xmc.be.services.cashaccount;
 
 import io.github.matwein.xmc.be.common.MessageAdapter;
 import io.github.matwein.xmc.be.common.MessageAdapter.MessageKey;
-import io.github.matwein.xmc.be.common.mapper.QueryResultsMapper;
 import io.github.matwein.xmc.be.entities.cashaccount.CashAccount;
 import io.github.matwein.xmc.be.repositories.cashaccount.CashAccountJpaRepository;
 import io.github.matwein.xmc.be.repositories.cashaccount.CashAccountRepository;
@@ -30,19 +29,16 @@ public class CashAccountService implements ICashAccountService {
     private final CashAccountRepository cashAccountRepository;
     private final CashAccountSaveController cashAccountSaveController;
     private final CashAccountJpaRepository cashAccountJpaRepository;
-	private final QueryResultsMapper queryResultsMapper;
 	
 	@Autowired
     public CashAccountService(
 		    CashAccountRepository cashAccountRepository,
 		    CashAccountSaveController cashAccountSaveController,
-		    CashAccountJpaRepository cashAccountJpaRepository,
-		    QueryResultsMapper queryResultsMapper) {
+		    CashAccountJpaRepository cashAccountJpaRepository) {
 
         this.cashAccountRepository = cashAccountRepository;
         this.cashAccountSaveController = cashAccountSaveController;
         this.cashAccountJpaRepository = cashAccountJpaRepository;
-		this.queryResultsMapper = queryResultsMapper;
 	}
 	
 	@Override
@@ -50,8 +46,7 @@ public class CashAccountService implements ICashAccountService {
 		LOGGER.info("Loading cash account overview: {}", pagingParams);
 		monitor.setStatusText(MessageAdapter.getByKey(MessageKey.ASYNC_TASK_LOAD_CASHACCOUNT_OVERVIEW));
 		
-		var results = cashAccountRepository.loadOverview(pagingParams);
-		return queryResultsMapper.map(results);
+		return cashAccountRepository.loadOverview(pagingParams);
 	}
 	
 	@Override

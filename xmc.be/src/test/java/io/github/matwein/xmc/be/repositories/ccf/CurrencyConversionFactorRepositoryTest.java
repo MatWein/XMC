@@ -1,10 +1,10 @@
 package io.github.matwein.xmc.be.repositories.ccf;
 
-import com.querydsl.core.QueryResults;
 import io.github.matwein.xmc.be.IntegrationTest;
 import io.github.matwein.xmc.be.entities.depot.CurrencyConversionFactor;
 import io.github.matwein.xmc.common.stubs.Order;
 import io.github.matwein.xmc.common.stubs.PagingParams;
+import io.github.matwein.xmc.common.stubs.QueryResults;
 import io.github.matwein.xmc.common.stubs.ccf.CurrencyConversionFactorOverviewFields;
 import io.github.matwein.xmc.common.stubs.ccf.DtoCurrencyConversionFactor;
 import org.junit.jupiter.api.Assertions;

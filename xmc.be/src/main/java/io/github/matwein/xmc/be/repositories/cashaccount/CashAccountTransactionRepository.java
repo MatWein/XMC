@@ -16,9 +16,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import static io.github.matwein.xmc.be.common.QueryUtil.fromPage;
 import static io.github.matwein.xmc.be.common.QueryUtil.toPageable;
 
@@ -29,13 +26,11 @@ public interface CashAccountTransactionRepository extends JpaRepository<CashAcco
 	    
 	    Pageable pageable = toPageable(pagingParams, CashAccountTransactionOverviewFields.VALUTA_DATE, Order.DESC);
 	    
-		List<String> sortProperties = pageable.getSort().stream()
-			    .map(Sort.Order::getProperty)
-			    .collect(Collectors.toList());
-	    sortProperties.add("creationDate");
-	    sortProperties.add("id");
+	    Sort extendedSort = pageable.getSort()
+			    .and(Sort.by("cat.creationDate").descending())
+			    .and(Sort.by("cat.id").descending());
 	    
-	    pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.Direction.DESC, sortProperties.toArray(new String[] {}));
+	    pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), extendedSort);
 		
 	    return fromPage(loadOverview$(
 			    pageable,

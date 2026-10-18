@@ -29,7 +29,7 @@ class DepotTransactionJpaRepositoryTest extends IntegrationTest {
 		
 		DepotTransaction depotTransaction2 = graphGenerator.createDepotTransaction(depot);
 		depotTransaction2.setDeletionDate(LocalDateTime.now());
-		session().saveOrUpdate(depotTransaction2);
+		session().merge(depotTransaction2);
 		
 		DepotTransaction depotTransaction3 = graphGenerator.createDepotTransaction(depot);
 		
@@ -50,15 +50,15 @@ class DepotTransactionJpaRepositoryTest extends IntegrationTest {
 		
 		DepotTransaction depotTransaction1 = graphGenerator.createDepotTransaction(depot);
 		depotTransaction1.setValutaDate(LocalDate.of(2021, Month.NOVEMBER, 15));
-		session().saveOrUpdate(depotTransaction1);
+		session().merge(depotTransaction1);
 		
 		DepotTransaction depotTransaction2 = graphGenerator.createDepotTransaction(depot);
 		depotTransaction2.setDeletionDate(LocalDateTime.now());
-		session().saveOrUpdate(depotTransaction2);
+		session().merge(depotTransaction2);
 		
 		DepotTransaction depotTransaction3 = graphGenerator.createDepotTransaction(depot);
 		depotTransaction3.setValutaDate(LocalDate.of(2021, Month.NOVEMBER, 16));
-		session().saveOrUpdate(depotTransaction3);
+		session().merge(depotTransaction3);
 		
 		graphGenerator.createDepotTransaction();
 		

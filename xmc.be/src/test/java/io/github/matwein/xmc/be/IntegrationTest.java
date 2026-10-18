@@ -7,7 +7,7 @@ import org.hibernate.Session;
 import org.junit.jupiter.api.Disabled;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
@@ -24,7 +24,7 @@ import java.io.File;
 public class IntegrationTest {
     @PersistenceContext
     private EntityManager entityManager;
-
+	
     @Autowired
     protected GraphGenerator graphGenerator;
 

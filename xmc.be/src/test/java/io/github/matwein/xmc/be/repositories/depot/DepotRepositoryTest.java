@@ -31,11 +31,11 @@ class DepotRepositoryTest extends IntegrationTest {
 		
 		Bank bank1 = graphGenerator.createBank();
 		bank1.setBlz("111111");
-		session().saveOrUpdate(bank1);
+		session().merge(bank1);
 		
 		Bank bank2 = graphGenerator.createBank();
 		bank2.setBlz("000000");
-		session().saveOrUpdate(bank2);
+		session().merge(bank2);
 		
 		graphGenerator.createDepot();
 		
@@ -45,7 +45,7 @@ class DepotRepositoryTest extends IntegrationTest {
 		
 		Depot depot3 = graphGenerator.createDepot(bank2);
 		depot3.setDeletionDate(LocalDateTime.now());
-		session().saveOrUpdate(depot3);
+		session().merge(depot3);
 		
 		graphGenerator.createDepot();
 		
@@ -62,11 +62,11 @@ class DepotRepositoryTest extends IntegrationTest {
 	void testLoadOverview_CheckAllSortFields() {
 		Bank bank1 = graphGenerator.createBank();
 		bank1.setBlz("111111");
-		session().saveOrUpdate(bank1);
+		session().merge(bank1);
 		
 		Bank bank2 = graphGenerator.createBank();
 		bank2.setBlz("000000");
-		session().saveOrUpdate(bank2);
+		session().merge(bank2);
 		
 		graphGenerator.createDepot();
 		
@@ -76,7 +76,7 @@ class DepotRepositoryTest extends IntegrationTest {
 		
 		Depot depot3 = graphGenerator.createDepot(bank2);
 		depot3.setDeletionDate(LocalDateTime.now());
-		session().saveOrUpdate(depot3);
+		session().merge(depot3);
 		
 		graphGenerator.createDepot();
 		
@@ -103,21 +103,21 @@ class DepotRepositoryTest extends IntegrationTest {
 		bank.setBic("BIC");
 		bank.setLogo(graphGenerator.createBinaryData(logoBytes));
 		bank.setName("NAME");
-		session().saveOrUpdate(bank);
+		session().merge(bank);
 		
 		Depot depot = graphGenerator.createDepot(bank);
 		depot.setColor("#111111");
 		depot.setName("DepotName");
 		depot.setNumber("DepotNumber");
-		session().saveOrUpdate(depot);
+		session().merge(depot);
 		
 		DepotDelivery depotDelivery = graphGenerator.createDepotDelivery(depot);
 		depotDelivery.setSaldo(BigDecimal.valueOf(100.0));
 		depotDelivery.setDeliveryDate(LocalDateTime.of(2021, Month.MAY, 12, 0, 0, 0));
-		session().saveOrUpdate(depotDelivery);
+		session().merge(depotDelivery);
 		
 		depot.setLastDelivery(depotDelivery);
-		session().saveOrUpdate(depot);
+		session().merge(depot);
 		
 		flushAndClear();
 		

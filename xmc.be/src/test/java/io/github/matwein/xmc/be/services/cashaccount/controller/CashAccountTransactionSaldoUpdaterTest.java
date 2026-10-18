@@ -22,7 +22,7 @@ class CashAccountTransactionSaldoUpdaterTest extends IntegrationTest {
         CashAccountTransaction cashAccountTransaction1 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction1.setValutaDate(LocalDate.of(2020, Month.AUGUST, 1));
         cashAccountTransaction1.setValue(BigDecimal.valueOf(100.0));
-        session().saveOrUpdate(cashAccountTransaction1);
+        session().merge(cashAccountTransaction1);
 
         flush();
         updater.updateAll(cashAccount, cashAccountTransaction1.getValutaDate());
@@ -36,7 +36,7 @@ class CashAccountTransactionSaldoUpdaterTest extends IntegrationTest {
         CashAccountTransaction cashAccountTransaction2 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction2.setValutaDate(LocalDate.of(2020, Month.AUGUST, 2));
         cashAccountTransaction2.setValue(BigDecimal.valueOf(25.0));
-        session().saveOrUpdate(cashAccountTransaction2);
+        session().merge(cashAccountTransaction2);
 
         flush();
         updater.updateAll(cashAccount, cashAccountTransaction2.getValutaDate());
@@ -54,7 +54,7 @@ class CashAccountTransactionSaldoUpdaterTest extends IntegrationTest {
         CashAccountTransaction cashAccountTransaction3 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction3.setValutaDate(LocalDate.of(2020, Month.JULY, 10));
         cashAccountTransaction3.setValue(BigDecimal.valueOf(-1000.0));
-        session().saveOrUpdate(cashAccountTransaction3);
+        session().merge(cashAccountTransaction3);
 
         flush();
         updater.updateAll(cashAccount, cashAccountTransaction3.getValutaDate());
@@ -81,7 +81,7 @@ class CashAccountTransactionSaldoUpdaterTest extends IntegrationTest {
         CashAccountTransaction cashAccountTransaction1 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction1.setValutaDate(LocalDate.of(2020, Month.AUGUST, 1));
         cashAccountTransaction1.setValue(BigDecimal.valueOf(100.0));
-        session().saveOrUpdate(cashAccountTransaction1);
+        session().merge(cashAccountTransaction1);
 
         flush();
         updater.updateAll(cashAccount, cashAccountTransaction1.getValutaDate());
@@ -95,7 +95,7 @@ class CashAccountTransactionSaldoUpdaterTest extends IntegrationTest {
         CashAccountTransaction cashAccountTransaction2 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction2.setValutaDate(LocalDate.of(2020, Month.AUGUST, 1));
         cashAccountTransaction2.setValue(BigDecimal.valueOf(25.0));
-        session().saveOrUpdate(cashAccountTransaction2);
+        session().merge(cashAccountTransaction2);
 
         flush();
         updater.updateAll(cashAccount, cashAccountTransaction2.getValutaDate());
@@ -113,7 +113,7 @@ class CashAccountTransactionSaldoUpdaterTest extends IntegrationTest {
         CashAccountTransaction cashAccountTransaction3 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction3.setValutaDate(LocalDate.of(2020, Month.AUGUST, 1));
         cashAccountTransaction3.setValue(BigDecimal.valueOf(-1000.0));
-        session().saveOrUpdate(cashAccountTransaction3);
+        session().merge(cashAccountTransaction3);
 
         flush();
         updater.updateAll(cashAccount, cashAccountTransaction3.getValutaDate());
@@ -135,7 +135,7 @@ class CashAccountTransactionSaldoUpdaterTest extends IntegrationTest {
         CashAccountTransaction cashAccountTransaction4 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction4.setValutaDate(LocalDate.of(2020, Month.AUGUST, 2));
         cashAccountTransaction4.setValue(BigDecimal.valueOf(1000.0));
-        session().saveOrUpdate(cashAccountTransaction4);
+        session().merge(cashAccountTransaction4);
 
         flush();
         updater.updateAll(cashAccount, cashAccountTransaction4.getValutaDate());

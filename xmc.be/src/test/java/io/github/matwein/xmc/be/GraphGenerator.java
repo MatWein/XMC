@@ -64,7 +64,7 @@ public class GraphGenerator {
         var binaryData = createBinaryData();
 
         bank.setLogo(binaryData);
-        session().saveOrUpdate(bank);
+        session().merge(bank);
 
         return binaryData;
     }
@@ -170,7 +170,7 @@ public class GraphGenerator {
         session().persist(cashAccountTransaction);
 
         cashAccount.getTransactions().add(cashAccountTransaction);
-        session().saveOrUpdate(cashAccount);
+        session().merge(cashAccount);
 
         return cashAccountTransaction;
     }
@@ -228,7 +228,7 @@ public class GraphGenerator {
 	    session().persist(importTemplateColumnMapping);
 	
 	    importTemplate.getColumnMappings().add(importTemplateColumnMapping);
-	    session().saveOrUpdate(importTemplate);
+	    session().merge(importTemplate);
     	
     	return importTemplateColumnMapping;
     }
@@ -320,7 +320,7 @@ public class GraphGenerator {
 	    session().persist(depotTransaction);
 		
 		depot.getTransactions().add(depotTransaction);
-	    session().saveOrUpdate(depot);
+	    session().merge(depot);
 	    
     	return depotTransaction;
     }
@@ -343,7 +343,7 @@ public class GraphGenerator {
 	    session().persist(depotDelivery);
 	    
 	    depot.getDeliveries().add(depotDelivery);
-	    session().saveOrUpdate(depot);
+	    session().merge(depot);
 	    
 	    return depotDelivery;
     }
@@ -365,7 +365,7 @@ public class GraphGenerator {
 	    session().persist(depotItem);
 	    
 	    depotDelivery.getDepotItems().add(depotItem);
-	    session().saveOrUpdate(depotDelivery);
+	    session().merge(depotDelivery);
 	    
 	    return depotItem;
     }

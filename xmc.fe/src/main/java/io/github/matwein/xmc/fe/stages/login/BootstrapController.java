@@ -27,6 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration;
 import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
+import org.springframework.boot.info.BuildProperties;
 
 import static io.github.matwein.xmc.fe.SystemProperties.*;
 
@@ -51,7 +52,21 @@ public class BootstrapController {
 
     public static String loadVersionWithoutSpringContext() {
         try {
-            return new ProjectInfoAutoConfiguration(new ProjectInfoProperties()).buildProperties().getVersion();
+	        var constructor = ProjectInfoAutoConfiguration.class
+			        .getDeclaredConstructor(ProjectInfoProperties.class);
+			constructor.setAccessible(true);
+			
+	        var projectInfoAutoConfiguration = constructor
+			        .newInstance(new ProjectInfoProperties());
+	        
+	        var method = ProjectInfoAutoConfiguration.class
+			        .getDeclaredMethod("buildProperties");
+	        method.setAccessible(true);
+			
+	        var buildProperties = (BuildProperties) method
+			        .invoke(projectInfoAutoConfiguration);
+			
+            return buildProperties.getVersion();
         } catch (Exception e) {
             return new BeanConfig().buildProperties().getVersion();
         }

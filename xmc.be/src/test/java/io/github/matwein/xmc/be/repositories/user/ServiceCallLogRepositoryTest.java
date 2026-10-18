@@ -24,15 +24,15 @@ class ServiceCallLogRepositoryTest extends IntegrationTest {
     void testCleanupServiceCallLogs() {
         ServiceCallLog serviceCallLog1 = graphGenerator.createServiceCallLog();
         serviceCallLog1.setCreationDate(LocalDateTime.now().minus(2, ChronoUnit.MINUTES));
-        session().saveOrUpdate(serviceCallLog1);
+        session().merge(serviceCallLog1);
 
         ServiceCallLog serviceCallLog2 = graphGenerator.createServiceCallLog();
         serviceCallLog2.setCreationDate(LocalDateTime.now().minus(366, ChronoUnit.DAYS));
-        session().saveOrUpdate(serviceCallLog2);
+        session().merge(serviceCallLog2);
 
         ServiceCallLog serviceCallLog3 = graphGenerator.createServiceCallLog();
         serviceCallLog3.setCreationDate(LocalDateTime.now().minus(5, ChronoUnit.DAYS));
-        session().saveOrUpdate(serviceCallLog3);
+        session().merge(serviceCallLog3);
 
         flushAndClear();
 
@@ -56,15 +56,15 @@ class ServiceCallLogRepositoryTest extends IntegrationTest {
 		
 		ServiceCallLog serviceCallLog1 = graphGenerator.createServiceCallLog();
 		serviceCallLog1.setError("error 1");
-		session().saveOrUpdate(serviceCallLog1);
+		session().merge(serviceCallLog1);
 		
 		ServiceCallLog serviceCallLog2 = graphGenerator.createServiceCallLog();
 		serviceCallLog2.setError("error 2");
-		session().saveOrUpdate(serviceCallLog2);
+		session().merge(serviceCallLog2);
 		
 		ServiceCallLog serviceCallLog3 = graphGenerator.createServiceCallLog();
 		serviceCallLog3.setError("error 3");
-		session().saveOrUpdate(serviceCallLog3);
+		session().merge(serviceCallLog3);
 		
 		flushAndClear();
 		
@@ -103,7 +103,7 @@ class ServiceCallLogRepositoryTest extends IntegrationTest {
 		serviceCallLog.setReturnValue("ReturnValue");
 		serviceCallLog.setServiceClass("ServiceClass");
 		serviceCallLog.setServiceMethod("ServiceMethod");
-		session().saveOrUpdate(serviceCallLog);
+		session().merge(serviceCallLog);
 		
 		flushAndClear();
 		

@@ -40,19 +40,19 @@ class DepotTransactionRepositoryTest extends IntegrationTest {
 		
 		DepotTransaction depotTransaction1 = graphGenerator.createDepotTransaction(depot);
 		depotTransaction1.setIsin("ISIN1");
-		session().saveOrUpdate(depotTransaction1);
+		session().merge(depotTransaction1);
 		
 		DepotTransaction depotTransaction2 = graphGenerator.createDepotTransaction(depot);
 		depotTransaction2.setIsin("ISIN2");
-		session().saveOrUpdate(depotTransaction2);
+		session().merge(depotTransaction2);
 		
 		DepotTransaction depotTransaction3 = graphGenerator.createDepotTransaction(depot);
 		depotTransaction3.setIsin("ISIN3");
-		session().saveOrUpdate(depotTransaction3);
+		session().merge(depotTransaction3);
 		
 		DepotTransaction depotTransaction4 = graphGenerator.createDepotTransaction(depot);
 		depotTransaction4.setDeletionDate(LocalDateTime.now());
-		session().saveOrUpdate(depotTransaction4);
+		session().merge(depotTransaction4);
 		
 		graphGenerator.createDepotTransaction();
 		
@@ -73,19 +73,19 @@ class DepotTransactionRepositoryTest extends IntegrationTest {
 		
 		DepotTransaction depotTransaction1 = graphGenerator.createDepotTransaction(depot);
 		depotTransaction1.setIsin("ISIN1");
-		session().saveOrUpdate(depotTransaction1);
+		session().merge(depotTransaction1);
 		
 		DepotTransaction depotTransaction2 = graphGenerator.createDepotTransaction(depot);
 		depotTransaction2.setIsin("ISIN2");
-		session().saveOrUpdate(depotTransaction2);
+		session().merge(depotTransaction2);
 		
 		DepotTransaction depotTransaction3 = graphGenerator.createDepotTransaction(depot);
 		depotTransaction3.setIsin("ISIN3");
-		session().saveOrUpdate(depotTransaction3);
+		session().merge(depotTransaction3);
 		
 		DepotTransaction depotTransaction4 = graphGenerator.createDepotTransaction(depot);
 		depotTransaction4.setDeletionDate(LocalDateTime.now());
-		session().saveOrUpdate(depotTransaction4);
+		session().merge(depotTransaction4);
 		
 		graphGenerator.createDepotTransaction();
 		
@@ -115,7 +115,7 @@ class DepotTransactionRepositoryTest extends IntegrationTest {
 		depotTransaction.setDescription("some description");
 		depotTransaction.setValue(BigDecimal.valueOf(300.0));
 		depotTransaction.setValutaDate(LocalDate.of(2021, Month.OCTOBER, 10));
-		session().saveOrUpdate(depotTransaction);
+		session().merge(depotTransaction);
 		
 		flushAndClear();
 		

@@ -21,7 +21,7 @@ class DepotJpaRepositoryTest extends IntegrationTest {
 		
 		Depot depot2 = graphGenerator.createDepot();
 		depot2.setDeletionDate(LocalDateTime.now());
-		session().saveOrUpdate(depot2);
+		session().merge(depot2);
 		
 		Depot depot3 = graphGenerator.createDepot();
 		

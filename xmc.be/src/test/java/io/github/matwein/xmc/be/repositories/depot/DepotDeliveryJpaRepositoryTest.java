@@ -44,7 +44,7 @@ class DepotDeliveryJpaRepositoryTest extends IntegrationTest {
 				LocalDateTime.of(2021, Month.NOVEMBER, 17, 0, 0, 0),
 				BigDecimal.valueOf(1000.0));
 		depotDelivery4.setDeletionDate(LocalDateTime.now());
-		session().saveOrUpdate(depotDelivery4);
+		session().merge(depotDelivery4);
 		
 		flushAndClear();
 		
@@ -80,7 +80,7 @@ class DepotDeliveryJpaRepositoryTest extends IntegrationTest {
 				LocalDateTime.of(2021, Month.NOVEMBER, 17, 0, 0, 0),
 				BigDecimal.valueOf(1000.0));
 		depotDelivery4.setDeletionDate(LocalDateTime.now());
-		session().saveOrUpdate(depotDelivery4);
+		session().merge(depotDelivery4);
 		
 		graphGenerator.createDepotDelivery();
 		
@@ -101,7 +101,7 @@ class DepotDeliveryJpaRepositoryTest extends IntegrationTest {
 				LocalDateTime.of(2021, Month.NOVEMBER, 14, 0, 0, 0),
 				BigDecimal.valueOf(500.0));
 		depotDelivery0.setDeletionDate(LocalDateTime.now());
-		session().saveOrUpdate(depotDelivery0);
+		session().merge(depotDelivery0);
 		
 		DepotDelivery depotDelivery1 = graphGenerator.createDepotDelivery(
 				depot1,
@@ -142,7 +142,7 @@ class DepotDeliveryJpaRepositoryTest extends IntegrationTest {
 				LocalDateTime.of(2021, Month.NOVEMBER, 14, 0, 0, 0),
 				BigDecimal.valueOf(500.0));
 		depotDelivery0.setDeletionDate(LocalDateTime.now());
-		session().saveOrUpdate(depotDelivery0);
+		session().merge(depotDelivery0);
 		
 		DepotDelivery depotDelivery1 = graphGenerator.createDepotDelivery(
 				depot1,

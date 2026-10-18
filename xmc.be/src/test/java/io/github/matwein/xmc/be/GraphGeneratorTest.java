@@ -56,12 +56,12 @@ class GraphGeneratorTest extends IntegrationTest {
 		analysisFavourite.getCashAccounts().add(graphGenerator.createCashAccount());
 		analysisFavourite.getCashAccounts().add(graphGenerator.createCashAccount());
 		
-		session().saveOrUpdate(analysisFavourite);
+		session().merge(analysisFavourite);
 		
 		session().flush();
 		session().clear();
 		
-		analysisFavourite = session().load(AnalysisFavourite.class, analysisFavourite.getId());
+		analysisFavourite = session().get(AnalysisFavourite.class, analysisFavourite.getId());
 		
 		Assertions.assertEquals(3, analysisFavourite.getCashAccounts().size());
 		Assertions.assertEquals(2, analysisFavourite.getDepots().size());

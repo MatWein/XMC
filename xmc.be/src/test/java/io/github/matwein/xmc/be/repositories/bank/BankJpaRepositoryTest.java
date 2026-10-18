@@ -21,7 +21,7 @@ class BankJpaRepositoryTest extends IntegrationTest {
 
         Bank deletedBank = graphGenerator.createBank();
         deletedBank.setDeletionDate(LocalDateTime.now());
-        session().saveOrUpdate(deletedBank);
+        session().merge(deletedBank);
 
         Bank bank2 = graphGenerator.createBank();
 

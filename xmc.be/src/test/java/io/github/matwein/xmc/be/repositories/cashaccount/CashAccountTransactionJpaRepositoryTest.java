@@ -28,23 +28,23 @@ class CashAccountTransactionJpaRepositoryTest extends IntegrationTest {
         CashAccountTransaction cashAccountTransaction1 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction1.setValutaDate(LocalDate.of(2020, Month.FEBRUARY, 1));
         cashAccountTransaction1.setCreationDate(LocalDateTime.of(2020, Month.FEBRUARY, 1, 0, 0));
-        session().saveOrUpdate(cashAccountTransaction1);
+        session().merge(cashAccountTransaction1);
 
         CashAccountTransaction cashAccountTransaction2 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction2.setValutaDate(LocalDate.of(2020, Month.FEBRUARY, 1));
         cashAccountTransaction2.setCreationDate(LocalDateTime.of(2020, Month.FEBRUARY, 1, 0, 0));
-        session().saveOrUpdate(cashAccountTransaction2);
+        session().merge(cashAccountTransaction2);
 
         CashAccountTransaction cashAccountTransaction3 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction3.setValutaDate(LocalDate.of(2020, Month.FEBRUARY, 1));
         cashAccountTransaction3.setCreationDate(LocalDateTime.of(2020, Month.FEBRUARY, 1, 0, 0));
-        session().saveOrUpdate(cashAccountTransaction3);
+        session().merge(cashAccountTransaction3);
 
         CashAccountTransaction cashAccountTransaction4 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction4.setValutaDate(LocalDate.of(2020, Month.FEBRUARY, 1));
         cashAccountTransaction4.setCreationDate(LocalDateTime.of(2020, Month.FEBRUARY, 1, 0, 0));
         cashAccountTransaction4.setDeletionDate(LocalDateTime.now());
-        session().saveOrUpdate(cashAccountTransaction4);
+        session().merge(cashAccountTransaction4);
 
         graphGenerator.createCashAccountTransaction();
         graphGenerator.createCashAccountTransaction();
@@ -66,23 +66,23 @@ class CashAccountTransactionJpaRepositoryTest extends IntegrationTest {
         CashAccountTransaction cashAccountTransaction1 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction1.setValutaDate(LocalDate.of(2020, Month.FEBRUARY, 1));
         cashAccountTransaction1.setCreationDate(LocalDateTime.of(2020, Month.FEBRUARY, 1, 0, 0));
-        session().saveOrUpdate(cashAccountTransaction1);
+        session().merge(cashAccountTransaction1);
 
         CashAccountTransaction cashAccountTransaction2 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction2.setValutaDate(LocalDate.of(2020, Month.FEBRUARY, 1));
         cashAccountTransaction2.setCreationDate(LocalDateTime.of(2020, Month.FEBRUARY, 1, 0, 0));
-        session().saveOrUpdate(cashAccountTransaction2);
+        session().merge(cashAccountTransaction2);
 
         CashAccountTransaction cashAccountTransaction3 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction3.setValutaDate(LocalDate.of(2020, Month.FEBRUARY, 1));
         cashAccountTransaction3.setCreationDate(LocalDateTime.of(2020, Month.FEBRUARY, 1, 0, 0));
-        session().saveOrUpdate(cashAccountTransaction3);
+        session().merge(cashAccountTransaction3);
 
         CashAccountTransaction cashAccountTransaction4 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction4.setValutaDate(LocalDate.of(2020, Month.FEBRUARY, 1));
         cashAccountTransaction4.setCreationDate(LocalDateTime.of(2020, Month.FEBRUARY, 1, 0, 0));
         cashAccountTransaction4.setDeletionDate(LocalDateTime.now());
-        session().saveOrUpdate(cashAccountTransaction4);
+        session().merge(cashAccountTransaction4);
 
         graphGenerator.createCashAccountTransaction();
         graphGenerator.createCashAccountTransaction();
@@ -104,23 +104,23 @@ class CashAccountTransactionJpaRepositoryTest extends IntegrationTest {
         CashAccountTransaction cashAccountTransaction1 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction1.setValutaDate(LocalDate.of(2020, Month.FEBRUARY, 1));
         cashAccountTransaction1.setCreationDate(LocalDateTime.of(2020, Month.FEBRUARY, 1, 0, 0));
-        session().saveOrUpdate(cashAccountTransaction1);
+        session().merge(cashAccountTransaction1);
 
         CashAccountTransaction cashAccountTransaction2 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction2.setValutaDate(LocalDate.of(2020, Month.FEBRUARY, 1));
         cashAccountTransaction2.setCreationDate(LocalDateTime.of(2020, Month.FEBRUARY, 1, 0, 0));
-        session().saveOrUpdate(cashAccountTransaction2);
+        session().merge(cashAccountTransaction2);
 
         CashAccountTransaction cashAccountTransaction3 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction3.setValutaDate(LocalDate.of(2020, Month.FEBRUARY, 1));
         cashAccountTransaction3.setCreationDate(LocalDateTime.of(2020, Month.FEBRUARY, 1, 0, 0));
-        session().saveOrUpdate(cashAccountTransaction3);
+        session().merge(cashAccountTransaction3);
 
         CashAccountTransaction cashAccountTransaction4 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction4.setValutaDate(LocalDate.of(2020, Month.FEBRUARY, 1));
         cashAccountTransaction4.setCreationDate(LocalDateTime.of(2020, Month.FEBRUARY, 1, 0, 0));
         cashAccountTransaction4.setDeletionDate(LocalDateTime.now());
-        session().saveOrUpdate(cashAccountTransaction4);
+        session().merge(cashAccountTransaction4);
 
         graphGenerator.createCashAccountTransaction();
         graphGenerator.createCashAccountTransaction();
@@ -156,7 +156,7 @@ class CashAccountTransactionJpaRepositoryTest extends IntegrationTest {
 		
 		CashAccountTransaction cashAccountTransaction = graphGenerator.createCashAccountTransaction(cashAccount);
 		cashAccountTransaction.setDeletionDate(LocalDateTime.now());
-		session().saveOrUpdate(cashAccountTransaction);
+		session().merge(cashAccountTransaction);
 		
 		graphGenerator.createCashAccountTransaction();
 		
@@ -173,16 +173,16 @@ class CashAccountTransactionJpaRepositoryTest extends IntegrationTest {
 		
 		CashAccountTransaction transaction1 = graphGenerator.createCashAccountTransaction(cashAccount);
 		transaction1.setValutaDate(LocalDate.of(2020, Month.JANUARY, 1));
-		session().saveOrUpdate(transaction1);
+		session().merge(transaction1);
 		
 		CashAccountTransaction transaction2 = graphGenerator.createCashAccountTransaction(cashAccount);
 		transaction2.setValutaDate(LocalDate.of(2019, Month.JANUARY, 1));
-		session().saveOrUpdate(transaction2);
+		session().merge(transaction2);
 		
 		CashAccountTransaction transaction3 = graphGenerator.createCashAccountTransaction(cashAccount);
 		transaction3.setValutaDate(LocalDate.of(2018, Month.JANUARY, 1));
 		transaction3.setDeletionDate(LocalDateTime.now());
-		session().saveOrUpdate(transaction3);
+		session().merge(transaction3);
 		
 		flushAndClear();
 		
@@ -202,19 +202,19 @@ class CashAccountTransactionJpaRepositoryTest extends IntegrationTest {
 		
 		CashAccountTransaction transaction1 = graphGenerator.createCashAccountTransaction(cashAccount, category);
 		transaction1.setValutaDate(LocalDate.of(2021, Month.MARCH, 4));
-		session().saveOrUpdate(transaction1);
+		session().merge(transaction1);
 		
 		CashAccountTransaction transaction2 = graphGenerator.createCashAccountTransaction(cashAccount, category);
 		transaction2.setValutaDate(LocalDate.of(2021, Month.MARCH, 3));
-		session().saveOrUpdate(transaction2);
+		session().merge(transaction2);
 		
 		CashAccountTransaction transaction3 = graphGenerator.createCashAccountTransaction(cashAccount, category);
 		transaction3.setValutaDate(LocalDate.of(2021, Month.MARCH, 2));
-		session().saveOrUpdate(transaction3);
+		session().merge(transaction3);
 		
 		CashAccountTransaction transaction4 = graphGenerator.createCashAccountTransaction(cashAccount, null);
 		transaction4.setValutaDate(LocalDate.of(2021, Month.MARCH, 4));
-		session().saveOrUpdate(transaction4);
+		session().merge(transaction4);
 		
 		graphGenerator.createCashAccountTransaction();
 		
@@ -235,20 +235,20 @@ class CashAccountTransactionJpaRepositoryTest extends IntegrationTest {
 		
 		CashAccountTransaction transaction1 = graphGenerator.createCashAccountTransaction(cashAccount);
 		transaction1.setValutaDate(LocalDate.of(2021, Month.MARCH, 4));
-		session().saveOrUpdate(transaction1);
+		session().merge(transaction1);
 		
 		CashAccountTransaction transaction2 = graphGenerator.createCashAccountTransaction(cashAccount);
 		transaction2.setValutaDate(LocalDate.of(2021, Month.MARCH, 3));
-		session().saveOrUpdate(transaction2);
+		session().merge(transaction2);
 		
 		CashAccountTransaction transaction3 = graphGenerator.createCashAccountTransaction(cashAccount);
 		transaction3.setValutaDate(LocalDate.of(2021, Month.MARCH, 2));
-		session().saveOrUpdate(transaction3);
+		session().merge(transaction3);
 		
 		CashAccountTransaction transaction4 = graphGenerator.createCashAccountTransaction(cashAccount);
 		transaction4.setValutaDate(LocalDate.of(2021, Month.MARCH, 2));
 		transaction4.setDeletionDate(LocalDateTime.now());
-		session().saveOrUpdate(transaction4);
+		session().merge(transaction4);
 		
 		graphGenerator.createCashAccountTransaction();
 		
@@ -272,20 +272,20 @@ class CashAccountTransactionJpaRepositoryTest extends IntegrationTest {
 		
 		CashAccountTransaction transaction1 = graphGenerator.createCashAccountTransaction(cashAccount);
 		transaction1.setValutaDate(LocalDate.of(2021, Month.MARCH, 4));
-		session().saveOrUpdate(transaction1);
+		session().merge(transaction1);
 		
 		CashAccountTransaction transaction2 = graphGenerator.createCashAccountTransaction(cashAccount);
 		transaction2.setValutaDate(LocalDate.of(2021, Month.MARCH, 3));
-		session().saveOrUpdate(transaction2);
+		session().merge(transaction2);
 		
 		CashAccountTransaction transaction3 = graphGenerator.createCashAccountTransaction(cashAccount);
 		transaction3.setValutaDate(LocalDate.of(2021, Month.MARCH, 2));
-		session().saveOrUpdate(transaction3);
+		session().merge(transaction3);
 		
 		CashAccountTransaction transaction4 = graphGenerator.createCashAccountTransaction(cashAccount);
 		transaction4.setValutaDate(LocalDate.of(2021, Month.MARCH, 3));
 		transaction4.setDeletionDate(LocalDateTime.now());
-		session().saveOrUpdate(transaction4);
+		session().merge(transaction4);
 		
 		graphGenerator.createCashAccountTransaction();
 		
@@ -310,20 +310,20 @@ class CashAccountTransactionJpaRepositoryTest extends IntegrationTest {
 		
 		CashAccountTransaction transaction1 = graphGenerator.createCashAccountTransaction(cashAccount1);
 		transaction1.setValutaDate(LocalDate.of(2021, Month.MARCH, 4));
-		session().saveOrUpdate(transaction1);
+		session().merge(transaction1);
 		
 		CashAccountTransaction transaction2 = graphGenerator.createCashAccountTransaction(cashAccount1);
 		transaction2.setValutaDate(LocalDate.of(2021, Month.MARCH, 3));
-		session().saveOrUpdate(transaction2);
+		session().merge(transaction2);
 		
 		CashAccountTransaction transaction3 = graphGenerator.createCashAccountTransaction(cashAccount2);
 		transaction3.setValutaDate(LocalDate.of(2021, Month.MARCH, 2));
-		session().saveOrUpdate(transaction3);
+		session().merge(transaction3);
 		
 		CashAccountTransaction transaction4 = graphGenerator.createCashAccountTransaction(cashAccount2);
 		transaction4.setValutaDate(LocalDate.of(2021, Month.MARCH, 3));
 		transaction4.setDeletionDate(LocalDateTime.now());
-		session().saveOrUpdate(transaction4);
+		session().merge(transaction4);
 		
 		flushAndClear();
 		
@@ -343,20 +343,20 @@ class CashAccountTransactionJpaRepositoryTest extends IntegrationTest {
 		
 		CashAccountTransaction transaction1 = graphGenerator.createCashAccountTransaction(cashAccount1);
 		transaction1.setValutaDate(LocalDate.of(2021, Month.MARCH, 4));
-		session().saveOrUpdate(transaction1);
+		session().merge(transaction1);
 		
 		CashAccountTransaction transaction2 = graphGenerator.createCashAccountTransaction(cashAccount1);
 		transaction2.setValutaDate(LocalDate.of(2021, Month.MARCH, 3));
-		session().saveOrUpdate(transaction2);
+		session().merge(transaction2);
 		
 		CashAccountTransaction transaction3 = graphGenerator.createCashAccountTransaction(cashAccount2);
 		transaction3.setValutaDate(LocalDate.of(2021, Month.MARCH, 2));
-		session().saveOrUpdate(transaction3);
+		session().merge(transaction3);
 		
 		CashAccountTransaction transaction4 = graphGenerator.createCashAccountTransaction(cashAccount2);
 		transaction4.setValutaDate(LocalDate.of(2021, Month.MARCH, 3));
 		transaction4.setDeletionDate(LocalDateTime.now());
-		session().saveOrUpdate(transaction4);
+		session().merge(transaction4);
 		
 		flushAndClear();
 		

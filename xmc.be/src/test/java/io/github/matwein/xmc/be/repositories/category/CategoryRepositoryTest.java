@@ -28,22 +28,22 @@ class CategoryRepositoryTest extends IntegrationTest {
 
         Category deletedCategory = graphGenerator.createCategory();
         deletedCategory.setDeletionDate(LocalDateTime.now());
-        session().saveOrUpdate(deletedCategory);
+        session().merge(deletedCategory);
 
         Category category1 = graphGenerator.createCategory();
         category1.setName("Cat1");
         category1.setIcon(null);
-        session().saveOrUpdate(category1);
+        session().merge(category1);
 
         Category category2 = graphGenerator.createCategory();
         category2.setName("Cat2");
         category2.setIcon(graphGenerator.createBinaryData());
-        session().saveOrUpdate(category2);
+        session().merge(category2);
 
         Category category3 = graphGenerator.createCategory();
         category3.setName("Cat3");
         category3.setIcon(null);
-        session().saveOrUpdate(category3);
+        session().merge(category3);
 	
 	    flushAndClear();
 
@@ -59,22 +59,22 @@ class CategoryRepositoryTest extends IntegrationTest {
 	void testLoadOverview_CheckAllSortFields() {
 		Category deletedCategory = graphGenerator.createCategory();
 		deletedCategory.setDeletionDate(LocalDateTime.now());
-		session().saveOrUpdate(deletedCategory);
+		session().merge(deletedCategory);
 		
 		Category category1 = graphGenerator.createCategory();
 		category1.setName("Cat1");
 		category1.setIcon(null);
-		session().saveOrUpdate(category1);
+		session().merge(category1);
 		
 		Category category2 = graphGenerator.createCategory();
 		category2.setName("Cat2");
 		category2.setIcon(graphGenerator.createBinaryData());
-		session().saveOrUpdate(category2);
+		session().merge(category2);
 		
 		Category category3 = graphGenerator.createCategory();
 		category3.setName("Cat3");
 		category3.setIcon(null);
-		session().saveOrUpdate(category3);
+		session().merge(category3);
 		
 		flushAndClear();
 		
@@ -101,7 +101,7 @@ class CategoryRepositoryTest extends IntegrationTest {
 		Category category = graphGenerator.createCategory();
 		category.setName("Some Kate");
 		category.setIcon(icon);
-		session().saveOrUpdate(category);
+		session().merge(category);
 		
 		flushAndClear();
 		

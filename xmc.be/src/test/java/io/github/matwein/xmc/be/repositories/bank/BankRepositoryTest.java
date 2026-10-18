@@ -21,23 +21,23 @@ class BankRepositoryTest extends IntegrationTest {
 
         Bank bank1 = graphGenerator.createBank();
         bank1.setBic("BIC Bank A");
-        session().saveOrUpdate(bank1);
+        session().merge(bank1);
 
         Bank bank2 = graphGenerator.createBank();
         bank2.setBic("BIC Bank D");
-        session().saveOrUpdate(bank2);
+        session().merge(bank2);
 
         Bank bank3 = graphGenerator.createBank();
         bank3.setBic("BIC Bank B");
-        session().saveOrUpdate(bank3);
+        session().merge(bank3);
 
         Bank bank4 = graphGenerator.createBank();
         bank4.setBic("BIC Bank C");
-        session().saveOrUpdate(bank4);
+        session().merge(bank4);
 
         Bank bank5 = graphGenerator.createBank();
         bank5.setBic("BIC Bank E");
-        session().saveOrUpdate(bank5);
+        session().merge(bank5);
 
         flushAndClear();
 
@@ -60,7 +60,7 @@ class BankRepositoryTest extends IntegrationTest {
 		bank1.setName("name");
 		byte[] logoBytes = "logo".getBytes();
 		bank1.setLogo(graphGenerator.createBinaryData(logoBytes));
-		session().saveOrUpdate(bank1);
+		session().merge(bank1);
 		
 		flushAndClear();
 		
@@ -87,7 +87,7 @@ class BankRepositoryTest extends IntegrationTest {
 		bank1.setBic("bic");
 		bank1.setName("name");
 		bank1.setLogo(null);
-		session().saveOrUpdate(bank1);
+		session().merge(bank1);
 		
 		flushAndClear();
 		
@@ -127,23 +127,23 @@ class BankRepositoryTest extends IntegrationTest {
 
         Bank bank1 = graphGenerator.createBank();
         bank1.setBic("BIC Bank A");
-        session().saveOrUpdate(bank1);
+        session().merge(bank1);
 
         Bank bank2 = graphGenerator.createBank();
         bank2.setBic("BIC Bank D");
-        session().saveOrUpdate(bank2);
+        session().merge(bank2);
 
         Bank bank3 = graphGenerator.createBank();
         bank3.setBic("BIC Bank B");
-        session().saveOrUpdate(bank3);
+        session().merge(bank3);
 
         Bank bank4 = graphGenerator.createBank();
         bank4.setBic("BIC Bank C");
-        session().saveOrUpdate(bank4);
+        session().merge(bank4);
 
         Bank bank5 = graphGenerator.createBank();
         bank5.setBic("BIC Bank E");
-        session().saveOrUpdate(bank5);
+        session().merge(bank5);
 
         flushAndClear();
 

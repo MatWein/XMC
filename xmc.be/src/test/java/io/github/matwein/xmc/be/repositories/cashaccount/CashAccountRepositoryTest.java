@@ -30,23 +30,23 @@ class CashAccountRepositoryTest extends IntegrationTest {
 
         CashAccount cashAccount1 = graphGenerator.createCashAccount();
         cashAccount1.setName("Bbb");
-        session().saveOrUpdate(cashAccount1);
+        session().merge(cashAccount1);
 
         CashAccount cashAccount2 = graphGenerator.createCashAccount();
         cashAccount2.setName("Aaa");
-        session().saveOrUpdate(cashAccount2);
+        session().merge(cashAccount2);
 
         CashAccount cashAccount3 = graphGenerator.createCashAccount();
         cashAccount3.setName("Ccc");
-        session().saveOrUpdate(cashAccount3);
+        session().merge(cashAccount3);
 
         CashAccount cashAccount4 = graphGenerator.createCashAccount();
         cashAccount4.setName("Zzz");
-        session().saveOrUpdate(cashAccount4);
+        session().merge(cashAccount4);
 
         CashAccount cashAccount5 = graphGenerator.createCashAccount();
         cashAccount5.setName("Zzz");
-        session().saveOrUpdate(cashAccount5);
+        session().merge(cashAccount5);
 
         flushAndClear();
 
@@ -80,7 +80,7 @@ class CashAccountRepositoryTest extends IntegrationTest {
 		cashAccount1.setLastSaldo(BigDecimal.valueOf(12.12));
 		cashAccount1.setLastSaldoDate(LocalDate.of(2021, Month.JANUARY, 12));
 		cashAccount1.setBank(bank);
-		session().saveOrUpdate(cashAccount1);
+		session().merge(cashAccount1);
 		
 		flushAndClear();
 		
@@ -129,24 +129,24 @@ class CashAccountRepositoryTest extends IntegrationTest {
         CashAccount cashAccount1 = graphGenerator.createCashAccount();
         cashAccount1.setName("Bbb");
         cashAccount1.setIban("IBAN Filter 1");
-        session().saveOrUpdate(cashAccount1);
+        session().merge(cashAccount1);
 
         CashAccount cashAccount2 = graphGenerator.createCashAccount();
         cashAccount2.setName("Aaa");
         cashAccount2.setIban("IBAN Filter 2");
-        session().saveOrUpdate(cashAccount2);
+        session().merge(cashAccount2);
 
         CashAccount cashAccount3 = graphGenerator.createCashAccount();
         cashAccount3.setName("Ccc");
-        session().saveOrUpdate(cashAccount3);
+        session().merge(cashAccount3);
 
         CashAccount cashAccount4 = graphGenerator.createCashAccount();
         cashAccount4.setName("Zzz");
-        session().saveOrUpdate(cashAccount4);
+        session().merge(cashAccount4);
 
         CashAccount cashAccount5 = graphGenerator.createCashAccount();
         cashAccount5.setName("Zzz");
-        session().saveOrUpdate(cashAccount5);
+        session().merge(cashAccount5);
 
         flushAndClear();
 
@@ -164,7 +164,7 @@ class CashAccountRepositoryTest extends IntegrationTest {
 
         CashAccount cashAccount1 = graphGenerator.createCashAccount();
         cashAccount1.setDeletionDate(LocalDateTime.now());
-        session().saveOrUpdate(cashAccount1);
+        session().merge(cashAccount1);
 
         flushAndClear();
 

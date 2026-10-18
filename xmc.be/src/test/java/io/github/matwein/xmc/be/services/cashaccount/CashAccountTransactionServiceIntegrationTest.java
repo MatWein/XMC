@@ -24,14 +24,14 @@ class CashAccountTransactionServiceIntegrationTest extends IntegrationTest {
         cashAccountTransaction1.setValue(BigDecimal.valueOf(10.0));
         cashAccountTransaction1.setSaldoBefore(BigDecimal.valueOf(0.0));
         cashAccountTransaction1.setSaldoAfter(BigDecimal.valueOf(10.0));
-        session().saveOrUpdate(cashAccountTransaction1);
+        session().merge(cashAccountTransaction1);
 
         var cashAccountTransaction2 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction2.setValutaDate(LocalDate.of(2020, Month.AUGUST, 2));
         cashAccountTransaction2.setValue(BigDecimal.valueOf(20.0));
         cashAccountTransaction2.setSaldoBefore(BigDecimal.valueOf(10.0));
         cashAccountTransaction2.setSaldoAfter(BigDecimal.valueOf(30.0));
-        session().saveOrUpdate(cashAccountTransaction2);
+        session().merge(cashAccountTransaction2);
 
         flush();
 
@@ -50,21 +50,21 @@ class CashAccountTransactionServiceIntegrationTest extends IntegrationTest {
         cashAccountTransaction1.setValue(BigDecimal.valueOf(10.0));
         cashAccountTransaction1.setSaldoBefore(BigDecimal.valueOf(0.0));
         cashAccountTransaction1.setSaldoAfter(BigDecimal.valueOf(10.0));
-        session().saveOrUpdate(cashAccountTransaction1);
+        session().merge(cashAccountTransaction1);
 
         var cashAccountTransaction2 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction2.setValutaDate(LocalDate.of(2020, Month.AUGUST, 2));
         cashAccountTransaction2.setValue(BigDecimal.valueOf(20.0));
         cashAccountTransaction2.setSaldoBefore(BigDecimal.valueOf(10.0));
         cashAccountTransaction2.setSaldoAfter(BigDecimal.valueOf(30.0));
-        session().saveOrUpdate(cashAccountTransaction2);
+        session().merge(cashAccountTransaction2);
 
         var cashAccountTransaction3 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction3.setValutaDate(LocalDate.of(2020, Month.AUGUST, 2));
         cashAccountTransaction3.setValue(BigDecimal.valueOf(20.0));
         cashAccountTransaction3.setSaldoBefore(BigDecimal.valueOf(30.0));
         cashAccountTransaction3.setSaldoAfter(BigDecimal.valueOf(50.0));
-        session().saveOrUpdate(cashAccountTransaction3);
+        session().merge(cashAccountTransaction3);
 
         flush();
 
@@ -83,21 +83,21 @@ class CashAccountTransactionServiceIntegrationTest extends IntegrationTest {
         cashAccountTransaction1.setValue(BigDecimal.valueOf(10.0));
         cashAccountTransaction1.setSaldoBefore(BigDecimal.valueOf(0.0));
         cashAccountTransaction1.setSaldoAfter(BigDecimal.valueOf(10.0));
-        session().saveOrUpdate(cashAccountTransaction1);
+        session().merge(cashAccountTransaction1);
 
         var cashAccountTransaction2 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction2.setValutaDate(LocalDate.of(2020, Month.AUGUST, 2));
         cashAccountTransaction2.setValue(BigDecimal.valueOf(20.0));
         cashAccountTransaction2.setSaldoBefore(BigDecimal.valueOf(10.0));
         cashAccountTransaction2.setSaldoAfter(BigDecimal.valueOf(30.0));
-        session().saveOrUpdate(cashAccountTransaction2);
+        session().merge(cashAccountTransaction2);
 
         var cashAccountTransaction3 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction3.setValutaDate(LocalDate.of(2020, Month.AUGUST, 2));
         cashAccountTransaction3.setValue(BigDecimal.valueOf(20.0));
         cashAccountTransaction3.setSaldoBefore(BigDecimal.valueOf(30.0));
         cashAccountTransaction3.setSaldoAfter(BigDecimal.valueOf(50.0));
-        session().saveOrUpdate(cashAccountTransaction3);
+        session().merge(cashAccountTransaction3);
 
         flush();
 

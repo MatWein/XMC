@@ -33,24 +33,24 @@ class DepotDeliveryRepositoryTest extends IntegrationTest {
 		
 		DepotDelivery depotDelivery1 = graphGenerator.createDepotDelivery(depotEntity);
 		depotDelivery1.setSaldo(BigDecimal.valueOf(2000.0));
-		session().saveOrUpdate(depotDelivery1);
+		session().merge(depotDelivery1);
 		
 		DepotDelivery depotDelivery2 = graphGenerator.createDepotDelivery(depotEntity);
 		depotDelivery2.setSaldo(BigDecimal.valueOf(3000.0));
-		session().saveOrUpdate(depotDelivery2);
+		session().merge(depotDelivery2);
 		
 		DepotDelivery depotDelivery3 = graphGenerator.createDepotDelivery(depotEntity);
 		depotDelivery3.setSaldo(BigDecimal.valueOf(4000.0));
-		session().saveOrUpdate(depotDelivery3);
+		session().merge(depotDelivery3);
 		
 		DepotDelivery depotDelivery4 = graphGenerator.createDepotDelivery(depotEntity);
 		depotDelivery4.setSaldo(BigDecimal.valueOf(4000.0));
 		depotDelivery4.setDeletionDate(LocalDateTime.now());
-		session().saveOrUpdate(depotDelivery4);
+		session().merge(depotDelivery4);
 		
 		DepotDelivery depotDelivery5 = graphGenerator.createDepotDelivery();
 		depotDelivery5.setSaldo(BigDecimal.valueOf(5000.0));
-		session().saveOrUpdate(depotDelivery5);
+		session().merge(depotDelivery5);
 		
 		flushAndClear();
 		
@@ -95,7 +95,7 @@ class DepotDeliveryRepositoryTest extends IntegrationTest {
 		DepotDelivery depotDelivery = graphGenerator.createDepotDelivery(depotEntity);
 		depotDelivery.setDeliveryDate(LocalDateTime.of(2021, Month.MAY, 22, 0, 0, 0));
 		depotDelivery.setSaldo(BigDecimal.valueOf(2000.0));
-		session().saveOrUpdate(depotDelivery);
+		session().merge(depotDelivery);
 		
 		flushAndClear();
 		
@@ -117,11 +117,11 @@ class DepotDeliveryRepositoryTest extends IntegrationTest {
 		
 		DepotDelivery depotDelivery1 = graphGenerator.createDepotDelivery(depotEntity);
 		depotDelivery1.setDeliveryDate(LocalDateTime.of(2021, Month.MAY, 22, 0, 0, 0));
-		session().saveOrUpdate(depotDelivery1);
+		session().merge(depotDelivery1);
 		
 		DepotDelivery depotDelivery2 = graphGenerator.createDepotDelivery(depotEntity);
 		depotDelivery2.setDeliveryDate(LocalDateTime.of(2021, Month.MAY, 25, 0, 0, 0));
-		session().saveOrUpdate(depotDelivery2);
+		session().merge(depotDelivery2);
 		
 		flushAndClear();
 		

@@ -36,7 +36,7 @@ class CashAccountJpaRepositoryTest extends IntegrationTest {
 		
 		CashAccount cashAccount2 = graphGenerator.createCashAccount();
 		cashAccount2.setDeletionDate(LocalDateTime.now());
-		session().saveOrUpdate(cashAccount2);
+		session().merge(cashAccount2);
 		
 		CashAccount cashAccount3 = graphGenerator.createCashAccount();
 		

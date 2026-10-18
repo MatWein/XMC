@@ -94,7 +94,7 @@ class StockRepositoryTest extends IntegrationTest {
 		
 		Stock stock = graphGenerator.createStock("ISIN3", "WKN3", "daimler 2");
 		stock.setStockCategory(null);
-		session().saveOrUpdate(stock);
+		session().merge(stock);
 		
 		flushAndClear();
 		

@@ -36,22 +36,22 @@ class CashAccountTransactionRepositoryTest extends IntegrationTest {
 
         var cashAccountTransaction1 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction1.setValutaDate(LocalDate.of(2020, Month.AUGUST, 1));
-        session().saveOrUpdate(cashAccountTransaction1);
+        session().merge(cashAccountTransaction1);
 
         var cashAccountTransaction2 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction2.setValutaDate(LocalDate.of(2020, Month.AUGUST, 2));
         cashAccountTransaction2.setCreationDate(LocalDateTime.of(2020, Month.AUGUST, 2, 10, 10, 0));
-        session().saveOrUpdate(cashAccountTransaction2);
+        session().merge(cashAccountTransaction2);
 
         var cashAccountTransaction3 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction3.setValutaDate(LocalDate.of(2020, Month.AUGUST, 2));
         cashAccountTransaction2.setCreationDate(LocalDateTime.of(2020, Month.AUGUST, 2, 11, 10, 0));
-        session().saveOrUpdate(cashAccountTransaction3);
+        session().merge(cashAccountTransaction3);
 
         var cashAccountTransaction4 = graphGenerator.createCashAccountTransaction(cashAccount);
         cashAccountTransaction4.setValutaDate(LocalDate.of(2020, Month.AUGUST, 3));
         cashAccountTransaction4.setDeletionDate(LocalDateTime.now());
-        session().saveOrUpdate(cashAccountTransaction4);
+        session().merge(cashAccountTransaction4);
 
         graphGenerator.createCashAccountTransaction();
 
@@ -93,7 +93,7 @@ class CashAccountTransactionRepositoryTest extends IntegrationTest {
 	void testLoadOverview_CheckFields() {
 		CashAccount cashAccount = graphGenerator.createCashAccount();
 		cashAccount.setCurrency("AUD");
-		session().saveOrUpdate(cashAccount);
+		session().merge(cashAccount);
 		
 		byte[] logoBytes = "icon".getBytes();
 		BinaryData binaryData = graphGenerator.createBinaryData(logoBytes);
@@ -112,7 +112,7 @@ class CashAccountTransactionRepositoryTest extends IntegrationTest {
 		cashAccountTransaction1.setSaldoBefore(BigDecimal.valueOf(50.0));
 		cashAccountTransaction1.setUsage("Usage");
 		cashAccountTransaction1.setValue(BigDecimal.valueOf(50.0));
-		session().saveOrUpdate(cashAccountTransaction1);
+		session().merge(cashAccountTransaction1);
 		
 		flushAndClear();
 		
@@ -148,7 +148,7 @@ class CashAccountTransactionRepositoryTest extends IntegrationTest {
 	void testLoadOverview_CheckFields_NoCategory() {
 		CashAccount cashAccount = graphGenerator.createCashAccount();
 		cashAccount.setCurrency("AUD");
-		session().saveOrUpdate(cashAccount);
+		session().merge(cashAccount);
 		
 		var cashAccountTransaction1 = graphGenerator.createCashAccountTransaction(cashAccount);
 		cashAccountTransaction1.setValutaDate(LocalDate.of(2020, Month.AUGUST, 1));
@@ -163,7 +163,7 @@ class CashAccountTransactionRepositoryTest extends IntegrationTest {
 		cashAccountTransaction1.setSaldoBefore(BigDecimal.valueOf(50.0));
 		cashAccountTransaction1.setUsage("Usage");
 		cashAccountTransaction1.setValue(BigDecimal.valueOf(50.0));
-		session().saveOrUpdate(cashAccountTransaction1);
+		session().merge(cashAccountTransaction1);
 		
 		flushAndClear();
 		

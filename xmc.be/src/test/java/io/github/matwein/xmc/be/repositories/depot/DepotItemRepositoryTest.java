@@ -34,23 +34,23 @@ class DepotItemRepositoryTest extends IntegrationTest {
 		
 		DepotItem depotItem1 = graphGenerator.createDepotItem(depotDeliveryEntity);
 		depotItem1.setAmount(BigDecimal.valueOf(100.0));
-		session().saveOrUpdate(depotItem1);
+		session().merge(depotItem1);
 		
 		DepotItem depotItem2 = graphGenerator.createDepotItem(depotDeliveryEntity);
 		depotItem2.setAmount(BigDecimal.valueOf(200.0));
-		session().saveOrUpdate(depotItem2);
+		session().merge(depotItem2);
 		
 		DepotItem depotItem3 = graphGenerator.createDepotItem(depotDeliveryEntity);
 		depotItem3.setAmount(BigDecimal.valueOf(300.0));
-		session().saveOrUpdate(depotItem3);
+		session().merge(depotItem3);
 		
 		DepotItem depotItem4 = graphGenerator.createDepotItem(depotDeliveryEntity);
 		depotItem4.setAmount(BigDecimal.valueOf(400.0));
-		session().saveOrUpdate(depotItem4);
+		session().merge(depotItem4);
 		
 		DepotItem depotItem5 = graphGenerator.createDepotItem(depotDeliveryEntity);
 		depotItem5.setDeletionDate(LocalDateTime.now());
-		session().saveOrUpdate(depotItem5);
+		session().merge(depotItem5);
 		
 		graphGenerator.createDepotItem();
 		
@@ -70,23 +70,23 @@ class DepotItemRepositoryTest extends IntegrationTest {
 		
 		DepotItem depotItem1 = graphGenerator.createDepotItem(depotDeliveryEntity);
 		depotItem1.setAmount(BigDecimal.valueOf(100.0));
-		session().saveOrUpdate(depotItem1);
+		session().merge(depotItem1);
 		
 		DepotItem depotItem2 = graphGenerator.createDepotItem(depotDeliveryEntity);
 		depotItem2.setAmount(BigDecimal.valueOf(200.0));
-		session().saveOrUpdate(depotItem2);
+		session().merge(depotItem2);
 		
 		DepotItem depotItem3 = graphGenerator.createDepotItem(depotDeliveryEntity);
 		depotItem3.setAmount(BigDecimal.valueOf(300.0));
-		session().saveOrUpdate(depotItem3);
+		session().merge(depotItem3);
 		
 		DepotItem depotItem4 = graphGenerator.createDepotItem(depotDeliveryEntity);
 		depotItem4.setAmount(BigDecimal.valueOf(400.0));
-		session().saveOrUpdate(depotItem4);
+		session().merge(depotItem4);
 		
 		DepotItem depotItem5 = graphGenerator.createDepotItem(depotDeliveryEntity);
 		depotItem5.setDeletionDate(LocalDateTime.now());
-		session().saveOrUpdate(depotItem5);
+		session().merge(depotItem5);
 		
 		flushAndClear();
 		
@@ -116,7 +116,7 @@ class DepotItemRepositoryTest extends IntegrationTest {
 		depotItem.setCurrency("EUR");
 		depotItem.setIsin("ISIN1");
 		depotItem.setValue(BigDecimal.valueOf(200.0));
-		session().saveOrUpdate(depotItem);
+		session().merge(depotItem);
 		
 		flushAndClear();
 		
@@ -152,7 +152,7 @@ class DepotItemRepositoryTest extends IntegrationTest {
 		depotItem.setCurrency("EUR");
 		depotItem.setIsin("ISIN1");
 		depotItem.setValue(BigDecimal.valueOf(200.0));
-		session().saveOrUpdate(depotItem);
+		session().merge(depotItem);
 		
 		flushAndClear();
 		

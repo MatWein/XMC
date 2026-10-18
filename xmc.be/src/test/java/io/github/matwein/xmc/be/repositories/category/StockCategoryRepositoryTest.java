@@ -27,19 +27,19 @@ class StockCategoryRepositoryTest extends IntegrationTest {
 		
 		StockCategory deletedCategory = graphGenerator.createStockCategory();
 		deletedCategory.setDeletionDate(LocalDateTime.now());
-		session().saveOrUpdate(deletedCategory);
+		session().merge(deletedCategory);
 		
 		StockCategory category1 = graphGenerator.createStockCategory();
 		category1.setName("Cat1");
-		session().saveOrUpdate(category1);
+		session().merge(category1);
 		
 		StockCategory category2 = graphGenerator.createStockCategory();
 		category2.setName("Cat2");
-		session().saveOrUpdate(category2);
+		session().merge(category2);
 		
 		StockCategory category3 = graphGenerator.createStockCategory();
 		category3.setName("Cat3");
-		session().saveOrUpdate(category3);
+		session().merge(category3);
 		
 		flushAndClear();
 		
@@ -55,19 +55,19 @@ class StockCategoryRepositoryTest extends IntegrationTest {
 	void testLoadOverview_CheckAllSortFields() {
 		StockCategory deletedCategory = graphGenerator.createStockCategory();
 		deletedCategory.setDeletionDate(LocalDateTime.now());
-		session().saveOrUpdate(deletedCategory);
+		session().merge(deletedCategory);
 		
 		StockCategory category1 = graphGenerator.createStockCategory();
 		category1.setName("Cat1");
-		session().saveOrUpdate(category1);
+		session().merge(category1);
 		
 		StockCategory category2 = graphGenerator.createStockCategory();
 		category2.setName("Cat2");
-		session().saveOrUpdate(category2);
+		session().merge(category2);
 		
 		StockCategory category3 = graphGenerator.createStockCategory();
 		category3.setName("Cat3");
-		session().saveOrUpdate(category3);
+		session().merge(category3);
 		
 		flushAndClear();
 		
@@ -90,7 +90,7 @@ class StockCategoryRepositoryTest extends IntegrationTest {
 		
 		StockCategory category = graphGenerator.createStockCategory();
 		category.setName("Some Kate");
-		session().saveOrUpdate(category);
+		session().merge(category);
 		
 		flushAndClear();
 		
